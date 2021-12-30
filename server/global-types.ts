@@ -24,9 +24,10 @@ namespace Chat {
 	export type PunishmentFilter = import('./chat').PunishmentFilter;
 	export type FilterWord = import('./chat').FilterWord;
 	export type CRQHandler = import('./chat').CRQHandler;
-	export type RoomCloseHandler = import('./chat').RoomCloseHandler;
 	export type AnnotatedChatCommands = import('./chat').AnnotatedChatCommands;
 	export type AnnotatedChatHandler = import('./chat').AnnotatedChatHandler;
+	export type Handlers = import('./chat').Handlers;
+	export type VNode = import('preact').VNode;
 }
 
 // Rooms
@@ -38,10 +39,7 @@ type MinorActivity = Rooms.MinorActivity;
 type RoomBattle = Rooms.RoomBattle;
 type Roomlog = Rooms.Roomlog;
 type Room = Rooms.Room;
-type RoomID = (
-	"" | "lobby" | "staff" | "upperstaff" | "development" |
-	"battle" | "groupchat" | string & {__isRoomID: true}
-);
+type RoomID = "" | "lobby" | "staff" | "upperstaff" | "development" | string & {__isRoomID: true};
 namespace Rooms {
 	export type GlobalRoomState = import('./rooms').GlobalRoomState;
 	export type ChatRoom = import('./rooms').ChatRoom;
@@ -53,7 +51,6 @@ namespace Rooms {
 	export type RoomBattle = import('./room-battle').RoomBattle;
 	export type Roomlog = import('./roomlogs').Roomlog;
 	export type Room = import('./rooms').Room;
-	export type RenameHandler = import('./rooms').RenameHandler;
 }
 
 // Streams
@@ -65,6 +62,10 @@ namespace Streams {
 	export type ObjectWriteStream<T> = import('../lib/streams').ObjectWriteStream<T>;
 	export type ObjectReadStream<T> = import('../lib/streams').ObjectReadStream<T>;
 	export type ObjectReadWriteStream<T> = import('../lib/streams').ObjectReadWriteStream<T>;
+}
+
+namespace JSX {
+	export type IntrinsicElements = import('./chat-jsx').PSElements;
 }
 
 // Users

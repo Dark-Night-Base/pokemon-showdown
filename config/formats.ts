@@ -504,7 +504,7 @@ export const Formats: FormatList = [
 			const itemTable = new Set<ID>();
 			for (const set of team) {
 				const item = this.dex.items.get(set.item);
-				if (!item?.megaStone) continue;
+				if (!item.megaStone) continue;
 				const species = this.dex.species.get(set.species);
 				if (species.isNonstandard) return [`${species.baseSpecies} does not exist in gen 8.`];
 				if (this.ruleTable.isRestrictedSpecies(species) || this.toID(set.ability) === 'powerconstruct') {
@@ -1883,6 +1883,25 @@ export const Formats: FormatList = [
 		battle: {trunc: Math.trunc},
 		// no restrictions
 		ruleset: ['Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
+	},
+	{
+		name: "[Gen 4] VGC 2010",
+
+		mod: 'gen4',
+		gameType: 'doubles',
+		searchShow: false,
+		ruleset: ['Flat Rules', 'Max Team Size = 4', 'Limit Two Restricted'],
+		restricted: ['Restricted Legendary'],
+		banlist: ['Soul Dew'],
+	},
+	{
+		name: "[Gen 4] VGC 2009",
+
+		mod: 'gen4pt',
+		gameType: 'doubles',
+		searchShow: false,
+		ruleset: ['Flat Rules', '! Adjust Level Down', 'Max Level = 50', 'Max Team Size = 4'],
+		banlist: ['Soul Dew', 'Rotom-Heat', 'Rotom-Wash', 'Rotom-Frost', 'Rotom-Fan', 'Rotom-Mow'],
 	},
 	{
 		name: "[Gen 4] Doubles Custom Game",

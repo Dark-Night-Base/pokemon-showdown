@@ -340,6 +340,24 @@ export class TeamValidator {
 		return problems;
 	}
 
+	getEventOnlyData(species: Species, noRecurse?: boolean): {species: Species, eventData: EventInfo[]} | null {
+		const dex = this.dex;
+		const learnset = dex.species.getLearnsetData(species.id);
+		if (!learnset?.eventOnly) {
+			if (noRecurse) return null;
+			return this.getEventOnlyData(dex.species.get(species.prevo), true);
+		}
+
+		if (!learnset.eventData && species.forme) {
+			return this.getEventOnlyData(dex.species.get(species.baseSpecies), true);
+		}
+		if (!learnset.eventData) {
+			throw new Error(`Event-only species ${species.name} has no eventData table`);
+		}
+
+		return {species, eventData: learnset.eventData};
+	}
+
 	validateSet(set: PokemonSet, teamHas: AnyObject): string[] | null {
 		const format = this.format;
 		const dex = this.dex;
@@ -403,9 +421,7 @@ export class TeamValidator {
 
 		const setHas: {[k: string]: true} = {};
 
-		const allowEVs = dex.currentMod !== 'letsgo';
-		const capEVs = dex.gen > 2 && (ruleTable.has('obtainablemisc') || dex.gen === 6);
-		if (!set.evs) set.evs = TeamValidator.fillStats(null, allowEVs && !capEVs ? 252 : 0);
+		if (!set.evs) set.evs = TeamValidator.fillStats(null, ruleTable.evLimit === null ? 252 : 0);
 		if (!set.ivs) set.ivs = TeamValidator.fillStats(null, 31);
 
 		if (ruleTable.has('obtainableformes')) {
@@ -508,7 +524,10 @@ export class TeamValidator {
 		problem = this.checkItem(set, item, setHas);
 		if (problem) problems.push(problem);
 		if (ruleTable.has('obtainablemisc')) {
-			if (dex.gen <= 1 || ruleTable.has('allowavs')) {
+			if (dex.gen === 4 && item.id === 'griseousorb' && species.num !== 487) {
+				problems.push(`${set.name} cannot hold the Griseous Orb.`, `(In Gen 4, only Giratina could hold the Griseous Orb).`);
+			}
+			if (dex.gen <= 1) {
 				if (item.id) {
 					// no items allowed
 					set.item = '';
@@ -518,7 +537,7 @@ export class TeamValidator {
 
 		if (!set.ability) set.ability = 'No Ability';
 		if (ruleTable.has('obtainableabilities')) {
-			if (dex.gen <= 2 || dex.currentMod === 'letsgo') {
+			if (dex.gen <= 2 || dex.currentMod === 'gen7letsgo') {
 				set.ability = 'No Ability';
 			} else {
 				if (!ability.name || ability.name === 'No Ability') {
@@ -600,6 +619,7 @@ export class TeamValidator {
 		}
 
 		const learnsetSpecies = dex.species.getLearnsetData(outOfBattleSpecies.id);
+		let eventOnlyData;
 
 		if (!setSources.sourcesBefore && setSources.sources.length) {
 			let legal = false;
@@ -631,13 +651,8 @@ export class TeamValidator {
 					if (eventProblems) problems.push(...eventProblems);
 				}
 			}
-		} else if (ruleTable.has('obtainablemisc') && learnsetSpecies.eventOnly) {
-			const eventSpecies = !learnsetSpecies.eventData &&
-			outOfBattleSpecies.baseSpecies !== outOfBattleSpecies.name ?
-				dex.species.get(outOfBattleSpecies.baseSpecies) : outOfBattleSpecies;
-			const eventData = learnsetSpecies.eventData ||
-				dex.species.getLearnsetData(eventSpecies.id).eventData;
-			if (!eventData) throw new Error(`Event-only species ${species.name} has no eventData table`);
+		} else if (ruleTable.has('obtainablemisc') && (eventOnlyData = this.getEventOnlyData(outOfBattleSpecies))) {
+			const {species: eventSpecies, eventData} = eventOnlyData;
 			let legal = false;
 			for (const event of eventData) {
 				if (this.validateEvent(set, event, eventSpecies)) continue;
@@ -674,7 +689,7 @@ export class TeamValidator {
 			for (const encounter of learnsetSpecies.encounters || []) {
 				if (encounter.generation !== 1) continue;
 				if (!encounter.level) continue;
-				if (lowestEncounterLevel && encounter.level < lowestEncounterLevel) continue;
+				if (lowestEncounterLevel && encounter.level > lowestEncounterLevel) continue;
 
 				lowestEncounterLevel = encounter.level;
 			}
@@ -773,12 +788,11 @@ export class TeamValidator {
 		const ruleTable = this.ruleTable;
 		const dex = this.dex;
 
-		const allowEVs = dex.currentMod !== 'letsgo';
 		const allowAVs = ruleTable.has('allowavs');
-		const capEVs = dex.gen > 2 && (ruleTable.has('obtainablemisc') || dex.gen === 6);
-		const canBottleCap = dex.gen >= 7 && (set.level === 100 || !ruleTable.has('obtainablemisc'));
+		const evLimit = ruleTable.evLimit;
+		const canBottleCap = dex.gen >= 7 && (set.level >= 100 || !ruleTable.has('obtainablemisc'));
 
-		if (!set.evs) set.evs = TeamValidator.fillStats(null, allowEVs && !capEVs ? 252 : 0);
+		if (!set.evs) set.evs = TeamValidator.fillStats(null, evLimit === null ? 252 : 0);
 		if (!set.ivs) set.ivs = TeamValidator.fillStats(null, 31);
 
 		const problems = [];
@@ -906,7 +920,7 @@ export class TeamValidator {
 			}
 		}
 
-		if (dex.currentMod === 'letsgo') { // AVs
+		if (dex.currentMod === 'gen7letsgo') { // AVs
 			for (const stat in set.evs) {
 				if (set.evs[stat as 'hp'] > 0 && !allowAVs) {
 					problems.push(`${name} has Awakening Values but this format doesn't allow them.`);
@@ -934,22 +948,25 @@ export class TeamValidator {
 
 		let totalEV = 0;
 		for (const stat in set.evs) totalEV += set.evs[stat as 'hp'];
-		// Not having this affect Nintendo Cup formats because it is annoying to deal with having to lower a base stat by 1 for every Pokemon.
-		if (!this.format.debug && !ruleTable.has('maxtotallevel')) {
-			if (set.level > 1 && (allowEVs || allowAVs) && totalEV === 0) {
+		if (!this.format.debug) {
+			if (set.level > 1 && evLimit !== 0 && totalEV === 0) {
 				problems.push(`${name} has exactly 0 EVs - did you forget to EV it? (If this was intentional, add exactly 1 to one of your EVs, which won't change its stats but will tell us that it wasn't a mistake).`);
-			} else if (allowEVs && !capEVs && [508, 510].includes(totalEV)) {
-				problems.push(`${name} has exactly 510 EVs, but this format does not restrict you to 510 EVs: you can max out every EV (If this was intentional, add exactly 1 to one of your EVs, which won't change its stats but will tell us that it wasn't a mistake).`);
+			} else if (![508, 510].includes(evLimit!) && [508, 510].includes(totalEV)) {
+				problems.push(`${name} has exactly ${totalEV} EVs, but this format does not restrict you to 510 EVs (If this was intentional, add exactly 1 to one of your EVs, which won't change its stats but will tell us that it wasn't a mistake).`);
 			}
 			// Check for level import errors from user in VGC -> DOU, etc.
-			// Note that in VGC etc (maxForcedLevel: 50), `set.level` will be 100 here for validation purposes
-			if (set.level === 50 && ruleTable.maxLevel !== 50 && allowEVs && totalEV % 4 === 0) {
-				problems.push(`${name} is level 50, but this format allows level 100 Pokémon. (If this was intentional, add exactly 1 to one of your EVs, which won't change its stats but will tell us that it wasn't a mistake).`);
+			// Note that in VGC etc (Adjust Level Down = 50), `set.level` will be 100 here for validation purposes
+			if (set.level === 50 && ruleTable.maxLevel !== 50 && !ruleTable.maxTotalLevel && evLimit !== 0 && totalEV % 4 === 0) {
+				problems.push(`${name} is level 50, but this format allows level ${ruleTable.maxLevel} Pokémon. (If this was intentional, add exactly 1 to one of your EVs, which won't change its stats but will tell us that it wasn't a mistake).`);
 			}
 		}
 
-		if (allowEVs && capEVs && totalEV > 510) {
-			problems.push(`${name} has more than 510 total EVs.`);
+		if (evLimit !== null && totalEV > evLimit) {
+			if (!evLimit) {
+				problems.push(`${name} has EVs, which is not allowed by this format.`);
+			} else {
+				problems.push(`${name} has ${totalEV} total EVs, which is more than this format's limit of ${evLimit}.`);
+			}
 		}
 
 		return problems;
@@ -1008,11 +1025,13 @@ export class TeamValidator {
 		} else if (source === '7V') {
 			const isMew = species.id === 'mew';
 			const isCelebi = species.id === 'celebi';
+			const g7speciesName = (species.gen > 2 && species.prevo) ? species.prevo : species.id;
+			const isHidden = !!this.dex.mod('gen7').species.get(g7speciesName).abilities['H'];
 			eventData = {
 				generation: 2,
 				level: isMew ? 5 : isCelebi ? 30 : 3, // Level 1/2 Pokémon can't be obtained by transfer from RBY/GSC
 				perfectIVs: isMew || isCelebi ? 5 : 3,
-				isHidden: !!this.dex.mod('gen7').species.get(species.id).abilities['H'],
+				isHidden,
 				shiny: isMew ? undefined : 1,
 				pokeball: 'pokeball',
 				from: 'Gen 1-2 Virtual Console transfer',
@@ -1293,6 +1312,12 @@ export class TeamValidator {
 			}
 		}
 
+		let isGmax = false;
+		if (tierSpecies.canGigantamax && set.gigantamax) {
+			setHas['pokemon:' + tierSpecies.id + 'gmax'] = true;
+			isGmax = true;
+		}
+
 		const tier = tierSpecies.tier === '(PU)' ? 'ZU' : tierSpecies.tier === '(NU)' ? 'PU' : tierSpecies.tier;
 		const tierTag = 'pokemontag:' + toID(tier);
 		setHas[tierTag] = true;
@@ -1324,6 +1349,13 @@ export class TeamValidator {
 			banReason = ruleTable.check('pokemontag:mega', setHas);
 			if (banReason) {
 				return `Mega evolutions are ${banReason}.`;
+			}
+		}
+
+		if (isGmax) {
+			banReason = ruleTable.check('pokemon:' + tierSpecies.id + 'gmax');
+			if (banReason) {
+				return `Gigantamaxing ${species.name} is ${banReason}.`;
 			}
 		}
 
@@ -1862,6 +1894,10 @@ export class TeamValidator {
 		 * (This is everything except in Gen 1 Tradeback)
 		 */
 		const noFutureGen = !ruleTable.has('allowtradeback');
+		/**
+		 * The format allows Sketch to copy moves in Gen 8
+		 */
+		const canSketchGen8Moves = ruleTable.has('sketchgen8moves') || this.dex.currentMod === 'gen8bdsp';
 
 		let tradebackEligible = false;
 		while (species?.name && !alreadyChecked[species.id]) {
@@ -1899,7 +1935,7 @@ export class TeamValidator {
 			} else if (learnset['sketch']) {
 				if (move.noSketch || move.isZ || move.isMax) {
 					cantLearnReason = `can't be Sketched.`;
-				} else if (move.gen > 7 && !ruleTable.has('standardnatdex')) {
+				} else if (move.gen > 7 && !canSketchGen8Moves) {
 					cantLearnReason = `can't be Sketched because it's a Gen 8 move and Sketch isn't available in Gen 8.`;
 				} else {
 					if (!sources) sketch = true;
@@ -1962,7 +1998,7 @@ export class TeamValidator {
 						if (dex.gen >= 5 && learnedGen <= 4 && [
 							'cut', 'fly', 'surf', 'strength', 'rocksmash', 'waterfall', 'rockclimb',
 						].includes(moveid)) {
-							cantLearnReason = `can't be transferred from Gen 3 to 4 because it's an HM move.`;
+							cantLearnReason = `can't be transferred from Gen 4 to 5 because it's an HM move.`;
 							continue;
 						}
 						// Defog and Whirlpool can't be transferred together

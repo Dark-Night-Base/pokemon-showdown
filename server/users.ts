@@ -148,7 +148,8 @@ function getExactUser(name: string | User) {
  */
 function findUsers(userids: ID[], ips: string[], options: {forPunishment?: boolean, includeTrusted?: boolean} = {}) {
 	const matches: User[] = [];
-	if (options.forPunishment) ips = ips.filter(ip => !Punishments.sharedIps.has(ip));
+	if (options.forPunishment) ips = ips.filter(ip => !Punishments.isSharedIp(ip));
+	const ipMatcher = IPTools.checker(ips);
 	for (const user of users.values()) {
 		if (!options.forPunishment && !user.named && !user.connected) continue;
 		if (!options.includeTrusted && user.trusted) continue;
@@ -156,17 +157,8 @@ function findUsers(userids: ID[], ips: string[], options: {forPunishment?: boole
 			matches.push(user);
 			continue;
 		}
-		for (const myIp of ips) {
-			if (user.ips.includes(myIp) || (
-				(myIp.includes('*') || myIp.includes('-')) &&
-				user.ips.map(IPTools.ipToNumber).some(ip => {
-					const range = IPTools.stringToRange(myIp);
-					return range && IPTools.checkPattern([range], ip);
-				})
-			)) {
-				matches.push(user);
-				break;
-			}
+		if (user.ips.some(ipMatcher)) {
+			matches.push(user);
 		}
 	}
 	return matches;
@@ -187,6 +179,10 @@ function isUsernameKnown(name: string) {
 	return false;
 }
 
+function isUsername(name: string) {
+	return /[A-Za-z0-9]/.test(name.charAt(0)) && /[A-Za-z]/.test(name) && !name.includes(',');
+}
+
 function isTrusted(userid: ID) {
 	if (globalAuth.has(userid)) return userid;
 	for (const room of Rooms.global.chatRooms) {
@@ -194,7 +190,9 @@ function isTrusted(userid: ID) {
 			return userid;
 		}
 	}
-	return false;
+	const staffRoom = Rooms.get('staff');
+	const staffAuth = staffRoom && !!(staffRoom.auth.has(userid) || staffRoom.users[userid]);
+	return staffAuth ? userid : false;
 }
 
 /*********************************************************
@@ -259,7 +257,7 @@ export class Connection {
 		this.openPages = null;
 	}
 	sendTo(roomid: RoomID | BasicRoom | null, data: string) {
-		if (roomid && typeof roomid !== 'string') roomid = (roomid as BasicRoom).roomid;
+		if (roomid && typeof roomid !== 'string') roomid = roomid.roomid;
 		if (roomid && roomid !== 'lobby') data = `>${roomid}\n${data}`;
 		Sockets.socketSend(this.worker, this.socketid, data);
 		Monitor.countNetworkUse(data.length);
@@ -306,12 +304,16 @@ export class Connection {
 type ChatQueueEntry = [string, RoomID, Connection];
 
 export interface UserSettings {
-	blockChallenges: boolean;
-	blockPMs: boolean | AuthLevel;
+	blockChallenges: boolean | AuthLevel | 'friends';
+	blockPMs: boolean | AuthLevel | 'friends';
 	ignoreTickets: boolean;
 	hideBattlesFromTrainerCard: boolean;
 	blockInvites: AuthLevel | boolean;
 	doNotDisturb: boolean;
+	blockFriendRequests: boolean;
+	allowFriendNotifications: boolean;
+	displayBattlesToFriends: boolean;
+	hideLogins: boolean;
 }
 
 // User
@@ -364,6 +366,7 @@ export class User extends Chat.MessageContext {
 	lastDisconnected: number;
 	lastConnected: number;
 	foodfight?: {generatedTeam: string[], dish: string, ingredients: string[], timestamp: number};
+	friends?: Set<string>;
 
 	chatQueue: ChatQueueEntry[] | null;
 	chatQueueTimeout: NodeJS.Timeout | null;
@@ -441,6 +444,10 @@ export class User extends Chat.MessageContext {
 			hideBattlesFromTrainerCard: false,
 			blockInvites: false,
 			doNotDisturb: false,
+			blockFriendRequests: false,
+			allowFriendNotifications: false,
+			displayBattlesToFriends: false,
+			hideLogins: false,
 		};
 		this.battleSettings = {
 			team: '',
@@ -488,7 +495,7 @@ export class User extends Chat.MessageContext {
 	}
 
 	sendTo(roomid: RoomID | BasicRoom | null, data: string) {
-		if (roomid && typeof roomid !== 'string') roomid = (roomid as BasicRoom).roomid;
+		if (roomid && typeof roomid !== 'string') roomid = roomid.roomid;
 		if (roomid && roomid !== 'lobby') data = `>${roomid}\n${data}`;
 		for (const connection of this.connections) {
 			if (roomid && !connection.inRooms.has(roomid)) continue;
@@ -505,17 +512,13 @@ export class User extends Chat.MessageContext {
 	popup(message: string) {
 		this.send(`|popup|` + message.replace(/\n/g, '||'));
 	}
-	getIdentity(roomid: RoomID = '') {
+	getIdentity(room: BasicRoom | null = null) {
 		const punishgroups = Config.punishgroups || {locked: null, muted: null};
 		if (this.locked || this.namelocked) {
 			const lockedSymbol = (punishgroups.locked && punishgroups.locked.symbol || '\u203d');
 			return lockedSymbol + this.name;
 		}
-		if (roomid) {
-			const room = Rooms.get(roomid);
-			if (!room) {
-				throw new Error(`Room doesn't exist: ${roomid}`);
-			}
+		if (room) {
 			if (room.isMuted(this)) {
 				const mutedSymbol = (punishgroups.muted && punishgroups.muted.symbol || '!');
 				return mutedSymbol + this.name;
@@ -528,8 +531,8 @@ export class User extends Chat.MessageContext {
 		}
 		return this.tempGroup + this.name;
 	}
-	getIdentityWithStatus(roomid: RoomID = '') {
-		const identity = this.getIdentity(roomid);
+	getIdentityWithStatus(room: BasicRoom | null = null) {
+		const identity = this.getIdentity(room);
 		const status = this.statusType === 'online' ? '' : '@!';
 		return `${identity}${status}`;
 	}
@@ -945,9 +948,7 @@ export class User extends Chat.MessageContext {
 			oldUser.locked !== oldUser.id &&
 			this.locked !== this.id &&
 			// Only unlock if no previous names are locked
-			!oldUser.previousIDs.some(id => !!Punishments.search(id)
-				.filter(punishment => punishment[2][0] === 'LOCK' && punishment[2][1] === id)
-				.length)
+			!oldUser.previousIDs.some(id => !!Punishments.hasPunishType(id, 'LOCK'))
 		) {
 			this.locked = null;
 			this.destroyPunishmentTimer();
@@ -1064,9 +1065,7 @@ export class User extends Chat.MessageContext {
 		this.registered = true;
 		if (!isMerge) this.tempGroup = globalAuth.get(this.id);
 
-		if (Config.customavatars && Config.customavatars[this.id]) {
-			this.avatar = Config.customavatars[this.id];
-		}
+		Users.Avatars?.handleLogin(this);
 
 		const groupInfo = Config.groups[this.tempGroup];
 		this.isStaff = !!(groupInfo && (groupInfo.lock || groupInfo.root));
@@ -1148,6 +1147,7 @@ export class User extends Chat.MessageContext {
 	}
 	markDisconnected() {
 		if (!this.connected) return;
+		Chat.runHandlers('Disconnect', this);
 		this.connected = false;
 		Users.onlineCount--;
 		this.lastDisconnected = Date.now();
@@ -1703,8 +1703,10 @@ export const Users = {
 	getExact: getExactUser,
 	findUsers,
 	Auth,
+	Avatars: null as typeof import('./chat-commands/avatars').Avatars | null,
 	globalAuth,
 	isUsernameKnown,
+	isUsername,
 	isTrusted,
 	SECTIONLEADER_SYMBOL,
 	PLAYER_SYMBOL,

@@ -1352,7 +1352,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "UUBL",
 	},
 	registeel: {
-		randomBattleMoves: ["counter", "protect", "rest", "seismictoss", "sleeptalk", "toxic"],
+		randomBattleMoves: ["protect", "rest", "seismictoss", "sleeptalk", "toxic"],
 		tier: "UUBL",
 	},
 	latias: {
@@ -1364,7 +1364,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "Uber",
 	},
 	kyogre: {
-		randomBattleMoves: ["calmmind", "icebeam", "rest", "sleeptalk", "surf", "thunder", "waterspout"],
+		randomBattleMoves: ["calmmind", "icebeam", "rest", "sleeptalk", "surf", "thunder"],
 		tier: "Uber",
 	},
 	groudon: {

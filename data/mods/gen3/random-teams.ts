@@ -327,7 +327,7 @@ export class RandomGen3Teams extends RandomGen4Teams {
 
 		if (typeof species.battleOnly === 'string') forme = species.battleOnly;
 
-		const movePool = (species.randomBattleMoves || Object.keys(this.dex.data.Learnsets[species.id]!.learnset!)).slice();
+		const movePool = (species.randomBattleMoves || Object.keys(this.dex.species.getLearnset(species.id)!)).slice();
 		const rejectedPool = [];
 		const moves = new Set<string>();
 		let ability = '';
@@ -361,6 +361,10 @@ export class RandomGen3Teams extends RandomGen4Teams {
 
 			while (moves.size < 4 && rejectedPool.length) {
 				const moveid = this.sampleNoReplace(rejectedPool);
+				if (moveid.startsWith('hiddenpower')) {
+					if (hasHiddenPower) continue;
+					hasHiddenPower = true;
+				}
 				moves.add(moveid);
 			}
 
@@ -411,11 +415,12 @@ export class RandomGen3Teams extends RandomGen4Teams {
 					counter.get('physicalpool') + counter.get('specialpool') > 0
 				);
 
-				const runEnforcementChecker = (checkerName: string) => (
-					this.moveEnforcementCheckers[checkerName]?.(
+				const runEnforcementChecker = (checkerName: string) => {
+					if (!this.moveEnforcementCheckers[checkerName]) return false;
+					return this.moveEnforcementCheckers[checkerName](
 						movePool, moves, abilities, types, counter, species as Species, teamDetails
-					)
-				);
+					);
+				};
 
 				if (!cull && !isSetup && moveIsRejectable) {
 					// There may be more important moves that this Pokemon needs
@@ -452,22 +457,38 @@ export class RandomGen3Teams extends RandomGen4Teams {
 				}
 
 				// Remove rejected moves from the move list
+				const moveIsHP = moveid.startsWith('hiddenpower');
 				if (
 					cull &&
-					(movePool.length - availableHP || availableHP && (moveid.startsWith('hiddenpower') || !hasHiddenPower))
+					(movePool.length - availableHP || availableHP && (moveIsHP || !hasHiddenPower))
 				) {
-					if (move.category !== 'Status' && !move.damage && (!moveid.startsWith('hiddenpower') || !availableHP)) {
+					if (move.category !== 'Status' && !move.damage && (!moveIsHP || !availableHP)) {
 						rejectedPool.push(moveid);
 					}
+					if (moveIsHP) hasHiddenPower = false;
 					moves.delete(moveid);
 					break;
 				}
 				if (cull && rejectedPool.length) {
+					if (moveIsHP) hasHiddenPower = false;
 					moves.delete(moveid);
 					break;
 				}
 			}
 		} while (moves.size < 4 && (movePool.length || rejectedPool.length));
+
+		if (hasHiddenPower) {
+			let hpType;
+			for (const move of moves) {
+				if (move.startsWith('hiddenpower')) hpType = move.substr(11);
+			}
+			if (!hpType) throw new Error(`hasHiddenPower is true, but no Hidden Power move was found.`);
+			const HPivs = this.dex.types.get(hpType).HPivs;
+			let iv: StatID;
+			for (iv in HPivs) {
+				ivs[iv] = HPivs[iv]!;
+			}
+		}
 
 		const abilityData = Array.from(abilities).map(a => this.dex.abilities.get(a)).filter(a => a.gen === 3);
 		Utils.sortBy(abilityData, abil => -abil.rating);
