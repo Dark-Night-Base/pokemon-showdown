@@ -1866,7 +1866,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			const details = target.species.name + (target.level === 100 ? '' : ', L' + target.level) +
 				(target.gender === '' ? '' : ', ' + target.gender) + (target.set.shiny ? ', shiny' : '');
 			if (shiny) this.add('replace', target, details);
-			if (message) this.add(`c:|${Math.floor(Date.now() / 1000)}|${getName('GMars')}|${message}`);
+			this.add(`c:|${Math.floor(Date.now() / 1000)}|${getName('GMars')}|${message}`);
 			target.setAbility('capsulearmor');
 			target.baseAbility = target.ability;
 			if (target.set.shiny) return;
@@ -2419,10 +2419,11 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
-		onTryHit(pokemon, target, move) {
-			if (!this.canSwitch(pokemon.side)) {
-				delete move.selfdestruct;
-				return false;
+		onTryHit(source) {
+			if (!this.canSwitch(source.side)) {
+				this.attrLastMove('[still]');
+				this.add('-fail', source);
+				return this.NOT_FAIL;
 			}
 		},
 		selfdestruct: "ifHit",

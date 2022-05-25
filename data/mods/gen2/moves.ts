@@ -129,7 +129,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			return false;
 		},
 		beforeTurnCallback() {},
-		onTryHit() {},
+		onTry() {},
 		condition: {},
 		priority: -1,
 	},
@@ -204,9 +204,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				}
 				this.effectState.move = lockedMove;
 				this.add('-start', target, 'Encore');
-				if (!this.queue.willMove(target)) {
-					this.effectState.duration++;
-				}
 			},
 			onOverrideAction(pokemon) {
 				return this.effectState.move;
@@ -307,11 +304,17 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			},
 		},
 	},
+	frustration: {
+		inherit: true,
+		basePowerCallback(pokemon) {
+			return Math.floor(((255 - pokemon.happiness) * 10) / 25) || null;
+		},
+	},
 	healbell: {
 		inherit: true,
 		onHit(target, source) {
 			this.add('-cureteam', source, '[from] move: Heal Bell');
-			for (const pokemon of source.side.pokemon) {
+			for (const pokemon of target.side.pokemon) {
 				pokemon.clearStatus();
 			}
 		},
@@ -440,7 +443,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			return false;
 		},
 		beforeTurnCallback() {},
-		onTryHit() {},
+		onTry() {},
 		condition: {},
 		priority: -1,
 	},
@@ -673,6 +676,12 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.heal(target.maxhp);
 		},
 		secondary: null,
+	},
+	return: {
+		inherit: true,
+		basePowerCallback(pokemon) {
+			return Math.floor((pokemon.happiness * 10) / 25) || null;
+		},
 	},
 	reversal: {
 		inherit: true,
