@@ -877,7 +877,11 @@ export const commands: Chat.ChatCommands = {
 		for (const manager of ProcessManager.processManagers) {
 			for (const [i, process] of manager.processes.entries()) {
 				const pid = process.getProcess().pid;
-				buf += `<strong>${pid}</strong> - ${manager.basename} ${i} (load ${process.getLoad()}`;
+				let managerName = manager.basename;
+				if (managerName.startsWith('index.')) { // doesn't actually tell us anything abt the process
+					managerName = manager.filename.split(path.sep).slice(-2).join(path.sep);
+				}
+				buf += `<strong>${pid}</strong> - ${managerName} ${i} (load ${process.getLoad()}`;
 				const info = processes.get(`${pid}`)!;
 				const display = [];
 				if (info.cpu) display.push(`CPU: ${info.cpu}`);
@@ -1244,14 +1248,13 @@ export const commands: Chat.ChatCommands = {
 	 * Low-level administration commands
 	 *********************************************************/
 
-	bash(target, room, user, connection) {
+	async bash(target, room, user, connection) {
 		this.canUseConsole();
 		if (!target) return this.parse('/help bash');
-
-		connection.sendTo(room, `$ ${target}`);
-		child_process.exec(target, (error, stdout, stderr) => {
-			connection.sendTo(room, (`${stdout}${stderr}`));
-		});
+		this.sendReply(`$ ${target}`);
+		const [, stdout, stderr] = await bash(target, this);
+		this.runBroadcast();
+		this.sendReply(`${stdout}${stderr}`);
 	},
 	bashhelp: [`/bash [command] - Executes a bash command on the server. Requires: & console access`],
 
@@ -1420,9 +1423,11 @@ export const commands: Chat.ChatCommands = {
 				this.errorReply("Incorrect command use");
 				return this.parse('/help editbattle');
 			}
-			[player, pokemon, value] = targets.map(toID);
+			[player, pokemon, value] = targets.map(f => f.trim());
+			[player, pokemon] = [player, pokemon].map(toID);
 			void battle.stream.write(
-				`>eval let p=pokemon('${player}', '${pokemon}');p.sethp(${parseInt(value)});if (p.isActive)battle.add('-damage',p,p.getHealth);`
+				`>eval let p=pokemon('${player}', '${pokemon}');p.sethp(${parseInt(value)});` +
+				`if (p.isActive)battle.add('-damage',p,p.getHealth);`
 			);
 			break;
 		case 'status':
@@ -1441,7 +1446,8 @@ export const commands: Chat.ChatCommands = {
 				this.errorReply("Incorrect command use");
 				return this.parse('/help editbattle');
 			}
-			[player, pokemon, move, value] = targets.map(toID);
+			[player, pokemon, move, value] = targets.map(f => f.trim());
+			[player, pokemon, move] = [player, pokemon, move].map(toID);
 			void battle.stream.write(
 				`>eval pokemon('${player}','${pokemon}').getMoveData('${move}').pp = ${parseInt(value)};`
 			);
@@ -1452,7 +1458,8 @@ export const commands: Chat.ChatCommands = {
 				this.errorReply("Incorrect command use");
 				return this.parse('/help editbattle');
 			}
-			[player, pokemon, stat, value] = targets.map(toID);
+			[player, pokemon, stat, value] = targets.map(f => f.trim());
+			[player, pokemon, stat] = [player, pokemon, stat].map(toID);
 			void battle.stream.write(
 				`>eval let p=pokemon('${player}','${pokemon}');battle.boost({${stat}:${parseInt(value)}},p)`
 			);
@@ -1542,7 +1549,11 @@ export const commands: Chat.ChatCommands = {
 
 export const pages: Chat.PageTable = {
 	bot(args, user, connection) {
-		const [botid, pageid] = args;
+		const [botid, ...pageArgs] = args;
+		const pageid = pageArgs.join('-');
+		if (pageid.length > 300) {
+			return this.errorReply(`The page ID specified is too long.`);
+		}
 		const bot = Users.get(botid);
 		if (!bot) {
 			return `<div class="pad"><h2>The bot "${bot}" is not available.</h2></div>`;

@@ -51,7 +51,7 @@ const DISCONNECTION_BANK_TIME = 300;
 // time after a player disabling the timer before they can re-enable it
 const TIMER_COOLDOWN = 20 * SECONDS;
 
-export class RoomBattlePlayer extends RoomGames.RoomGamePlayer {
+export class RoomBattlePlayer extends RoomGames.RoomGamePlayer<RoomBattle> {
 	readonly slot: SideID;
 	readonly channelIndex: ChannelIndex;
 	request: BattleRequestTracker;
@@ -234,6 +234,10 @@ export class RoomBattleTimer {
 	start(requester?: User) {
 		const userid = requester ? requester.id : 'staff' as ID;
 		if (this.timerRequesters.has(userid)) return false;
+		if (this.battle.ended) {
+			requester?.sendTo(this.battle.roomid, `|inactiveoff|The timer can't be enabled after a battle has ended.`);
+			return false;
+		}
 		if (this.timer) {
 			this.battle.room.add(`|inactive|${requester ? requester.name : userid} also wants the timer to be on.`).update();
 			this.timerRequesters.add(userid);
@@ -486,7 +490,7 @@ export interface RoomBattleOptions {
 	seed?: PRNGSeed;
 }
 
-export class RoomBattle extends RoomGames.RoomGame {
+export class RoomBattle extends RoomGames.RoomGame<RoomBattlePlayer> {
 	readonly gameid: ID;
 	readonly room: GameRoom;
 	readonly title: string;
@@ -513,8 +517,6 @@ export class RoomBattle extends RoomGames.RoomGame {
 	active: boolean;
 	replaySaved: boolean;
 	forcedSettings: {modchat?: string | null, privacy?: string | null} = {};
-	playerTable: {[userid: string]: RoomBattlePlayer};
-	players: RoomBattlePlayer[];
 	p1: RoomBattlePlayer;
 	p2: RoomBattlePlayer;
 	p3: RoomBattlePlayer;
@@ -551,11 +553,6 @@ export class RoomBattle extends RoomGames.RoomGame {
 		this.ended = false;
 		this.active = false;
 		this.replaySaved = false;
-
-		// TypeScript bug: no `T extends RoomGamePlayer`
-		this.playerTable = Object.create(null);
-		// TypeScript bug: no `T extends RoomGamePlayer`
-		this.players = [];
 
 		this.playerCap = this.gameType === 'multi' || this.gameType === 'freeforall' ? 4 : 2;
 		this.p1 = null!;
@@ -738,7 +735,7 @@ export class RoomBattle extends RoomGames.RoomGame {
 			user.popup(`Failed to leave battle - you're not a player.`);
 			return false;
 		}
-		Chat.runHandlers('BattleLeave', user, this.room);
+		Chat.runHandlers('onBattleLeave', user, this.room);
 
 		this.updatePlayer(player, null);
 		this.room.auth.set(user.id, '+');
@@ -786,8 +783,8 @@ export class RoomBattle extends RoomGames.RoomGame {
 					this.turn = parseInt(line.slice(6));
 				}
 				this.room.add(line);
-				if (line.startsWith(`|bigerror|You will auto-tie if `)) {
-					if (Config.allowrequestingties) this.room.add(`|-hint|If you want to tie earlier, consider using \`/offertie\`.`);
+				if (line.startsWith(`|bigerror|You will auto-tie if `) && Config.allowrequestingties && !this.room.tour) {
+					this.room.add(`|-hint|If you want to tie earlier, consider using \`/offertie\`.`);
 				}
 			}
 			this.room.update();
@@ -849,7 +846,7 @@ export class RoomBattle extends RoomGames.RoomGame {
 		const p2name = this.p2.name;
 		const p1id = toID(p1name);
 		const p2id = toID(p2name);
-		Chat.runHandlers('BattleEnd', this, winnerid, [p1id, p2id, this.p3?.id, this.p4?.id].filter(Boolean));
+		Chat.runHandlers('onBattleEnd', this, winnerid, [p1id, p2id, this.p3?.id, this.p4?.id].filter(Boolean));
 		if (this.room.rated) {
 			this.room.rated = 0;
 
@@ -865,7 +862,7 @@ export class RoomBattle extends RoomGames.RoomGame {
 			}
 			const [score, p1rating, p2rating] = await Ladders(this.ladder).updateRating(p1name, p2name, p1score, this.room);
 			void this.logBattle(score, p1rating, p2rating);
-			Chat.runHandlers('BattleRanked', this, winnerid, [p1rating, p2rating], [p1id, p2id]);
+			Chat.runHandlers('onBattleRanked', this, winnerid, [p1rating, p2rating], [p1id, p2id]);
 		} else if (Config.logchallenges) {
 			if (winnerid === p1id) {
 				p1score = 1;
@@ -1063,8 +1060,7 @@ export class RoomBattle extends RoomGames.RoomGame {
 	 * (so the player isn't recreated)
 	 */
 	addPlayer(user: User | null, playerOpts?: RoomBattlePlayerOptions) {
-		// TypeScript bug: no `T extends RoomGamePlayer`
-		const player = super.addPlayer(user) as RoomBattlePlayer;
+		const player = super.addPlayer(user);
 		if (!player) return null;
 		const slot = player.slot;
 		this[slot] = player;
@@ -1136,14 +1132,14 @@ export class RoomBattle extends RoomGames.RoomGame {
 
 	static battleForcedSetting(user: User, key: 'modchat' | 'privacy') {
 		if (Config.forcedpublicprefixes) {
-			if (!Config.forcedprefixes) Config.forcedprefixes = {};
-			if (!Config.forcedprefixes.privacy) Config.forcedprefixes.privacy = [];
-			Config.forcedprefixes.privacy.push(...Config.forcedpublicprefixes);
+			for (const prefix of Config.forcedpublicprefixes) {
+				Chat.plugins['username-prefixes']?.prefixManager.addPrefix(prefix, 'privacy');
+			}
 			delete Config.forcedpublicprefixes;
 		}
-		if (!Config.forcedprefixes?.[key]) return null;
-		for (const prefix of Config.forcedprefixes[key]) {
-			if (user.id.startsWith(toID(prefix))) return prefix;
+		if (!Config.forcedprefixes) return null;
+		for (const {type, prefix} of Config.forcedprefixes) {
+			if (user.id.startsWith(toID(prefix)) && type === key) return prefix;
 		}
 		return null;
 	}
@@ -1213,7 +1209,6 @@ export class RoomBattle extends RoomGames.RoomGame {
 		if (this.missingBattleStartMessage === 'multi') {
 			this.room.add(`|uhtml|invites|<div class="broadcast broadcast-blue"><strong>This is a 4-player challenge battle</strong><br />The players will need to add more players before the battle can start.</div>`);
 		}
-		Chat.runHandlers('BattleStart', this, users);
 	}
 
 	invitesFull() {

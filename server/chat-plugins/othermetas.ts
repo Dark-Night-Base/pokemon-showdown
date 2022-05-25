@@ -40,41 +40,36 @@ function getMegaStone(stone: string, mod = 'gen8'): Item | null {
 			return null;
 		}
 	}
-	if (!item.megaStone && !item.onPrimal && !['rustedsword', 'rustedshield'].includes(item.id)) return null;
+	if (!item.megaStone && !item.onPrimal) return null;
 	return item;
 }
 
 export const commands: Chat.ChatCommands = {
 	om: 'othermetas',
 	othermetas(target, room, user) {
-		this.runBroadcast();
 		target = toID(target);
-		let buffer = ``;
+		const omLink = `- <a href="https://www.smogon.com/forums/forums/531/">Other Metagames Forum</a><br />`;
 
-		if (target === 'all' && this.broadcasting) {
-			throw new Chat.ErrorMessage(`You cannot broadcast information about all Other Metagames at once.`);
+		if (!target) {
+			this.runBroadcast();
+			return this.sendReplyBox(omLink);
 		}
-
-		if (!target || target === 'all') {
-			buffer += `- <a href="https://www.smogon.com/forums/forums/531/">Other Metagames Forum</a><br />`;
-			if (!target) return this.sendReplyBox(buffer);
-		}
-		const showMonthly = (target === 'all' || target === 'omofthemonth' || target === 'month');
 
 		if (target === 'all') {
+			this.runBroadcast();
+			if (this.broadcasting) {
+				throw new Chat.ErrorMessage(`"!om all" is too spammy to broadcast.`);
+			}
 			// Display OMotM formats, with forum thread links as caption
 			this.parse(`/formathelp omofthemonth`);
 
 			// Display the rest of OM formats, with OM hub/index forum links as caption
 			this.parse(`/formathelp othermetagames`);
-			return this.sendReply(`|raw|<center>${buffer}</center>`);
+			return this.sendReply(`|raw|<center>${omLink}</center>`);
 		}
-		if (showMonthly) {
-			this.target = 'omofthemonth';
-			this.run('formathelp');
-		} else {
-			this.run('formathelp');
-		}
+
+		if (target === 'month') this.target = 'omofthemonth';
+		this.run('formathelp');
 	},
 	othermetashelp: [
 		`/om - Provides links to information on the Other Metagames.`,
@@ -101,32 +96,18 @@ export const commands: Chat.ChatCommands = {
 		}
 		const stone = getMegaStone(stoneName[0], mod);
 		const species = dex.species.get(sep[0]);
-		if (!stone || (dex.gen >= 8 && ['redorb', 'blueorb'].includes(stone.id)) || (dex.gen < 8 && ['rustedsword', 'rustedshield'].includes(stone.id))) {
+		if (!stone || (dex.gen >= 8 && ['redorb', 'blueorb'].includes(stone.id))) {
 			throw new Chat.ErrorMessage(`Error: Mega Stone not found.`);
 		}
 		if (!species.exists) throw new Chat.ErrorMessage(`Error: Pok\u00e9mon not found.`);
 		let baseSpecies = dex.species.get(stone.megaEvolves);
 		let megaSpecies = dex.species.get(stone.megaStone);
-		switch (stone.id)
-		{
-			case 'redorb':
-				megaSpecies = dex.species.get("Groudon-Primal");
-				baseSpecies = dex.species.get("Groudon");
-				break;
-			case 'blueorb':
-				megaSpecies = dex.species.get("Kyogre-Primal");
-				baseSpecies = dex.species.get("Kyogre");
-				break;
-			case 'rustedsword':
-				megaSpecies = dex.species.get("Zacian-Crowned");
-				baseSpecies = dex.species.get("Zacian");
-				break;
-			case 'rustedshield':
-				megaSpecies = dex.species.get("Zamazenta-Crowned");
-				baseSpecies = dex.species.get("Zamazenta");
-				break;
-			default:
-				break;
+		if (stone.id === 'redorb') { // Orbs do not have 'Item.megaStone' or 'Item.megaEvolves' properties.
+			megaSpecies = dex.species.get("Groudon-Primal");
+			baseSpecies = dex.species.get("Groudon");
+		} else if (stone.id === 'blueorb') {
+			megaSpecies = dex.species.get("Kyogre-Primal");
+			baseSpecies = dex.species.get("Kyogre");
 		}
 		const deltas: StoneDeltas = {
 			baseStats: Object.create(null),

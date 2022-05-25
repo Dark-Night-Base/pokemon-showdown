@@ -34,7 +34,7 @@ import {QueuedHunt} from './chat-plugins/scavengers';
 import {ScavengerGameTemplate} from './chat-plugins/scavenger-games';
 import {RepeatedPhrase} from './chat-plugins/repeats';
 import {PM as RoomBattlePM, RoomBattle, RoomBattlePlayer, RoomBattleTimer, RoomBattleOptions} from "./room-battle";
-import {RoomGame, RoomGamePlayer} from './room-game';
+import {RoomGame, SimpleRoomGame, RoomGamePlayer} from './room-game';
 import {MinorActivity, MinorActivityData} from './room-minor-activity';
 import {Roomlogs} from './roomlogs';
 import * as crypto from 'crypto';
@@ -328,7 +328,7 @@ export abstract class BasicRoom {
 		if (this.userCount) Sockets.roomBroadcast(this.roomid, message);
 	}
 	sendMods(data: string) {
-		this.sendRankedUsers(data, '%');
+		this.sendRankedUsers(data, '*');
 	}
 	sendRankedUsers(data: string, minRank: GroupSymbol = '+') {
 		if (this.settings.staffRoom) {
@@ -978,7 +978,7 @@ export abstract class BasicRoom {
 
 		this.minorActivity?.onConnect?.(user, connection);
 		this.game?.onJoin?.(user, connection);
-		Chat.runHandlers('RoomJoin', this, user, connection);
+		Chat.runHandlers('onRoomJoin', this, user, connection);
 		return true;
 	}
 	onRename(user: User, oldid: ID, joining: boolean) {
@@ -1103,7 +1103,7 @@ export abstract class BasicRoom {
 		this.setParent(null);
 		this.clearSubRooms();
 
-		Chat.runHandlers('RoomDestroy', this.roomid);
+		Chat.runHandlers('onRoomDestroy', this.roomid);
 
 		Rooms.global.deregisterChatRoom(this.roomid);
 		Rooms.global.delistChatRoom(this.roomid);
@@ -1501,7 +1501,7 @@ export class GlobalRoomState {
 			void this.ladderIpLog.write(ladderIpLogString);
 		}
 		for (const player of players) {
-			Chat.runHandlers('BattleStart', player, room);
+			Chat.runHandlers('onBattleStart', player, room);
 		}
 	}
 
@@ -2040,6 +2040,7 @@ export const Rooms = {
 	ChatRoom: BasicRoom as typeof ChatRoom,
 
 	RoomGame,
+	SimpleRoomGame,
 	RoomGamePlayer,
 
 	MinorActivity,

@@ -109,28 +109,6 @@ export const commands: Chat.ChatCommands = {
 			const dex = this.extractFormat(room?.settings.defaultFormat || room?.battle?.format).dex;
 			if (dex) target += `, mod=${dex.currentMod}`;
 		}
-		if (targetGen === 5) {
-			const targArray = target.split(',');
-			for (const [i, arg] of targArray.entries()) {
-				if (arg.includes('|')) {
-					const orArray = arg.split('|');
-					for (const [j, a] of orArray.entries()) {
-						if (toID(a) === 'pu') {
-							orArray.splice(j, 1);
-							orArray.push('untiered');
-							continue;
-						}
-					}
-					targArray[i] = orArray.join('|');
-				} else {
-					if (toID(arg) === 'pu') {
-						targArray.splice(i, 1);
-						targArray.push('untiered');
-					}
-				}
-			}
-			target = targArray.join(',');
-		}
 		if (cmd === 'nds') target += ', natdex';
 		const response = await runSearch({
 			target,
@@ -502,7 +480,7 @@ function runDexsearch(target: string, cmd: string, canAll: boolean, message: str
 		uber: 'Uber', ubers: 'Uber', ou: 'OU',
 		uubl: 'UUBL', uu: 'UU',
 		rubl: 'RUBL', ru: 'RU',
-		nubl: 'NUBL', nu: 'NU', untiered: '(NU)',
+		nubl: 'NUBL', nu: 'NU',
 		publ: 'PUBL', pu: 'PU', zu: '(PU)',
 		nfe: 'NFE',
 		lc: 'LC',
@@ -932,19 +910,9 @@ function runDexsearch(target: string, cmd: string, canAll: boolean, message: str
 
 	const dex: {[k: string]: Species} = {};
 	for (const species of mod.species.all()) {
-		const megaSearchResult = (
-			megaSearch === null || (megaSearch === true && species.isMega) ||
-			(megaSearch === false && !species.isMega)
-		);
-		const gmaxSearchResult = (
-			gmaxSearch === null || (gmaxSearch === true && species.name.endsWith('-Gmax')) ||
-			(gmaxSearch === false && !species.name.endsWith('-Gmax'))
-		);
-		const fullyEvolvedSearchResult = (
-			fullyEvolvedSearch === null ||
-			(fullyEvolvedSearch === true && !species.nfe) ||
-			(fullyEvolvedSearch === false && species.nfe)
-		);
+		const megaSearchResult = megaSearch === null || megaSearch === !!species.isMega;
+		const gmaxSearchResult = gmaxSearch === null || gmaxSearch === species.name.endsWith('-Gmax');
+		const fullyEvolvedSearchResult = fullyEvolvedSearch === null || fullyEvolvedSearch !== species.nfe;
 		if (
 			species.gen <= mod.gen &&
 			(
@@ -994,7 +962,7 @@ function runDexsearch(target: string, cmd: string, canAll: boolean, message: str
 
 			if (alts.tiers && Object.keys(alts.tiers).length) {
 				let tier = dex[mon].tier;
-				if (tier.startsWith('(') && tier !== '(PU)' && tier !== '(NU)') tier = tier.slice(1, -1) as TierTypes.Singles;
+				if (tier.startsWith('(') && tier !== '(PU)') tier = tier.slice(1, -1) as TierTypes.Singles;
 				// if (tier === 'New') tier = 'OU';
 				if (alts.tiers[tier]) continue;
 				if (Object.values(alts.tiers).includes(false) && alts.tiers[tier] !== false) continue;
@@ -1005,7 +973,7 @@ function runDexsearch(target: string, cmd: string, canAll: boolean, message: str
 				if (
 					alts.tiers.LC &&
 					!dex[mon].prevo &&
-					dex[mon].evos.some(evo => mod.species.get(evo).gen <= mod.gen) &&
+					dex[mon].nfe &&
 					!Dex.formats.getRuleTable(format).isBannedSpecies(dex[mon])
 				) {
 					const lsetData = mod.species.getLearnsetData(dex[mon].id);
@@ -1470,50 +1438,44 @@ function runMovesearch(target: string, cmd: string, canAll: boolean, message: st
 
 			const inequality = target.search(/>|<|=/);
 			if (inequality >= 0) {
-				if (isNotSearch) return {error: "You cannot use the negation symbol '!' in quality ranges."};
-				const inequalityString = target.charAt(inequality);
+				let inequalityString;
+				if (isNotSearch) return {error: "You cannot use the negation symbol '!' in stat ranges."};
+				if (target.charAt(inequality + 1) === '=') {
+					inequalityString = target.substr(inequality, 2);
+				} else {
+					inequalityString = target.charAt(inequality);
+				}
 				const targetParts = target.replace(/\s/g, '').split(inequalityString);
-				let numSide: number;
-				let propSide: number;
-				let direction = '';
+				let num;
+				let prop;
+				const directions: Direction[] = [];
 				if (!isNaN(parseFloat(targetParts[0]))) {
-					numSide = 0;
-					propSide = 1;
-					switch (inequalityString) {
-					case '>': direction = 'less'; break;
-					case '<': direction = 'greater'; break;
-					case '=': direction = 'equal'; break;
-					}
+					// e.g. 100 < bp
+					num = parseFloat(targetParts[0]);
+					prop = targetParts[1];
+					if (inequalityString.startsWith('>')) directions.push('less');
+					if (inequalityString.startsWith('<')) directions.push('greater');
 				} else if (!isNaN(parseFloat(targetParts[1]))) {
-					numSide = 1;
-					propSide = 0;
-					switch (inequalityString) {
-					case '<': direction = 'less'; break;
-					case '>': direction = 'greater'; break;
-					case '=': direction = 'equal'; break;
-					}
+					// e.g. bp > 100
+					num = parseFloat(targetParts[1]);
+					prop = targetParts[0];
+					if (inequalityString.startsWith('<')) directions.push('less');
+					if (inequalityString.startsWith('>')) directions.push('greater');
 				} else {
 					return {error: `No value given to compare with '${escapeHTML(target)}'.`};
 				}
-				let prop = targetParts[propSide];
-				switch (toID(targetParts[propSide])) {
+				if (inequalityString.endsWith('=')) directions.push('equal');
+				switch (toID(prop)) {
 				case 'basepower': prop = 'basePower'; break;
 				case 'bp': prop = 'basePower'; break;
 				case 'power': prop = 'basePower'; break;
 				case 'acc': prop = 'accuracy'; break;
 				}
 				if (!allProperties.includes(prop)) return {error: `'${escapeHTML(target)}' did not contain a valid property.`};
-				if (direction === 'equal') {
-					if (orGroup.property[prop]) return {error: `Invalid property range for ${prop}.`};
-					orGroup.property[prop] = Object.create(null);
-					orGroup.property[prop]['equal'] = parseFloat(targetParts[numSide]);
-				} else {
-					if (!orGroup.property[prop]) orGroup.property[prop] = Object.create(null);
-					if (orGroup.property[prop][direction as Direction]) {
-						return {error: `Invalid property range for ${prop}.`};
-					} else {
-						orGroup.property[prop][direction as Direction] = parseFloat(targetParts[numSide]);
-					}
+				if (!orGroup.property[prop]) orGroup.property[prop] = Object.create(null);
+				for (const direction of directions) {
+					if (orGroup.property[prop][direction]) return {error: `Invalid property range for ${prop}.`};
+					orGroup.property[prop][direction] = num;
 				}
 				continue;
 			}

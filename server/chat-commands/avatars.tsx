@@ -363,6 +363,7 @@ const OFFICIAL_AVATARS = new Set([
 	'juan-gen3',
 	'juan',
 	'juggler-gen1', 'juggler-gen1rb', 'juggler-gen2', 'juggler-gen3', 'juggler',
+	'juniper',
 	'jupiter',
 	'karen-gen2', 'karen',
 	'kimonogirl-gen2', 'kimonogirl',
@@ -540,8 +541,34 @@ const OFFICIAL_AVATARS_GNOMOWLADNY = new Set([
 	'valerie', 'viola', 'wallace-gen6', 'wikstrom', 'winona-gen6', 'wulfric', 'xerosic', 'youngn', 'zinnia',
 ]);
 
+const OFFICIAL_AVATARS_BRUMIRAGE = new Set([
+	'adaman', 'agatha-lgpe', 'akari', 'allister', 'archie-gen6', 'arezu', 'avery', 'ballguy', 'bea', 'bede',
+	'bede-leader', 'brendan-contest', 'burnet-radar', 'calaba', 'calem', 'chase', 'cogita', 'doctor-gen8',
+	'elaine', 'gloria', 'gordie', 'hop', 'irida', 'kabu', 'klara', 'koga-lgpe', 'leon', 'leon-tower',
+	'lian', 'lisia', 'lorelei-lgpe', 'magnolia', 'mai', 'marnie', 'may-contest', 'melony', 'milo', 'mina-lgpe',
+	'mustard', 'mustard-master', 'nessa', 'oleana', 'opal', 'peonia', 'peony', 'pesselle', 'phoebe-gen6', 'piers',
+	'raihan', 'rei', 'rose', 'sabi', 'sanqua', 'shielbert', 'sonia', 'sonia-professor', 'sordward',
+	'tateandliza-gen6', 'victor', 'victor-dojo', 'volo', 'yellgrunt', 'yellgruntf', 'zisu',
+]);
+
+const OFFICIAL_AVATARS_ZACWEAVILE = new Set([
+	'gloria-dojo', 'shauna',
+]);
+
+const OFFICIAL_AVATARS_KYLEDOVE = new Set([
+	'artist-gen8', 'backpacker-gen8', 'beauty-gen8', 'blackbelt-gen8', 'cabbie', 'cafemaster', 'cameraman-gen8',
+	'clerk-gen8', 'clerkf-gen8', 'cook', 'dancer-gen8', 'doctorf-gen8', 'fisher-gen8', 'gentleman-gen8',
+	'hiker-gen8', 'lass-gen8', 'leaguestaff', 'leaguestafff', 'madame-gen8', 'model-gen8', 'musician-gen8',
+	'pokekid-gen8', 'pokekidf-gen8', 'pokemonbreeder-gen8', 'pokemonbreederf-gen8', 'policeman-gen8', 'postman',
+	'railstaff', 'reporter-gen8', 'schoolkid-gen8', 'schoolkidf-gen8', 'swimmer-gen8', 'swimmerf-gen8',
+	'worker-gen8', 'workerf-gen8', 'youngster-gen8',
+]);
+
 for (const avatar of OFFICIAL_AVATARS_BELIOT419) OFFICIAL_AVATARS.add(avatar);
 for (const avatar of OFFICIAL_AVATARS_GNOMOWLADNY) OFFICIAL_AVATARS.add(avatar);
+for (const avatar of OFFICIAL_AVATARS_BRUMIRAGE) OFFICIAL_AVATARS.add(avatar);
+for (const avatar of OFFICIAL_AVATARS_ZACWEAVILE) OFFICIAL_AVATARS.add(avatar);
+for (const avatar of OFFICIAL_AVATARS_KYLEDOVE) OFFICIAL_AVATARS.add(avatar);
 
 export const commands: Chat.ChatCommands = {
 	avatar(target, room, user) {
@@ -569,6 +596,15 @@ export const commands: Chat.ChatCommands = {
 			}
 			if (OFFICIAL_AVATARS_GNOMOWLADNY.has(avatar)) {
 				this.sendReply(`|raw|(${this.tr`Artist: `}Gnomowladny)`);
+			}
+			if (OFFICIAL_AVATARS_BRUMIRAGE.has(avatar)) {
+				this.sendReply(`|raw|(${this.tr`Artist: `}<a href="https://twitter.com/Brumirage">Brumirage</a>)`);
+			}
+			if (OFFICIAL_AVATARS_ZACWEAVILE.has(avatar)) {
+				this.sendReply(`|raw|(${this.tr`Artist: `}ZacWeavile)`);
+			}
+			if (OFFICIAL_AVATARS_KYLEDOVE.has(avatar)) {
+				this.sendReply(`|raw|(${this.tr`Artist: `}<a href="https://twitter.com/DoveKyle">Kyledove</a>)`);
 			}
 		}
 	},
@@ -758,6 +794,34 @@ export const commands: Chat.ChatCommands = {
 			</p>
 		</>);
 	},
+
+	moveavatars(target, room, user) {
+		this.checkCan('bypassall');
+		const [from, to] = target.split(',').map(toID);
+		if (!from || !to) {
+			return this.parse(`/help moveavatars`);
+		}
+		if (!customAvatars[from]?.allowed.length) {
+			return this.errorReply(`That user has no avatars.`);
+		}
+		const existing = customAvatars[to]?.allowed.filter(Boolean);
+		customAvatars[to] = {...customAvatars[from]};
+		delete customAvatars[from];
+		if (existing) {
+			for (const avatar of existing) {
+				if (!customAvatars[to].allowed.includes(avatar)) {
+					customAvatars[to].allowed.push(avatar);
+				}
+			}
+		}
+		Avatars.save(true);
+		this.sendReply(`Moved ${from}'s avatars to '${to}'.`);
+		this.globalModlog(`MOVEAVATARS`, to, `from ${from}`);
+		Avatars.tryNotify(Users.get(to));
+	},
+	moveavatarshelp: [
+		`/moveavatars [from user], [to user] - Move all of the custom avatars from [from user] to [to user]. Requires: &`,
+	],
 
 	async masspavatar(target, room, user) {
 		this.checkCan('bypassall');
