@@ -30,7 +30,7 @@ export const Formats: FormatList = [
 	},
 	{
 		name: "[Gen 8] BH 500 Cup",
-		desc: `BH，但禁止使用种族和高于500的精灵。\n BH but mons with BST > 500 are banned.`,
+		desc: `BH but Pok&eacute;mon with BST > 500 are banned.`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3656408/">Balanced Hackmons</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
@@ -582,6 +582,7 @@ export const Formats: FormatList = [
 	},
 	{
 		name: "[Gen 8] Balanced Hackmons Multi Battle",
+		desc: `Balanced Hackmons + Multi Battle.`,
 
 		mod: 'gen8',
 		gameType: 'multi', 
@@ -1051,31 +1052,24 @@ export const Formats: FormatList = [
 	},
 	{
 		name: "[Gen 8] Monotype BH",
-		desc: `BH, but all mons in a team must share a type.`,
+		desc: `BH but all Pok&eacute;mon on a team must share a type.`,
 		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/om-mashup-megathread.3657159/post-9124457">Monotype BH</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3656408/">Balanced Hackmons</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
 		],
 
 		mod: 'gen8',
-		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Same Type Clause', 'Sleep Moves Clause', 'Endless Battle Clause'],
+		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Moves Clause', 'Endless Battle Clause', 'Same Type Clause'],
 		banlist: [
-			'Eternatus-Eternamax',
-			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Magnet Pull', 'Moody',
+			'Calyrex-Shadow', 'Cramorant-Gorging', 'Darmanitan-Galar-Zen', 'Eternatus-Eternamax', 'Shedinja', 'Zacian-Crowned',
+			'Eternatus',
+			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
 			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Comatose + Sleep Talk', 'Court Change', 'Double Iron Bash', 'Octolock', 'Shell Smash',
+			'Drizzle', 'Normalize',
+			'Comatose + Sleep Talk', 'Bolt Beak', 'Court Change', 'Double Iron Bash', 'Octolock', 'Shell Smash',
+			'Rusted Sword'
 		],
-		restricted: ['Zacian-Crowned', 'Intrepid Sword',],
-		onValidateSet(set) {
-			const ability = this.dex.abilities.get(set.ability);
-			if (set.species === 'Zacian-Crowned') {
-				if (this.dex.toID(set.item) !== 'rustedsword' || ability.id !== 'intrepidsword') {
-					return [`${set.species} is banned.`];
-				}
-			} else if (ability.id === 'intrepidsword') {
-				return [`${set.name}'s ability ${ability.name} is banned.`];
-			}
-		},
 		onChangeSet(set) {
 			const item = this.dex.toID(set.item);
 			if (set.species === 'Zacian' && item === 'rustedsword') {
