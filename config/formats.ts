@@ -30,7 +30,7 @@ export const Formats: FormatList = [
 	},
 	{
 		name: "[Gen 8] BH 500 Cup",
-		desc: `BH，但禁止使用种族和高于500的精灵。`,
+		desc: `BH，但禁止使用种族和高于500的精灵。\n BH but mons with BST > 500 are banned.`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3656408/">Balanced Hackmons</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
@@ -40,6 +40,7 @@ export const Formats: FormatList = [
 		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Moves Clause', 'Endless Battle Clause'],
 		banlist: [
 			'Cramorant-Gorging', 'Shedinja',
+			'Chansey', 'Darmanitan', 'Darmanitan-Galar',
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
 			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
 			'Comatose + Sleep Talk', 'Court Change', 'Double Iron Bash', 'Octolock', 'Shell Smash'
