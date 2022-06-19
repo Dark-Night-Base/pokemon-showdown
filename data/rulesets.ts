@@ -1927,9 +1927,9 @@ export const Rulesets: {[k: string]: FormatData} = {
 			// return problems;
 		},
 	},
-	joltopokedex: { // proposed by Akira#4194 on discord
+	johtopokedex: { // proposed by Akira#4194 on discord
 		effectType: 'ValidatorRule',
-		name: 'Jolto Pokedex',
+		name: 'Johto Pokedex',
 		desc: "Only allows Pok&eacute;mon and Moves native to the Kanto region and the Johto region",
 		banlist: [
 			'Max Strike', 'Max Knuckle', 'Max Airstream', 'Max Ooze', 'Max Quake', 
