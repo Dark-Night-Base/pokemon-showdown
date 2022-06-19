@@ -358,8 +358,8 @@ export const Formats: FormatList = [
 		},
 	},
 	{
-		name: "[Gen 8] Jolto Dex BH",
-		desc: `BH, but only things that are native to Kanto and Jolto regions are usable.`,
+		name: "[Gen 8] Johto Dex BH",
+		desc: `BH, but only things that are native to Kanto and Johto regions are usable.`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3656408/">Balanced Hackmons</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
