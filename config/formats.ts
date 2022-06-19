@@ -40,7 +40,7 @@ export const Formats: FormatList = [
 		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Moves Clause', 'Endless Battle Clause'],
 		banlist: [
 			'Cramorant-Gorging', 'Shedinja',
-			'Chansey', 'Darmanitan', 'Darmanitan-Galar',
+			'Barraskewda', 'Chansey', 'Darmanitan', 'Darmanitan-Galar',
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
 			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
 			'Comatose + Sleep Talk', 'Court Change', 'Double Iron Bash', 'Octolock', 'Shell Smash'
@@ -356,6 +356,24 @@ export const Formats: FormatList = [
 			// @ts-ignore
 			if (move && move.category !== 'Status' && source.forte && source.forte.onAfterMoveSecondarySelf) this.singleEvent('AfterMoveSecondarySelf', source.forte, null, source, target, move);
 		},
+	},
+	{
+		name: "[Gen 8] Jolto Dex BH",
+		desc: `BH, but only things that are native to Kanto and Jolto regions are usable.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3656408/">Balanced Hackmons</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
+		],
+
+		mod: 'gen8',
+		ruleset: ['Standard NatDex', '!Obtainable', '2 Ability Clause', 'OHKO Clause', 'CFZ Clause', 'Evasion Moves Clause', 'Forme Clause', 'Dynamax Clause', 'Sleep Moves Clause', 'Jolto Pokedex'],
+		banlist: [
+			'Mewtwo', 'Lugia', 'Ho-Oh',
+			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Magnet Pull', 'Moody',
+			'Neutralizing Gas', 'Parental Bond', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
+			'Comatose + Sleep Talk', 'Imprison + Transform', 'Normalize + Entrainment', 'Normalize + Skill Swap',
+			'Shell Smash', 'Belly Drum',
+		],
 	},
 
 	// Balanced Hackmons
