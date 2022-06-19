@@ -1945,7 +1945,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 			'G-Max Stun Shock', 'G-Max Centiferno', 'G-Max Smite', 'G-Max Snooze', 'G-Max Finale', 
 			'G-Max Steelsurge', 'G-Max Depletion', 'G-Max One Blow', 'G-Max Rapid Flow', 
 			'Baddy Bad', 'Bouncy Bubble', 'Buzzy Buzz', 'Floaty Fall', 'Freezy Frost',
-			'Glitzy Glow', 'Sappy Seed', 'Sizzly Slide', 'Sparky Swirl', 'Splishy Splash',
+			'Glitzy Glow', 'Sappy Seed', 'Sizzly Slide', 'Sparkly Swirl', 'Splishy Splash',
 			'Zippy Zap', 
 			'Attack Order', 'Defend Order', 'Heal Order', 'Powder', 'Tail Glow', 'Dark Void', 
 			'Hyperspace Fury', 'Night Daze', 'Parting Shot', 'Topsy Turvy', 'Fiery Wrath', 
