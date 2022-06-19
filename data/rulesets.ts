@@ -1982,8 +1982,10 @@ export const Rulesets: {[k: string]: FormatData} = {
 				"Azurill", "Bonsly", "Happiny", "Mantyke", "Mime Jr.", "Munchlax", "Wynaut", 
 			];
 			const species = this.dex.species.get(set.species || set.name);
-			if ((!additionalDex.includes(species.baseSpecies) || species.num > 251) && !this.ruleTable.has('+' + species.id)) {
-				return [`${species.name} is not in the Johto Pokédex.`];
+			if (!this.ruleTable.has('+' + species.id)) {
+				if (species.gen > 2 && !additionalDex.includes(species.baseSpecies)) {
+					return [`${species.name} is not in the Johto Pokédex.`];
+				}
 			}
 		},
 	},
