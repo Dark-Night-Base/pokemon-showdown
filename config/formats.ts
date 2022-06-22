@@ -2446,7 +2446,7 @@ export const Formats: FormatList = [
 			'Darmanitan-Galar', 'Frosmoth', 'Gyarados', 'Lunala', 'Milotic', 'Solgaleo', 'Toxapex', 'Volcarona', 'Zacian-Crowned', 
 			'Arena Trap', 'Moody', 'Sand Veil', 'Shadow Tag', 'Snow Cloak', 
 			'Baton Pass', 
-			'Bright Power', 'King\'s Rock', 'Lax Incense', 
+			'Bright Powder', 'King\'s Rock', 'Lax Incense', 
 		],
 		onModifySpeciesPriority: 2,
 		onModifySpecies(species) {
