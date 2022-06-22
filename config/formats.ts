@@ -1148,14 +1148,16 @@ export const Formats: FormatList = [
 		},
 		onModifySpeciesPriority: 2,
 		onModifySpecies(species) {
-			if (!species.baseStats) return;
-			if (!species.prevo) return;
+			if (!species) return;
+			const baseSpecies = this.dex.species.get(species.baseSpecies);
+			if (!baseSpecies.baseStats) return;
+			if (!baseSpecies.prevo) return;
 			const newSpecies = this.dex.deepClone(species);
 			newSpecies.bst = 0;
-			const prevoSpecies = this.dex.species.get(species.prevo);
+			const prevoSpecies = this.dex.species.get(baseSpecies.prevo);
 			let statName: StatID;
 			for (statName in newSpecies.baseStats as StatsTable) {
-				newSpecies.baseStats[statName] = this.clampIntRange(2 * newSpecies.baseStats[statName] - prevoSpecies.baseStats[statName], 1, 255);
+				newSpecies.baseStats[statName] = this.clampIntRange(newSpecies[statName] + baseSpecies.baseStats[statName] - prevoSpecies.baseStats[statName], 1, 255);
 				newSpecies.bst += newSpecies.baseStats[statName];
 			}
 			return newSpecies;
