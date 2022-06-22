@@ -21,6 +21,7 @@ import { Scripts } from '../data/mods/mixandmegabh/scripts';
 import { Pokedex } from '../data/pokedex';
 import {Utils} from '../lib';
 import { CommandContext } from '../server/chat';
+import { statusfilter } from '../server/chat-plugins/chat-monitor';
 import { Species } from '../sim/dex-species';
 
 export const Formats: FormatList = [
@@ -1106,6 +1107,58 @@ export const Formats: FormatList = [
 					set.moves[ironHead] = 'behemothbash';
 				}
 			}
+		},
+	},
+	{
+		name: "[Gen 8] Re-Evolution BH",
+		desc: `BH but Pok&eacute;mon gain base stats equal to the difference with their previous stage.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3703643/">Re-Evolution</a>`, 
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3656408/">Balanced Hackmons</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
+		],
+
+		mod: 'gen8',
+		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod', 'Endless Battle Clause', 'Overflow Stat Mod'],
+		banlist: [
+			'Cramorant-Gorging', 'Eternatus-Eternamax', 'Shedinja', 
+			'Lunala', 'Solgaleo', 
+			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
+			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
+			'Comatose + Sleep Talk', 'Court Change', 'Double Iron Bash', 'Octolock', 'Shell Smash', 
+		],
+		onChangeSet(set) {
+			const item = this.dex.toID(set.item);
+			if (set.species === 'Zacian' && item === 'rustedsword') {
+				set.species = 'Zacian-Crowned';
+				set.ability = 'Intrepid Sword';
+				const ironHead = set.moves.indexOf('ironhead');
+				if (ironHead >= 0) {
+					set.moves[ironHead] = 'behemothblade';
+				}
+			}
+			if (set.species === 'Zamazenta' && item === 'rustedshield') {
+				set.species = 'Zamazenta-Crowned';
+				set.ability = 'Dauntless Shield';
+				const ironHead = set.moves.indexOf('ironhead');
+				if (ironHead >= 0) {
+					set.moves[ironHead] = 'behemothbash';
+				}
+			}
+		},
+		onModifySpeciesPriority: 2,
+		onModifySpecies(species) {
+			if (!species.baseStats) return;
+			if (!species.prevo) return;
+			const newSpecies = this.dex.deepClone(species);
+			newSpecies.bst = 0;
+			const prevoSpecies = this.dex.species.get(species.prevo);
+			let statName: StatID;
+			for (statName in newSpecies.baseStats as StatsTable) {
+				newSpecies.baseStats[statName] = this.clampIntRange(2 * newSpecies.baseStats[statName] - prevoSpecies.baseStats[statName], 1, 255);
+				newSpecies.bst += newSpecies.baseStats[statName];
+			}
+			return newSpecies;
 		},
 	},
 	{
