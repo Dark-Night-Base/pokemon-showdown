@@ -663,20 +663,21 @@ export const commands: Chat.ChatCommands = {
 		if (!this.runBroadcast()) return;
 		const targetid = toID(target);
 		if (!targetid) return this.parse('/help reevo');
-		const evo = Dex.species.get(target);
+		const evo = Dex.species.get(targetid);
 		if (!evo.exists) {
 			throw new Chat.ErrorMessage(`Error: Pok\u00e9mon ${target} not found.`);
 		}
-		if (!evo.prevo) {
+		const baseSpecies = Dex.species.get(evo.baseSpecies);
+		if (!baseSpecies.prevo) {
 			throw new Chat.ErrorMessage(`Error: ${evo.name} is not an evolution.`);
 		}
-		const prevoSpecies = Dex.species.get(evo.prevo);
+		const prevoSpecies = Dex.species.get(baseSpecies.prevo);
 		const newSpecies = Utils.deepClone(evo);
 		newSpecies.tier = 'RE';
 		newSpecies.bst = 0;
 		let i: StatID;
 		for (i in evo.baseStats) {
-			newSpecies.baseStats[i] = Utils.clampIntRange(2 * evo.baseStats[i] - prevoSpecies.baseStats[i], 1, 255);
+			newSpecies.baseStats[i] = Utils.clampIntRange(baseSpecies.baseStats[i] + evo.baseStats[i] - prevoSpecies.baseStats[i], 1, 255);
 			newSpecies.bst += newSpecies.baseStats[i];
 		}
 		this.sendReply(`|raw|${Chat.getDataPokemonHTML(newSpecies, Dex.gen)}`);
