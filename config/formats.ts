@@ -1158,7 +1158,7 @@ export const Formats: FormatList = [
 			const prevoSpecies = this.dex.species.get(baseSpecies.prevo);
 			let statName: StatID;
 			for (statName in newSpecies.baseStats as StatsTable) {
-				newSpecies.baseStats[statName] = this.clampIntRange(newSpecies[statName] + baseSpecies.baseStats[statName] - prevoSpecies.baseStats[statName], 1, 255);
+				newSpecies.baseStats[statName] = this.clampIntRange(newSpecies.baseStats[statName] + baseSpecies.baseStats[statName] - prevoSpecies.baseStats[statName], 1, 255);
 				newSpecies.bst += newSpecies.baseStats[statName];
 			}
 			return newSpecies;
@@ -2432,6 +2432,39 @@ export const Formats: FormatList = [
 
 		mod: 'gen6',
 		ruleset: ['-Nonexistent', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause'],
+	},
+	{
+		name: "[Gen 8] Re-Evolution",
+		desc: `Pok&eacute;mon gain base stats equal to the difference with their previous stage.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3703643/">Re-Evolution</a>`, 
+		],
+
+		mod: 'gen8',
+		ruleset: ['Obtainable', 'Team Preview', 'Sleep Clause Mod', 'Species Clause', 'Nickname Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Endless Battle Clause', 'HP Percentage Mod', 'Cancel Mod', 'Overflow Stat Mod'],
+		banlist: [
+			'Darmanitan-Galar', 'Frosmoth', 'Gyarados', 'Lunala', 'Milotic', 'Solgaleo', 'Toxapex', 'Volcarona', 'Zacian-Crowned', 
+			'Arena Trap', 'Moody', 'Sand Veil', 'Shadow Tag', 'Snow Cloak', 
+			'Baton Pass', 
+			'Bright Power', 'King\'s Rock', 'Lax Incense', 
+		],
+		onModifySpeciesPriority: 2,
+		onModifySpecies(species) {
+			if (!species) return;
+			if (!species.baseStats) return;
+			const baseSpecies = this.dex.species.get(species.baseSpecies);
+			if (!baseSpecies.baseStats) return;
+			if (!baseSpecies.prevo) return;
+			const newSpecies = this.dex.deepClone(species);
+			newSpecies.bst = 0;
+			const prevoSpecies = this.dex.species.get(baseSpecies.prevo);
+			let statName: StatID;
+			for (statName in newSpecies.baseStats as StatsTable) {
+				newSpecies.baseStats[statName] = this.clampIntRange(newSpecies.baseStats[statName] + baseSpecies.baseStats[statName] - prevoSpecies.baseStats[statName], 1, 255);
+				newSpecies.bst += newSpecies.baseStats[statName];
+			}
+			return newSpecies;
+		},
 	},
 	{
 		name: "[Gen 8] Shared Power",
