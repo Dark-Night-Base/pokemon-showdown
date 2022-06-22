@@ -655,4 +655,33 @@ export const commands: Chat.ChatCommands = {
 	showevohelp: [
 		`/showevo <Pok\u00e9mon> - Shows the changes that a Pok\u00e9mon applies in Cross Evolution`,
 	],
+
+	re: 'reevolve',
+	revo: 'reevolve',
+	reevo: 'reevolve',
+	reevolve(target, user, room) {
+		if (!this.runBroadcast()) return;
+		const targetid = toID(target);
+		if (!targetid) return this.parse('/help reevo');
+		const evo = Dex.species.get(target);
+		if (!evo.exists) {
+			throw new Chat.ErrorMessage(`Error: Pok\u00e9mon ${target} not found.`);
+		}
+		if (!evo.prevo) {
+			throw new Chat.ErrorMessage(`Error: ${evo.name} is not an evolution.`);
+		}
+		const prevoSpecies = Dex.species.get(evo.prevo);
+		const newSpecies = Utils.deepClone(evo);
+		newSpecies.tier = 'RE';
+		newSpecies.bst = 0;
+		let i: StatID;
+		for (i in evo.baseStats) {
+			newSpecies.baseStats[i] = Utils.clampIntRange(2 * evo.baseStats[i] - prevoSpecies.baseStats[i], 1, 255);
+			newSpecies.bst += newSpecies.baseStats[i];
+		}
+		this.sendReply(`|raw|${Chat.getDataPokemonHTML(newSpecies, Dex.gen)}`);
+	},
+	reevolvehelp: [
+		"/reevo <pokemon> - Shows the type and stats for the Re-Evolved Pok\u00e9mon.",
+	],
 };
