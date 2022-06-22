@@ -1149,6 +1149,7 @@ export const Formats: FormatList = [
 		onModifySpeciesPriority: 2,
 		onModifySpecies(species) {
 			if (!species) return;
+			if (!species.baseStats) return;
 			const baseSpecies = this.dex.species.get(species.baseSpecies);
 			if (!baseSpecies.baseStats) return;
 			if (!baseSpecies.prevo) return;
