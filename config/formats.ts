@@ -125,7 +125,7 @@ export const Formats: FormatList = [
 		mod: 'gen8',
 		ruleset: ['Standard NatDex', '!Obtainable', '2 Ability Clause', 'OHKO Clause', 'CFZ Clause', 'Evasion Moves Clause', 'Forme Clause', 'Forte Clause', 'Dynamax Clause', 'Sleep Moves Clause', 'Arceus Clause'],
 		banlist: [
-			'Calyrex-Shadow', 'Cramorant-Gorging', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 'Zacian-Crowned', 
+			'Calyrex-Shadow', 'Cramorant-Gorging', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Magnet Pull', 'Moody',
 			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Serene Grace', 'Shadow Tag', 'Stakeout', 'Triage', 'Water Bubble', 
 			'Wonder Guard',
@@ -138,13 +138,12 @@ export const Formats: FormatList = [
 			'Gengarite',
 		],
 		restricted: [
-			'Zacian-Crowned', 
+			'Zacian-Crowned', 'Intrepid Sword', 
 			'Acid Spray', 'Bide', 'Bolt Beak', 'Counter', 'Dynamic Punch', 'Echoed Voice', 'Eerie Spell', 'Endeavor', 'Fishious Rend', 
 			'Frost Breath', 'Ice Ball', 'Inferno', 'Mirror Coat', 'Nature\'s Madness', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rising Voltage', 
 			'Rollout', 'Shell Side Arm', 'Sky Drop', 'Stored Power', 'Storm Throw', 'Super Fang', 'Weather Ball', 'Wicked Blow', 'Zap Cannon',
 			// 'Charge Moves', 'Max Moves', 'Moves That Lower Accuracy', 'Multi-hit Moves', 'Positive Priority Moves', 'Trapping Moves', 'Z-Moves',
 			'Anchor Shot', 'Jaw Lock', 'Spirit Shackle', 'Thousand Waves', 
-			'Rusted Sword',
 		],
 		onValidateSet(set) {
 			const ability = this.dex.abilities.get(set.ability);
