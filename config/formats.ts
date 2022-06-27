@@ -589,7 +589,7 @@ export const Formats: FormatList = [
 
 		mod: 'gen8',
 		gameType: 'doubles', 
-		ruleset: ['Standard Doubles', '!Gravity Sleep Clause', '!Obtainable', 'Forme Clause', '!Species Clause',],
+		ruleset: ['Standard Doubles', '!Gravity Sleep Clause', '!Obtainable', '-Nonexistent', 'Forme Clause', '!Species Clause',],
 		banlist: [
 			'Eternatus-Eternamax', 'Shedinja',
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Moody',
@@ -606,7 +606,7 @@ export const Formats: FormatList = [
 		gameType: 'multi', 
 		rated: false,
 		tournamentShow: false,
-		ruleset: ['Standard Doubles', '!Gravity Sleep Clause', '!Obtainable', 'Forme Clause', '!Species Clause', 'Picked Team Size = 3',],
+		ruleset: ['Standard Doubles', '!Gravity Sleep Clause', '!Obtainable', '-Nonexistent', 'Forme Clause', '!Species Clause', 'Picked Team Size = 3',],
 		banlist: [
 			'Eternatus-Eternamax', 'Shedinja',
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Moody',
