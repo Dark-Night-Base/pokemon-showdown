@@ -606,7 +606,7 @@ export const Formats: FormatList = [
 		gameType: 'multi', 
 		rated: false,
 		tournamentShow: false,
-		ruleset: ['Standard Doubles', '!Gravity Sleep Clause', '!Obtainable', '-Nonexistent', 'Forme Clause', '!Species Clause', 'Picked Team Size = 3', 'Sleep Clause Mod'],
+		ruleset: ['Standard Doubles', '!Gravity Sleep Clause', '!Obtainable', '-Nonexistent', 'Forme Clause', '!Species Clause', 'Picked Team Size = 3', ],
 		banlist: [
 			'Eternatus-Eternamax', 'Shedinja',
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Moody',
