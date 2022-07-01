@@ -86,7 +86,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
-		ruleset: ['Standard NatDex', 'Little Cup', '!Obtainable', 'OHKO Clause', 'CFZ Clause', 'Evasion Moves Clause', '!Species Clause', 'Forme Clause', 'Dynamax Clause', ],
+		ruleset: ['Standard NatDex', 'Little Cup', '!Obtainable', 'OHKO Clause', 'CFZ Clause', 'Evasion Moves Clause', 'Forme Clause', 'Dynamax Clause', ],
 		banlist: [
 			'Corsola-Galar', 
 			'Archen', 'Gligar', 'Scyther', 'Sneasel', 'Tangela', 'Type: Null', 'Yanma', 
