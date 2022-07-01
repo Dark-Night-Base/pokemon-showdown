@@ -86,7 +86,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
-		ruleset: ['Standard NatDex', 'Little Cup', '!Obtainable', 'OHKO Clause', 'CFZ Clause', 'Evasion Moves Clause', 'Forme Clause', 'Dynamax Clause', ],
+		ruleset: ['Standard NatDex', 'Little Cup', '!Obtainable', 'OHKO Clause', 'CFZ Clause', '+Extreme Evoboost', 'Evasion Moves Clause', 'Forme Clause', 'Dynamax Clause', ],
 		banlist: [
 			'Corsola-Galar', 
 			'Archen', 'Gligar', 'Scyther', 'Sneasel', 'Tangela', 'Type: Null', 'Yanma', 
@@ -96,7 +96,6 @@ export const Formats: FormatList = [
 			'Comatose + Sleep Talk', 
 			'Bolt Beak', 'Chatter', 'Court Change', 'Dragon Rage', 'Double Iron Bash', 'Electrify', 'Fishious Rend', 'Glacial Lance', 
 			'Knock Off', 'Octolock', 'Photon Geyser', 'Shell Smash', 'Sonic Boom', 'Surging Strikes', 'Triple Axel', 'V-Create', 'Wicked Blow', 
-			'+Extreme Evoboost', 
 		],
 	},
 	{
