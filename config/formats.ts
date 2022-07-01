@@ -59,6 +59,47 @@ export const Formats: FormatList = [
 		},
 	},
 	{
+		name: "[Gen 8] Johto Dex BH",
+		desc: `BH, but only things that are native to Kanto and Johto regions are usable.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3656408/">Balanced Hackmons</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
+		],
+
+		mod: 'gen8',
+		ruleset: ['Standard NatDex', '!Obtainable', '2 Ability Clause', 'OHKO Clause', 'CFZ Clause', 'Evasion Moves Clause', 'Forme Clause', 'Dynamax Clause', 'Sleep Moves Clause', 'Johto Pokedex'],
+		banlist: [
+			'Mewtwo', 'Lugia', 'Ho-Oh',
+			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Magnet Pull', 'Moody',
+			'Neutralizing Gas', 'Parental Bond', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
+			'Comatose + Sleep Talk', 'Imprison + Transform', 'Normalize + Entrainment', 'Normalize + Skill Swap',
+			'Shell Smash', 'Belly Drum',
+		],
+	},
+	{
+		name: "[Gen 8] National Dex LC Balanced Hackmons",
+		desc: `NDBH + LC. S/o to Onyx and Sevag for coding and rules.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/om-mashup-megathread.3657159/post-8299984">Balanced Hackmons Little Cup</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/national-dex-bh-v3.3690179/#post-9217527">National Dex BH v3</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/national-dex-bh.3658587/">National Dex BH</a>`,
+		],
+
+		mod: 'gen8',
+		ruleset: ['Standard NatDex', 'Little Cup', '!Obtainable', 'OHKO Clause', 'CFZ Clause', 'Evasion Moves Clause', '!Species Clause', 'Forme Clause', 'Dynamax Clause', ],
+		banlist: [
+			'Corsola-Galar', 
+			'Archen', 'Gligar', 'Scyther', 'Sneasel', 'Tangela', 'Type: Null', 'Yanma', 
+			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 
+			'Moody', 'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard', 
+			'Psychic Surge', 
+			'Comatose + Sleep Talk', 
+			'Bolt Beak', 'Chatter', 'Court Change', 'Dragon Rage', 'Double Iron Bash', 'Electrify', 'Fishious Rend', 'Glacial Lance', 
+			'Knock Off', 'Octolock', 'Photon Geyser', 'Shell Smash', 'Sonic Boom', 'Surging Strikes', 'Triple Axel', 'V-Create', 'Wicked Blow', 
+			'+Extreme Evoboost', 
+		],
+	},
+	{
 		name: "[Gen 8] NDBH Letter Cup",
 		desc: `NDBH，但一只精灵携带的所有技能的英文首字母必须相同。`,
 		threads: [
@@ -356,24 +397,6 @@ export const Formats: FormatList = [
 			// @ts-ignore
 			if (move && move.category !== 'Status' && source.forte && source.forte.onAfterMoveSecondarySelf) this.singleEvent('AfterMoveSecondarySelf', source.forte, null, source, target, move);
 		},
-	},
-	{
-		name: "[Gen 8] Johto Dex BH",
-		desc: `BH, but only things that are native to Kanto and Johto regions are usable.`,
-		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3656408/">Balanced Hackmons</a>`,
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
-		],
-
-		mod: 'gen8',
-		ruleset: ['Standard NatDex', '!Obtainable', '2 Ability Clause', 'OHKO Clause', 'CFZ Clause', 'Evasion Moves Clause', 'Forme Clause', 'Dynamax Clause', 'Sleep Moves Clause', 'Johto Pokedex'],
-		banlist: [
-			'Mewtwo', 'Lugia', 'Ho-Oh',
-			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Magnet Pull', 'Moody',
-			'Neutralizing Gas', 'Parental Bond', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Comatose + Sleep Talk', 'Imprison + Transform', 'Normalize + Entrainment', 'Normalize + Skill Swap',
-			'Shell Smash', 'Belly Drum',
-		],
 	},
 
 	// Balanced Hackmons
