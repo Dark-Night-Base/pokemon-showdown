@@ -13,7 +13,7 @@ export const commands: Chat.ChatCommands = {
 
 		const battleLog = room.getLog(0);
 		var filePath = path.resolve(__dirname, `../../replays/${room.roomid}-${room.p1}-${room.p2}.html`);//-${Date.now()}.html`);
-		if (room.battle.replaySaved && room.hideReplay) {
+		if (room.battle.replaySaved && (room.hideReplay || room.settings.isPrivate)) {
 			FS(filePath).unlinkIfExistsSync();
 			filePath = path.resolve(__dirname, `../../replays/.${room.roomid}-${room.p1}-${room.p2}.html`);
 		}
@@ -28,7 +28,7 @@ export const commands: Chat.ChatCommands = {
 			out.end();
 		});
 		room.battle.replaySaved = true;
-		if (room.hideReplay) {
+		if (room.hideReplay || room.settings.isPrivate) {
 			return this.errorReply(this.tr`Your replay has been uploaded! It's available at: http://replay.sciroccogti.top/files/.${room.roomid}-${room.p1}-${room.p2}.html`);
 		}
 		return this.errorReply(this.tr`Your replay has been uploaded! It's available at: http://replay.sciroccogti.top/files/${room.roomid}-${room.p1}-${room.p2}.html`);
