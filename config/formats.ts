@@ -614,7 +614,7 @@ export const Formats: FormatList = [
 		ruleset: ['Standard Doubles', '!Gravity Sleep Clause', '!Obtainable', '-Nonexistent', 'Forme Clause', '!Species Clause',],
 		banlist: [
 			'Eternatus-Eternamax', 'Shedinja',
-			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Moody',
+			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Imposter', 'Innards Out', 'Libero', 'Moody',
 			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
 			'Justified', 'Anger Point', 'Steam Engine', 'Stamina', 'Rattled', 'Wandering Spirit', 'Soul-Heart', 
 			'Comatose + Sleep Talk', 'Double Iron Bash', 'Octolock',
@@ -631,7 +631,7 @@ export const Formats: FormatList = [
 		ruleset: ['Standard Doubles', '!Gravity Sleep Clause', '!Obtainable', '-Nonexistent', 'Forme Clause', '!Species Clause', 'Picked Team Size = 3', ],
 		banlist: [
 			'Eternatus-Eternamax', 'Shedinja',
-			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Moody',
+			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Imposter', 'Innards Out', 'Libero', 'Moody',
 			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
 			'Justified', 'Anger Point', 'Steam Engine', 'Stamina', 'Rattled', 'Wandering Spirit', 'Soul-Heart', 
 			'Comatose + Sleep Talk', 'Double Iron Bash', 'Octolock',
