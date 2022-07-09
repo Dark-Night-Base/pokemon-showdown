@@ -28,6 +28,9 @@ export const commands: Chat.ChatCommands = {
 			out.end();
 		});
 		room.battle.replaySaved = true;
+		if (room.hideReplay) {
+			return this.errorReply(this.tr`Your replay has been uploaded! It's available at: http://replay.sciroccogti.top/files/.${room.roomid}-${room.p1}-${room.p2}.html`);
+		}
 		return this.errorReply(this.tr`Your replay has been uploaded! It's available at: http://replay.sciroccogti.top/files/${room.roomid}-${room.p1}-${room.p2}.html`);
 	},
 	saveserverreplayhelp: ["/ssr or /saveserverreplay - Save the replay of the battle to server. (We are not a registered server so saving replays to replay.pokemonshowdown.com won't work.)",],
