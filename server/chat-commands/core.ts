@@ -916,12 +916,13 @@ export const commands: Chat.ChatCommands = {
 
 	uploadreplay: 'savereplay',
 	async savereplay(target, room, user, connection) {
-		if (!room?.battle) {
-			return this.errorReply(this.tr`You can only save replays for battles.`);
-		}
+		this.parse('/ssr');
+		// if (!room?.battle) {
+		// 	return this.errorReply(this.tr`You can only save replays for battles.`);
+		// }
 
-		const options = (target === 'forpunishment' || target === 'silent') ? target : undefined;
-		await room.uploadReplay(user, connection, options);
+		// const options = (target === 'forpunishment' || target === 'silent') ? target : undefined;
+		// await room.uploadReplay(user, connection, options);
 	},
 	savereplayhelp: [`/savereplay - Saves the replay for the current battle.`],
 
