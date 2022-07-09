@@ -934,7 +934,8 @@ export const commands: Chat.ChatCommands = {
 		if (room.hideReplay) return this.errorReply(this.tr`The replay for this battle is already set to hidden.`);
 		room.hideReplay = true;
 		// If a replay has already been saved, /savereplay again to update the uploaded replay's hidden status
-		if (room.battle.replaySaved) this.parse('/savereplay');
+		// if (room.battle.replaySaved) this.parse('/savereplay');
+		if (room.battle.replaySaved) this.parse('/ssr');
 		this.addModAction(room.tr`${user.name} hid the replay of this battle.`);
 	},
 	hidereplayhelp: [`/hidereplay - Hides the replay of the current battle. Requires: ${Users.PLAYER_SYMBOL} &`],
