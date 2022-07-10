@@ -761,6 +761,43 @@ export const Formats: FormatList = [
 		},
 	},
 	{
+		name: "[Gen 8] Flipped BH",
+		desc: `BH + Flipped.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3662020/">Flipped</a>`, 
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3656408/">Balanced Hackmons</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
+		],
+
+		mod: 'gen8',
+		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Moves Clause', 'Endless Battle Clause', 'Flipped Mod'],
+		banlist: [
+			'Cramorant-Gorging', 'Eternatus-Eternamax', 'Shedinja',
+			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
+			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
+			'Comatose + Sleep Talk', 'Belly Drum', 'Bolt Beak', 'Court Change', 'Double Iron Bash', 'Octolock', 'Shell Smash',
+		],
+		onChangeSet(set) {
+			const item = this.dex.toID(set.item);
+			if (set.species === 'Zacian' && item === 'rustedsword') {
+				set.species = 'Zacian-Crowned';
+				set.ability = 'Intrepid Sword';
+				const ironHead = set.moves.indexOf('ironhead');
+				if (ironHead >= 0) {
+					set.moves[ironHead] = 'behemothblade';
+				}
+			}
+			if (set.species === 'Zamazenta' && item === 'rustedshield') {
+				set.species = 'Zamazenta-Crowned';
+				set.ability = 'Dauntless Shield';
+				const ironHead = set.moves.indexOf('ironhead');
+				if (ironHead >= 0) {
+					set.moves[ironHead] = 'behemothbash';
+				}
+			}
+		},
+	},
+	{
 		name: "[Gen 8] Godly Gift BH",
 		desc: `Godly Gift，但你可以如在 BH 那样自由编辑特性、技能和努力值。`,
 		threads: [
