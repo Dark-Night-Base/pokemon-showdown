@@ -2072,6 +2072,23 @@ export const Formats: FormatList = [
 		},
 	},
 	{
+		name: "[Gen 8] Flipped",
+		desc: `All Pok&eacute;mon have their base stats flipped. (HP/Atk/Def/SpA/SpD/Spe --> Spe/SpD/SpA/Def/Atk/HP)`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3662020/">Flipped</a>`, 
+		],
+
+		mod: 'gen8',
+		ruleset: ['Standard', 'Dynamax Clause', 'Flipped Mod'],
+		banlist: [
+			'Uber', 'AG', 'Arena Trap', 'Moody', 'Power Construct', 'Sand Veil', 'Shadow Tag', 'Snow Cloak',
+			'Bright Powder', 'King\'s Rock', 'Lax Incense', 'Baton Pass', 
+			'Azumarill', 'Blissey', 'Steelix', 'Psychic Surge', 'Psychic Terrian', 'Shell Smash', 
+			'+Darmanitan-Galar', '+Dracovish', '+Cinderace', '+Genesect', '+Landorus', '+Magearna', '+Naganadel', 
+			'+Pheromosa', '+Spectrier', '+Urshifu', 
+		],
+	},
+	{
 		name: "[Gen 8] Inheritance",
 		desc: `Pok&eacute;mon may use the ability and moves of another, as long as they forfeit their own learnset.`,
 		threads: [
