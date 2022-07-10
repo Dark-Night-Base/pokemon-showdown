@@ -2081,11 +2081,14 @@ export const Formats: FormatList = [
 		mod: 'gen8',
 		ruleset: ['Standard', 'Dynamax Clause', 'Flipped Mod'],
 		banlist: [
-			'Uber', 'AG', 'Arena Trap', 'Moody', 'Power Construct', 'Sand Veil', 'Shadow Tag', 'Snow Cloak',
+			'Calyrex-Ice', 'Calyrex-Shadow', 'Dialga', 'Eternatus', 'Giratina', 'Giratina-Origin', 
+			'Groudon', 'Ho-oh', 'Kyogre', 'Kyurem-Black', 'Kyurem-White', 'Lugia', 'Lunala', 'Marshadow', 
+			'Melmetal', 'Mewtwo', 'Necrozma-Dawn Wings', 'Necrozma-Dusk Mane', 'Palkia', 'Rayquaza', 
+			'Reshiram', 'Solgaleo', 'Xerneas', 'Yveltal', 'Zacian', 'Zacian-Crowned', 'Zamazenta', 
+			'Zamazenta-Crowned', 'Zekrom', 'Zygarde', 'Zygarde-Complete', 
+			'Arena Trap', 'Moody', 'Power Construct', 'Sand Veil', 'Shadow Tag', 'Snow Cloak',
 			'Bright Powder', 'King\'s Rock', 'Lax Incense', 'Baton Pass', 
 			'Azumarill', 'Blissey', 'Steelix', 'Psychic Surge', 'Psychic Terrain', 'Shell Smash', 
-			'+Darmanitan-Galar', '+Dracovish', '+Cinderace', '+Genesect', '+Landorus', '+Magearna', '+Naganadel', 
-			'+Pheromosa', '+Spectrier', '+Urshifu', 
 		],
 	},
 	{
