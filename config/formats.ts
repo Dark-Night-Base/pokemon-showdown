@@ -2083,7 +2083,7 @@ export const Formats: FormatList = [
 		banlist: [
 			'Uber', 'AG', 'Arena Trap', 'Moody', 'Power Construct', 'Sand Veil', 'Shadow Tag', 'Snow Cloak',
 			'Bright Powder', 'King\'s Rock', 'Lax Incense', 'Baton Pass', 
-			'Azumarill', 'Blissey', 'Steelix', 'Psychic Surge', 'Psychic Terrian', 'Shell Smash', 
+			'Azumarill', 'Blissey', 'Steelix', 'Psychic Surge', 'Psychic Terrain', 'Shell Smash', 
 			'+Darmanitan-Galar', '+Dracovish', '+Cinderace', '+Genesect', '+Landorus', '+Magearna', '+Naganadel', 
 			'+Pheromosa', '+Spectrier', '+Urshifu', 
 		],
