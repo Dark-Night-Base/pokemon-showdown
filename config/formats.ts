@@ -44,7 +44,8 @@ export const Formats: FormatList = [
 			'Barraskewda', 'Chansey', 'Darmanitan', 'Darmanitan-Galar',
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
 			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Comatose + Sleep Talk', 'Court Change', 'Double Iron Bash', 'Octolock', 'Shell Smash'
+			'Comatose + Sleep Talk', 'Court Change', 'Double Iron Bash', 'Octolock', 'Shell Smash', 
+			'Belly Drum', 
 		],
 		onValidateSet(set) {
 			const bst = this.dex.species.get(set.species).bst;
