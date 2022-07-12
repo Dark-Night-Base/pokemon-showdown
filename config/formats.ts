@@ -30,7 +30,7 @@ export const Formats: FormatList = [
 		section: "Server Special",
 	},
 	{
-		name: "[Gen 8] BH 500 Cup",
+		name: "[Gen 8] Balanced Hackmons 500 Cup",
 		desc: `BH but Pok&eacute;mon with BST > 500 are banned.`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3656408/">Balanced Hackmons</a>`,
@@ -100,7 +100,7 @@ export const Formats: FormatList = [
 		],
 	},
 	{
-		name: "[Gen 8] NDBH Letter Cup",
+		name: "[Gen 8] ND Letter Cup BH",
 		desc: `NDBH，但一只精灵携带的所有技能的英文首字母必须相同。`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/national-dex-bh.3658587/">National Dex BH</a>`,
@@ -1098,7 +1098,7 @@ export const Formats: FormatList = [
 		},
 	},
 	{
-		name: "[Gen 8] Godly Gift BH adv",
+		name: "[Gen 8] (Advanced) Godly Gift BH",
 		desc: `BH, 但队伍中种族最高的精灵成为神，其种族值被队友依次继承。若有多个精灵种族并列最高则最靠前的成为神。`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/godly-gift.3660461/">Godly Gift</a>`,
