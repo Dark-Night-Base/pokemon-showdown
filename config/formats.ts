@@ -916,7 +916,7 @@ export const Formats: FormatList = [
 		},
 	},
 	{
-		name: "[Gen 8] Camomons BH",
+		name: "[Gen 8] Camomons Balanced Hackmons",
 		desc: `BH but Pok&eacute;mon change type to match their first two moves.`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3656413/">Camomons</a>`,
@@ -1343,7 +1343,7 @@ export const Formats: FormatList = [
 		},
 	},
 	{
-		name: "[Gen 8] Monotype BH",
+		name: "[Gen 8] Monotype Balanced Hackmons",
 		desc: `BH but all Pok&eacute;mon on a team must share a type.`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/om-mashup-megathread.3657159/post-9124457">Monotype BH</a>`,
