@@ -18,7 +18,14 @@ type TierShiftTiers = 'UU' | 'RUBL' | 'RU' | 'NUBL' | 'NU' | 'PUBL' | 'PU' | 'NF
 
 function getMegaStone(stone: string, mod = 'gen8'): Item | null {
 	let dex = Dex;
-	if (mod && toID(mod) in Dex.dexes) dex = Dex.mod(toID(mod));
+	if (mod) {
+		if (toID(mod) in Dex.dexes) {
+			dex = Dex.mod(toID(mod));
+		} else if (toID(mod) === 'bh' || toID(mod) === 'mnmbh') {
+			dex = Dex.mod('mixandmegabh');
+		}
+	}
+	// if (mod && toID(mod) in Dex.dexes) dex = Dex.mod(toID(mod));
 	const item = dex.items.get(stone);
 	if (!item.exists) {
 		if (toID(stone) === 'dragonascent') {
@@ -36,11 +43,39 @@ function getMegaStone(stone: string, mod = 'gen8'): Item | null {
 				effectType: 'Item',
 				sourceEffect: '',
 			} as Item;
+		} else if (dex.currentMod === 'mixandmegabh' && toID(stone) === 'glaciallance') {
+			const move = dex.moves.get(stone);
+			return {
+				id: move.id,
+				name: move.name,
+				fullname: move.name,
+				megaEvolves: 'Glastrier',
+				megaStone: 'Calyrex-Ice',
+				exists: true,
+				gen: 8,
+				num: -1,
+				effectType: 'Item',
+				sourceEffect: '',
+			} as Item;
+		} else if (dex.currentMod === 'mixandmegabh' && toID(stone) === 'astralbarrage') {
+			const move = dex.moves.get(stone);
+			return {
+				id: move.id,
+				name: move.name,
+				fullname: move.name,
+				megaEvolves: 'Spectrier',
+				megaStone: 'Calyrex-Shadow',
+				exists: true,
+				gen: 8,
+				num: -1,
+				effectType: 'Item',
+				sourceEffect: '',
+			} as Item;
 		} else {
 			return null;
 		}
 	}
-	if (!item.megaStone && !item.onPrimal) return null;
+	if (!item.megaStone && !item.onPrimal && item.id !== 'rustedshield' && item.id !== 'rustedsword') return null;
 	return item;
 }
 
@@ -87,6 +122,8 @@ export const commands: Chat.ChatCommands = {
 		if (mod) {
 			if (toID(mod) in Dex.dexes) {
 				dex = Dex.mod(toID(mod));
+			} else if (toID(mod) === 'bh' || toID(mod) === 'mnmbh') {
+				dex = Dex.mod('mixandmegabh');
 			} else {
 				throw new Chat.ErrorMessage(`A mod by the name of '${mod.trim()}' does not exist.`);
 			}
@@ -96,7 +133,7 @@ export const commands: Chat.ChatCommands = {
 		}
 		const stone = getMegaStone(stoneName[0], mod);
 		const species = dex.species.get(sep[0]);
-		if (!stone || (dex.gen >= 8 && ['redorb', 'blueorb'].includes(stone.id))) {
+		if (!stone || (dex.gen >= 8 && dex.currentMod != 'mixandmegabh' && ['redorb', 'blueorb'].includes(stone.id))) {
 			throw new Chat.ErrorMessage(`Error: Mega Stone not found.`);
 		}
 		if (!species.exists) throw new Chat.ErrorMessage(`Error: Pok\u00e9mon not found.`);
@@ -108,6 +145,12 @@ export const commands: Chat.ChatCommands = {
 		} else if (stone.id === 'blueorb') {
 			megaSpecies = dex.species.get("Kyogre-Primal");
 			baseSpecies = dex.species.get("Kyogre");
+		} else if (stone.id === 'rustedshield') {
+			megaSpecies = dex.species.get("Zamazenta-Crowned");
+			baseSpecies = dex.species.get("Zamazenta");
+		} else if (stone.id === 'rustedsword') {
+			megaSpecies = dex.species.get("Zacian-Crowned");
+			baseSpecies = dex.species.get("Zacian");
 		}
 		const deltas: StoneDeltas = {
 			baseStats: Object.create(null),
@@ -182,6 +225,8 @@ export const commands: Chat.ChatCommands = {
 		if (sep[1]) {
 			if (toID(sep[1]) in Dex.dexes) {
 				dex = Dex.mod(toID(sep[1]));
+			} else if (toID(sep[1]) === 'bh' || toID(sep[1]) === 'mnmbh') {
+				dex = Dex.mod('mixandmegabh');
 			} else {
 				throw new Chat.ErrorMessage(`A mod by the name of '${sep[1].trim()}' does not exist.`);
 			}
@@ -216,7 +261,7 @@ export const commands: Chat.ChatCommands = {
 			if (!aStone) return;
 			let baseSpecies = dex.species.get(aStone.megaEvolves);
 			let megaSpecies = dex.species.get(aStone.megaStone);
-			if (dex.gen >= 8 && ['redorb', 'blueorb'].includes(aStone.id)) {
+			if (dex.gen >= 8 && dex.currentMod !== 'mixandmegabh' && ['redorb', 'blueorb'].includes(aStone.id)) {
 				throw new Chat.ErrorMessage("The Orbs do not exist in Gen 8 and later.");
 			}
 			if (aStone.id === 'redorb') { // Orbs do not have 'Item.megaStone' or 'Item.megaEvolves' properties.
@@ -225,6 +270,12 @@ export const commands: Chat.ChatCommands = {
 			} else if (aStone.id === 'blueorb') {
 				megaSpecies = dex.species.get("Kyogre-Primal");
 				baseSpecies = dex.species.get("Kyogre");
+			} else if (aStone.id === 'rustedshield') {
+				megaSpecies = dex.species.get("Zamazenta-Crowned");
+				baseSpecies = dex.species.get("Zamazenta");
+			} else if (aStone.id === 'rustedsword') {
+				megaSpecies = dex.species.get("Zacian-Crowned");
+				baseSpecies = dex.species.get("Zacian");
 			}
 			const deltas: StoneDeltas = {
 				baseStats: Object.create(null),

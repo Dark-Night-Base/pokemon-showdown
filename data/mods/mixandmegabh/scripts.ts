@@ -9,7 +9,7 @@ export const Scripts: ModdedBattleScriptsData = {
 	},
 	actions: {
 		canMegaEvo(pokemon) {
-			if (pokemon.species.isMega) return null;
+			if (pokemon.species.isMega || pokemon.species.isPrimal) return null;
 
 			const item = pokemon.getItem();
 			if (item.megaStone) {
@@ -17,12 +17,17 @@ export const Scripts: ModdedBattleScriptsData = {
 				return item.megaStone;
 			} else if (pokemon.baseMoves.includes('dragonascent' as ID)) {
 				return 'Rayquaza-Mega';
-			} else {
+			} else if (pokemon.baseMoves.includes('glaciallance' as ID)) {
+				return 'Calyrex-Ice';
+			} else if (pokemon.baseMoves.includes('astralbarrage' as ID)) {
+				return 'Calyrex-Shadow';
+			}
+			else {
 				return null;
 			}
 		},
 		runMegaEvo(pokemon) {
-			if (pokemon.species.isMega) return false;
+			if (pokemon.species.isMega || pokemon.species.isPrimal) return false;
 
 			// @ts-ignore
 			const species: Species = this.getMixedSpecies(pokemon.m.originalSpecies, pokemon.canMegaEvo);
@@ -71,6 +76,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				requiredItem: string | undefined,
 				type?: string,
 				isMega?: boolean,
+				isPrimal?: boolean,
 			} = {
 				ability: megaSpecies.abilities['0'],
 				baseStats: {},
@@ -90,6 +96,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				deltas.type = megaSpecies.types[1];
 			}
 			if (megaSpecies.isMega) deltas.isMega = true;
+			if (megaSpecies.isPrimal) deltas.isPrimal = true;
 			return deltas;
 		},
 		doGetMixedSpecies(speciesOrForme, deltas) {
@@ -111,6 +118,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			species.originalMega = deltas.originalMega;
 			species.requiredItem = deltas.requiredItem;
 			if (deltas.isMega) species.isMega = true;
+			if (deltas.isPrimal) species.isPrimal = true;
 			return species;
 		},
 	},

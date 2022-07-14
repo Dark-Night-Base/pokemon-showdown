@@ -1231,7 +1231,7 @@ export const Formats: FormatList = [
 			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
 			'Comatose + Sleep Talk', 'Bolt Beak', 'Double Iron Bash', 'Octolock', 'Shell Smash', 
 			'Beedrillite', 'Gengarite', 'Kangaskhanite', 'Mawilite', 'Medichamite',
-			'Dragon Ascent > 1'
+			'Astral Barrage > 1', 'Dragon Ascent > 1', 'Glacial Lance > 1', 
 		],
 		/*unbanlist: [
 			'Abomasite', 'Absolite', 'Aerodactylite', 'Aggronite', 
@@ -1246,7 +1246,7 @@ export const Formats: FormatList = [
 			'Scizorite', 'Sharpedonite', 'Slowbronite', 'Swampertite', 
 			'Tyranitarite', 'Venusaurite',
 		],*/
-		restricted: ['Calyrex-Shadow', 'Zacian-Crowned', 'Zamazenta-Crowned', 'Intrepid Sword'],
+		restricted: ['Calyrex-Ice', 'Calyrex-Shadow', 'Zacian-Crowned', 'Zamazenta-Crowned', 'Intrepid Sword'],
 		onValidateSet(set) {
 			const ability = this.dex.abilities.get(set.ability);
 			if (ability.id === 'intrepidsword') {
@@ -1259,7 +1259,7 @@ export const Formats: FormatList = [
 			const itemTable = new Set<ID>();
 			for (const set of team) {
 				const item = this.dex.items.get(set.item);
-				if (!item?.megaStone) continue;
+				if (!item?.megaStone && !item?.onPrimal) continue;
 				const species = this.dex.species.get(set.species);
 				if (species.isNonstandard) return [`${species.baseSpecies} does not exist in gen 8.`];
 				if (this.ruleTable.isRestrictedSpecies(species) || this.toID(set.ability) === 'powerconstruct') {
@@ -1318,11 +1318,11 @@ export const Formats: FormatList = [
 				mSpecies.baseStats.spe = this.clampIntRange(mSpecies.baseStats.spe - 10, 1, 255);
 				mSpecies.abilities = {'0': 'dauntlessshield'};
 				mSpecies.weighthg = Math.max(1, mSpecies.weighthg + 5750);
-				mSpecies.isMega = true;
+				mSpecies.isPrimal = true;
 				mSpecies.originalMega = 'Zamazenta-Crowned';
 				mSpecies.requiredItem = 'rustedshield';
 				target.baseSpecies = mSpecies;
-				target.canMegaEvo = null;	
+				// unnecessary target.canMegaEvo = null;	
 				return mSpecies;
 			}
 			if (item === 'rustedsword') {			
@@ -1332,11 +1332,11 @@ export const Formats: FormatList = [
 				mSpecies.baseStats.spe = this.clampIntRange(mSpecies.baseStats.spe + 10, 1, 255);
 				mSpecies.abilities = {'0': 'intrepidsword'};
 				mSpecies.weighthg = Math.max(1, mSpecies.weighthg + 2450);
-				mSpecies.isMega = true;
+				mSpecies.isPrimal = true;
 				mSpecies.originalMega = 'Zacian-Crowned';
 				mSpecies.requiredItem = 'rustedsword';
 				target.baseSpecies = mSpecies;
-				target.canMegaEvo = null;
+				// unnecessary target.canMegaEvo = null;
 				return mSpecies;
 			}
 			return;
