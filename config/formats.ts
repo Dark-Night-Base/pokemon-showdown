@@ -1246,7 +1246,7 @@ export const Formats: FormatList = [
 			'Scizorite', 'Sharpedonite', 'Slowbronite', 'Swampertite', 
 			'Tyranitarite', 'Venusaurite',
 		],*/
-		restricted: ['Calyrex-Ice', 'Calyrex-Shadow', 'Zacian-Crowned', 'Zamazenta-Crowned', 'Intrepid Sword'],
+		restricted: ['Intrepid Sword'],
 		onValidateSet(set) {
 			const ability = this.dex.abilities.get(set.ability);
 			if (ability.id === 'intrepidsword') {
@@ -1295,7 +1295,11 @@ export const Formats: FormatList = [
 				this.add('-end', pokemon, oMegaSpecies.requiredItem || oMegaSpecies.requiredMove, '[silent]');
 			}
 		},
+		// necessary
 		onChangeSet(set) {
+			const species = this.dex.species.get(set.species);
+			if (species.forme && ['Mega', 'Mega-X', 'Mega-Y', 'Primal'].includes(species.forme)) return;
+
 			const item = this.dex.toID(set.item);			
 			if (item === 'rustedshield') {
 				set.ability = 'Dauntless Shield';
@@ -1307,7 +1311,7 @@ export const Formats: FormatList = [
 		onModifySpecies(species, target, source, effect) {
 			if (!target) return; // Chat command
 			if (effect && ['imposter', 'transform'].includes(effect.id)) return;
-			if (target.species.isMega) return;
+			if (target.species.forme && ['Mega', 'Mega-X', 'Mega-Y', 'Primal'].includes(target.species.forme)) return;
 
 			const item = this.dex.toID(target?.set.item);
 			if (item === 'rustedshield') {

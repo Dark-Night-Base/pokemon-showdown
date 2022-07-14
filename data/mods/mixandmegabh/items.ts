@@ -200,11 +200,12 @@ export const Items: {[k: string]: ModdedItemData} = {
 	blueorb: {
 		inherit: true,
 		onSwitchIn(pokemon) {
-			if (pokemon.isActive && !pokemon.species.isPrimal) {
+			if (pokemon.isActive && !pokemon.species.isPrimal && !pokemon.species.isMega) {
 				this.queue.insertChoice({pokemon, choice: 'runPrimal'});
 			}
 		},
 		onPrimal(pokemon) {
+			if (pokemon.species.forme && ['Mega', 'Mega-X', 'Mega-Y', 'Primal'].includes(pokemon.species.forme)) return;
 			// @ts-ignore
 			const species: Species = this.actions.getMixedSpecies(pokemon.m.originalSpecies, 'Kyogre-Primal');
 			if (pokemon.m.originalSpecies === 'Kyogre') {
@@ -221,11 +222,12 @@ export const Items: {[k: string]: ModdedItemData} = {
 	redorb: {
 		inherit: true,
 		onSwitchIn(pokemon) {
-			if (pokemon.isActive && !pokemon.species.isPrimal) {
+			if (pokemon.isActive && !pokemon.species.isPrimal && !pokemon.species.isMega) {
 				this.queue.insertChoice({pokemon, choice: 'runPrimal'});
 			}
 		},
 		onPrimal(pokemon) {
+			if (pokemon.species.forme && ['Mega', 'Mega-X', 'Mega-Y', 'Primal'].includes(pokemon.species.forme)) return;
 			// @ts-ignore
 			const species: Species = this.actions.getMixedSpecies(pokemon.m.originalSpecies, 'Groudon-Primal');
 			if (pokemon.m.originalSpecies === 'Groudon') {

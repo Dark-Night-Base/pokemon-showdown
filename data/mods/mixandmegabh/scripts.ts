@@ -1,3 +1,5 @@
+import { Moves } from "../../moves";
+
 export const Scripts: ModdedBattleScriptsData = {
 	init() {
 		for (const i in this.data.Items) {
@@ -9,22 +11,35 @@ export const Scripts: ModdedBattleScriptsData = {
 	},
 	actions: {
 		canMegaEvo(pokemon) {
-			if (pokemon.species.isMega || pokemon.species.isPrimal) return null;
+			if (pokemon.species.forme && ['Mega', 'Mega-X', 'Mega-Y', 'Primal'].includes(pokemon.species.forme)) return null;
 
 			const item = pokemon.getItem();
 			if (item.megaStone) {
 				if (item.megaStone === pokemon.baseSpecies.name) return null;
 				return item.megaStone;
-			} else if (pokemon.baseMoves.includes('dragonascent' as ID)) {
-				return 'Rayquaza-Mega';
-			} else if (pokemon.baseMoves.includes('glaciallance' as ID)) {
-				return 'Calyrex-Ice';
-			} else if (pokemon.baseMoves.includes('astralbarrage' as ID)) {
-				return 'Calyrex-Shadow';
 			}
-			else {
+			if (item.id === 'blueorb' || item.id === 'redorb' || item.id === 'rustedshield' || item.id === 'rustedsword') {
 				return null;
 			}
+			for (const moveSlot of pokemon.baseMoveSlots) {
+				if (moveSlot.id === 'dragonascent') {
+					return 'Rayquaza-Mega';
+				}
+				if (moveSlot.id === 'glaciallance') {
+					return 'Calyrex-Ice';
+				}
+				if (moveSlot.id === 'astralbarrage') {
+					return 'Calyrex-Shadow';
+				}
+			}
+			// else if (pokemon.baseMoves.includes('dragonascent' as ID)) {
+			// 	return 'Rayquaza-Mega';
+			// } else if (pokemon.baseMoves.includes('glaciallance' as ID)) {
+			// 	return 'Calyrex-Ice';
+			// } else if (pokemon.baseMoves.includes('astralbarrage' as ID)) {
+			// 	return 'Calyrex-Shadow';
+			// }
+			return null;
 		},
 		runMegaEvo(pokemon) {
 			if (pokemon.species.isMega || pokemon.species.isPrimal) return false;
