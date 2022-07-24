@@ -726,7 +726,7 @@ export const commands: Chat.ChatCommands = {
 	reevolvebh(target, user, room) {
 		if (!this.runBroadcast()) return;
 		const targetid = toID(target);
-		if (!targetid) return this.parse('/help reevo');
+		if (!targetid) return this.parse('/help reevolvebh');
 		const evo = Dex.species.get(targetid);
 		if (!evo.exists) {
 			throw new Chat.ErrorMessage(`Error: Pok\u00e9mon ${target} not found.`);
@@ -746,7 +746,29 @@ export const commands: Chat.ChatCommands = {
 		}
 		this.sendReply(`|raw|${Chat.getDataPokemonHTML(newSpecies, Dex.gen)}`);
 	},
-	reevolvehelp: [
+	reevolvebhhelp: [
 		"/reevobh <pokemon> - Shows the stats that a Pok\u00e9mon would have in Re-Evolution BH.",
 	],
+	tt: 'turntables',
+	turntables(target, user, room) {
+		if (!this.runBroadcast()) return;
+		const targetid = toID(target);
+		if (!targetid) return this.parse('/help turntables');
+		const species = Dex.species.get(targetid);
+		if (!species.exists) {
+			throw new Chat.ErrorMessage(`Error: Pok\u00e9mon ${target} not found.`);
+		}
+		const newSpecies = Dex.deepClone(species);
+		newSpecies.tier = 'TT';
+		newSpecies.bst = 0;
+		let statName: StatID;
+		for (statName in newSpecies.baseStats as StatsTable) {
+			newSpecies.baseStats[statName] = newSpecies.baseStats[statName] < 100 ? Utils.clampIntRange(newSpecies.baseStats[statName] * 2, 1, 255) : newSpecies.baseStats[statName];
+			newSpecies.bst += newSpecies.baseStats[statName];
+		}
+		this.sendReply(`|raw|${Chat.getDataPokemonHTML(newSpecies, Dex.gen)}`);
+	},
+	turntableshelp: [
+		"/tt <pokemon> - Shows the stats that a Pok\u00e9mon would have in Turn Tables.",
+	]
 };

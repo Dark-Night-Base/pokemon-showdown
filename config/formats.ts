@@ -612,6 +612,31 @@ export const Formats: FormatList = [
 			},
 		},
 	},
+	{
+		name: "[Gen 8] Turn Tables",
+		desc: `Base stats below 100 get doubled.`,
+		threads: [
+			`None yet.`,
+		],
+
+		mod: 'gen8',
+		ruleset: ['Standard', 'Dynamax Clause', 'Overflow Stat Mod'],
+		banlist: [
+			'Shadow Tag', 'Baton Pass', 
+			'Eviolite', 
+		],
+		onModifySpecies(species, target, source, effect) {
+			if (!species.baseStats) return;
+			const pokemon = this.dex.deepClone(species);
+			pokemon.bst = 0;
+			let statName: StatID;
+			for (statName in pokemon.baseStats as StatsTable) {
+				pokemon.baseStats[statName] = pokemon.baseStats[statName] < 100 ? this.clampIntRange(pokemon.baseStats[statName] * 2, 1, 255) : pokemon.baseStats[statName];
+				pokemon.bst += pokemon.baseStats[statName];
+			}
+			return pokemon;
+		},
+	},
 
 	// Balanced Hackmons
 	///////////////////////////////////////////////////////////////////
