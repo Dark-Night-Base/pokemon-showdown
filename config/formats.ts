@@ -622,7 +622,7 @@ export const Formats: FormatList = [
 		mod: 'gen8',
 		ruleset: ['Standard', 'Dynamax Clause', 'Overflow Stat Mod'],
 		banlist: [
-			'Shadow Tag', 'Baton Pass', 
+			'AG', 'Shadow Tag', 'Baton Pass', 
 			'Eviolite', 
 		],
 		onModifySpecies(species, target, source, effect) {
