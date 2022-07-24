@@ -613,6 +613,55 @@ export const Formats: FormatList = [
 		},
 	},
 	{
+		name: "[Gen 8] ND Turn Tables BH",
+		desc: `NDBH + Turn Tables.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/national-dex-bh-v3.3690179/#post-9217527">National Dex BH v3</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/national-dex-bh.3658587/">National Dex BH</a>`,
+		],
+
+		mod: 'gen8',
+		ruleset: ['Standard NatDex', '!Obtainable', '2 Ability Clause', 'OHKO Clause', 'CFZ Clause', 'Evasion Moves Clause', 'Forme Clause', 'Dynamax Clause', 'Sleep Clause Mod'],
+		banlist: [
+			'Cramorant-Gorging', 'Eternatus-Eternamax', 'Shedinja', 'Silvally', 
+			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
+			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
+			'Comatose + Sleep Talk', 'Imprison + Transform', 
+			'Belly Drum', 'Court Change', 'Double Iron Bash', 'Electrify', 'Octolock', 'Shell Smash',
+			'Gengarite', 
+		],
+		onChangeSet(set) {
+			const item = this.dex.toID(set.item);
+			if (set.species === 'Zacian' && item === 'rustedsword') {
+				set.species = 'Zacian-Crowned';
+				set.ability = 'Intrepid Sword';
+				const ironHead = set.moves.indexOf('ironhead');
+				if (ironHead >= 0) {
+					set.moves[ironHead] = 'behemothblade';
+				}
+			}
+			if (set.species === 'Zamazenta' && item === 'rustedshield') {
+				set.species = 'Zamazenta-Crowned';
+				set.ability = 'Dauntless Shield';
+				const ironHead = set.moves.indexOf('ironhead');
+				if (ironHead >= 0) {
+					set.moves[ironHead] = 'behemothbash';
+				}
+			}
+		},
+		onModifySpecies(species, target, source, effect) {
+			if (!species.baseStats) return;
+			const pokemon = this.dex.deepClone(species);
+			pokemon.bst = 0;
+			let statName: StatID;
+			for (statName in pokemon.baseStats as StatsTable) {
+				pokemon.baseStats[statName] = pokemon.baseStats[statName] < 100 ? this.clampIntRange(pokemon.baseStats[statName] * 2, 1, 255) : pokemon.baseStats[statName];
+				pokemon.bst += pokemon.baseStats[statName];
+			}
+			return pokemon;
+		},
+	},
+	{
 		name: "[Gen 8] Turn Tables",
 		desc: `Base stats below 100 get doubled.`,
 		threads: [

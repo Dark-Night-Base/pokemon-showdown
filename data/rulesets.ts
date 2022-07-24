@@ -2026,4 +2026,13 @@ export const Rulesets: {[k: string]: FormatData} = {
 			}
 		},
 	},
+	silvallyclause: {
+		effectType: 'ValidatorRule',
+		name: 'Silvally Clause',
+		desc: "Prevents teams from having more than one Silvally.",
+		banlist: ['Silvally > 1'],
+		onBegin() {
+			this.add('rule', 'Silvally Clause: Limit one Arceus.');
+		},
+	},
 };
