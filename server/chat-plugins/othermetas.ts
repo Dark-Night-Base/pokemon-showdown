@@ -763,6 +763,7 @@ export const commands: Chat.ChatCommands = {
 		newSpecies.bst = 0;
 		let statName: StatID;
 		for (statName in newSpecies.baseStats as StatsTable) {
+			if (statName === 'hp') continue;
 			newSpecies.baseStats[statName] = newSpecies.baseStats[statName] < 100 ? Utils.clampIntRange(newSpecies.baseStats[statName] * 2, 1, 255) : newSpecies.baseStats[statName];
 			newSpecies.bst += newSpecies.baseStats[statName];
 		}

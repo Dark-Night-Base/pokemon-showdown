@@ -655,6 +655,7 @@ export const Formats: FormatList = [
 			pokemon.bst = 0;
 			let statName: StatID;
 			for (statName in pokemon.baseStats as StatsTable) {
+				if (statName === 'hp') continue;
 				pokemon.baseStats[statName] = pokemon.baseStats[statName] < 100 ? this.clampIntRange(pokemon.baseStats[statName] * 2, 1, 255) : pokemon.baseStats[statName];
 				pokemon.bst += pokemon.baseStats[statName];
 			}
@@ -663,7 +664,7 @@ export const Formats: FormatList = [
 	},
 	{
 		name: "[Gen 8] Turn Tables",
-		desc: `Base stats below 100 get doubled.`,
+		desc: `Base stats below 100 get doubled (except HP).`,
 		threads: [
 			`None yet.`,
 		],
@@ -681,6 +682,7 @@ export const Formats: FormatList = [
 			pokemon.bst = 0;
 			let statName: StatID;
 			for (statName in pokemon.baseStats as StatsTable) {
+				if (statName === 'hp') continue;
 				pokemon.baseStats[statName] = pokemon.baseStats[statName] < 100 ? this.clampIntRange(pokemon.baseStats[statName] * 2, 1, 255) : pokemon.baseStats[statName];
 				pokemon.bst += pokemon.baseStats[statName];
 			}
