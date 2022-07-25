@@ -115,7 +115,7 @@ export const Formats: FormatList = [
 			'Comatose + Sleep Talk', 'Shell Smash', 'Spore', 
 			'Gengarite',
 		],
-		restricted: ['Zacian-Crowned', 'Intrepid Sword'],
+		restricted: ['Intrepid Sword'],
 		onValidateSet(set) {
 			const problems = [];
 			const ability = this.dex.abilities.get(set.ability);
