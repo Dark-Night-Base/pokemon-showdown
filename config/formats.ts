@@ -115,7 +115,7 @@ export const Formats: FormatList = [
 			'Comatose + Sleep Talk', 'Shell Smash', 'Spore', 
 			'Gengarite',
 		],
-		restricted: ['Intrepid Sword'],
+		restricted: ['Zacian-Crowned', 'Intrepid Sword'],
 		onValidateSet(set) {
 			const problems = [];
 			const ability = this.dex.abilities.get(set.ability);
@@ -166,7 +166,7 @@ export const Formats: FormatList = [
 		mod: 'gen8',
 		ruleset: ['Standard NatDex', '!Obtainable', '-LGPE', '-Future', '2 Ability Clause', 'OHKO Clause', 'CFZ Clause', 'Evasion Moves Clause', 'Forme Clause', 'Forte Clause', 'Dynamax Clause', 'Sleep Moves Clause', 'Arceus Clause'],
 		banlist: [
-			'Calyrex-Shadow', 'Cramorant-Gorging', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 'Zacian-Crowned', 
+			'Calyrex-Shadow', 'Cramorant-Gorging', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Magnet Pull', 'Moody',
 			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Serene Grace', 'Shadow Tag', 'Stakeout', 'Triage', 'Water Bubble', 
 			'Wonder Guard',
@@ -179,7 +179,7 @@ export const Formats: FormatList = [
 			'Gengarite',
 		],
 		restricted: [
-			'Intrepid Sword', 
+			'Zacian-Crowned', 'Intrepid Sword', 
 			'Acid Spray', 'Bide', 'Bolt Beak', 'Counter', 'Dynamic Punch', 'Echoed Voice', 'Eerie Spell', 'Endeavor', 'Fishious Rend', 
 			'Frost Breath', 'Ice Ball', 'Inferno', 'Mirror Coat', 'Nature\'s Madness', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rising Voltage', 
 			'Rollout', 'Shell Side Arm', 'Sky Drop', 'Stored Power', 'Storm Throw', 'Super Fang', 'Weather Ball', 'Wicked Blow', 'Zap Cannon',
@@ -410,14 +410,14 @@ export const Formats: FormatList = [
 		mod: 'gen8',
 		ruleset: ['Standard NatDex', '!Obtainable', '-LGPE', '-Future', '2 Ability Clause', 'OHKO Clause', 'CFZ Clause', 'Evasion Moves Clause', 'Forme Clause', 'Dynamax Clause', 'Sleep Clause Mod', 'Arceus Clause'],
 		banlist: [
-			'Calyrex-Shadow', 'Cramorant-Gorging', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 'Zacian-Crowned', 
+			'Calyrex-Shadow', 'Cramorant-Gorging', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Magnet Pull', 'Moody',
 			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
 			'Comatose + Sleep Talk', 'Imprison + Transform', 
 			'Belly Drum', 'Bolt Beak', 'Chatter', 'Court Change', 'Double Iron Bash', 'Electrify', 'Octolock', 'Shell Smash',
 			'Gengarite',
 		],
-		restricted: ['Intrepid Sword'],
+		restricted: ['Zacian-Crowned', 'Intrepid Sword'],
 		onValidateSet(set) {
 			const ability = this.dex.abilities.get(set.ability);
 			if (set.species === 'Zacian-Crowned') {
@@ -720,14 +720,14 @@ export const Formats: FormatList = [
 		mod: 'gen8',
 		ruleset: ['Standard NatDex', '!Obtainable', '-LGPE', '-Future', '2 Ability Clause', 'OHKO Clause', 'CFZ Clause', 'Evasion Moves Clause', 'Forme Clause', 'Dynamax Clause', 'Sleep Moves Clause', 'Arceus Clause'],
 		banlist: [
-			'Calyrex-Shadow', 'Cramorant-Gorging', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 'Zacian-Crowned', 
+			'Calyrex-Shadow', 'Cramorant-Gorging', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Magnet Pull', 'Moody',
 			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
 			'Comatose + Sleep Talk', 'Imprison + Transform', 
 			'Belly Drum', 'Bolt Beak', 'Chatter', 'Court Change', 'Double Iron Bash', 'Electrify', 'Octolock', 'Shell Smash',
 			'Gengarite',
 		],
-		restricted: ['Intrepid Sword'],
+		restricted: ['Zacian-Crowned', 'Intrepid Sword'],
 		onValidateSet(set) {
 			const ability = this.dex.abilities.get(set.ability);
 			if (set.species === 'Zacian-Crowned') {
