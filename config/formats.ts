@@ -87,7 +87,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
-		ruleset: ['Standard NatDex', 'Little Cup', '!Obtainable', 'OHKO Clause', 'CFZ Clause', 'Evasion Moves Clause', 'Forme Clause', 'Dynamax Clause', ],
+		ruleset: ['Standard NatDex', 'Little Cup', '!Obtainable', '-LGPE', '-Future', 'OHKO Clause', 'CFZ Clause', 'Evasion Moves Clause', 'Forme Clause', 'Dynamax Clause', ],
 		banlist: [
 			'Corsola-Galar', 
 			'Archen', 'Gligar', 'Scyther', 'Sneasel', 'Tangela', 'Type: Null', 'Yanma', 
@@ -107,7 +107,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
-		ruleset: ['Standard NatDex', '!Obtainable', '2 Ability Clause', 'OHKO Clause', 'CFZ Clause', 'Evasion Moves Clause', 'Forme Clause', 'Dynamax Clause', 'Sleep Clause Mod', 'Arceus Clause'],
+		ruleset: ['Standard NatDex', '!Obtainable', '-LGPE', '-Future', '2 Ability Clause', 'OHKO Clause', 'CFZ Clause', 'Evasion Moves Clause', 'Forme Clause', 'Dynamax Clause', 'Sleep Clause Mod', 'Arceus Clause'],
 		banlist: [
 			'Calyrex-Shadow', 'Cramorant-Gorging', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Magnet Pull', 'Moody',
@@ -164,9 +164,9 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
-		ruleset: ['Standard NatDex', '!Obtainable', '2 Ability Clause', 'OHKO Clause', 'CFZ Clause', 'Evasion Moves Clause', 'Forme Clause', 'Forte Clause', 'Dynamax Clause', 'Sleep Moves Clause', 'Arceus Clause'],
+		ruleset: ['Standard NatDex', '!Obtainable', '-LGPE', '-Future', '2 Ability Clause', 'OHKO Clause', 'CFZ Clause', 'Evasion Moves Clause', 'Forme Clause', 'Forte Clause', 'Dynamax Clause', 'Sleep Moves Clause', 'Arceus Clause'],
 		banlist: [
-			'Calyrex-Shadow', 'Cramorant-Gorging', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 
+			'Calyrex-Shadow', 'Cramorant-Gorging', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 'Zacian-Crowned', 
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Magnet Pull', 'Moody',
 			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Serene Grace', 'Shadow Tag', 'Stakeout', 'Triage', 'Water Bubble', 
 			'Wonder Guard',
@@ -179,7 +179,7 @@ export const Formats: FormatList = [
 			'Gengarite',
 		],
 		restricted: [
-			'Zacian-Crowned', 'Intrepid Sword', 
+			'Intrepid Sword', 
 			'Acid Spray', 'Bide', 'Bolt Beak', 'Counter', 'Dynamic Punch', 'Echoed Voice', 'Eerie Spell', 'Endeavor', 'Fishious Rend', 
 			'Frost Breath', 'Ice Ball', 'Inferno', 'Mirror Coat', 'Nature\'s Madness', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rising Voltage', 
 			'Rollout', 'Shell Side Arm', 'Sky Drop', 'Stored Power', 'Storm Throw', 'Super Fang', 'Weather Ball', 'Wicked Blow', 'Zap Cannon',
@@ -408,7 +408,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
-		ruleset: ['Standard NatDex', '!Obtainable', '2 Ability Clause', 'OHKO Clause', 'CFZ Clause', 'Evasion Moves Clause', 'Forme Clause', 'Dynamax Clause', 'Sleep Clause Mod', 'Arceus Clause'],
+		ruleset: ['Standard NatDex', '!Obtainable', '-LGPE', '-Future', '2 Ability Clause', 'OHKO Clause', 'CFZ Clause', 'Evasion Moves Clause', 'Forme Clause', 'Dynamax Clause', 'Sleep Clause Mod', 'Arceus Clause'],
 		banlist: [
 			'Calyrex-Shadow', 'Cramorant-Gorging', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 'Zacian-Crowned', 
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Magnet Pull', 'Moody',
@@ -417,7 +417,7 @@ export const Formats: FormatList = [
 			'Belly Drum', 'Bolt Beak', 'Chatter', 'Court Change', 'Double Iron Bash', 'Electrify', 'Octolock', 'Shell Smash',
 			'Gengarite',
 		],
-		restricted: ['Zacian-Crowned', 'Intrepid Sword'],
+		restricted: ['Intrepid Sword'],
 		onValidateSet(set) {
 			const ability = this.dex.abilities.get(set.ability);
 			if (set.species === 'Zacian-Crowned') {
@@ -621,7 +621,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
-		ruleset: ['Standard NatDex', '!Obtainable', '2 Ability Clause', 'OHKO Clause', 'CFZ Clause', 'Evasion Moves Clause', 'Forme Clause', 'Dynamax Clause', 'Sleep Clause Mod'],
+		ruleset: ['Standard NatDex', '!Obtainable', '-LGPE', '-Future', '2 Ability Clause', 'OHKO Clause', 'CFZ Clause', 'Evasion Moves Clause', 'Forme Clause', 'Dynamax Clause', 'Sleep Clause Mod', 'Turn Tables Mod'],
 		banlist: [
 			'Cramorant-Gorging', 'Eternatus-Eternamax', 'Shedinja', 'Silvally', 
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
@@ -649,45 +649,21 @@ export const Formats: FormatList = [
 				}
 			}
 		},
-		onModifySpecies(species, target, source, effect) {
-			if (!species.baseStats) return;
-			const pokemon = this.dex.deepClone(species);
-			pokemon.bst = 0;
-			let statName: StatID;
-			for (statName in pokemon.baseStats as StatsTable) {
-				if (statName === 'hp') continue;
-				pokemon.baseStats[statName] = pokemon.baseStats[statName] < 100 ? this.clampIntRange(pokemon.baseStats[statName] * 2, 1, 255) : pokemon.baseStats[statName];
-				pokemon.bst += pokemon.baseStats[statName];
-			}
-			return pokemon;
-		},
 	},
 	{
 		name: "[Gen 8] Turn Tables",
-		desc: `Base stats below 100 get doubled (except HP).`,
+		desc: `Base stats below 100 get doubled, excluding HP.`,
 		threads: [
 			`None yet.`,
 		],
 
 		mod: 'gen8',
-		ruleset: ['Standard', 'Dynamax Clause', 'Overflow Stat Mod'],
+		ruleset: ['Standard', 'Dynamax Clause', 'Turn Tables Mod'],
 		banlist: [
 			'AG', 'Shadow Tag', 'Baton Pass',
 			'Huge Power',  
 			'Eviolite', 'Thick Club', 
 		],
-		onModifySpecies(species, target, source, effect) {
-			if (!species.baseStats) return;
-			const pokemon = this.dex.deepClone(species);
-			pokemon.bst = 0;
-			let statName: StatID;
-			for (statName in pokemon.baseStats as StatsTable) {
-				if (statName === 'hp') continue;
-				pokemon.baseStats[statName] = pokemon.baseStats[statName] < 100 ? this.clampIntRange(pokemon.baseStats[statName] * 2, 1, 255) : pokemon.baseStats[statName];
-				pokemon.bst += pokemon.baseStats[statName];
-			}
-			return pokemon;
-		},
 	},
 
 	// Balanced Hackmons
@@ -751,7 +727,7 @@ export const Formats: FormatList = [
 			'Belly Drum', 'Bolt Beak', 'Chatter', 'Court Change', 'Double Iron Bash', 'Electrify', 'Octolock', 'Shell Smash',
 			'Gengarite',
 		],
-		restricted: ['Zacian-Crowned', 'Intrepid Sword'],
+		restricted: ['Intrepid Sword'],
 		onValidateSet(set) {
 			const ability = this.dex.abilities.get(set.ability);
 			if (set.species === 'Zacian-Crowned') {
@@ -1004,12 +980,12 @@ export const Formats: FormatList = [
 		mod: 'gen8',
 		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod', 'Endless Battle Clause'],
 		banlist: [
-			'Calyrex-Shadow', 'Cramorant-Gorging', 'Eternatus-Eternamax', 
+			'Calyrex-Shadow', 'Cramorant-Gorging', 'Eternatus-Eternamax', 'Zacian-Crowned', 
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Magnet Pull', 'Moody', 
 			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard', 
 			'Comatose + Sleep Talk', 'Court Change', 'Double Iron Bash', 'Octolock', 'Shell Smash'
 		],
-		restricted: ['Zacian-Crowned', 'Intrepid Sword'],
+		restricted: ['Intrepid Sword'],
 		onValidateSet(set) {
 			const ability = this.dex.abilities.get(set.ability);
 			if (set.species === 'Zacian-Crowned') {

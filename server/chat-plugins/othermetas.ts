@@ -760,7 +760,7 @@ export const commands: Chat.ChatCommands = {
 		}
 		const newSpecies = Dex.deepClone(species);
 		newSpecies.tier = 'TT';
-		newSpecies.bst = 0;
+		newSpecies.bst = newSpecies.baseStats['hp'];
 		let statName: StatID;
 		for (statName in newSpecies.baseStats as StatsTable) {
 			if (statName === 'hp') continue;

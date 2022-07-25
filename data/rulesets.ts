@@ -2026,4 +2026,25 @@ export const Rulesets: {[k: string]: FormatData} = {
 			}
 		},
 	},
+	turntablesmod: {
+		effectType: "Rule",
+		name: "Turn Tables Mod",
+		desc: `Base stats below 100 get doubled, excluding HP.`,
+		ruleset: ['Overflow Stat Mod'],
+		onBegin() {
+			this.add('rule', 'Turn Tables Mod: Base stats below 100 get doubled, excluding HP.');
+		},
+		onModifySpecies(species, target, source, effect) {
+			if (!species.baseStats) return;
+			const pokemon = this.dex.deepClone(species);
+			pokemon.bst = pokemon.baseStats['hp'];
+			let statName: StatID;
+			for (statName in pokemon.baseStats as StatsTable) {
+				if (statName === 'hp') continue;
+				pokemon.baseStats[statName] = pokemon.baseStats[statName] < 100 ? this.clampIntRange(pokemon.baseStats[statName] * 2, 1, 255) : pokemon.baseStats[statName];
+				pokemon.bst += pokemon.baseStats[statName];
+			}
+			return pokemon;
+		},
+	},
 };
