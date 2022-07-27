@@ -33,7 +33,7 @@ export const commands: Chat.ChatCommands = {
 
 		room.battle.replaySaved = true;
 
-		this.connection.popup(`Replay saved! TTTEST_`);
+		// this.connection.popup(`Replay saved! TTTEST_`);
 
 		if (room.hideReplay || room.settings.isPrivate) {
 			// return this.errorReply(this.tr`Your replay has been uploaded! It's available at: http://replay.sciroccogti.top/files/.${room.roomid}-${room.p1}-${room.p2}.html`);
