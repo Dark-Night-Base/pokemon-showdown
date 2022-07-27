@@ -62,12 +62,12 @@ export const commands: Chat.ChatCommands = {
 				`<title>${Dex.formats.get(room.battle?.format)} replay: ${room.p1?.name} vs. ${room.p2?.name}</title>\n` +
 				`<meta name="description" content="Watch a replay of a Pokémon battle between ${room.p1?.name} and ${room.p2?.name} (${Dex.formats.get(room.battle?.format)})" />` +
 				'<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=IE8" />\n' +
-				'<link rel="stylesheet" href="//play.pokemonshowdown.com/style/font-awesome.css?932f42c7" />\n' +
-				'<link rel="stylesheet" href="//pokemonshowdown.com/theme/panels.css?0.8626627733285226" />\n' +
-				'<link rel="stylesheet" href="//pokemonshowdown.com/theme/main.css?0.9739025453096699" />\n' +
-				'<link rel="stylesheet" href="//play.pokemonshowdown.com/style/battle.css?8e37a9fd" />\n' +
-				'<link rel="stylesheet" href="//play.pokemonshowdown.com/style/replay.css?cfa51183" />\n' +
-				'<link rel="stylesheet" href="//play.pokemonshowdown.com/style/utilichart.css?e39c48cf" />\n' +
+				'<link rel="stylesheet" href="https://play.pokemonshowdown.com/style/font-awesome.css?932f42c7" />\n' +
+				'<link rel="stylesheet" href="https://pokemonshowdown.com/theme/panels.css?0.8626627733285226" />\n' +
+				'<link rel="stylesheet" href="https://pokemonshowdown.com/theme/main.css?0.9739025453096699" />\n' +
+				'<link rel="stylesheet" href="https://play.pokemonshowdown.com/style/battle.css?8e37a9fd" />\n' +
+				'<link rel="stylesheet" href="https://play.pokemonshowdown.com/style/replay.css?cfa51183" />\n' +
+				'<link rel="stylesheet" href="https://play.pokemonshowdown.com/style/utilichart.css?e39c48cf" />\n' +
 				'<!-- Workarounds for IE bugs to display trees correctly. -->\n' +
 				'<!--[if lte IE 6]><style> li.tree { height: 1px; } </style><![endif]-->\n' +
 				'<!--[if IE 7]><style> li.tree { zoom: 1; } </style><![endif]-->\n' +
@@ -118,8 +118,8 @@ export const commands: Chat.ChatCommands = {
 				`<input type="hidden" name="replayid" value=${room.roomid} />\n` + 
 				`<script type="text/plain" class="battle-log-data">${battleLog}</script>\n` + 
 				'</div></div>\n' +
-				'<script src="//play.pokemonshowdown.com/js/lib/ps-polyfill.js"></script>\n' +
-				'<script src="//play.pokemonshowdown.com/js/lib/jquery-1.11.0.min.js?8fc25e27"></script><script src="//play.pokemonshowdown.com/js/lib/lodash.core.js?e9be4c2d"></script><script src="//play.pokemonshowdown.com/js/lib/backbone.js?8a8d8296"></script><script src="//dex.pokemonshowdown.com/js/panels.js?0.7863498086865959"></script><script src="//play.pokemonshowdown.com/js/lib/jquery-cookie.js?38477214"></script><script src="//play.pokemonshowdown.com/js/lib/html-sanitizer-minified.js?949c4200"></script><script src="//play.pokemonshowdown.com/js/battle-sound.js?8e5efe0f"></script><script src="//play.pokemonshowdown.com/config/config.js?f08e9e6a"></script><script src="//play.pokemonshowdown.com/js/battledata.js?d018770b"></script><script src="//play.pokemonshowdown.com/data/pokedex-mini.js?73389fb3"></script><script src="//play.pokemonshowdown.com/data/pokedex-mini-bw.js?59d44f9f"></script><script src="//play.pokemonshowdown.com/data/graphics.js?e46d22dd"></script><script src="//play.pokemonshowdown.com/data/pokedex.js?eea8e9ec"></script><script src="//play.pokemonshowdown.com/data/items.js?1f7a39fb"></script><script src="//play.pokemonshowdown.com/data/moves.js?a0b53a8e"></script><script src="//play.pokemonshowdown.com/data/abilities.js?96703c4e"></script><script src="//play.pokemonshowdown.com/data/teambuilder-tables.js?160c1b1a"></script><script src="//play.pokemonshowdown.com/js/battle-tooltips.js?c309b930"></script><script src="//play.pokemonshowdown.com/js/battle.js?d4ed5cb9"></script><script src="/js/replay.js"></script>\n' +
+				'<script src="https://play.pokemonshowdown.com/js/lib/ps-polyfill.js"></script>\n' +
+				'<script src="https://play.pokemonshowdown.com/js/lib/jquery-1.11.0.min.js?8fc25e27"></script><script src="https://play.pokemonshowdown.com/js/lib/lodash.core.js?e9be4c2d"></script><script src="https://play.pokemonshowdown.com/js/lib/backbone.js?8a8d8296"></script><script src="https://dex.pokemonshowdown.com/js/panels.js?0.7863498086865959"></script><script src="https://play.pokemonshowdown.com/js/lib/jquery-cookie.js?38477214"></script><script src="https://play.pokemonshowdown.com/js/lib/html-sanitizer-minified.js?949c4200"></script><script src="https://play.pokemonshowdown.com/js/battle-sound.js?8e5efe0f"></script><script src="https://play.pokemonshowdown.com/config/config.js?f08e9e6a"></script><script src="https://play.pokemonshowdown.com/js/battledata.js?d018770b"></script><script src="https://play.pokemonshowdown.com/data/pokedex-mini.js?73389fb3"></script><script src="https://play.pokemonshowdown.com/data/pokedex-mini-bw.js?59d44f9f"></script><script src="https://play.pokemonshowdown.com/data/graphics.js?e46d22dd"></script><script src="https://play.pokemonshowdown.com/data/pokedex.js?eea8e9ec"></script><script src="https://play.pokemonshowdown.com/data/items.js?1f7a39fb"></script><script src="https://play.pokemonshowdown.com/data/moves.js?a0b53a8e"></script><script src="https://play.pokemonshowdown.com/data/abilities.js?96703c4e"></script><script src="https://play.pokemonshowdown.com/data/teambuilder-tables.js?160c1b1a"></script><script src="https://play.pokemonshowdown.com/js/battle-tooltips.js?c309b930"></script><script src="https://play.pokemonshowdown.com/js/battle.js?d4ed5cb9"></script><script src="/js/replay.js"></script>\n' +
 				'</body></html>'
 			);
 			out.end();
