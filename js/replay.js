@@ -7,9 +7,9 @@
 
 // Panels
 
-var Topbar = Panels.Topbar.extend({
-	height: 51
-});
+// var Topbar = Panels.Topbar.extend({
+// 	height: 51
+// });
 
 var ReplaySidebarPanel = Panels.StaticPanel.extend({
 	minWidth: 300,
@@ -226,7 +226,7 @@ var ReplayPanel = Panels.StaticPanel.extend({
 });
 
 var App = Panels.App.extend({
-	topbarView: Topbar,
+	// topbarView: Topbar,
 	states: {
 		'*path': ReplaySidebarPanel, // catch-all default
 
