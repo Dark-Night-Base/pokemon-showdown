@@ -72,7 +72,7 @@ export const commands: Chat.ChatCommands = {
 				'<!--[if lte IE 6]><style> li.tree { height: 1px; } </style><![endif]-->\n' +
 				'<!--[if IE 7]><style> li.tree { zoom: 1; } </style><![endif]-->\n' +
 				'</head><body>\n' +
-				// '<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">\n' + 
+
 				'<div class="pfx-panel"><div class="pfx-body" style="max-width:1180px; margin:0 auto">\n' +
 				'<div class="wrapper replay-wrapper">\n' +
 				'<div class="battle"><div class="playbutton"><button disabled>Loading...</button></div></div>\n' +
@@ -97,14 +97,12 @@ export const commands: Chat.ChatCommands = {
 				`<pre class="urlbox" style="word-wrap: break-word;">http://replay.sciroccogti.top/files/${(room.hideReplay || room.settings.isPrivate) ? '.' : ''}${room.roomid}-${room.p1}-${room.p2}.html</pre>\n` +
 				`<h1 style="font-weight:normal;text-align:left"><strong>${Dex.formats.get(room.battle?.format)}</strong>: <a href="http://pokemonshowdown.com/users/${toID(room.p1?.name)}" class="subtle" target="_blank">${room.p1?.name}</a> vs. <a href="http://pokemonshowdown.com/users/${toID(room.p2?.name)}" class="subtle" target="_blank">${room.p2?.name}</a></h1>\n` +
 				'</div>\n' + 
+
 				`<input type="hidden" name="replayid" value=${room.roomid} />\n` + 
 				`<script type="text/plain" class="battle-log-data">${battleLog}</script>\n` + 
 				'</div></div>\n' +
-				'<script>\n' + 
-				`let daily = Math.floor(Date.now()/1000/60/60/24);document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version'+daily+'"></'+'script>');\n` + 
-				'</script>\n' +
+				'<script src="//play.pokemonshowdown.com/js/lib/jquery-1.11.0.min.js?8fc25e27"></script><script src="//play.pokemonshowdown.com/js/lib/lodash.core.js?e9be4c2d"></script><script src="//play.pokemonshowdown.com/js/lib/backbone.js?8a8d8296"></script><script src="//dex.pokemonshowdown.com/js/panels.js?0.7863498086865959"></script><script src="//play.pokemonshowdown.com/js/lib/jquery-cookie.js?38477214"></script><script src="//play.pokemonshowdown.com/js/lib/html-sanitizer-minified.js?949c4200"></script><script src="//play.pokemonshowdown.com/js/battle-sound.js?8e5efe0f"></script><script src="//play.pokemonshowdown.com/config/config.js?f08e9e6a"></script><script src="//play.pokemonshowdown.com/js/battledata.js?d018770b"></script><script src="//play.pokemonshowdown.com/data/pokedex-mini.js?73389fb3"></script><script src="//play.pokemonshowdown.com/data/pokedex-mini-bw.js?59d44f9f"></script><script src="//play.pokemonshowdown.com/data/graphics.js?e46d22dd"></script><script src="//play.pokemonshowdown.com/data/pokedex.js?eea8e9ec"></script><script src="//play.pokemonshowdown.com/data/items.js?1f7a39fb"></script><script src="//play.pokemonshowdown.com/data/moves.js?a0b53a8e"></script><script src="//play.pokemonshowdown.com/data/abilities.js?96703c4e"></script><script src="//play.pokemonshowdown.com/data/teambuilder-tables.js?160c1b1a"></script><script src="//play.pokemonshowdown.com/js/battle-tooltips.js?c309b930"></script><script src="//play.pokemonshowdown.com/js/battle.js?d4ed5cb9"></script><script src="//replay.pokemonshowdown.com/js/replay.js?1e09ceb9"></script>\n' +
 				'</body></html>'
-				// `<script src="https://play.pokemonshowdown.com/js/replay-embed.js"></script>\n`
 			);
 			out.end();
 		});
