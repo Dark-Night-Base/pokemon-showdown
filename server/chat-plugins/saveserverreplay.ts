@@ -71,6 +71,22 @@ export const commands: Chat.ChatCommands = {
 				'<!-- Workarounds for IE bugs to display trees correctly. -->\n' +
 				'<!--[if lte IE 6]><style> li.tree { height: 1px; } </style><![endif]-->\n' +
 				'<!--[if IE 7]><style> li.tree { zoom: 1; } </style><![endif]-->\n' +
+				'<script type="text/javascript">\n' +
+				'var _gaq = _gaq || [];\n' +
+				'_gaq.push([\'_setAccount\', \'UA-26211653-1\']);\n' +
+				'_gaq.push([\'_setDomainName\', \'pokemonshowdown.com\']);\n' +
+				'_gaq.push([\'_setAllowLinker\', true]);\n' +
+				'_gaq.push([\'_trackPageview\']);\n' +
+
+				'(function() {\n' +
+				'var ga = document.createElement(\'script\'); ga.type = \'text/javascript\'; ga.async = true;\n' +
+				'ga.src = (\'https:\' == document.location.protocol ? \'https://ssl\' : \'http://www\') + \'.google-analytics.com/ga.js\';\n' +
+				'var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(ga, s);\n' +
+				'})();\n' +
+				'</script>\n' +
+
+
+
 				'</head><body>\n' +
 
 				'<div class="pfx-panel"><div class="pfx-body" style="max-width:1180px; margin:0 auto">\n' +
