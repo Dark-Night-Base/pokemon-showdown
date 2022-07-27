@@ -42,7 +42,7 @@ export const commands: Chat.ChatCommands = {
 				`<input type="hidden" name="replayid" value=${room.roomid} />\n` + 
 				'<div class="battle"></div><div class="battle-log"></div><div class="replay-controls"></div><div class="replay-controls-2"></div>\n' + 
 				`<pre class="urlbox" style="word-wrap: break-word;">http://replay.sciroccogti.top/files/${(room.hideReplay || room.settings.isPrivate) ? '.' : ''}${room.roomid}-${room.p1}-${room.p2}.html</pre>\n` +
-				`<h1 style="font-weight:normal;text-align:left"><strong>${Dex.formats.get(room.battle?.format)}</strong><br /><a href="http://pokemonshowdown.com/users/${toID(room.p1?.name)}" class="subtle" target="_blank">${room.p1?.name}</a> vs. <a href="http://pokemonshowdown.com/users/${toID(room.p2?.name)}" class="subtle" target="_blank">${room.p2?.name}</a></h1>\n` + 				
+				`<h1 style="font-weight:normal;text-align:left"><strong>${Dex.formats.get(room.battle?.format)}</strong>: <a href="http://pokemonshowdown.com/users/${toID(room.p1?.name)}" class="subtle" target="_blank">${room.p1?.name}</a> vs. <a href="http://pokemonshowdown.com/users/${toID(room.p2?.name)}" class="subtle" target="_blank">${room.p2?.name}</a></h1>\n` + 				
 				`<script type="text/plain" class="battle-log-data">${battleLog}</script>\n` + 
 				'</div>\n' + 
 
@@ -79,25 +79,19 @@ export const commands: Chat.ChatCommands = {
 		// 		'<!-- Workarounds for IE bugs to display trees correctly. -->\n' +
 		// 		'<!--[if lte IE 6]><style> li.tree { height: 1px; } </style><![endif]-->\n' +
 		// 		'<!--[if IE 7]><style> li.tree { zoom: 1; } </style><![endif]-->\n' +
-
 		// 		// '<script type="text/javascript">\n' +
 		// 		// 'var _gaq = _gaq || [];\n' +
 		// 		// '_gaq.push([\'_setAccount\', \'UA-26211653-1\']);\n' +
 		// 		// '_gaq.push([\'_setDomainName\', \'pokemonshowdown.com\']);\n' +
 		// 		// '_gaq.push([\'_setAllowLinker\', true]);\n' +
 		// 		// '_gaq.push([\'_trackPageview\']);\n' +
-
 		// 		// '(function() {\n' +
 		// 		// 'var ga = document.createElement(\'script\'); ga.type = \'text/javascript\'; ga.async = true;\n' +
 		// 		// 'ga.src = (\'https:\' == document.location.protocol ? \'https://ssl\' : \'http://www\') + \'.google-analytics.com/ga.js\';\n' +
 		// 		// 'var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(ga, s);\n' +
 		// 		// '})();\n' +
 		// 		// '</script>\n' +
-
-
-
 		// 		'</head><body>\n' +
-
 		// 		'<div class="pfx-panel"><div class="pfx-body" style="max-width:1180px; margin:0 auto">\n' +
 		// 		'<div class="wrapper replay-wrapper">\n' +
 		// 		'<div class="battle"><div class="playbutton"><button disabled>Loading...</button></div></div>\n' +
@@ -122,7 +116,6 @@ export const commands: Chat.ChatCommands = {
 		// 		`<pre class="urlbox" style="word-wrap: break-word;">http://replay.sciroccogti.top/files/${(room.hideReplay || room.settings.isPrivate) ? '.' : ''}${room.roomid}-${room.p1}-${room.p2}.html</pre>\n` +
 		// 		`<h1 style="font-weight:normal;text-align:left"><strong>${Dex.formats.get(room.battle?.format)}</strong>: <a href="http://pokemonshowdown.com/users/${toID(room.p1?.name)}" class="subtle" target="_blank">${room.p1?.name}</a> vs. <a href="http://pokemonshowdown.com/users/${toID(room.p2?.name)}" class="subtle" target="_blank">${room.p2?.name}</a></h1>\n` +
 		// 		'</div>\n' + 
-
 		// 		`<input type="hidden" name="replayid" value=${room.roomid} />\n` + 
 		// 		`<script type="text/plain" class="battle-log-data">${battleLog}</script>\n` + 
 		// 		'</div></div>\n' +
