@@ -21,6 +21,7 @@ export const commands: Chat.ChatCommands = {
 		}
 
 		const out = fs.createWriteStream(filePath, {flags: 'w'});
+		// todo: see client::src/battle-log.ts: createReplayFile
 		out.on('open', () => {
 			out.write(
 				`<!DOCTYPE html>\n` +
@@ -35,6 +36,7 @@ export const commands: Chat.ChatCommands = {
 
 		// this.connection.popup(`Replay saved! TTTEST_`);
 
+		// todo: see client::js/client.js: ReplayUploadedPopup
 		if (room.hideReplay || room.settings.isPrivate) {
 			// return this.errorReply(this.tr`Your replay has been uploaded! It's available at: http://replay.sciroccogti.top/files/.${room.roomid}-${room.p1}-${room.p2}.html`);
 			this.connection.popup(this.tr`Your replay has been uploaded! It's available at: http://replay.sciroccogti.top/files/.${room.roomid}-${room.p1}-${room.p2}.html`);
