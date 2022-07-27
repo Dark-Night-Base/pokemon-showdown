@@ -73,7 +73,7 @@ export const commands: Chat.ChatCommands = {
 				'<!--[if IE 7]><style> li.tree { zoom: 1; } </style><![endif]-->\n' +
 				'</head><body>\n' +
 				// '<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">\n' + 
-				'<div class="pfx-panel"><div class="pfx-body" style="max-width:1180px">\n' +
+				'<div class="pfx-panel"><div class="pfx-body" style="max-width:1180px; margin:0 auto">\n' +
 				'<div class="wrapper replay-wrapper">\n' +
 				'<div class="battle"><div class="playbutton"><button disabled>Loading...</button></div></div>\n' +
 				'<div class="battle-log"></div>\n' +
