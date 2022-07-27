@@ -45,8 +45,8 @@ export const commands: Chat.ChatCommands = {
 				`<script type="text/plain" class="battle-log-data">${battleLog}</script>\n` + 
 				'</div>\n' + 
 				// @ts-ignore
-				'<div class="battle-log battle-log-inline"><div class="inner">' + room.battle?.scene.log.elem.innerHTML + '</div></div>\n' + 
-				'</div>\n' + 
+				// '<div class="battle-log battle-log-inline"><div class="inner">' + room.battle?.scene.log.elem.innerHTML + '</div></div>\n' + 
+				// '</div>\n' + 
 				'<script>\n' + 
 				`let daily = Math.floor(Date.now()/1000/60/60/24);document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version'+daily+'"></'+'script>');\n` + 
 				'</script>\n'
