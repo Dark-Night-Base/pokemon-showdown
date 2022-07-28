@@ -50,11 +50,11 @@ export const commands: Chat.ChatCommands = {
 				// '<div class="battle-log battle-log-inline"><div class="inner">' + room.battle?.scene.log.elem.innerHTML + '</div></div>\n' + 
 				// '</div>\n' + 
 
-				// '<script>\n' + 
-				// `let daily = Math.floor(Date.now()/1000/60/60/24);document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version'+daily+'"></'+'script>');\n` + 
-				// '</script>\n'
+				'<script>\n' + 
+				`let daily = Math.floor(Date.now()/1000/60/60/24);document.write('<script src="http://psc.sciroccogti.top/js/replay-embed.js?version'+daily+'"></'+'script>');\n` + 
+				'</script>\n'
 
-				'<script src="http://replay.sciroccogti.top/js/replay-embed.js"></script>'
+				// '<script src="http://replay.sciroccogti.top/js/replay-embed.js"></script>'
 
 				// `<script src="https://play.pokemonshowdown.com/js/replay-embed.js"></script>\n`
 			);
