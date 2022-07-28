@@ -43,6 +43,9 @@ export const commands: Chat.ChatCommands = {
 				'<div class="battle"></div><div class="battle-log"></div><div class="replay-controls"></div><div class="replay-controls-2"></div>\n' + 
 				`<pre class="urlbox" style="word-wrap: break-word;">http://replay.sciroccogti.top/files/${(room.hideReplay || room.settings.isPrivate) ? '.' : ''}${room.roomid}-${room.p1}-${room.p2}.html</pre>\n` +
 				`<h1 style="font-weight:normal;text-align:left"><strong>${Dex.formats.get(room.battle?.format)}</strong>: <a href="http://pokemonshowdown.com/users/${toID(room.p1?.name)}" class="subtle" target="_blank">${room.p1?.name}</a> vs. <a href="http://pokemonshowdown.com/users/${toID(room.p2?.name)}" class="subtle" target="_blank">${room.p2?.name}</a></h1>\n` + 				
+				'<p style="padding:0 1em;margin-top:0">' +
+				`<small class="uploaddate" data-timestamp="${Date.now() / 1000}"><em>Uploaded:</em> ${new Date().toDateString().split(" ")[1]} ${new Date().getDay()}, ${new Date().getFullYear()} ${room.battle?.rated ? '| <em>Rating:</em>' + room.battle.rated : ''}</small>` +
+				'</p>' +
 				`<script type="text/plain" class="battle-log-data">${battleLog}</script>\n` + 
 				'</div>\n' + 
 
