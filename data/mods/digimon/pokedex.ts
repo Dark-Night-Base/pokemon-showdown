@@ -1,6 +1,6 @@
 export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	omegamon: {
-		num: 1,
+		num: 40001,
 		name: "Omegamon",
 		types: ["Fire", "Ice"],
 		gender: "N",
@@ -14,7 +14,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		formeOrder: ["Omegamon", "Omegamon-X"],
 	},
 	omegamonx: {
-		num: 1,
+		num: 40001,
 		name: "Omegamon-X",
 		baseSpecies: "Omegamon",
 		forme: "X",
@@ -28,4 +28,4 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		eggGroups: ["Undiscovered"],
 		requiredItem: "X-Antibody",
 	},
-}
+};
