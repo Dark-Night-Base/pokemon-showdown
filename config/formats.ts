@@ -2132,6 +2132,32 @@ export const Formats: FormatList = [
 		],
 	},
 	{
+		name: "[Gen 8] Bad'n'Boosted",
+		desc: `Pok&eacute;mon with base stats of 70 or lower get those stats doubled.`,
+		threads: [
+			`None yet.`,
+		],
+
+		mod: 'gen8',
+		ruleset: ['Standard', 'Dynamax Clause'],
+		banlist: [
+			'AG', 'Shadow Tag', 'Baton Pass',
+			'Huge Power',  
+			'Eviolite', 
+		],
+		onModifySpecies(species, target, source, effect) {
+			if (!species.baseStats) return;
+			const pokemon = this.dex.deepClone(species);
+			pokemon.bst = 0;
+			let statName: StatID;
+			for (statName in pokemon.baseStats as StatsTable) {
+				pokemon.baseStats[statName] = pokemon.baseStats[statName] <= 70 ? this.clampIntRange(pokemon.baseStats[statName] * 2, 1, 255) : pokemon.baseStats[statName];
+				pokemon.bst += pokemon.baseStats[statName];
+			}
+			return pokemon;
+		},
+	},
+	{
 		name: "[Gen 8] Bonus Type",
 		desc: `Pok&eacute;mon can be nicknamed the name of a type to have that type added onto their current ones.`,
 		threads: [

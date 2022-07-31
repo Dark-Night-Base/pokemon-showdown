@@ -771,5 +771,27 @@ export const commands: Chat.ChatCommands = {
 	},
 	turntableshelp: [
 		"/tt <pokemon> - Shows the stats that a Pok\u00e9mon would have in Turn Tables.",
+	],
+	bnb: 'badnboosted',
+	badnboosted(target, user, room) {
+		if (!this.runBroadcast()) return;
+		const targetid = toID(target);
+		if (!targetid) return this.parse('/help badnboosted');
+		const species = Dex.species.get(targetid);
+		if (!species.exists) {
+			throw new Chat.ErrorMessage(`Error: Pok\u00e9mon ${target} not found.`);
+		}
+		const newSpecies = Dex.deepClone(species);
+		newSpecies.tier = 'BnB';
+		newSpecies.bst = 0;
+		let statName: StatID;
+		for (statName in newSpecies.baseStats as StatsTable) {
+			newSpecies.baseStats[statName] = newSpecies.baseStats[statName] <= 70 ? Utils.clampIntRange(newSpecies.baseStats[statName] * 2, 1, 255) : newSpecies.baseStats[statName];
+			newSpecies.bst += newSpecies.baseStats[statName];
+		}
+		this.sendReply(`|raw|${Chat.getDataPokemonHTML(newSpecies, Dex.gen)}`);
+	},
+	badnboostedhelp: [
+		"/bnb <pokemon> - Shows the stats that a Pok\u00e9mon would have in Bad'n'Boosted.",
 	]
 };
