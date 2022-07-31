@@ -3539,4 +3539,20 @@ export const Formats: FormatList = [
 		battle: {trunc: Math.trunc},
 		ruleset: ['HP Percentage Mod', 'Cancel Mod', 'Desync Clause Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
 	},
+
+	// Digimon
+	///////////////////////////////////////////////////////////////////
+
+	{
+		section: "Digimon(Alpha)",
+		column: 3,
+	},
+	{
+		name: "[Gen 8] Digimon(Alpha)",
+
+		mod: 'digimon',
+		searchShow: false,
+		debug: true,
+		ruleset: ['Cancel Mod', 'HP Percentage Mod', 'Team Preview', 'Dynamax Clause', 'Obtainable'],
+	},
 ];
