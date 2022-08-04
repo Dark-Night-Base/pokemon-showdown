@@ -1038,13 +1038,19 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
-		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Moves Clause', 'Endless Battle Clause', 'Flipped Mod'],
-		banlist: [
-			'Cramorant-Gorging', 'Eternatus-Eternamax', 'Shedinja',
-			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
-			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Comatose + Sleep Talk', 'Belly Drum', 'Bolt Beak', 'Court Change', 'Double Iron Bash', 'Octolock', 'Shell Smash',
+		// ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Moves Clause', 'Endless Battle Clause', 'Flipped Mod'],
+		// banlist: [
+		// 	'Cramorant-Gorging', 'Eternatus-Eternamax', 'Shedinja',
+		// 	'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
+		// 	'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
+		// 	'Comatose + Sleep Talk', 'Belly Drum', 'Bolt Beak', 'Court Change', 'Double Iron Bash', 'Octolock', 'Shell Smash',
+		// ],
+		ruleset: ['[Gen 8] Balanced Hackmons', 'Flipped Mod'],
+		banlist: ['Fur Coat', 'Ice Scales'],
+		unbanlist: [
+			'Calyrex-Shadow', 'Darmanitan-Galar-Zen', 'Zacian-Crowned', 'Rusted Sword', 'Intrepid Sword',
 		],
+		restricted: ['Intrepid Sword'],
 		onChangeSet(set) {
 			const item = this.dex.toID(set.item);
 			if (set.species === 'Zacian' && item === 'rustedsword') {
@@ -2638,6 +2644,27 @@ export const Formats: FormatList = [
 				}
 			}
 			return problems;
+		},
+	},
+	{
+		name: "[Gen 8] Mirror Move",
+		desc: `Two of your moves are chosen in the teambuilder, and the other two moves are copied from the opponent's moves.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/mirror-move.3572990/">Mirror Move</a>`,
+		],
+
+		mod: 'mirrormove',
+		debug: true,
+		ruleset: ['Standard', 'Dynamax Clause'],
+		banlist: [
+			'Uber', 'AG', 'Arena Trap', 'Moody', 'Power Construct', 'Sand Veil', 'Shadow Tag', 'Snow Cloak',
+			'Bright Powder', 'King\'s Rock', 'Lax Incense', 'Baton Pass',
+			'Imprison',
+		],
+		onValidateSet(set) {
+			if (set.moves.length > 2) {
+				return ["You are allowed to bring only 2 moves on a Pokemon.", "(" + set.species + " has more than 2 moves)"];
+			}
 		},
 	},
 	{
