@@ -1,6 +1,9 @@
 export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	omegamon: {
 		learnset: {
+			alldelete: ["8L1"],
+			garurucannon: ["8L1"],
+			greysword: ["8L1"],
 			aerialace: ["8L1"],
 			agility: ["8L1"],
 			aircutter: ["8L1"],

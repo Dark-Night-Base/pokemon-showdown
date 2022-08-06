@@ -181,8 +181,9 @@ export const Formats: FormatList = [
 		restricted: [
 			'Zacian-Crowned', 'Intrepid Sword', 
 			'Acid Spray', 'Bide', 'Bolt Beak', 'Counter', 'Dynamic Punch', 'Echoed Voice', 'Eerie Spell', 'Endeavor', 'Fishious Rend', 
-			'Frost Breath', 'Ice Ball', 'Inferno', 'Mirror Coat', 'Nature\'s Madness', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rising Voltage', 
-			'Rollout', 'Shell Side Arm', 'Sky Drop', 'Stored Power', 'Storm Throw', 'Super Fang', 'Weather Ball', 'Wicked Blow', 'Zap Cannon',
+			'Flip Turn', 'Frost Breath', 'Ice Ball', 'Inferno', 'Mirror Coat', 'Nature\'s Madness', 'Nuzzle', 'Power Trip', 'Pursuit', 
+			'Rising Voltage', 'Rollout', 'Shell Side Arm', 'Sky Drop', 'Stored Power', 'Storm Throw', 'Super Fang', 'Terrain Pulse', 
+			'U-turn', 'Volt Switch', 'Weather Ball', 'Wicked Blow', 'Zap Cannon',
 			// 'Charge Moves', 'Max Moves', 'Moves That Lower Accuracy', 'Multi-hit Moves', 'Positive Priority Moves', 'Trapping Moves', 'Z-Moves',
 			'Anchor Shot', 'Jaw Lock', 'Spirit Shackle', 'Thousand Waves', 
 		],
@@ -304,6 +305,7 @@ export const Formats: FormatList = [
 					'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity', 'pseudoWeather', 'recoil', 'selfSwitch', 'sleepUsable', 'stealsBoosts', 
 					'thawsTarget', 'useTargetOffensive', 'volatileStatus', 'willCrit', 
 					'onBasePower', 'overrideDefensiveStat', 'overrideOffensiveStat', 'onEffectiveness',
+					'selfdestruct',
 				]) {
 					// @ts-ignore
 					if (pokemon.forte[prop]) {
@@ -949,9 +951,9 @@ export const Formats: FormatList = [
 
 		mod: 'gen8',
 		ruleset: ['[Gen 8] Balanced Hackmons'],
-		unbanlist: [
-			'Cramorant-Gorging'
-		],
+		// unbanlist: [
+		// 	'Cramorant-Gorging'
+		// ],
 		onModifySpeciesPriority: 1,
 		onModifySpecies(species, target, source, effect) {
 			if (!target) return; // Chat command
@@ -969,7 +971,7 @@ export const Formats: FormatList = [
 		},
 	},
 	{
-		name: "[Gen 8] Camomons Balanced Hackmons",
+		name: "[Gen 8] Camomons BH",
 		desc: `BH but Pok&eacute;mon change type to match their first two moves.`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3656413/">Camomons</a>`,
@@ -1048,7 +1050,7 @@ export const Formats: FormatList = [
 		ruleset: ['[Gen 8] Balanced Hackmons', 'Flipped Mod'],
 		banlist: ['Fur Coat', 'Ice Scales'],
 		unbanlist: [
-			'Calyrex-Shadow', 'Darmanitan-Galar-Zen', 'Zacian-Crowned', 'Rusted Sword', 'Intrepid Sword',
+			'Calyrex-Shadow', 'Darmanitan-Galar-Zen', 'Zacian-Crowned', 'Shell Smash', 'Rusted Sword', 'Intrepid Sword',
 		],
 		restricted: ['Intrepid Sword'],
 		onChangeSet(set) {
@@ -1406,7 +1408,7 @@ export const Formats: FormatList = [
 		},
 	},
 	{
-		name: "[Gen 8] Monotype Balanced Hackmons",
+		name: "[Gen 8] Monotype BH",
 		desc: `BH but all Pok&eacute;mon on a team must share a type.`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/om-mashup-megathread.3657159/post-9124457">Monotype BH</a>`,
@@ -2169,14 +2171,13 @@ export const Formats: FormatList = [
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3683173/">Bonus Type</a>`,
 		],
-
 		mod: 'gen8',
 		ruleset: ['Standard', 'Dynamax Clause', '!Nickname Clause'],
 		banlist: [
-			'Calyrex-Ice', 'Calyrex-Shadow', 'Darmanitan-Galar', 'Dialga', 'Dracovish', 'Dragapult', 'Dragonite', 'Eternatus',
-			'Genesect', 'Giratina', 'Giratina-Origin', 'Groudon', 'Ho-Oh', 'Kyogre', 'Kyurem-Black', 'Kyurem-White', 'Landorus-Base',
-			'Lugia', 'Lunala', 'Magearna', 'Marshadow', 'Mewtwo', 'Naganadel', 'Necrozma-Dawn-Wings', 'Necrozma-Dusk-Mane', 'Palkia',
-			'Pheromosa', 'Rayquaza', 'Reshiram', 'Shedinja', 'Solgaleo', 'Spectrier', 'Xerneas', 'Yveltal', 'Zacian', 'Zacian-Crowned',
+			'Calyrex-Ice', 'Calyrex-Shadow', 'Darmanitan-Galar', 'Dialga', 'Dracovish', 'Dragapult', 'Dragonite', 'Eternatus', 'Genesect',
+			'Giratina', 'Giratina-Origin', 'Groudon', 'Ho-Oh', 'Kartana', 'Kyogre', 'Kyurem-Black', 'Kyurem-White', 'Landorus-Base', 'Lugia',
+			'Lunala', 'Magearna', 'Marshadow', 'Mewtwo', 'Naganadel', 'Necrozma-Dawn-Wings', 'Necrozma-Dusk-Mane', 'Palkia', 'Pheromosa',
+			'Rayquaza', 'Reshiram', 'Shedinja', 'Solgaleo', 'Spectrier', 'Urshifu-Base', 'Xerneas', 'Yveltal', 'Zacian', 'Zacian-Crowned',
 			'Zamazenta', 'Zamazenta-Crowned', 'Zekrom', 'Zygarde-Base', 'Arena Trap', 'Moody', 'Power Construct', 'Shadow Tag', 'Baton Pass',
 		],
 		onModifySpeciesPriority: 1,

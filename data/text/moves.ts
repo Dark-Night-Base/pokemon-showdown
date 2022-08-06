@@ -6854,4 +6854,22 @@ export const MovesText: {[k: string]: MoveText} = {
 			shortDesc: "Nearly always goes first. Always crits.",
 		},
 	},
+
+	// Digimon moves
+
+	greysword: {
+		name: "Grey Sword",
+		desc: "Ignores the target's stat stage changes, including evasiveness.",
+		shortDesc: "Ignores the target's stat stage changes.",
+	},
+	garurucannon: {
+		name: "Garuru Cannon",
+		desc: "No additional effect.",
+		shortDesc: "No additional effect. Hits adjacent foes.",
+	},
+	alldelete: {
+		name: "All Delete",
+		desc: "For 3 turns, the target is prevented from restoring any HP as long as it remains active. During the effect, healing and draining moves are unusable, and Abilities and items that grant healing will not heal the user. If an affected Pokemon uses Baton Pass, the replacement will remain unable to restore its HP. Pain Split and the Regenerator Ability are unaffected.",
+		shortDesc: "For 3 turns, the foe(s) is prevented from healing.",
+	},
 };

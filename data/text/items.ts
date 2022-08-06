@@ -2342,4 +2342,11 @@ export const ItemsText: {[k: string]: ItemText} = {
 		name: "Vile Vial",
 		desc: "If held by a Venomicon, its Poison- and Flying-type attacks have 1.2x power.",
 	},
+
+	// Digimon items
+
+	xantibody: {
+		name: "X-Antibody",
+		desc: "This item allows Digimon to X-Evolve in battle."
+	},
 };

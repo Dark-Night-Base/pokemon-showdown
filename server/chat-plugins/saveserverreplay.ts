@@ -32,7 +32,7 @@ export const commands: Chat.ChatCommands = {
 		if (room.battle.replaySaved) {
 			FS(filePath).unlinkIfExistsSync();
 		}
-		if (secret) {
+		if (secret || target === 'silent') {
 			link = '.' + link;
 			filePath = path.resolve(__dirname, `../../replays/${link}`);
 		}
@@ -145,17 +145,18 @@ export const commands: Chat.ChatCommands = {
 		room.battle.replaySaved = true;
 
 		// this.connection.popup(`Replay saved! TTTEST_`);
+		if (target !== 'silent') {
+			this.connection.popup(this.tr`Your replay has been uploaded! It's available at: http://replay.sciroccogti.top/files/${link}`);
 
-		this.connection.popup(this.tr`Your replay has been uploaded! It's available at: http://replay.sciroccogti.top/files/${link}`);
-
-		this.connection.send('|queryresponse|savereplay|' + JSON.stringify({
-			// log: data,
-			// id: id,
-			// password: password,
-			uri: link,
-			silent: true, // to avoid the official client popup
-			// hidden: secret,
-		}));
+			this.connection.send('|queryresponse|savereplay|' + JSON.stringify({
+				// log: data,
+				// id: id,
+				// password: password,
+				uri: link,
+				silent: true, // to avoid the official client popup
+				// hidden: secret,
+			}));
+		}
 	},
 	saveserverreplayhelp: ["/ssr or /saveserverreplay - Save the replay of the battle to server. (We are not a registered server so saving replays to replay.pokemonshowdown.com won't work.)",],
 	ssrhelp: ["/ssr or /saveserverreplay - Save the replay of the battle to server. (We are not a registered server so saving replays to replay.pokemonshowdown.com won't work.)",],

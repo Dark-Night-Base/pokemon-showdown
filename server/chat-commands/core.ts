@@ -916,7 +916,7 @@ export const commands: Chat.ChatCommands = {
 
 	uploadreplay: 'savereplay',
 	async savereplay(target, room, user, connection) {
-		this.parse('/ssr');
+		this.parse('/ssr ' + target);
 		// if (!room?.battle) {
 		// 	return this.errorReply(this.tr`You can only save replays for battles.`);
 		// }

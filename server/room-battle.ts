@@ -17,6 +17,7 @@ import {BattleStream} from "../sim/battle-stream";
 import * as RoomGames from "./room-game";
 import type {Tournament} from './tournaments/index';
 import {RoomSettings} from './rooms';
+import { parse } from '@swc/core';
 
 type ChannelIndex = 0 | 1 | 2 | 3 | 4;
 type PlayerIndex = 1 | 2 | 3 | 4;
@@ -876,7 +877,7 @@ export class RoomBattle extends RoomGames.RoomGame<RoomBattlePlayer> {
 		// If a replay was saved at any point or we were configured to autosavereplays,
 		// reupload when the battle is over to overwrite the partial data (and potentially
 		// reflect any changes that may have been made to the replay's hidden status).
-		if (this.replaySaved || Config.autosavereplays) {
+		if (this.replaySaved || Config.autosavereplays || this.turn >= 15) { // Nihilslave: auto save long battle replay
 			const uploader = Users.get(winnerid || p1id);
 			if (uploader?.connections[0]) {
 				Chat.parse('/savereplay silent', this.room, uploader, uploader.connections[0]);
