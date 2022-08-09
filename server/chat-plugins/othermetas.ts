@@ -427,6 +427,7 @@ export const commands: Chat.ChatCommands = {
 			this.sendReply(`|raw|${Chat.getDataPokemonHTML(species, dex.gen)}`);
 		} else if (isUb) {
 			if (tier === 'OU' || tier === 'UUBL') {
+				species.bst = species.baseStats.hp;
 				for (const statName in species.baseStats) {
 					if (statName === 'hp') continue;
 					if (dex.gen === 1 && statName === 'spd') continue;
