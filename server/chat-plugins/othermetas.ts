@@ -386,7 +386,7 @@ export const commands: Chat.ChatCommands = {
 		const args = target.split(',');
 		if (!toID(args[0])) return this.parse('/help tiershift');
 		this.runBroadcast();
-		const isUb = args[1] === 'ub';
+		const isUb = args[1].trim().toLowerCase() === 'ub';
 		const targetGen = parseInt(cmd[cmd.length - 1]);
 		if (targetGen && !args[1]) args[1] = `gen${targetGen}`;
 		let dex = Dex;
