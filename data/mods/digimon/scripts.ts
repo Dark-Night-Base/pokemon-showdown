@@ -34,5 +34,8 @@ export const Scripts: ModdedBattleScriptsData = {
 		// 	}
 		// 	return false;
 		// },
+		// getDamage(this, pokemon, target, move, suppressMessages) {
+		// 	return 1;
+		// },
 	},
 };

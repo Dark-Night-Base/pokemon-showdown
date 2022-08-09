@@ -386,6 +386,7 @@ export const commands: Chat.ChatCommands = {
 		const args = target.split(',');
 		if (!toID(args[0])) return this.parse('/help tiershift');
 		this.runBroadcast();
+		const isUb = args[1] === 'ub';
 		const targetGen = parseInt(cmd[cmd.length - 1]);
 		if (targetGen && !args[1]) args[1] = `gen${targetGen}`;
 		let dex = Dex;
@@ -414,16 +415,29 @@ export const commands: Chat.ChatCommands = {
 		};
 		let tier = species.tier;
 		if (tier[0] === '(') tier = tier.slice(1, -1);
-		if (!(tier in boosts)) return this.sendReply(`|html|${Chat.getDataPokemonHTML(species, dex.gen)}`);
-		const boost = boosts[tier as TierShiftTiers];
-		species.bst = species.baseStats.hp;
-		for (const statName in species.baseStats) {
-			if (statName === 'hp') continue;
-			if (dex.gen === 1 && statName === 'spd') continue;
-			species.baseStats[statName] = Utils.clampIntRange(species.baseStats[statName] + boost, 1, 255);
-			species.bst += species.baseStats[statName];
+		if (tier in boosts) { 
+			const boost = boosts[tier as TierShiftTiers];
+			species.bst = species.baseStats.hp;
+			for (const statName in species.baseStats) {
+				if (statName === 'hp') continue;
+				if (dex.gen === 1 && statName === 'spd') continue;
+				species.baseStats[statName] = Utils.clampIntRange(species.baseStats[statName] + boost + (isUb ? 10 : 0), 1, 255);
+				species.bst += species.baseStats[statName];
+			}
+			this.sendReply(`|raw|${Chat.getDataPokemonHTML(species, dex.gen)}`);
+		} else if (isUb) {
+			if (tier === 'OU' || tier === 'UUBL') {
+				for (const statName in species.baseStats) {
+					if (statName === 'hp') continue;
+					if (dex.gen === 1 && statName === 'spd') continue;
+					species.baseStats[statName] = Utils.clampIntRange(species.baseStats[statName] + 10, 1, 255);
+					species.bst += species.baseStats[statName];
+				}
+				this.sendReply(`|raw|${Chat.getDataPokemonHTML(species, dex.gen)}`);
+			}
+		} else {
+			return this.sendReply(`|html|${Chat.getDataPokemonHTML(species, dex.gen)}`);
 		}
-		this.sendReply(`|raw|${Chat.getDataPokemonHTML(species, dex.gen)}`);
 	},
 	tiershifthelp: [
 		`/ts OR /tiershift <pokemon>[, generation] - Shows the base stats that a Pok\u00e9mon would have in Tier Shift.`,
