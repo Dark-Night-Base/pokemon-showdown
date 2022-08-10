@@ -1840,10 +1840,7 @@ export const Formats: FormatList = [
 
 		mod: 'gen6',
 		ruleset: ['Standard', 'Swagger Clause', '2 Ability Clause', 'AAA Restricted Abilities', '!Obtainable Abilities'],
-		banlist: [
-			'Uber', 'Arena Trap', 'Shadow Tag', 'Soul Dew', 'Baton Pass', 
-			'Archeops', 'Bisharp', 'Chatot', 'Dragonite', 'Keldeo', 'Kyurem-Black', 'Mamoswine', 'Regigigas', 'Shedinja', 'Slaking', 'Smeargle', 'Snorlax', 'Suicune', 'Terrakion', 'Weavile', 'Dynamic Punch', 'Zap Cannon'
-		],
+		banlist: ['Uber', 'Arena Trap', 'Shadow Tag', 'Soul Dew', 'Baton Pass', 'Archeops', 'Bisharp', 'Chatot', 'Dragonite', 'Keldeo', 'Kyurem-Black', 'Mamoswine', 'Regigigas', 'Shedinja', 'Slaking', 'Smeargle', 'Snorlax', 'Suicune', 'Terrakion', 'Weavile', 'Dynamic Punch', 'Zap Cannon'],
 		unbanlist: ['Aegislash', 'Blaziken', 'Deoxys-Defense', 'Deoxys-Speed', 'Genesect', 'Greninja', 'Landorus'],
 		restricted: ['Arena Trap', 'Contrary', 'Fur Coat', 'Huge Power', 'Illusion', 'Imposter', 'Parental Bond', 'Protean', 'Pure Power', 'Simple', 'Speed Boost', 'Wonder Guard'],
 	},
@@ -1924,7 +1921,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen7mixandmega',
-		ruleset: ['Standard', 'Mega Rayquaza Clause', 'Overflow Stat Mod'],
+		ruleset: ['Standard OMs', 'Mega Rayquaza Clause', 'Sleep Clause Mod'],
 		banlist: ['Shadow Tag', 'Gengarite', 'Baton Pass', 'Electrify'],
 		restricted: [
 			'Arceus', 'Deoxys', 'Dialga', 'Dragonite', 'Giratina', 'Groudon', 'Ho-Oh', 'Kyogre', 'Kyurem', 'Landorus-Therian', 'Lugia',
@@ -2017,10 +2014,7 @@ export const Formats: FormatList = [
 
 		mod: 'gen7',
 		ruleset: ['Standard', 'STABmons Move Legality'],
-		banlist: [
-			'Uber', 'Arena Trap', 'Power Construct', 'Shadow Tag', 'Baton Pass', 
-			'Aerodactyl', 'Aerodactyl-Mega', 'Araquanid', 'Blacephalon', 'Kartana', 'Komala', 'Kyurem-Black', 'Porygon-Z', 'Silvally', 'Tapu Koko', 'Tapu Lele', 'Thundurus', 'Thundurus-Therian', 'King\'s Rock', 'Razor Fang'
-		],
+		banlist: ['Uber', 'Arena Trap', 'Power Construct', 'Shadow Tag', 'Baton Pass', 'Aerodactyl', 'Aerodactyl-Mega', 'Araquanid', 'Blacephalon', 'Kartana', 'Komala', 'Kyurem-Black', 'Porygon-Z', 'Silvally', 'Tapu Koko', 'Tapu Lele', 'Thundurus', 'Thundurus-Therian', 'King\'s Rock', 'Razor Fang'],
 		restricted: ['Acupressure', 'Belly Drum', 'Chatter', 'Extreme Speed', 'Geomancy', 'Lovely Kiss', 'Shell Smash', 'Shift Gear', 'Spore', 'Thousand Arrows'],
 	},
 	{
@@ -2152,7 +2146,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
-		ruleset: ['Standard', 'Dynamax Clause'],
+		ruleset: ['Standard OMs', 'Sleep Clause Mod'],
 		banlist: [
 			'AG', 'Shadow Tag', 'Baton Pass',
 			'Huge Power',  
@@ -2177,7 +2171,7 @@ export const Formats: FormatList = [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3683173/">Bonus Type</a>`,
 		],
 		mod: 'gen8',
-		ruleset: ['Standard', 'Dynamax Clause', '!Nickname Clause'],
+		ruleset: ['Standard OMs', 'Sleep Clause Mod', '!Nickname Clause'],
 		banlist: [
 			'Calyrex-Ice', 'Calyrex-Shadow', 'Darmanitan-Galar', 'Dialga', 'Dracovish', 'Dragapult', 'Dragonite', 'Eternatus', 'Genesect',
 			'Giratina', 'Giratina-Origin', 'Groudon', 'Ho-Oh', 'Kartana', 'Kyogre', 'Kyurem-Black', 'Kyurem-White', 'Landorus-Base', 'Lugia',
@@ -2209,7 +2203,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
-		ruleset: ['Standard', '!Sleep Clause Mod', 'Sleep Moves Clause', 'Dynamax Clause'],
+		ruleset: ['Standard OMs', 'Sleep Moves Clause', 'Broken Record Mod'],
 		banlist: [
 			'Calyrex-Ice', 'Calyrex-Shadow', 'Cinderace', 'Darmanitan-Galar', 'Dialga', 'Dracovish', 'Eternatus', 'Genesect', 'Giratina', 'Giratina-Origin',
 			'Groudon', 'Ho-Oh', 'Kartana', 'Kyogre', 'Kyurem', 'Kyurem-Black', 'Kyurem-White', 'Landorus-Base', 'Lugia', 'Lunala', 'Magearna', 'Marshadow',
@@ -2217,64 +2211,6 @@ export const Formats: FormatList = [
 			'Spectrier', 'Urshifu-Base', 'Xerneas', 'Yveltal', 'Zacian', 'Zacian-Crowned', 'Zamazenta', 'Zamazenta-Crowned', 'Zekrom', 'Zygarde-Base',
 			'Arena Trap', 'Magnet Pull', 'Moody', 'Power Construct', 'Shadow Tag', 'TR29 (Baton Pass)', 'TR82 (Stored Power)', 'Baton Pass',
 		],
-		onValidateSet(set) {
-			if (!set.item) return;
-			const item = this.dex.items.get(set.item);
-			if (!/^tr\d\d/i.test(item.name)) return;
-			const moveName = item.desc.split('move ')[1].split('.')[0];
-			if (set.moves.map(this.toID).includes(this.toID(moveName))) {
-				return [
-					`${set.species} can't run ${item.name} (${moveName}) as its item because it already has that move in its moveset.`,
-				];
-			}
-		},
-		onValidateTeam(team) {
-			const trs = new Set<string>();
-			for (const set of team) {
-				if (!set.item) continue;
-				const item = this.dex.items.get(set.item).name;
-				if (!/^tr\d\d/i.test(item)) continue;
-				if (trs.has(item)) {
-					return [`Your team already has a Pok\u00e9mon with ${item}.`];
-				}
-				trs.add(item);
-			}
-		},
-		onTakeItem(item) {
-			return !/^tr\d\d/i.test(item.name);
-		},
-		onModifyMove(move) {
-			if (move.id === 'knockoff') {
-				move.onBasePower = function (basePower, source, target, m) {
-					const item = target.getItem();
-					if (!this.singleEvent('TakeItem', item, target.itemState, target, target, m, item)) return;
-					// Very hardcode but I'd prefer to not make a mod for one damage calculation change
-					if (item.id && !/^tr\d\d/i.test(item.id)) {
-						return this.chainModify(1.5);
-					}
-				};
-			}
-		},
-		onBegin() {
-			for (const pokemon of this.getAllPokemon()) {
-				const item = pokemon.getItem();
-				if (/^tr\d\d/i.test(item.name)) {
-					const move = this.dex.moves.get(item.desc.split('move ')[1].split('.')[0]);
-					pokemon.moveSlots = (pokemon as any).baseMoveSlots = [
-						...pokemon.baseMoveSlots, {
-							id: move.id,
-							move: move.name,
-							pp: move.pp * 8 / 5,
-							maxpp: move.pp * 8 / 5,
-							target: move.target,
-							disabled: false,
-							disabledSource: '',
-							used: false,
-						},
-					];
-				}
-			}
-		},
 	},
 	{
 		name: "[Gen 8] Category Swap",
@@ -2301,7 +2237,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
-		ruleset: ['Chimera 1v1 Rule', 'Standard', 'Dynamax Clause', 'Sleep Moves Clause'],
+		ruleset: ['Chimera 1v1 Rule', 'Standard OMs', 'Sleep Moves Clause'],
 		banlist: ['Shedinja', 'Huge Power', 'Moody', 'Neutralizing Gas', 'Truant', 'Eviolite', 'Focus Sash', 'Perish Song', 'Transform', 'Trick', 'Fishious Rend', 'Bolt Beak', 'Disable', 'Double Iron Bash', 'Switcheroo'],
 	},
 	{
@@ -2448,7 +2384,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
-		ruleset: ['Standard', 'Dynamax Clause', 'Flipped Mod'],
+		ruleset: ['Standard OMs', 'Sleep Clause Mod', 'Flipped Mod'],
 		banlist: [
 			'Calyrex-Ice', 'Calyrex-Shadow', 'Dialga', 'Eternatus', 'Giratina', 'Giratina-Origin', 
 			'Groudon', 'Ho-oh', 'Kyogre', 'Kyurem-Black', 'Kyurem-White', 'Lugia', 'Lunala', 'Marshadow', 
@@ -2683,7 +2619,7 @@ export const Formats: FormatList = [
 
 		mod: 'mirrormove',
 		debug: true,
-		ruleset: ['Standard', 'Dynamax Clause'],
+		ruleset: ['Standard OMs', 'Sleep Clause Mod'],
 		banlist: [
 			'Uber', 'AG', 'Arena Trap', 'Moody', 'Power Construct', 'Sand Veil', 'Shadow Tag', 'Snow Cloak',
 			'Bright Powder', 'King\'s Rock', 'Lax Incense', 'Baton Pass',
@@ -3050,11 +2986,11 @@ export const Formats: FormatList = [
 		name: "[Gen 6] Pure Hackmons",
 		desc: `Anything that can be hacked in-game and is usable in local battles is allowed.`,
 		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/posts/8111004/">ORAS Pure Hackmons</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/posts/9029427/">ORAS Pure Hackmons</a>`,
 		],
 
 		mod: 'gen6',
-		ruleset: ['-Nonexistent', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause'],
+		ruleset: ['-Nonexistent', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'EV limit = 510'],
 	},
 	{
 		name: "[Gen 8] Re-Evolution",
@@ -3272,44 +3208,12 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
-		ruleset: ['Standard', 'Dynamax Clause', 'Overflow Stat Mod'],
+		ruleset: ['Standard OMs', 'Sleep Clause Mod', 'Tier Shift Mod'],
 		banlist: [
 			'Uber', 'AG', 'Arena Trap', 'Moody', 'Power Construct', 'Shadow Tag', 'Baton Pass', 
 			'Damp Rock', 'Eviolite', 'Heat Rock'
 		],
 		unbanlist: ['Zamazenta-Crowned'],
-		onModifySpecies(species, target, source, effect) {
-			if (!species.baseStats) return;
-			const boosts: {[tier: string]: number} = {
-				uu: 10,
-				rubl: 10,
-				ru: 20,
-				nubl: 20,
-				nu: 30,
-				publ: 30,
-				pu: 40,
-				nfe: 40,
-				lc: 40,
-			};
-			let tier = this.toID(species.tier) || 'ou';
-			if (!(tier in boosts)) return;
-			// Non-Pokemon bans in lower tiers
-			if (target && boosts[tier] > 20) {
-				if (target.set.ability === 'drizzle') tier = 'nubl';
-				if (target.set.ability === 'drought') tier = 'nubl';
-				if (target.set.ability === 'snowwarning') tier = 'nubl';
-			}
-			const pokemon = this.dex.deepClone(species);
-			pokemon.bst = pokemon.baseStats['hp'];
-			const boost = boosts[tier];
-			let statName: StatID;
-			for (statName in pokemon.baseStats as StatsTable) {
-				if (statName === 'hp') continue;
-				pokemon.baseStats[statName] = this.clampIntRange(pokemon.baseStats[statName] + boost, 1, 255);
-				pokemon.bst += pokemon.baseStats[statName];
-			}
-			return pokemon;
-		},
 	},
 	{
 		name: "[Gen 8] Trademarked",
