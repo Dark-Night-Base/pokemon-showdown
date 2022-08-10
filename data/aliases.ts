@@ -24,6 +24,7 @@ export const Aliases: {[alias: string]: string} = {
 	mnm: "[Gen 8] Mix and Mega",
 	aaa: "[Gen 8] Almost Any Ability",
 	stab: "[Gen 8] STABmons",
+	gg: "[Gen 8] Godly Gift",
 	camo: "[Gen 8] Camomons",
 	ffa: "[Gen 8] Free-For-All",
 	ts: "[Gen 8] Tier Shift",

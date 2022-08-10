@@ -15,7 +15,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 		name: 'Standard',
 		desc: "The standard ruleset for all offical Smogon singles tiers (Ubers, OU, etc.)",
 		ruleset: [
-			'Obtainable', 'Team Preview', 'Sleep Clause Mod', 'Species Clause', 'Nickname Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Endless Battle Clause', 'HP Percentage Mod', 'Cancel Mod',
+			'Obtainable', 'Team Preview', 'Sleep Clause Mod', 'Species Clause', 'Nickname Clause', 'OHKO Clause', 'Evasion Items Clause', 'Evasion Moves Clause', 'Endless Battle Clause', 'HP Percentage Mod', 'Cancel Mod',
 		],
 	},
 	standardnext: {
@@ -70,6 +70,14 @@ export const Rulesets: {[k: string]: FormatData} = {
 		desc: "The standard ruleset for all official Smogon doubles tiers",
 		ruleset: [
 			'Obtainable', 'Team Preview', 'Species Clause', 'Nickname Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Gravity Sleep Clause', 'Endless Battle Clause', 'HP Percentage Mod', 'Cancel Mod',
+		],
+	},
+	standardoms: {
+		effectType: 'ValidatorRule',
+		name: 'Standard OMs',
+		desc: "The standard ruleset for all Smogon OMs (Almost Any Ability, STABmons, etc.)",
+		ruleset: [
+			'Obtainable', 'Team Preview', 'Species Clause', 'Nickname Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Endless Battle Clause', 'Dynamax Clause', 'HP Percentage Mod', 'Cancel Mod', 'Overflow Stat Mod',
 		],
 	},
 	standardnatdex: {
@@ -397,6 +405,29 @@ export const Rulesets: {[k: string]: FormatData} = {
 			}
 		},
 	},
+	forceselect: {
+		effectType: 'ValidatorRule',
+		name: 'Force Select',
+		desc: `Forces a Pokemon to be on the team and selected at Team Preview. Usage: Force Select = [Pokemon], e.g. "Force Select = Magikarp"`,
+		hasValue: true,
+		onValidateRule(value) {
+			if (!this.dex.species.get(value).exists) throw new Error(`Misspelled Pokemon "${value}"`);
+		},
+		onValidateTeam(team) {
+			let hasSelection = false;
+			const species = this.dex.species.get(this.ruleTable.valueRules.get('forceselect'));
+			for (const set of team) {
+				if (species.name === set.species) {
+					hasSelection = true;
+					break;
+				}
+			}
+			if (!hasSelection) {
+				return [`Your team must contain ${species.name}.`];
+			}
+		},
+		// hardcoded in sim/side
+	},
 	evlimits: {
 		effectType: 'ValidatorRule',
 		name: 'EV Limits',
@@ -617,6 +648,15 @@ export const Rulesets: {[k: string]: FormatData} = {
 			return problems;
 		},
 	},
+	evasionclause: {
+		effectType: 'ValidatorRule',
+		name: 'Evasion Clause',
+		desc: "Bans abilities, items, and moves that boost Evasion",
+		ruleset: ['Evasion Abilities Clause', 'Evasion Items Clause', 'Evasion Moves Clause'],
+		onBegin() {
+			this.add('rule', 'Evasion Clause: Evasion abilities, items, and moves are banned');
+		},
+	},
 	evasionabilitiesclause: {
 		effectType: 'ValidatorRule',
 		name: 'Evasion Abilities Clause',
@@ -624,6 +664,15 @@ export const Rulesets: {[k: string]: FormatData} = {
 		banlist: ['Sand Veil', 'Snow Cloak'],
 		onBegin() {
 			this.add('rule', 'Evasion Abilities Clause: Evasion abilities are banned');
+		},
+	},
+	evasionitemsclause: {
+		effectType: 'ValidatorRule',
+		name: 'Evasion Items Clause',
+		desc: "Bans moves that lower the accuracy of moves used against the user",
+		banlist: ['Bright Powder', 'Lax Incense'],
+		onBegin() {
+			this.add('rule', 'Evasion Items Clause: Evasion items are banned');
 		},
 	},
 	evasionmovesclause: {
@@ -1266,6 +1315,19 @@ export const Rulesets: {[k: string]: FormatData} = {
 			if (species.nfe) {
 				if (this.ruleTable.has(`+pokemon:${species.id}`)) return;
 				return [`${set.species} is banned due to NFE Clause.`];
+			}
+		},
+	},
+	gemsclause: {
+		effectType: 'ValidatorRule',
+		name: 'Gems Clause',
+		desc: "Bans all Gems",
+		onValidateSet(set) {
+			if (!set.item) return;
+			const item = this.dex.items.get(set.item);
+			if (item.isGem) {
+				if (this.ruleTable.has(`+item:${item.id}`)) return;
+				return [`${item.name} is banned due to Gems Clause.`];
 			}
 		},
 	},

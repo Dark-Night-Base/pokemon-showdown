@@ -727,7 +727,7 @@ export const commands: Chat.ChatCommands = {
 		}
 	},
 	reevohelp: [
-		`/reevo <Pok\u00e9mon> - Shows the stats that a Pok\u00e9mon would have in Re-Evolution.`,
+		`/reevo <Pok\u00e9mon> - Shows the stats that a Pok\u00e9mon would have in Re-Evolution`,
 	],
 	showevohelp: [
 		`/showevo <Pok\u00e9mon> - Shows the changes that a Pok\u00e9mon applies in Cross Evolution.`,
