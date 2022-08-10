@@ -660,7 +660,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
-		ruleset: ['Standard', 'Dynamax Clause', 'Turn Tables Mod'],
+		ruleset: ['Standard OMs', 'Sleep Clause Mod', 'Turn Tables Mod'],
 		banlist: [
 			'AG', 'Shadow Tag', 'Baton Pass',
 			'Huge Power',  
@@ -934,7 +934,7 @@ export const Formats: FormatList = [
 		name: "[Gen 8] Balanced Hackmons LC",
 
 		mod: 'gen8',
-		ruleset: ['Little Cup', 'Standard', 'Dynamax Clause', '!Obtainable', '-Nonexistent', '-Past'],
+		ruleset: ['Little Cup', 'Standard OMs', 'Sleep Clause Mod', '!Obtainable', '-Nonexistent', '-Past'],
 		banlist: [
 			'Scyther', 'Sneasel', 'Type: Null', 
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
