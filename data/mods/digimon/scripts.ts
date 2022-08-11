@@ -1,4 +1,5 @@
 export const Scripts: ModdedBattleScriptsData = {
+	gen: 8,
 	init() {
 		for (const i in this.data.Moves) {
 			this.modData('Moves', i).isNonstandard = null;
