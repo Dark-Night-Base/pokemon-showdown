@@ -5,4 +5,16 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	omegamonx: {
 		tier: "Uber",
 	},
+	demon: {
+		tier: "OU",
+	},
+	demonx: {
+		tier: "OU",
+	},
+	diablomon: {
+		tier: "Uber",
+	},
+	diablomonx: {
+		tier: "Uber",
+	}
 };
