@@ -286,6 +286,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		eggGroups: ["Undiscovered"],
 		requiredItem: "X-Antibody",
 	},
+	/*
 	gabumon: {
 		num: 40007,
 		name: "Gabumon",
@@ -10035,5 +10036,5 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		otherFormes: [""],
 		formeOrder: ["Yggdrasill 7D6mon", ""],
 	},
-
+*/
 };

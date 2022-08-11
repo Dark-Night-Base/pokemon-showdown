@@ -17,6 +17,7 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	metalgreymonbluex: {
 		tier: "UU",
 	},
+	/*
 	demon: {
 		tier: "OU",
 	},
@@ -29,4 +30,5 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	diablomonx: {
 		tier: "Uber",
 	}
+	*/
 };
