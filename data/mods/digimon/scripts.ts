@@ -9,10 +9,11 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (pokemon.species.forme === "X") return null;
 
 			const item = pokemon.getItem();
-			if (item.id === 'xantibody' && pokemon.baseSpecies.otherFormes) {
-				for (const forme of pokemon.baseSpecies.otherFormes) {
+			const baseSpecies = this.dex.species.get(pokemon.species.baseSpecies);
+			if (item.id === 'xantibody' && baseSpecies.otherFormes) {
+				for (const forme of baseSpecies.otherFormes) {
 					const xforme = this.dex.species.get(forme);
-					if (xforme.forme === "X") {
+					if (xforme.forme === "X" && xforme.baseSpecies === pokemon.species.name) {
 						return xforme.name;
 					}
 				}

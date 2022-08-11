@@ -5,6 +5,18 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	omegamonx: {
 		tier: "Uber",
 	},
+	metalgreymon: {
+		tier: "UU",
+	},
+	metalgreymonblue: {
+		tier: "UU",
+	},
+	metalgreymonx: {
+		tier: "UU",
+	},
+	metalgreymonbluex: {
+		tier: "UU",
+	},
 	demon: {
 		tier: "OU",
 	},

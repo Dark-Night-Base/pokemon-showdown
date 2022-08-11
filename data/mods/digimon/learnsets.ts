@@ -92,6 +92,28 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			workup: ["8L1"],
 		},
 	},
+	metalgreymon: {
+		learnset: {
+			gigaimpact: ["8L1"],
+			hiddenpower: ["8L1"],
+			hyperbeam: ["8L1"],
+			protect: ["8L1"],
+			rest: ["8L1"],
+			sleeptalk: ["8L1"],
+			substitute: ["8L1"],
+		},
+	}, 
+	metalgreymonblue: {
+		learnset: {
+			gigaimpact: ["8L1"],
+			hiddenpower: ["8L1"],
+			hyperbeam: ["8L1"],
+			protect: ["8L1"],
+			rest: ["8L1"],
+			sleeptalk: ["8L1"],
+			substitute: ["8L1"],
+		},
+	},
 	demon: {
 		learnset: {
 			// not finished
