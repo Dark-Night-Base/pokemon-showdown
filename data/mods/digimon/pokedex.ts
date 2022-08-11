@@ -61,7 +61,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	agumonblack: {
 		num: 40002,
 		name: "Agumon-black",
-		baseSpecies: "Agumon-black",
+		baseSpecies: "Agumon",
 		types: ["Fire", "Dark", "Virus"],
 		gender: "N",
 		baseStats: {hp: 36, atk: 44, def: 30, spa: 42, spd: 28, spe: 40},
@@ -88,7 +88,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	agumons: {
 		num: 40002,
 		name: "Agumon-S",
-		baseSpecies: "Agumon-S",
+		baseSpecies: "Agumon",
 		types: ["Fire", "Dragon", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 36, atk: 44, def: 32, spa: 42, spd: 30, spe: 36},
@@ -173,7 +173,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	metalgreymonvirus: {
 		num: 40004,
 		name: "Metal Greymon-virus",
-		baseSpecies: "Metal Greymon-virus",
+		baseSpecies: "Metal Greymon",
 		types: ["Dragon", "Steel", "Virus"],
 		gender: "N",
 		baseStats: {hp: 65, atk: 82, def: 65, spa: 78, spd: 60, spe: 70},
@@ -201,7 +201,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	metalgreymonvirusmonx: {
 		num: 40004,
 		name: "Metal Greymon-virus-X",
-		baseSpecies: "Metal Greymon-virus",
+		baseSpecies: "Metal Greymon",
 		forme: "X",
 		types: ["Dragon", "Steel", "Virus"],
 		gender: "N",
@@ -302,7 +302,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	gabumonblack: {
 		num: 40007,
 		name: "Gabumon-black",
-		baseSpecies: "Gabumon-black",
+		baseSpecies: "Gabumon",
 		types: ["Ice", "Virus"],
 		gender: "N",
 		baseStats: {hp: 34, atk: 38, def: 36, spa: 40, spd: 30, spe: 42},
@@ -358,7 +358,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	garurumonblack: {
 		num: 40008,
 		name: "Garurumon-black",
-		baseSpecies: "Garurumon-black",
+		baseSpecies: "Garurumon",
 		types: ["Normal", "Ice", "Virus"],
 		gender: "N",
 		baseStats: {hp: 50, atk: 47, def: 58, spa: 55, spd: 50, spe: 60},
@@ -414,7 +414,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	weregarurumonblack: {
 		num: 40009,
 		name: "Were Garurumon-black",
-		baseSpecies: "Were Garurumon-black",
+		baseSpecies: "Were Garurumon",
 		types: ["Ice", "Fighting", "Virus"],
 		gender: "N",
 		baseStats: {hp: 65, atk: 72, def: 61, spa: 60, spd: 71, spe: 91},
@@ -742,7 +742,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	rosemonburst: {
 		num: 40022,
 		name: "Rosemon-burst",
-		baseSpecies: "Rosemon-burst",
+		baseSpecies: "Rosemon",
 		types: ["Grass", "Fairy", "Data"],
 		gender: "N",
 		baseStats: {hp: 60, atk: 84, def: 60, spa: 135, spd: 103, spe: 128},
@@ -1155,7 +1155,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	ofanimonfalldown: {
 		num: 40039,
 		name: "Ofanimon-falldown",
-		baseSpecies: "Ofanimon-falldown",
+		baseSpecies: "Ofanimon",
 		types: ["Dark", "Rock", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 80, atk: 120, def: 70, spa: 120, spd: 100, spe: 110},
@@ -1183,7 +1183,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	ofanimonfalldownmonx: {
 		num: 40039,
 		name: "Ofanimon-falldown-X",
-		baseSpecies: "Ofanimon-falldown",
+		baseSpecies: "Ofanimon",
 		forme: "X",
 		types: ["Dark", "Steel", "Vaccine"],
 		gender: "N",
@@ -1596,7 +1596,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	andromonfile: {
 		num: 40060,
 		name: "Andromon-file",
-		baseSpecies: "Andromon-file",
+		baseSpecies: "Andromon",
 		types: ["Steel", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 70, atk: 110, def: 90, spa: 70, spd: 80, spe: 100},
@@ -1750,7 +1750,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	exmontyrano: {
 		num: 40067,
 		name: "Exmon-Tyrano",
-		baseSpecies: "Exmon-Tyrano",
+		baseSpecies: "Exmon",
 		types: ["Normal", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 50, atk: 85, def: 85, spa: 80, spd: 80, spe: 60},
@@ -2269,7 +2269,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	whamonadult: {
 		num: 40094,
 		name: "Whamon-adult",
-		baseSpecies: "Whamon-adult",
+		baseSpecies: "Whamon",
 		types: ["Water", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 100, atk: 55, def: 40, spa: 60, spd: 40, spe: 45},
@@ -3220,7 +3220,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	imperialdramonblack: {
 		num: 40142,
 		name: "Imperialdramon-black",
-		baseSpecies: "Imperialdramon-black",
+		baseSpecies: "Imperialdramon",
 		types: ["Bug", "Dragon", "Virus"],
 		gender: "N",
 		baseStats: {hp: 100, atk: 115, def: 70, spa: 120, spd: 55, spe: 110},
@@ -3233,7 +3233,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	imperialdramonfighter: {
 		num: 40142,
 		name: "Imperialdramon-fighter",
-		baseSpecies: "Imperialdramon-fighter",
+		baseSpecies: "Imperialdramon",
 		types: ["Dragon", "Bug", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 90, atk: 105, def: 90, spa: 125, spd: 95, spe: 95},
@@ -3246,7 +3246,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	imperialdramonpaladin: {
 		num: 40142,
 		name: "Imperialdramon-paladin",
-		baseSpecies: "Imperialdramon-paladin",
+		baseSpecies: "Imperialdramon",
 		types: ["Fairy", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 110, atk: 130, def: 100, spa: 140, spd: 115, spe: 105},
@@ -3259,7 +3259,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	vmonmon: {
 		num: 40143,
 		name: "Vmon-mon",
-		baseSpecies: "Vmon-mon",
+		baseSpecies: "Vmon",
 		types: ["Normal", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 40, atk: 45, def: 40, spa: 35, spd: 40, spe: 40},
@@ -3343,7 +3343,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	xvmonmon: {
 		num: 40148,
 		name: "XVmon-mon",
-		baseSpecies: "XVmon-mon",
+		baseSpecies: "XVmon",
 		types: ["Dragon", "Flying", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 60, atk: 65, def: 45, spa: 65, spd: 45, spe: 70},
@@ -3356,7 +3356,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	vmondra: {
 		num: 40149,
 		name: "Vmon-dra",
-		baseSpecies: "Vmon-dra",
+		baseSpecies: "Vmon",
 		types: ["Dragon", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 60, atk: 65, def: 60, spa: 60, spd: 55, spe: 50},
@@ -3369,7 +3369,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	aerovmondra: {
 		num: 40150,
 		name: "Aero Vmon-dra",
-		baseSpecies: "Aero Vmon-dra",
+		baseSpecies: "Aero Vmon",
 		types: ["Dragon", "Flying", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 80, atk: 80, def: 70, spa: 75, spd: 65, spe: 110},
@@ -3382,7 +3382,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	ulforcevmondra: {
 		num: 40151,
 		name: "Ulforce Vmon-dra",
-		baseSpecies: "Ulforce Vmon-dra",
+		baseSpecies: "Ulforce Vmon",
 		types: ["Dragon", "Flying", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 100, atk: 105, def: 95, spa: 110, spd: 80, spe: 160},
@@ -3395,7 +3395,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	ulforcevmondramonx: {
 		num: 40151,
 		name: "Ulforce Vmon-dra-X",
-		baseSpecies: "Ulforce Vmon-dra",
+		baseSpecies: "Ulforce Vmon",
 		forme: "X",
 		types: ["Dragon", "Flying", "Vaccine"],
 		gender: "N",
@@ -4579,7 +4579,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	arkadimonchild: {
 		num: 40229,
 		name: "Arkadimon-child",
-		baseSpecies: "Arkadimon-child",
+		baseSpecies: "Arkadimon",
 		types: ["Dark", "Bug", "Virus"],
 		gender: "N",
 		baseStats: {hp: 8, atk: 64, def: 32, spa: 32, spd: 16, spe: 64},
@@ -4592,7 +4592,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	arkadimonadult: {
 		num: 40230,
 		name: "Arkadimon-adult",
-		baseSpecies: "Arkadimon-adult",
+		baseSpecies: "Arkadimon",
 		types: ["Dark", "Fighting", "Virus"],
 		gender: "N",
 		baseStats: {hp: 16, atk: 128, def: 64, spa: 32, spd: 16, spe: 64},
@@ -4605,7 +4605,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	arkadimonperfect: {
 		num: 40231,
 		name: "Arkadimon-perfect",
-		baseSpecies: "Arkadimon-perfect",
+		baseSpecies: "Arkadimon",
 		types: ["Dark", "Ice", "Virus"],
 		gender: "N",
 		baseStats: {hp: 32, atk: 128, def: 64, spa: 64, spd: 16, spe: 128},
@@ -4618,7 +4618,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	arkadimonultimate: {
 		num: 40232,
 		name: "Arkadimon-ultimate",
-		baseSpecies: "Arkadimon-ultimate",
+		baseSpecies: "Arkadimon",
 		types: ["Dark", "Normal", "Virus"],
 		gender: "N",
 		baseStats: {hp: 64, atk: 128, def: 128, spa: 128, spd: 16, spe: 128},
@@ -4631,7 +4631,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	arkadimonsuperultimate: {
 		num: 40233,
 		name: "Arkadimon-super ultimate",
-		baseSpecies: "Arkadimon-super ultimate",
+		baseSpecies: "Arkadimon",
 		types: ["Dark", "Psychic", "Virus"],
 		gender: "N",
 		baseStats: {hp: 128, atk: 128, def: 128, spa: 128, spd: 64, spe: 128},
@@ -4873,7 +4873,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	dukemoncrimson: {
 		num: 40244,
 		name: "Dukemon-crimson",
-		baseSpecies: "Dukemon-crimson",
+		baseSpecies: "Dukemon",
 		types: ["Dragon", "Fairy", "Virus"],
 		gender: "N",
 		baseStats: {hp: 110, atk: 145, def: 85, spa: 135, spd: 95, spe: 130},
@@ -4943,7 +4943,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	rapidmonarmor: {
 		num: 40248,
 		name: "Rapidmon-armor",
-		baseSpecies: "Rapidmon-armor",
+		baseSpecies: "Rapidmon",
 		types: ["Fairy", "Steel", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 80, atk: 110, def: 110, spa: 110, spd: 110, spe: 130},
@@ -5155,7 +5155,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	beelzebumonblast: {
 		num: 40259,
 		name: "Beelzebumon-blast",
-		baseSpecies: "Beelzebumon-blast",
+		baseSpecies: "Beelzebumon",
 		types: ["Dark", "Steel", "Virus"],
 		gender: "N",
 		baseStats: {hp: 73, atk: 139, def: 73, spa: 151, spd: 83, spe: 131},
@@ -5253,7 +5253,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	cherubimonvice: {
 		num: 40264,
 		name: "Cherubimon-vice",
-		baseSpecies: "Cherubimon-vice",
+		baseSpecies: "Cherubimon",
 		types: ["Dark", "Electric", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 100, atk: 140, def: 70, spa: 100, spd: 100, spe: 90},
@@ -5281,7 +5281,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	cherubimonvicemonx: {
 		num: 40264,
 		name: "Cherubimon-vice-X",
-		baseSpecies: "Cherubimon-vice",
+		baseSpecies: "Cherubimon",
 		forme: "X",
 		types: ["Dark", "Electric", "Vaccine"],
 		gender: "N",
@@ -5830,7 +5830,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	cerberumonwerewolf: {
 		num: 40300,
 		name: "Cerberumon-werewolf",
-		baseSpecies: "Cerberumon-werewolf",
+		baseSpecies: "Cerberumon",
 		types: ["Dark", "Fire", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 72, atk: 90, def: 55, spa: 80, spd: 73, spe: 80},
@@ -5914,7 +5914,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	andiramondeva: {
 		num: 40305,
 		name: "Andiramon-deva",
-		baseSpecies: "Andiramon-deva",
+		baseSpecies: "Andiramon",
 		types: ["Normal", "Data"],
 		gender: "N",
 		baseStats: {hp: 72, atk: 72, def: 72, spa: 72, spd: 72, spe: 84},
@@ -6151,7 +6151,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	dmonreapermon1: {
 		num: 40322,
 		name: "Dmon-REAPER-1",
-		baseSpecies: "Dmon-REAPER-1",
+		baseSpecies: "Dmon",
 		types: ["Psychic", "Dark"],
 		gender: "N",
 		baseStats: {hp: 50, atk: 120, def: 30, spa: 120, spd: 130, spe: 150},
@@ -6164,7 +6164,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	dmonreapermon2: {
 		num: 40323,
 		name: "Dmon-REAPER-2",
-		baseSpecies: "Dmon-REAPER-2",
+		baseSpecies: "Dmon",
 		types: ["Psychic", "Flying"],
 		gender: "N",
 		baseStats: {hp: 40, atk: 27, def: 43, spa: 57, spd: 73, spe: 80},
@@ -6177,7 +6177,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	dmonreapermon3: {
 		num: 40324,
 		name: "Dmon-REAPER-3",
-		baseSpecies: "Dmon-REAPER-3",
+		baseSpecies: "Dmon",
 		types: ["Psychic", "Steel"],
 		gender: "N",
 		baseStats: {hp: 40, atk: 90, def: 70, spa: 80, spd: 70, spe: 70},
@@ -6190,7 +6190,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	dmonreapermon4: {
 		num: 40325,
 		name: "Dmon-REAPER-4",
-		baseSpecies: "Dmon-REAPER-4",
+		baseSpecies: "Dmon",
 		types: ["Psychic"],
 		gender: "N",
 		baseStats: {hp: 40, atk: 50, def: 45, spa: 65, spd: 50, spe: 70},
@@ -6203,7 +6203,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	dmonreapermon5: {
 		num: 40326,
 		name: "Dmon-REAPER-5",
-		baseSpecies: "Dmon-REAPER-5",
+		baseSpecies: "Dmon",
 		types: ["Psychic", "Normal"],
 		gender: "N",
 		baseStats: {hp: 60, atk: 90, def: 70, spa: 50, spd: 60, spe: 90},
@@ -6216,7 +6216,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	dmonreapermon6: {
 		num: 40327,
 		name: "Dmon-REAPER-6",
-		baseSpecies: "Dmon-REAPER-6",
+		baseSpecies: "Dmon",
 		types: ["Psychic", "Fighting"],
 		gender: "N",
 		baseStats: {hp: 40, atk: 125, def: 99, spa: 76, spd: 81, spe: 99},
@@ -6229,7 +6229,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	dmonreapermon7: {
 		num: 40328,
 		name: "Dmon-REAPER-7",
-		baseSpecies: "Dmon-REAPER-7",
+		baseSpecies: "Dmon",
 		types: ["Psychic"],
 		gender: "N",
 		baseStats: {hp: 100, atk: 108, def: 104, spa: 89, spd: 123, spe: 56},
@@ -6242,7 +6242,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	dmonreapermon8: {
 		num: 40329,
 		name: "Dmon-REAPER-8",
-		baseSpecies: "Dmon-REAPER-8",
+		baseSpecies: "Dmon",
 		types: ["Psychic", "Flying"],
 		gender: "N",
 		baseStats: {hp: 100, atk: 90, def: 90, spa: 115, spd: 98, spe: 87},
@@ -6255,7 +6255,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	dmonreapermon9: {
 		num: 40330,
 		name: "Dmon-REAPER-9",
-		baseSpecies: "Dmon-REAPER-9",
+		baseSpecies: "Dmon",
 		types: ["Psychic", "Steel"],
 		gender: "N",
 		baseStats: {hp: 80, atk: 80, def: 160, spa: 80, spd: 140, spe: 40},
@@ -6268,7 +6268,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	dmonreapermonreaper: {
 		num: 40331,
 		name: "Dmon-REAPER-reaper",
-		baseSpecies: "Dmon-REAPER-reaper",
+		baseSpecies: "Dmon",
 		types: ["Psychic", "Steel"],
 		gender: "N",
 		baseStats: {hp: 120, atk: 140, def: 105, spa: 88, spd: 85, spe: 62},
@@ -6281,7 +6281,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	dmonreapermonmother: {
 		num: 40332,
 		name: "Dmon-REAPER-mother",
-		baseSpecies: "Dmon-REAPER-mother",
+		baseSpecies: "Dmon",
 		types: ["Psychic", "Fairy"],
 		gender: "N",
 		baseStats: {hp: 150, atk: 90, def: 110, spa: 140, spd: 140, spe: 50},
@@ -7531,7 +7531,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	toyagumonblack: {
 		num: 40417,
 		name: "Toy Agumon-black",
-		baseSpecies: "Toy Agumon-black",
+		baseSpecies: "Toy Agumon",
 		types: ["Dark", "Fire", "Virus"],
 		gender: "N",
 		baseStats: {hp: 35, atk: 45, def: 30, spa: 40, spd: 30, spe: 40},
@@ -8108,7 +8108,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	lucemonfalldown: {
 		num: 40452,
 		name: "Lucemon-falldown",
-		baseSpecies: "Lucemon-falldown",
+		baseSpecies: "Lucemon",
 		types: ["Dark", "Fairy", "Virus"],
 		gender: "N",
 		baseStats: {hp: 97, atk: 149, def: 79, spa: 149, spd: 79, spe: 127},
@@ -8136,7 +8136,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	lucemonsatan: {
 		num: 40453,
 		name: "Lucemon-satan",
-		baseSpecies: "Lucemon-satan",
+		baseSpecies: "Lucemon",
 		types: ["Dark", "Virus"],
 		gender: "N",
 		baseStats: {hp: 97, atk: 167, def: 41, spa: 167, spd: 41, spe: 83},
@@ -8149,7 +8149,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	lucemonlarva: {
 		num: 40454,
 		name: "Lucemon-larva",
-		baseSpecies: "Lucemon-larva",
+		baseSpecies: "Lucemon",
 		types: ["Dark", "Virus"],
 		gender: "N",
 		baseStats: {hp: 1, atk: 168, def: 42, spa: 168, spd: 42, spe: 84},
@@ -8162,7 +8162,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	deathmonxmonmon: {
 		num: 40455,
 		name: "Deathmon-X-mon",
-		baseSpecies: "Deathmon-mon",
+		baseSpecies: "Deathmon",
 		forme: "X",
 		types: ["Ghost", "Normal", "Virus"],
 		gender: "N",
@@ -8205,7 +8205,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	deathmonxmondoruga: {
 		num: 40457,
 		name: "Deathmon-X-DORUga",
-		baseSpecies: "Deathmon-DORUga",
+		baseSpecies: "Deathmon",
 		forme: "X",
 		types: ["Ghost", "Dragon", "Virus"],
 		gender: "N",
@@ -8248,7 +8248,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	deathmonxmondorugure: {
 		num: 40459,
 		name: "Deathmon-X-DORUgure",
-		baseSpecies: "Deathmon-DORUgure",
+		baseSpecies: "Deathmon",
 		forme: "X",
 		types: ["Ghost", "Dragon", "Virus"],
 		gender: "N",
@@ -8291,7 +8291,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	deathmonxmondorugora: {
 		num: 40461,
 		name: "Deathmon-X-DORUgora",
-		baseSpecies: "Deathmon-DORUgora",
+		baseSpecies: "Deathmon",
 		forme: "X",
 		types: ["Ghost", "Dragon", "Virus"],
 		gender: "N",
@@ -8799,7 +8799,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	alphamonouryuken: {
 		num: 40493,
 		name: "Alphamon-ouryuken",
-		baseSpecies: "Alphamon-ouryuken",
+		baseSpecies: "Alphamon",
 		types: ["Normal", "Dragon", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 130, atk: 150, def: 140, spa: 130, spd: 130, spe: 100},
@@ -8840,7 +8840,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	shinegreymonburst: {
 		num: 40495,
 		name: "Shine Greymon-burst",
-		baseSpecies: "Shine Greymon-burst",
+		baseSpecies: "Shine Greymon",
 		types: ["Dragon", "Fire", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 90, atk: 140, def: 80, spa: 130, spd: 100, spe: 110},
@@ -8853,7 +8853,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	shinegreymonruin: {
 		num: 40495,
 		name: "Shine Greymon-ruin",
-		baseSpecies: "Shine Greymon-ruin",
+		baseSpecies: "Shine Greymon",
 		types: ["Dragon", "Dark", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 70, atk: 155, def: 80, spa: 145, spd: 90, spe: 110},
@@ -8908,7 +8908,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	miragegaogamonburst: {
 		num: 40498,
 		name: "Mirage Gaogamon-burst",
-		baseSpecies: "Mirage Gaogamon-burst",
+		baseSpecies: "Mirage Gaogamon",
 		types: ["Steel", "Ghost", "Data"],
 		gender: "N",
 		baseStats: {hp: 85, atk: 135, def: 90, spa: 95, spd: 95, spe: 150},
@@ -8977,7 +8977,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	falcomons: {
 		num: 40502,
 		name: "Falcomon-S",
-		baseSpecies: "Falcomon-S",
+		baseSpecies: "Falcomon",
 		types: ["Flying", "Normal", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 35, atk: 42, def: 35, spa: 35, spd: 33, spe: 40},
@@ -9032,7 +9032,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	yatagaramons: {
 		num: 40505,
 		name: "Yatagaramon-S",
-		baseSpecies: "Yatagaramon-S",
+		baseSpecies: "Yatagaramon",
 		types: ["Flying", "Dark", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 63, atk: 63, def: 63, spa: 81, spd: 69, spe: 81},
@@ -9073,7 +9073,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	ravmonburst: {
 		num: 40507,
 		name: "Ravmon-Burst",
-		baseSpecies: "Ravmon-Burst",
+		baseSpecies: "Ravmon",
 		types: ["Flying", "Dark", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 50, atk: 150, def: 100, spa: 90, spd: 130, spe: 130},
@@ -9100,7 +9100,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	kudamons: {
 		num: 40508,
 		name: "Kudamon-S",
-		baseSpecies: "Kudamon-S",
+		baseSpecies: "Kudamon",
 		types: ["Fairy", "Steel", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 30, atk: 25, def: 35, spa: 40, spd: 50, spe: 40},
@@ -9226,7 +9226,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	pawnchessmonblack: {
 		num: 40516,
 		name: "Pawn Chessmon-black",
-		baseSpecies: "Pawn Chessmon-black",
+		baseSpecies: "Pawn Chessmon",
 		types: ["Steel", "Virus"],
 		gender: "N",
 		baseStats: {hp: 29, atk: 39, def: 37, spa: 39, spd: 37, spe: 39},
@@ -9239,7 +9239,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	pawnchessmonwhite: {
 		num: 40516,
 		name: "Pawn Chessmon-white",
-		baseSpecies: "Pawn Chessmon-white",
+		baseSpecies: "Pawn Chessmon",
 		types: ["Steel", "Virus"],
 		gender: "N",
 		baseStats: {hp: 39, atk: 37, def: 39, spa: 37, spd: 39, spe: 29},
@@ -9252,7 +9252,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	knightchessmonblack: {
 		num: 40517,
 		name: "Knight Chessmon-black",
-		baseSpecies: "Knight Chessmon-black",
+		baseSpecies: "Knight Chessmon",
 		types: ["Steel", "Virus"],
 		gender: "N",
 		baseStats: {hp: 49, atk: 59, def: 57, spa: 59, spd: 57, spe: 59},
@@ -9265,7 +9265,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	knightchessmonwhite: {
 		num: 40517,
 		name: "Knight Chessmon-white",
-		baseSpecies: "Knight Chessmon-white",
+		baseSpecies: "Knight Chessmon",
 		types: ["Steel", "Virus"],
 		gender: "N",
 		baseStats: {hp: 59, atk: 57, def: 59, spa: 57, spd: 59, spe: 49},
@@ -9278,7 +9278,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	rookchessmonblack: {
 		num: 40518,
 		name: "Rook Chessmon-black",
-		baseSpecies: "Rook Chessmon-black",
+		baseSpecies: "Rook Chessmon",
 		types: ["Steel", "Virus"],
 		gender: "N",
 		baseStats: {hp: 79, atk: 79, def: 77, spa: 59, spd: 77, spe: 79},
@@ -9291,7 +9291,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	bishopchessmonwhite: {
 		num: 40519,
 		name: "Bishop Chessmon-white",
-		baseSpecies: "Bishop Chessmon-white",
+		baseSpecies: "Bishop Chessmon",
 		types: ["Steel", "Virus"],
 		gender: "N",
 		baseStats: {hp: 79, atk: 77, def: 77, spa: 79, spd: 79, spe: 59},
@@ -9570,7 +9570,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	chaosmonvaldurarm: {
 		num: 40538,
 		name: "Chaosmon-Valdur Arm",
-		baseSpecies: "Chaosmon-Valdur Arm",
+		baseSpecies: "Chaosmon",
 		types: ["Fighting", "Fairy", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 56, atk: 120, def: 96, spa: 117, spd: 126, spe: 135},
@@ -9752,7 +9752,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	gizmonat: {
 		num: 40549,
 		name: "Gizmon-AT",
-		baseSpecies: "Gizmon-AT",
+		baseSpecies: "Gizmon",
 		types: ["Steel"],
 		gender: "N",
 		baseStats: {hp: 40, atk: 70, def: 60, spa: 65, spd: 25, spe: 60},
@@ -9765,7 +9765,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	gizmonxt: {
 		num: 40550,
 		name: "Gizmon-XT",
-		baseSpecies: "GizmonT",
+		baseSpecies: "Gizmon",
 		forme: "X",
 		types: ["Steel"],
 		gender: "N",
@@ -9836,7 +9836,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	belphemonsleep: {
 		num: 40554,
 		name: "Belphemon-sleep",
-		baseSpecies: "Belphemon-sleep",
+		baseSpecies: "Belphemon",
 		types: ["Dark", "Fighting", "Virus"],
 		gender: "N",
 		baseStats: {hp: 103, atk: 67, def: 127, spa: 113, spd: 137, spe: 53},
@@ -9878,7 +9878,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	duftmonleopard: {
 		num: 40555,
 		name: "Duftmon-leopard",
-		baseSpecies: "Duftmon-leopard",
+		baseSpecies: "Duftmon",
 		types: ["Ground", "Flying", "Data"],
 		gender: "N",
 		baseStats: {hp: 100, atk: 140, def: 100, spa: 113, spd: 95, spe: 102},
@@ -9935,7 +9935,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	algomonperfect: {
 		num: 40557,
 		name: "Algomon-Perfect",
-		baseSpecies: "Algomon-Perfect",
+		baseSpecies: "Algomon",
 		types: ["Grass", "Bug", "Virus"],
 		gender: "N",
 		baseStats: {hp: 70, atk: 80, def: 65, spa: 75, spd: 65, spe: 95},
@@ -9948,7 +9948,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	algomonultimate: {
 		num: 40558,
 		name: "Algomon-Ultimate",
-		baseSpecies: "Algomon-Ultimate",
+		baseSpecies: "Algomon",
 		types: ["Grass", "Bug", "Virus"],
 		gender: "N",
 		baseStats: {hp: 120, atk: 110, def: 100, spa: 130, spd: 65, spe: 75},
