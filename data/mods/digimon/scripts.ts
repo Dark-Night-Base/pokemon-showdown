@@ -4,6 +4,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		for (const i in this.data.Moves) {
 			this.modData('Moves', i).isNonstandard = null;
 		}
+		// todo: make all pokemon isNonstandard here
 	},
 	actions: {
 		canMegaEvo(pokemon) {
