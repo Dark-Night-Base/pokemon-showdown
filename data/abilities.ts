@@ -4489,4 +4489,12 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		rating: 3,
 		num: -4,
 	},
+
+	// Digimon
+
+	omegainforce: {
+		isNonstandard: "Custom",
+		name: "Omega inForce",
+		num: 40001,
+	},
 };

@@ -3683,10 +3683,2125 @@ export const PokedexText: {[k: string]: PokedexText} = {
 	omegamonx: {
 		name: "Omegamon-X",
 	},
+	agumon: {
+		name: "Agumon",
+	},
+	agumonblack: {
+		name: "Agumon-Black",
+	},
+	yukiagumon: {
+		name: "Yuki Agumon",
+	},
+	agumons: {
+		name: "Agumon-S",
+	},
+	agumonx: {
+		name: "Agumon-X",
+	},
+	greymon: {
+		name: "Greymon",
+	},
+	geogreymon: {
+		name: "Geo Greymon",
+	},
+	greymonx: {
+		name: "Greymon-X",
+	},
+	metalgreymon: {
+		name: "Metal Greymon",
+	},
+	metalgreymonblue: {
+		name: "Metal Greymon-Blue",
+	},
+	metalgreymonx: {
+		name: "Metal Greymon-X",
+	},
+	metalgreymonbluex: {
+		name: "Metal Greymon-Blue-X",
+	},
+	skullgreymon: {
+		name: "Skull Greymon",
+	},
+	wargreymon: {
+		name: "War Greymon",
+	},
+	blackwargreymon: {
+		name: "Black War Greymon",
+	},
+	wargreymonx: {
+		name: "War Greymon-X",
+	},
+	blackwargreymonx: {
+		name: "Black War Greymon-X",
+	},
+	gabumon: {
+		name: "Gabumon",
+	},
+	gabumonblack: {
+		name: "Gabumon-Black",
+	},
+	psychemon: {
+		name: "Psychemon",
+	},
+	gabumonx: {
+		name: "Gabumon-X",
+	},
+	garurumon: {
+		name: "Garurumon",
+	},
+	garurumonblack: {
+		name: "Garurumon-Black",
+	},
+	gururumon: {
+		name: "Gururumon",
+	},
+	garurumonx: {
+		name: "Garurumon-X",
+	},
+	weregarurumon: {
+		name: "Were Garurumon",
+	},
+	weregarurumonblack: {
+		name: "Were Garurumon-Black",
+	},
+	weregarurumonx: {
+		name: "Were Garurumon-X",
+	},
+	metalgarurumon: {
+		name: "Metal Garurumon",
+	},
+	metalgarurumonx: {
+		name: "Metal Garurumon-X",
+	},
+	piyomon: {
+		name: "Piyomon",
+	},
+	birdramon: {
+		name: "Birdramon",
+	},
+	saberdramon: {
+		name: "Saberdramon",
+	},
+	garudamon: {
+		name: "Garudamon",
+	},
+	garudamonx: {
+		name: "Garudamon-X",
+	},
+	hououmon: {
+		name: "Hououmon",
+	},
+	tentomon: {
+		name: "Tentomon",
+	},
+	kabuterimon: {
+		name: "Kabuterimon",
+	},
+	atlurkabuterimon: {
+		name: "Atlur Kabuterimon",
+	},
+	heraklekabuterimon: {
+		name: "Herakle Kabuterimon",
+	},
+	heraklekabuterimonx: {
+		name: "Herakle Kabuterimon-X",
+	},
+	palmon: {
+		name: "Palmon",
+	},
+	alraumon: {
+		name: "Alraumon",
+	},
+	palmonx: {
+		name: "Palmon-X",
+	},
+	togemon: {
+		name: "Togemon",
+	},
+	togemonx: {
+		name: "Togemon-X",
+	},
+	lilimon: {
+		name: "Lilimon",
+	},
+	lilimonx: {
+		name: "Lilimon-X",
+	},
+	rosemon: {
+		name: "Rosemon",
+	},
+	rosemonburst: {
+		name: "Rosemon-burst",
+	},
+	rosemonx: {
+		name: "Rosemon-X",
+	},
+	gomamon: {
+		name: "Gomamon",
+	},
+	gomamonx: {
+		name: "Gomamon-X",
+	},
+	ikkakumon: {
+		name: "Ikkakumon",
+	},
+	zudomon: {
+		name: "Zudomon",
+	},
+	vikemon: {
+		name: "Vikemon",
+	},
+	plesiomon: {
+		name: "Plesiomon",
+	},
+	plesiomonx: {
+		name: "Plesiomon-X",
+	},
+	patamon: {
+		name: "Patamon",
+	},
+	tukaimon: {
+		name: "Tukaimon",
+	},
+	pegasmon: {
+		name: "Pegasmon",
+	},
+	angemon: {
+		name: "Angemon",
+	},
+	pidmon: {
+		name: "Pidmon",
+	},
+	holyangemon: {
+		name: "Holy Angemon",
+	},
+	seraphimon: {
+		name: "Seraphimon",
+	},
+	blackseraphimon: {
+		name: "Black Seraphimon",
+	},
+	goddramon: {
+		name: "Goddramon",
+	},
+	goddramonx: {
+		name: "Goddramon-X",
+	},
+	plotmon: {
+		name: "Plotmon",
+	},
+	plotmonx: {
+		name: "Plotmon-X",
+	},
+	tailmon: {
+		name: "Tailmon",
+	},
+	tailmonx: {
+		name: "Tailmon-X",
+	},
+	nefertimon: {
+		name: "Nefertimon",
+	},
+	nefertimonx: {
+		name: "Nefertimon-X",
+	},
+	angewomon: {
+		name: "Angewomon",
+	},
+	holydramon: {
+		name: "Holydramon",
+	},
+	holydramonx: {
+		name: "Holydramon-X",
+	},
+	ofanimon: {
+		name: "Ofanimon",
+	},
+	ofanimonfalldown: {
+		name: "Ofanimon-Falldown",
+	},
+	ofanimonx: {
+		name: "Ofanimon-X",
+	},
+	ofanimonfalldownx: {
+		name: "Ofanimon-Falldown-X",
+	},
+	parrotmon: {
+		name: "Parrotmon",
+	},
+	crossmon: {
+		name: "Crossmon",
+	},
+	kuwagamon: {
+		name: "Kuwagamon",
+	},
+	kuwagamonx: {
+		name: "Kuwagamon-X",
+	},
+	okuwamon: {
+		name: "Okuwamon",
+	},
+	okuwamonx: {
+		name: "Okuwamon-X",
+	},
+	grankuwagamon: {
+		name: "Gran Kuwagamon",
+	},
+	shakomon: {
+		name: "Shakomon",
+	},
+	shakomonx: {
+		name: "Shakomon-X",
+	},
+	shellmon: {
+		name: "Shellmon",
+	},
+	anomalocarimon: {
+		name: "Anomalocarimon",
+	},
+	betamon: {
+		name: "Betamon",
+	},
+	modokibetamon: {
+		name: "Modoki Betamon",
+	},
+	betamonx: {
+		name: "Betamon-X",
+	},
+	seadramon: {
+		name: "Seadramon",
+	},
+	seadramonx: {
+		name: "Seadramon-X",
+	},
+	megaseadramon: {
+		name: "Mega Seadramon",
+	},
+	megaseadramonx: {
+		name: "Mega Seadramon-X",
+	},
+	metalseadramon: {
+		name: "Metal Seadramon",
+	},
+	candmon: {
+		name: "Candmon",
+	},
+	meramon: {
+		name: "Meramon",
+	},
+	deathmeramon: {
+		name: "Death Meramon",
+	},
+	bluemeramon: {
+		name: "Blue Meramon",
+	},
+	boltmon: {
+		name: "Boltmon",
+	},
+	hagurumon: {
+		name: "Hagurumon",
+	},
+	guardromon: {
+		name: "Guardromon",
+	},
+	mechanorimon: {
+		name: "Mechanorimon",
+	},
+	andromon: {
+		name: "Andromon",
+	},
+	andromonfile: {
+		name: "Andromon-File",
+	},
+	hiandromon: {
+		name: "Hi Andromon",
+	},
+	tyumon: {
+		name: "Tyumon",
+	},
+	scumon: {
+		name: "Scumon",
+	},
+	numemon: {
+		name: "Numemon",
+	},
+	geremon: {
+		name: "Geremon",
+	},
+	karatukinumemon: {
+		name: "Karatuki Numemon",
+	},
+	numemonx: {
+		name: "Numemon-X",
+	},
+	gerbemon: {
+		name: "Gerbemon",
+	},
+	monzaemon: {
+		name: "Monzaemon",
+	},
+	warumonzaemon: {
+		name: "Waru Monzaemon",
+	},
+	extyranomon: {
+		name: "Ex-Tyranomon",
+	},
+	etemon: {
+		name: "Etemon",
+	},
+	metaletemon: {
+		name: "Metal Etemon",
+	},
+	piemon: {
+		name: "Piemon",
+	},
+	unimon: {
+		name: "Unimon",
+	},
+	shimaunimon: {
+		name: "Shima Unimon",
+	},
+	centalmon: {
+		name: "Centalmon",
+	},
+	elecmon: {
+		name: "Elecmon",
+	},
+	leomon: {
+		name: "Leomon",
+	},
+	leomonx: {
+		name: "Leomon-X",
+	},
+	grappuleomon: {
+		name: "Grappu Leomon",
+	},
+	saberleomon: {
+		name: "Saber Leomon",
+	},
+	goburimon: {
+		name: "Goburimon",
+	},
+	snowgoburimon: {
+		name: "Snow Goburimon",
+	},
+	shamamon: {
+		name: "Shamamon",
+	},
+	orgemon: {
+		name: "Orgemon",
+	},
+	hyougamon: {
+		name: "Hyougamon",
+	},
+	fugamon: {
+		name: "Fugamon",
+	},
+	orgemonx: {
+		name: "Orgemon-X",
+	},
+	digitamamon: {
+		name: "Digitamamon",
+	},
+	devitamamon: {
+		name: "Devitamamon",
+	},
+	yukidarumon: {
+		name: "Yukidarumon",
+	},
+	tuchidarumon: {
+		name: "Tuchidarumon",
+	},
+	mojyamon: {
+		name: "Mojyamon",
+	},
+	bakemon: {
+		name: "Bakemon",
+	},
+	soulmon: {
+		name: "Soulmon",
+	},
+	fantomon: {
+		name: "Fantomon",
+	},
+	picodevimon: {
+		name: "Pico Devimon",
+	},
+	devimon: {
+		name: "Devimon",
+	},
+	icedevimon: {
+		name: "Ice Devimon",
+	},
+	vamdemon: {
+		name: "Vamdemon",
+	},
+	ladydevimon: {
+		name: "Lady Devimon",
+	},
+	skullsatamon: {
+		name: "Skull Satamon",
+	},
+	marindevimon: {
+		name: "Marin Devimon",
+	},
+	venomvamdemon: {
+		name: "Venom Vamdemon",
+	},
+	belialvamdemon: {
+		name: "Belial Vamdemon",
+	},
+	drimogemon: {
+		name: "Drimogemon",
+	},
+	whamonadult: {
+		name: "Whamon-adult",
+	},
+	whamon: {
+		name: "Whamon",
+	},
+	piccolomon: {
+		name: "Piccolomon",
+	},
+	gazimon: {
+		name: "Gazimon",
+	},
+	gaomon: {
+		name: "Gaomon",
+	},
+	gazimonx: {
+		name: "Gazimon-X",
+	},
+	raremon: {
+		name: "Raremon",
+	},
+	monochromon: {
+		name: "Monochromon",
+	},
+	monochromonx: {
+		name: "Monochromon-X",
+	},
+	triceramon: {
+		name: "Triceramon",
+	},
+	triceramonx: {
+		name: "Triceramon-X",
+	},
+	cockatrimon: {
+		name: "Cockatrimon",
+	},
+	tyranomon: {
+		name: "Tyranomon",
+	},
+	darktyranomon: {
+		name: "Dark Tyranomon",
+	},
+	tyranomonx: {
+		name: "Tyranomon-X",
+	},
+	darktyranomonx: {
+		name: "Dark Tyranomon-X",
+	},
+	metaltyranomon: {
+		name: "Metal Tyranomon",
+	},
+	metaltyranomonx: {
+		name: "Metal Tyranomon-X",
+	},
+	mastertyranomon: {
+		name: "Master Tyranomon",
+	},
+	mugendramon: {
+		name: "Mugendramon",
+	},
+	chaosdramon: {
+		name: "Chaosdramon",
+	},
+	chaosdramonx: {
+		name: "Chaosdramon-X",
+	},
+	rusttyranomon: {
+		name: "Rust Tyranomon",
+	},
+	nanomon: {
+		name: "Nanomon",
+	},
+	vegimon: {
+		name: "Vegimon",
+	},
+	zassoumon: {
+		name: "Zassoumon",
+	},
+	redvegimon: {
+		name: "Red Vegimon",
+	},
+	vademon: {
+		name: "Vademon",
+	},
+	vademonx: {
+		name: "Vademon-X",
+	},
+	ebemon: {
+		name: "Ebemon",
+	},
+	ebemonx: {
+		name: "Ebemon-X",
+	},
+	otamamon: {
+		name: "Otamamon",
+	},
+	otamamonx: {
+		name: "Otamamon-X",
+	},
+	gekomon: {
+		name: "Gekomon",
+	},
+	tonosamagekomon: {
+		name: "Tonosama Gekomon",
+	},
+	nanimon: {
+		name: "Nanimon",
+	},
+	devidramon: {
+		name: "Devidramon",
+	},
+	dokugumon: {
+		name: "Dokugumon",
+	},
+	mammon: {
+		name: "Mammon",
+	},
+	mammonx: {
+		name: "Mammon-X",
+	},
+	skullmammon: {
+		name: "Skull Mammon",
+	},
+	skullmammonx: {
+		name: "Skull Mammon-X",
+	},
+	gesomon: {
+		name: "Gesomon",
+	},
+	gesomonx: {
+		name: "Gesomon-X",
+	},
+	pumpmon: {
+		name: "Pumpmon",
+	},
+	gottsumon: {
+		name: "Gottsumon",
+	},
+	gottsumonx: {
+		name: "Gottsumon-X",
+	},
+	wizarmon: {
+		name: "Wizarmon",
+	},
+	sorcerimon: {
+		name: "Sorcerimon",
+	},
+	snimon: {
+		name: "Snimon",
+	},
+	tuskmon: {
+		name: "Tuskmon",
+	},
+	hangyomon: {
+		name: "Hangyomon",
+	},
+	kiwimon: {
+		name: "Kiwimon",
+	},
+	blossomon: {
+		name: "Blossomon",
+	},
+	delumon: {
+		name: "Delumon",
+	},
+	floramon: {
+		name: "Floramon",
+	},
+	mushmon: {
+		name: "Mushmon",
+	},
+	woodmon: {
+		name: "Woodmon",
+	},
+	jyureimon: {
+		name: "Jyureimon",
+	},
+	pinochimon: {
+		name: "Pinochimon",
+	},
+	tankmon: {
+		name: "Tankmon",
+	},
+	megadramon: {
+		name: "Megadramon",
+	},
+	gigadramon: {
+		name: "Gigadramon",
+	},
+	evilmon: {
+		name: "Evilmon",
+	},
+	deathmon: {
+		name: "Deathmon",
+	},
+	apocalymon: {
+		name: "Apocalymon",
+	},
+	imperialdramon: {
+		name: "Imperialdramon",
+	},
+	imperialdramonblack: {
+		name: "Imperialdramon-black",
+	},
+	imperialdramonfighter: {
+		name: "Imperialdramon-fighter",
+	},
+	imperialdramonpaladin: {
+		name: "Imperialdramon-paladin",
+	},
+	vmon: {
+		name: "V-mon",
+	},
+	fladramon: {
+		name: "Fladramon",
+	},
+	lightdramon: {
+		name: "Lightdramon",
+	},
+	magnamon: {
+		name: "Magnamon",
+	},
+	magnamonx: {
+		name: "Magnamon-X",
+	},
+	sethmon: {
+		name: "Sethmon",
+	},
+	xvmon: {
+		name: "XV-mon",
+	},
+	vdramon: {
+		name: "V-dramon",
+	},
+	aerovdramon: {
+		name: "Aero V-dramon",
+	},
+	ulforcevdramon: {
+		name: "Ulforce V-dramon",
+	},
+	ulforcevdramonx: {
+		name: "Ulforce V-dramon-X",
+	},
+	wormmon: {
+		name: "Wormmon",
+	},
+	shadramon: {
+		name: "Shadramon",
+	},
+	searchmon: {
+		name: "Searchmon",
+	},
+	bullmon: {
+		name: "Bullmon",
+	},
+	coatlmon: {
+		name: "Coatlmon",
+	},
+	stingmon: {
+		name: "Stingmon",
+	},
+	paildramon: {
+		name: "Paildramon",
+	},
+	dinobeemon: {
+		name: "Dinobeemon",
+	},
+	hawkmon: {
+		name: "Hawkmon",
+	},
+	holsmon: {
+		name: "Holsmon",
+	},
+	shurimon: {
+		name: "Shurimon",
+	},
+	rinkmon: {
+		name: "Rinkmon",
+	},
+	orcamon: {
+		name: "Orcamon",
+	},
+	aquilamon: {
+		name: "Aquilamon",
+	},
+	silphymon: {
+		name: "Silphymon",
+	},
+	valkyrimon: {
+		name: "Valkyrimon",
+	},
+	armadimon: {
+		name: "Armadimon",
+	},
+	digmon: {
+		name: "Digmon",
+	},
+	submarimon: {
+		name: "Submarimon",
+	},
+	frogmon: {
+		name: "Frogmon",
+	},
+	elephamon: {
+		name: "Elephamon",
+	},
+	ankylomon: {
+		name: "Ankylomon",
+	},
+	shakkomon: {
+		name: "Shakkomon",
+	},
+	slashangemon: {
+		name: "Slash Angemon",
+	},
+	mantaraymon: {
+		name: "Mantaraymon",
+	},
+	mantaraymonx: {
+		name: "Mantaraymon-X",
+	},
+	rhinomon: {
+		name: "Rhinomon",
+	},
+	rhinomonx: {
+		name: "Rhinomon-X",
+	},
+	prairiemon: {
+		name: "Prairiemon",
+	},
+	bitmon: {
+		name: "Bitmon",
+	},
+	butterflamon: {
+		name: "Butterflamon",
+	},
+	kabukimon: {
+		name: "Kabukimon",
+	},
+	kunemon: {
+		name: "Kunemon",
+	},
+	dokunemon: {
+		name: "Dokunemon",
+	},
+	gizamon: {
+		name: "Gizamon",
+	},
+	ganimon: {
+		name: "Ganimon",
+	},
+	ganimonx: {
+		name: "Ganimon-X",
+	},
+	penmon: {
+		name: "Penmon",
+	},
+	muchomon: {
+		name: "Muchomon",
+	},
+	gokimon: {
+		name: "Gokimon",
+	},
+	deltamon: {
+		name: "Deltamon",
+	},
+	flymon: {
+		name: "Flymon",
+	},
+	airdramon: {
+		name: "Airdramon",
+	},
+	revolmon: {
+		name: "Revolmon",
+	},
+	igamon: {
+		name: "Igamon",
+	},
+	gorimon: {
+		name: "Gorimon",
+	},
+	tortamon: {
+		name: "Tortamon",
+	},
+	thunderballmon: {
+		name: "Thunderballmon",
+	},
+	thunderballmonx: {
+		name: "Thunderballmon-X",
+	},
+	golemon: {
+		name: "Golemon",
+	},
+	hanumon: {
+		name: "Hanumon",
+	},
+	musyamon: {
+		name: "Musyamon",
+	},
+	cyclomon: {
+		name: "Cyclomon",
+	},
+	coelamon: {
+		name: "Coelamon",
+	},
+	ebidramon: {
+		name: "Ebidramon",
+	},
+	rukamon: {
+		name: "Rukamon",
+	},
+	octmon: {
+		name: "Octmon",
+	},
+	flarelizamon: {
+		name: "Flare Lizamon",
+	},
+	darklizamon: {
+		name: "Dark Lizamon",
+	},
+	yanmamon: {
+		name: "Yanmamon",
+	},
+	sandyanmamon: {
+		name: "Sand Yanmamon",
+	},
+	minotaurmon: {
+		name: "Minotaurmon",
+	},
+	knightmon: {
+		name: "Knightmon",
+	},
+	jyagamon: {
+		name: "Jyagamon",
+	},
+	brachimon: {
+		name: "Brachimon",
+	},
+	mamemon: {
+		name: "Mamemon",
+	},
+	bigmamemon: {
+		name: "Big Mamemon",
+	},
+	mamemonx: {
+		name: "Mamemon-X",
+	},
+	metalmamemon: {
+		name: "Metal Mamemon",
+	},
+	metalmamemonx: {
+		name: "Metal Mamemon-X",
+	},
+	giromon: {
+		name: "Giromon",
+	},
+	pukumon: {
+		name: "Pukumon",
+	},
+	lampmon: {
+		name: "Lampmon",
+	},
+	pharaohmon: {
+		name: "Pharaohmon",
+	},
+	dagomon: {
+		name: "Dagomon",
+	},
+	archnemon: {
+		name: "Archnemon",
+	},
+	mummymon: {
+		name: "Mummymon",
+	},
+	chimairamon: {
+		name: "Chimairamon",
+	},
+	millenniummon: {
+		name: "Millenniummon",
+	},
+	zeedmillenniummon: {
+		name: "Zeed Millenniummon",
+	},
+	moonmillenniummon: {
+		name: "Moon Millenniummon",
+	},
+	demon: {
+		name: "Demon",
+	},
+	demonx: {
+		name: "Demon-X",
+	},
+	arkadimonchild: {
+		name: "Arkadimon-Child",
+	},
+	arkadimonadult: {
+		name: "Arkadimon-Adult",
+	},
+	arkadimonperfect: {
+		name: "Arkadimon-Perfect",
+	},
+	arkadimonultimate: {
+		name: "Arkadimon-Ultimate",
+	},
+	arkadimonsuperultimate: {
+		name: "Arkadimon-Super Ultimate",
+	},
+	keramon: {
+		name: "Keramon",
+	},
+	chrysalimon: {
+		name: "Chrysalimon",
+	},
+	infermon: {
+		name: "Infermon",
+	},
 	diablomon: {
 		name: "Diablomon",
 	},
 	diablomonx: {
 		name: "Diablomon-X",
+	},
+	armagemon: {
+		name: "Armagemon",
+	},
+	culumon: {
+		name: "Culumon",
+	},
+	guilmon: {
+		name: "Guilmon",
+	},
+	guilmonx: {
+		name: "Guilmon-X",
+	},
+	growmon: {
+		name: "Growmon",
+	},
+	growmonx: {
+		name: "Growmon-X",
+	},
+	megalogrowmon: {
+		name: "Megalo Growmon",
+	},
+	megalogrowmonx: {
+		name: "Megalo Growmon-X",
+	},
+	megidramon: {
+		name: "Megidramon",
+	},
+	megidramonx: {
+		name: "Megidramon-X",
+	},
+	dukemon: {
+		name: "Dukemon",
+	},
+	dukemoncrimson: {
+		name: "Dukemon-crimson",
+	},
+	dukemonx: {
+		name: "Dukemon-X",
+	},
+	terriermon: {
+		name: "Terriermon",
+	},
+	galgomon: {
+		name: "Galgomon",
+	},
+	rapidmon: {
+		name: "Rapidmon",
+	},
+	rapidmonarmor: {
+		name: "Rapidmon-armor",
+	},
+	saintgalgomon: {
+		name: "Saint Galgomon",
+	},
+	renamon: {
+		name: "Renamon",
+	},
+	renamonx: {
+		name: "Renamon-X",
+	},
+	kyubimon: {
+		name: "Kyubimon",
+	},
+	taomon: {
+		name: "Taomon",
+	},
+	sakuyamon: {
+		name: "Sakuyamon",
+	},
+	sakuyamonx: {
+		name: "Sakuyamon-X",
+	},
+	monodramon: {
+		name: "Monodramon",
+	},
+	strikedramon: {
+		name: "Strikedramon",
+	},
+	cyberdramon: {
+		name: "Cyberdramon",
+	},
+	justimon: {
+		name: "Justimon",
+	},
+	impmon: {
+		name: "Impmon",
+	},
+	impmonx: {
+		name: "Impmon-X",
+	},
+	beelzebumon: {
+		name: "Beelzebumon",
+	},
+	beelzebumonblast: {
+		name: "Beelzebumon-blast",
+	},
+	beelzebumonx: {
+		name: "Beelzebumon-X",
+	},
+	lopmon: {
+		name: "Lopmon",
+	},
+	turuiemon: {
+		name: "Turuiemon",
+	},
+	wendimon: {
+		name: "Wendimon",
+	},
+	andiramon: {
+		name: "Andiramon",
+	},
+	cherubimon: {
+		name: "Cherubimon",
+	},
+	cherubimonvice: {
+		name: "Cherubimon-vice",
+	},
+	cherubimonx: {
+		name: "Cherubimon-X",
+	},
+	cherubimonvicex: {
+		name: "Cherubimon-Vice-X",
+	},
+	marinangemon: {
+		name: "Marin Angemon",
+	},
+	depthmon: {
+		name: "Depthmon",
+	},
+	gargomon: {
+		name: "Gargomon",
+	},
+	kangarumon: {
+		name: "Kangarumon",
+	},
+	togemogumon: {
+		name: "Togemogumon",
+	},
+	owlmon: {
+		name: "Owlmon",
+	},
+	archelomon: {
+		name: "Archelomon",
+	},
+	allomon: {
+		name: "Allomon",
+	},
+	allomonx: {
+		name: "Allomon-X",
+	},
+	flybeemon: {
+		name: "Flybeemon",
+	},
+	harpymon: {
+		name: "Harpymon",
+	},
+	boarmon: {
+		name: "Boarmon",
+	},
+	sheepmon: {
+		name: "Sheepmon",
+	},
+	seahomon: {
+		name: "Seahomon",
+	},
+	stegomon: {
+		name: "Stegomon",
+	},
+	mothmon: {
+		name: "Mothmon",
+	},
+	manbomon: {
+		name: "Manbomon",
+	},
+	lynxmon: {
+		name: "Lynxmon",
+	},
+	maildramon: {
+		name: "Maildramon",
+	},
+	opossummon: {
+		name: "Opossummon",
+	},
+	fangmon: {
+		name: "Fangmon",
+	},
+	mikemon: {
+		name: "Mikemon",
+	},
+	bastemon: {
+		name: "Bastemon",
+	},
+	blimpmon: {
+		name: "Blimpmon",
+	},
+	boogiemon: {
+		name: "Boogiemon",
+	},
+	phelesmon: {
+		name: "Phelesmon",
+	},
+	jewelbeemon: {
+		name: "Jewelbeemon",
+	},
+	scorpiomon: {
+		name: "Scorpiomon",
+	},
+	gokumon: {
+		name: "Gokumon",
+	},
+	dogmon: {
+		name: "Dogmon",
+	},
+	clockmon: {
+		name: "Clockmon",
+	},
+	orochimon: {
+		name: "Orochimon",
+	},
+	neodevimon: {
+		name: "Neo Devimon",
+	},
+	jijimon: {
+		name: "Jijimon",
+	},
+	babamon: {
+		name: "Babamon",
+	},
+	dobermon: {
+		name: "Dobermon",
+	},
+	dobermonx: {
+		name: "Dobermon-X",
+	},
+	cerberumon: {
+		name: "Cerberumon",
+	},
+	cerberumonwerewolf: {
+		name: "Cerberumon-werewolf",
+	},
+	cerberumonx: {
+		name: "Cerberumon-X",
+	},
+	anubimon: {
+		name: "Anubimon",
+	},
+	kumbhiramon: {
+		name: "Kumbhiramon",
+	},
+	vajramon: {
+		name: "Vajramon",
+	},
+	mihiramon: {
+		name: "Mihiramon",
+	},
+	andiramondeva: {
+		name: "Andiramon-deva",
+	},
+	majiramon: {
+		name: "Majiramon",
+	},
+	sandiramon: {
+		name: "Sandiramon",
+	},
+	indaramon: {
+		name: "Indaramon",
+	},
+	pajiramon: {
+		name: "Pajiramon",
+	},
+	makuramon: {
+		name: "Makuramon",
+	},
+	sinduramon: {
+		name: "Sinduramon",
+	},
+	caturamon: {
+		name: "Caturamon",
+	},
+	vikaralamon: {
+		name: "Vikaralamon",
+	},
+	xuanwumon: {
+		name: "Xuanwumon",
+	},
+	zhuqiaomon: {
+		name: "Zhuqiaomon",
+	},
+	qinglongmon: {
+		name: "Qinglongmon",
+	},
+	baihumon: {
+		name: "Baihumon",
+	},
+	raijinmon: {
+		name: "Raijinmon",
+	},
+	fujinmon: {
+		name: "Fujinmon",
+	},
+	suijinmon: {
+		name: "Suijinmon",
+	},
+	raidenmon: {
+		name: "Raidenmon",
+	},
+	dreaper1: {
+		name: "D-REAPER-1",
+	},
+	dreaper2: {
+		name: "D-REAPER-2",
+	},
+	dreaper3: {
+		name: "D-REAPER-3",
+	},
+	dreaper4: {
+		name: "D-REAPER-4",
+	},
+	dreaper5: {
+		name: "D-REAPER-5",
+	},
+	dreaper6: {
+		name: "D-REAPER-6",
+	},
+	dreaper7: {
+		name: "D-REAPER-7",
+	},
+	dreaper8: {
+		name: "D-REAPER-8",
+	},
+	dreaper9: {
+		name: "D-REAPER-9",
+	},
+	dreaperreaper: {
+		name: "D-REAPER-Reaper",
+	},
+	dreapermother: {
+		name: "D-REAPER-Mother",
+	},
+	labramon: {
+		name: "Labramon",
+	},
+	siesamon: {
+		name: "Siesamon",
+	},
+	mephismon: {
+		name: "Mephismon",
+	},
+	mephismonx: {
+		name: "Mephismon-X",
+	},
+	gulfmon: {
+		name: "Gulfmon",
+	},
+	locomon: {
+		name: "Locomon",
+	},
+	grandlocomon: {
+		name: "Grand Locomon",
+	},
+	parasimon: {
+		name: "Parasimon",
+	},
+	huanglongmon: {
+		name: "Huanglongmon",
+	},
+	susanoomon: {
+		name: "Susanoomon",
+	},
+	flamon: {
+		name: "Flamon",
+	},
+	agnimon: {
+		name: "Agnimon",
+	},
+	vritramon: {
+		name: "Vritramon",
+	},
+	aldamon: {
+		name: "Aldamon",
+	},
+	kaisergreymon: {
+		name: "Kaiser Greymon",
+	},
+	storabimon: {
+		name: "Storabimon",
+	},
+	wolfmon: {
+		name: "Wolfmon",
+	},
+	garummon: {
+		name: "Garummon",
+	},
+	beowolfmon: {
+		name: "Beowolfmon",
+	},
+	magnagarurumon: {
+		name: "Magna Garurumon",
+	},
+	fairimon: {
+		name: "Fairimon",
+	},
+	shutumon: {
+		name: "Shutumon",
+	},
+	jetsilphymon: {
+		name: "Jet Silphymon",
+	},
+	chackmon: {
+		name: "Chackmon",
+	},
+	blizzarmon: {
+		name: "Blizzarmon",
+	},
+	daipenmon: {
+		name: "Daipenmon",
+	},
+	blitzmon: {
+		name: "Blitzmon",
+	},
+	bolgmon: {
+		name: "Bolgmon",
+	},
+	rhinokabuterimon: {
+		name: "Rhino Kabuterimon",
+	},
+	grottemon: {
+		name: "Grottemon",
+	},
+	gigasmon: {
+		name: "Gigasmon",
+	},
+	arbormon: {
+		name: "Arbormon",
+	},
+	petaldramon: {
+		name: "Petaldramon",
+	},
+	ranamon: {
+		name: "Ranamon",
+	},
+	calamaramon: {
+		name: "Calamaramon",
+	},
+	mercuremon: {
+		name: "Mercuremon",
+	},
+	sephirothmon: {
+		name: "Sephirothmon",
+	},
+	duskmon: {
+		name: "Duskmon",
+	},
+	louwemon: {
+		name: "Louwemon",
+	},
+	velgrmon: {
+		name: "Velgrmon",
+	},
+	kaiserleomon: {
+		name: "Kaiser Leomon",
+	},
+	raihimon: {
+		name: "Raihimon",
+	},
+	honeybeemon: {
+		name: "Honeybeemon",
+	},
+	yaksamon: {
+		name: "Yaksamon",
+	},
+	sagittarimon: {
+		name: "Sagittarimon",
+	},
+	nohemon: {
+		name: "Nohemon",
+	},
+	kongoumon: {
+		name: "Kongoumon",
+	},
+	pucchiemon: {
+		name: "Pucchiemon",
+	},
+	moosemon: {
+		name: "Moosemon",
+	},
+	peacockmon: {
+		name: "Peacockmon",
+	},
+	tocanmon: {
+		name: "Tocanmon",
+	},
+	sepikmon: {
+		name: "Sepikmon",
+	},
+	pteranomon: {
+		name: "Pteranomon",
+	},
+	pteranomonx: {
+		name: "Pteranomon-X",
+	},
+	chamelemon: {
+		name: "Chamelemon",
+	},
+	baromon: {
+		name: "Baromon",
+	},
+	pipismon: {
+		name: "Pipismon",
+	},
+	ponchomon: {
+		name: "Ponchomon",
+	},
+	swanmon: {
+		name: "Swanmon",
+	},
+	tylomon: {
+		name: "Tylomon",
+	},
+	tylomonx: {
+		name: "Tylomon-X",
+	},
+	goatmon: {
+		name: "Goatmon",
+	},
+	flawizarmon: {
+		name: "Fla Wizarmon",
+	},
+	thunderbirmon: {
+		name: "Thunderbirmon",
+	},
+	kenkimon: {
+		name: "Kenkimon",
+	},
+	salamandamon: {
+		name: "Salamandamon",
+	},
+	koemon: {
+		name: "Koemon",
+	},
+	hookmon: {
+		name: "Hookmon",
+	},
+	gladimon: {
+		name: "Gladimon",
+	},
+	witchmon: {
+		name: "Witchmon",
+	},
+	kyukimon: {
+		name: "Kyukimon",
+	},
+	assaultmon: {
+		name: "Assaultmon",
+	},
+	blackkingnumemon: {
+		name: "Black King Numemon",
+	},
+	valvemon: {
+		name: "Valvemon",
+	},
+	betsumon: {
+		name: "Betsumon",
+	},
+	mistymon: {
+		name: "Mistymon",
+	},
+	wisemon: {
+		name: "Wisemon",
+	},
+	mermaimon: {
+		name: "Mermaimon",
+	},
+	cannondramon: {
+		name: "Cannondramon",
+	},
+	bokomon: {
+		name: "Bokomon",
+	},
+	neamon: {
+		name: "Neamon",
+	},
+	starmon: {
+		name: "Starmon",
+	},
+	starmonx: {
+		name: "Starmon-X",
+	},
+	superstarmon: {
+		name: "Superstarmon",
+	},
+	zanbamon: {
+		name: "Zanbamon",
+	},
+	panjyamon: {
+		name: "Panjyamon",
+	},
+	panjyamonx: {
+		name: "Panjyamon-X",
+	},
+	toyagumon: {
+		name: "Toy Agumon",
+	},
+	toyagumonblack: {
+		name: "Toy Agumon-black",
+	},
+	clearagumon: {
+		name: "Clear Agumon",
+	},
+	pandamon: {
+		name: "Pandamon",
+	},
+	icemon: {
+		name: "Icemon",
+	},
+	insekimon: {
+		name: "Insekimon",
+	},
+	karatenmon: {
+		name: "Karatenmon",
+	},
+	bakumon: {
+		name: "Bakumon",
+	},
+	burgamon: {
+		name: "Burgamon",
+	},
+	ebiburgamon: {
+		name: "Ebi Burgamon",
+	},
+	asuramon: {
+		name: "Asuramon",
+	},
+	kokuwamon: {
+		name: "Kokuwamon",
+	},
+	kokuwamonx: {
+		name: "Kokuwamon-X",
+	},
+	volcamon: {
+		name: "Volcamon",
+	},
+	pievolcamon: {
+		name: "Pie Volcamon",
+	},
+	dynasmon: {
+		name: "Dynasmon",
+	},
+	dynasmonx: {
+		name: "Dynasmon-X",
+	},
+	lordknightmon: {
+		name: "Lord Knightmon",
+	},
+	lordknightmonx: {
+		name: "Lord Knightmon-X",
+	},
+	ancientgreymon: {
+		name: "Ancient Greymon",
+	},
+	ancientgarurumon: {
+		name: "Ancient Garurumon",
+	},
+	ancientirismon: {
+		name: "Ancient Irismon",
+	},
+	ancientmegatheriummon: {
+		name: "Ancient Megatheriummon",
+	},
+	ancientbeatmon: {
+		name: "Ancient Beatmon",
+	},
+	ancientvolcamon: {
+		name: "Ancient Volcamon",
+	},
+	ancienttroiamon: {
+		name: "Ancient Troiamon",
+	},
+	ancientmermaimon: {
+		name: "Ancient Mermaimon",
+	},
+	ancientwisemon: {
+		name: "Ancient Wisemon",
+	},
+	ancientsphinxmon: {
+		name: "Ancient Sphinxmon",
+	},
+	kotemon: {
+		name: "Kotemon",
+	},
+	dinohumon: {
+		name: "Dinohumon",
+	},
+	bearmon: {
+		name: "Bearmon",
+	},
+	gryzmon: {
+		name: "Gryzmon",
+	},
+	darcmon: {
+		name: "Darcmon",
+	},
+	hippogriffomon: {
+		name: "Hippogriffomon",
+	},
+	murmukusmon: {
+		name: "Murmukusmon",
+	},
+	griffomon: {
+		name: "Griffomon",
+	},
+	ornismon: {
+		name: "Ornismon",
+	},
+	marsmon: {
+		name: "Marsmon",
+	},
+	lilithmon: {
+		name: "Lilithmon",
+	},
+	lilithmonx: {
+		name: "Lilithmon-X",
+	},
+	lucemon: {
+		name: "Lucemon",
+	},
+	lucemonfalldown: {
+		name: "Lucemon-falldown",
+	},
+	lucemonx: {
+		name: "Lucemon-X",
+	},
+	lucemonsatan: {
+		name: "Lucemon-satan",
+	},
+	lucemonlarva: {
+		name: "Lucemon-larva",
+	},
+	deathxmon: {
+		name: "Death-X-mon",
+	},
+	dorumon: {
+		name: "DORUmon",
+	},
+	dorugamon: {
+		name: "DORUgamon",
+	},
+	deathxdorugamon: {
+		name: "Death-X-DORUgamon",
+	},
+	raptordramon: {
+		name: "Raptordramon",
+	},
+	doruguremon: {
+		name: "DORUguremon",
+	},
+	deathxdoruguremon: {
+		name: "Death-X-DORUguremon",
+	},
+	grademon: {
+		name: "Grademon",
+	},
+	dorugoramon: {
+		name: "DORUgoramon",
+	},
+	deathxdorugoramon: {
+		name: "Death-X-DORUgoramon",
+	},
+	ryudamon: {
+		name: "Ryudamon",
+	},
+	ginryumon: {
+		name: "Ginryumon",
+	},
+	hisyaryumon: {
+		name: "Hisyaryumon",
+	},
+	ouryumon: {
+		name: "Ouryumon",
+	},
+	funbeemon: {
+		name: "Funbeemon",
+	},
+	waspmon: {
+		name: "Waspmon",
+	},
+	cannonbeemon: {
+		name: "Cannonbeemon",
+	},
+	tigervespamon: {
+		name: "Tiger Vespamon",
+	},
+	dracumon: {
+		name: "Dracumon",
+	},
+	sangloupmon: {
+		name: "Sangloupmon",
+	},
+	matadrmon: {
+		name: "Matadrmon",
+	},
+	granddracumon: {
+		name: "Grand Dracumon",
+	},
+	gaioumon: {
+		name: "Gaioumon",
+	},
+	grandiskuwagamon: {
+		name: "Grandis Kuwagamon",
+	},
+	gigaseadramon: {
+		name: "Giga Seadramon",
+	},
+	dinotigermon: {
+		name: "Dinotigermon",
+	},
+	metalfantomon: {
+		name: "Metal Fantomon",
+	},
+	mametyramon: {
+		name: "Mametyramon",
+	},
+	metalpiranimon: {
+		name: "Metal Piranimon",
+	},
+	medivaldukemon: {
+		name: "Medival Dukemon",
+	},
+	tobucatmon: {
+		name: "Tobucatmon",
+	},
+	omekamon: {
+		name: "Omekamon",
+	},
+	skullbaluchimon: {
+		name: "Skull Baluchimon",
+	},
+	volcdramon: {
+		name: "Volcdramon",
+	},
+	ultimatebrakimon: {
+		name: "Ultimate Brakimon",
+	},
+	dinorexmon: {
+		name: "Dinorexmon",
+	},
+	clavisangemon: {
+		name: "Clavis Angemon",
+	},
+	kingetemon: {
+		name: "King Etemon",
+	},
+	princemamemon: {
+		name: "Prince Mamemon",
+	},
+	princemamemonx: {
+		name: "Prince Mamemon-X",
+	},
+	leviamon: {
+		name: "Leviamon",
+	},
+	leviamonx: {
+		name: "Leviamon-X",
+	},
+	barbamon: {
+		name: "Barbamon",
+	},
+	barbamonx: {
+		name: "Barbamon-X",
+	},
+	alphamon: {
+		name: "Alphamon",
+	},
+	alphamonouryuken: {
+		name: "Alphamon-Ouryuken",
+	},
+	rizegreymon: {
+		name: "Rize Greymon",
+	},
+	shinegreymon: {
+		name: "Shine Greymon",
+	},
+	shinegreymonburst: {
+		name: "Shine Greymon-Burst",
+	},
+	shinegreymonruin: {
+		name: "Shine Greymon-Ruin",
+	},
+	gaogamon: {
+		name: "Gaogamon",
+	},
+	machgaogamon: {
+		name: "Mach Gaogamon",
+	},
+	miragegaogamon: {
+		name: "Mirage Gaogamon",
+	},
+	miragegaogamonburst: {
+		name: "Mirage Gaogamon-Burst",
+	},
+	lalamon: {
+		name: "Lalamon",
+	},
+	sunflowmon: {
+		name: "Sunflowmon",
+	},
+	lilamon: {
+		name: "Lilamon",
+	},
+	falcomon: {
+		name: "Falcomon",
+	},
+	falcomons: {
+		name: "Falcomon-S",
+	},
+	diatrymon: {
+		name: "Diatrymon",
+	},
+	peckmon: {
+		name: "Peckmon",
+	},
+	yatagaramon: {
+		name: "Yatagaramon",
+	},
+	yatagaramons: {
+		name: "Yatagaramon-S",
+	},
+	valdurmon: {
+		name: "Valdurmon",
+	},
+	ravmon: {
+		name: "Ravmon",
+	},
+	ravmonburst: {
+		name: "Ravmon-Burst",
+	},
+	kudamon: {
+		name: "Kudamon",
+	},
+	kudamons: {
+		name: "Kudamon-S",
+	},
+	reppamon: {
+		name: "Reppamon",
+	},
+	tyilinmon: {
+		name: "Tyilinmon",
+	},
+	sleipmon: {
+		name: "Sleipmon",
+	},
+	sleipmonx: {
+		name: "Sleipmon-X",
+	},
+	kamemon: {
+		name: "Kamemon",
+	},
+	gawappamon: {
+		name: "Gawappamon",
+	},
+	shawujinmon: {
+		name: "Shawujinmon",
+	},
+	jumbogamemon: {
+		name: "Jumbo Gamemon",
+	},
+	pawnchessmon: {
+		name: "Pawn Chessmon",
+	},
+	pawnchessmonwhite: {
+		name: "Pawn Chessmon-White",
+	},
+	knightchessmon: {
+		name: "Knight Chessmon",
+	},
+	knightchessmonwhite: {
+		name: "Knight Chessmon-White",
+	},
+	rookchessmonblack: {
+		name: "Rook Chessmon-Black",
+	},
+	bishopchessmonwhite: {
+		name: "Bishop Chessmon-White",
+	},
+	queenchessmon: {
+		name: "Queen Chessmon",
+	},
+	kingchessmon: {
+		name: "King Chessmon",
+	},
+	kokabuterimon: {
+		name: "Kokabuterimon",
+	},
+	bladekuwagamon: {
+		name: "Blade Kuwagamon",
+	},
+	metallifekuwagamon: {
+		name: "Metallife Kuwagamon",
+	},
+	tyrantkabuterimon: {
+		name: "Tyrant Kabuterimon",
+	},
+	commandramon: {
+		name: "Commandramon",
+	},
+	sealsdramon: {
+		name: "Sealsdramon",
+	},
+	tankdramon: {
+		name: "Tankdramon",
+	},
+	darkdramon: {
+		name: "Darkdramon",
+	},
+	liollmon: {
+		name: "Liollmon",
+	},
+	liamon: {
+		name: "Liamon",
+	},
+	loaderliomon: {
+		name: "Loader Liomon",
+	},
+	bancholeomon: {
+		name: "Bancho Leomon",
+	},
+	banchomamemon: {
+		name: "Bancho Mamemon",
+	},
+	bancholilimon: {
+		name: "Bancho Lilimon",
+	},
+	banchostingmon: {
+		name: "Bancho Stingmon",
+	},
+	banchogolemon: {
+		name: "Bancho Golemon",
+	},
+	chaosmon: {
+		name: "Chaosmon",
+	},
+	chaosmonvaldurarm: {
+		name: "Chaosmon-Valdur Arm",
+	},
+	ultimatechaosmon: {
+		name: "Ultimate Chaosmon",
+	},
+	spinomon: {
+		name: "Spinomon",
+	},
+	lotusmon: {
+		name: "Lotusmon",
+	},
+	swimmon: {
+		name: "Swimmon",
+	},
+	eldoradimon: {
+		name: "El Doradimon",
+	},
+	goldnumemon: {
+		name: "Gold Numemon",
+	},
+	platinumnumemon: {
+		name: "Platinum Numemon",
+	},
+	mercurymon: {
+		name: "Mercurymon",
+	},
+	minervamon: {
+		name: "Minervamon",
+	},
+	minervamonx: {
+		name: "Minervamon-X",
+	},
+	neptonmon: {
+		name: "Neptonmon",
+	},
+	protogizmon: {
+		name: "Proto Gizmon",
+	},
+	gizmonat: {
+		name: "Gizmon-AT",
+	},
+	gizmonxt: {
+		name: "Gizmon-XT",
+	},
+	phascomon: {
+		name: "Phascomon",
+	},
+	porcupamon: {
+		name: "Porcupamon",
+	},
+	astamon: {
+		name: "Astamon",
+	},
+	belphemon: {
+		name: "Belphemon",
+	},
+	belphemonsleep: {
+		name: "Belphemon-Sleep",
+	},
+	belphemonx: {
+		name: "Belphemon-X",
+	},
+	duftmon: {
+		name: "Duftmon",
+	},
+	duftmonleopard: {
+		name: "Duftmon-Leopard",
+	},
+	duftmonx: {
+		name: "Duftmon-X",
+	},
+	craniummon: {
+		name: "Craniummon",
+	},
+	craniummonx: {
+		name: "Craniummon-X",
+	},
+	algomonperfect: {
+		name: "Algomon-Perfect",
+	},
+	algomonultimate: {
+		name: "Algomon-Ultimate",
+	},
+	yggdrasill7d6: {
+		name: "Yggdrasill-7D6",
 	},
 };

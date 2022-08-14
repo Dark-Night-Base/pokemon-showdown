@@ -7131,4 +7131,17 @@ export const Items: {[itemid: string]: ItemData} = {
 		gen: 8,
 		isNonstandard: "CAP",
 	},
+
+	// Digimon
+
+	xantibody: {
+		name: "X-Antibody",
+		spritenum: 614,
+		onTakeItem(item, source) {
+			return false;
+		},
+		num: 40001,
+		gen: 8,
+		isNonstandard: "Digimon",
+	},
 };

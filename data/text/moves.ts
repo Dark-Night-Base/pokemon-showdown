@@ -6872,4 +6872,9 @@ export const MovesText: {[k: string]: MoveText} = {
 		desc: "For 3 turns, the target is prevented from restoring any HP as long as it remains active. During the effect, healing and draining moves are unusable, and Abilities and items that grant healing will not heal the user. If an affected Pokemon uses Baton Pass, the replacement will remain unable to restore its HP. Pain Split and the Regenerator Ability are unaffected.",
 		shortDesc: "For 3 turns, the foe(s) is prevented from healing.",
 	},
+	braveshield: {
+		name: "Brave Shield",
+		desc: "The user is protected from most attacks made by other Pokemon during this turn, and the user have their Attack raised by 1 stage if Pokemon try to make contact with it. Non-damaging moves go through this protection. This move has a 1/X chance of being successful, where X starts at 1 and triples each time this move is successfully used. X resets to 1 if this move fails, if the user's last move used is not Baneful Bunker, Brave Shield, Detect, Endure, King's Shield, Max Guard, Obstruct, Protect, Quick Guard, Spiky Shield, or Wide Guard, or if it was one of those moves and the user's protection was broken. Fails if the user moves last this turn.",
+		shortDesc: "Protects from damaging attacks. Contact: User +1 Atk.",
+	},
 };
