@@ -6610,4 +6610,8 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 		isNonstandard: "Custom",
 		tier: "Illegal",
 	},
+	omegamon: {
+		isNonstandard: "Custom",
+		tier: "Illegal",
+	}
 };
