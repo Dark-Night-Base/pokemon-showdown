@@ -19912,7 +19912,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		basePower: 110,
 		category: "Special",
 		name: "Gaia Force",
-		pp: 10,
+		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		target: "allAdjacentFoes",
@@ -19940,7 +19940,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		basePower: 80,
 		category: "Physical",
 		name: "Dramon Killer",
-		pp: 15,
+		pp: 10,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},
 		basePowerCallback(pokemon, target, move) {

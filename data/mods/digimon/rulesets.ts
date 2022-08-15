@@ -8,24 +8,20 @@ export const Rulesets: {[k: string]: ModdedFormatData} = {
 			'Nickname Clause', 'Species Clause', 
 		],
 		onChangeSet(set) {
-			const isX = this.dex.species.get(set.species).forme === 'X';
-			// const item = this.dex.toID(set.item);
-			// if (set.species === 'Zacian' && item === 'rustedsword') {
-			// 	set.species = 'Zacian-Crowned';
-			// 	set.ability = 'Intrepid Sword';
-			// 	const ironHead = set.moves.indexOf('ironhead');
-			// 	if (ironHead >= 0) {
-			// 		set.moves[ironHead] = 'behemothblade';
-			// 	}
-			// }
-			// if (set.species === 'Zamazenta' && item === 'rustedshield') {
-			// 	set.species = 'Zamazenta-Crowned';
-			// 	set.ability = 'Dauntless Shield';
-			// 	const ironHead = set.moves.indexOf('ironhead');
-			// 	if (ironHead >= 0) {
-			// 		set.moves[ironHead] = 'behemothbash';
-			// 	}
-			// }
+			const species = this.dex.species.get(set.species);
+			const isX = species.forme === 'X';
+			if (isX) {
+				const baseSpecies = this.dex.species.get(species.baseSpecies);
+				const ability = this.dex.abilities.get(set.ability);
+				set.species = baseSpecies.name;
+				set.item = 'X-Antibody';
+				for (const a in baseSpecies.abilities) {
+					if (this.dex.abilities.get(a) === ability) {
+						return;
+					}
+				}
+				set.ability = baseSpecies.abilities[0];
+			}
 		},
 	},
 	dynamaxclause: {
