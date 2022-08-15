@@ -7,6 +7,26 @@ export const Rulesets: {[k: string]: ModdedFormatData} = {
 			'Cancel Mod', 'Dynamax Clause', 'Endless Battle Clause', 'HP Percentage Mod', 'Obtainable', 'Team Preview', 
 			'Nickname Clause', 'Species Clause', 
 		],
+		onChangeSet(set) {
+			const isX = this.dex.species.get(set.species).forme === 'X';
+			// const item = this.dex.toID(set.item);
+			// if (set.species === 'Zacian' && item === 'rustedsword') {
+			// 	set.species = 'Zacian-Crowned';
+			// 	set.ability = 'Intrepid Sword';
+			// 	const ironHead = set.moves.indexOf('ironhead');
+			// 	if (ironHead >= 0) {
+			// 		set.moves[ironHead] = 'behemothblade';
+			// 	}
+			// }
+			// if (set.species === 'Zamazenta' && item === 'rustedshield') {
+			// 	set.species = 'Zamazenta-Crowned';
+			// 	set.ability = 'Dauntless Shield';
+			// 	const ironHead = set.moves.indexOf('ironhead');
+			// 	if (ironHead >= 0) {
+			// 		set.moves[ironHead] = 'behemothbash';
+			// 	}
+			// }
+		},
 	},
 	dynamaxclause: {
 		inherit: true,

@@ -19906,4 +19906,52 @@ export const Moves: {[moveid: string]: MoveData} = {
 		target: "self",
 		type: "Fire",
 	},
+	gaiaforce: {
+		num: 40005,
+		accuracy: 90,
+		basePower: 110,
+		category: "Special",
+		name: "Gaia Force",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		target: "allAdjacentFoes",
+		type: "Ground",
+		contestType: "Beautiful",
+	},
+	bravetornado: {
+		num: 40006,
+		accuracy: 100,
+		basePower: 90,
+		category: "Physical",
+		name: "Brave Tornado",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		critRatio: 2,
+		secondary: null,
+		target: "normal",
+		type: "Fighting",
+		contestType: "Tough",
+	},
+	dramonkiller: {
+		num: 40007,
+		accuracy: 100,
+		basePower: 80,
+		category: "Physical",
+		name: "Dramon Killer",
+		pp: 15,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		basePowerCallback(pokemon, target, move) {
+			if (target.species.name.includes('dramon')) {
+				this.debug("3x damage to dramon");
+				return move.basePower * 3;
+			}
+			return move.basePower;
+		},
+		target: "normal",
+		type: "Dragon",
+		contestType: "Tough",
+	},
 };

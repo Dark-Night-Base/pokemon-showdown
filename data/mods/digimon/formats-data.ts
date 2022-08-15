@@ -17,21 +17,28 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	metalgreymonbluex: {
 		tier: "UU",
 	},
-	garurumon: {
-		tier: "RU",
-	}
-	/*
-	demon: {
+	wargreymon: {
 		tier: "OU",
 	},
-	demonx: {
+	metalgarurumon: {
 		tier: "OU",
 	},
+	hououmon: {
+		tier: "OU",
+	},
+	heraklekabuterimon: {
+		tier: "OU",
+	},
+	// demon: {
+	// 	tier: "OU",
+	// },
+	// demonx: {
+	// 	tier: "OU",
+	// },
 	diablomon: {
 		tier: "Uber",
 	},
 	diablomonx: {
 		tier: "Uber",
 	}
-	*/
 };
