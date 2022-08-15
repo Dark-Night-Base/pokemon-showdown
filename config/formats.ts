@@ -3553,6 +3553,6 @@ export const Formats: FormatList = [
 		mod: 'digimon',
 		searchShow: false,
 		debug: true,
-		ruleset: ['Cancel Mod', 'HP Percentage Mod', 'Team Preview', 'Dynamax Clause', 'Obtainable'],
+		ruleset: ['Standard Digimon'],
 	},
 ];
