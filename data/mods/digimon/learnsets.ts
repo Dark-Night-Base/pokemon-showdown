@@ -13,9 +13,11 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	*/
 	/* Unnecessary Moves:
-		chipaway
 		rockclimb
 		takedown
+	*/
+	/* Deleted Moves:
+		chipaway
 	*/
 	omegamon: {
 		learnset: {
@@ -188,24 +190,48 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	}, 
 	metalgarurumon: {
 		learnset: {
+			cocytusbreath: ["8L1"],
+			garurutomahawk: ["8L1"],
+			gracecrossfreezer: ["8L1"],
 			agility: ["8L1"],
+			autotomize: ["8L1"],
+			bite: ["8L1"],
 			blizzard: ["8L1"],
 			crunch: ["8L1"],
+			dualwingbeat: ["8L1"],
 			firefang: ["8L1"],
 			flashcannon: ["8L1"],
 			freezedry: ["8L1"],
+			frostbreath: ["8L1"],
 			gigaimpact: ["8L1"],
+			haze: ["8L1"],
+			headbutt: ["8L1"],
 			hiddenpower: ["8L1"],
 			hyperbeam: ["8L1"],
 			icebeam: ["8L1"],
 			icefang: ["8L1"],
 			icywind: ["8L1"],
+			irondefense: ["8L1"],
 			ironhead: ["8L1"],
+			irontail: ["8L1"],
+			laserfocus: ["8L1"],
+			leer: ["8L1"],
+			metalsound: ["8L1"],
 			protect: ["8L1"],
+			quickattack: ["8L1"],
 			rest: ["8L1"],
+			scaryface: ["8L1"],
+			shockwave: ["8L1"],
+			signalbeam: ["8L1"],
+			slash: ["8L1"],
 			sleeptalk: ["8L1"],
+			steelwing: ["8L1"],
 			substitute: ["8L1"],
+			supersonic: ["8L1"],
 			thunderfang: ["8L1"],
+			thunderwave: ["8L1"],
+			voltswitch: ["8L1"],
+			wingattack: ["8L1"],
 		},
 	},
 	hououmon: {

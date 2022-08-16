@@ -6892,4 +6892,19 @@ export const MovesText: {[k: string]: MoveText} = {
 		desc: "This move deals 3x damage to Digimon who have \"dramon\" in their names.",
 		shortDesc: "3x damage to dramon.",
 	},
+	cocytusbreath: {
+		name: "Cocytus Breath",
+		desc: "This move is always a critical hit unless the target is under the effect of Lucky Chant or has the Battle Armor or Shell Armor Abilities. Has a 10% chance to freeze the target.",
+		shortDesc: "Always results in a critical hit. 10% chance to freeze the target.",
+	},
+	garurutomahawk: {
+		name: "Garuru Tomahawk",
+		desc: "Has a higher chance for a critical hit. Has a 10% chance to freeze the target.",
+		shortDesc: "High critical hit ratio. 10% chance to freeze the target.",
+	},
+	gracecrossfreezer: {
+		name: "Grace Cross Freezer",
+		desc: "Lowers the user's Special Attack by 2 stages.",
+		shortDesc: "Lowers the user's Sp. Atk by 2.",
+	},
 };

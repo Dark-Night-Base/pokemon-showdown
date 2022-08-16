@@ -18040,7 +18040,7 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		types: ["Ice", "Steel", "Data"],
 		genderRatio: {M: 0.875, F: 0.125},
 		baseStats: {hp: 75, atk: 72, def: 81, spa: 100, spd: 81, spe: 111},
-		abilities: {0: "", 1: "", H: ""},
+		abilities: {0: "Analytic", 1: "", H: "Sniper"},
 		weightkg: 1,
 		eggGroups: ["Undiscovered"],
 		otherFormes: ["Metal Garurumon-X"],
