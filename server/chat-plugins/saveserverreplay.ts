@@ -38,8 +38,7 @@ export const commands: Chat.ChatCommands = {
 		}
 
 		const out = fs.createWriteStream(filePath, {flags: 'w'});
-		// todo: see client::src/battle-log.ts: createReplayFile
-		// todo: deal with replayid
+		// see client::src/battle-log.ts: createReplayFile
 		out.on('open', () => {
 			out.write(
 				`<!DOCTYPE html>\n` +

@@ -6907,4 +6907,13 @@ export const MovesText: {[k: string]: MoveText} = {
 		desc: "Lowers the user's Special Attack by 2 stages.",
 		shortDesc: "Lowers the user's Sp. Atk by 2.",
 	},
+	starlightexplosion: {
+		name: "Starlight Explosion",
+		desc: "Has a 30% chance to lower the target's Special Attack by 1 stage.",
+		shortDesc: "30% chance to lower the target's Sp. Atk by 1.",
+	},
+	gigablaster: {
+		name: "Giga Blaster",
+		shortDesc: "No additional effect.",
+	},
 };
