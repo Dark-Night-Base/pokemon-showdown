@@ -6916,4 +6916,28 @@ export const MovesText: {[k: string]: MoveText} = {
 		name: "Giga Blaster",
 		shortDesc: "No additional effect.",
 	},
+	forbiddentemptation: {
+		name: "Forbidden Temptation",
+		shortDesc: "No additional effect.",
+	},
+	thornwhip: {
+		name: "Thorn Whip",
+		desc: "Has a 20% chance to paralyze the target.",
+		shortDesc: "20% chance to paralyze adjacent Pokemon.",
+	},
+	sorrowblue: {
+		name: "Sorrow Blue",
+		desc: "Has a 10% chance to lower the target's Special Defense by 1 stage.",
+		shortDesc: "10% chance to lower the foe(s) Sp. Def by 1.",
+	},
+	sevenheavens: {
+		name: "Seven Heavens",
+		desc: "Hits 7 times. If one of the hits breaks the target's substitute, it will take damage for the second hit. (It should spread like Dragon Darts in Doubles. Not implemented correctly yet.)",
+		shortDesc: "Hits 7 times. Doubles: Spread like Dragon Darts. (Not implemented.)",
+	},
+	testament: {
+		name: "Testament",
+		desc: "The user faints after using this move, even if this move fails for having no target. This move is prevented from executing if any active Pokemon has the Damp Ability.",
+		shortDesc: "Hits adjacent Pokemon. The user faints.",
+	},
 };

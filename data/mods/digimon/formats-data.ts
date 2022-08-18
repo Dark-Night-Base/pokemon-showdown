@@ -2,21 +2,21 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	omegamon: {
 		tier: "Uber",
 	},
-	omegamonx: {
-		tier: "Uber",
-	},
+	// omegamonx: {
+	// 	tier: "Uber",
+	// },
 	metalgreymon: {
 		tier: "UU",
 	},
 	metalgreymonblue: {
 		tier: "UU",
 	},
-	metalgreymonx: {
-		tier: "UU",
-	},
-	metalgreymonbluex: {
-		tier: "UU",
-	},
+	// metalgreymonx: {
+	// 	tier: "UU",
+	// },
+	// metalgreymonbluex: {
+	// 	tier: "UU",
+	// },
 	wargreymon: {
 		tier: "OU",
 	},
@@ -29,6 +29,27 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	heraklekabuterimon: {
 		tier: "OU",
 	},
+	rosemon: {
+		tier: "OU",
+	},
+	vikemon: {
+		tier: "OU",
+	},
+	plesiomon: {
+		tier: "OU",
+	},
+	seraphimon: {
+		tier: "OU",
+	},
+	goddramon: {
+		tier: "Uber",
+	},
+	holydramon: {
+		tier: "Uber",
+	},
+	ofanimon: {
+		tier: "OU",
+	},
 	// demon: {
 	// 	tier: "OU",
 	// },
@@ -38,7 +59,7 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	diablomon: {
 		tier: "Uber",
 	},
-	diablomonx: {
-		tier: "Uber",
-	}
+	// diablomonx: {
+	// 	tier: "Uber",
+	// },
 };
