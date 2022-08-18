@@ -366,7 +366,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			gigaimpact: ["8L1"],
 			grassknot: ["8L1"],
 			grasspledge: ["8L1"],
-			grassterrain: ["8L1"],
+			grassyterrain: ["8L1"],
 			growth: ["8L1"],
 			helpinghand: ["8L1"],
 			hiddenpower: ["8L1"],
@@ -382,7 +382,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			naturepower: ["8L1"],
 			petalblizzard: ["8L1"],
 			petaldance: ["8L1"],
-			pinmissle: ["8L1"],
+			pinmissile: ["8L1"],
 			poisonjab: ["8L1"],
 			poisonpowder: ["8L1"],
 			poisonsting: ["8L1"],
@@ -576,6 +576,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	goddramon: {
 		learnset: {
 			//nf
+			godflame: ["8L1"],
 			aircutter: ["8L1"],
 			airslash: ["8L1"],
 			ancientpower: ["8L1"],
@@ -630,6 +631,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	holydramon: {
 		learnset: {
 			//nf
+			holyflame: ["8L1"],
 			aerialace: ["8L1"],
 			agility: ["8L1"],
 			aquatail: ["8L1"],

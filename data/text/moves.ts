@@ -6940,4 +6940,14 @@ export const MovesText: {[k: string]: MoveText} = {
 		desc: "The user faints after using this move, even if this move fails for having no target. This move is prevented from executing if any active Pokemon has the Damp Ability.",
 		shortDesc: "Hits adjacent Pokemon. The user faints.",
 	},
+	godflame: {
+		name: "God Flame",
+		desc: "Has a 50% chance to burn the target.",
+		shortDesc: "50% chance to burn the target. Thaws user.",
+	},
+	holyflame: {
+		name: "Holy Flame",
+		desc: "If the target lost HP, the user takes recoil damage equal to 33% the HP lost by the target, rounded half up, but not less than 1 HP.",
+		shortDesc: "Has 33% recoil.",
+	},
 };

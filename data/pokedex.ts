@@ -18160,7 +18160,7 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		name: "Herakle Kabuterimon",
 		types: ["Bug", "Flying", "Vaccine"],
 		baseStats: {hp: 80, atk: 105, def: 90, spa: 105, spd: 70, spe: 90},
-		abilities: {0: "Hyper Cutter", 1: "Shell Armor", H: ""},
+		abilities: {0: "Hyper Cutter", 1: "", H: ""},
 		weightkg: 1,
 		eggGroups: ["Undiscovered"],
 		otherFormes: ["Herakle Kabuterimon-X"],
