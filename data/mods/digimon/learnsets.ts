@@ -730,7 +730,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			agility: ["8L1"],
 			aircutter: ["8L1"],
 			airslash: ["8L1"],
-			aurashpere: ["8L1"],
+			aurasphere: ["8L1"],
 			batonpass: ["8L1"],
 			calmmind: ["8L1"],
 			cosmicpower: ["8L1"],
