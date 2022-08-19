@@ -20067,7 +20067,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		flags: {protect: 1, mirror: 1},
 		secondary: {
 			chance: 20,
-			volatileStatus: 'par',
+			status: 'par',
 		},
 		target: "normal",
 		type: "Grass",
@@ -20101,11 +20101,11 @@ export const Moves: {[moveid: string]: MoveData} = {
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		self: {
-			boosts: {
-				spa: -2,
-			},
-		},
+		// self: {
+		// 	boosts: {
+		// 		spa: -2,
+		// 	},
+		// },
 		multihit: 7,
 		smartTarget: true,
 		secondary: null,
