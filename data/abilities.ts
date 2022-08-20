@@ -4498,4 +4498,20 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		name: "Omega inForce",
 		num: 40001,
 	},
+	lightaura: {
+		onStart(pokemon) {
+			if (this.suppressingAbility(pokemon)) return;
+			this.add('-ability', pokemon, 'Light Aura');
+		},
+		onAnyBasePowerPriority: 20,
+		onAnyBasePower(basePower, source, target, move) {
+			if (target === source || move.category === 'Status' || move.type !== 'Light') return;
+			if (!move.auraBooster) move.auraBooster = this.effectState.target;
+			if (move.auraBooster !== this.effectState.target) return;
+			return this.chainModify([move.hasAuraBreak ? 3072 : 5448, 4096]);
+		},
+		name: "Light Aura",
+		rating: 3,
+		num: 40002,
+	},
 };

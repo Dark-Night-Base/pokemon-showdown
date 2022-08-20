@@ -1742,5 +1742,12 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 		name: "Omega inForce",
 		desc: "WIP.",
 		shortDesc: "WIP.",
-	}
+	},
+	lightaura: {
+		name: "Light Aura",
+		desc: "While this Pokemon is active, the power of Light-type moves used by active Pokemon is multiplied by 1.33.",
+		shortDesc: "While this Pokemon is active, a Light move used by any Pokemon has 1.33x power.",
+
+		start: "  [POKEMON] is radiating a light aura!",
+	},
 };

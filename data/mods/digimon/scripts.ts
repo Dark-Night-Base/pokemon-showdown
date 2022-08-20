@@ -9,9 +9,18 @@ export const Scripts: ModdedBattleScriptsData = {
 		}
 		for (const i in this.data.Moves) {
 			this.modData('Moves', i).isNonstandard = null;
+			if (this.data.Moves[i].type === "Fairy") {
+				this.modData('Moves', i).type = "Light";
+			}
 		}
 		for (const i in this.data.Pokedex) {
-			this.modData('Pokedex', i).isNonstandard = null;
+			if (this.data.Pokedex[i].num > 40000) {
+				this.modData('Pokedex', i).isNonstandard = null;
+				if (this.data.Pokedex[i].types.includes("Fairy")) {
+					const index = this.data.Pokedex[i].types.findIndex(type => type === "Fairy");
+					this.modData('Pokedex', i).types[index] = "Light";
+				}
+			}
 		}
 		// todo: make all pokemon isNonstandard here
 	},
