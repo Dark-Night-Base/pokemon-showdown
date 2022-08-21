@@ -732,7 +732,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	holydramon: {
 		learnset: {
-			//nf
 			holyflame: ["8L1"],
 			aerialace: ["8L1"],
 			agility: ["8L1"],

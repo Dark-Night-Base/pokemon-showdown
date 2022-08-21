@@ -2259,7 +2259,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 		],
 		onValidateSet(set, format) {
 			const additionalDex = [
-				"Ambipom", "Electivire", "Glaceon", "Gliscor", "Honchkrow", "Leafeon", "Lickylicky", "Magmortar", 
+				"Ambipom", "Electivire", "Glaceon", "Gliscor", "Honchkrow", "Leafeon", "Lickilicky", "Magmortar", 
 				"Magnezone", "Mamoswine", "Mismagius", "Porygon-Z", "Rhyperior", "Sylveon", "Tangrowth", "Togekiss", 
 				"Weavile", "Yanmega", 
 				"Azurill", "Bonsly", "Happiny", "Mantyke", "Mime Jr.", "Munchlax", "Wynaut", 
