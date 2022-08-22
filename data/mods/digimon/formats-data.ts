@@ -50,6 +50,9 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	ofanimon: {
 		tier: "OU",
 	},
+	crossmon: {
+		tier: "OU",
+	},
 	// demon: {
 	// 	tier: "OU",
 	// },

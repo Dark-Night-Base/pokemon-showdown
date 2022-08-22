@@ -18655,7 +18655,7 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		name: "Crossmon",
 		types: ["Steel", "Flying", "Vaccine"],
 		baseStats: {hp: 70, atk: 95, def: 100, spa: 95, spd: 100, spe: 80},
-		abilities: {0: "", 1: "", H: ""},
+		abilities: {0: "Clear Body", 1: "", H: ""},
 		weightkg: 1,
 		eggGroups: ["Undiscovered"],
 	},

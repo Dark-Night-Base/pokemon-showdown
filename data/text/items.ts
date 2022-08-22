@@ -2349,4 +2349,8 @@ export const ItemsText: {[k: string]: ItemText} = {
 		name: "X-Antibody",
 		desc: "This item allows Digimon to X-Evolve in battle."
 	},
+	holyring: {
+		name: "Holy Ring",
+		desc: "If held by a Light-type Digimon, its attacks have 1.1x power.",
+	},
 };
