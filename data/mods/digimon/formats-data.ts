@@ -53,6 +53,21 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	crossmon: {
 		tier: "OU",
 	},
+	grankuwagamon: {
+		tier: "OU",
+	},
+	metalseadramon: {
+		tier: "OU",
+	},
+	boltmon: {
+		tier: "OU",
+	},
+	hiandromon: {
+		tier: "OU",
+	},
+	metaletemon: {
+		tier: "OU",
+	},
 	// demon: {
 	// 	tier: "OU",
 	// },
