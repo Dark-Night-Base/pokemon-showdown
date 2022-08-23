@@ -4510,6 +4510,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			if (move.auraBooster !== this.effectState.target) return;
 			return this.chainModify([move.hasAuraBreak ? 3072 : 5448, 4096]);
 		},
+		isNonstandard: "Digimon",
 		name: "Light Aura",
 		rating: 3,
 		num: 40002,
