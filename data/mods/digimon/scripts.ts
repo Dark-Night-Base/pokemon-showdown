@@ -18,7 +18,9 @@ export const Scripts: ModdedBattleScriptsData = {
 				this.modData('Pokedex', i).isNonstandard = null;
 				if (this.data.Pokedex[i].types.includes("Fairy")) {
 					const index = this.data.Pokedex[i].types.findIndex(type => type === "Fairy");
-					this.modData('Pokedex', i).types[index] = "Light";
+					if (index !== -1) {
+						this.modData('Pokedex', i).types[index] = "Light";
+					}
 				}
 			}
 		}

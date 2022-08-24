@@ -19184,7 +19184,7 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		types: ["Normal", "Fighting", "Data"],
 		genderRatio: {M: 0.75, F: 0.25},
 		baseStats: {hp: 90, atk: 110, def: 80, spa: 60, spd: 65, spe: 95},
-		abilities: {0: "", 1: "", H: ""},
+		abilities: {0: "", 1: "", H: "Reckless"},
 		weightkg: 1,
 		eggGroups: ["Undiscovered"],
 	},

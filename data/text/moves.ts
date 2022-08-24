@@ -6960,4 +6960,9 @@ export const MovesText: {[k: string]: MoveText} = {
 		desc: "Has a 10% chance to lower the target's Special Defense by 1 stage.",
 		shortDesc: "10% chance to lower the target's Sp. Def by 1.",
 	},
+	trumpsword: {
+		name: "Trump Sword",
+		desc: "This move's type effectiveness against Steel is changed to be super effective no matter what this move's type is.",
+		shortDesc: "Super effective on Steel.",
+	},
 };

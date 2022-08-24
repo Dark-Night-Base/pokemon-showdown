@@ -20215,4 +20215,21 @@ export const Moves: {[moveid: string]: MoveData} = {
 		type: "Rock",
 		contestType: "Beautiful",
 	},
+	trumpsword: {
+		num: 40022,
+		accuracy: true,
+		basePower: 80,
+		category: "Physical",
+		isNonstandard: "Digimon",
+		name: "Trump Sword",
+		pp: 20,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onEffectiveness(typeMod, target, type) {
+			if (type === 'Steel') return 1;
+		},
+		target: "normal",
+		type: "Steel",
+		contestType: "Cool",
+	},
 };
