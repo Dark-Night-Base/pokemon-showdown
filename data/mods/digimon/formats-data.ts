@@ -80,9 +80,9 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	venomvamdemon: {
 		tier: "OU",
 	},
-	apocalymon: {
-		tier: "Uber",
-	},
+	// apocalymon: {
+	// 	tier: "Uber",
+	// },
 	// demon: {
 	// 	tier: "OU",
 	// },
