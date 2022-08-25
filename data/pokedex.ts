@@ -20158,7 +20158,7 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		types: ["Ghost", "Dark"],
 		gender: "N",
 		baseStats: {hp: 60, atk: 140, def: 140, spa: 140, spd: 140, spe: 60},
-		abilities: {0: "", 1: "", H: ""},
+		abilities: {0: "Bad Dreams", 1: "", H: ""},
 		weightkg: 1,
 		eggGroups: ["Undiscovered"],
 	},
