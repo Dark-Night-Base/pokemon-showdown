@@ -74,6 +74,12 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	saberleomon: {
 		tier: "OU",
 	},
+	devitamamon: {
+		tier: "OU",
+	},
+	venomvamdemon: {
+		tier: "OU",
+	},
 	// demon: {
 	// 	tier: "OU",
 	// },

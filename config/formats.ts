@@ -1276,7 +1276,7 @@ export const Formats: FormatList = [
 	},
 	{
 		name: "[Gen 8] Mix and Mega BH",
-		desc: `BH where you can mega evolve any Pok&eacute;mon with any mega stone and no limit. Boosts based on mega evolution from gen 7. You can also \"mega evolve\" any Pok&eacute;mon with Rusted Sword, Rusted Shield or Dragon Ascent in this format.`,
+		desc: `BH where you can mega evolve any Pok&eacute;mon (as long as they are not already in "mega" formes) with any mega stone and no limit. Boosts based on mega evolution from gen 7. <br /> You can also "mega evolve" any Pok&eacute;mon with Rusted Sword, Rusted Shield, Astral Barrage, Dragon Ascent and Glacial Lance in this format. <br /> Type "/mnm &lt;pokemon&gt; @ &lt;mega stone&gt;, bh" to see type and stats of Mix and Mega Evolved Pok&eacute;mon in this format. E.g. /mnm zygardecomplete@rustedshield,bh`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3656469/">Mix and Mega</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3659028/">M&amp;M Resources</a>`,
@@ -1294,19 +1294,6 @@ export const Formats: FormatList = [
 			'Beedrillite', 'Gengarite', 'Kangaskhanite', 'Mawilite', 'Medichamite',
 			'Astral Barrage > 1', 'Dragon Ascent > 1', 'Glacial Lance > 1', 
 		],
-		/*unbanlist: [
-			'Abomasite', 'Absolite', 'Aerodactylite', 'Aggronite', 
-			'Alakazite', 'Altarianite', 'Ampharosite', 'Audinite', 
-			'Banettite', 'Beedrillite', 'Blastoisinite', 'Blazikenite', 
-			'Cameruptite', 'Charizardite X', 'Charizardite Y', 'Diancite', 
-			'Galladite', 'Garchompite', 'Gardevoirite', 'Glalitite', 
-			'Gyaradosite', 'Heracronite', 'Houndoominite', 'Latiasite', 
-			'Latiosite', 'Lopunnite', 'Lucarionite', 'Manectite', 
-			'Metagrossite', 'Mewtwonite X', 'Mewtwonite Y', 'Pidgeotite', 
-			'Pinsirite', 'Sablenite', 'Salamencite', 'Sceptilite', 
-			'Scizorite', 'Sharpedonite', 'Slowbronite', 'Swampertite', 
-			'Tyranitarite', 'Venusaurite',
-		],*/
 		restricted: ['Intrepid Sword'],
 		onValidateSet(set) {
 			const ability = this.dex.abilities.get(set.ability);

@@ -75,7 +75,13 @@ function getMegaStone(stone: string, mod = 'gen8'): Item | null {
 			return null;
 		}
 	}
-	if (!item.megaStone && !item.onPrimal && item.id !== 'rustedshield' && item.id !== 'rustedsword') return null;
+	if (!item.megaStone) {
+		if (dex.currentMod !== 'mixandmegabh') {
+			return null;
+		} else if (!item.onPrimal && item.id !== 'rustedshield' && item.id !== 'rustedsword') {
+			return null;
+		}
+	}
 	return item;
 }
 
