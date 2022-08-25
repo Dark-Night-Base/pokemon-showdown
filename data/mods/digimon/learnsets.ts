@@ -1262,6 +1262,26 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			venoshock: ["8L1"],
 		},
 	},
+	apocalymon: {
+		learnset: {
+			darkpulse: ["8L1"],
+			darkvoid: ["8L1"],
+			dreameater: ["8L1"],
+			gigaimpact: ["8L1"],
+			hiddenpower: ["8L1"],
+			hyperbeam: ["8L1"],
+			irondefense: ["8L1"],
+			nastyplot: ["8L1"],
+			protect: ["8L1"],
+			psychic: ["8L1"],
+			psyshock: ["8L1"],
+			rest: ["8L1"],
+			shadowball: ["8L1"],
+			shadowclaw: ["8L1"],
+			sleeptalk: ["8L1"],
+			substitute: ["8L1"],
+		},
+	},
 	demon: {
 		learnset: {
 			// not finished
