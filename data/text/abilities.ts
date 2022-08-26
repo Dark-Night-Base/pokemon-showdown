@@ -1750,4 +1750,14 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 
 		start: "  [POKEMON] is radiating a light aura!",
 	},
+	overwrite: {
+		name: "Overwrite",
+		desc: "The power of this Pokemon's move is multiplied by 1.3 and it loses 1/10 of its maximum HP, rounded down, at the end of each turn.",
+		shortDesc: "This Pokemon's attacks have 1.3x power; loses 1/10 max HP per turn.",
+	},
+	ultimateforce: {
+		name: "Ultimate Force",
+		desc: "This Pokemon restores 1/8 of its maximum HP, rounded down, at the end of each turn.",
+		shortDesc: "This Pokemon is healed by 1/8 of its max HP each turn.",
+	},
 };

@@ -4515,4 +4515,35 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		rating: 3,
 		num: 40002,
 	},
+	overwrite: {
+		onBasePowerPriority: 21,
+		onBasePower(basePower, attacker, defender, move) {
+			this.debug('Overwrite boost');
+			return this.chainModify([5325, 4096]);
+		},
+		onResidualOrder: 28,
+		onResidualSubOrder: 2,
+		onResidual(pokemon) {
+			// same as speed boost
+			// remove this if if it's too broken
+			// if (pokemon.activeTurns) {
+			this.damage(pokemon.baseMaxhp / 10, pokemon, pokemon);
+			// }
+		},
+		isNonstandard: "Digimon",
+		name: "Overwrite",
+		rating: 3,
+		num: 40003,
+	},
+	ultimateforce: {
+		onResidualOrder: 28,
+		onResidualSubOrder: 2,
+		onResidual(pokemon) {
+			this.heal(pokemon.baseMaxhp / 8);
+		},
+		isNonstandard: "Digimon",
+		name: "Ultimate Force",
+		rating: 4.5,
+		num: 40004,
+	},
 };
