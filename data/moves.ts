@@ -19757,7 +19757,6 @@ export const Moves: {[moveid: string]: MoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Fire",
-		contestType: "Cool",
 	},
 	garurucannon: {
 		num: 40002,
@@ -19771,7 +19770,6 @@ export const Moves: {[moveid: string]: MoveData} = {
 		flags: {protect: 1, mirror: 1},
 		target: "allAdjacentFoes",
 		type: "Ice",
-		contestType: "Beautiful",
 	},
 	alldelete: {
 		num: 40003,
@@ -19847,7 +19845,6 @@ export const Moves: {[moveid: string]: MoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Normal",
-		contestType: "Clever",
 	},
 	braveshield: {
 		num: 40004,
@@ -19918,7 +19915,6 @@ export const Moves: {[moveid: string]: MoveData} = {
 		flags: {protect: 1, mirror: 1},
 		target: "allAdjacentFoes",
 		type: "Ground",
-		contestType: "Beautiful",
 	},
 	bravetornado: {
 		num: 40006,
@@ -19934,7 +19930,6 @@ export const Moves: {[moveid: string]: MoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Fighting",
-		contestType: "Tough",
 	},
 	dramonkiller: {
 		num: 40007,
@@ -19955,7 +19950,6 @@ export const Moves: {[moveid: string]: MoveData} = {
 		},
 		target: "normal",
 		type: "Dragon",
-		contestType: "Tough",
 	},
 	cocytusbreath: {
 		num: 40008,
@@ -19974,7 +19968,6 @@ export const Moves: {[moveid: string]: MoveData} = {
 		},
 		target: "normal",
 		type: "Ice",
-		contestType: "Beautiful",
 	},
 	garurutomahawk: {
 		num: 40009,
@@ -19993,7 +19986,6 @@ export const Moves: {[moveid: string]: MoveData} = {
 		},
 		target: "normal",
 		type: "Steel",
-		contestType: "Tough",
 	},
 	gracecrossfreezer: {
 		num: 40010,
@@ -20013,7 +20005,6 @@ export const Moves: {[moveid: string]: MoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Ice",
-		contestType: "Beautiful",
 	},
 	starlightexplosion: {
 		num: 40011,
@@ -20033,7 +20024,6 @@ export const Moves: {[moveid: string]: MoveData} = {
 		},
 		target: "normal",
 		type: "Fairy",
-		contestType: "Beautiful",
 	},
 	gigablaster: {
 		num: 40012,
@@ -20048,7 +20038,6 @@ export const Moves: {[moveid: string]: MoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Normal",
-		contestType: "Cool",
 	},
 	forbiddentemptation: {
 		num: 40013,
@@ -20063,7 +20052,6 @@ export const Moves: {[moveid: string]: MoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Grass",
-		contestType: "Beautiful",
 	},
 	thornwhip: {
 		num: 40014,
@@ -20081,7 +20069,6 @@ export const Moves: {[moveid: string]: MoveData} = {
 		},
 		target: "normal",
 		type: "Grass",
-		contestType: "Tough",
 	},
 	sorrowblue: {
 		num: 40015,
@@ -20101,7 +20088,6 @@ export const Moves: {[moveid: string]: MoveData} = {
 		},
 		target: "allAdjacent",
 		type: "Water",
-		contestType: "Beautiful",
 	},
 	sevenheavens: {
 		num: 40016,
@@ -20123,7 +20109,6 @@ export const Moves: {[moveid: string]: MoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Fairy",
-		contestType: "Beautiful",
 	},
 	testament: {
 		num: 40017,
@@ -20139,7 +20124,6 @@ export const Moves: {[moveid: string]: MoveData} = {
 		secondary: null,
 		target: "allAdjacent",
 		type: "Fairy",
-		contestType: "Beautiful",
 	},
 	godflame: {
 		num: 40018,
@@ -20157,7 +20141,6 @@ export const Moves: {[moveid: string]: MoveData} = {
 		},
 		target: "normal",
 		type: "Fire",
-		contestType: "Beautiful",
 	},
 	holyflame: {
 		num: 40019,
@@ -20173,7 +20156,6 @@ export const Moves: {[moveid: string]: MoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Fairy",
-		contestType: "Tough",
 	},
 	edensjavelin: {
 		num: 40020,
@@ -20193,7 +20175,6 @@ export const Moves: {[moveid: string]: MoveData} = {
 		},
 		target: "normal",
 		type: "Fairy",
-		contestType: "Tough",
 	},
 	sefirotcrystal: {
 		num: 40021,
@@ -20213,7 +20194,6 @@ export const Moves: {[moveid: string]: MoveData} = {
 		},
 		target: "normal",
 		type: "Rock",
-		contestType: "Beautiful",
 	},
 	trumpsword: {
 		num: 40022,
@@ -20230,6 +20210,33 @@ export const Moves: {[moveid: string]: MoveData} = {
 		},
 		target: "normal",
 		type: "Steel",
-		contestType: "Cool",
+	},
+	royalsaber: {
+		num: 40023,
+		accuracy: 100,
+		basePower: 100,
+		category: "Physical",
+		isNonstandard: "Digimon",
+		name: "Royal Saber",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		critRatio: 2,
+		secondary: null,
+		target: "normal",
+		type: "Fairy",
+	},
+	finalelysion: {
+		num: 40024,
+		accuracy: 85,
+		basePower: 120,
+		category: "Special",
+		isNonstandard: "Digimon",
+		name: "Final Elysion",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		target: "allAdjacentFoes",
+		type: "Fairy",
 	},
 };

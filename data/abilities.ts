@@ -4526,9 +4526,9 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		onResidual(pokemon) {
 			// same as speed boost
 			// remove this if if it's too broken
-			// if (pokemon.activeTurns) {
-			this.damage(pokemon.baseMaxhp / 10, pokemon, pokemon);
-			// }
+			if (pokemon.activeTurns) {
+				this.damage(pokemon.baseMaxhp / 10, pokemon, pokemon);
+			}
 		},
 		isNonstandard: "Digimon",
 		name: "Overwrite",
@@ -4545,5 +4545,19 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		name: "Ultimate Force",
 		rating: 4.5,
 		num: 40004,
+	},
+	digitalhazard: {
+		onStart(pokemon) {
+			if (this.suppressingAbility(pokemon)) return;
+			this.add('-ability', pokemon, 'Digital Hazard');
+		},
+		// maybe buggy
+		onEntryHazard(this, pokemon) {
+			this.damage(pokemon.baseMaxhp / 8);
+		},
+		isNonstandard: "Digimon",
+		name: "Digital Hazard",
+		rating: 3,
+		num: 40005,
 	},
 };

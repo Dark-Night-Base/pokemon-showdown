@@ -1760,4 +1760,11 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 		desc: "This Pokemon restores 1/8 of its maximum HP, rounded down, at the end of each turn.",
 		shortDesc: "This Pokemon is healed by 1/8 of its max HP each turn.",
 	},
+	digitalhazard: {
+		name: "Digital Hazard",
+		desc: "While this Pokemon is active, each Pokemon that switches in loses 1/8 of its maximum HP, rounded down.",
+		shortDesc: "While this Pokemon is active, hurts Pokemon on switch-in.",
+
+		start: "  [POKEMON] is exerting digital hazard!",
+	},
 };

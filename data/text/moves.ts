@@ -6965,4 +6965,14 @@ export const MovesText: {[k: string]: MoveText} = {
 		desc: "This move's type effectiveness against Steel is changed to be super effective no matter what this move's type is.",
 		shortDesc: "Super effective on Steel.",
 	},
+	royalsaber: {
+		name: "Royal Saber",
+		desc: "Has a higher chance for a critical hit.",
+		shortDesc: "High critical hit ratio.",
+	},
+	finalelysion: {
+		name: "Final Elysion",
+		desc: "No additional effect.",
+		shortDesc: "No additional effect. Hits adjacent foes.",
+	},
 };
