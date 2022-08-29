@@ -98,4 +98,7 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	dukemon: {
 		tier: "Uber",
 	},
+	huanglongmon: {
+		tier: "Uber",
+	},
 };
