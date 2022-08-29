@@ -3542,4 +3542,13 @@ export const Formats: FormatList = [
 		debug: true,
 		ruleset: ['Standard Digimon'],
 	},
+	{
+		name: "[Gen 8] Digimon Doubles(Alpha)",
+
+		mod: 'digimon',
+		gameType: 'doubles',
+		searchShow: false,
+		debug: true,
+		ruleset: ['Standard Digimon'],
+	},
 ];

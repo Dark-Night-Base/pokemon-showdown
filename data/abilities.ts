@@ -4551,9 +4551,13 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			if (this.suppressingAbility(pokemon)) return;
 			this.add('-ability', pokemon, 'Digital Hazard');
 		},
+		// better to implement this with field effect or condition
 		onFoeSwitchIn(this, pokemon) {
 			this.damage(pokemon.baseMaxhp / 8);
 		},
+		// onAllySwitchIn(this, pokemon) {
+		// 	this.damage(pokemon.baseMaxhp / 8);
+		// },
 		isNonstandard: "Digimon",
 		name: "Digital Hazard",
 		rating: 3,

@@ -20391,7 +20391,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		secondary: null,
 		self: {
 			onHit(source) {
-				const weathers = ['sunnyday', 'raindance', 'sandstream', 'hail'];
+				const weathers = ['sunnyday', 'raindance', 'sandstorm', 'hail'];
 				this.field.setWeather(this.sample(weathers));
 			},
 		},

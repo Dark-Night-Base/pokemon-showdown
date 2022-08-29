@@ -51,4 +51,11 @@ export const Rulesets: {[k: string]: ModdedFormatData} = {
 			}
 		},
 	},
+	speciesclause: {
+		inherit: true,
+		desc: "Prevents teams from having more than one Digimon from the same species",
+		onBegin() {
+			this.add('rule', 'Species Clause: Limit one of each Digimon');
+		},
+	},
 };
