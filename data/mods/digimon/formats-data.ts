@@ -95,4 +95,7 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	// diablomonx: {
 	// 	tier: "Uber",
 	// },
+	dukemon: {
+		tier: "Uber",
+	},
 };
