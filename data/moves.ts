@@ -20239,4 +20239,163 @@ export const Moves: {[moveid: string]: MoveData} = {
 		target: "allAdjacentFoes",
 		type: "Fairy",
 	},
+	shininggoldsolarstorm: {
+		num: 40025,
+		accuracy: 95,
+		basePower: 95,
+		category: "Special",
+		name: "Shining Gold Solar Storm",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		secondary: {
+			chance: 10,
+			status: 'brn',
+		},
+		target: "allAdjacentFoes",
+		type: "Fairy",
+	},
+	extremejihad: {
+		num: 40026,
+		accuracy: 90,
+		basePower: 140,
+		category: "Special",
+		isNonstandard: "Digimon",
+		name: "Extreme Jihad",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		recoil: [1, 2],
+		secondary: null,
+		target: "normal",
+		type: "Fairy",
+	},
+	mugen: {
+		num: 40027,
+		accuracy: 100,
+		basePower: 40,
+		category: "Special",
+		isNonstandard: "Digimon",
+		name: "Mugen",
+		pp: 20,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		secondary: {
+			chance: 100,
+			boosts: {
+				spd: -2,
+			},
+		},
+		target: "allAdjacentFoes",
+		type: "Water",
+	},
+	kouen: {
+		num: 40028,
+		accuracy: 75,
+		basePower: 120,
+		category: "Special",
+		isNonstandard: "Digimon",
+		name: "Kouen",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		volatileStatus: 'partiallytrapped',
+		secondary: null,
+		target: "normal",
+		type: "Fire",
+	},
+	sourai: {
+		num: 40029,
+		accuracy: 80,
+		basePower: 130,
+		category: "Special",
+		isNonstandard: "Digimon",
+		name: "Sourai",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		// onModifyMove(move, pokemon, target) {
+		// 	switch (target?.effectiveWeather()) {
+		// 	case 'raindance':
+		// 	case 'primordialsea':
+		// 		move.accuracy = true;
+		// 		break;
+		// 	case 'sunnyday':
+		// 	case 'desolateland':
+		// 		move.accuracy = 50;
+		// 		break;
+		// 	}
+		// },
+		secondary: {
+			chance: 30,
+			status: 'par',
+		},
+		target: "normal",
+		type: "Electric",
+	},
+	kongou: {
+		num: 40030,
+		accuracy: 100,
+		basePower: 60,
+		category: "Special",
+		isNonstandard: "Digimon",
+		name: "Kongou",
+		pp: 20,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		secondary: {
+			chance: 100,
+			boosts: {
+				spe: -2,
+			},
+		},
+		target: "normal",
+		type: "Steel",
+	},
+	taikyoku: {
+		num: 40031,
+		accuracy: true,
+		basePower: 100,
+		category: "Special",
+		isNonstandard: "Digimon",
+		name: "Taikyoku",
+		pp: 10,
+		flags: {protect: 1, mirror: 1},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Dark', type);
+		},
+		priority: 0,
+		onHit() {
+			this.add('-clearallboost');
+			for (const pokemon of this.getAllActive()) {
+				pokemon.clearBoosts();
+			}
+		},
+		secondary: null,
+		target: "allAdjacent",
+		type: "Fairy",
+	},
+	oukai: {
+		num: 40032,
+		accuracy: true,
+		basePower: 100,
+		category: "Physical",
+		isNonstandard: "Digimon",
+		name: "Oukai",
+		pp: 10,
+		flags: {protect: 1, mirror: 1},
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Flying', type);
+		},
+		priority: 0,
+		secondary: null,
+		self: {
+			onHit(source) {
+				const weathers = ['sunnyday', 'raindance', 'sandstream', 'hail'];
+				this.field.setWeather(this.sample(weathers));
+			},
+		},
+		target: "allAdjacent",
+		type: "Ground",
+	},
 };

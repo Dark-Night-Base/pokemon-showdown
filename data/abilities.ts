@@ -4560,4 +4560,28 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		rating: 3,
 		num: 40005,
 	},
+	legendaryspirits: {
+		onModifyAtkPriority: 5,
+		onModifyAtk(atk, attacker, defender, move) {
+			const legendaryTypes = ['Fire', 'Light', 'Flying', 'Ice', 'Electric', 
+			'Ground', 'Grass', 'Water', 'Steel', 'Dark'];
+			if (legendaryTypes.includes(move.type)) {
+				this.debug('Legendary Spirits boost');
+				return this.chainModify([4915, 4096]);
+			}
+		},
+		onModifySpAPriority: 5,
+		onModifySpA(atk, attacker, defender, move) {
+			const legendaryTypes = ['Fire', 'Light', 'Flying', 'Ice', 'Electric', 
+			'Ground', 'Grass', 'Water', 'Steel', 'Dark'];
+			if (legendaryTypes.includes(move.type)) {
+				this.debug('Legendary Spirits boost');
+				return this.chainModify([4915, 4096]);
+			}
+		},
+		isNonstandard: "Digimon",
+		name: "Legendary Spirits",
+		rating: 3.5,
+		num: 40006,
+	},
 };

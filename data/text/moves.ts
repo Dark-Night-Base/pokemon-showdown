@@ -6975,4 +6975,45 @@ export const MovesText: {[k: string]: MoveText} = {
 		desc: "No additional effect.",
 		shortDesc: "No additional effect. Hits adjacent foes.",
 	},
+	shininggoldsolarstorm: {
+		name: "Shining Gold Solar Storm",
+		desc: "Has a 10% chance to burn the target.",
+		shortDesc: "10% chance to burn the foe(s).",
+	},
+	extremejihad: {
+		name: "Extreme Jihad",
+		desc: "If the target lost HP, the user takes recoil damage equal to 1/2 the HP lost by the target, rounded half up, but not less than 1 HP.",
+		shortDesc: "Has 1/2 recoil.",
+	},
+	mugen: {
+		name: "Mugen",
+		desc: "Has a 100% chance to lower the target's Special Defense by 2 stages.",
+		shortDesc: "100% chance to lower the foe(s) Sp. Def by 2.",
+	},
+	kouen: {
+		name: "Kouen",
+		desc: "Prevents the target from switching for four or five turns (seven turns if the user is holding Grip Claw). Causes damage to the target equal to 1/8 of its maximum HP (1/6 if the user is holding Binding Band), rounded down, at the end of each turn during effect. The target can still switch out if it is holding Shed Shell or uses Baton Pass, Flip Turn, Parting Shot, Teleport, U-turn, or Volt Switch. The effect ends if either the user or the target leaves the field, or if the target uses Rapid Spin or Substitute successfully. This effect is not stackable or reset by using this or another binding move.",
+		shortDesc: "Traps and damages the target for 4-5 turns.",
+		start: "  [POKEMON] became trapped by fire!",
+	},
+	sourai: {
+		name: "Sourai",
+		desc: "Has a 30% chance to paralyze the target.",
+		shortDesc: "30% chance to paralyze.",
+	},
+	kongou: {
+		name: "Kongou",
+		desc: "Has a 100% chance to lower the target's Speed by 2 stage.",
+		shortDesc: "100% chance to lower the target's Speed by 2.",
+	},
+	taikyoku: {
+		name: "Taikyoku",
+		desc: "This move combines Dark in its type effectiveness against the target. This move does not check accuracy. Resets the stat stages of all active Pokemon to 0.",
+		shortDesc: "Combines Dark in its type effectiveness. Eliminates all stat changes.",
+	},
+	oukai: {
+		name: "Oukai",
+		desc: "This move combines Flying in its type effectiveness against the target. This move does not check accuracy. If this move is successful, the effect of a random weather begins.",
+		shortDesc: "Combines Flying in its type effectiveness. Starts a random weather.",
+	},
 };

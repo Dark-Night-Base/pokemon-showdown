@@ -1767,4 +1767,9 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 
 		start: "  [POKEMON] is exerting digital hazard!",
 	},
+	legendaryspirits: {
+		name: "Legendary Spirits",
+		desc: "This Pokemon's attacking stat is multiplied by 1.2 while using attacks of Fire, Light, Flying, Ice, Electric, Ground, Grass, Water, Steel, and Dark types.",
+		shortDesc: "This Pokemon's attacking stat is multiplied by 1.2 while using attacks of Warrior Ten types.",
+	},
 };
