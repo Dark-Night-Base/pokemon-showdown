@@ -4587,4 +4587,34 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		rating: 3.5,
 		num: 40006,
 	},
+	dragonspower: {
+		onModifyAtkPriority: 5,
+		onModifyAtk(atk, attacker, defender, move) {
+			if (move.type === 'Dragon') {
+				this.debug('Dragon\'s Power boost');
+				return this.chainModify([5448, 4096]);
+			}
+		},
+		onModifySpAPriority: 5,
+		onModifySpA(atk, attacker, defender, move) {
+			if (move.type === 'Dragon') {
+				this.debug('Dragon\'s Power boost');
+				return this.chainModify([5448, 4096]);
+			}
+		},
+		isNonstandard: "Digimon",
+		name: "Dragon's Power",
+		rating: 3,
+		num: 40007,
+	},
+	armorunequip: {
+		onDamagingHit(damage, target, source, move) {
+			if (move.category === 'Physical') {
+				this.boost({atk: 1, def: -1, spe: 1}, target, target);
+			}
+		},
+		name: "Armor Unequip",
+		rating: 2,
+		num: 40008,
+	},
 };

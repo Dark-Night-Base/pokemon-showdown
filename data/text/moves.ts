@@ -7009,11 +7009,43 @@ export const MovesText: {[k: string]: MoveText} = {
 	taikyoku: {
 		name: "Taikyoku",
 		desc: "This move combines Dark in its type effectiveness against the target. This move does not check accuracy. Resets the stat stages of all active Pokemon to 0.",
-		shortDesc: "Combines Dark in its type effectiveness. Eliminates all stat changes.",
+		shortDesc: "Eliminates all stat changes. Move: +Dark type.",
 	},
 	oukai: {
 		name: "Oukai",
 		desc: "This move combines Flying in its type effectiveness against the target. This move does not check accuracy. If this move is successful, the effect of a random weather begins.",
-		shortDesc: "Combines Flying in its type effectiveness. Starts a random weather.",
+		shortDesc: "Starts a random weather. Move: +Flying type.",
+	},
+	amanohabakiri: {
+		name: "Ama no Habakiri",
+		desc: "This move combines Light in its type effectiveness against the target. If this move is successful, it breaks through the target's Baneful Bunker, Detect, King's Shield, Protect, or Spiky Shield for this turn, allowing other Pokemon to attack the target normally. If the target's side is protected by Crafty Shield, Mat Block, Quick Guard, or Wide Guard, that protection is also broken for this turn and other Pokemon may attack the target's side normally.",
+		shortDesc: "Breaks protection. Move: +Light type. User: -1 Spe.",
+	},
+	yakusanoikaduchi: {
+		name: "Yakusa no Ikaduchi",
+		desc: "Has a 80% chance to paralyze the target. This move does not check accuracy.",
+		shortDesc: "80% chance to paralyze the foe(s). Can't miss.",
+	},
+	enryugeki: {
+		name: "Enryugeki",
+		desc: "Has a higher chance for a critical hit.",
+		shortDesc: "High critical hit ratio.",
+	},
+	kuzuryujin: {
+		name: "Kuzuryujin",
+		desc: "Has a 10% chance to use an additional 30 BP Dragon type move. This additional move is a physical contact move which doesn't check accuracy.",
+		shortDesc: "10% chance to use an additional 30 BP move.",
+
+		activate: "  [POKEMON] the nineth dragon attacks!",
+	},
+	machinegundestroy: {
+		name: "Machine-Gun Destroy",
+		desc: "Lowers the user's Defense by 1 stage. Raises the user's Attack by 1 stage. This move does not check accuracy.",
+		shortDesc: "User: -1 Def, +1 Atk. Can't miss.",
+	},
+	starlightvelocity: {
+		name: "Starlight Velocity",
+		desc: "No additional effect.",
+		shortDesc: "Nearly always goes first.",
 	},
 };

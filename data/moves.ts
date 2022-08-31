@@ -26,6 +26,8 @@ sound: Has no effect on Pokemon with the Soundproof Ability.
 
 */
 
+import { State } from "../sim/state";
+
 export const Moves: {[moveid: string]: MoveData} = {
 	"10000000voltthunderbolt": {
 		num: 719,
@@ -20244,6 +20246,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		accuracy: 95,
 		basePower: 95,
 		category: "Special",
+		isNonstandard: "Digimon",
 		name: "Shining Gold Solar Storm",
 		pp: 10,
 		priority: 0,
@@ -20273,7 +20276,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 	mugen: {
 		num: 40027,
 		accuracy: 100,
-		basePower: 40,
+		basePower: 50,
 		category: "Special",
 		isNonstandard: "Digimon",
 		name: "Mugen",
@@ -20397,5 +20400,121 @@ export const Moves: {[moveid: string]: MoveData} = {
 		},
 		target: "allAdjacent",
 		type: "Ground",
+	},
+	amanohabakiri: {
+		num: 40033,
+		accuracy: 90,
+		basePower: 140,
+		category: "Physical",
+		isNonstandard: "Digimon",
+		name: "Ama no Habakiri",
+		pp: 5,
+		priority: 0,
+		flags: {mirror: 1},
+		breaksProtect: true,
+		onEffectiveness(typeMod, target, type, move) {
+			return typeMod + this.dex.getEffectiveness('Light', type);
+		},
+		self: {
+			boosts: {
+				spe: -1,
+			},
+		},
+		secondary: null,
+		target: "allAdjacentFoes",
+		type: "Fire",
+	},
+	yakusanoikaduchi: {
+		num: 40034,
+		accuracy: true,
+		basePower: 80,
+		category: "Special",
+		isNonstandard: "Digimon",
+		name: "Yakusa no Ikaduchi",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		secondary: {
+			chance: 80,
+			status: 'par',
+		},
+		target: "allAdjacentFoes",
+		type: "Electric",
+	},
+	// todo: 40035 Ê®¶·Ê¿Õ¶
+	enryugeki: {
+		num: 40036,
+		accuracy: 100,
+		basePower: 100,
+		category: "Physical",
+		isNonstandard: "Digimon",
+		name: "Enryugeki",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		critRatio: 2,
+		secondary: null,
+		target: "normal",
+		type: "Fire",
+	},
+	kuzuryujin: {
+		num: 40037,
+		accuracy: 100,
+		basePower: 120,
+		category: "Special",
+		isNonstandard: "Digimon",
+		name: "Kuzuryujin",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		// 10% change to add a 30 bp physical dragon move, maybe buggy
+		secondary: {
+			chance: 10,
+			onHit(this, target, source, move) {
+				this.add('-activate', source, 'move: Kuzuryujin');
+				let ninethDragonMove = State.deserializeActiveMove(State.serializeActiveMove(move, this), this);
+				ninethDragonMove.accuracy = true;
+				ninethDragonMove.basePower = 30;
+				ninethDragonMove.category = "Physical";
+				ninethDragonMove.flags.contact = 1;
+				ninethDragonMove.secondary = null;
+				this.actions.runMove(ninethDragonMove, source, source.getLocOf(target));
+			},
+		},
+		target: "normal",
+		type: "Dragon",
+	},
+	machinegundestroy: {
+		num: 40038,
+		accuracy: true,
+		basePower: 110,
+		category: "Special",
+		isNonstandard: "Digimon",
+		name: "Machine-Gun Destroy",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		self: {
+			boosts: {
+				atk: +1,
+				def: -1,
+			},
+		},
+		secondary: null,
+		target: "normal",
+		type: "Steel",
+	},
+	starlightvelocity: {
+		num: 40039,
+		accuracy: 100,
+		basePower: 80,
+		category: "Physical",
+		name: "Starlight Velocity",
+		pp: 5,
+		priority: 2,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		secondary: null,
+		target: "normal",
+		type: "Fairy",
 	},
 };

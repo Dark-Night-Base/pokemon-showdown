@@ -1772,4 +1772,13 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 		desc: "This Pokemon's attacking stat is multiplied by 1.2 while using attacks of Fire, Light, Flying, Ice, Electric, Ground, Grass, Water, Steel, and Dark types.",
 		shortDesc: "This Pokemon's attacking stat is multiplied by 1.2 while using attacks of Warrior Ten types.",
 	},
+	dragonspower: {
+		name: "Dragon's Power",
+		shortDesc: "This Pokemon's attacking stat is multiplied by 1.33 while using a Dragon-type attack.",
+	},
+	armorunequip: {
+		name: "Armor Unequip",
+		desc: "If a physical attack hits this Pokemon, its Defense is lowered by 1 stage and its Attack and Speed are both raised by 1 stage.",
+		shortDesc: "If a physical attack hits this Pokemon, Defense is lowered by 1, Attack and Speed are both raised by 1.",
+	},
 };
