@@ -7036,7 +7036,7 @@ export const MovesText: {[k: string]: MoveText} = {
 		desc: "Has a 10% chance to use an additional 30 BP Dragon type move. This additional move is a physical contact move which doesn't check accuracy.",
 		shortDesc: "10% chance to use an additional 30 BP move.",
 
-		activate: "  [POKEMON] the nineth dragon attacks!",
+		activate: "  [POKEMON] smashes as the nineth dragon!",
 	},
 	machinegundestroy: {
 		name: "Machine-Gun Destroy",
@@ -7047,5 +7047,28 @@ export const MovesText: {[k: string]: MoveText} = {
 		name: "Starlight Velocity",
 		desc: "No additional effect.",
 		shortDesc: "Nearly always goes first.",
+	},
+	dragonsroar: {
+		name: "Dragon's Roar",
+		desc: "Hits twice. The second hit of this move is Light type. If the first hit breaks the target's substitute, it will take damage for the second hit.",
+		shortDesc: "Hits 2 times in one turn; the second being Light type.",
+	},
+	breathofwyvern: {
+		name: "Breath of Wyvern",
+		desc: "The user loses its focus and does nothing if it is hit by a damaging attack this turn before it can execute the move.",
+		shortDesc: "Fails if the user takes damage before it hits. Hits adjacent foes.",
+
+		start: "  [POKEMON] is gathering its breath!",
+		cant: "[POKEMON]'s breath got slashed into two halves!",
+	},
+	urgentfear: {
+		name: "Urgent Fear",
+		desc: "No additional effect.",
+		shortDesc: "Usually goes first.",
+	},
+	spiralmasquerade: {
+		name: "Spiral Masquerade",
+		desc: "Hits two to five times. Has a 35% chance to hit two or three times and a 15% chance to hit four or five times. If one of the hits breaks the target's substitute, it will take damage for the remaining hits. If the user has the Skill Link Ability, this move will always hit five times.",
+		shortDesc: "Hits 2-5 times in one turn.",
 	},
 };

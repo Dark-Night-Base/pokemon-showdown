@@ -20441,7 +20441,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		target: "allAdjacentFoes",
 		type: "Electric",
 	},
-	// todo: 40035 十斗士斩
+	// todo: 40035 十锟斤拷士斩
 	enryugeki: {
 		num: 40036,
 		accuracy: 100,
@@ -20469,16 +20469,24 @@ export const Moves: {[moveid: string]: MoveData} = {
 		flags: {protect: 1, mirror: 1},
 		// 10% change to add a 30 bp physical dragon move, maybe buggy
 		secondary: {
-			chance: 10,
+			chance: 100,
 			onHit(this, target, source, move) {
 				this.add('-activate', source, 'move: Kuzuryujin');
-				let ninethDragonMove = State.deserializeActiveMove(State.serializeActiveMove(move, this), this);
+				// don't let it directly use kuzuryujin, cuz secondary won't get modified
+				// let ninethDragonMove = this.dex.getActiveMove(move);
+				// ninethDragonMove.accuracy = true;
+				// ninethDragonMove.basePower = 30;
+				// ninethDragonMove.category = "Physical";
+				// ninethDragonMove.flags.contact = 1;
+				// ninethDragonMove.secondary = null;
+
+				// buggy now, will fix
+				let ninethDragonMove = this.dex.getActiveMove('sunsteelstrike');
 				ninethDragonMove.accuracy = true;
 				ninethDragonMove.basePower = 30;
-				ninethDragonMove.category = "Physical";
-				ninethDragonMove.flags.contact = 1;
-				ninethDragonMove.secondary = null;
-				this.actions.runMove(ninethDragonMove, source, source.getLocOf(target));
+				ninethDragonMove.ignoreAbility = false;
+				ninethDragonMove.type = "Dragon";
+				this.actions.runMove(ninethDragonMove, source, source.getLocOf(target), move, undefined, true);
 			},
 		},
 		target: "normal",
@@ -20516,5 +20524,83 @@ export const Moves: {[moveid: string]: MoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Fairy",
+	},
+	dragonsroar: {
+		num: 40040,
+		accuracy: 100,
+		basePower: 50,
+		category: "Special",
+		name: "Dragon's Roar",
+		pp: 15,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		// one fire + one light, todo
+		multihit: 2,
+		secondary: null,
+		target: "normal",
+		type: "Fire",
+	},
+	breathofwyvern: {
+		num: 40041,
+		accuracy: 100,
+		basePower: 150,
+		category: "Special",
+		name: "Breath of Wyvern",
+		pp: 20,
+		priority: -3,
+		flags: {protect: 1},
+		priorityChargeCallback(pokemon) {
+			pokemon.addVolatile('breathofwyvern');
+		},
+		beforeMoveCallback(pokemon) {
+			if (pokemon.volatiles['breathofwyvern']?.lostFocus) {
+				this.add('cant', pokemon, 'Breath of Wyvern', 'Breath of Wyvern');
+				return true;
+			}
+		},
+		condition: {
+			duration: 1,
+			onStart(pokemon) {
+				this.add('-singleturn', pokemon, 'move: Breath of Wyvern');
+			},
+			onHit(pokemon, source, move) {
+				if (move.category !== 'Status') {
+					this.effectState.lostFocus = true;
+				}
+			},
+			onTryAddVolatile(status, pokemon) {
+				if (status.id === 'flinch') return null;
+			},
+		},
+		secondary: null,
+		target: "allAdjacentFoes",
+		type: "Dragon",
+	},
+	urgentfear: {
+		num: 40042,
+		accuracy: 100,
+		basePower: 50,
+		category: "Physical",
+		name: "Urgent Fear",
+		pp: 30,
+		priority: 1,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		secondary: null,
+		target: "normal",
+		type: "Fighting",
+	},
+	spiralmasquerade: {
+		num: 40043,
+		accuracy: 100,
+		basePower: 25,
+		category: "Physical",
+		name: "Spiral Masquerade",
+		pp: 5,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		multihit: [2, 5],
+		secondary: null,
+		target: "normal",
+		type: "Fighting",
 	},
 };
