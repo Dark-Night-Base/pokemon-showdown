@@ -7059,7 +7059,7 @@ export const MovesText: {[k: string]: MoveText} = {
 		shortDesc: "Fails if the user takes damage before it hits. Hits adjacent foes.",
 
 		start: "  [POKEMON] is gathering its breath!",
-		cant: "[POKEMON]'s breath got slashed into two halves!",
+		cant: "[POKEMON]'s breath split in two!",
 	},
 	urgentfear: {
 		name: "Urgent Fear",

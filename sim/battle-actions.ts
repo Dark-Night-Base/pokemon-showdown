@@ -883,7 +883,10 @@ export class BattleActions {
 					if (accuracy !== true && !this.battle.randomChance(accuracy, 100)) break;
 				}
 			}
-
+			// Nihilslave: hardCode for dragon's roar
+			if (target && move.id === 'dragonsroar' && hit === 2) {
+				move.type = this.battle.format.id.includes('digimon') ? 'Light' : 'Fairy';
+			}
 			const moveData = move;
 			if (!moveData.flags) moveData.flags = {};
 

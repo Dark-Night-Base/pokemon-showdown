@@ -20535,10 +20535,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		pp: 15,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		// one fire + one light, todo
-		onModifyType(this, move, pokemon, target) {
-			if (move.hit === 2) move.type = "Light";
-		},
+		// in move type change hard coded in sim/battle-action.ts: hitStepMoveHitLoop
 		multihit: 2,
 		secondary: null,
 		target: "normal",
