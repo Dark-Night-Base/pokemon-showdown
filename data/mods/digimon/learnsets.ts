@@ -1953,6 +1953,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	lucemon: {
 		learnset: {
+			grandcross: ["8L1"],
 			agility: ["8L1"],
 			aircutter: ["8L1"],
 			airslash: ["8L1"],

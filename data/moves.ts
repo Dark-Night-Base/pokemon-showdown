@@ -20469,25 +20469,19 @@ export const Moves: {[moveid: string]: MoveData} = {
 		flags: {protect: 1, mirror: 1},
 		// 10% change to add a 30 bp physical dragon move, maybe buggy
 		secondary: {
-			chance: 100,
+			chance: 10,
 			onHit(this, target, source, move) {
-				this.add('-activate', source, 'move: Kuzuryujin');
-				// don't let it directly use kuzuryujin, cuz secondary won't get modified
-				// let ninethDragonMove = this.dex.getActiveMove(move);
-				// ninethDragonMove.accuracy = true;
-				// ninethDragonMove.basePower = 30;
-				// ninethDragonMove.category = "Physical";
-				// ninethDragonMove.flags.contact = 1;
-				// ninethDragonMove.secondary = null;
-
-				// buggy now, will fix
-				let ninethDragonMove = this.dex.getActiveMove('kuzuryujin');
-				ninethDragonMove.accuracy = true;
-				ninethDragonMove.basePower = 30;
-				ninethDragonMove.category = "Physical";
-				ninethDragonMove.flags.contact = 1;
-				ninethDragonMove.negateSecondary = true;
-				this.actions.runMove(ninethDragonMove, source, source.getLocOf(target), move, undefined, true);
+				// strange, but yea this is necessary
+				if (!move.negateSecondary) {
+					this.add('-activate', source, 'move: Kuzuryujin');
+					let ninethDragonMove = this.dex.getActiveMove('kuzuryujin');
+					ninethDragonMove.accuracy = true;
+					ninethDragonMove.basePower = 30;
+					ninethDragonMove.category = "Physical";
+					ninethDragonMove.flags.contact = 1;
+					ninethDragonMove.negateSecondary = true;
+					this.actions.runMove(ninethDragonMove, source, source.getLocOf(target), move, undefined, true);
+				}
 			},
 		},
 		target: "normal",
@@ -20603,5 +20597,23 @@ export const Moves: {[moveid: string]: MoveData} = {
 		secondary: null,
 		target: "normal",
 		type: "Fighting",
+	},
+	grandcross: {
+		num: 40044,
+		accuracy: 90,
+		basePower: 150,
+		category: "Special",
+		name: "Grand Cross",
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		self: {
+			boosts: {
+				spa: -2,
+			},
+		},
+		secondary: null,
+		target: "allAdjacentFoes",
+		type: "Fairy",
 	},
 };
