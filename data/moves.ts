@@ -20481,11 +20481,12 @@ export const Moves: {[moveid: string]: MoveData} = {
 				// ninethDragonMove.secondary = null;
 
 				// buggy now, will fix
-				let ninethDragonMove = this.dex.getActiveMove('sunsteelstrike');
+				let ninethDragonMove = this.dex.getActiveMove('kuzuryujin');
 				ninethDragonMove.accuracy = true;
 				ninethDragonMove.basePower = 30;
-				ninethDragonMove.ignoreAbility = false;
-				ninethDragonMove.type = "Dragon";
+				ninethDragonMove.category = "Physical";
+				ninethDragonMove.flags.contact = 1;
+				ninethDragonMove.negateSecondary = true;
 				this.actions.runMove(ninethDragonMove, source, source.getLocOf(target), move, undefined, true);
 			},
 		},
@@ -20535,6 +20536,9 @@ export const Moves: {[moveid: string]: MoveData} = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		// one fire + one light, todo
+		onModifyType(this, move, pokemon, target) {
+			if (move.hit === 2) move.type = "Light";
+		},
 		multihit: 2,
 		secondary: null,
 		target: "normal",
@@ -20582,7 +20586,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		basePower: 50,
 		category: "Physical",
 		name: "Urgent Fear",
-		pp: 30,
+		pp: 25,
 		priority: 1,
 		flags: {contact: 1, protect: 1, mirror: 1},
 		secondary: null,
