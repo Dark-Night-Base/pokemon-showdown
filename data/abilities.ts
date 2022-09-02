@@ -4613,6 +4613,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 				this.boost({atk: 1, def: -1, spe: 1}, target, target);
 			}
 		},
+		isNonstandard: "Digimon",
 		name: "Armor Unequip",
 		rating: 2,
 		num: 40008,

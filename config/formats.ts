@@ -615,6 +615,28 @@ export const Formats: FormatList = [
 		},
 	},
 	{
+		name: "[Gen 8] ND Scalemons BH",
+		desc: `NDBH + Scalemons.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/scalemons.3658482/">Scalemons</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/national-dex-bh-v3.3690179/#post-9217527">National Dex BH v3</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/national-dex-bh.3658587/">National Dex BH</a>`,
+		],
+		mod: 'gen8',
+		ruleset: ['[Gen 8] National Dex BH', 'Scalemons Mod'],
+		banlist: [
+			'Abra', 'Beedrill-Mega', 'Darmanitan-Galar-Zen', 'Gastly',
+			'Eviolite', 'Light Ball', 'Thick Club',
+		],
+		unbanlist: [
+			'Calyrex-Shadow', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega',
+			'Belly Drum', 'Bolt Beak', 'Chatter', 'Electrify',
+		],
+		onValidateSet(set) {
+			// we do nothing here
+		},
+	},
+	{
 		name: "[Gen 8] ND Turn Tables BH",
 		desc: `NDBH + Turn Tables.`,
 		threads: [
@@ -1564,6 +1586,26 @@ export const Formats: FormatList = [
 			}
 			return newSpecies;
 		},
+	},
+	{
+		name: "[Gen 8] Scalemons BH",
+		desc: `BH + Scalemons.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/scalemons.3658482/">Scalemons</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3656408/">Balanced Hackmons</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
+		],
+		mod: 'gen8',
+		ruleset: ['[Gen 8] Balanced Hackmons', 'Scalemons Mod'],
+		banlist: [
+			'Abra', 'Gastly',
+			'Eviolite', 'Light Ball', 'Thick Club',
+		],
+		unbanlist: [
+			'Calyrex-Shadow', 'Eternatus-Eternamax', 'Zacian-Crowned',
+			'Belly Drum', 'Bolt Beak',
+			'Rusted Sword',
+		],
 	},
 	{
 		name: "[Gen 8] SCAMO BH",
