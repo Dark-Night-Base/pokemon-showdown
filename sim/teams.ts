@@ -490,6 +490,9 @@ export const Teams = new class Teams {
 			set.hpType = line;
 		} else if (line === 'Gigantamax: Yes') {
 			set.gigantamax = true;
+		} else if (line.startsWith('Pre-Evolution: ')) {
+			line = line.slice(15);
+			set.preEvo = line;
 		} else if (line.startsWith('EVs: ')) {
 			line = line.slice(5);
 			const evLines = line.split('/');
