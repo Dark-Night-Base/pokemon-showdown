@@ -1,16 +1,44 @@
-speed machanics:
+**A. Type Machanics**
+1. Digimon Types: Vaccine, Data, and Virus
+	- Most Digimon have and only have one of the three Types
+	- No moves are of these three Types
+	- Type Relationship
+		- Digimon with Vaccine Type deals 1.5x damage to those with Virus Type
+		- Digimon with Virus Type deals 1.5x damage to those with Data Type
+		- Digimon with Data Type *receives* 1.5x *less* damage from those with Vaccine Type
+
+2. Light Type
+	- A Type used to replace Fairy Type
+	- It has the same typechart as Fairy Type, except that it is only resistant to Dragon instead of being immune to
+
+**B. Learnset Machanics (To Be Implemented)**
+- Digimon are allowed to choose Pre-Evolution species in teambuilder
+	- A Digimon may have multiple Pre-Evolution species
+- Digimon can learn all moves learnt by their chosen Pre-Evolution
+- Digimon cannot necessarily learn some moves learnt by the Pre-Evolution of their chosen Pre-Evolution
+
+**C. Speed Machanics (Not Implemented)**
 1. Begin of turn 1:
+	```
 	all.cnt = all.spe
-	while(有精灵没出手) {
-		cnt最大的精灵出手
+	```
+2. Move Algorithm:
+	```
+	while(exists mon hasn't moved) {
+		mon with max cnt move()
 		others.cnt += others.spe
 	}
-	end turn
-2. Begin of turn >1:
+	```
+3. Begin of turn >1: 
+	```
 	all.cnt -= lowest.cnt
-3. On switch in:
+	```
+4. On switch in:
+	```
 	mon.cnt = mon.spe
-4. Example 1: 
+	```
+5. Example 1: 
+	```
 	A.spe = 300, B.spe = 200
 	turn 1: A.cnt = 300, B.cnt = 200
 		A move, B.cnt = 400
@@ -23,7 +51,9 @@ speed machanics:
 		A move, B.cnt = 400
 		B move, A.cnt = 600
 	turn 4: A.cnt = 200, B.cnt = 0
-5. Example 2:
+	```
+6. Example 2:
+	```
 	A.spe = 300, B.spe = 200
 	turn 1: A.cnt = 300, B.cnt = 200
 		A move agility, A.spe = 600, B.cnt = 400
@@ -34,7 +64,9 @@ speed machanics:
 		A move, B.cnt = 600
 		B move, A.cnt = 1100
 	turn 3: A.cnt = 500, B.cnt = 0
-5. Example 3:
+	```
+7. Example 3:
+	```
 	A.spe = 200, B.spe = 300
 	turn 1: A.cnt = 200, B.cnt = 300
 		B move, A.cnt = 400
@@ -49,6 +81,5 @@ speed machanics:
 		B move, A.cnt = 400
 		A move, B.cnt = 300
 	...
-6. Para
-	no longer full para
-	spe /= 3
+	```
+8. Para: no longer full para, `spe /= 3`
