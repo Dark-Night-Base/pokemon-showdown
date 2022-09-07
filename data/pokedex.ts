@@ -18005,6 +18005,7 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		baseStats: {hp: 65, atk: 72, def: 61, spa: 60, spd: 71, spe: 91},
 		abilities: {0: "", 1: "", H: ""},
 		weightkg: 1,
+		evos: [],
 		eggGroups: ["Undiscovered"],
 		otherFormes: ["Were Garurumon-Black", "Were Garurumon-X"],
 		formeOrder: ["Were Garurumon", "Were Garurumon-Black", "Were Garurumon-X"],
