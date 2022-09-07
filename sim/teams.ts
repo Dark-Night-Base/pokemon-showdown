@@ -104,6 +104,10 @@ export interface PokemonSet {
 	 */
 	dynamaxLevel?: number;
 	gigantamax?: boolean;
+	/**
+	 * Digimon Pre-Evolution
+	 */
+	preEvo?: string;
 }
 
 export const Teams = new class Teams {
@@ -188,11 +192,12 @@ export const Teams = new class Teams {
 				buf += '|';
 			}
 
-			if (set.pokeball || set.hpType || set.gigantamax || (set.dynamaxLevel !== undefined && set.dynamaxLevel !== 10)) {
+			if (set.pokeball || set.hpType || set.gigantamax || (set.dynamaxLevel !== undefined && set.dynamaxLevel !== 10) || set.preEvo) {
 				buf += ',' + (set.hpType || '');
 				buf += ',' + this.packName(set.pokeball || '');
 				buf += ',' + (set.gigantamax ? 'G' : '');
 				buf += ',' + (set.dynamaxLevel !== undefined && set.dynamaxLevel !== 10 ? set.dynamaxLevel : '');
+				buf += ',' + (set.preEvo || '');
 			}
 		}
 
@@ -313,9 +318,9 @@ export const Teams = new class Teams {
 			j = buf.indexOf(']', i);
 			let misc;
 			if (j < 0) {
-				if (i < buf.length) misc = buf.substring(i).split(',', 4);
+				if (i < buf.length) misc = buf.substring(i).split(',', 5);
 			} else {
-				if (i !== j) misc = buf.substring(i, j).split(',', 4);
+				if (i !== j) misc = buf.substring(i, j).split(',', 5);
 			}
 			if (misc) {
 				set.happiness = (misc[0] ? Number(misc[0]) : 255);
@@ -323,6 +328,7 @@ export const Teams = new class Teams {
 				set.pokeball = this.unpackName(misc[2] || '', Dex.items);
 				set.gigantamax = !!misc[3];
 				set.dynamaxLevel = (misc[4] ? Number(misc[4]) : 10);
+				set.preEvo = misc[5] || '';
 			}
 			if (j < 0) break;
 			i = j + 1;
@@ -397,6 +403,9 @@ export const Teams = new class Teams {
 		}
 		if (set.gigantamax) {
 			out += `Gigantamax: Yes  \n`;
+		}
+		if (set.preEvo) {
+			out += `Pre-Evolution: ${set.preEvo}  \n`;
 		}
 
 		// stats
