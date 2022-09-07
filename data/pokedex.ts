@@ -18470,6 +18470,7 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		baseStats: {hp: 110, atk: 90, def: 110, spa: 110, spd: 90, spe: 90},
 		abilities: {0: "Levitate", 1: "", H: ""},
 		weightkg: 1,
+		evos: [],
 		eggGroups: ["Undiscovered"],
 		otherFormes: ["Goddramon-X"],
 		formeOrder: ["Goddramon", "Goddramon-X"],
