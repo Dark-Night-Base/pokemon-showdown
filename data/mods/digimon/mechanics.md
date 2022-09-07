@@ -1,4 +1,4 @@
-**A. Type Machanics**
+**A. Type Mechanics**
 1. Digimon Types: Vaccine, Data, and Virus
 	- Most Digimon have and only have one of the three Types
 	- No moves are of these three Types
@@ -11,13 +11,13 @@
 	- A Type used to replace Fairy Type
 	- It has the same typechart as Fairy Type, except that it is only resistant to Dragon instead of being immune to
 
-**B. Learnset Machanics (To Be Implemented)**
+**B. Learnset Mechanics**
 - Digimon are allowed to choose Pre-Evolution species in teambuilder
-	- A Digimon may have multiple Pre-Evolution species
+	- A Digimon may have multiple Pre-Evolution species, but can only choose one
 - Digimon can learn all moves learnt by their chosen Pre-Evolution
 - Digimon cannot necessarily learn some moves learnt by the Pre-Evolution of their chosen Pre-Evolution
 
-**C. Speed Machanics (Not Implemented)**
+**C. Speed Mechanics (Not Implemented)**
 1. Begin of turn 1:
 	```
 	all.cnt = all.spe
