@@ -129,6 +129,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 		learnset: {
 			fireblast: ["8L1"],
 			flamethrower: ["8L1"],
+			fly: ["8L1"],
 			gigaimpact: ["8L1"],
 			hiddenpower: ["8L1"],
 			hyperbeam: ["8L1"],
