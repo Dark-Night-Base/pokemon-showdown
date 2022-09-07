@@ -380,7 +380,7 @@ export class DexSpecies {
 								name: forme,
 								forme: forme.slice(species.name.length + 1),
 								baseForme: "",
-								baseSpecies: species.name,
+								baseSpecies: "Azelf",// species.name,
 								otherFormes: null,
 								cosmeticFormes: null,
 							});

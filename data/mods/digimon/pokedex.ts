@@ -9,7 +9,6 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	*/
 	wargreymon: {
 		inherit: true,
-		types: ["Dragon", "Light", "Vaccine"],
 		evos: ["Metal Greymon"],
 	},
 	lucemonfalldown: {
