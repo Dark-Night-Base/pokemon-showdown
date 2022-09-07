@@ -127,8 +127,13 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	metalgreymon: {
 		learnset: {
+			dragonbreath: ["8L1"],
+			dragonclaw: ["8L1"],
+			dragonpulse: ["8L1"],
+			dragontail: ["8L1"],
 			fireblast: ["8L1"],
 			flamethrower: ["8L1"],
+			flashcannon: ["8L1"],
 			fly: ["8L1"],
 			gigaimpact: ["8L1"],
 			hiddenpower: ["8L1"],

@@ -16,6 +16,7 @@
 	- A Digimon may have multiple Pre-Evolution species, but can only choose one
 - Digimon can learn all moves learnt by their chosen Pre-Evolution
 - Digimon cannot necessarily learn some moves learnt by the Pre-Evolution of their chosen Pre-Evolution
+- You are not forced to choose the Pre-Evolution species to make your Moveset legal since team validator can determine what Pre-Evolution species you are using. Choosing one only helps to show the Pre-Evolution moves in search when editting the Moveset.
 
 **C. Speed Mechanics (Not Implemented)**
 1. Begin of turn 1:
