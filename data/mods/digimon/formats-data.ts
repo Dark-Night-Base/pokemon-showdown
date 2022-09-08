@@ -2,9 +2,9 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	omegamon: {
 		tier: "Uber",
 	},
-	// omegamonx: {
-	// 	tier: "Uber",
-	// },
+	omegamonx: {
+		tier: "Uber",
+	},
 	metalgreymon: {
 		tier: "UU",
 	},
