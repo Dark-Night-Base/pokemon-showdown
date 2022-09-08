@@ -17674,7 +17674,7 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		baseStats: {hp: 100, atk: 130, def: 100, spa: 130, spd: 100, spe: 120},
 		abilities: {0: "Mold Breaker"},
 		weightkg: 1,
-		evos: ["War Gerymon", "Metal Garurumon"],
+		evos: ["War Greymon", "Metal Garurumon"],
 		eggGroups: ["Undiscovered"],
 		otherFormes: ["Omegamon-X"],
 		formeOrder: ["Omegamon", "Omegamon-X"],
