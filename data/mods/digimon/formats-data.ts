@@ -8,9 +8,6 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	metalgreymon: {
 		tier: "UU",
 	},
-	// metalgreymonblue: {
-	// 	tier: "UU",
-	// },
 	// metalgreymonx: {
 	// 	tier: "UU",
 	// },
@@ -20,17 +17,32 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	wargreymon: {
 		tier: "OU",
 	},
+	weregarurumon: {
+		tier: "UU",
+	},
 	metalgarurumon: {
 		tier: "OU",
+	},
+	garudamon: {
+		tier: "UU",
 	},
 	hououmon: {
 		tier: "OU",
 	},
+	atlurkabuterimon: {
+		tier: "UU",
+	},
 	heraklekabuterimon: {
 		tier: "OU",
 	},
+	lilimon: {
+		tier: "UU",
+	},
 	rosemon: {
 		tier: "OU",
+	},
+	zudomon: {
+		tier: "UU",
 	},
 	vikemon: {
 		tier: "OU",
@@ -70,6 +82,15 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	},
 	piemon: {
 		tier: "OU",
+	},
+	elecmon: {
+		tier: "LC",
+	},
+	leomon: {
+		tier: "NFE",
+	},
+	grappuleomon: {
+		tier: "UU",
 	},
 	saberleomon: {
 		tier: "OU",

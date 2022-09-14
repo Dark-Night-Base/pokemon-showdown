@@ -4618,4 +4618,44 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		rating: 2,
 		num: 40008,
 	},
+	undeadbody: {
+		onResidualOrder: 28,
+		onResidualSubOrder: 2,
+		onResidual(pokemon) {
+			this.heal(pokemon.baseMaxhp);
+		},
+		isNonstandard: "Digimon",
+		name: "Undead Body",
+		rating: 5,
+		num: 40009,
+	},
+	knightsuppressor: {
+		onStart(pokemon) {
+			if (this.suppressingAbility(pokemon)) return;
+			this.add('-ability', pokemon, 'Knight Suppressor');
+		},
+		// onAnyBasePowerPriority: 20,
+		// onAnyBasePower(basePower, source, target, move) {
+		onFoeBasePowerPriority: 20,
+		onFoeBasePower(basePower, source, target, move) {
+			if (target === source || move.category === 'Status') return;
+			const holyKnightNums = [40001, 40146, 40151, 40244, 40248, 40428, 40429, 40493, 40511, 40555, 40556];
+			if (!holyKnightNums.includes(source.species.num)) return;
+			return this.chainModify([2732, 4096]);
+		},
+		isNonstandard: "Digimon",
+		name: "Knight Suppressor",
+		rating: 2,
+		num: 40010,
+	},
+	alphainforce: {
+		onFractionalPriorityPriority: -1,
+		onFractionalPriority(priority, source, target, move) {
+			if (move.category !== 'Status') return 0.1;
+		},
+		isNonstandard: "Digimon",
+		name: "Alpha inForce",
+		rating: 4.5,
+		num: 40011,
+	},
 };

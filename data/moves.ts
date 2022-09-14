@@ -20467,7 +20467,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		// 10% change to add a 30 bp physical dragon move, maybe buggy
+		// 10% chance to add a 30 bp physical dragon move
 		secondary: {
 			chance: 10,
 			onHit(this, target, source, move) {
@@ -20544,7 +20544,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		category: "Special",
 		isNonstandard: "Digimon",
 		name: "Breath of Wyvern",
-		pp: 20,
+		pp: 10,
 		priority: -3,
 		flags: {protect: 1},
 		priorityChargeCallback(pokemon) {
@@ -20562,7 +20562,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 				this.add('-singleturn', pokemon, 'move: Breath of Wyvern');
 			},
 			onHit(pokemon, source, move) {
-				if (move.category !== 'Status') {
+				if (move.category === 'Physical') {
 					this.effectState.lostFocus = true;
 				}
 			},
@@ -20621,5 +20621,52 @@ export const Moves: {[moveid: string]: MoveData} = {
 		secondary: null,
 		target: "allAdjacentFoes",
 		type: "Fairy",
+	},
+	paradiselost: {
+		num: 40045,
+		accuracy: 100,
+		basePower: 130,
+		category: "Physical",
+		isNonstandard: "Digimon",
+		name: "Paradise Lost",
+		pp: 5,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		secondary: null,
+		target: "normal",
+		type: "Fighting",
+	},
+	deadoralive: {
+		num: 40046,
+		accuracy: 95,
+		basePower: 60,
+		category: "Special",
+		isNonstandard: "Digimon",
+		name: "Dead of Alive",
+		pp: 5,
+		priority: 0,
+		critRatio: 3,
+		flags: {protect: 1, mirror: 1},
+		// in move type change hard coded in sim/battle-action.ts: hitStepMoveHitLoop
+		multihit: 2,
+		secondary: null,
+		target: "allAdjacentFoes",
+		type: "Dark",
+	},
+	juuouken: {
+		num: 40047,
+		accuracy: 100,
+		basePower: 85,
+		category: "Physical",
+		isNonstandard: "Digimon",
+		name: "Juuouken",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		ignoreEvasion: true,
+		ignoreDefensive: true,
+		secondary: null,
+		target: "normal",
+		type: "Fighting",
 	},
 };

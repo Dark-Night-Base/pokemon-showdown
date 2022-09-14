@@ -7055,8 +7055,8 @@ export const MovesText: {[k: string]: MoveText} = {
 	},
 	breathofwyvern: {
 		name: "Breath of Wyvern",
-		desc: "The user loses its focus and does nothing if it is hit by a damaging attack this turn before it can execute the move.",
-		shortDesc: "Fails if the user takes damage before it hits. Hits adjacent foes.",
+		desc: "The user loses its focus and does nothing if it is hit by a physical attack this turn before it can execute the move.",
+		shortDesc: "Fails if the user takes physical damage before it hits. Hits adjacent foes.",
 
 		start: "  [POKEMON] is gathering its breath!",
 		cant: "[POKEMON]'s breath split in two!",
@@ -7075,5 +7075,19 @@ export const MovesText: {[k: string]: MoveText} = {
 		name: "Grand Cross",
 		desc: "Lowers the user's Special Attack by 2 stages.",
 		shortDesc: "Lowers the user's Sp. Atk by 2. Hits adjacent foes.",
+	},
+	paradiselost: {
+		name: "Paradise Lost",
+		shortDesc: "No additional effect.",
+	},
+	deadoralive: {
+		name: "Dead or Alive",
+		desc: "Hits twice. The second hit of this move is Light type. If the first hit breaks the target's substitute, it will take damage for the second hit. Has a very high chance for a critical hit.",
+		shortDesc: "2 hits; 2nd hit Light type. 50% crit. Hits adjacent foes.",
+	},
+	juuouken: {
+		name: "Juuouken",
+		desc: "Ignores the target's stat stage changes, including evasiveness.",
+		shortDesc: "Ignores the target's stat stage changes.",
 	},
 };

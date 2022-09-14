@@ -1745,40 +1745,56 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 	},
 	lightaura: {
 		name: "Light Aura",
-		desc: "While this Pokemon is active, the power of Light-type moves used by active Pokemon is multiplied by 1.33.",
-		shortDesc: "While this Pokemon is active, a Light move used by any Pokemon has 1.33x power.",
+		desc: "While this Digimon is active, the power of Light-type moves used by active Digimon is multiplied by 1.33.",
+		shortDesc: "While this Digimon is active, a Light move used by any Digimon has 1.33x power.",
 
 		start: "  [POKEMON] is radiating a light aura!",
 	},
 	overwrite: {
 		name: "Overwrite",
-		desc: "The power of this Pokemon's move is multiplied by 1.3 and it loses 1/10 of its maximum HP, rounded down, at the end of each turn.",
-		shortDesc: "This Pokemon's attacks have 1.3x power; loses 1/10 max HP per turn.",
+		desc: "The power of this Digimon's move is multiplied by 1.3 and it loses 1/10 of its maximum HP, rounded down, at the end of each turn.",
+		shortDesc: "This Digimon's attacks have 1.3x power; loses 1/10 max HP per turn.",
 	},
 	ultimateforce: {
 		name: "Ultimate Force",
-		desc: "This Pokemon restores 1/8 of its maximum HP, rounded down, at the end of each turn.",
-		shortDesc: "This Pokemon is healed by 1/8 of its max HP each turn.",
+		desc: "This Digimon restores 1/8 of its maximum HP, rounded down, at the end of each turn.",
+		shortDesc: "This Digimon is healed by 1/8 of its max HP each turn.",
 	},
 	digitalhazard: {
 		name: "Digital Hazard",
-		desc: "While this Pokemon is active, each Pokemon that switches in loses 1/8 of its maximum HP, rounded down.",
-		shortDesc: "While this Pokemon is active, hurts Pokemon on switch-in.",
+		desc: "While this Digimon is active, each Digimon that switches in loses 1/8 of its maximum HP, rounded down.",
+		shortDesc: "While this Digimon is active, hurts Digimon on switch-in.",
 
 		start: "  [POKEMON] is exerting digital hazard!",
 	},
 	legendaryspirits: {
 		name: "Legendary Spirits",
-		desc: "This Pokemon's attacking stat is multiplied by 1.2 while using attacks of Fire, Light, Flying, Ice, Electric, Ground, Grass, Water, Steel, and Dark types.",
-		shortDesc: "This Pokemon's attacking stat is multiplied by 1.2 while using attacks of Warrior Ten types.",
+		desc: "This Digimon's attacking stat is multiplied by 1.2 while using attacks of Fire, Light, Flying, Ice, Electric, Ground, Grass, Water, Steel, and Dark types.",
+		shortDesc: "This Digimon's attacking stat is multiplied by 1.2 while using attacks of Warrior Ten types.",
 	},
 	dragonspower: {
 		name: "Dragon's Power",
-		shortDesc: "This Pokemon's attacking stat is multiplied by 1.33 while using a Dragon-type attack.",
+		shortDesc: "This Digimon's attacking stat is multiplied by 1.33 while using a Dragon-type attack.",
 	},
 	armorunequip: {
 		name: "Armor Unequip",
-		desc: "If a physical attack hits this Pokemon, its Defense is lowered by 1 stage and its Attack and Speed are both raised by 1 stage.",
-		shortDesc: "If a physical attack hits this Pokemon, Defense is lowered by 1, Attack and Speed are both raised by 1.",
+		desc: "If a physical attack hits this Digimon, its Defense is lowered by 1 stage and its Attack and Speed are both raised by 1 stage.",
+		shortDesc: "If a physical attack hits this Digimon, Defense is lowered by 1, Attack and Speed are both raised by 1.",
+	},
+	undeadbody: {
+		name: "Undead Body",
+		desc: "This Digimon restores its maximum HP at the end of each turn.",
+		shortDesc: "This Digimon is healed to full HP each turn.",
+	},
+	knightsuppressor: {
+		name: "Knight Suppressor",
+		desc: "While this Digimon is active, the power of attacks used by opposing Holy Knight Digimon is multiplied by 0.67.",
+		shortDesc: "While this Digimon is active, attacks used by opposing Holy Knight Pokemon have 0.67x power.",
+
+		start: "  Holy Knight Digimon are suppressed by [POKEMON]!",
+	},
+	alphainforce: {
+		name: "Alpha inForce",
+		shortDesc: "This Digimon always moves first in its priority bracket with attacking moves.",
 	},
 };
