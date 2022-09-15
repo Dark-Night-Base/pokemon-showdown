@@ -1779,7 +1779,7 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 	armorunequip: {
 		name: "Armor Unequip",
 		desc: "If an attack hits this Digimon, its Defense is lowered by 1 stage and its Attack and Speed are both raised by 1 stage.",
-		shortDesc: "If an attack hits this Digimon, Defense is lowered by 1, Attack and Speed are both raised by 1.",
+		shortDesc: "If an attack hits this Digimon, -1 Def, +1 Atk, +1 Spe.",
 	},
 	undeadbody: {
 		name: "Undead Body",

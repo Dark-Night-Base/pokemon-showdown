@@ -20642,7 +20642,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		basePower: 60,
 		category: "Special",
 		isNonstandard: "Digimon",
-		name: "Dead of Alive",
+		name: "Dead or Alive",
 		pp: 5,
 		priority: 0,
 		critRatio: 3,
