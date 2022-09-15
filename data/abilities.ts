@@ -4494,8 +4494,17 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 	// Digimon
 
 	omegainforce: {
+		onSourceModifyDamage(damage, source, target, move) {
+			if (target.newlySwitched || this.queue.willMove(target)) {
+				this.debug('Omega inForce weaken');
+				// change this to [1, 3] if not good enough
+				return this.chainModify(0.5);
+			}
+		},
+		isBreakable: false,
 		isNonstandard: "Digimon",
 		name: "Omega inForce",
+		rating: 4.5,
 		num: 40001,
 	},
 	lightaura: {
@@ -4609,19 +4618,18 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 	},
 	armorunequip: {
 		onDamagingHit(damage, target, source, move) {
-			if (move.category === 'Physical') {
-				this.boost({atk: 1, def: -1, spe: 1}, target, target);
-			}
+			this.boost({atk: 1, def: -1, spe: 1});
 		},
 		isNonstandard: "Digimon",
 		name: "Armor Unequip",
-		rating: 2,
+		rating: 3,
 		num: 40008,
 	},
 	undeadbody: {
 		onResidualOrder: 28,
 		onResidualSubOrder: 2,
 		onResidual(pokemon) {
+			this.add('-ability', pokemon, 'Undead Body');
 			this.heal(pokemon.baseMaxhp);
 		},
 		isNonstandard: "Digimon",

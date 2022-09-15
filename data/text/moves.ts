@@ -7085,6 +7085,16 @@ export const MovesText: {[k: string]: MoveText} = {
 		desc: "Hits twice. The second hit of this move is Light type. If the first hit breaks the target's substitute, it will take damage for the second hit. Has a very high chance for a critical hit.",
 		shortDesc: "2 hits; 2nd hit Light type. 50% crit. Hits adjacent foes.",
 	},
+	purgatorialflame: {
+		name: "Purgatorial Flame",
+		desc: "Has a 20% chance to burn the target.",
+		shortDesc: "20% chance to burn the target. Hits adjacent Pokemon.",
+	},
+	divineatonement: {
+		name: "Divine Atonement",
+		desc: "If this move is successful, the user must recharge on the following turn and cannot select a move.",
+		shortDesc: "User cannot move next turn.",
+	},
 	juuouken: {
 		name: "Juuouken",
 		desc: "Ignores the target's stat stage changes, including evasiveness.",

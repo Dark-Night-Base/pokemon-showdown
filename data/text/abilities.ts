@@ -1740,8 +1740,8 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 	// Digimon
 	omegainforce: {
 		name: "Omega inForce",
-		desc: "WIP.",
-		shortDesc: "WIP.",
+		desc: "This Digimon receives 1/2 damage from attacks if it hasn't moved in a turn. Moongeist Beam, Sunsteel Strike, and the Mold Breaker, Teravolt, and Turboblaze Abilities cannot ignore this Ability.",
+		shortDesc: "If this Digimon hasn't moved in a turn, damage taken from attacks is halved.",
 	},
 	lightaura: {
 		name: "Light Aura",
@@ -1778,8 +1778,8 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 	},
 	armorunequip: {
 		name: "Armor Unequip",
-		desc: "If a physical attack hits this Digimon, its Defense is lowered by 1 stage and its Attack and Speed are both raised by 1 stage.",
-		shortDesc: "If a physical attack hits this Digimon, Defense is lowered by 1, Attack and Speed are both raised by 1.",
+		desc: "If an attack hits this Digimon, its Defense is lowered by 1 stage and its Attack and Speed are both raised by 1 stage.",
+		shortDesc: "If an attack hits this Digimon, Defense is lowered by 1, Attack and Speed are both raised by 1.",
 	},
 	undeadbody: {
 		name: "Undead Body",
