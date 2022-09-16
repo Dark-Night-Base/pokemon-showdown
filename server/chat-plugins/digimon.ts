@@ -1,6 +1,7 @@
 export const commands: Chat.ChatCommands = {
-	dm: 'digimon',
+	dg: 'digimon',
 	digi: 'digimon',
+	dm: 'digimon',
 	digimon(target, room, user, connection, cmd) {
 		if (!this.runBroadcast()) return;
 
@@ -70,6 +71,8 @@ export const commands: Chat.ChatCommands = {
 				if (item.isNonstandard) {
 					details[`Unobtainable in Digimon Formats`] = "";
 				}
+
+				details["Full Description"] = item.desc;
 				break;
 			case 'move':
 				const move = dex.moves.get(newTarget.name);
@@ -122,6 +125,8 @@ export const commands: Chat.ChatCommands = {
 				if (move.id === 'mirrormove') {
 					details[`<a href="https://${Config.routes.dex}/tags/nonmirror">Non-Mirrorable Moves</a>`] = '';
 				}
+
+				details["Full Description"] = move.desc;
 				break;
 			case 'ability':
 				const ability = dex.abilities.get(newTarget.name);
@@ -129,6 +134,8 @@ export const commands: Chat.ChatCommands = {
 				details = {};
 				if (ability.isPermanent) details["&#10003; Not affected by Gastro Acid"] = "";
 				if (ability.isBreakable) details["&#10003; Ignored by Mold Breaker"] = "";
+
+				details["Full Description"] = ability.desc;
 				break;
 			default:
 				throw new Error(`Unrecognized searchType`);
@@ -140,8 +147,8 @@ export const commands: Chat.ChatCommands = {
 		}
 		this.sendReply(buffer);
 	},
-	datahelp: [
-		`/digi [digimon/item/move/ability] - Get details on this digimon/item/move/ability/type.`,
+	digimonhelp: [
+		`/digi [digimon/item/move/ability] - Get details on this digimon/item/move/ability.`,
 		`!digi [digimon/item/move/ability] - Show everyone these details. Requires: + % @ # &`,
 	],
 };
