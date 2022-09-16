@@ -42,24 +42,30 @@ export const commands: Chat.ChatCommands = {
 				switch (type1.name) {
 				case 'Vaccine':
 					buffer += `Vaccine: <br />`;
+					buffer += `<b>As Defensive Typing</b>:<br />`
 					buffer += `<span class="message-effect-weak">Weaknesses</span>: <font color=#999999>None</font><br />`;
 					buffer += `<span class="message-effect-resist">Resistances</span>: <font color=#999999>None</font><br />`;
+					buffer += `<b>As Offensive Typing</b>:<br />`
 					buffer += `<b><font color=#559955>Super Effective to</font></b>: Virus <font color=#999999>(Attacks from Vaccine-type Digimon deal 1.5x damage to Virus-type Digimon.)</font><br />`;
 					buffer += `<span class="message-effect-weak">Resisted by</span>: Data <font color=#999999>(Attacks from Vaccine-type Digimon deal 0.67x damage to Data-type Digimon.)</font><br />`;
 					this.sendReplyBox(buffer);
 					return;
 				case 'Data':
 					buffer += `Data: <br />`;
+					buffer += `<b>As Defensive Typing</b>:<br />`
 					buffer += `<span class="message-effect-weak">Weaknesses</span>: Virus <font color=#999999>(Data-type Digimon receive 1.5x damage from Virus-type Digimon's attacks.)</font><br />`;
 					buffer += `<span class="message-effect-resist">Resistances</span>: Vaccine <font color=#999999>(Data-type Digimon receive 0.67x damage from Vaccine-type Digimon's attacks.)</font><br />`;
+					buffer += `<b>As Offensive Typing</b>:<br />`
 					buffer += `<b><font color=#559955>Super Effective to</font></b>: <font color=#999999>None</font><br />`;
 					buffer += `<span class="message-effect-weak">Resisted by</span>: <font color=#999999>None</font><br />`;
 					this.sendReplyBox(buffer);
 					return;
 				case 'Virus':
 					buffer += `Virus: <br />`;
+					buffer += `<b>As Defensive Typing</b>:<br />`
 					buffer += `<span class="message-effect-weak">Weaknesses</span>: Vaccine <font color=#999999>(Virus-type Digimon receive 1.5x damage from Vaccine-type Digimon's attacks.)</font><br />`;
 					buffer += `<span class="message-effect-resist">Resistances</span>: <font color=#999999>None</font><br />`;
+					buffer += `<b>As Offensive Typing</b>:<br />`
 					buffer += `<b><font color=#559955>Super Effective to</font></b>: Data <font color=#999999>(Attacks from Virus-type Digimon deal 1.5x damage to Data-type Digimon.)</font><br />`;
 					buffer += `<span class="message-effect-weak">Resisted by</span>: <font color=#999999>None</font><br />`;
 					this.sendReplyBox(buffer);
@@ -207,13 +213,38 @@ export const commands: Chat.ChatCommands = {
 				details = {
 					"Dex#": String(pokemon.num - 40000),
 				};
-				if (!pokemon.evos.length) {
-					details[`<font color="#686868">No Pre-Evolution</font>`] = "";
+				const bst = pokemon.forme === 'X' ? dex.species.get(pokemon.baseSpecies).bst : pokemon.bst;
+				// todo: deal with exceptions
+				if (bst <= 280) {
+					details["Stage"] = "Child";
+				} else if (bst <= 380) {
+					details["Stage"] = "Adult";
+				} else if (bst <= 480) {
+					details["Stage"] = "Perfect";
 				} else {
+					details["Stage"] = "Ultimate";
+				}
+				let organizations = [];
+				const royalKnights = [40001, 40146, 40151, 40244, 40248, 40429, 40493, 40511, 40555, 40556];
+				const greatAngels = [40032, 40039, 40264];
+				const greatDragons = [40033, 40038, 40243, 40316];
+				if (royalKnights.includes(pokemon.num)) organizations.push("Royal Knights");
+				if (greatAngels.includes(pokemon.num)) organizations.push("3 Great Angels");
+				if (greatDragons.includes(pokemon.num)) organizations.push("4 Great Dragons");
+				if (pokemon.num >= 40302 && pokemon.num <= 40313) organizations.push("Deva");
+				if (pokemon.num >= 40314 && pokemon.num <= 40317) organizations.push("4 Holy Beasts");
+				if (pokemon.num >= 40430 && pokemon.num <= 40439) organizations.push("Warrior Ten");
+				if (organizations.length) {
+					details["Organization"] = organizations.join(", ");
+				}
+				if (pokemon.evos.length) {
 					details["Pre-Evolution"] = pokemon.evos.join(", ");
+				} else {
+					details[`<font color="#686868">No Pre-Evolution</font>`] = "";
 				}
 				// add type detail info
-				this.parse(`/dg ${pokemon.types.join(',')}`);
+				// todo: let this show after the main data
+				// this.parse(`/dg ${pokemon.types.join(',')}`);
 				break;
 			case 'item':
 				const item = dex.items.get(newTarget.name);
