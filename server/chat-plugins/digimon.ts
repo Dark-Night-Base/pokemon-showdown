@@ -1,3 +1,5 @@
+import { getSupportedCodeFixes } from "typescript";
+
 export const commands: Chat.ChatCommands = {
 	dg: 'digimon',
 	digi: 'digimon',
@@ -5,12 +7,177 @@ export const commands: Chat.ChatCommands = {
 	digimon(target, room, user, connection, cmd) {
 		if (!this.runBroadcast()) return;
 
-		const dex = Dex.mod('digimon');
+		let {dex, format, targets} = this.splitFormat(target, true);
+
+		dex = Dex.mod('digimon');
 
 		let buffer = '';
+		target = targets.join(',');
 
 		const targetId = toID(target);
 		if (!targetId) return this.parse('/help digimon');
+		const type1 = dex.types.get(targets[0]);
+		if (type1.exists) {
+			let species: {types: string[], [k: string]: any} = dex.species.get(targets[0]);
+			const types = [type1.name];
+			const type2 = dex.types.get(targets[1]);
+			const type3 = dex.types.get(targets[2]);
+			const weaknesses = [];
+			const resistances = [];
+			const immunities = [];
+			const supereffectiveto = [];
+			const neutralto = [];
+			const resistedby = [];
+			const ineffectiveto = [];
+
+			if (type2.exists && type2 !== type1) {
+				types.push(type2.name);
+			}
+			if (type3.exists && type3 !== type1 && type3 !== type2) {
+				types.push(type3.name);
+			}
+			species = {types: types};
+
+			if (types.length === 1) {
+				switch (type1.name) {
+				case 'Vaccine':
+					buffer += `Vaccine: <br />`;
+					buffer += `<span class="message-effect-weak">Weaknesses</span>: <font color=#999999>None</font><br />`;
+					buffer += `<span class="message-effect-resist">Resistances</span>: <font color=#999999>None</font><br />`;
+					buffer += `<b><font color=#559955>Super Effective to</font></b>: Virus <font color=#999999>(Attacks from Vaccine-type Digimon deal 1.5x damage to Virus-type Digimon.)</font><br />`;
+					buffer += `<span class="message-effect-weak">Resisted by</span>: Data <font color=#999999>(Attacks from Vaccine-type Digimon deal 0.67x damage to Data-type Digimon.)</font><br />`;
+					this.sendReplyBox(buffer);
+					return;
+				case 'Data':
+					buffer += `Data: <br />`;
+					buffer += `<span class="message-effect-weak">Weaknesses</span>: Virus <font color=#999999>(Data-type Digimon receive 1.5x damage from Virus-type Digimon's attacks.)</font><br />`;
+					buffer += `<span class="message-effect-resist">Resistances</span>: Vaccine <font color=#999999>(Data-type Digimon receive 0.67x damage from Vaccine-type Digimon's attacks.)</font><br />`;
+					buffer += `<b><font color=#559955>Super Effective to</font></b>: <font color=#999999>None</font><br />`;
+					buffer += `<span class="message-effect-weak">Resisted by</span>: <font color=#999999>None</font><br />`;
+					this.sendReplyBox(buffer);
+					return;
+				case 'Virus':
+					buffer += `Virus: <br />`;
+					buffer += `<span class="message-effect-weak">Weaknesses</span>: Vaccine <font color=#999999>(Virus-type Digimon receive 1.5x damage from Vaccine-type Digimon's attacks.)</font><br />`;
+					buffer += `<span class="message-effect-resist">Resistances</span>: <font color=#999999>None</font><br />`;
+					buffer += `<b><font color=#559955>Super Effective to</font></b>: Data <font color=#999999>(Attacks from Virus-type Digimon deal 1.5x damage to Data-type Digimon.)</font><br />`;
+					buffer += `<span class="message-effect-weak">Resisted by</span>: <font color=#999999>None</font><br />`;
+					this.sendReplyBox(buffer);
+					return;
+				}
+			}
+
+			for (const type of dex.types.names()) {
+				if (type === 'Fairy') continue;
+				const notImmune = dex.getImmunity(type, species);
+				if (notImmune) {
+					const typeMod = dex.getEffectiveness(type, species);
+					switch (typeMod) {
+					case 1:
+						if (['Vaccine', 'Data', 'Virus'].includes(type)) {
+							weaknesses.push(`(${type})`);
+						} else {
+							weaknesses.push(type);
+						}
+						break;
+					case 2:
+						weaknesses.push(`<b>${type}</b>`);
+						break;
+					case 3:
+						weaknesses.push(`<b><i>${type}</i></b>`);
+						break;
+					case -1:
+						if (['Vaccine', 'Data', 'Virus'].includes(type)) {
+							resistances.push(`(${type})`);
+						} else {
+							resistances.push(type);
+						}
+						break;
+					case -2:
+						resistances.push(`<b>${type}</b>`);
+						break;
+					case -3:
+						resistances.push(`<b><i>${type}</i></b>`);
+						break;
+					}
+				} else {
+					immunities.push(type);
+				}
+
+				switch (type) {
+				case 'Vaccine':
+					neutralto.push(`(Vaccine)`);
+					continue;
+				case 'Data':
+					if (types.includes('Vaccine')) {
+						resistedby.push(`(Data)`);
+					} else if (types.includes('Virus')) {
+						supereffectiveto.push(`(Data)`);
+					} else {
+						neutralto.push(`(Data)`);
+					}
+					continue;
+				case 'Virus':
+					if (types.includes('Vaccine')) {
+						supereffectiveto.push(`(Virus)`);
+					} else {
+						neutralto.push(`(Virus)`);
+					}
+					continue;
+				}
+				let attackTypeMod = -2;
+				for (const i in types) {
+					const tempTypeMod = dex.getImmunity(types[i], type) ? dex.getEffectiveness(types[i], type) : -2;
+					attackTypeMod = tempTypeMod > attackTypeMod ? tempTypeMod : attackTypeMod;
+				}
+				switch (attackTypeMod) {
+				case 1:
+					supereffectiveto.push(type);
+					break;
+				case 0:
+					neutralto.push(type);
+					break;
+				case -1:
+					resistedby.push(type);
+					break;
+				case -2:
+					ineffectiveto.push(type);
+					break;
+				}
+			}
+			const statuses: {[k: string]: string} = {
+				brn: "Burn",
+				frz: "Frozen",
+				hail: "Hail damage",
+				par: "Paralysis",
+				powder: "Powder moves",
+				prankster: "Prankster",
+				sandstorm: "Sandstorm damage",
+				tox: "Toxic",
+				trapped: "Trapping",
+			};
+			for (const status in statuses) {
+				if (!dex.getImmunity(status, species)) {
+					immunities.push(statuses[status]);
+				}
+			}
+
+			buffer += `${types.join('/')}:<br />`;
+			buffer += `<b>As Defensive Typing</b>:<br />`
+			buffer += `<span class="message-effect-weak">Weaknesses</span>: ${weaknesses.join(', ') || '<font color=#999999>None</font>'}<br />`;
+			buffer += `<span class="message-effect-resist">Resistances</span>: ${resistances.join(', ') || '<font color=#999999>None</font>'}<br />`;
+			buffer += immunities.length ? `<span class="message-effect-immune">Immunities</span>: ${immunities.join(', ')}<br />` : '';
+			buffer += `<b>As Offensive Typing</b>:<br />`
+			// buffer += `<span class="message-effect-immune">Immunities</span>: ${immunities.join(', ') || '<font color=#999999>None</font>'}<br />`;
+			buffer += `<b><font color=#559955>Super Effective to</font></b>: ${supereffectiveto.join(', ') || '<font color=#999999>None</font>'}<br />`;
+			buffer += `<span class="message-effect-resist">Neutral to</span>: ${neutralto.join(', ') || '<font color=#999999>None</font>'}<br />`;
+			buffer += `<span class="message-effect-weak">Resisted by</span>: ${resistedby.join(', ') || '<font color=#999999>None</font>'}<br />`;
+			buffer += ineffectiveto.length ? `<span class="message-effect-immune">No Effect to</span>: ${ineffectiveto.join(', ')}<br />` : '';
+			// buffer += `<span class="message-effect-immune">No effect to</span>: ${ineffectiveto.join(', ') || '<font color=#999999>None</font>'}<br />`;
+			this.sendReplyBox(buffer);
+			return;
+		}
+
 		const targetNum = parseInt(target);
 		if (!isNaN(targetNum) && `${targetNum}` === target) {
 			if (targetNum <= 40000) return this.parse(`/dt ${targetNum}`);
@@ -24,11 +191,11 @@ export const commands: Chat.ChatCommands = {
 
 		const newTargets = dex.dataSearch(target);
 		if (!newTargets || !newTargets.length) {
-			return this.errorReply(`No Digimon, item, move or ability named '${target}' was found. (Check your spelling?)`);
+			return this.errorReply(`No Digimon, item, move, ability or type named '${target}' was found. (Check your spelling?)`);
 		}
 		for (const [i, newTarget] of newTargets.entries()) {
 			if (newTarget.isInexact && !i) {
-				buffer = `No Digimon, item, move or ability named '${target}' was found. Showing the data of '${newTargets[0].name}' instead.\n`;
+				buffer = `No Digimon, item, move, ability or type named '${target}' was found. Showing the data of '${newTargets[0].name}' instead.\n`;
 			}
 
 			let details: {[k: string]: string} = {};
@@ -45,6 +212,8 @@ export const commands: Chat.ChatCommands = {
 				} else {
 					details["Pre-Evolution"] = pokemon.evos.join(", ");
 				}
+				// add type detail info
+				this.parse(`/dg ${pokemon.types.join(',')}`);
 				break;
 			case 'item':
 				const item = dex.items.get(newTarget.name);
@@ -148,7 +317,7 @@ export const commands: Chat.ChatCommands = {
 		this.sendReply(buffer);
 	},
 	digimonhelp: [
-		`/digi [digimon/item/move/ability] - Get details on this digimon/item/move/ability.`,
-		`!digi [digimon/item/move/ability] - Show everyone these details. Requires: + % @ # &`,
+		`/digi [digimon/item/move/ability/type] - Get details on this digimon/item/move/ability/type.`,
+		`!digi [digimon/item/move/ability/type] - Show everyone these details. Requires: + % @ # &`,
 	],
 };
