@@ -210,11 +210,11 @@ export const commands: Chat.ChatCommands = {
 				let pokemon = dex.species.get(newTarget.name);
 				if (pokemon.num <= 40000) return this.parse(`/dt ${pokemon.id}`);
 				buffer += `|raw|${Chat.getDataPokemonHTML(pokemon, dex.gen, String(pokemon.num - 40000))}\n`;
+
 				details = {
 					"Dex#": String(pokemon.num - 40000),
 				};
 				const bst = pokemon.forme === 'X' ? dex.species.get(pokemon.baseSpecies).bst : pokemon.bst;
-				// todo: deal with exceptions
 				if (bst <= 280) {
 					details["Stage"] = "Child";
 				} else if (bst <= 380) {
@@ -224,16 +224,30 @@ export const commands: Chat.ChatCommands = {
 				} else {
 					details["Stage"] = "Ultimate";
 				}
+				const exceptAdult = [40046, 40059, 40063, 40064, 40098, 40116, 40146, 40192, 40369, 40370, 40543, 40550];
+				const exceptPerfect = [40005, 40060, 40065, 40096, 40108, 40130, 40164, 40215, 40236, 40248, 40371, 40372, 40452, 40459, 40460, 40464, 40472];
+				const exceptUltimate = [40120, 40339, 40544];
+				const exceptXevo = [40146, 40248, 40452];
+				if (pokemon.num === 40451) details["Stage"] = "Child";
+				if (exceptAdult.includes(pokemon.num)) details["Stage"] = "Adult";
+				if (exceptPerfect.includes(pokemon.num)) details["Stage"] = "Perfect";
+				if (exceptUltimate.includes(pokemon.num)) details["Stage"] = "Ultimate";
+				if (exceptXevo.includes(pokemon.num) && pokemon.forme === 'X') details["Stage"] = "Ultimate";
+
 				let organizations = [];
 				const royalKnights = [40001, 40146, 40151, 40244, 40248, 40429, 40493, 40511, 40555, 40556];
-				const greatAngels = [40032, 40039, 40264];
+				const archangels = [40032, 40039, 40264];
 				const greatDragons = [40033, 40038, 40243, 40316];
+				const demonLords = [40228, 40259, 40450, 40452, 40491, 40492, 40554];
+				const olympos = [40449];
 				if (royalKnights.includes(pokemon.num)) organizations.push("Royal Knights");
-				if (greatAngels.includes(pokemon.num)) organizations.push("3 Great Angels");
-				if (greatDragons.includes(pokemon.num)) organizations.push("4 Great Dragons");
+				if (archangels.includes(pokemon.num)) organizations.push("3 Archangels");
+				if (demonLords.includes(pokemon.num)) organizations.push("7 Great Demon Lords");
+				if (olympos.includes(pokemon.num)) organizations.push("Olympos XII");
 				if (pokemon.num >= 40302 && pokemon.num <= 40313) organizations.push("Deva");
 				if (pokemon.num >= 40314 && pokemon.num <= 40317) organizations.push("4 Holy Beasts");
-				if (pokemon.num >= 40430 && pokemon.num <= 40439) organizations.push("Warrior Ten");
+				if (pokemon.num >= 40430 && pokemon.num <= 40439) organizations.push("10 Warriors");
+				if (greatDragons.includes(pokemon.num)) organizations.push("4 Great Dragons");
 				if (organizations.length) {
 					details["Organization"] = organizations.join(", ");
 				}

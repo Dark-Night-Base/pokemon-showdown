@@ -1770,7 +1770,7 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 	legendaryspirits: {
 		name: "Legendary Spirits",
 		desc: "This Digimon's attacking stat is multiplied by 1.2 while using attacks of Fire, Light, Flying, Ice, Electric, Ground, Grass, Water, Steel, and Dark types.",
-		shortDesc: "This Digimon's attacking stat is multiplied by 1.2 while using attacks of Warrior Ten types.",
+		shortDesc: "This Digimon's attacking stat is multiplied by 1.2 while using attacks of 10 Warriors' types.",
 	},
 	dragonspower: {
 		name: "Dragon's Power",
