@@ -235,7 +235,7 @@ export const commands: Chat.ChatCommands = {
 				if (exceptXevo.includes(pokemon.num) && pokemon.forme === 'X') details["Stage"] = "Ultimate";
 
 				let organizations = [];
-				const royalKnights = [40001, 40146, 40151, 40244, 40248, 40429, 40493, 40511, 40555, 40556];
+				const royalKnights = [40001, 40146, 40151, 40244, 40428, 40429, 40493, 40511, 40555, 40556];
 				const archangels = [40032, 40039, 40264];
 				const greatDragons = [40033, 40038, 40243, 40316];
 				const demonLords = [40228, 40259, 40450, 40452, 40491, 40492, 40554];
