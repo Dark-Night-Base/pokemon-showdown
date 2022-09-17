@@ -8013,6 +8013,10 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 		isNonstandard: "Digimon",
 		tier: "Illegal",
 	},
+	rapidmonx: {
+		isNonstandard: "Digimon",
+		tier: "Illegal",
+	},
 	saintgalgomon: {
 		isNonstandard: "Digimon",
 		tier: "Illegal",
