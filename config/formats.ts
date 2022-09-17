@@ -100,61 +100,25 @@ export const Formats: FormatList = [
 		],
 	},
 	{
-		name: "[Gen 8] ND Letter Cup BH",
-		desc: `NDBH，但一只精灵携带的所有技能的英文首字母必须相同。`,
+		name: "[Gen 8] ND Almost No Ability BH",
+		desc: `NDBH, but Pokemon can only use their original abilities.`,
 		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/national-dex-bh.3658587/">National Dex BH</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3690179/">National Dex BH v3</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3658587/">National Dex BH</a>`,
 		],
 
 		mod: 'gen8',
-		ruleset: ['-Nonexistent', 'Standard NatDex', 'Forme Clause', 'Sleep Clause Mod', '2 Ability Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Dynamax Clause', 'CFZ Clause', '!Obtainable', 'Arceus Clause'],
+		ruleset: ['[Gen 8] National Dex BH', 'Obtainable Abilities'],
 		banlist: [
-			'Calyrex-Shadow', 'Cramorant-Gorging', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 
-			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Magnet Pull', 'Moody',
-			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Comatose + Sleep Talk', 'Shell Smash', 'Spore', 
-			'Gengarite',
+			'Zacian-Crowned',
 		],
-		restricted: ['Zacian-Crowned', 'Intrepid Sword'],
-		onValidateSet(set) {
-			const problems = [];
-			const ability = this.dex.abilities.get(set.ability);
-			if (set.species === 'Zacian-Crowned') {
-				if (this.dex.toID(set.item) !== 'rustedsword' || ability.id !== 'intrepidsword') {
-					problems.push(`${set.species} is banned.`);
-				}
-			} else if (ability.id === 'intrepidsword') {
-				problems.push(`${set.name}'s ability ${ability.name} is banned.`);
-			}
-			var c = set.moves[0].charAt(0).toUpperCase();
-			for (var i = 1; i < set.moves.length; ++i) {
-				const letter = set.moves[i].charAt(0).toUpperCase();
-				if (letter !== c) {
-					problems.push(`${set.name || set.species}'s moves have different initial letters.`);
-					break;
-				}
-			}
-			return problems;
-		},
-		onChangeSet(set) {
-			const item = this.dex.toID(set.item);
-			if (set.species === 'Zacian' && item === 'rustedsword') {
-				set.species = 'Zacian-Crowned';
-				set.ability = 'Intrepid Sword';
-				const ironHead = set.moves.indexOf('ironhead');
-				if (ironHead >= 0) {
-					set.moves[ironHead] = 'behemothblade';
-				}
-			}
-			if (set.species === 'Zamazenta' && item === 'rustedshield') {
-				set.species = 'Zamazenta-Crowned';
-				set.ability = 'Dauntless Shield';
-				const ironHead = set.moves.indexOf('ironhead');
-				if (ironHead >= 0) {
-					set.moves[ironHead] = 'behemothbash';
-				}
-			}
-		},
+		unbanlist: [
+			'Rayquaza-Mega', 'Shedinja',
+			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
+			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Stakeout', 'Water Bubble', 'Wonder Guard',
+			'Comatose + Sleep Talk', 
+			'Chatter', 'Electrify', 
+		],
 	},
 	{
 		name: "[Gen 8] ND Fortemons BH",
@@ -398,6 +362,63 @@ export const Formats: FormatList = [
 		onAfterMoveSecondarySelf: function (source, target, move) {
 			// @ts-ignore
 			if (move && move.category !== 'Status' && source.forte && source.forte.onAfterMoveSecondarySelf) this.singleEvent('AfterMoveSecondarySelf', source.forte, null, source, target, move);
+		},
+	},
+	{
+		name: "[Gen 8] ND Letter Cup BH",
+		desc: `NDBH，但一只精灵携带的所有技能的英文首字母必须相同。`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/national-dex-bh.3658587/">National Dex BH</a>`,
+		],
+
+		mod: 'gen8',
+		ruleset: ['-Nonexistent', 'Standard NatDex', 'Forme Clause', 'Sleep Clause Mod', '2 Ability Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Dynamax Clause', 'CFZ Clause', '!Obtainable', 'Arceus Clause'],
+		banlist: [
+			'Calyrex-Shadow', 'Cramorant-Gorging', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 
+			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Magnet Pull', 'Moody',
+			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
+			'Comatose + Sleep Talk', 'Shell Smash', 'Spore', 
+			'Gengarite',
+		],
+		restricted: ['Zacian-Crowned', 'Intrepid Sword'],
+		onValidateSet(set) {
+			const problems = [];
+			const ability = this.dex.abilities.get(set.ability);
+			if (set.species === 'Zacian-Crowned') {
+				if (this.dex.toID(set.item) !== 'rustedsword' || ability.id !== 'intrepidsword') {
+					problems.push(`${set.species} is banned.`);
+				}
+			} else if (ability.id === 'intrepidsword') {
+				problems.push(`${set.name}'s ability ${ability.name} is banned.`);
+			}
+			var c = set.moves[0].charAt(0).toUpperCase();
+			for (var i = 1; i < set.moves.length; ++i) {
+				const letter = set.moves[i].charAt(0).toUpperCase();
+				if (letter !== c) {
+					problems.push(`${set.name || set.species}'s moves have different initial letters.`);
+					break;
+				}
+			}
+			return problems;
+		},
+		onChangeSet(set) {
+			const item = this.dex.toID(set.item);
+			if (set.species === 'Zacian' && item === 'rustedsword') {
+				set.species = 'Zacian-Crowned';
+				set.ability = 'Intrepid Sword';
+				const ironHead = set.moves.indexOf('ironhead');
+				if (ironHead >= 0) {
+					set.moves[ironHead] = 'behemothblade';
+				}
+			}
+			if (set.species === 'Zamazenta' && item === 'rustedshield') {
+				set.species = 'Zamazenta-Crowned';
+				set.ability = 'Dauntless Shield';
+				const ironHead = set.moves.indexOf('ironhead');
+				if (ironHead >= 0) {
+					set.moves[ironHead] = 'behemothbash';
+				}
+			}
 		},
 	},
 	{
@@ -713,32 +734,13 @@ export const Formats: FormatList = [
 			'Comatose + Sleep Talk', 'Belly Drum', 'Bolt Beak', 'Court Change', 'Double Iron Bash', 'Octolock', 'Shell Smash',
 			'Rusted Sword', 
 		],
-		onChangeSet(set) {
-			const item = this.dex.toID(set.item);
-			if (set.species === 'Zacian' && item === 'rustedsword') {
-				set.species = 'Zacian-Crowned';
-				set.ability = 'Intrepid Sword';
-				const ironHead = set.moves.indexOf('ironhead');
-				if (ironHead >= 0) {
-					set.moves[ironHead] = 'behemothblade';
-				}
-			}
-			if (set.species === 'Zamazenta' && item === 'rustedshield') {
-				set.species = 'Zamazenta-Crowned';
-				set.ability = 'Dauntless Shield';
-				const ironHead = set.moves.indexOf('ironhead');
-				if (ironHead >= 0) {
-					set.moves[ironHead] = 'behemothbash';
-				}
-			}
-		},
 	},
 	{
 		name: "[Gen 8] National Dex BH",
 		desc: `Anything that can be hacked in-game and is usable in local battles is allowed.`,
 		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/national-dex-bh-v3.3690179/#post-9217527">National Dex BH v3</a>`,
-			`&bullet; <a href="https://www.smogon.com/forums/threads/national-dex-bh.3658587/">National Dex BH</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3690179/">National Dex BH v3</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3658587/">National Dex BH</a>`,
 		],
 
 		mod: 'gen8',
@@ -758,7 +760,7 @@ export const Formats: FormatList = [
 				if (this.dex.toID(set.item) !== 'rustedsword' || ability.id !== 'intrepidsword') {
 					return [`${set.species} is banned.`];
 				}
-			} else if (ability.id === 'intrepidsword') {
+			} else if (ability.id === 'intrepidsword' && this.format.restricted.includes('Intrepid Sword')) {
 				return [`${set.name}'s ability ${ability.name} is banned.`];
 			}
 		},
