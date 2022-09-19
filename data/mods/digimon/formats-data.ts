@@ -14,6 +14,9 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	// metalgreymonbluex: {
 	// 	tier: "UU",
 	// },
+	skullgreymon: {
+		tier: "UU",
+	},
 	wargreymon: {
 		tier: "OU",
 	},

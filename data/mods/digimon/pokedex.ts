@@ -11,17 +11,15 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	// actually the above won't work
 	// i'm lazy and don't want to find out why
 	// just do it in the main pokedex.ts
-	wargreymon: {
-		num: 40006,
-		name: "War Greymon",
-		types: ["Dragon", "Fighting", "Vaccine"],
-		genderRatio: {M: 0.875, F: 0.125},
-		baseStats: {hp: 80, atk: 101, def: 83, spa: 83, spd: 73, spe: 100},
-		abilities: {0: "Justified", 1: "", H: ""},
+	skullgreymon: {
+		num: 40005,
+		name: "Skull Greymon",
+		types: ["Rock", "Ghost", "Virus"],
+		gender: "N",
+		baseStats: {hp: 50, atk: 85, def: 50, spa: 85, spd: 40, spe: 70},
+		abilities: {0: "Cursed Body", 1: "Weak Armor", H: "Rock Head"},
 		weightkg: 1,
-		evos: ["Metal Greymon"],
+		evos: ["Greymon"],
 		eggGroups: ["Undiscovered"],
-		otherFormes: ["Black War Greymon", "War Greymon-X", "Black War Greymon-X"],
-		formeOrder: ["War Greymon", "Black War Greymon", "War Greymon-X", "Black War Greymon-X"],
 	},
 };
