@@ -6673,10 +6673,10 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 		isNonstandard: "Digimon",
 		tier: "Illegal",
 	},
-	wargreymon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
+	// wargreymon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
 	blackwargreymon: {
 		isNonstandard: "Digimon",
 		tier: "Illegal",
