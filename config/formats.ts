@@ -108,7 +108,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
-		ruleset: ['[Gen 8] National Dex BH', 'Obtainable Abilities'],
+		ruleset: ['[Gen 8] National Dex BH', 'Obtainable Abilities', '!2 Ability Clause', '!Arceus Clause'],
 		banlist: [
 			'Zacian-Crowned',
 		],
