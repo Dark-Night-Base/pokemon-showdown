@@ -7,7 +7,6 @@ export const Items: {[k: string]: ModdedItemData} = {
 		},
 		num: 40001,
 		gen: 8,
-		isNonstandard: "Digimon",
 	},
 	holyring: {
 		name: "Holy Ring",
@@ -24,6 +23,5 @@ export const Items: {[k: string]: ModdedItemData} = {
 		},
 		num: 40002,
 		gen: 8,
-		isNonstandard: "Digimon",
 	},
 };

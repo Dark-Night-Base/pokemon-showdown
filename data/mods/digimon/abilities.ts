@@ -8,7 +8,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		isBreakable: false,
-		isNonstandard: "Digimon",
 		name: "Omega inForce",
 		rating: 4.5,
 		num: 40001,
@@ -25,7 +24,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (move.auraBooster !== this.effectState.target) return;
 			return this.chainModify([move.hasAuraBreak ? 3072 : 5448, 4096]);
 		},
-		isNonstandard: "Digimon",
 		name: "Light Aura",
 		rating: 3,
 		num: 40002,
@@ -45,7 +43,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				this.damage(pokemon.baseMaxhp / 10, pokemon, pokemon);
 			}
 		},
-		isNonstandard: "Digimon",
 		name: "Overwrite",
 		rating: 3,
 		num: 40003,
@@ -56,7 +53,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onResidual(pokemon) {
 			this.heal(pokemon.baseMaxhp / 8);
 		},
-		isNonstandard: "Digimon",
 		name: "Ultimate Force",
 		rating: 4.5,
 		num: 40004,
@@ -73,7 +69,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		// onAllySwitchIn(this, pokemon) {
 		// 	this.damage(pokemon.baseMaxhp / 8);
 		// },
-		isNonstandard: "Digimon",
 		name: "Digital Hazard",
 		rating: 3,
 		num: 40005,
@@ -97,7 +92,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				return this.chainModify([4915, 4096]);
 			}
 		},
-		isNonstandard: "Digimon",
 		name: "Legendary Spirits",
 		rating: 3.5,
 		num: 40006,
@@ -117,7 +111,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				return this.chainModify([5448, 4096]);
 			}
 		},
-		isNonstandard: "Digimon",
 		name: "Dragon's Power",
 		rating: 3,
 		num: 40007,
@@ -126,7 +119,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onDamagingHit(damage, target, source, move) {
 			this.boost({atk: 1, def: -1, spe: 1});
 		},
-		isNonstandard: "Digimon",
 		name: "Armor Unequip",
 		rating: 3,
 		num: 40008,
@@ -138,7 +130,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			this.add('-ability', pokemon, 'Undead Body');
 			this.heal(pokemon.baseMaxhp);
 		},
-		isNonstandard: "Digimon",
 		name: "Undead Body",
 		rating: 5,
 		num: 40009,
@@ -157,7 +148,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (!holyKnightNums.includes(source.species.num)) return;
 			return this.chainModify([2732, 4096]);
 		},
-		isNonstandard: "Digimon",
 		name: "Knight Suppressor",
 		rating: 2,
 		num: 40010,
@@ -167,7 +157,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onFractionalPriority(priority, source, target, move) {
 			if (move.category !== 'Status') return 0.1;
 		},
-		isNonstandard: "Digimon",
 		name: "Alpha inForce",
 		rating: 4.5,
 		num: 40011,
