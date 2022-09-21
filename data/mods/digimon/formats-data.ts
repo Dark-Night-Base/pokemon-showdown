@@ -672,7 +672,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "Illegal",
 	},
 	apocalymon: {
-		tier: "Illegal",
+		tier: "Uber",
 	},
 	imperialdramon: {
 		tier: "Illegal",
