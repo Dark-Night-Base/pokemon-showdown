@@ -7018,7 +7018,7 @@ export const MovesText: {[k: string]: MoveText} = {
 	},
 	amanohabakiri: {
 		name: "Ama no Habakiri",
-		desc: "This move combines Light in its type effectiveness against the target. If this move is successful, it breaks through the target's Baneful Bunker, Detect, King's Shield, Protect, or Spiky Shield for this turn, allowing other Pokemon to attack the target normally. If the target's side is protected by Crafty Shield, Mat Block, Quick Guard, or Wide Guard, that protection is also broken for this turn and other Pokemon may attack the target's side normally.",
+		desc: "This move combines Light in its type effectiveness against the target. Lowers the user's Speed by 1 stage. If this move is successful, it breaks through the target's Baneful Bunker, Detect, King's Shield, Protect, or Spiky Shield for this turn, allowing other Pokemon to attack the target normally. If the target's side is protected by Crafty Shield, Mat Block, Quick Guard, or Wide Guard, that protection is also broken for this turn and other Pokemon may attack the target's side normally.",
 		shortDesc: "Breaks protection. Move: +Light type. User: -1 Spe.",
 	},
 	yakusanoikaduchi: {
