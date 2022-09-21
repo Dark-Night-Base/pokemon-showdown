@@ -6613,2844 +6613,2844 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 
 	// Digimon
 
-	omegamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	omegamonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	agumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	agumonblack: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	yukiagumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	agumons: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	agumonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	greymon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	geogreymon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	greymonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	metalgreymon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	metalgreymonblue: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	metalgreymonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	metalgreymonbluex: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
+	// omegamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// omegamonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// agumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// agumonblack: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// yukiagumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// agumons: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// agumonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// greymon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// geogreymon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// greymonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// metalgreymon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// metalgreymonblue: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// metalgreymonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// metalgreymonbluex: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
 	// skullgreymon: {
 	// 	isNonstandard: "Digimon",
 	// 	tier: "Illegal",
 	// },
-	wargreymon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	blackwargreymon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	wargreymonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	blackwargreymonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gabumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gabumonblack: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	psychemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gabumonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	garurumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	garurumonblack: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gururumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	garurumonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	weregarurumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	weregarurumonblack: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	weregarurumonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	metalgarurumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	metalgarurumonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	piyomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	birdramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	saberdramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	garudamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	garudamonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	hououmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	tentomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	kabuterimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	atlurkabuterimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	heraklekabuterimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	heraklekabuterimonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	palmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	alraumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	palmonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	togemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	togemonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	lilimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	lilimonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	rosemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	rosemonburst: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	rosemonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gomamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gomamonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ikkakumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	zudomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	vikemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	plesiomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	plesiomonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	patamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	tukaimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	pegasmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	angemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	pidmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	holyangemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	seraphimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	blackseraphimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	goddramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	goddramonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	plotmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	plotmonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	tailmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	tailmonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	nefertimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	nefertimonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	angewomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	holydramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	holydramonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ofanimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ofanimonfalldown: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ofanimonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ofanimonfalldownx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	parrotmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	crossmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	kuwagamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	kuwagamonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	okuwamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	okuwamonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	grankuwagamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	shakomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	shakomonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	shellmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	anomalocarimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	betamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	modokibetamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	betamonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	seadramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	seadramonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	megaseadramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	megaseadramonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	metalseadramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	candmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	meramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	deathmeramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	bluemeramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	boltmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	hagurumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	guardromon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	mechanorimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	andromon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	andromonfile: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	hiandromon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	tyumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	scumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	numemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	geremon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	karatukinumemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	numemonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gerbemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	monzaemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	warumonzaemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	extyranomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	etemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	metaletemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	piemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	unimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	shimaunimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	centalmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	elecmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	leomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	leomonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	grappuleomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	saberleomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	goburimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	snowgoburimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	shamamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	orgemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	hyougamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	fugamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	orgemonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	digitamamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	devitamamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	yukidarumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	tuchidarumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	mojyamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	bakemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	soulmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	fantomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	picodevimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	devimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	icedevimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	vamdemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ladydevimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	skullsatamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	marindevimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	venomvamdemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	belialvamdemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	drimogemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	whamonadult: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	whamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	piccolomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gazimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gaomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gazimonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	raremon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	monochromon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	monochromonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	triceramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	triceramonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	cockatrimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	tyranomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	darktyranomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	tyranomonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	darktyranomonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	metaltyranomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	metaltyranomonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	mastertyranomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	mugendramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	chaosdramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	chaosdramonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	rusttyranomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	nanomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	vegimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	zassoumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	redvegimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	vademon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	vademonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ebemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ebemonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	otamamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	otamamonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gekomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	tonosamagekomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	nanimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	devidramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dokugumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	mammon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	mammonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	skullmammon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	skullmammonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gesomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gesomonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	pumpmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gottsumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gottsumonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	wizarmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	sorcerimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	snimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	tuskmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	hangyomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	kiwimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	blossomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	delumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	floramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	mushmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	woodmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	jyureimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	pinochimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	tankmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	megadramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gigadramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	evilmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	deathmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	apocalymon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	imperialdramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	imperialdramonblack: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	imperialdramonfighter: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	imperialdramonpaladin: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	vmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	fladramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	lightdramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	magnamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	magnamonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	sethmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	xvmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	vdramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	aerovdramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ulforcevdramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ulforcevdramonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	wormmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	shadramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	searchmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	bullmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	coatlmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	stingmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	paildramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dinobeemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	hawkmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	holsmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	shurimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	rinkmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	orcamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	aquilamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	silphymon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	valkyrimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	armadimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	digmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	submarimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	frogmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	elephamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ankylomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	shakkomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	slashangemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	mantaraymon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	mantaraymonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	rhinomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	rhinomonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	prairiemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	bitmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	butterflamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	kabukimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	kunemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dokunemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gizamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ganimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ganimonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	penmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	muchomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gokimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	deltamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	flymon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	airdramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	revolmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	igamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gorimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	tortamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	thunderballmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	thunderballmonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	golemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	hanumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	musyamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	cyclomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	coelamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ebidramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	rukamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	octmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	flarelizamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	darklizamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	yanmamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	sandyanmamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	minotaurmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	knightmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	jyagamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	brachimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	mamemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	bigmamemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	mamemonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	metalmamemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	metalmamemonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	giromon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	pukumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	lampmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	pharaohmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dagomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	archnemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	mummymon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	chimairamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	millenniummon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	zeedmillenniummon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	moonmillenniummon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	demon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	demonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	arkadimonchild: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	arkadimonadult: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	arkadimonperfect: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	arkadimonultimate: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	arkadimonsuperultimate: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	keramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	chrysalimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	infermon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	diablomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	diablomonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	armagemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	culumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	guilmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	guilmonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	growmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	growmonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	megalogrowmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	megalogrowmonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	megidramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	megidramonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dukemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dukemoncrimson: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dukemonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	terriermon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	galgomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	rapidmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	rapidmonarmor: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	rapidmonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	saintgalgomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	renamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	renamonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	kyubimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	taomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	sakuyamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	sakuyamonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	monodramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	strikedramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	cyberdramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	justimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	impmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	impmonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	beelzebumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	beelzebumonblast: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	beelzebumonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	lopmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	turuiemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	wendimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	andiramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	cherubimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	cherubimonvice: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	cherubimonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	cherubimonvicex: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	marinangemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	depthmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gargomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	kangarumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	togemogumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	owlmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	archelomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	allomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	allomonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	flybeemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	harpymon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	boarmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	sheepmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	seahomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	stegomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	mothmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	manbomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	lynxmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	maildramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	opossummon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	fangmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	mikemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	bastemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	blimpmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	boogiemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	phelesmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	jewelbeemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	scorpiomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gokumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dogmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	clockmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	orochimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	neodevimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	jijimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	babamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dobermon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dobermonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	cerberumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	cerberumonwerewolf: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	cerberumonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	anubimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	kumbhiramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	vajramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	mihiramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	andiramondeva: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	majiramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	sandiramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	indaramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	pajiramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	makuramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	sinduramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	caturamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	vikaralamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	xuanwumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	zhuqiaomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	qinglongmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	baihumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	raijinmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	fujinmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	suijinmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	raidenmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dreaper1: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dreaper2: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dreaper3: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dreaper4: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dreaper5: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dreaper6: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dreaper7: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dreaper8: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dreaper9: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dreaperreaper: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dreapermother: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	labramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	siesamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	mephismon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	mephismonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gulfmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	locomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	grandlocomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	parasimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	huanglongmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	susanoomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	flamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	agnimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	vritramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	aldamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	kaisergreymon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	storabimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	wolfmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	garummon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	beowolfmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	magnagarurumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	fairimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	shutumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	jetsilphymon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	chackmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	blizzarmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	daipenmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	blitzmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	bolgmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	rhinokabuterimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	grottemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gigasmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	arbormon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	petaldramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ranamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	calamaramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	mercuremon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	sephirothmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	duskmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	louwemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	velgrmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	kaiserleomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	raihimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	honeybeemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	yaksamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	sagittarimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	nohemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	kongoumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	pucchiemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	moosemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	peacockmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	tocanmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	sepikmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	pteranomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	pteranomonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	chamelemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	baromon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	pipismon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ponchomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	swanmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	tylomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	tylomonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	goatmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	flawizarmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	thunderbirmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	kenkimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	salamandamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	koemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	hookmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gladimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	witchmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	kyukimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	assaultmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	blackkingnumemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	valvemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	betsumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	mistymon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	wisemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	mermaimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	cannondramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	bokomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	neamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	starmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	starmonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	superstarmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	zanbamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	panjyamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	panjyamonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	toyagumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	toyagumonblack: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	clearagumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	pandamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	icemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	insekimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	karatenmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	bakumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	burgamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ebiburgamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	asuramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	kokuwamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	kokuwamonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	volcamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	pievolcamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dynasmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dynasmonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	lordknightmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	lordknightmonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ancientgreymon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ancientgarurumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ancientirismon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ancientmegatheriummon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ancientbeatmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ancientvolcamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ancienttroiamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ancientmermaimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ancientwisemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ancientsphinxmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	kotemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dinohumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	bearmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gryzmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	darcmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	hippogriffomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	murmukusmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	griffomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ornismon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	marsmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	lilithmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	lilithmonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	lucemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	lucemonfalldown: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	lucemonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	lucemonsatan: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	lucemonlarva: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	deathxmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dorumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dorugamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	deathxdorugamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	raptordramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	doruguremon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	deathxdoruguremon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	grademon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dorugoramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	deathxdorugoramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ryudamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ginryumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	hisyaryumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ouryumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	funbeemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	waspmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	cannonbeemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	tigervespamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dracumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	sangloupmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	matadrmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	granddracumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gaioumon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	grandiskuwagamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gigaseadramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dinotigermon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	metalfantomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	mametyramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	metalpiranimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	medivaldukemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	tobucatmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	omekamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	skullbaluchimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	volcdramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ultimatebrakimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	dinorexmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	clavisangemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	kingetemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	princemamemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	princemamemonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	leviamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	leviamonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	barbamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	barbamonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	alphamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	alphamonouryuken: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	rizegreymon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	shinegreymon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	shinegreymonburst: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	shinegreymonruin: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gaogamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	machgaogamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	miragegaogamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	miragegaogamonburst: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	lalamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	sunflowmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	lilamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	falcomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	falcomons: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	diatrymon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	peckmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	yatagaramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	yatagaramons: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	valdurmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ravmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ravmonburst: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	kudamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	kudamons: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	reppamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	tyilinmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	sleipmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	sleipmonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	kamemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gawappamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	shawujinmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	jumbogamemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	pawnchessmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	pawnchessmonwhite: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	knightchessmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	knightchessmonwhite: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	rookchessmonblack: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	bishopchessmonwhite: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	queenchessmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	kingchessmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	kokabuterimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	bladekuwagamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	metallifekuwagamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	tyrantkabuterimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	commandramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	sealsdramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	tankdramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	darkdramon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	liollmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	liamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	loaderliomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	bancholeomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	banchomamemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	bancholilimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	banchostingmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	banchogolemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	chaosmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	chaosmonvaldurarm: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	ultimatechaosmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	spinomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	lotusmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	swimmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	eldoradimon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	goldnumemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	platinumnumemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	mercurymon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	minervamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	minervamonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	neptonmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	protogizmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gizmonat: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	gizmonxt: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	phascomon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	porcupamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	astamon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	belphemon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	belphemonsleep: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	belphemonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	duftmon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	duftmonleopard: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	duftmonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	craniummon: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	craniummonx: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	algomonperfect: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	algomonultimate: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
-	yggdrasill7d6: {
-		isNonstandard: "Digimon",
-		tier: "Illegal",
-	},
+	// wargreymon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// blackwargreymon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// wargreymonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// blackwargreymonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gabumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gabumonblack: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// psychemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gabumonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// garurumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// garurumonblack: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gururumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// garurumonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// weregarurumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// weregarurumonblack: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// weregarurumonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// metalgarurumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// metalgarurumonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// piyomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// birdramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// saberdramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// garudamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// garudamonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// hououmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// tentomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// kabuterimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// atlurkabuterimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// heraklekabuterimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// heraklekabuterimonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// palmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// alraumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// palmonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// togemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// togemonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// lilimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// lilimonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// rosemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// rosemonburst: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// rosemonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gomamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gomamonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ikkakumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// zudomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// vikemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// plesiomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// plesiomonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// patamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// tukaimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// pegasmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// angemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// pidmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// holyangemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// seraphimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// blackseraphimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// goddramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// goddramonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// plotmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// plotmonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// tailmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// tailmonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// nefertimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// nefertimonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// angewomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// holydramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// holydramonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ofanimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ofanimonfalldown: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ofanimonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ofanimonfalldownx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// parrotmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// crossmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// kuwagamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// kuwagamonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// okuwamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// okuwamonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// grankuwagamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// shakomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// shakomonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// shellmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// anomalocarimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// betamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// modokibetamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// betamonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// seadramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// seadramonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// megaseadramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// megaseadramonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// metalseadramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// candmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// meramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// deathmeramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// bluemeramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// boltmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// hagurumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// guardromon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// mechanorimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// andromon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// andromonfile: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// hiandromon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// tyumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// scumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// numemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// geremon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// karatukinumemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// numemonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gerbemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// monzaemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// warumonzaemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// extyranomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// etemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// metaletemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// piemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// unimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// shimaunimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// centalmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// elecmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// leomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// leomonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// grappuleomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// saberleomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// goburimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// snowgoburimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// shamamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// orgemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// hyougamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// fugamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// orgemonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// digitamamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// devitamamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// yukidarumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// tuchidarumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// mojyamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// bakemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// soulmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// fantomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// picodevimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// devimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// icedevimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// vamdemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ladydevimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// skullsatamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// marindevimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// venomvamdemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// belialvamdemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// drimogemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// whamonadult: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// whamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// piccolomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gazimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gaomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gazimonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// raremon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// monochromon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// monochromonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// triceramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// triceramonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// cockatrimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// tyranomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// darktyranomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// tyranomonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// darktyranomonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// metaltyranomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// metaltyranomonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// mastertyranomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// mugendramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// chaosdramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// chaosdramonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// rusttyranomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// nanomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// vegimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// zassoumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// redvegimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// vademon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// vademonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ebemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ebemonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// otamamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// otamamonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gekomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// tonosamagekomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// nanimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// devidramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dokugumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// mammon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// mammonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// skullmammon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// skullmammonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gesomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gesomonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// pumpmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gottsumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gottsumonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// wizarmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// sorcerimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// snimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// tuskmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// hangyomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// kiwimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// blossomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// delumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// floramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// mushmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// woodmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// jyureimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// pinochimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// tankmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// megadramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gigadramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// evilmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// deathmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// apocalymon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// imperialdramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// imperialdramonblack: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// imperialdramonfighter: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// imperialdramonpaladin: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// vmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// fladramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// lightdramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// magnamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// magnamonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// sethmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// xvmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// vdramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// aerovdramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ulforcevdramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ulforcevdramonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// wormmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// shadramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// searchmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// bullmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// coatlmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// stingmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// paildramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dinobeemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// hawkmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// holsmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// shurimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// rinkmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// orcamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// aquilamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// silphymon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// valkyrimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// armadimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// digmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// submarimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// frogmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// elephamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ankylomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// shakkomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// slashangemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// mantaraymon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// mantaraymonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// rhinomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// rhinomonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// prairiemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// bitmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// butterflamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// kabukimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// kunemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dokunemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gizamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ganimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ganimonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// penmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// muchomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gokimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// deltamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// flymon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// airdramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// revolmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// igamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gorimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// tortamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// thunderballmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// thunderballmonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// golemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// hanumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// musyamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// cyclomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// coelamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ebidramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// rukamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// octmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// flarelizamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// darklizamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// yanmamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// sandyanmamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// minotaurmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// knightmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// jyagamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// brachimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// mamemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// bigmamemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// mamemonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// metalmamemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// metalmamemonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// giromon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// pukumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// lampmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// pharaohmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dagomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// archnemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// mummymon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// chimairamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// millenniummon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// zeedmillenniummon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// moonmillenniummon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// demon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// demonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// arkadimonchild: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// arkadimonadult: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// arkadimonperfect: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// arkadimonultimate: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// arkadimonsuperultimate: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// keramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// chrysalimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// infermon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// diablomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// diablomonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// armagemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// culumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// guilmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// guilmonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// growmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// growmonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// megalogrowmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// megalogrowmonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// megidramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// megidramonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dukemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dukemoncrimson: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dukemonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// terriermon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// galgomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// rapidmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// rapidmonarmor: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// rapidmonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// saintgalgomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// renamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// renamonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// kyubimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// taomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// sakuyamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// sakuyamonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// monodramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// strikedramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// cyberdramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// justimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// impmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// impmonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// beelzebumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// beelzebumonblast: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// beelzebumonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// lopmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// turuiemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// wendimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// andiramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// cherubimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// cherubimonvice: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// cherubimonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// cherubimonvicex: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// marinangemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// depthmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gargomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// kangarumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// togemogumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// owlmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// archelomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// allomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// allomonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// flybeemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// harpymon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// boarmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// sheepmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// seahomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// stegomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// mothmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// manbomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// lynxmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// maildramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// opossummon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// fangmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// mikemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// bastemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// blimpmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// boogiemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// phelesmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// jewelbeemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// scorpiomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gokumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dogmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// clockmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// orochimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// neodevimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// jijimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// babamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dobermon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dobermonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// cerberumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// cerberumonwerewolf: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// cerberumonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// anubimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// kumbhiramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// vajramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// mihiramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// andiramondeva: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// majiramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// sandiramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// indaramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// pajiramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// makuramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// sinduramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// caturamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// vikaralamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// xuanwumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// zhuqiaomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// qinglongmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// baihumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// raijinmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// fujinmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// suijinmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// raidenmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dreaper1: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dreaper2: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dreaper3: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dreaper4: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dreaper5: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dreaper6: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dreaper7: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dreaper8: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dreaper9: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dreaperreaper: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dreapermother: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// labramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// siesamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// mephismon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// mephismonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gulfmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// locomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// grandlocomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// parasimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// huanglongmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// susanoomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// flamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// agnimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// vritramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// aldamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// kaisergreymon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// storabimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// wolfmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// garummon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// beowolfmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// magnagarurumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// fairimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// shutumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// jetsilphymon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// chackmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// blizzarmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// daipenmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// blitzmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// bolgmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// rhinokabuterimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// grottemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gigasmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// arbormon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// petaldramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ranamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// calamaramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// mercuremon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// sephirothmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// duskmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// louwemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// velgrmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// kaiserleomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// raihimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// honeybeemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// yaksamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// sagittarimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// nohemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// kongoumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// pucchiemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// moosemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// peacockmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// tocanmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// sepikmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// pteranomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// pteranomonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// chamelemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// baromon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// pipismon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ponchomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// swanmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// tylomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// tylomonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// goatmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// flawizarmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// thunderbirmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// kenkimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// salamandamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// koemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// hookmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gladimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// witchmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// kyukimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// assaultmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// blackkingnumemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// valvemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// betsumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// mistymon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// wisemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// mermaimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// cannondramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// bokomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// neamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// starmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// starmonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// superstarmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// zanbamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// panjyamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// panjyamonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// toyagumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// toyagumonblack: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// clearagumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// pandamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// icemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// insekimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// karatenmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// bakumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// burgamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ebiburgamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// asuramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// kokuwamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// kokuwamonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// volcamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// pievolcamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dynasmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dynasmonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// lordknightmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// lordknightmonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ancientgreymon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ancientgarurumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ancientirismon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ancientmegatheriummon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ancientbeatmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ancientvolcamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ancienttroiamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ancientmermaimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ancientwisemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ancientsphinxmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// kotemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dinohumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// bearmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gryzmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// darcmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// hippogriffomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// murmukusmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// griffomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ornismon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// marsmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// lilithmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// lilithmonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// lucemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// lucemonfalldown: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// lucemonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// lucemonsatan: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// lucemonlarva: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// deathxmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dorumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dorugamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// deathxdorugamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// raptordramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// doruguremon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// deathxdoruguremon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// grademon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dorugoramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// deathxdorugoramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ryudamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ginryumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// hisyaryumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ouryumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// funbeemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// waspmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// cannonbeemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// tigervespamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dracumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// sangloupmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// matadrmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// granddracumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gaioumon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// grandiskuwagamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gigaseadramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dinotigermon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// metalfantomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// mametyramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// metalpiranimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// medivaldukemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// tobucatmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// omekamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// skullbaluchimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// volcdramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ultimatebrakimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// dinorexmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// clavisangemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// kingetemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// princemamemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// princemamemonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// leviamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// leviamonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// barbamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// barbamonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// alphamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// alphamonouryuken: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// rizegreymon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// shinegreymon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// shinegreymonburst: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// shinegreymonruin: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gaogamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// machgaogamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// miragegaogamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// miragegaogamonburst: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// lalamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// sunflowmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// lilamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// falcomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// falcomons: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// diatrymon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// peckmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// yatagaramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// yatagaramons: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// valdurmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ravmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ravmonburst: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// kudamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// kudamons: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// reppamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// tyilinmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// sleipmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// sleipmonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// kamemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gawappamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// shawujinmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// jumbogamemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// pawnchessmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// pawnchessmonwhite: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// knightchessmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// knightchessmonwhite: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// rookchessmonblack: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// bishopchessmonwhite: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// queenchessmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// kingchessmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// kokabuterimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// bladekuwagamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// metallifekuwagamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// tyrantkabuterimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// commandramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// sealsdramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// tankdramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// darkdramon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// liollmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// liamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// loaderliomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// bancholeomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// banchomamemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// bancholilimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// banchostingmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// banchogolemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// chaosmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// chaosmonvaldurarm: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// ultimatechaosmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// spinomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// lotusmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// swimmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// eldoradimon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// goldnumemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// platinumnumemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// mercurymon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// minervamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// minervamonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// neptonmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// protogizmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gizmonat: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// gizmonxt: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// phascomon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// porcupamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// astamon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// belphemon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// belphemonsleep: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// belphemonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// duftmon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// duftmonleopard: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// duftmonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// craniummon: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// craniummonx: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// algomonperfect: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// algomonultimate: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
+	// yggdrasill7d6: {
+	// 	isNonstandard: "Digimon",
+	// 	tier: "Illegal",
+	// },
 };
