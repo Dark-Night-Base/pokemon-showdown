@@ -1309,6 +1309,7 @@ export const Formats: FormatList = [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3659028/">M&amp;M Resources</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3656408/">Balanced Hackmons</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
+			`&bullet; <a href="http://replay.sciroccogti.top/files/gen8mixandmegabh-997-asouchihiro-leon6.html">示例录像 Sample Replay</a>`,
 		],
 
 		mod: 'mixandmegabh',
@@ -1397,7 +1398,7 @@ export const Formats: FormatList = [
 
 			const item = this.dex.toID(target?.set.item);
 			if (item === 'rustedshield') {
-				const mSpecies = this.dex.deepClone(this.dex.species.get(target.species));
+				const mSpecies = this.dex.deepClone(this.dex.species.get(target.species.name));
 				mSpecies.types = [target.species.types[0], 'Steel'];
 				mSpecies.baseStats.def = this.clampIntRange(mSpecies.baseStats.def + 30, 1, 255);
 				mSpecies.baseStats.spd = this.clampIntRange(mSpecies.baseStats.spd + 30, 1, 255);
@@ -1412,7 +1413,7 @@ export const Formats: FormatList = [
 				return mSpecies;
 			}
 			if (item === 'rustedsword') {			
-				const mSpecies = this.dex.deepClone(this.dex.species.get(target.species));
+				const mSpecies = this.dex.deepClone(this.dex.species.get(target.species.name));
 				mSpecies.types = [target.species.types[0], 'Steel'];
 				mSpecies.baseStats.atk = this.clampIntRange(mSpecies.baseStats.atk + 40, 1, 255);
 				mSpecies.baseStats.spe = this.clampIntRange(mSpecies.baseStats.spe + 10, 1, 255);
@@ -1629,7 +1630,7 @@ export const Formats: FormatList = [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
 		],
 		mod: 'gen8',
-		ruleset: ['[Gen 8] Balanced Hackmons', 'Scalemons Mod', 'Overflow Stat Mod'],
+		ruleset: ['[Gen 8] Balanced Hackmons', 'Scalemons Mod', 'Camomons Mod', 'Overflow Stat Mod'],
 		banlist: [
 			'Eviolite', 'Light Ball', 'Thick Club', 
 		],
