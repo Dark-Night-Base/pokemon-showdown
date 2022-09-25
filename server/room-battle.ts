@@ -894,7 +894,7 @@ export class RoomBattle extends RoomGames.RoomGame<RoomBattlePlayer> {
 		// If a replay was saved at any point or we were configured to autosavereplays,
 		// reupload when the battle is over to overwrite the partial data (and potentially
 		// reflect any changes that may have been made to the replay's hidden status).
-		if (this.replaySaved || Config.autosavereplays) { // || this.turn >= 15) { // Nihilslave: auto save long battle replay
+		if (this.replaySaved || Config.autosavereplays || this.turn >= 15) { // Nihilslave: auto save long battle replay
 			const uploader = Users.get(winnerid || p1id);
 			if (uploader?.connections[0]) {
 				Chat.parse('/savereplay silent', this.room, uploader, uploader.connections[0]);

@@ -31,21 +31,20 @@ export const Formats: FormatList = [
 	},
 	{
 		name: "[Gen 8] Balanced Hackmons 500 Cup",
-		desc: `BH but Pok&eacute;mon with BST > 500 are banned.`,
+		desc: `BH，但禁止使用种族和大于 500 的精灵。<br />BH but Pok&eacute;mon with BST > 500 are banned.`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3656408/">Balanced Hackmons</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
+			`&bullet; <a href="https://replay.pokemonshowdown.com/gen8balancedhackmons-1611966917">示例录像 Sample Replay</a>`,
 		],
 
 		mod: 'gen8',
-		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Moves Clause', 'Endless Battle Clause'],
+		ruleset: ['[Gen 8] Balanced Hackmons'],
 		banlist: [
-			'Cramorant-Gorging', 'Shedinja',
 			'Barraskewda', 'Chansey', 'Darmanitan', 'Darmanitan-Galar',
-			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
-			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Comatose + Sleep Talk', 'Court Change', 'Double Iron Bash', 'Octolock', 'Shell Smash', 
-			'Belly Drum', 
+		],
+		unbanlist: [
+			'Bolt Beak',
 		],
 		onValidateSet(set) {
 			const bst = this.dex.species.get(set.species).bst;
@@ -125,6 +124,8 @@ export const Formats: FormatList = [
 		desc: `精灵可以在道具栏携带攻击招式，然后该精灵的所有攻击招式共享其特效。如，一只精灵道具栏带高速旋转，则其所有攻击招式都有扫钉和速度 +1 效果。Z招式、极巨招式、蓄力招式、降低命中率的招式、多段招式、正先制度招式和抓人招式禁止作为道具携带。`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3638520/">Fortemons</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3690179/">National Dex BH v3</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3658587/">National Dex BH</a>`,
 		],
 
 		mod: 'gen8',
@@ -832,7 +833,9 @@ export const Formats: FormatList = [
 		name: "[Gen 5] Balanced Hackmons",
 		desc: `Anything that can be hacked in-game and is usable in local battles is allowed.`,
 		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/gen-v-balanced-hackmons.3463764/">BW2 Balanced Hackmons</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3463764/">BW2 Balanced Hackmons</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3661782/post-8407341">BH Old Gens Hub</a>`,
+			`&bullet; <a href="https://replay.pokemonshowdown.com/rom-gen5balancedhackmons-1288517">示例录像 Sample Replay</a>`,
 		],
 
 		mod: 'gen5',
@@ -1300,7 +1303,7 @@ export const Formats: FormatList = [
 	},
 	{
 		name: "[Gen 8] Mix and Mega BH",
-		desc: `BH where you can mega evolve any Pok&eacute;mon (as long as they are not already in "mega" formes) with any mega stone and no limit. Boosts based on mega evolution from gen 7. <br /> You can also "mega evolve" any Pok&eacute;mon with Rusted Sword, Rusted Shield, Astral Barrage, Dragon Ascent and Glacial Lance in this format. <br /> Type "/mnm &lt;pokemon&gt; @ &lt;mega stone&gt;, bh" to see type and stats of Mix and Mega Evolved Pok&eacute;mon in this format. E.g. /mnm zygardecomplete@rustedshield,bh`,
+		desc: `BH + MnM。在本分级，除了Mega石，你还可以使用朱红色宝珠、靛蓝色宝珠、腐朽的剑、腐朽的盾、画龙点睛、雪矛和星碎来让宝可梦“Mega 进化”。<br />输入“/mnm &lt;宝可梦名称&gt; @ &lt;Mega石&gt;, bh”来查看宝可梦 Mega 进化后的信息<br />例如：/mnm zygardecomplete@rustedshield,bh。<br />BH where you can mega evolve any Pok&eacute;mon (as long as they are not already in "mega" formes) with any mega stone and no limit. Boosts based on mega evolution from gen 7. <br /> You can also "mega evolve" any Pok&eacute;mon with, Red Orb, Blue Orb, Rusted Sword, Rusted Shield, Dragon Ascent, Astral Barrage, and Glacial Lance in this format. <br /> Type "/mnm &lt;pokemon&gt; @ &lt;mega stone&gt;, bh" to see type and stats of Mix and Mega Evolved Pok&eacute;mon in this format. E.g. /mnm zygardecomplete@rustedshield,bh`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3656469/">Mix and Mega</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3659028/">M&amp;M Resources</a>`,
@@ -1309,14 +1312,15 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'mixandmegabh',
-		ruleset: ['-Nonexistent', 'Nickname Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Overflow Stat Mod', 'Dynamax Clause', 'Sleep Clause Mod', 'Endless Battle Clause'],
+		ruleset: ['[Gen 8] Balanced Hackmons', 'Nickname Clause', 'Overflow Stat Mod'],
 		banlist: [
-			'Cramorant-Gorging', 'Eternatus-Eternamax', 
-			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Magnet Pull', 'Moody',
-			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Comatose + Sleep Talk', 'Bolt Beak', 'Double Iron Bash', 'Octolock', 'Shell Smash', 
 			'Beedrillite', 'Gengarite', 'Kangaskhanite', 'Mawilite', 'Medichamite',
 			'Astral Barrage > 1', 'Dragon Ascent > 1', 'Glacial Lance > 1', 
+		],
+		unbanlist: [
+			'Calyrex-Shadow', 'Darmanitan-Galar-Zen', 'Shedinja', 'Zacian-Crowned', 
+			'Belly Drum', 
+			'Rusted Sword', 
 		],
 		restricted: ['Intrepid Sword'],
 		onValidateSet(set) {
@@ -1375,9 +1379,15 @@ export const Formats: FormatList = [
 			const item = this.dex.toID(set.item);			
 			if (item === 'rustedshield') {
 				set.ability = 'Dauntless Shield';
+				if (set.species === 'Zamazenta') {
+					set.species = 'Zamazenta-Crowned';
+				}
 			}
 			if (item === 'rustedsword') {
 				set.ability = 'Intrepid Sword';
+				if (set.species === 'Zacian') {
+					set.species = 'Zacian-Crowned';
+				}
 			}
 		},
 		onModifySpecies(species, target, source, effect) {
@@ -1611,26 +1621,24 @@ export const Formats: FormatList = [
 	},
 	{
 		name: "[Gen 8] SCAMO BH",
-		desc: `Scalemons + Camomons BH。BH，但是所有精灵的种族值按比例调整到接近600，且属性改为与自己的前两个技能一致。`,
+		desc: `Scalemons + Camomons BH。BH，但是所有精灵的种族值按比例调整到接近600，且属性改为与自己的前两个技能一致。<br />输入“/scale &lt;宝可梦名称&gt;”来查看精灵在该规则下的种族值。例如：/scale pikachu。`,
 		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/scalemons.3658482/">Scalemons</a>`,
-			`&bullet; <a href="https://www.smogon.com/forums/threads/camomons-leaders-choice.3656413/">Camomons</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3658482/">Scalemons</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3656413/">Camomons</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3656408/">Balanced Hackmons</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
 		],
 		mod: 'gen8',
-		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Moves Clause', 'Overflow Stat Mod', 'Endless Battle Clause'],
+		ruleset: ['[Gen 8] Balanced Hackmons', 'Scalemons Mod', 'Overflow Stat Mod'],
 		banlist: [
-			'Cramorant-Gorging', 'Shedinja',
-			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody', 
-			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard', 
-			'Comatose + Sleep Talk', 'Double Iron Bash', 'Octolock', 'Shell Smash', 
-			'Eviolite', 'Light Ball',
+			'Eviolite', 'Light Ball', 'Thick Club', 
 		],
-		restricted: [
-			'Abra', 'Darmanitan-Galar-Zen', 'Eternatus-Eternamax',
-			'Thick Club',
+		unbanlist: [
+			'Calyrex-Shadow', 'Darmanitan-Galar-Zen', 'Eternatus-Eternamax', 'Zacian-Crowned', 
+			'Bolt Beak', 
+			'Rusted Sword', 
 		],
+		restricted: ['Intrepid Sword'],
 		onChangeSet(set) {
 			const item = this.dex.toID(set.item);
 			if (set.species === 'Zacian' && item === 'rustedsword') {
@@ -1650,30 +1658,13 @@ export const Formats: FormatList = [
 				}
 			}
 		},
-		onModifySpecies(species, target, source, effect) {
-			if (!species.baseStats) return;
-			const pokemon = this.dex.deepClone(species);
-			const pokemonHP = pokemon.baseStats['hp'];
-			const pokemonBST = pokemon.bst;
-			pokemon.bst = pokemonHP;
-			let statName: StatID;
-			for (statName in pokemon.baseStats as StatsTable) {
-				if (statName === 'hp') continue;
-				pokemon.baseStats[statName] = this.clampIntRange(pokemon.baseStats[statName] * (600 - pokemonHP) / (pokemonBST - pokemonHP), 1, 255);
-				pokemon.bst += pokemon.baseStats[statName];
+		onValidateSet(set) {
+			const ability = this.dex.abilities.get(set.ability);
+			if (ability.id === 'intrepidsword') {
+				if (set.species !== 'Zacian-Crowned' || this.dex.toID(set.item) !== 'rustedsword') {
+					return [`${set.name}'s ability ${ability.name} is banned.`];
+				}
 			}
-
-			if (!target) return; // Chat command
-			if (effect && ['imposter', 'transform'].includes(effect.id)) return;
-			const types = [...new Set(target.baseMoveSlots.slice(0, 2).map(move => this.dex.moves.get(move.id).type))];
-
-			return {...pokemon, types: types};
-		},
-		onSwitchIn(pokemon) {
-			this.add('-start', pokemon, 'typechange', (pokemon.illusion || pokemon).getTypes(true).join('/'), '[silent]');
-		},
-		onAfterMega(pokemon) {
-			this.add('-start', pokemon, 'typechange', (pokemon.illusion || pokemon).getTypes(true).join('/'), '[silent]');
 		},
 	},
 	{
