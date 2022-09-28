@@ -7100,4 +7100,14 @@ export const MovesText: {[k: string]: MoveText} = {
 		desc: "Ignores the target's stat stage changes, including evasiveness.",
 		shortDesc: "Ignores the target's stat stage changes.",
 	},
+	megadeath: {
+		name: "Mega Death",
+		desc: "No additional effect.",
+		shortDesc: "No additional effect. Hits adjacent Pokemon.",
+	},
+	gigadeath: {
+		name: "Giga Death",
+		desc: "No additional effect.",
+		shortDesc: "No additional effect. Hits adjacent foes.",
+	},
 };

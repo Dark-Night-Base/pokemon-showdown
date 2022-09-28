@@ -2353,4 +2353,8 @@ export const ItemsText: {[k: string]: ItemText} = {
 		name: "Holy Ring",
 		desc: "If held by a Light-type Digimon, its attacks have 1.1x power.",
 	},
+	omegasword: {
+		name: "Omega Sword",
+		desc: "If held by an Imperialdramon-Paladin, its Fire- and Ice-type attacks have 1.2x power."
+	}
 };
