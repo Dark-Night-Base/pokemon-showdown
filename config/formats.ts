@@ -121,7 +121,7 @@ export const Formats: FormatList = [
 	},
 	{
 		name: "[Gen 8] ND Fortemons BH",
-		desc: `精灵可以在道具栏携带攻击招式，然后该精灵的所有攻击招式共享其特效。如，一只精灵道具栏带高速旋转，则其所有攻击招式都有扫钉和速度 +1 效果。Z招式、极巨招式、蓄力招式、降低命中率的招式、多段招式、正先制度招式和抓人招式禁止作为道具携带。`,
+		desc: `NDBH，但精灵可以在道具栏携带攻击招式，然后该精灵的所有攻击招式共享其特效。<br />如，一只精灵道具栏带高速旋转，则其所有攻击招式都额外拥有扫钉和速度 +1 效果。<br />以下招式禁止作为道具携带：<br />&bullet; LGPE专属招式、Z招式、极巨招式<br />&bullet; 降低命中率的招式<br />&bullet; 多段招式<br />&bullet; 正先制度招式<br />&bullet; 抓人招式<br />&bullet; 反伤招式<br />&bullet; 固定伤害招式<br />&bullet; 蓄力招式<br />&bullet; 其它被禁止的招式：酸液炸弹、忍耐、电喙、爆裂拳、回声、诡异咒语、鳃咬、快速折返、冰息、冰球、炼狱、蹭蹭脸颊、嚣张、追打、电力上升、滚动、臂贝武器、自由落体、辅助力量、山岚摔、大地波动、急速折返、伏特替换、气象球、暗冥强击、电磁炮<br />NDBH, but Pok&eacute;mon can have attack moves in their item slot as fortes. Every attack move of a Pok&eacute;mon will additionally have the move effects of its forte.<br />E.g. A Pok&eacute;mon with Rapid Spin as its forte will give all its attacks the effect of hazard removal and +1 Spe, along with their original effects.<br />The following moves are banned as forte:<br />&bullet; LGPE Moves, Z-Moves, Max Moves<br />&bullet; Moves That Lower Accuracy<br />&bullet; Multi-hit Moves<br />&bullet; Positive Priority Moves<br />&bullet; Trapping Moves<br />&bullet; Counter-like Moves<br />&bullet; Fixed Damage Moves<br />&bullet; Charge Moves<br />&bullet; Other Banned Moves: Acid Spray, Bide, Bolt Beak, Dynamic Punch, Echoed Voice, Eerie Spell, Fishious Rend, Flip Turn, Frost Breath, Ice Ball, Inferno, Nuzzle, Power Trip, Pursuit, Rising Voltage, Rollout, Shell Side Arm, Sky Drop, Stored Power, Storm Throw, Terrain Pulse, U-turn, Volt Switch, Weather Ball, Wicked Blow, Zap Cannon`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3638520/">Fortemons</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3690179/">National Dex BH v3</a>`,
@@ -129,100 +129,63 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
-		ruleset: ['-Nonexistent', 'Standard NatDex', 'Forme Clause', 'Sleep Moves Clause', '2 Ability Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Dynamax Clause', 'CFZ Clause', '!Obtainable', 'Arceus Clause', 'Forte Clause'],
+		ruleset: ['[Gen 8] National Dex BH', 'Forte Clause'],
 		banlist: [
-			'Calyrex-Shadow', 'Cramorant-Gorging', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 
-			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Magnet Pull', 'Moody',
-			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Serene Grace', 'Shadow Tag', 'Stakeout', 'Triage', 'Water Bubble', 
-			'Wonder Guard',
-			'Comatose + Sleep Talk', 'Imprison + Transform', 
-			'Belly Drum', 'Bolt Beak', 'Chatter', 'Court Change', 'Double Iron Bash', 'Electrify', 'Octolock', 'Shell Smash',
+			'Copycat', 'Nature Power',
+			'Serene Grace', 'Triage', 
 			'Endeavor', 'Nature\'s Madness', 'Super Fang', 
-			'Arm Thrust', 'Barrage', 'Bone Rush', 'Bullet Seed', 'Comet Punch', 'Double Slap', 'Fury Attack', 'Fury Swipes', 'Icicle Spear', 
+			'Arm Thrust', 'Barrage', 'Beat Up', 'Bone Rush', 'Bullet Seed', 'Comet Punch', 'Double Slap', 'Fury Attack', 'Fury Swipes', 'Icicle Spear', 
 			'Pin Missile', 'Rock Blast', 'Scale Shot', 'Spike Cannon', 'Tail Slap', 'Water Shuriken', 'Bonemerang', 'Double Hit', 'Double Kick', 
 			'Dragon Darts', 'Dual Chop', 'Dual Wingbeat', 'Gear Grind', 'Surging Strikes', 'Twineedle', 'Triple Axel', 'Triple Kick',
-			'Gengarite',
 		],
-		restricted: [
-			'Zacian-Crowned', 'Intrepid Sword', 
-			'Acid Spray', 'Bide', 'Bolt Beak', 'Counter', 'Dynamic Punch', 'Echoed Voice', 'Eerie Spell', 'Endeavor', 'Fishious Rend', 
-			'Flip Turn', 'Frost Breath', 'Ice Ball', 'Inferno', 'Mirror Coat', 'Nature\'s Madness', 'Nuzzle', 'Power Trip', 'Pursuit', 
-			'Rising Voltage', 'Rollout', 'Shell Side Arm', 'Sky Drop', 'Stored Power', 'Storm Throw', 'Super Fang', 'Terrain Pulse', 
-			'U-turn', 'Volt Switch', 'Weather Ball', 'Wicked Blow', 'Zap Cannon',
-			// 'Charge Moves', 'Max Moves', 'Moves That Lower Accuracy', 'Multi-hit Moves', 'Positive Priority Moves', 'Trapping Moves', 'Z-Moves',
-			'Anchor Shot', 'Jaw Lock', 'Spirit Shackle', 'Thousand Waves', 
-		],
-		onValidateSet(set) {
-			const ability = this.dex.abilities.get(set.ability);
-			if (set.species === 'Zacian-Crowned') {
-				if (this.dex.toID(set.item) !== 'rustedsword' || ability.id !== 'intrepidsword') {
-					return [`${set.species} is banned.`];
-				}
-			} else if (ability.id === 'intrepidsword') {
-				return [`${set.name}'s ability ${ability.name} is banned.`];
-			}
-		},
-		onChangeSet(set) {
-			const item = this.dex.toID(set.item);
-			if (set.species === 'Zacian' && item === 'rustedsword') {
-				set.species = 'Zacian-Crowned';
-				set.ability = 'Intrepid Sword';
-				const ironHead = set.moves.indexOf('ironhead');
-				if (ironHead >= 0) {
-					set.moves[ironHead] = 'behemothblade';
-				}
-			}
-			if (set.species === 'Zamazenta' && item === 'rustedshield') {
-				set.species = 'Zamazenta-Crowned';
-				set.ability = 'Dauntless Shield';
-				const ironHead = set.moves.indexOf('ironhead');
-				if (ironHead >= 0) {
-					set.moves[ironHead] = 'behemothbash';
-				}
-			}
-		},
+		// restricted: [
+		// 	'Zacian-Crowned', 'Intrepid Sword', 
+		// 	'Acid Spray', 'Bide', 'Bolt Beak', 'Counter', 'Dynamic Punch', 'Echoed Voice', 'Eerie Spell', 'Endeavor', 'Fishious Rend', 
+		// 	'Flip Turn', 'Frost Breath', 'Ice Ball', 'Inferno', 'Mirror Coat', 'Nature\'s Madness', 'Nuzzle', 'Power Trip', 'Pursuit', 
+		// 	'Rising Voltage', 'Rollout', 'Shell Side Arm', 'Sky Drop', 'Stored Power', 'Storm Throw', 'Super Fang', 'Terrain Pulse', 
+		// 	'U-turn', 'Volt Switch', 'Weather Ball', 'Wicked Blow', 'Zap Cannon', 
+		// 	'Anchor Shot', 'Jaw Lock', 'Spirit Shackle', 'Thousand Waves', 
+		// ],
 		validateSet(set, teamHas) {
-			const restrictedMoves = this.format.restricted || [];
+			const restrictedMoves = ['Acid Spray', 'Anchor Shot', 'Beat Up', 'Bide', 'Bolt Beak', 'Dynamic Punch', 'Echoed Voice', 'Eerie Spell', 'Fishious Rend', 
+			'Flip Turn', 'Frost Breath', 'Ice Ball', 'Inferno', 'Jaw Lock', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rising Voltage', 'Rollout', 'Shell Side Arm', 
+			'Spirit Shackle', 'Stored Power', 'Storm Throw', 'Terrain Pulse', 'Thousand Waves', 'U-turn', 'Volt Switch', 'Weather Ball', 'Wicked Blow', 'Zap Cannon',];
 			let item = set.item;
-			// let move = this.dex.getMove(set.item);
 			let move = this.dex.moves.get(set.item);
+			if (this.dex.items.get(item).exists) {
+				set.item = '';
+				let problems = this.validateSet(set, teamHas) || [];
+				set.item = item;
+				return problems.length ? problems : null;
+			}
 			if (!move.exists || move.type === 'Status'
-			|| move.isNonstandard == "LGPE" 
-			|| restrictedMoves.includes(move.name) 
-			|| move.flags['charge']
+			|| move.isNonstandard == "LGPE"
+			|| move.isZ
 			|| move.isMax
 			// @ts-ignore
 			|| move.secondaries && move.secondaries.some(secondary => secondary.boosts && secondary.boosts.accuracy < 0)
 			|| move.multihit
-			|| move.priority > 0 
+			|| move.priority > 0
 			|| move.volatileStatus == 'partiallytrapped'
-			|| move.isZ) 
-				return this.validateSet(set, teamHas);
+			|| move.damageCallback
+			|| move.flags['charge']
+			|| restrictedMoves.includes(move.name)) 
+				return [`${move.name} is banned as a forte.`];
+
+			// don't really know what the following lines do
 			set.item = '';
 			let problems = this.validateSet(set, teamHas) || [];
 			set.item = item;
-			// @ts-ignore
-			// if (move.secondaries && move.secondaries.some(secondary => secondary.boosts && secondary.boosts.accuracy < 0)) problems.push(`${set.name || set.species}'s move ${move.name} can't be used as an item.`);
-			// if (!teamHas.fortes) teamHas.fortes = {};
-			// teamHas.fortes[move.name] = (teamHas.fortes[move.name] || 0) + 1;
 			return problems.length ? problems : null;
 		},
-		// checkLearnset: function (move, template, lsetData, set) {
-		// 	if (move.id === 'beatup' || move.id === 'fakeout' || move.damageCallback || move.multihit) return {type: 'invalid'};
-		// 	return this.checkLearnset(move, template, lsetData, set);
-		// },
 		onBegin: function () {
 			for (const pokemon of this.p1.pokemon.concat(this.p2.pokemon)) {
-				// let move = this.getMove(pokemon.set.item);
 				let move = this.dex.moves.get(pokemon.set.item);
 				if (move.exists && move.category !== 'Status') {
 					// @ts-ignore
 					pokemon.forte = move;
 					
-					if (pokemon.baseSpecies.name === 'Necrozma' 
-					|| pokemon.baseSpecies.name === 'Necrozma-Dawn-Wings' 
-					|| pokemon.baseSpecies.name === 'Necrozma-Dusk-Mane' 
-					|| pokemon.baseSpecies.name === 'Necrozma-Ultra') {
+					if (pokemon.baseSpecies.name.startsWith('Necrozma')) {
 						pokemon.item = this.dex.toID('mimikiumz');
 					}
 					else {
@@ -758,7 +721,7 @@ export const Formats: FormatList = [
 		onValidateSet(set) {
 			const ability = this.dex.abilities.get(set.ability);
 			if (set.species === 'Zacian-Crowned') {
-				if (this.dex.toID(set.item) !== 'rustedsword' || ability.id !== 'intrepidsword') {
+				if ((this.dex.toID(set.item) !== 'rustedsword' || ability.id !== 'intrepidsword') && this.format.restricted.includes('Zacian-Crowned')) {
 					return [`${set.species} is banned.`];
 				}
 			} else if (ability.id === 'intrepidsword' && this.format.restricted.includes('Intrepid Sword')) {
