@@ -198,6 +198,7 @@ export const Formats: FormatList = [
 		},
 		// we should deal with the following properties here instead of in onModifyMove, cuz they're called before onModifyMove
 		// see simulator-doc.txt and sim/battle-actions.ts
+		onBeforeMovePriority: 1,
 		onBeforeMove(source, target, move) {
 			// @ts-ignore
 			if (move && move.category !== 'Status' && source.forte && source.forte.beforeMoveCallback) {
@@ -205,6 +206,7 @@ export const Formats: FormatList = [
 				move.beforeMoveCallback = source.forte.beforeMoveCallback;
 			}
 		},
+		onModifyPriorityPriority: 1,
 		onModifyPriority(priority, source, target, move) {
 			// @ts-ignore
 			if (move && move.category !== 'Status' && source.forte) {
@@ -217,6 +219,7 @@ export const Formats: FormatList = [
 				return priority + source.forte.priority + additionalPriority;
 			}
 		},
+		onModifyTypePriority: 1,
 		onModifyType(move, pokemon, target) {
 			// @ts-ignore
 			if (move && move.category !== 'Status' && pokemon.forte && pokemon.forte.onModifyType) {
@@ -228,6 +231,8 @@ export const Formats: FormatList = [
 		onModifySecondaries(secondaries, target, source, move) {
 			if (secondaries.some(s => !!s.self)) move.selfDropped = false;
 		},
+		// for sheer force i guess
+		onModifyMovePriority: 1,
 		onModifyMove(move, pokemon, target) {
 			// @ts-ignore
 			if (move.category !== 'Status' && pokemon.forte) {
@@ -272,18 +277,18 @@ export const Formats: FormatList = [
 						move.secondary = forte.secondary;
 					}
 				}
-				if (forte.id === 'diamondstorm') { // it's a very strange sf move
-					if (move.secondaries) {
-						move.secondaries = move.secondaries.concat(forte.self);
-					} else if (move.secondary) {
-						move.secondaries = [move.secondary].concat(forte.self);
-						move.secondary = undefined;
-					} else {
-						move.secondary = forte.self;
-					}
-				}
+				// if (forte.id === 'diamondstorm') { // it's a very strange sf move
+				// 	if (move.secondaries) {
+				// 		move.secondaries = move.secondaries.concat(forte.self);
+				// 	} else if (move.secondary) {
+				// 		move.secondaries = [move.secondary].concat(forte.self);
+				// 		move.secondary = undefined;
+				// 	} else {
+				// 		move.secondary = forte.self;
+				// 	}
+				// }
 				// self
-				if (forte.self && forte.id !== 'diamondstorm') {
+				if (forte.self) {// && forte.id !== 'diamondstorm') {
 					if (move.self) {
 						for (const i in forte.self) {
 							// @ts-ignore
