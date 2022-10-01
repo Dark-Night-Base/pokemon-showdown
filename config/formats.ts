@@ -121,7 +121,7 @@ export const Formats: FormatList = [
 	},
 	{
 		name: "[Gen 8] ND Fortemons BH",
-		desc: `NDBH，但精灵可以在道具栏携带攻击招式，然后该精灵的所有攻击招式共享其特效。<br />如，一只精灵道具栏带高速旋转，则其所有攻击招式都额外拥有扫钉和速度 +1 效果。<br />以下招式禁止作为道具携带：<br />&bullet; LGPE专属招式、Z招式、极巨招式<br />&bullet; 降低命中率的招式<br />&bullet; 多段招式<br />&bullet; 正先制度招式<br />&bullet; 抓人招式<br />&bullet; 反伤招式<br />&bullet; 固定伤害招式<br />&bullet; 蓄力招式<br />&bullet; 其它被禁止的招式：酸液炸弹、忍耐、电喙、爆裂拳、回声、诡异咒语、鳃咬、快速折返、冰息、冰球、炼狱、蹭蹭脸颊、嚣张、追打、电力上升、滚动、臂贝武器、自由落体、辅助力量、山岚摔、大地波动、急速折返、伏特替换、气象球、暗冥强击、电磁炮<br />NDBH, but Pok&eacute;mon can have attack moves in their item slot as fortes. Every attack move of a Pok&eacute;mon will additionally have the move effects of its forte.<br />E.g. A Pok&eacute;mon with Rapid Spin as its forte will give all its attacks the effect of hazard removal and +1 Spe, along with their original effects.<br />The following moves are banned as forte:<br />&bullet; LGPE Moves, Z-Moves, Max Moves<br />&bullet; Moves That Lower Accuracy<br />&bullet; Multi-hit Moves<br />&bullet; Positive Priority Moves<br />&bullet; Trapping Moves<br />&bullet; Counter-like Moves<br />&bullet; Fixed Damage Moves<br />&bullet; Charge Moves<br />&bullet; Other Banned Moves: Acid Spray, Bide, Bolt Beak, Dynamic Punch, Echoed Voice, Eerie Spell, Fishious Rend, Flip Turn, Frost Breath, Ice Ball, Inferno, Nuzzle, Power Trip, Pursuit, Rising Voltage, Rollout, Shell Side Arm, Sky Drop, Stored Power, Storm Throw, Terrain Pulse, U-turn, Volt Switch, Weather Ball, Wicked Blow, Zap Cannon`,
+		desc: `NDBH，但精灵可以在道具栏携带攻击招式，然后该精灵的所有攻击招式共享其特效。<br />如，一只精灵道具栏带高速旋转，则其所有攻击招式都额外拥有扫钉和速度 +1 效果。<br />以下招式禁止作为道具携带：<br />&bullet; LGPE专属招式、Z招式、极巨招式<br />&bullet; 一击必杀招式<br />&bullet; 降低命中率的招式<br />&bullet; 多段招式<br />&bullet; 正先制度招式<br />&bullet; 抓人招式<br />&bullet; 反伤招式<br />&bullet; 比例伤害招式<br />&bullet; 蓄力招式<br />&bullet; 其它被禁止的招式：酸液炸弹、忍耐、电喙、爆裂拳、回声、诡异咒语、鳃咬、快速折返、冰息、冰球、炼狱、蹭蹭脸颊、嚣张、追打、电力上升、滚动、臂贝武器、自由落体、辅助力量、山岚摔、大地波动、急速折返、伏特替换、气象球、暗冥强击、电磁炮<br />NDBH, but Pok&eacute;mon can have attack moves in their item slot as fortes. Every attack move of a Pok&eacute;mon will additionally have the move effects of its forte.<br />E.g. A Pok&eacute;mon with Rapid Spin as its forte will give all its attacks the effect of hazard removal and +1 Spe, along with their original effects.<br />The following moves are banned as forte:<br />&bullet; LGPE Moves, Z-Moves, Max Moves<br />&bullet; OHKO Moves<br />&bullet; Moves That Lower Accuracy<br />&bullet; Multi-hit Moves<br />&bullet; Positive Priority Moves<br />&bullet; Trapping Moves<br />&bullet; Counter-like Moves<br />&bullet; Ratio Damage Moves<br />&bullet; Charge Moves<br />&bullet; Other Banned Moves: Acid Spray, Bide, Bolt Beak, Dynamic Punch, Echoed Voice, Eerie Spell, Fishious Rend, Flip Turn, Frost Breath, Ice Ball, Inferno, Nuzzle, Power Trip, Pursuit, Rising Voltage, Rollout, Shell Side Arm, Sky Drop, Stored Power, Storm Throw, Terrain Pulse, U-turn, Volt Switch, Weather Ball, Wicked Blow, Zap Cannon`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3638520/">Fortemons</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3690179/">National Dex BH v3</a>`,
@@ -129,6 +129,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
+		// debug: true,
 		ruleset: ['[Gen 8] National Dex BH', 'Forte Clause'],
 		banlist: [
 			'Copycat', 'Nature Power',
@@ -162,12 +163,13 @@ export const Formats: FormatList = [
 			|| move.isNonstandard == "LGPE"
 			|| move.isZ
 			|| move.isMax
+			|| move.ohko
 			// @ts-ignore
 			|| move.secondaries && move.secondaries.some(secondary => secondary.boosts && secondary.boosts.accuracy < 0)
 			|| move.multihit
 			|| move.priority > 0
 			|| move.volatileStatus == 'partiallytrapped'
-			|| move.damageCallback
+			|| move.damageCallback && move.id !== 'psywave'
 			|| move.flags['charge']
 			|| restrictedMoves.includes(move.name)) 
 				return [`${move.name} is banned as a forte.`];
@@ -178,7 +180,7 @@ export const Formats: FormatList = [
 			set.item = item;
 			return problems.length ? problems : null;
 		},
-		onBegin: function () {
+		onBegin() {
 			for (const pokemon of this.p1.pokemon.concat(this.p2.pokemon)) {
 				let move = this.dex.moves.get(pokemon.set.item);
 				if (move.exists && move.category !== 'Status') {
@@ -194,138 +196,812 @@ export const Formats: FormatList = [
 				}
 			}
 		},
-		onModifyPriority: function (priority, pokemon, target, move) {
+		// we should deal with the following properties here instead of in onModifyMove, cuz they're called before onModifyMove
+		// see simulator-doc.txt and sim/battle-actions.ts
+		onBeforeMove(source, target, move) {
 			// @ts-ignore
-			if (move.category !== 'Status' && pokemon && pokemon.forte) {
-				let ability = pokemon.getAbility();
+			if (move && move.category !== 'Status' && source.forte && source.forte.beforeMoveCallback) {
 				// @ts-ignore
-				if (ability.id === 'triage' && pokemon.forte.flags['heal']) return priority + (move.flags['heal'] ? 0 : 3);
-				// @ts-ignore
-				return priority + pokemon.forte.priority;
+				move.beforeMoveCallback = source.forte.beforeMoveCallback;
 			}
 		},
-		onModifyMovePriority: 1,
-		onModifyMove: function (move, pokemon, target) {
+		onModifyPriority(priority, source, target, move) {
 			// @ts-ignore
-			if (move.category !== 'Status' && pokemon.forte) {
+			if (move && move.category !== 'Status' && source.forte) {
+				let additionalPriority = 0;
 				// @ts-ignore
-				Object.assign(move.flags, pokemon.forte.flags);
+				if (source.forte.id === 'grassyglide' && this.field.isTerrain('grassyterrain') && source.isGrounded()) additionalPriority += 1;
 				// @ts-ignore
-				if (pokemon.forte.self) {
-					// @ts-ignore
-					if (pokemon.forte.self.onHit && move.self && move.self.onHit) {
-						// @ts-ignore
-						for (let i in pokemon.forte.self) {
-							if (i.startsWith('onHit')) continue;
-							// @ts-ignore
-							move.self[i] = pokemon.forte.self[i];
-						}
-					} else {
-						// @ts-ignore
-						move.self = Object.assign(move.self || {}, pokemon.forte.self);
-					}
-				}
+				if (source.getAbility().id === 'triage' && source.forte.flags.heal && !move.flags.heal) additionalPriority += 3;
 				// @ts-ignore
-				if (pokemon.forte.secondaries) move.secondaries = (move.secondaries || []).concat(pokemon.forte.secondaries);
-				// @ts-ignore
-				move.critRatio = (move.critRatio - 1) + (pokemon.forte.critRatio - 1) + 1;
-				for (let prop of ['basePowerCallback', 'breaksProtect', 'defensiveCategory', 'drain', 'forceSwitch', 'ignoreAbility', 
-					'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity', 'pseudoWeather', 'recoil', 'selfSwitch', 'sleepUsable', 'stealsBoosts', 
-					'thawsTarget', 'useTargetOffensive', 'volatileStatus', 'willCrit', 
-					'onBasePower', 'overrideDefensiveStat', 'overrideOffensiveStat', 'onEffectiveness',
-					'selfdestruct',
-				]) {
-					// @ts-ignore
-					if (pokemon.forte[prop]) {
-						// @ts-ignore
-						if (typeof pokemon.forte[prop] === 'number') {
-							// @ts-ignore
-							let num = move[prop] || 0;
-							// @ts-ignore
-							move[prop] = num + pokemon.forte[prop];
-						} else {
-							// @ts-ignore
-							if (prop == 'drain') {
-								if (move.drain) {
-									const moreDrain = ['drainingkiss', 'oblivionwing'];
-									// const lessDrain = ['absorb', 'drainpunch', 'dreameater', 'gigadrain', 'hornleech', 'leechlife', 'megadrain', 'paraboliccharge'];
-									// @ts-ignore
-									if (moreDrain.includes(pokemon.forte.id)) {
-										if (moreDrain.includes(move.id)) {
-											move.drain = [3, 2];
-										}
-										else {
-											move.drain = [5, 4];
-										}
-									}
-									else {
-										if (moreDrain.includes(move.id)) {
-											move.drain = [5, 4];
-										}
-										else {
-											move.drain = [1, 1];
-										}
-									}
-								}
-								else {
-									// @ts-ignore
-									move.drain = pokemon.forte.drain;
-								}
-							} else {
-								// @ts-ignore
-								move[prop] = pokemon.forte[prop];
-							}
-						}
-					}
-				}
-
-				// @ts-ignore
-				// if (pokemon.forte['onModifyType']) {
-				// 	// @ts-ignore
-				// 	this.singleEvent('ModifyType', pokemon.forte, null, pokemon, target, move, move);
-				// }
-				// @ts-ignore
-				if (pokemon.forte.onModifyMove) {
-					// @ts-ignore
-					this.singleEvent('ModifyMove', pokemon.forte, null, pokemon, target, move, move);
-				}
+				return priority + source.forte.priority + additionalPriority;
 			}
 		},
-		onModifyTypePriority: 1,
-		onModifyType: function (move, pokemon, target) {
+		onModifyType(move, pokemon, target) {
 			// @ts-ignore
 			if (move && move.category !== 'Status' && pokemon.forte && pokemon.forte.onModifyType) {
 				// @ts-ignore
 				this.singleEvent('ModifyType', pokemon.forte, null, pokemon, target, move, move);
 			}
 		},
-		// @ts-ignore
-		onHitPriority: 1,
-		onHit: function (target, source, move) {
-			// @ts-ignore
-			if (move && move.category !== 'Status' && source.forte) {
-				// @ts-ignore
-				if (source.forte.onHit) this.singleEvent('Hit', source.forte, {}, target, source, move);
-				// @ts-ignore
-				if (source.forte.self && source.forte.self.onHit) this.singleEvent('Hit', source.forte.self, {}, source, source, move);
-				// @ts-ignore
-				if (source.forte.onAfterHit) this.singleEvent('AfterHit', source.forte, {}, target, source, move);
-			}
-		},
-		// @ts-ignore
-		onAfterSubDamagePriority: 1,
-		onAfterSubDamage: function (damage, target, source, move) {
-			// @ts-ignore
-			if (move && move.category !== 'Status' && source.forte && source.forte.onAfterSubDamage) this.singleEvent('AfterSubDamage', source.forte, null, target, source, move);
-		},
-		onModifySecondaries: function (secondaries, target, source, move) {
+		// don't know what this does, just keep it
+		onModifySecondaries(secondaries, target, source, move) {
 			if (secondaries.some(s => !!s.self)) move.selfDropped = false;
 		},
-		// @ts-ignore
-		onAfterMoveSecondarySelfPriority: 1,
-		onAfterMoveSecondarySelf: function (source, target, move) {
+		onModifyMove(move, pokemon, target) {
 			// @ts-ignore
-			if (move && move.category !== 'Status' && source.forte && source.forte.onAfterMoveSecondarySelf) this.singleEvent('AfterMoveSecondarySelf', source.forte, null, source, target, move);
+			if (move.category !== 'Status' && pokemon.forte) {
+				// @ts-ignore
+				const forte = pokemon.forte;
+
+				Object.assign(move.flags, forte.flags);
+				
+				// pseudoWeather theoretically shouldn't be a simple property, but it is in practice cuz plasma fists is the only attack with it, maybe change this in later generations
+				// the same applies to volatileStatus, the only such property on attacks are partiallytrapped and smackdown, and partiallytrapped moves are banned
+				// + seflBoost, the only related attack is scale shot
+				const simpleProperties = ['breaksProtect', 'forceSwitch', 'hasCrashDamage', 'ignoreAbility', 'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity', 'isFutureMove', 'mindBlownRecoil', 
+				'overrideDefensiveStat', 'overrideOffensivePokemon', 'overrideOffensiveStat', 'pseudoWeather', 'selfBoost', 'selfdestruct', 'selfSwitch', 'sleepUsable', 'stealsBoosts', 'struggleRecoil', 
+				'thawsTarget', 'volatileStatus', 'willCrit', 
+				// function properties
+				'onDamage', 'onMoveFail', 'onUseMoveMessage'];
+				// omitted properties:
+				// onPrepareHit
+				for (let prop of simpleProperties) {
+					if (forte[prop]) {
+						// @ts-ignore
+						move[prop] = forte[prop];
+					}
+				}
+				// secondaries
+				if (forte.secondaries) {
+					if (move.secondaries) {
+						move.secondaries = move.secondaries.concat(forte.secondaries);
+					} else if (move.secondary) {
+						move.secondaries = [move.secondary].concat(forte.secondaries);
+						move.secondary = undefined;
+					} else {
+						move.secondaries = forte.secondaries;
+					}
+				} else if (forte.secondary) {
+					if (move.secondaries) {
+						move.secondaries = move.secondaries.concat(forte.secondary);
+					} else if (move.secondary) {
+						move.secondaries = [move.secondary].concat(forte.secondary);
+						move.secondary = undefined;
+					} else {
+						move.secondary = forte.secondary;
+					}
+				}
+				if (forte.id === 'diamondstorm') { // it's a very strange sf move
+					if (move.secondaries) {
+						move.secondaries = move.secondaries.concat(forte.self);
+					} else if (move.secondary) {
+						move.secondaries = [move.secondary].concat(forte.self);
+						move.secondary = undefined;
+					} else {
+						move.secondary = forte.self;
+					}
+				}
+				// self
+				if (forte.self && forte.id !== 'diamondstorm') {
+					if (move.self) {
+						for (const i in forte.self) {
+							// @ts-ignore
+							if (move.self[i]) {
+								if (i === 'boosts') {
+									for (const stat of ['atk', 'def', 'spa', 'spd', 'spe', 'accuracy', 'evasion']) {
+										if (forte.self.boosts[stat]) {
+											// @ts-ignore
+											if (move.self.boosts[stat]) {
+												// @ts-ignore
+												move.self.boosts[stat] += forte.self.boosts[stat];
+											} else {
+												// @ts-ignore
+												move.self.boosts[stat] = forte.self.boosts[stat];
+											}
+										}
+									}
+								}
+								if (i === 'volatileStatus') {
+									// ;-; not perfect
+									move.self[i] = forte.self[i];
+								}
+							} else {
+								// @ts-ignore
+								move.self[i] = forte.self[i];
+							}
+						}
+					} else {
+						move.self = forte.self;
+					}
+				}
+
+				// number properties
+				if (forte.critRatio) {
+					if (move.critRatio) {
+						move.critRatio += forte.critRatio;
+					} else {
+						move.critRatio = forte.critRatio;
+					}
+				}
+				if (forte.damage || forte.id === 'psywave') {
+					if (move.damage || move.id === 'psywave') {
+						let damageLevel = 1;
+						if (typeof forte.damage === 'number') damageLevel *= 2;
+						if (forte.damage === 'level') damageLevel *= 5;
+						if (forte.id === 'psywave') damageLevel *= 7;
+						if (typeof move.damage === 'number') damageLevel *= 3;
+						if (move.damage === 'level') damageLevel *= 5;
+						if (move.id === 'psywave') damageLevel *= 7;
+						switch (damageLevel) {
+						case 35:
+							move.damageCallback = function (pokemon) {
+								return (this.random(50, 151) * pokemon.level) / 100 + pokemon.level;
+							};
+							break;
+						case 25:
+							move.damageCallback = function (pokemon) {
+								return pokemon.level * 2;
+							};
+							break;
+						case 21:
+							move.damageCallback = function (pokemon) {
+								// @ts-ignore
+								return (this.random(50, 151) * pokemon.level) / 100 + move.damage;
+							};
+							break;
+						case 15:
+							move.damageCallback = function (pokemon) {
+								// @ts-ignore
+								return pokemon.level + move.damage;
+							};
+							break;
+						case 14:
+							move.damageCallback = function (pokemon) {
+								return (this.random(50, 151) * pokemon.level) / 100 + forte.damage;
+							};
+							break;
+						case 10:
+							move.damageCallback = function (pokemon) {
+								return pokemon.level + forte.damage;
+							};
+							break;
+						case 6:
+							move.damage += forte.damage;
+							break;
+						default:
+							move.damage = forte.damage;
+							break;
+						}
+					} else {
+						move.damage = forte.damage;
+					}
+				}
+				if (forte.drain) {
+					if (move.drain) {
+						const moreDrain = ['drainingkiss', 'oblivionwing'];
+						const drainLevel = (moreDrain.includes(forte.id) ? 1 : 0) + (moreDrain.includes(move.id) ? 1 : 0);
+						switch (drainLevel) {
+						case 2:
+							move.drain = [3, 2];
+							break;
+						case 1:
+							move.drain = [5, 4];
+							break;
+						default:
+							move.drain = [1, 1];
+							break;
+						}
+					} else {
+						move.drain = forte.drain;
+					}
+				}
+				if (forte.recoil) {
+					if (move.recoil) {
+						let recoilLevel = 1;
+						if (move.recoil[0] === 1 && move.recoil[1] === 4) recoilLevel *= 2;
+						if (move.recoil[0] === 33 && move.recoil[1] === 100) recoilLevel *= 3;
+						if (move.recoil[0] === 1 && move.recoil[1] === 2) recoilLevel *= 5;
+						if (forte.recoil[0] === 1 && forte.recoil[1] === 4) recoilLevel *= 2;
+						if (forte.recoil[0] === 33 && forte.recoil[1] === 100) recoilLevel *= 3;
+						if (forte.recoil[0] === 1 && forte.recoil[1] === 2) recoilLevel *= 5;
+						switch (recoilLevel) {
+						case 25:
+							move.recoil = [1, 1];
+							break;
+						case 15:
+							move.recoil = [83, 100];
+							break;
+						case 10:
+							move.recoil = [3, 4];
+							break;
+						case 9:
+							move.recoil = [66, 100];
+							break;
+						case 6:
+							move.recoil = [29, 50];
+							break;
+						case 4:
+							move.recoil = [1, 2];
+							break;
+						// won't really happen, just in case
+						case 3:
+							move.recoil = [33, 100];
+							break;
+						default:
+							move.recoil = [1, 4];
+							break;
+						}
+					} else {
+						move.recoil = forte.recoil;
+					}
+				}
+
+				// complexProperties
+				// Nihilslave: just have a try, i'm not sure if it's the right place to deal with this
+				// but yea it works
+				if (forte.basePowerCallback) {
+					if (move.basePowerCallback) {
+						move.basePowerCallback = function (pokemon, target, move) {
+							// the "move" here is the move param in the function
+							let basePower = this.dex.moves.get(move.id).basePowerCallback!.call(this, pokemon, target, move);
+							const forteMove = this.dex.getActiveMove(forte.id);
+							forteMove.basePower = basePower || 1;
+							basePower = forteMove.basePowerCallback!.call(this, pokemon, target, forteMove);
+							return basePower;
+						};
+					} else {
+						move.basePowerCallback = forte.basePowerCallback;
+					}
+				}
+				if (forte.onAfterHit) {
+					if (move.onAfterHit) {
+						move.onAfterHit = function (source, target, move) {
+							this.dex.moves.get(move.id).onAfterHit?.call(this, source, target, move);
+							forte.onAfterHit.call(this, source, target, this.dex.getActiveMove(forte.id));
+						}
+					} else {
+						move.onAfterHit = forte.onAfterHit;
+					}
+				}
+				if (forte.onAfterMove) {
+					if (move.onAfterMove) {
+						move.onAfterMove = function (source, target, move) {
+							this.dex.moves.get(move.id).onAfterMove?.call(this, source, target, move);
+							forte.onAfterMove.call(this, source, target, this.dex.getActiveMove(forte.id));
+						};
+					} else {
+						move.onAfterMove = forte.onAfterMove;
+					}
+				}
+				if (forte.onAfterMoveSecondarySelf) {
+					if (move.onAfterMoveSecondarySelf) {
+						move.onAfterMoveSecondarySelf = function (source, target, move) {
+							this.dex.moves.get(move.id).onAfterMoveSecondarySelf?.call(this, source, target, move);
+							forte.onAfterMoveSecondarySelf.call(this, source, target, this.dex.getActiveMove(forte.id));
+						};
+					} else {
+						move.onAfterMoveSecondarySelf = forte.onAfterMoveSecondarySelf;
+					}
+				}
+				if (forte.onAfterSubDamage) {
+					if (move.onAfterSubDamage) {
+						move.onAfterSubDamage = function (damage, target, source, move) {
+							this.dex.moves.get(move.id).onAfterSubDamage?.call(this, damage, target, source, move);
+							forte.onAfterSubDamage.call(this, damage, target, source, this.dex.getActiveMove(forte.id));
+						}
+					} else {
+						move.onAfterSubDamage = forte.onAfterSubDamage;
+					}
+				}
+				if (forte.onBasePower) {
+					if (move.onBasePower) {
+						move.onBasePower = function (basePower, source, target, move) {
+							// it will never return a number believe me
+							// the last param will not be used except for knock off
+							this.dex.moves.get(move.id).onBasePower?.call(this, basePower, source, target, move);
+							forte.onBasePower.call(this, basePower, source, target, this.dex.getActiveMove(forte.id));
+						};
+					} else {
+						move.onBasePower = forte.onBasePower;
+					}
+				}
+				if (forte.onEffectiveness) {
+					if (move.onEffectiveness) {
+						move.onEffectiveness = function (typeMod, target, type, move) {
+							const moveEffectiveness = this.dex.moves.get(move.id).onEffectiveness?.call(this, typeMod, target, type, move);
+							const forteEffectiveness = forte.onEffectiveness.call(this, typeMod, target, type, this.dex.getActiveMove(forte.id));
+							return (moveEffectiveness || 0) + (forteEffectiveness || 0);
+						};
+					} else {
+						move.onEffectiveness = forte.onEffectiveness;
+					}
+				}
+				if (forte.onHit) {
+					if (move.onHit) {
+						move.onHit = function (target, source, move) {
+							// @ts-ignore
+							const ret1 = this.dex.moves.get(move.id).onHit.call(this, target, source, move);
+							const ret2 = forte.onHit.call(this, target, source, this.dex.getActiveMove(forte.id));
+							if (ret1 === this.NOT_FAIL || ret2 === this.NOT_FAIL) return this.NOT_FAIL;
+						};
+					} else {
+						move.onHit = forte.onHit;
+					}
+				}
+				// not sure about the following two
+				if (forte.onTry) {
+					if (move.onTry) {
+						move.onTry = function (source, target, move) {
+							// @ts-ignore
+							const ret1 = this.dex.moves.get(move.id).onTry.call(this, source, target, move);
+							var ret2;
+							if (forte.id !== 'doomdesire' && forte.id !== 'futuresight') {
+								ret2 = forte.onTry.call(this, source, target, this.dex.getActiveMove(forte.id));
+							} else {
+								if (!target.side.addSlotCondition(target, 'futuremove')) { 
+									ret2 = false;
+								} else {
+									Object.assign(target.side.slotConditions[target.position]['futuremove'], {
+										move: move.id,
+										source: source,
+										moveData: {
+											id: move.id,
+											name: move.name,
+											accuracy: move.accuracy,
+											basePower: move.basePower,
+											category: move.category,
+											priority: move.priority,
+											flags: move.flags,
+											effectType: 'Move',
+											isFutureMove: true,
+											type: move.type,
+										},
+									});
+									this.add('-start', source, forte.name);
+									ret2 = this.NOT_FAIL;
+								}
+							}
+							if (ret1 === false || ret2 === false) return false;
+							if (ret1 === null || ret2 === null) return null;
+							if (ret1 === this.NOT_FAIL || ret2 === this.NOT_FAIL) return this.NOT_FAIL;
+							if (ret1 === true || ret2 === true) return true;
+						};
+					} else {
+						if (forte.id !== 'doomdesire' && forte.id !== 'futuresight') {
+							move.onTry = forte.onTry;
+						} else {
+							move.onTry = function (source, target, move) {
+								if (!target.side.addSlotCondition(target, 'futuremove')) return false;
+								Object.assign(target.side.slotConditions[target.position]['futuremove'], {
+									move: move.id,
+									source: source,
+									moveData: {
+										id: move.id,
+										name: move.name,
+										accuracy: move.accuracy,
+										basePower: move.basePower,
+										category: move.category,
+										priority: move.priority,
+										flags: move.flags,
+										effectType: 'Move',
+										isFutureMove: true,
+										type: move.type,
+									},
+								});
+								this.add('-start', source, forte.name);
+								return this.NOT_FAIL;
+							};
+						}
+					}
+				}
+				if (forte.onTryHit) {
+					if (move.onTryHit) {
+						move.onTryHit = function (source, target, move) {
+							// @ts-ignore
+							const ret1 = this.dex.moves.get(move.id).onTryHit.call(this, source, target, move);
+							const ret2 = forte.onTryHit.call(this, source, target, this.dex.getActiveMove(forte.id));
+							if (ret1 === false || ret2 === false) return false;
+							if (ret1 === null || ret2 === null) return null;
+						};
+					} else {
+						move.onTryHit = forte.onTryHit;
+					}
+				}
+				if (forte.onTryImmunity) {
+					if (move.onTryImmunity) {
+						move.onTryImmunity = function (target, source) {
+							// @ts-ignore
+							return this.dex.moves.get(move.id).onTryImmunity.call(this, target, source) && forte.onTryImmunity.call(this, target, source);
+						};
+					} else {
+						move.onTryImmunity = forte.onTryImmunity;
+					}
+				}
+				if (forte.onTryMove) {
+					if (move.onTryMove) {
+						move.onTryMove = function (pokemon) {
+							// @ts-ignore
+							const ret1 = this.dex.moves.get(move.id).onTryMove.call(this, pokemon);
+							const ret2 = forte.onTryMove.call(this, pokemon);
+							if (ret1 === null || ret2 === null) return null;
+						}
+					} else {
+						move.onTryMove = forte.onTryMove;
+					}
+				}
+
+				if (forte.onModifyMove) {
+					// @ts-ignore
+					this.singleEvent('ModifyMove', forte, null, pokemon, target, move, move);
+				}
+			}
+		},
+		// Nihilslave: trying to use an extremely hard code to make beak blast / focus punch forte work
+		queue: {
+			resolveAction(action: ActionChoice, midTurn = false): Action[] {
+				if (!action) throw new Error(`Action not passed to resolveAction`);
+				if (action.choice === 'pass') return [];
+				const actions = [action];
+		
+				if (!action.side && action.pokemon) action.side = action.pokemon.side;
+				if (!action.move && action.moveid) action.move = this.battle.dex.getActiveMove(action.moveid);
+				if (!action.order) {
+					const orders: {[choice: string]: number} = {
+						team: 1,
+						start: 2,
+						instaswitch: 3,
+						beforeTurn: 4,
+						beforeTurnMove: 5,
+		
+						runUnnerve: 100,
+						runSwitch: 101,
+						runPrimal: 102,
+						switch: 103,
+						megaEvo: 104,
+						runDynamax: 105,
+						priorityChargeMove: 106,
+		
+						shift: 200,
+						// default is 200 (for moves)
+		
+						residual: 300,
+					};
+					if (action.choice in orders) {
+						action.order = orders[action.choice];
+					} else {
+						action.order = 200;
+						if (!['move', 'event'].includes(action.choice)) {
+							throw new Error(`Unexpected orderless action ${action.choice}`);
+						}
+					}
+				}
+				if (!midTurn) {
+					if (action.choice === 'move') {
+						if (!action.maxMove && !action.zmove && action.move.beforeTurnCallback) {
+							actions.unshift(...this.resolveAction({
+								choice: 'beforeTurnMove', pokemon: action.pokemon, move: action.move, targetLoc: action.targetLoc,
+							}));
+						}
+						if (action.mega && !action.pokemon.isSkyDropped()) {
+							actions.unshift(...this.resolveAction({
+								choice: 'megaEvo',
+								pokemon: action.pokemon,
+							}));
+						}
+						if (action.maxMove && !action.pokemon.volatiles['dynamax']) {
+							actions.unshift(...this.resolveAction({
+								choice: 'runDynamax',
+								pokemon: action.pokemon,
+							}));
+						}
+						// here we change the code
+						if (!action.maxMove && !action.zmove && (action.move.priorityChargeCallback || action.pokemon.forte && action.pokemon.forte.priorityChargeCallback)) {
+							actions.unshift(...this.resolveAction({
+								choice: 'priorityChargeMove',
+								pokemon: action.pokemon,
+								move: action.move,
+							}));
+						}
+						action.fractionalPriority = this.battle.runEvent('FractionalPriority', action.pokemon, null, action.move, 0);
+					} else if (['switch', 'instaswitch'].includes(action.choice)) {
+						if (typeof action.pokemon.switchFlag === 'string') {
+							action.sourceEffect = this.battle.dex.moves.get(action.pokemon.switchFlag as ID) as any;
+						}
+						action.pokemon.switchFlag = false;
+					}
+				}
+		
+				const deferPriority = this.battle.gen === 7 && action.mega && action.mega !== 'done';
+				if (action.move) {
+					let target = null;
+					action.move = this.battle.dex.getActiveMove(action.move);
+		
+					if (!action.targetLoc) {
+						target = this.battle.getRandomTarget(action.pokemon, action.move);
+						// TODO: what actually happens here?
+						if (target) action.targetLoc = action.pokemon.getLocOf(target);
+					}
+					action.originalTarget = action.pokemon.getAtLoc(action.targetLoc);
+				}
+				if (!deferPriority) this.battle.getActionSpeed(action);
+				return actions as any;
+			}
+		},
+		battle: {
+			runAction(action: Action) {
+				const pokemonOriginalHP = action.pokemon?.hp;
+				let residualPokemon: (readonly [Pokemon, number])[] = [];
+				// returns whether or not we ended in a callback
+				switch (action.choice) {
+				case 'start': {
+					for (const side of this.sides) {
+						if (side.pokemonLeft) side.pokemonLeft = side.pokemon.length;
+					}
+		
+					this.add('start');
+		
+					// Change Zacian/Zamazenta into their Crowned formes
+					for (const pokemon of this.getAllPokemon()) {
+						let rawSpecies: Species | null = null;
+						if (pokemon.species.id === 'zacian' && pokemon.item === 'rustedsword') {
+							rawSpecies = this.dex.species.get('Zacian-Crowned');
+						} else if (pokemon.species.id === 'zamazenta' && pokemon.item === 'rustedshield') {
+							rawSpecies = this.dex.species.get('Zamazenta-Crowned');
+						}
+						if (!rawSpecies) continue;
+						const species = pokemon.setSpecies(rawSpecies);
+						if (!species) continue;
+						pokemon.baseSpecies = rawSpecies;
+						pokemon.details = species.name + (pokemon.level === 100 ? '' : ', L' + pokemon.level) +
+							(pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
+						pokemon.setAbility(species.abilities['0'], null, true);
+						pokemon.baseAbility = pokemon.ability;
+		
+						const behemothMove: {[k: string]: string} = {
+							'Zacian-Crowned': 'behemothblade', 'Zamazenta-Crowned': 'behemothbash',
+						};
+						const ironHead = pokemon.baseMoves.indexOf('ironhead');
+						if (ironHead >= 0) {
+							const move = this.dex.moves.get(behemothMove[rawSpecies.name]);
+							pokemon.baseMoveSlots[ironHead] = {
+								move: move.name,
+								id: move.id,
+								pp: (move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5,
+								maxpp: (move.noPPBoosts || move.isZ) ? move.pp : move.pp * 8 / 5,
+								target: move.target,
+								disabled: false,
+								disabledSource: '',
+								used: false,
+							};
+							pokemon.moveSlots = pokemon.baseMoveSlots.slice();
+						}
+					}
+		
+					if (this.format.onBattleStart) this.format.onBattleStart.call(this);
+					for (const rule of this.ruleTable.keys()) {
+						if ('+*-!'.includes(rule.charAt(0))) continue;
+						const subFormat = this.dex.formats.get(rule);
+						if (subFormat.onBattleStart) subFormat.onBattleStart.call(this);
+					}
+		
+					for (const side of this.sides) {
+						for (let i = 0; i < side.active.length; i++) {
+							if (!side.pokemonLeft) {
+								// forfeited before starting
+								side.active[i] = side.pokemon[i];
+								side.active[i].fainted = true;
+								side.active[i].hp = 0;
+							} else {
+								this.actions.switchIn(side.pokemon[i], i);
+							}
+						}
+					}
+					for (const pokemon of this.getAllPokemon()) {
+						this.singleEvent('Start', this.dex.conditions.getByID(pokemon.species.id), pokemon.speciesState, pokemon);
+					}
+					this.midTurn = true;
+					break;
+				}
+		
+				case 'move':
+					if (!action.pokemon.isActive) return false;
+					if (action.pokemon.fainted) return false;
+					this.actions.runMove(action.move, action.pokemon, action.targetLoc, action.sourceEffect,
+						action.zmove, undefined, action.maxMove, action.originalTarget);
+					break;
+				case 'megaEvo':
+					this.actions.runMegaEvo(action.pokemon);
+					break;
+				case 'runDynamax':
+					action.pokemon.addVolatile('dynamax');
+					action.pokemon.side.dynamaxUsed = true;
+					if (action.pokemon.side.allySide) action.pokemon.side.allySide.dynamaxUsed = true;
+					break;
+				case 'beforeTurnMove':
+					if (!action.pokemon.isActive) return false;
+					if (action.pokemon.fainted) return false;
+					this.debug('before turn callback: ' + action.move.id);
+					const target = this.getTarget(action.pokemon, action.move, action.targetLoc);
+					if (!target) return false;
+					if (!action.move.beforeTurnCallback) throw new Error(`beforeTurnMove has no beforeTurnCallback`);
+					action.move.beforeTurnCallback.call(this, action.pokemon, target);
+					break;
+				case 'priorityChargeMove':
+					if (!action.pokemon.isActive) return false;
+					if (action.pokemon.fainted) return false;
+					this.debug('priority charge callback: ' + action.move.id);
+					// here we change the code
+					if (action.move.priorityChargeCallback) action.move.priorityChargeCallback.call(this, action.pokemon);
+					// @ts-ignore
+					if (action.pokemon.forte.priorityChargeCallback) action.pokemon.forte.priorityChargeCallback.call(this, action.pokemon);
+					break;
+		
+				case 'event':
+					this.runEvent(action.event!, action.pokemon);
+					break;
+				case 'team':
+					if (action.index === 0) {
+						action.pokemon.side.pokemon = [];
+					}
+					action.pokemon.side.pokemon.push(action.pokemon);
+					action.pokemon.position = action.index;
+					// we return here because the update event would crash since there are no active pokemon yet
+					return;
+		
+				case 'pass':
+					return;
+				case 'instaswitch':
+				case 'switch':
+					if (action.choice === 'switch' && action.pokemon.status) {
+						this.singleEvent('CheckShow', this.dex.abilities.getByID('naturalcure' as ID), null, action.pokemon);
+					}
+					if (this.actions.switchIn(action.target, action.pokemon.position, action.sourceEffect) === 'pursuitfaint') {
+						// a pokemon fainted from Pursuit before it could switch
+						if (this.gen <= 4) {
+							// in gen 2-4, the switch still happens
+							this.hint("Previously chosen switches continue in Gen 2-4 after a Pursuit target faints.");
+							action.priority = -101;
+							this.queue.unshift(action);
+							break;
+						} else {
+							// in gen 5+, the switch is cancelled
+							this.hint("A Pokemon can't switch between when it runs out of HP and when it faints");
+							break;
+						}
+					}
+					break;
+				case 'runUnnerve':
+					this.singleEvent('PreStart', action.pokemon.getAbility(), action.pokemon.abilityState, action.pokemon);
+					break;
+				case 'runSwitch':
+					this.actions.runSwitch(action.pokemon);
+					break;
+				case 'runPrimal':
+					if (!action.pokemon.transformed) {
+						this.singleEvent('Primal', action.pokemon.getItem(), action.pokemon.itemState, action.pokemon);
+					}
+					break;
+				case 'shift':
+					if (!action.pokemon.isActive) return false;
+					if (action.pokemon.fainted) return false;
+					this.swapPosition(action.pokemon, 1);
+					break;
+		
+				case 'beforeTurn':
+					this.eachEvent('BeforeTurn');
+					break;
+				case 'residual':
+					this.add('');
+					this.clearActiveMove(true);
+					this.updateSpeed();
+					residualPokemon = this.getAllActive().map(pokemon => [pokemon, pokemon.getUndynamaxedHP()] as const);
+					this.residualEvent('Residual');
+					this.add('upkeep');
+					break;
+				}
+		
+				// phazing (Roar, etc)
+				for (const side of this.sides) {
+					for (const pokemon of side.active) {
+						if (pokemon.forceSwitchFlag) {
+							if (pokemon.hp) this.actions.dragIn(pokemon.side, pokemon.position);
+							pokemon.forceSwitchFlag = false;
+						}
+					}
+				}
+		
+				this.clearActiveMove();
+		
+				// fainting
+		
+				this.faintMessages();
+				if (this.ended) return true;
+		
+				// switching (fainted pokemon, U-turn, Baton Pass, etc)
+		
+				if (!this.queue.peek() || (this.gen <= 3 && ['move', 'residual'].includes(this.queue.peek()!.choice))) {
+					// in gen 3 or earlier, switching in fainted pokemon is done after
+					// every move, rather than only at the end of the turn.
+					this.checkFainted();
+				} else if (action.choice === 'megaEvo' && this.gen === 7) {
+					this.eachEvent('Update');
+					// In Gen 7, the action order is recalculated for a Pokémon that mega evolves.
+					for (const [i, queuedAction] of this.queue.list.entries()) {
+						if (queuedAction.pokemon === action.pokemon && queuedAction.choice === 'move') {
+							this.queue.list.splice(i, 1);
+							queuedAction.mega = 'done';
+							this.queue.insertChoice(queuedAction, true);
+							break;
+						}
+					}
+					return false;
+				} else if (this.queue.peek()?.choice === 'instaswitch') {
+					return false;
+				}
+		
+				if (this.gen >= 5) {
+					this.eachEvent('Update');
+					for (const [pokemon, originalHP] of residualPokemon) {
+						const maxhp = pokemon.getUndynamaxedHP(pokemon.maxhp);
+						if (pokemon.hp && pokemon.getUndynamaxedHP() <= maxhp / 2 && originalHP > maxhp / 2) {
+							this.runEvent('EmergencyExit', pokemon);
+						}
+					}
+				}
+		
+				if (action.choice === 'runSwitch') {
+					const pokemon = action.pokemon;
+					if (pokemon.hp && pokemon.hp <= pokemon.maxhp / 2 && pokemonOriginalHP! > pokemon.maxhp / 2) {
+						this.runEvent('EmergencyExit', pokemon);
+					}
+				}
+		
+				const switches = this.sides.map(
+					side => side.active.some(pokemon => pokemon && !!pokemon.switchFlag)
+				);
+		
+				for (let i = 0; i < this.sides.length; i++) {
+					if (switches[i] && !this.canSwitch(this.sides[i])) {
+						for (const pokemon of this.sides[i].active) {
+							pokemon.switchFlag = false;
+						}
+						switches[i] = false;
+					} else if (switches[i]) {
+						for (const pokemon of this.sides[i].active) {
+							if (pokemon.switchFlag && !pokemon.skipBeforeSwitchOutEventFlag) {
+								this.runEvent('BeforeSwitchOut', pokemon);
+								pokemon.skipBeforeSwitchOutEventFlag = true;
+								this.faintMessages(); // Pokemon may have fainted in BeforeSwitchOut
+								if (this.ended) return true;
+								if (pokemon.fainted) {
+									switches[i] = this.sides[i].active.some(sidePokemon => sidePokemon && !!sidePokemon.switchFlag);
+								}
+							}
+						}
+					}
+				}
+		
+				for (const playerSwitch of switches) {
+					if (playerSwitch) {
+						this.makeRequest('switch');
+						return true;
+					}
+				}
+		
+				if (this.gen < 5) this.eachEvent('Update');
+		
+				if (this.gen >= 8 && (this.queue.peek()?.choice === 'move' || this.queue.peek()?.choice === 'runDynamax')) {
+					// In gen 8, speed is updated dynamically so update the queue's speed properties and sort it.
+					this.updateSpeed();
+					for (const queueAction of this.queue.list) {
+						if (queueAction.pokemon) this.getActionSpeed(queueAction);
+					}
+					this.queue.sort();
+				}
+		
+				return false;
+			}
 		},
 	},
 	{
@@ -610,7 +1286,7 @@ export const Formats: FormatList = [
 		mod: 'gen8',
 		ruleset: ['[Gen 8] National Dex BH', 'Scalemons Mod'],
 		banlist: [
-			'Abra', 'Beedrill-Mega', 'Darmanitan-Galar-Zen', 'Gastly',
+			'Abra', 'Beedrill-Mega', 'Gastly',
 			'Eviolite', 'Light Ball', 'Thick Club',
 		],
 		unbanlist: [
@@ -710,7 +1386,7 @@ export const Formats: FormatList = [
 		mod: 'gen8',
 		ruleset: ['-Nonexistent', 'Standard NatDex', 'Forme Clause', 'Sleep Moves Clause', '2 Ability Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Dynamax Clause', 'CFZ Clause', '!Obtainable', 'Arceus Clause'],
 		banlist: [
-			'Calyrex-Shadow', 'Cramorant-Gorging', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 
+			'Calyrex-Shadow', 'Cramorant-Gorging', 'Darmanitan-Galar-Zen', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Magnet Pull', 'Moody',
 			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
 			'Comatose + Sleep Talk', 'Imprison + Transform', 

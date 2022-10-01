@@ -2175,6 +2175,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 			};
 			for (const set of team) {
 				let item = set.item;
+				if (this.dex.items.get(set.item).exists) continue;
 				let forte = this.dex.moves.get(set.item).id;
 				if (!forte) continue;
 				for (const move of set.moves) {
