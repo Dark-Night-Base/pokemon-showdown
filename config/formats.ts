@@ -324,7 +324,7 @@ export const Formats: FormatList = [
 				// number properties
 				if (forte.critRatio) {
 					if (move.critRatio) {
-						move.critRatio += forte.critRatio;
+						move.critRatio += forte.critRatio - 1;
 					} else {
 						move.critRatio = forte.critRatio;
 					}
