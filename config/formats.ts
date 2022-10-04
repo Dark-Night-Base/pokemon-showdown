@@ -565,7 +565,7 @@ export const Formats: FormatList = [
 											flags: move.flags,
 											effectType: 'Move',
 											isFutureMove: true,
-											type: move.type,
+											type: move.baseMoveType,
 										},
 									});
 									this.add('-start', source, forte.name);
@@ -596,7 +596,7 @@ export const Formats: FormatList = [
 										flags: move.flags,
 										effectType: 'Move',
 										isFutureMove: true,
-										type: move.type,
+										type: move.baseMoveType,
 									},
 								});
 								this.add('-start', source, forte.name);
