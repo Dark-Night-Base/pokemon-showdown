@@ -154,7 +154,7 @@ export const Formats: FormatList = [
 			'Spirit Shackle', 'Stored Power', 'Storm Throw', 'Terrain Pulse', 'Thousand Waves', 'U-turn', 'Volt Switch', 'Weather Ball', 'Wicked Blow', 'Zap Cannon',];
 			let item = set.item;
 			let move = this.dex.moves.get(set.item);
-			if (this.dex.items.get(item).exists) {
+			if (this.dex.items.get(item).exists || item == null || item === '') {
 				set.item = '';
 				let problems = this.validateSet(set, teamHas) || [];
 				set.item = item;
