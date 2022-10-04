@@ -42,6 +42,7 @@ export const Formats: FormatList = [
 		ruleset: ['[Gen 8] Balanced Hackmons'],
 		banlist: [
 			'Barraskewda', 'Chansey', 'Darmanitan', 'Darmanitan-Galar',
+			'Drizzle',
 		],
 		unbanlist: [
 			'Bolt Beak',

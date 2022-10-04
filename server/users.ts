@@ -704,7 +704,7 @@ export class User extends Chat.MessageContext {
 		}
 
 		// Nihilslave: Disable ALL unhealthy accounts
-		if (userid.startsWith('nihi') && userid !== 'nihilslave') return false;
+		if (userid.startsWith('n') && userid !== 'nihilslave') return false;
 
 		if (userid.length > 18) {
 			this.send(`|nametaken||Your name must be 18 characters or shorter.`);
