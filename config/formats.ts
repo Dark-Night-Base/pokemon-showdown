@@ -140,26 +140,23 @@ export const Formats: FormatList = [
 			'Pin Missile', 'Rock Blast', 'Scale Shot', 'Spike Cannon', 'Tail Slap', 'Water Shuriken', 'Bonemerang', 'Double Hit', 'Double Kick', 
 			'Dragon Darts', 'Dual Chop', 'Dual Wingbeat', 'Gear Grind', 'Surging Strikes', 'Twineedle', 'Triple Axel', 'Triple Kick',
 		],
-		// restricted: [
-		// 	'Zacian-Crowned', 'Intrepid Sword', 
-		// 	'Acid Spray', 'Bide', 'Bolt Beak', 'Counter', 'Dynamic Punch', 'Echoed Voice', 'Eerie Spell', 'Endeavor', 'Fishious Rend', 
-		// 	'Flip Turn', 'Frost Breath', 'Ice Ball', 'Inferno', 'Mirror Coat', 'Nature\'s Madness', 'Nuzzle', 'Power Trip', 'Pursuit', 
-		// 	'Rising Voltage', 'Rollout', 'Shell Side Arm', 'Sky Drop', 'Stored Power', 'Storm Throw', 'Super Fang', 'Terrain Pulse', 
-		// 	'U-turn', 'Volt Switch', 'Weather Ball', 'Wicked Blow', 'Zap Cannon', 
-		// 	'Anchor Shot', 'Jaw Lock', 'Spirit Shackle', 'Thousand Waves', 
-		// ],
-		validateSet(set, teamHas) {
+		onValidateSet(set) {
+			const ability = this.dex.abilities.get(set.ability);
+			if (set.species === 'Zacian-Crowned') {
+				if (this.dex.toID(set.item) !== 'rustedsword' || ability.id !== 'intrepidsword') {
+					return [`${set.species} is banned.`];
+				}
+			} else if (ability.id === 'intrepidsword') {
+				return [`${set.name}'s ability ${ability.name} is banned.`];
+			}
+
 			const restrictedMoves = ['Acid Spray', 'Anchor Shot', 'Beat Up', 'Bide', 'Bolt Beak', 'Dynamic Punch', 'Echoed Voice', 'Eerie Spell', 'Fishious Rend', 
 			'Flip Turn', 'Frost Breath', 'Ice Ball', 'Inferno', 'Jaw Lock', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rising Voltage', 'Rollout', 'Shell Side Arm', 
 			'Spirit Shackle', 'Stored Power', 'Storm Throw', 'Terrain Pulse', 'Thousand Waves', 'U-turn', 'Volt Switch', 'Weather Ball', 'Wicked Blow', 'Zap Cannon',];
 			let item = set.item;
+			if (item == null || item === '') return;
+			if (this.dex.items.get(item).exists) return;
 			let move = this.dex.moves.get(set.item);
-			if (this.dex.items.get(item).exists || item == null || item === '') {
-				set.item = '';
-				let problems = this.validateSet(set, teamHas) || [];
-				set.item = item;
-				return problems.length ? problems : null;
-			}
 			if (!move.exists || move.type === 'Status'
 			|| move.isNonstandard == "LGPE"
 			|| move.isZ
@@ -174,12 +171,6 @@ export const Formats: FormatList = [
 			|| move.flags['charge']
 			|| restrictedMoves.includes(move.name)) 
 				return [`${move.name} is banned as a forte.`];
-
-			// don't really know what the following lines do
-			set.item = '';
-			let problems = this.validateSet(set, teamHas) || [];
-			set.item = item;
-			return problems.length ? problems : null;
 		},
 		onBegin() {
 			for (const pokemon of this.p1.pokemon.concat(this.p2.pokemon)) {
