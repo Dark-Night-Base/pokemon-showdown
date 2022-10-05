@@ -149,28 +149,53 @@ export const Formats: FormatList = [
 			} else if (ability.id === 'intrepidsword') {
 				return [`${set.name}'s ability ${ability.name} is banned.`];
 			}
-
+		},
+		onChangeSet(set) {
+			const item = this.dex.toID(set.item);
+			if (set.species === 'Zacian' && item === 'rustedsword') {
+				set.species = 'Zacian-Crowned';
+				set.ability = 'Intrepid Sword';
+				const ironHead = set.moves.indexOf('ironhead');
+				if (ironHead >= 0) {
+					set.moves[ironHead] = 'behemothblade';
+				}
+			}
+			if (set.species === 'Zamazenta' && item === 'rustedshield') {
+				set.species = 'Zamazenta-Crowned';
+				set.ability = 'Dauntless Shield';
+				const ironHead = set.moves.indexOf('ironhead');
+				if (ironHead >= 0) {
+					set.moves[ironHead] = 'behemothbash';
+				}
+			}
+		},
+		validateSet(set, teamHas) {
+			const item = this.dex.moves.get(set.item);
+			if (!item.exists) return this.validateSet(set, teamHas);
+			const problems = [];
 			const restrictedMoves = ['Acid Spray', 'Anchor Shot', 'Beat Up', 'Bide', 'Bolt Beak', 'Dynamic Punch', 'Echoed Voice', 'Eerie Spell', 'Fishious Rend', 
 			'Flip Turn', 'Frost Breath', 'Ice Ball', 'Inferno', 'Jaw Lock', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rising Voltage', 'Rollout', 'Shell Side Arm', 
 			'Spirit Shackle', 'Stored Power', 'Storm Throw', 'Terrain Pulse', 'Thousand Waves', 'U-turn', 'Volt Switch', 'Weather Ball', 'Wicked Blow', 'Zap Cannon',];
-			let item = set.item;
-			if (item == null || item === '') return;
-			if (this.dex.items.get(item).exists) return;
-			let move = this.dex.moves.get(set.item);
-			if (!move.exists || move.type === 'Status'
-			|| move.isNonstandard == "LGPE"
-			|| move.isZ
-			|| move.isMax
-			|| move.ohko
+			if (!item.exists || item.type === 'Status'
+			|| item.isNonstandard == "LGPE"
+			|| item.isZ
+			|| item.isMax
+			|| item.ohko
 			// @ts-ignore
-			|| move.secondaries && move.secondaries.some(secondary => secondary.boosts && secondary.boosts.accuracy < 0)
-			|| move.multihit
-			|| move.priority > 0
-			|| move.volatileStatus == 'partiallytrapped'
-			|| move.damageCallback && move.id !== 'psywave'
-			|| move.flags['charge']
-			|| restrictedMoves.includes(move.name)) 
-				return [`${move.name} is banned as a forte.`];
+			|| item.secondaries && item.secondaries.some(secondary => secondary.boosts && secondary.boosts.accuracy < 0)
+			|| item.multihit
+			|| item.priority > 0
+			|| item.volatileStatus == 'partiallytrapped'
+			|| item.damageCallback && item.id !== 'psywave'
+			|| item.flags['charge']
+			|| restrictedMoves.includes(item.name)) 
+				problems.push(`${item.name} is banned as a forte.`);
+			const itemStr = set.item;
+			set.item = '';
+			const problem = this.validateSet(set, teamHas);
+			if (problem?.length) problems.push(...problem);
+			set.item = itemStr;
+			return problems;
 		},
 		onBegin() {
 			for (const pokemon of this.p1.pokemon.concat(this.p2.pokemon)) {
