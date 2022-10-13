@@ -1406,12 +1406,12 @@ export const Formats: FormatList = [
 				let godSpecies = this.dex.species.get(set.species);
 				const isNatDex = this.format.ruleTable?.has('standardnatdex');
 				const validator = this.dex.formats.getRuleTable(
-					this.dex.formats.get(`gen${isNatDex && this.gen < 8 ? 8 : this.gen}${isNatDex ? 'nationaldex' : 'lc'}`)
+					this.dex.formats.get(`gen${isNatDex && this.gen < 8 ? 8 : this.gen}${isNatDex ? 'lc' : 'lc'}`)
 				);
 				if (this.toID(set.ability) === 'powerconstruct') {
 					return true;
 				}
-				if (['nfe'].includes(this.toID(species.tier)) || this.toID(set.ability) === 'powerconstruct') {
+				if (['nfe'].includes(this.toID(set.tier)) || this.toID(set.ability) === 'powerconstruct') {
 					return true;
 				}
 				if (set.item) {
