@@ -1373,10 +1373,7 @@ export const Formats: FormatList = [
 		mod: 'gen8',
 		ruleset: ['Standard OMs', 'Sleep Moves Clause', 'Little Cup'],
 		banlist: [
-			'Scyther', 'Swirlix', 'Chansey', 'Crawdaunt', 'Dragapult', 'Eternatus', 'Hawlucha', 'Kyogre', 'Marowak-Alola', 'Melmetal',
-			'Nidoking', 'Nidoqueen', 'Pikachu', 'Toxapex', 'Xerneas', 'Zacian', 'Zacian-Crowned', 'Uber > 1', 'AG ++ Uber > 1', 'Arena Trap',
-			'Huge Power', 'Moody', 'Pure Power', 'Shadow Tag', 'Swift Swim', 'Bright Powder', 'Focus Band', 'King\'s Rock', 'Lax Incense',
-			'Quick Claw', 'Baton Pass',
+			'Scyther', 'Swirlix', 'Arena Trap', 'Huge Power', 'Moody', 'Pure Power', 'Shadow Tag', 'Swift Swim', 'Bright Powder', 'Focus Band', 'King\'s Rock', 'Lax Incense', 'Quick Claw', 'Baton Pass',
 		],
 		onValidateTeam(team) {
 			const gods = new Set<string>();
@@ -1409,7 +1406,7 @@ export const Formats: FormatList = [
 				let godSpecies = this.dex.species.get(set.species);
 				const isNatDex = this.format.ruleTable?.has('standardnatdex');
 				const validator = this.dex.formats.getRuleTable(
-					this.dex.formats.get(`gen${isNatDex && this.gen < 8 ? 8 : this.gen}${isNatDex ? 'nationaldex' : 'ou'}`)
+					this.dex.formats.get(`gen${isNatDex && this.gen < 8 ? 8 : this.gen}${isNatDex ? 'nationaldex' : 'lc'}`)
 				);
 				if (this.toID(set.ability) === 'powerconstruct') {
 					return true;
