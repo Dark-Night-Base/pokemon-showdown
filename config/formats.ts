@@ -1363,6 +1363,80 @@ export const Formats: FormatList = [
 		},
 	},
 	{
+		// by boingk#6794
+		name: "[Gen 8] Godly Gift LC",
+		desc: `Each Pok&eacute;mon receives one base stat from a (smol) God (LC Ubers Pok&eacute;mon) depending on its position in the team. If there is no LC Ubers Pok&eacute;mon, it uses the Pok&eacute;mon in the first (HP) slot.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3660461/">Godly Gift</a>`,
+		],
+
+		mod: 'gen8',
+		ruleset: ['Standard OMs', 'Sleep Moves Clause', 'Little Cup'],
+		banlist: [
+			'Scyther', 'Swirlix', 'Chansey', 'Crawdaunt', 'Dragapult', 'Eternatus', 'Hawlucha', 'Kyogre', 'Marowak-Alola', 'Melmetal',
+			'Nidoking', 'Nidoqueen', 'Pikachu', 'Toxapex', 'Xerneas', 'Zacian', 'Zacian-Crowned', 'Uber > 1', 'AG ++ Uber > 1', 'Arena Trap',
+			'Huge Power', 'Moody', 'Pure Power', 'Shadow Tag', 'Swift Swim', 'Bright Powder', 'Focus Band', 'King\'s Rock', 'Lax Incense',
+			'Quick Claw', 'Baton Pass',
+		],
+		onValidateTeam(team) {
+			const gods = new Set<string>();
+			for (const set of team) {
+				let species = this.dex.species.get(set.species);
+				if (typeof species.battleOnly === 'string') species = this.dex.species.get(species.battleOnly);
+				if (set.item && this.dex.items.get(set.item).megaStone) {
+					const item = this.dex.items.get(set.item);
+					if (item.megaEvolves === species.baseSpecies) {
+						species = this.dex.species.get(item.megaStone);
+					}
+				}
+				if (this.ruleTable.has('standardnatdex')) {
+					const format = this.dex.formats.getRuleTable(this.dex.formats.get('gen8nationaldex'));
+					if (format.isBannedSpecies(species)) gods.add(species.name);
+				} else {
+					if (['nfe'].includes(this.toID(species.tier)) || this.toID(set.ability) === 'powerconstruct') {
+						gods.add(species.name);
+					}
+				}
+			}
+			if (gods.size > 1) {
+				return [`You have too many Gods.`, `(${Array.from(gods).join(', ')} are Gods.)`];
+			}
+		},
+		onModifySpeciesPriority: 3,
+		onModifySpecies(species, target, source) {
+			if (source || !target?.side) return;
+			const god = target.side.team.find(set => {
+				let godSpecies = this.dex.species.get(set.species);
+				const isNatDex = this.format.ruleTable?.has('standardnatdex');
+				const validator = this.dex.formats.getRuleTable(
+					this.dex.formats.get(`gen${isNatDex && this.gen < 8 ? 8 : this.gen}${isNatDex ? 'nationaldex' : 'ou'}`)
+				);
+				if (this.toID(set.ability) === 'powerconstruct') {
+					return true;
+				}
+				if (['nfe'].includes(this.toID(species.tier)) || this.toID(set.ability) === 'powerconstruct') {
+					return true;
+				}
+				if (set.item) {
+					const item = this.dex.items.get(set.item);
+					if (item.megaEvolves === set.species) godSpecies = this.dex.species.get(item.megaStone);
+				}
+				const isBanned = validator.isBannedSpecies(godSpecies);
+				return isBanned;
+			}) || target.side.team[0];
+			const stat = Dex.stats.ids()[target.side.team.indexOf(target.set)];
+			const newSpecies = this.dex.deepClone(species);
+			let godSpecies = this.dex.species.get(god.species);
+			if (typeof godSpecies.battleOnly === 'string') {
+				godSpecies = this.dex.species.get(godSpecies.battleOnly);
+			}
+			newSpecies.bst -= newSpecies.baseStats[stat];
+			newSpecies.baseStats[stat] = godSpecies.baseStats[stat];
+			newSpecies.bst += newSpecies.baseStats[stat];
+			return newSpecies;
+		},
+	},
+	{
 		name: "[Gen 8] Turn Tables",
 		desc: `Base stats below 100 get doubled, excluding HP.`,
 		threads: [
@@ -1673,14 +1747,13 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
-		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod', 'Endless Battle Clause'],
-		banlist: [
-			'Calyrex-Shadow', 'Cramorant-Gorging', 'Eternatus-Eternamax', 
-			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Magnet Pull', 'Moody', 
-			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard', 
-			'Comatose + Sleep Talk', 'Court Change', 'Double Iron Bash', 'Octolock', 'Shell Smash'
-		],
+		ruleset: ['[Gen 8] Balanced Hackmons', '!Sleep Moves Clause', 'Sleep Clause Mod', 'Camomons Mod'],
 		restricted: ['Zacian-Crowned', 'Intrepid Sword'],
+		unbanlist: [
+			'Darmanitan-Galar-Zen', 'Shedinja', 
+			'Belly Drum', 'Bolt Beak', 
+			'Rusted Sword', 
+		],
 		onValidateSet(set) {
 			const ability = this.dex.abilities.get(set.ability);
 			if (set.species === 'Zacian-Crowned') {
@@ -1709,18 +1782,6 @@ export const Formats: FormatList = [
 					set.moves[ironHead] = 'behemothbash';
 				}
 			}
-		},
-		onModifySpecies(species, target, source, effect) {
-			if (!target) return; // Chat command
-			if (effect && ['imposter', 'transform'].includes(effect.id)) return;
-			const types = [...new Set(target.baseMoveSlots.slice(0, 2).map(move => this.dex.moves.get(move.id).type))];
-			return {...species, types: types};
-		},
-		onSwitchIn(pokemon) {
-			this.add('-start', pokemon, 'typechange', (pokemon.illusion || pokemon).getTypes(true).join('/'), '[silent]');
-		},
-		onAfterMega(pokemon) {
-			this.add('-start', pokemon, 'typechange', (pokemon.illusion || pokemon).getTypes(true).join('/'), '[silent]');
 		},
 	},
 	{
@@ -1969,7 +2030,7 @@ export const Formats: FormatList = [
 	},
 	{
 		name: "[Gen 8] Mix and Mega BH",
-		desc: `BH + MnM。在本分级，除了Mega石，你还可以使用朱红色宝珠、靛蓝色宝珠、腐朽的剑、腐朽的盾、画龙点睛、雪矛和星碎来让宝可梦“Mega 进化”。<br />输入“/mnm &lt;宝可梦名称&gt; @ &lt;Mega石&gt;, bh”来查看宝可梦 Mega 进化后的信息<br />例如：/mnm zygardecomplete@rustedshield,bh。<br />BH where you can mega evolve any Pok&eacute;mon (as long as they are not already in "mega" formes) with any mega stone and no limit. Boosts based on mega evolution from gen 7. <br /> You can also "mega evolve" any Pok&eacute;mon with, Red Orb, Blue Orb, Rusted Sword, Rusted Shield, Dragon Ascent, Astral Barrage, and Glacial Lance in this format. <br /> Type "/mnm &lt;pokemon&gt; @ &lt;mega stone&gt;, bh" to see type and stats of Mix and Mega Evolved Pok&eacute;mon in this format. E.g. /mnm zygardecomplete@rustedshield,bh`,
+		desc: `BH + MnM。在本分级，除了Mega石，你还可以使用朱红色宝珠、靛蓝色宝珠、腐朽的剑、腐朽的盾、画龙点睛、雪矛和星碎来让宝可梦“Mega 进化”。<br />输入“/mnm &lt;宝可梦名称&gt; @ &lt;Mega石&gt;, bh”来查看宝可梦 Mega 进化后的信息<br />例如：/mnm zygardecomplete@rustedshield,bh。<br />BH where you can mega evolve any Pok&eacute;mon (as long as they are not already in "mega" formes) with any mega stone and no limit. Boosts based on mega evolution from gen 7. <br /> You can also "mega evolve" any Pok&eacute;mon with Red Orb, Blue Orb, Rusted Sword, Rusted Shield, Dragon Ascent, Astral Barrage, and Glacial Lance in this format. <br /> Type "/mnm &lt;pokemon&gt; @ &lt;mega stone&gt;, bh" to see type and stats of Mix and Mega Evolved Pok&eacute;mon in this format. E.g. /mnm zygardecomplete@rustedshield,bh`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3656469/">Mix and Mega</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3659028/">M&amp;M Resources</a>`,
