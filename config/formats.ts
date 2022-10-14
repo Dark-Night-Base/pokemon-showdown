@@ -100,6 +100,207 @@ export const Formats: FormatList = [
 		],
 	},
 	{
+		name: "[Gen 8] ND 24 Points BH",
+		desc: `NDBH + 24点。当你使用过队伍中的所有24个技能后，你获胜。<br />NDBH + 24 Points. You win after you use all 24 Moves in your team.`,
+		debug: true,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3690179/">National Dex BH v3</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3658587/">National Dex BH</a>`,
+		],
+
+		mod: 'gen8',
+		ruleset: ['[Gen 8] National Dex BH'],
+		onValidateSet(set) {
+			const ability = this.dex.abilities.get(set.ability);
+			if (set.species === 'Zacian-Crowned') {
+				if (this.dex.toID(set.item) !== 'rustedsword' || ability.id !== 'intrepidsword') {
+					return [`${set.species} is banned.`];
+				}
+			} else if (ability.id === 'intrepidsword') {
+				return [`${set.name}'s ability ${ability.name} is banned.`];
+			}
+		},
+		onChangeSet(set) {
+			const item = this.dex.toID(set.item);
+			if (set.species === 'Zacian' && item === 'rustedsword') {
+				set.species = 'Zacian-Crowned';
+				set.ability = 'Intrepid Sword';
+				const ironHead = set.moves.indexOf('ironhead');
+				if (ironHead >= 0) {
+					set.moves[ironHead] = 'behemothblade';
+				}
+			}
+			if (set.species === 'Zamazenta' && item === 'rustedshield') {
+				set.species = 'Zamazenta-Crowned';
+				set.ability = 'Dauntless Shield';
+				const ironHead = set.moves.indexOf('ironhead');
+				if (ironHead >= 0) {
+					set.moves[ironHead] = 'behemothbash';
+				}
+			}
+		},
+		onValidateTeam(team, format, teamHas) {
+			for (const set of team) {
+				if (set.moves.length < 4) return [`You are forced to bring 4 moves by 24 Points Rule.`,
+				`${set.species} has less than 4 moves.`];
+				const moveTable = new Map<string, number>();
+				for (const move of set.moves) {
+					const moveId = this.dex.moves.get(move).id;
+					moveTable.set(moveId, (moveTable.get(moveId) || 0) + 1);
+					if ((moveTable.get(moveId) || 2) > 1) return [`${set.species} has multiple copies of ${this.dex.moves.get(moveId)}`];
+				}
+			}
+		},
+		onBegin() {
+			for (const pokemon of this.getAllPokemon()) {
+				for (const moveSlot of pokemon.baseMoveSlots) {
+					// @ts-ignore
+					moveSlot.TFUsed = false;
+				}
+			}
+		},
+		actions: {
+			runMove(
+				moveOrMoveName: Move | string, pokemon: Pokemon, targetLoc: number, sourceEffect?: Effect | null,
+				zMove?: string, externalMove?: boolean, maxMove?: string, originalTarget?: Pokemon
+			) {
+				pokemon.activeMoveActions++;
+				let target = this.battle.getTarget(pokemon, maxMove || zMove || moveOrMoveName, targetLoc, originalTarget);
+				let baseMove = this.dex.getActiveMove(moveOrMoveName);
+				const pranksterBoosted = baseMove.pranksterBoosted;
+				if (baseMove.id !== 'struggle' && !zMove && !maxMove && !externalMove) {
+					const changedMove = this.battle.runEvent('OverrideAction', pokemon, target, baseMove);
+					if (changedMove && changedMove !== true) {
+						baseMove = this.dex.getActiveMove(changedMove);
+						if (pranksterBoosted) baseMove.pranksterBoosted = pranksterBoosted;
+						target = this.battle.getRandomTarget(pokemon, baseMove);
+					}
+				}
+				let move = baseMove;
+				if (zMove) {
+					move = this.getActiveZMove(baseMove, pokemon);
+				} else if (maxMove) {
+					move = this.getActiveMaxMove(baseMove, pokemon);
+				}
+		
+				move.isExternal = externalMove;
+		
+				this.battle.setActiveMove(move, pokemon, target);
+		
+				/* if (pokemon.moveThisTurn) {
+					// THIS IS PURELY A SANITY CHECK
+					// DO NOT TAKE ADVANTAGE OF THIS TO PREVENT A POKEMON FROM MOVING;
+					// USE this.queue.cancelMove INSTEAD
+					this.battle.debug('' + pokemon.id + ' INCONSISTENT STATE, ALREADY MOVED: ' + pokemon.moveThisTurn);
+					this.battle.clearActiveMove(true);
+					return;
+				} */
+				const willTryMove = this.battle.runEvent('BeforeMove', pokemon, target, move);
+				if (!willTryMove) {
+					this.battle.runEvent('MoveAborted', pokemon, target, move);
+					this.battle.clearActiveMove(true);
+					// The event 'BeforeMove' could have returned false or null
+					// false indicates that this counts as a move failing for the purpose of calculating Stomping Tantrum's base power
+					// null indicates the opposite, as the Pokemon didn't have an option to choose anything
+					pokemon.moveThisTurnResult = willTryMove;
+					return;
+				}
+				if (move.beforeMoveCallback) {
+					if (move.beforeMoveCallback.call(this.battle, pokemon, target, move)) {
+						this.battle.clearActiveMove(true);
+						pokemon.moveThisTurnResult = false;
+						return;
+					}
+				}
+				pokemon.lastDamage = 0;
+				let lockedMove;
+				if (!externalMove) {
+					lockedMove = this.battle.runEvent('LockMove', pokemon);
+					if (lockedMove === true) lockedMove = false;
+					if (!lockedMove) {
+						if (!pokemon.deductPP(baseMove, null, target) && (move.id !== 'struggle')) {
+							this.battle.add('cant', pokemon, 'nopp', move);
+							this.battle.clearActiveMove(true);
+							pokemon.moveThisTurnResult = false;
+							return;
+						}
+					} else {
+						sourceEffect = this.dex.conditions.get('lockedmove');
+					}
+					pokemon.moveUsed(move, targetLoc);
+				}
+		
+				// Dancer Petal Dance hack
+				// TODO: implement properly
+				const noLock = externalMove && !pokemon.volatiles['lockedmove'];
+		
+				if (zMove) {
+					if (pokemon.illusion) {
+						this.battle.singleEvent('End', this.dex.abilities.get('Illusion'), pokemon.abilityState, pokemon);
+					}
+					this.battle.add('-zpower', pokemon);
+					pokemon.side.zMoveUsed = true;
+				}
+				const moveDidSomething = this.useMove(baseMove, pokemon, target, sourceEffect, zMove, maxMove);
+				this.battle.lastSuccessfulMoveThisTurn = moveDidSomething ? this.battle.activeMove && this.battle.activeMove.id : null;
+				if (this.battle.activeMove) move = this.battle.activeMove;
+				this.battle.singleEvent('AfterMove', move, null, pokemon, target, move);
+				this.battle.runEvent('AfterMove', pokemon, target, move);
+		
+				// Dancer's activation order is completely different from any other event, so it's handled separately
+				if (move.flags['dance'] && moveDidSomething && !move.isExternal) {
+					const dancers = [];
+					for (const currentPoke of this.battle.getAllActive()) {
+						if (pokemon === currentPoke) continue;
+						if (currentPoke.hasAbility('dancer') && !currentPoke.isSemiInvulnerable()) {
+							dancers.push(currentPoke);
+						}
+					}
+					// Dancer activates in order of lowest speed stat to highest
+					// Note that the speed stat used is after any volatile replacements like Speed Swap,
+					// but before any multipliers like Agility or Choice Scarf
+					// Ties go to whichever Pokemon has had the ability for the least amount of time
+					dancers.sort(
+						(a, b) => -(b.storedStats['spe'] - a.storedStats['spe']) || b.abilityOrder - a.abilityOrder
+					);
+					for (const dancer of dancers) {
+						if (this.battle.faintMessages()) break;
+						if (dancer.fainted) continue;
+						this.battle.add('-activate', dancer, 'ability: Dancer');
+						const dancersTarget = !target!.isAlly(dancer) && pokemon.isAlly(dancer) ? target! : pokemon;
+						const dancersTargetLoc = dancer.getLocOf(dancersTarget);
+						this.runMove(move.id, dancer, dancersTargetLoc, this.dex.abilities.get('dancer'), undefined, true);
+					}
+				}
+				if (noLock && pokemon.volatiles['lockedmove']) delete pokemon.volatiles['lockedmove'];
+
+				// here we add the code
+				const slotMove = pokemon.baseMoveSlots.find((value) => value.id === move.id);
+				// @ts-ignore
+				slotMove.TFUsed = true;
+
+				this.battle.faintMessages();
+
+				// here we add the code
+				let canRuleWin = true;
+				for (const mon of pokemon.side.pokemon) {
+					for (const moveSlot of mon.baseMoveSlots) {
+						// @ts-ignore
+						if (moveSlot.TFUsed === false) {
+							this.battle.debug(`${mon.name}'s move ${moveSlot.id} is not used.`);
+							canRuleWin = false;
+							break;
+						}
+					}
+					if (canRuleWin === false) break;
+				}
+				if (canRuleWin === true) this.battle.win(pokemon.side);
+
+				this.battle.checkWin();
+			}
+		},
+	},
+	{
 		name: "[Gen 8] ND Almost No Ability BH",
 		desc: `NDBH, but Pokemon can only use their original abilities.`,
 		threads: [
@@ -1363,6 +1564,183 @@ export const Formats: FormatList = [
 		},
 	},
 	{
+		section: "Server Special OMs",
+	},
+	{
+		name: "[Gen 8] 24 Points",
+		desc: `当你使用过队伍中的所有24个技能后，你获胜。<br />You win after you use all 24 Moves in your team.`,
+		debug: true,
+		threads: [
+			`None yet.`,
+		],
+
+		mod: 'gen8',
+		ruleset: ['Standard OMs', 'Sleep Clause Mod'],
+		banlist: [
+			'Uber', 'AG', 'Arena Trap', 'Moody', 'Power Construct', 'Sand Veil', 'Shadow Tag', 'Snow Cloak', 'King\'s Rock', 'Baton Pass'
+		],
+		onValidateTeam(team, format, teamHas) {
+			for (const set of team) {
+				if (set.moves.length < 4) return [`You are forced to bring 4 moves by 24 Points Rule.`,
+				`${set.species} has less than 4 moves.`];
+				const moveTable = new Map<string, number>();
+				for (const move of set.moves) {
+					const moveId = this.dex.moves.get(move).id;
+					moveTable.set(moveId, (moveTable.get(moveId) || 0) + 1);
+					if ((moveTable.get(moveId) || 2) > 1) return [`${set.species} has multiple copies of ${this.dex.moves.get(moveId)}`];
+				}
+			}
+		},
+		onBegin() {
+			for (const pokemon of this.getAllPokemon()) {
+				for (const moveSlot of pokemon.baseMoveSlots) {
+					// @ts-ignore
+					moveSlot.TFUsed = false;
+				}
+			}
+		},
+		actions: {
+			runMove(
+				moveOrMoveName: Move | string, pokemon: Pokemon, targetLoc: number, sourceEffect?: Effect | null,
+				zMove?: string, externalMove?: boolean, maxMove?: string, originalTarget?: Pokemon
+			) {
+				pokemon.activeMoveActions++;
+				let target = this.battle.getTarget(pokemon, maxMove || zMove || moveOrMoveName, targetLoc, originalTarget);
+				let baseMove = this.dex.getActiveMove(moveOrMoveName);
+				const pranksterBoosted = baseMove.pranksterBoosted;
+				if (baseMove.id !== 'struggle' && !zMove && !maxMove && !externalMove) {
+					const changedMove = this.battle.runEvent('OverrideAction', pokemon, target, baseMove);
+					if (changedMove && changedMove !== true) {
+						baseMove = this.dex.getActiveMove(changedMove);
+						if (pranksterBoosted) baseMove.pranksterBoosted = pranksterBoosted;
+						target = this.battle.getRandomTarget(pokemon, baseMove);
+					}
+				}
+				let move = baseMove;
+				if (zMove) {
+					move = this.getActiveZMove(baseMove, pokemon);
+				} else if (maxMove) {
+					move = this.getActiveMaxMove(baseMove, pokemon);
+				}
+		
+				move.isExternal = externalMove;
+		
+				this.battle.setActiveMove(move, pokemon, target);
+		
+				/* if (pokemon.moveThisTurn) {
+					// THIS IS PURELY A SANITY CHECK
+					// DO NOT TAKE ADVANTAGE OF THIS TO PREVENT A POKEMON FROM MOVING;
+					// USE this.queue.cancelMove INSTEAD
+					this.battle.debug('' + pokemon.id + ' INCONSISTENT STATE, ALREADY MOVED: ' + pokemon.moveThisTurn);
+					this.battle.clearActiveMove(true);
+					return;
+				} */
+				const willTryMove = this.battle.runEvent('BeforeMove', pokemon, target, move);
+				if (!willTryMove) {
+					this.battle.runEvent('MoveAborted', pokemon, target, move);
+					this.battle.clearActiveMove(true);
+					// The event 'BeforeMove' could have returned false or null
+					// false indicates that this counts as a move failing for the purpose of calculating Stomping Tantrum's base power
+					// null indicates the opposite, as the Pokemon didn't have an option to choose anything
+					pokemon.moveThisTurnResult = willTryMove;
+					return;
+				}
+				if (move.beforeMoveCallback) {
+					if (move.beforeMoveCallback.call(this.battle, pokemon, target, move)) {
+						this.battle.clearActiveMove(true);
+						pokemon.moveThisTurnResult = false;
+						return;
+					}
+				}
+				pokemon.lastDamage = 0;
+				let lockedMove;
+				if (!externalMove) {
+					lockedMove = this.battle.runEvent('LockMove', pokemon);
+					if (lockedMove === true) lockedMove = false;
+					if (!lockedMove) {
+						if (!pokemon.deductPP(baseMove, null, target) && (move.id !== 'struggle')) {
+							this.battle.add('cant', pokemon, 'nopp', move);
+							this.battle.clearActiveMove(true);
+							pokemon.moveThisTurnResult = false;
+							return;
+						}
+					} else {
+						sourceEffect = this.dex.conditions.get('lockedmove');
+					}
+					pokemon.moveUsed(move, targetLoc);
+				}
+		
+				// Dancer Petal Dance hack
+				// TODO: implement properly
+				const noLock = externalMove && !pokemon.volatiles['lockedmove'];
+		
+				if (zMove) {
+					if (pokemon.illusion) {
+						this.battle.singleEvent('End', this.dex.abilities.get('Illusion'), pokemon.abilityState, pokemon);
+					}
+					this.battle.add('-zpower', pokemon);
+					pokemon.side.zMoveUsed = true;
+				}
+				const moveDidSomething = this.useMove(baseMove, pokemon, target, sourceEffect, zMove, maxMove);
+				this.battle.lastSuccessfulMoveThisTurn = moveDidSomething ? this.battle.activeMove && this.battle.activeMove.id : null;
+				if (this.battle.activeMove) move = this.battle.activeMove;
+				this.battle.singleEvent('AfterMove', move, null, pokemon, target, move);
+				this.battle.runEvent('AfterMove', pokemon, target, move);
+		
+				// Dancer's activation order is completely different from any other event, so it's handled separately
+				if (move.flags['dance'] && moveDidSomething && !move.isExternal) {
+					const dancers = [];
+					for (const currentPoke of this.battle.getAllActive()) {
+						if (pokemon === currentPoke) continue;
+						if (currentPoke.hasAbility('dancer') && !currentPoke.isSemiInvulnerable()) {
+							dancers.push(currentPoke);
+						}
+					}
+					// Dancer activates in order of lowest speed stat to highest
+					// Note that the speed stat used is after any volatile replacements like Speed Swap,
+					// but before any multipliers like Agility or Choice Scarf
+					// Ties go to whichever Pokemon has had the ability for the least amount of time
+					dancers.sort(
+						(a, b) => -(b.storedStats['spe'] - a.storedStats['spe']) || b.abilityOrder - a.abilityOrder
+					);
+					for (const dancer of dancers) {
+						if (this.battle.faintMessages()) break;
+						if (dancer.fainted) continue;
+						this.battle.add('-activate', dancer, 'ability: Dancer');
+						const dancersTarget = !target!.isAlly(dancer) && pokemon.isAlly(dancer) ? target! : pokemon;
+						const dancersTargetLoc = dancer.getLocOf(dancersTarget);
+						this.runMove(move.id, dancer, dancersTargetLoc, this.dex.abilities.get('dancer'), undefined, true);
+					}
+				}
+				if (noLock && pokemon.volatiles['lockedmove']) delete pokemon.volatiles['lockedmove'];
+
+				// here we add the code
+				const slotMove = pokemon.baseMoveSlots.find((value) => value.id === move.id);
+				// @ts-ignore
+				slotMove.TFUsed = true;
+
+				this.battle.faintMessages();
+
+				// here we add the code
+				let canRuleWin = true;
+				for (const mon of pokemon.side.pokemon) {
+					for (const moveSlot of mon.baseMoveSlots) {
+						// @ts-ignore
+						if (moveSlot.TFUsed === false) {
+							this.battle.debug(`${mon.name}'s move ${moveSlot.id} is not used.`);
+							canRuleWin = false;
+							break;
+						}
+					}
+					if (canRuleWin === false) break;
+				}
+				if (canRuleWin === true) this.battle.win(pokemon.side);
+
+				this.battle.checkWin();
+			}
+		},
+	},
+	{
 		// by boingk#6794
 		name: "[Gen 8] Godly Gift LC",
 		desc: `Each Pok&eacute;mon receives one base stat from a (smol) God (LC Ubers Pok&eacute;mon) depending on its position in the team. If there is no LC Ubers Pok&eacute;mon, it uses the Pok&eacute;mon in the first (HP) slot.`,
@@ -1495,10 +1873,10 @@ export const Formats: FormatList = [
 		onValidateSet(set) {
 			const ability = this.dex.abilities.get(set.ability);
 			if (set.species === 'Zacian-Crowned') {
-				if ((this.dex.toID(set.item) !== 'rustedsword' || ability.id !== 'intrepidsword') && this.format.restricted.includes('Zacian-Crowned')) {
+				if (this.dex.toID(set.item) !== 'rustedsword' || ability.id !== 'intrepidsword') {
 					return [`${set.species} is banned.`];
 				}
-			} else if (ability.id === 'intrepidsword' && this.format.restricted.includes('Intrepid Sword')) {
+			} else if (ability.id === 'intrepidsword') {
 				return [`${set.name}'s ability ${ability.name} is banned.`];
 			}
 		},
