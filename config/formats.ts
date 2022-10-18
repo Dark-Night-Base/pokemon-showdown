@@ -1759,7 +1759,7 @@ export const Formats: FormatList = [
 		],
 		restricted: [
 			'Corsola-Galar', 'Cutiefly', 'Drifloon', 'Gastly', 'Gothita', 'Rufflet', 'Scraggy', 'Sneasel', 
-			'Tangela', 'Vullaby', 'Vulpix-Alola', 'Woobat', 'Zigzagoon-Base'
+			'Tangela', 'Vullaby', 'Vulpix-Alola', 'Woobat', 'Zigzagoon-Base', 
 		],
 		onValidateTeam(team) {
 			const gods = new Set<string>();
