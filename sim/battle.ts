@@ -411,6 +411,7 @@ export class Battle {
 				}
 			}
 			if (nextIndexes.length > 1) {
+				this.debug(`PRNG.shuffle(${sorted},${sorted + nextIndexes.length})`);
 				this.prng.shuffle(list, sorted, sorted + nextIndexes.length);
 			}
 			sorted += nextIndexes.length;
