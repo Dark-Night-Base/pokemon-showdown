@@ -303,14 +303,17 @@ export class Battle {
 	}
 
 	random(m?: number, n?: number) {
+		this.debug(`PRNG.next(${(m === undefined) ? '' : ((n === undefined) ? m : `${m},${n}`)})`);
 		return this.prng.next(m, n);
 	}
 
 	randomChance(numerator: number, denominator: number) {
+		this.debug(`PRNG.randomChance(${numerator},${denominator})`);
 		return this.prng.randomChance(numerator, denominator);
 	}
 
 	sample<T>(items: readonly T[]): T {
+		this.debug(`PRNG.sample(0,${items.length})`);
 		return this.prng.sample(items);
 	}
 

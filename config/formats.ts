@@ -4054,6 +4054,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
+		debug: true,
 		ruleset: ['-Nonexistent', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause'],
 	},
 	{
