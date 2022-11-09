@@ -333,6 +333,7 @@ export const Formats: FormatList = [
 		ruleset: ['[Gen 8] National Dex BH', '!Arceus Clause', 'Camomons Mod'],
 		unbanlist: [
 			'Calyrex-Shadow', 'Darmanitan-Galar-Zen', 'Groudon-Primal', 'Rayquaza-Mega', 
+			'Protean', 'Libero', 
 		],
 	},
 	{
@@ -1313,16 +1314,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
-		ruleset: ['-Nonexistent', 'Standard NatDex', 'Forme Clause', 'Sleep Clause Mod', '2 Ability Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Dynamax Clause', 'CFZ Clause', '!Obtainable', 'Arceus Clause'],
-		banlist: [
-			'Calyrex-Shadow', 'Cramorant-Gorging', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 
-			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Magnet Pull', 'Moody',
-			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Comatose + Sleep Talk', 'Imprison + Transform', 
-			'Belly Drum', 'Bolt Beak', 'Chatter', 'Court Change', 'Double Iron Bash', 'Electrify', 'Octolock', 'Shell Smash',
-			'Gengarite',
-		],
-		restricted: ['Zacian-Crowned', 'Intrepid Sword'],
+		ruleset: ['[Gen 8] National Dex BH'],
 		onValidateSet(set) {
 			const ability = this.dex.abilities.get(set.ability);
 			if (set.species === 'Zacian-Crowned') {
@@ -1369,6 +1361,9 @@ export const Formats: FormatList = [
 			if ((ability.id === 'regenerator' && ['emergencyexit', 'wimpout'].includes(item.id)) ||
 				(item.id === 'regenerator' && ['emergencyexit', 'wimpout'].includes(ability.id))) {
 				problems.push(`${ability.name} and ${item.name} are banned together.`);
+			}
+			if (item.id === 'comatose' && set.moves.map((value) => this.toID(value)).includes('sleeptalk' as ID)) {
+				problems.push(`${set.species} has the combination of Comatose + Sleep Talk, which is banned by [Gen 8] National Dex BH.`);
 			}
 			const itemStr = set.item;
 			set.item = '';
