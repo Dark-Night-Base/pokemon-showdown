@@ -111,7 +111,7 @@ export interface RoomSettings {
 	introMessage?: string | null;
 	staffMessage?: string | null;
 	rulesLink?: string | null;
-	dataCommandTierDisplay?: 'tiers' | 'doubles tiers' | 'numbers';
+	dataCommandTierDisplay?: 'tiers' | 'doubles tiers' | 'National Dex tiers' | 'numbers';
 	requestShowEnabled?: boolean | null;
 	permissions?: {[k: string]: GroupSymbol};
 	minorActivity?: PollData | AnnouncementData;
@@ -1857,8 +1857,8 @@ export class ChatRoom extends BasicRoom {
 	// This is not actually used, this is just a fake class to keep
 	// TypeScript happy
 	battle = null;
-	active: false = false;
-	type: 'chat' = 'chat';
+	active: false = false as const;
+	type: 'chat' = 'chat' as const;
 }
 
 export class GameRoom extends BasicRoom {

@@ -1299,7 +1299,7 @@ export class RandomGen7Teams extends RandomTeams {
 			} else if (abilities.has('Moxie') && (counter.get('Physical') > 3 || moves.has('bounce')) && !isDoubles) {
 				ability = 'Moxie';
 			} else if (isDoubles) {
-				if (abilities.has('Intimidate')) ability = 'Intimidate';
+				if (abilities.has('Intimidate') && !battleOnly) ability = 'Intimidate';
 				if (abilities.has('Guts') && ability !== 'Intimidate') ability = 'Guts';
 				if (abilities.has('Storm Drain')) ability = 'Storm Drain';
 				if (abilities.has('Harvest')) ability = 'Harvest';
@@ -1743,7 +1743,7 @@ export class RandomGen7Teams extends RandomTeams {
 	randomFactoryTeam(side: PlayerOptions, depth = 0): RandomTeamsTypes.RandomFactorySet[] {
 		this.enforceNoDirectCustomBanlistChanges();
 
-		const forceResult = (depth >= 4);
+		const forceResult = (depth >= 12);
 		const isMonotype = !!this.forceMonotype || this.dex.formats.getRuleTable(this.format).has('sametypeclause');
 
 		// The teams generated depend on the tier choice in such a way that

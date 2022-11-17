@@ -153,7 +153,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		basePower: 55,
 		basePowerCallback(pokemon, target, move) {
 			if (!pokemon.item) {
-				this.debug("Power doubled for no item");
+				this.debug("BP doubled for no item");
 				return move.basePower * 2;
 			}
 			return move.basePower;
@@ -584,7 +584,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		basePower: 60,
 		basePowerCallback(pokemon, target, move) {
 			if (target.hurtThisTurn) {
-				this.debug('Boosted for being damaged this turn');
+				this.debug('BP doubled on damaged target');
 				return move.basePower * 2;
 			}
 			return move.basePower;
@@ -855,7 +855,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 				p => p.source === target && p.damage > 0 && p.thisTurn
 			);
 			if (damagedByTarget) {
-				this.debug('Boosted for getting hit by ' + target);
+				this.debug('BP doubled for getting hit by ' + target);
 				return move.basePower * 2;
 			}
 			return move.basePower;
@@ -1065,7 +1065,10 @@ export const Moves: {[moveid: string]: MoveData} = {
 		accuracy: 100,
 		basePower: 0,
 		basePowerCallback(pokemon, target, move) {
-			return 5 + Math.floor(move.allies!.shift()!.species.baseStats.atk / 10);
+			const currentSpecies = move.allies!.shift()!.species;
+			const bp = 5 + Math.floor(currentSpecies.baseStats.atk / 10);
+			this.debug('BP for ' + currentSpecies.name + ' hit: ' + bp);
+			return bp;
 		},
 		category: "Physical",
 		name: "Beat Up",
@@ -2897,7 +2900,11 @@ export const Moves: {[moveid: string]: MoveData} = {
 		accuracy: 100,
 		basePower: 0,
 		basePowerCallback(pokemon, target) {
-			return Math.floor(Math.floor((120 * (100 * Math.floor(target.hp * 4096 / target.maxhp)) + 2048 - 1) / 4096) / 100) || 1;
+			const hp = target.hp;
+			const maxHP = target.maxhp;
+			const bp = Math.floor(Math.floor((120 * (100 * Math.floor(hp * 4096 / maxHP)) + 2048 - 1) / 4096) / 100) || 1;
+			this.debug('BP for ' + hp + '/' + maxHP + " HP: " + bp);
+			return bp;
 		},
 		category: "Physical",
 		name: "Crush Grip",
@@ -3698,7 +3705,9 @@ export const Moves: {[moveid: string]: MoveData} = {
 		accuracy: 100,
 		basePower: 150,
 		basePowerCallback(pokemon, target, move) {
-			return move.basePower * pokemon.hp / pokemon.maxhp;
+			const bp = move.basePower * pokemon.hp / pokemon.maxhp;
+			this.debug('BP: ' + bp);
+			return bp;
 		},
 		category: "Special",
 		name: "Dragon Energy",
@@ -3977,11 +3986,13 @@ export const Moves: {[moveid: string]: MoveData} = {
 		num: 497,
 		accuracy: 100,
 		basePower: 40,
-		basePowerCallback() {
+		basePowerCallback(pokemon, target, move) {
+			let bp = move.basePower;
 			if (this.field.pseudoWeather.echoedvoice) {
-				return 40 * this.field.pseudoWeather.echoedvoice.multiplier;
+				bp = move.basePower * this.field.pseudoWeather.echoedvoice.multiplier;
 			}
-			return 40;
+			this.debug('BP: ' + move.basePower);
+			return bp;
 		},
 		category: "Special",
 		name: "Echoed Voice",
@@ -4167,7 +4178,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 			let ratio = Math.floor(pokemon.getStat('spe') / target.getStat('spe'));
 			if (!isFinite(ratio)) ratio = 0;
 			const bp = [40, 60, 80, 120, 150][Math.min(ratio, 4)];
-			this.debug(`${bp} bp`);
+			this.debug('BP: ' + bp);
 			return bp;
 		},
 		category: "Special",
@@ -4430,7 +4441,9 @@ export const Moves: {[moveid: string]: MoveData} = {
 		accuracy: 100,
 		basePower: 150,
 		basePowerCallback(pokemon, target, move) {
-			return move.basePower * pokemon.hp / pokemon.maxhp;
+			const bp = move.basePower * pokemon.hp / pokemon.maxhp;
+			this.debug('BP: ' + bp);
+			return bp;
 		},
 		category: "Special",
 		name: "Eruption",
@@ -5021,23 +5034,23 @@ export const Moves: {[moveid: string]: MoveData} = {
 		accuracy: 100,
 		basePower: 0,
 		basePowerCallback(pokemon, target) {
-			const ratio = pokemon.hp * 48 / pokemon.maxhp;
+			const ratio = Math.max(Math.floor(pokemon.hp * 48 / pokemon.maxhp), 1);
+			let bp;
 			if (ratio < 2) {
-				return 200;
+				bp = 200;
+			} else if (ratio < 5) {
+				bp = 150;
+			} else if (ratio < 10) {
+				bp = 100;
+			} else if (ratio < 17) {
+				bp = 80;
+			} else if (ratio < 33) {
+				bp = 40;
+			} else {
+				bp = 20;
 			}
-			if (ratio < 5) {
-				return 150;
-			}
-			if (ratio < 10) {
-				return 100;
-			}
-			if (ratio < 17) {
-				return 80;
-			}
-			if (ratio < 33) {
-				return 40;
-			}
-			return 20;
+			this.debug('BP: ' + bp);
+			return bp;
 		},
 		category: "Physical",
 		name: "Flail",
@@ -5240,6 +5253,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 			if (!this.singleEvent('TakeItem', item, source.itemState, source, source, move, item)) return false;
 			if (!item.fling) return false;
 			move.basePower = item.fling.basePower;
+			this.debug('BP: ' + move.basePower);
 			if (item.isBerry) {
 				move.onHit = function (foe) {
 					if (this.singleEvent('Eat', item, null, foe, null, null)) {
@@ -5809,7 +5823,9 @@ export const Moves: {[moveid: string]: MoveData} = {
 			if (!pokemon.volatiles['furycutter'] || move.hit === 1) {
 				pokemon.addVolatile('furycutter');
 			}
-			return this.clampIntRange(move.basePower * pokemon.volatiles['furycutter'].multiplier, 1, 160);
+			const bp = this.clampIntRange(move.basePower * pokemon.volatiles['furycutter'].multiplier, 1, 160);
+			this.debug('BP: ' + bp);
+			return bp;
 		},
 		category: "Physical",
 		name: "Fury Cutter",
@@ -7041,28 +7057,22 @@ export const Moves: {[moveid: string]: MoveData} = {
 		basePower: 0,
 		basePowerCallback(pokemon, target) {
 			const targetWeight = target.getWeight();
+			let bp;
 			if (targetWeight >= 2000) {
-				this.debug('120 bp');
-				return 120;
+				bp = 120;
+			} else if (targetWeight >= 1000) {
+				bp = 100;
+			} else if (targetWeight >= 500) {
+				bp = 80;
+			} else if (targetWeight >= 250) {
+				bp = 60;
+			} else if (targetWeight >= 100) {
+				bp = 40;
+			} else {
+				bp = 20;
 			}
-			if (targetWeight >= 1000) {
-				this.debug('100 bp');
-				return 100;
-			}
-			if (targetWeight >= 500) {
-				this.debug('80 bp');
-				return 80;
-			}
-			if (targetWeight >= 250) {
-				this.debug('60 bp');
-				return 60;
-			}
-			if (targetWeight >= 100) {
-				this.debug('40 bp');
-				return 40;
-			}
-			this.debug('20 bp');
-			return 20;
+			this.debug('BP: ' + bp);
+			return bp;
 		},
 		category: "Special",
 		name: "Grass Knot",
@@ -7565,7 +7575,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 			let power = Math.floor(25 * target.getStat('spe') / pokemon.getStat('spe')) + 1;
 			if (!isFinite(power)) power = 1;
 			if (power > 150) power = 150;
-			this.debug(`${power} bp`);
+			this.debug('BP: ' + power);
 			return power;
 		},
 		category: "Physical",
@@ -7945,19 +7955,20 @@ export const Moves: {[moveid: string]: MoveData} = {
 		basePowerCallback(pokemon, target) {
 			const targetWeight = target.getWeight();
 			const pokemonWeight = pokemon.getWeight();
+			let bp;
 			if (pokemonWeight >= targetWeight * 5) {
-				return 120;
+				bp = 120;
+			} else if (pokemonWeight >= targetWeight * 4) {
+				bp = 100;
+			} else if (pokemonWeight >= targetWeight * 3) {
+				bp = 80;
+			} else if (pokemonWeight >= targetWeight * 2) {
+				bp = 60;
+			} else {
+				bp = 40;
 			}
-			if (pokemonWeight >= targetWeight * 4) {
-				return 100;
-			}
-			if (pokemonWeight >= targetWeight * 3) {
-				return 80;
-			}
-			if (pokemonWeight >= targetWeight * 2) {
-				return 60;
-			}
-			return 40;
+			this.debug('BP: ' + bp);
+			return bp;
 		},
 		category: "Physical",
 		name: "Heat Crash",
@@ -8002,19 +8013,20 @@ export const Moves: {[moveid: string]: MoveData} = {
 		basePowerCallback(pokemon, target) {
 			const targetWeight = target.getWeight();
 			const pokemonWeight = pokemon.getWeight();
+			let bp;
 			if (pokemonWeight >= targetWeight * 5) {
-				return 120;
+				bp = 120;
+			} else if (pokemonWeight >= targetWeight * 4) {
+				bp = 100;
+			} else if (pokemonWeight >= targetWeight * 3) {
+				bp = 80;
+			} else if (pokemonWeight >= targetWeight * 2) {
+				bp = 60;
+			} else {
+				bp = 40;
 			}
-			if (pokemonWeight >= targetWeight * 4) {
-				return 100;
-			}
-			if (pokemonWeight >= targetWeight * 3) {
-				return 80;
-			}
-			if (pokemonWeight >= targetWeight * 2) {
-				return 60;
-			}
-			return 40;
+			this.debug('BP: ' + bp);
+			return bp;
 		},
 		category: "Physical",
 		name: "Heavy Slam",
@@ -8075,7 +8087,10 @@ export const Moves: {[moveid: string]: MoveData} = {
 		accuracy: 100,
 		basePower: 65,
 		basePowerCallback(pokemon, target, move) {
-			if (target.status || target.hasAbility('comatose')) return move.basePower * 2;
+			if (target.status || target.hasAbility('comatose')) {
+				this.debug('BP doubled from status condition');
+				return move.basePower * 2;
+			}
 			return move.basePower;
 		},
 		category: "Special",
@@ -8709,14 +8724,20 @@ export const Moves: {[moveid: string]: MoveData} = {
 		basePower: 30,
 		basePowerCallback(pokemon, target, move) {
 			let bp = move.basePower;
-			if (pokemon.volatiles['iceball'] && pokemon.volatiles['iceball'].hitCount) {
-				bp *= Math.pow(2, pokemon.volatiles['iceball'].hitCount);
+			const iceballData = pokemon.volatiles['iceball'];
+			if (iceballData?.hitCount) {
+				bp *= Math.pow(2, iceballData.hitCount);
 			}
-			if (pokemon.status !== 'slp') pokemon.addVolatile('iceball');
+			if (iceballData && pokemon.status !== 'slp') {
+				iceballData.hitCount++;
+				if (iceballData.hitCount < 5) {
+					iceballData.duration = 2;
+				}
+			}
 			if (pokemon.volatiles['defensecurl']) {
 				bp *= 2;
 			}
-			this.debug("Ice Ball bp: " + bp);
+			this.debug("BP: " + bp);
 			return bp;
 		},
 		category: "Physical",
@@ -8725,17 +8746,19 @@ export const Moves: {[moveid: string]: MoveData} = {
 		pp: 20,
 		priority: 0,
 		flags: {bullet: 1, contact: 1, protect: 1, mirror: 1},
+		onModifyMove(move, pokemon, target) {
+			if (pokemon.volatiles['iceball'] || pokemon.status === 'slp' || !target) return;
+			pokemon.addVolatile('iceball');
+			// @ts-ignore
+			// TS thinks pokemon.volatiles['iceball'] doesn't exist because of the condition on the return above
+			// but it does exist now because addVolatile created it
+			pokemon.volatiles['iceball'].targetSlot = move.sourceEffect ? pokemon.lastMoveTargetLoc : pokemon.getLocOf(target);
+		},
 		condition: {
-			duration: 2,
+			duration: 1,
 			onLockMove: 'iceball',
 			onStart() {
-				this.effectState.hitCount = 1;
-			},
-			onRestart() {
-				this.effectState.hitCount++;
-				if (this.effectState.hitCount < 5) {
-					this.effectState.duration = 2;
-				}
+				this.effectState.hitCount = 0;
 			},
 			onResidual(target) {
 				if (target.lastMove && target.lastMove.id === 'struggle') {
@@ -9825,22 +9848,22 @@ export const Moves: {[moveid: string]: MoveData} = {
 		basePower: 0,
 		basePowerCallback(pokemon, target) {
 			const targetWeight = target.getWeight();
+			let bp;
 			if (targetWeight >= 2000) {
-				return 120;
+				bp = 120;
+			} else if (targetWeight >= 1000) {
+				bp = 100;
+			} else if (targetWeight >= 500) {
+				bp = 80;
+			} else if (targetWeight >= 250) {
+				bp = 60;
+			} else if (targetWeight >= 100) {
+				bp = 40;
+			} else {
+				bp = 20;
 			}
-			if (targetWeight >= 1000) {
-				return 100;
-			}
-			if (targetWeight >= 500) {
-				return 80;
-			}
-			if (targetWeight >= 250) {
-				return 60;
-			}
-			if (targetWeight >= 100) {
-				return 40;
-			}
-			return 20;
+			this.debug('BP: ' + bp);
+			return bp;
 		},
 		category: "Physical",
 		name: "Low Kick",
@@ -11151,9 +11174,10 @@ export const Moves: {[moveid: string]: MoveData} = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		mindBlownRecoil: true,
-		onAfterMove(pokemon, target, move) {
-			if (move.mindBlownRecoil && !move.multihit) {
-				this.damage(Math.round(pokemon.maxhp / 2), pokemon, pokemon, this.dex.conditions.get('Mind Blown'), true);
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			const maxhp = pokemon.getUndynamaxedHP(pokemon.maxhp);
+			if (pokemon.hp && pokemon.ability === "emergencyexit" && pokemon.getUndynamaxedHP() <= maxhp / 2) {
+				this.runEvent('EmergencyExit', pokemon);
 			}
 		},
 		secondary: null,
@@ -11782,6 +11806,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 			const item = pokemon.getItem();
 			if (!item.naturalGift) return false;
 			move.basePower = item.naturalGift.basePower;
+			this.debug('BP: ' + move.basePower);
 			pokemon.setItem('');
 			pokemon.lastItem = item.id;
 			pokemon.usedItemThisTurn = true;
@@ -12546,7 +12571,9 @@ export const Moves: {[moveid: string]: MoveData} = {
 		accuracy: true,
 		basePower: 0,
 		basePowerCallback(pokemon) {
-			return Math.floor((pokemon.happiness * 10) / 25) || 1;
+			const bp = Math.floor((pokemon.happiness * 10) / 25) || 1;
+			this.debug('BP: ' + bp);
+			return bp;
 		},
 		category: "Special",
 		isNonstandard: "LGPE",
@@ -12978,7 +13005,9 @@ export const Moves: {[moveid: string]: MoveData} = {
 		accuracy: 100,
 		basePower: 20,
 		basePowerCallback(pokemon, target, move) {
-			return move.basePower + 20 * pokemon.positiveBoosts();
+			const bp = move.basePower + 20 * pokemon.positiveBoosts();
+			this.debug('BP: ' + bp);
+			return bp;
 		},
 		category: "Physical",
 		name: "Power Trip",
@@ -13411,6 +13440,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		basePowerCallback(pokemon, target) {
 			let power = 60 + 20 * target.positiveBoosts();
 			if (power > 200) power = 200;
+			this.debug('BP: ' + power);
 			return power;
 		},
 		category: "Physical",
@@ -13436,7 +13466,11 @@ export const Moves: {[moveid: string]: MoveData} = {
 		priority: 0,
 		flags: {protect: 1, reflectable: 1, heal: 1},
 		onHit(target, source) {
-			if (!target.cureStatus()) return this.NOT_FAIL;
+			if (!target.cureStatus()) {
+				this.add('-fail', source);
+				this.attrLastMove('[still]');
+				return this.NOT_FAIL;
+			}
 			this.heal(Math.ceil(source.maxhp * 0.5), source);
 		},
 		secondary: null,
@@ -14090,7 +14124,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 				p => p.source === target && p.damage > 0 && p.thisTurn
 			);
 			if (damagedByTarget) {
-				this.debug('Boosted for getting hit by ' + target);
+				this.debug('BP doubled for getting hit by ' + target);
 				return move.basePower * 2;
 			}
 			return move.basePower;
@@ -14110,23 +14144,23 @@ export const Moves: {[moveid: string]: MoveData} = {
 		accuracy: 100,
 		basePower: 0,
 		basePowerCallback(pokemon, target) {
-			const ratio = pokemon.hp * 48 / pokemon.maxhp;
+			const ratio = Math.max(Math.floor(pokemon.hp * 48 / pokemon.maxhp), 1);
+			let bp;
 			if (ratio < 2) {
-				return 200;
+				bp = 200;
+			} else if (ratio < 5) {
+				bp = 150;
+			} else if (ratio < 10) {
+				bp = 100;
+			} else if (ratio < 17) {
+				bp = 80;
+			} else if (ratio < 33) {
+				bp = 40;
+			} else {
+				bp = 20;
 			}
-			if (ratio < 5) {
-				return 150;
-			}
-			if (ratio < 10) {
-				return 100;
-			}
-			if (ratio < 17) {
-				return 80;
-			}
-			if (ratio < 33) {
-				return 40;
-			}
-			return 20;
+			this.debug('BP: ' + bp);
+			return bp;
 		},
 		category: "Physical",
 		name: "Reversal",
@@ -14392,14 +14426,20 @@ export const Moves: {[moveid: string]: MoveData} = {
 		basePower: 30,
 		basePowerCallback(pokemon, target, move) {
 			let bp = move.basePower;
-			if (pokemon.volatiles['rollout'] && pokemon.volatiles['rollout'].hitCount) {
-				bp *= Math.pow(2, pokemon.volatiles['rollout'].hitCount);
+			const rolloutData = pokemon.volatiles['rollout'];
+			if (rolloutData?.hitCount) {
+				bp *= Math.pow(2, rolloutData.hitCount);
 			}
-			if (pokemon.status !== 'slp') pokemon.addVolatile('rollout');
+			if (rolloutData && pokemon.status !== 'slp') {
+				rolloutData.hitCount++;
+				if (rolloutData.hitCount < 5) {
+					rolloutData.duration = 2;
+				}
+			}
 			if (pokemon.volatiles['defensecurl']) {
 				bp *= 2;
 			}
-			this.debug("Rollout bp: " + bp);
+			this.debug("BP: " + bp);
 			return bp;
 		},
 		category: "Physical",
@@ -14407,17 +14447,19 @@ export const Moves: {[moveid: string]: MoveData} = {
 		pp: 20,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},
+		onModifyMove(move, pokemon, target) {
+			if (pokemon.volatiles['rollout'] || pokemon.status === 'slp' || !target) return;
+			pokemon.addVolatile('rollout');
+			// @ts-ignore
+			// TS thinks pokemon.volatiles['rollout'] doesn't exist because of the condition on the return above
+			// but it does exist now because addVolatile created it
+			pokemon.volatiles['rollout'].targetSlot = move.sourceEffect ? pokemon.lastMoveTargetLoc : pokemon.getLocOf(target);
+		},
 		condition: {
-			duration: 2,
+			duration: 1,
 			onLockMove: 'rollout',
 			onStart() {
-				this.effectState.hitCount = 1;
-			},
-			onRestart() {
-				this.effectState.hitCount++;
-				if (this.effectState.hitCount < 5) {
-					this.effectState.duration = 2;
-				}
+				this.effectState.hitCount = 0;
 			},
 			onResidual(target) {
 				if (target.lastMove && target.lastMove.id === 'struggle') {
@@ -14503,6 +14545,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		basePower: 60,
 		basePowerCallback(target, source, move) {
 			if (move.sourceEffect === 'round') {
+				this.debug('BP doubled');
 				return move.basePower * 2;
 			}
 			return move.basePower;
@@ -15683,6 +15726,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 					return;
 				}
 				if (move.id === 'gust' || move.id === 'twister') {
+					this.debug('BP doubled on midair target');
 					return this.chainModify(2);
 				}
 			},
@@ -15930,7 +15974,10 @@ export const Moves: {[moveid: string]: MoveData} = {
 		accuracy: 100,
 		basePower: 70,
 		basePowerCallback(pokemon, target, move) {
-			if (target.status === 'par') return move.basePower * 2;
+			if (target.status === 'par') {
+				this.debug('BP doubled on paralyzed target');
+				return move.basePower * 2;
+			}
 			return move.basePower;
 		},
 		category: "Physical",
@@ -16750,9 +16797,10 @@ export const Moves: {[moveid: string]: MoveData} = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		mindBlownRecoil: true,
-		onAfterMove(pokemon, target, move) {
-			if (move.mindBlownRecoil && !move.multihit) {
-				this.damage(Math.round(pokemon.maxhp / 2), pokemon, pokemon, this.dex.conditions.get('Steel Beam'), true);
+		onAfterMoveSecondarySelf(pokemon, target, move) {
+			const maxhp = pokemon.getUndynamaxedHP(pokemon.maxhp);
+			if (pokemon.hp && pokemon.ability === "emergencyexit" && pokemon.getUndynamaxedHP() <= maxhp / 2) {
+				this.runEvent('EmergencyExit', pokemon);
 			}
 		},
 		secondary: null,
@@ -16960,7 +17008,9 @@ export const Moves: {[moveid: string]: MoveData} = {
 		accuracy: 100,
 		basePower: 20,
 		basePowerCallback(pokemon, target, move) {
-			return move.basePower + 20 * pokemon.positiveBoosts();
+			const bp = move.basePower + 20 * pokemon.positiveBoosts();
+			this.debug('BP: ' + bp);
+			return bp;
 		},
 		category: "Special",
 		name: "Stored Power",
@@ -18003,6 +18053,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		onModifyMove(move, pokemon) {
 			if (this.field.terrain && pokemon.isGrounded()) {
 				move.basePower *= 2;
+				this.debug('BP doubled in Terrain');
 			}
 		},
 		secondary: null,
@@ -18688,19 +18739,31 @@ export const Moves: {[moveid: string]: MoveData} = {
 		basePowerCallback(source, target, move) {
 			const callerMoveId = move.sourceEffect || move.id;
 			const moveSlot = callerMoveId === 'instruct' ? source.getMoveData(move.id) : source.getMoveData(callerMoveId);
-			if (!moveSlot) return 40;
-			switch (moveSlot.pp) {
-			case 0:
-				return 200;
-			case 1:
-				return 80;
-			case 2:
-				return 60;
-			case 3:
-				return 50;
-			default:
-				return 40;
+			let bp;
+			if (!moveSlot) {
+				bp = 40;
+			} else {
+				switch (moveSlot.pp) {
+				case 0:
+					bp = 200;
+					break;
+				case 1:
+					bp = 80;
+					break;
+				case 2:
+					bp = 60;
+					break;
+				case 3:
+					bp = 50;
+					break;
+				default:
+					bp = 40;
+					break;
+				}
 			}
+
+			this.debug('BP: ' + bp);
+			return bp;
 		},
 		category: "Special",
 		isNonstandard: "Past",
@@ -18884,7 +18947,9 @@ export const Moves: {[moveid: string]: MoveData} = {
 		accuracy: true,
 		basePower: 0,
 		basePowerCallback(pokemon) {
-			return Math.floor((pokemon.happiness * 10) / 25) || 1;
+			const bp = Math.floor((pokemon.happiness * 10) / 25) || 1;
+			this.debug('BP: ' + bp);
+			return bp;
 		},
 		category: "Physical",
 		isNonstandard: "LGPE",
@@ -19017,7 +19082,10 @@ export const Moves: {[moveid: string]: MoveData} = {
 		accuracy: 100,
 		basePower: 70,
 		basePowerCallback(pokemon, target, move) {
-			if (target.status === 'slp' || target.hasAbility('comatose')) return move.basePower * 2;
+			if (target.status === 'slp' || target.hasAbility('comatose')) {
+				this.debug('BP doubled on sleeping target');
+				return move.basePower * 2;
+			}
 			return move.basePower;
 		},
 		category: "Physical",
@@ -19216,7 +19284,9 @@ export const Moves: {[moveid: string]: MoveData} = {
 		accuracy: 100,
 		basePower: 150,
 		basePowerCallback(pokemon, target, move) {
-			return move.basePower * pokemon.hp / pokemon.maxhp;
+			const bp = move.basePower * pokemon.hp / pokemon.maxhp;
+			this.debug('BP: ' + bp);
+			return bp;
 		},
 		category: "Special",
 		name: "Water Spout",
@@ -19272,6 +19342,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 				move.basePower *= 2;
 				break;
 			}
+			this.debug('BP: ' + move.basePower);
 		},
 		secondary: null,
 		target: "normal",
@@ -19605,8 +19676,12 @@ export const Moves: {[moveid: string]: MoveData} = {
 		num: 378,
 		accuracy: 100,
 		basePower: 0,
-		basePowerCallback(pokemon, target) {
-			return Math.floor(Math.floor((120 * (100 * Math.floor(target.hp * 4096 / target.maxhp)) + 2048 - 1) / 4096) / 100) || 1;
+		basePowerCallback(pokemon, target, move) {
+			const hp = target.hp;
+			const maxHP = target.maxhp;
+			const bp = Math.floor(Math.floor((120 * (100 * Math.floor(hp * 4096 / maxHP)) + 2048 - 1) / 4096) / 100) || 1;
+			this.debug('BP for ' + hp + '/' + maxHP + " HP: " + bp);
+			return bp;
 		},
 		category: "Special",
 		isNonstandard: "Past",

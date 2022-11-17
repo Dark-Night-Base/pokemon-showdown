@@ -601,12 +601,13 @@ export const commands: Chat.ChatCommands = {
 					if (room.battle.format.includes('doubles') || room.battle.format.includes('vgc')) {
 						tierDisplay = 'doubles tiers';
 					} else if (room.battle.format.includes('nationaldex')) {
-						tierDisplay = 'numbers';
+						tierDisplay = 'National Dex tiers';
 					}
 				}
 				if (!tierDisplay) tierDisplay = 'tiers';
 				const displayedTier = tierDisplay === 'tiers' ? pokemon.tier :
 					tierDisplay === 'doubles tiers' ? pokemon.doublesTier :
+					tierDisplay === 'National Dex tiers' ? pokemon.natDexTier :
 					pokemon.num >= 0 ? String(pokemon.num) : pokemon.tier;
 				buffer += `|raw|${Chat.getDataPokemonHTML(pokemon, dex.gen, displayedTier)}\n`;
 				if (showDetails) {
@@ -1544,7 +1545,7 @@ export const commands: Chat.ChatCommands = {
 			`+ <strong>Voice</strong> - They can use ! commands like !groups`,
 			`% <strong>Driver</strong> - The above, and they can mute and warn`,
 			`@ <strong>Moderator</strong> - The above, and they can room ban users`,
-			`* <strong>Bot</strong> - Like Moderator, but makes it clear that this user is a bot`,
+			`* <strong>Bot</strong> - An automated account that can mute, warn, and use HTML`,
 			`# <strong>Room Owner</strong> - They are leaders of the room and can almost totally control it`,
 		];
 
@@ -1554,7 +1555,7 @@ export const commands: Chat.ChatCommands = {
 			`§ <strong>Section Leader</strong> - They oversee rooms in a particular section`,
 			`% <strong>Global Driver</strong> - Like Voice, and they can lock users and check for alts`,
 			`@ <strong>Global Moderator</strong> - The above, and they can globally ban users`,
-			`* <strong>Global Bot</strong> - Like Moderator, but makes it clear that this user is a bot`,
+			`* <strong>Global Bot</strong> - An automated account that can use HTML anywhere`,
 			`&amp; <strong>Global Administrator</strong> - They can do anything, like change what this message says and promote users globally`,
 		];
 
@@ -1736,7 +1737,7 @@ export const commands: Chat.ChatCommands = {
 	randbatscalc: 'calc',
 	rcalc: 'calc',
 	calc(target, room, user, connection, cmd) {
-		if (cmd === 'calc' && target) return this.parse(`/math ${target}`);
+		if (cmd === 'calc' && target) return this.run('calculate');
 		if (!this.runBroadcast()) return;
 		const DEFAULT_CALC_COMMANDS = ['honkalculator', 'honkocalc'];
 		const RANDOMS_CALC_COMMANDS = ['randomscalc', 'randbatscalc', 'rcalc'];
@@ -2070,6 +2071,12 @@ export const commands: Chat.ChatCommands = {
 		}
 		if (showAll || ['vpn', 'proxy'].includes(target)) {
 			buffer.push(`<a href="https://pokemonshowdown.com/${this.tr`pages/proxyhelp`}">${this.tr`Proxy lock help`}</a>`);
+		}
+		if (showAll || ['ca', 'customavatar', 'customavatars'].includes(target)) {
+			buffer.push(this.tr`Custom avatars are given to Global Staff members, contributors (coders and spriters) to Pokemon Showdown, and Smogon badgeholders at the discretion of Zarel. They are also sometimes given out as prizes for major room events or Smogon tournaments.`);
+		}
+		if (showAll || ['privacy', 'private'].includes(target)) {
+			buffer.push(`<a href="https://pokemonshowdown.com/${this.tr`pages/privacy`}">${this.tr`Pokémon Showdown privacy policy`}</a>`);
 		}
 		if (!buffer.length && target) {
 			this.errorReply(`'${target}' is an invalid FAQ.`);
@@ -2590,6 +2597,11 @@ export const commands: Chat.ChatCommands = {
 		room.sendMods(`|uhtmlchange|request-${target}|`);
 		room.sendRankedUsers(`|tempnotifyoff|pendingapprovals`, '%');
 		this.privateModAction(`${user.name} denied ${target}'s request to display ${entry.link}.`);
+
+		const targetUser = Users.get(target);
+		if (!targetUser) return;
+		room.sendUser(targetUser, `|raw|<div class="broadcast-red">Your media request was denied.</div>`);
+		room.sendUser(targetUser, `|notify|Media request denied`);
 	},
 	denyshowhelp: [`/denyshow [user] - Denies the media display request of [user]. Requires: % @ # &`],
 

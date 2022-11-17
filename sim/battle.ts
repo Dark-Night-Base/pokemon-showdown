@@ -385,7 +385,7 @@ export class Battle {
 	}
 
 	/** Sort a list, resolving speed ties the way the games do. */
-	speedSort<T>(list: T[], comparator: (a: T, b: T) => number = this.comparePriority) {
+	speedSort<T extends AnyObject>(list: T[], comparator: (a: T, b: T) => number = this.comparePriority) {
 		if (list.length < 2) return;
 		let sorted = 0;
 		// This is a Selection Sort - not the fastest sort in general, but
@@ -1816,8 +1816,8 @@ export class Battle {
 					break;
 				}
 				this.runEvent('AfterEachBoost', target, source, effect, currentBoost);
-			} else if (effect && effect.effectType === 'Ability') {
-				if (isSecondary) this.add(msg, target, boostName, boostBy);
+			} else if (effect?.effectType === 'Ability') {
+				if (isSecondary || isSelf) this.add(msg, target, boostName, boostBy);
 			} else if (!isSecondary && !isSelf) {
 				this.add(msg, target, boostName, boostBy);
 			}
@@ -2234,13 +2234,15 @@ export class Battle {
 		// when used without an explicit target.
 
 		move = this.dex.moves.get(move);
-		if (move.target === 'adjacentAlly') {
+		if (['self', 'all', 'allySide', 'allyTeam', 'adjacentAllyOrSelf'].includes(move.target)) {
+			return pokemon;
+		} else if (move.target === 'adjacentAlly') {
+			if (this.gameType === 'singles') return null;
 			const adjacentAllies = pokemon.adjacentAllies();
 			return adjacentAllies.length ? this.sample(adjacentAllies) : null;
 		}
-		if (['self', 'all', 'allySide', 'allyTeam', 'adjacentAllyOrSelf'].includes(move.target)) {
-			return pokemon;
-		}
+		if (this.gameType === 'singles') return pokemon.side.foe.active[0];
+
 		if (this.activePerHalf > 2) {
 			if (move.target === 'adjacentFoe' || move.target === 'normal' || move.target === 'randomNormal') {
 				// even if a move can target an ally, auto-resolution will never make it target an ally

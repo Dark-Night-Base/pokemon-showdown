@@ -10,6 +10,7 @@
 
 import {ProcessManager, Utils} from '../../lib';
 import {TeamValidator} from '../../sim/team-validator';
+import {Chat} from '../chat';
 
 interface DexOrGroup {
 	abilities: {[k: string]: boolean};
@@ -928,7 +929,7 @@ function runDexsearch(target: string, cmd: string, canAll: boolean, message: str
 				(
 					nationalSearch &&
 					species.isNonstandard &&
-					!["Custom", "Glitch", "Pokestar"].includes(species.isNonstandard)
+					!["Custom", "Glitch", "Pokestar", "Future"].includes(species.isNonstandard)
 				) ||
 				(species.tier !== 'Unreleased' && species.tier !== 'Illegal')
 			) &&
@@ -971,6 +972,7 @@ function runDexsearch(target: string, cmd: string, canAll: boolean, message: str
 
 			if (alts.tiers && Object.keys(alts.tiers).length) {
 				let tier = dex[mon].tier;
+				if (nationalSearch) tier = dex[mon].natDexTier;
 				if (tier.startsWith('(') && tier !== '(PU)') tier = tier.slice(1, -1) as TierTypes.Singles;
 				// if (tier === 'New') tier = 'OU';
 				if (alts.tiers[tier]) continue;
@@ -1616,13 +1618,28 @@ function runMovesearch(target: string, cmd: string, canAll: boolean, message: st
 			usedSpecies = Utils.deepClone(mod.species.get(usedSpecies.baseSpecies));
 			usedSpeciesLearnset = Utils.deepClone(mod.species.getLearnset(usedSpecies.id) || {});
 		}
-		const lsetData = new Set(Object.keys(usedSpeciesLearnset));
+		const lsetData = new Set<string>();
+		for (const move in usedSpeciesLearnset) {
+			const learnset = mod.species.getLearnset(usedSpecies.id);
+			if (!learnset) break;
+			const sources = learnset[move];
+			for (const learned of sources) {
+				const sourceGen = parseInt(learned.charAt(0));
+				if (sourceGen <= mod.gen) lsetData.add(move);
+			}
+		}
 
 		while (usedSpecies.prevo) {
 			usedSpecies = Utils.deepClone(mod.species.get(usedSpecies.prevo));
 			usedSpeciesLearnset = Utils.deepClone(mod.species.getLearnset(usedSpecies.id));
 			for (const move in usedSpeciesLearnset) {
-				lsetData.add(move);
+				const learnset = mod.species.getLearnset(usedSpecies.id);
+				if (!learnset) break;
+				const sources = learnset[move];
+				for (const learned of sources) {
+					const sourceGen = parseInt(learned.charAt(0));
+					if (sourceGen <= mod.gen) lsetData.add(move);
+				}
 			}
 		}
 
@@ -1805,8 +1822,13 @@ function runMovesearch(target: string, cmd: string, canAll: boolean, message: st
 						matched = true;
 						break;
 					}
-				} else if (move.secondary && move.secondary.self && move.secondary.self.boosts) {
+				} else if (move.secondary?.self?.boosts) {
 					if ((move.secondary.self.boosts[boost as BoostID]! > 0) === alts.boost[boost]) {
+						matched = true;
+						break;
+					}
+				} else if (move.selfBoost?.boosts) {
+					if ((move.selfBoost.boosts[boost as BoostID]! > 0) === alts.boost[boost]) {
 						matched = true;
 						break;
 					}
@@ -1814,22 +1836,20 @@ function runMovesearch(target: string, cmd: string, canAll: boolean, message: st
 			}
 			if (matched) continue;
 			for (const lower in alts.lower) {
-				if (move.boosts && move.boosts !== false) {
+				if (move.boosts) {
 					if ((move.boosts[lower as BoostID]! < 0) === alts.lower[lower]) {
 						matched = true;
 						break;
 					}
-				} else if (move.secondary) {
-					if (move.secondary.boosts) {
-						if ((move.secondary.boosts[lower as BoostID]! < 0) === alts.lower[lower]) {
-							matched = true;
-							break;
-						}
-					} else if (move.secondary.self && move.secondary.self.boosts) {
-						if ((move.secondary.self.boosts[lower as BoostID]! < 0) === alts.lower[lower]) {
-							matched = true;
-							break;
-						}
+				} else if (move.secondary?.boosts) {
+					if ((move.secondary.boosts[lower as BoostID]! < 0) === alts.lower[lower]) {
+						matched = true;
+						break;
+					}
+				} else if (move.self?.boosts) {
+					if ((move.self.boosts[lower as BoostID]! < 0) === alts.lower[lower]) {
+						matched = true;
+						break;
 					}
 				}
 			}
@@ -2288,10 +2308,7 @@ function runAbilitysearch(target: string, cmd: string, canAll: boolean, message:
 		// add more general quantifier words to descriptions
 		if (/[1-9.]+x/.test(descWords)) descWords += ' increases';
 		descWords = descWords.replace(/super[-\s]effective/g, 'supereffective');
-		const descWordsArray = descWords.toLowerCase()
-			.replace('-', ' ')
-			.replace(/[^a-z0-9\s/]/g, '')
-			.replace(/(\D)\./, (p0, p1) => p1).split(' ');
+		const descWordsArray = Chat.normalize(descWords).split(' ');
 
 		for (const word of searchedWords) {
 			switch (word) {
@@ -2581,6 +2598,8 @@ if (!PM.isParentProcess) {
 }
 
 export const testables = {
+	runAbilitysearch: (target: string, cmd: string, canAll: boolean, message: string) =>
+		runAbilitysearch(target, cmd, canAll, message),
 	runDexsearch: (target: string, cmd: string, canAll: boolean, message: string) =>
 		runDexsearch(target, cmd, canAll, message, true),
 	runMovesearch: (target: string, cmd: string, canAll: boolean, message: string) =>
