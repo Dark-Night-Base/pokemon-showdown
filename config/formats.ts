@@ -17,11 +17,6 @@ New sections will be added to the bottom of the specified column.
 The column value will be ignored for repeat sections.
 */
 
-import { Scripts } from '../data/mods/mixandmegabh/scripts';
-import { Pokedex } from '../data/pokedex';
-import {Utils} from '../lib';
-import { CommandContext } from '../server/chat';
-import { statusfilter } from '../server/chat-plugins/chat-monitor';
 import { Species } from '../sim/dex-species';
 
 export const Formats: FormatList = [
