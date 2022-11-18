@@ -17,10 +17,9 @@ import {BattleStream} from "../sim/battle-stream";
 import * as RoomGames from "./room-game";
 import type {Tournament} from './tournaments/index';
 import {RoomSettings} from './rooms';
-import { parse } from '@swc/core';
 
 type ChannelIndex = 0 | 1 | 2 | 3 | 4;
-type PlayerIndex = 1 | 2 | 3 | 4;
+export type PlayerIndex = 1 | 2 | 3 | 4;
 export type ChallengeType = 'rated' | 'unrated' | 'challenge' | 'tour';
 
 interface BattleRequestTracker {
