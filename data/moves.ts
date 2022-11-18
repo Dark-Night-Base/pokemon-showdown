@@ -10179,7 +10179,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		accuracy: 100,
 		basePower: 50,
 		basePowerCallback(pokemon, target, move) {
-			return 50 + 50 * pokemon.side.pokemon.map(ally => ally.fainted).length;
+			return 50 + 50 * pokemon.side.pokemon.filter(ally => ally.fainted).length;
 		},
 		category: "Physical",
 		name: "Last Respects",
@@ -15578,6 +15578,10 @@ export const Moves: {[moveid: string]: MoveData} = {
 		},
 		onAfterMove(source, target, move) {
 			const rolloutData = source.volatiles["rollout"];
+			if (!rolloutData) {
+				// User fainted from something like Destiny Bond when using rollout
+				return;
+			}
 			if (
 				rolloutData.hitCount === 5 &&
 				rolloutData.contactHitCount < 5

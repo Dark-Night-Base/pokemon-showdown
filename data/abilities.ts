@@ -556,7 +556,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 	commander: {
 		onUpdate(pokemon) {
 			const ally = pokemon.allies()[0];
-			if (!ally || pokemon.species.id !== 'tatsugiri' || ally.species.id !== 'dondozo') {
+			if (!ally || pokemon.species.baseSpecies !== 'Tatsugiri' || ally.species.id !== 'dondozo') {
 				// Handle any edge cases
 				if (pokemon.getVolatile('commanding')) pokemon.removeVolatile('commanding');
 				return;
@@ -4280,6 +4280,9 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			this.debug(`Supreme Overlord spa boost for ${faintedAllies} defeated allies.`);
 			// Placeholder 1.1 -> 1.5
 			return this.chainModify(1 + (0.1 * faintedAllies));
+		},
+		onAllyFaint() {
+			this.add('-activate', this.effectState.target, 'ability: Supreme Overlord');
 		},
 		name: "Supreme Overlord",
 		rating: 2.5,
