@@ -563,13 +563,13 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			}
 
 			if (!pokemon.getVolatile('commanding')) {
-				// If Dodonzo already was commanded this fails
+				// If Dondozo already was commanded this fails
 				if (ally.getVolatile('commanded')) return;
 				// Cancel all actions this turn for pokemon if applicable
 				this.queue.cancelAction(pokemon);
 				// Add volatiles to both pokemon
 				pokemon.addVolatile('commanding');
-				ally.addVolatile('commanded');
+				ally.addVolatile('commanded', pokemon);
 				// Continued in conditions.ts in the volatiles
 			} else {
 				if (!ally.fainted) return;
@@ -2720,8 +2720,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 	},
 	opportunist: {
 		onFoeAfterBoost(boost, target, source, effect) {
-			// Prevent an infinite loop of oppritunist boosts
-			if (effect?.id === 'opportunist') return;
+			if (effect?.effectType !== 'Move') return;
 			const pokemon = this.effectState.target;
 			const positiveBoosts: Partial<BoostsTable> = {};
 			let i: BoostID;
@@ -3168,6 +3167,9 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 				pokemon.volatiles['protosynthesis'].fromBooster = true;
 			}
 		},
+		onEnd(pokemon) {
+			pokemon.removeVolatile('protosynthesis');
+		},
 		condition: {
 			noCopy: true,
 			onStart(pokemon) {
@@ -3286,6 +3288,9 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 				// @ts-ignore - addVolatile makes this exist but TS can't tell that
 				pokemon.volatiles['quarkdrive'].fromBooster = true;
 			}
+		},
+		onEnd(pokemon) {
+			pokemon.removeVolatile('quarkdrive');
 		},
 		condition: {
 			noCopy: true,

@@ -96,7 +96,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 				if (this.ruleTable.has(`+pokemon:${species.id}`)) return;
 				return [`${set.name || set.species} does not exist in the National Dex.`];
 			}
-			if (species.tier === "Unreleased") {
+			if (species.natDexTier === "Unreleased") {
 				const basePokemon = this.toID(species.baseSpecies);
 				if (this.ruleTable.has(`+pokemon:${species.id}`) || this.ruleTable.has(`+basepokemon:${basePokemon}`)) {
 					return;
@@ -1159,6 +1159,8 @@ export const Rulesets: {[k: string]: FormatData} = {
 					}
 				}
 				if (!typeTable.length) return [`Your team must share a type.`];
+			}
+			for (const set of team) {
 				if (this.gen === 9 && set.teraType &&
 						!typeTable.includes(set.teraType) && this.ruleTable.has(`enforcesameteratype`)) {
 					return [`${set.species}'s Tera Type must match the team's type.`];

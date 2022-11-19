@@ -1698,11 +1698,12 @@ export class BattleActions {
 		}
 
 		// just guessing placement
-		if (pokemon.baseTypes.includes(move.type) && pokemon.terastallized && !pokemon.baseTypes.includes(pokemon.teraType)) {
-			baseDamage = this.battle.modify(baseDamage, 1.5);
-		}
-		if (pokemon.terastallized && pokemon.baseTypes.includes(pokemon.teraType)) {
-			baseDamage = this.battle.modify(baseDamage, 4 / 3);
+		if (pokemon.baseTypes.includes(move.type) && pokemon.terastallized) {
+			if (move.type === pokemon.teraType) {
+				baseDamage = this.battle.modify(baseDamage, 4 / 3);
+			} else {
+				baseDamage = this.battle.modify(baseDamage, 1.5);
+			}
 		}
 
 		// types

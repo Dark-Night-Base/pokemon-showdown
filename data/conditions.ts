@@ -793,8 +793,9 @@ export const Conditions: {[k: string]: ConditionData} = {
 	},
 
 	// Commander needs two conditions so they are implemented here
-	// Dodonzo
+	// Dondozo
 	commanded: {
+		name: "Commanded",
 		noCopy: true,
 		onStart(target) {
 			this.boost({atk: 2, def: 2, spa: 2, spd: 2, spe: 2}, target);
@@ -802,12 +803,13 @@ export const Conditions: {[k: string]: ConditionData} = {
 		// Prevents Shed Shell allowing a swap
 		onTrapPokemonPriority: -11,
 		onTrapPokemon(pokemon) {
-			// Dodonzo cannot switch out
+			// Dondozo cannot switch out
 			pokemon.trapped = true;
 		},
 	},
 	// Tatsugiri
 	commanding: {
+		name: "Commanding",
 		noCopy: true,
 		onStart(target) {
 			this.add('-activate', target, 'ability: Commander');
