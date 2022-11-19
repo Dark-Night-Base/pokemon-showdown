@@ -1746,24 +1746,24 @@ export const Formats: FormatList = [
 	},
 	{
 		// asked by boingk#6794
-		name: "[Gen 8] Godly Gift LC",
+		name: "[Gen 9] Godly Gift LC",
 		desc: `Each Pok&eacute;mon receives one base stat from a (smol) God (LC Ubers Pok&eacute;mon) depending on its position in the team. If there is no LC Ubers Pok&eacute;mon, it uses the Pok&eacute;mon in the first (HP) slot.`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3660461/">Godly Gift</a>`,
 		],
 
-		mod: 'gen8',
+		mod: 'gen9',
 		ruleset: ['Standard OMs', 'Sleep Moves Clause', 'Evasion Items Clause', 'Little Cup'],
 		banlist: [
-			'Scyther', 'Swirlix',
-			'Chlorophyll', 'Moody', 'Baton Pass', 'Sticky Web',
-			'Arena Trap', 'Huge Power', 'Pure Power', 'Shadow Tag', 
+			'Basculin', 'Scyther', 'Swirlix',
+			'Arena Trap', 'Huge Power', 
+			'Baton Pass', 
 			'Focus Band', 'King\'s Rock', 'Quick Claw', 
 			'Sand Veil', 'Snow Cloak', 
 		],
 		restricted: [
-			'Corsola-Galar', 'Cutiefly', 'Drifloon', 'Gastly', 'Gothita', 'Rufflet', 'Scraggy', 'Sneasel', 
-			'Tangela', 'Vullaby', 'Vulpix-Alola', 'Woobat', 'Zigzagoon-Base', 
+			'Murkrow', 'Meditite', 'Gothita', 'Gastly', 'Misdreavus', 'Dunsparce', 'Girafarig', 'Basculin', 
+			'Tandemaus', 
 		],
 		onValidateTeam(team) {
 			const gods = new Set<string>();
