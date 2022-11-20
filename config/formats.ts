@@ -869,7 +869,6 @@ export const Formats: FormatList = [
 					}
 				}
 
-<<<<<<< HEAD
 				if (forte.onModifyMove) {
 					// @ts-ignore
 					this.singleEvent('ModifyMove', forte, null, pokemon, target, move, move);
@@ -1242,125 +1241,6 @@ export const Formats: FormatList = [
 				return false;
 			}
 		},
-=======
-		mod: 'gen9',
-		gameType: 'doubles',
-		searchShow: false,
-		ruleset: ['Draft', 'Item Clause', '!Sleep Clause Mod', '!OHKO Clause', '!Evasion Moves Clause', 'Adjust Level = 50', 'Picked Team Size = 4'],
-	},
-	{
-		name: "[Gen 9] NatDex Draft",
-
-		mod: 'gen9',
-		searchShow: false,
-		ruleset: ['Draft', '+Unobtainable', '+Past'],
-	},
-	{
-		name: "[Gen 9] NatDex 6v6 Doubles Draft",
-
-		mod: 'gen9',
-		gameType: 'doubles',
-		searchShow: false,
-		ruleset: ['[Gen 9] 6v6 Doubles Draft', '+Unobtainable', '+Past'],
-	},
-	{
-		name: "[Gen 9] NatDex 4v4 Doubles Draft",
-
-		mod: 'gen9',
-		gameType: 'doubles',
-		searchShow: false,
-		ruleset: ['[Gen 9] 4v4 Doubles Draft', '+Unobtainable', '+Past'],
-	},
-	{
-		name: "[Gen 9] LC NDex Draft",
-
-		mod: 'gen9',
-		searchShow: false,
-		ruleset: ['[Gen 9] NatDex Draft', 'Double Item Clause', 'Little Cup'],
-		banlist: ['Dragon Rage', 'Sonic Boom'],
-	},
-	{
-		name: "[Gen 8] Galar Dex Draft",
-
-		mod: 'gen8',
-		searchShow: false,
-		ruleset: ['Draft'],
-	},
-	{
-		name: "[Gen 8] 4v4 Doubles Draft",
-
-		mod: 'gen8',
-		gameType: 'doubles',
-		searchShow: false,
-		ruleset: ['Draft', 'Item Clause', '!Sleep Clause Mod', '!OHKO Clause', '!Evasion Moves Clause', 'Adjust Level = 50', 'Picked Team Size = 4'],
-	},
-	{
-		name: "[Gen 8] NatDex Draft",
-
-		mod: 'gen8',
-		searchShow: false,
-		ruleset: ['Draft', '+Past'],
-	},
-	{
-		name: "[Gen 8] NatDex 4v4 Doubles Draft",
-
-		mod: 'gen8',
-		gameType: 'doubles',
-		searchShow: false,
-		ruleset: ['[Gen 8] 4v4 Doubles Draft', '+Past'],
-	},
-	{
-		name: "[Gen 8] LC NDex Draft",
-
-		mod: 'gen8',
-		searchShow: false,
-		ruleset: ['[Gen 8] NatDex Draft', 'Double Item Clause', 'Little Cup'],
-		banlist: ['Dragon Rage', 'Sonic Boom'],
-	},
-	{
-		name: "[Gen 8 BDSP] Draft",
-
-		mod: 'gen8bdsp',
-		searchShow: false,
-		ruleset: ['Draft'],
-	},
-	{
-		name: "[Gen 7] Draft",
-
-		mod: 'gen7',
-		searchShow: false,
-		ruleset: ['Draft', '+LGPE'],
-	},
-	{
-		name: "[Gen 6] Draft",
-
-		mod: 'gen6',
-		searchShow: false,
-		ruleset: ['Draft'],
-	},
-
-	// OM of the Month
-	///////////////////////////////////////////////////////////////////
-
-	{
-		section: "OM of the Month",
-		column: 2,
-	},
-	{
-		name: "[Gen 9] Almost Any Ability",
-		desc: `Pok&eacute;mon have access to almost any ability.`,
-		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3710568/">Almost Any Ability</a>`,
-		],
-
-		mod: 'gen9',
-		ruleset: ['Standard OMs', '!Obtainable Abilities', 'Ability Clause', 'Sleep Moves Clause', 'Min Source Gen = 9'],
-		banlist: [
-			'Koraidon', 'Miraidon', 'Slaking', 'Arena Trap', 'Comatose', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion',
-			'Imposter', 'Innards Out', 'Magnet Pull', 'Moody', 'Neutralizing Gas', 'Parental Bond', 'Pure Power', 'Shadow Tag',
-			'Simple', 'Speed Boost', 'Water Bubble', 'Wonder Guard', 'King\'s Rock', 'Baton Pass',
-		],
->>>>>>> smogon/master
 	},
 	{
 		name: "[Gen 8] ND Letter Cup BH",
