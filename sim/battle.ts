@@ -303,7 +303,8 @@ export class Battle {
 	}
 
 	// nihilslave: note that speedSort() also call a prng function
-	random(m?: number, n?: number) {		
+	random(m?: number, n?: number) {
+		// todo: arguments.callee.caller
 		this.debug(`PRNG.next(${(m === undefined) ? '' : ((n === undefined) ? m : `${m},${n}`)})`);
 		return this.prng.next(m, n);
 	}
