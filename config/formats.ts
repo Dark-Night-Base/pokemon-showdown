@@ -4075,24 +4075,14 @@ export const Formats: FormatList = [
 		},
 	},
 	{
-		name: "[Gen 8] Pure Hackmons",
+		name: "[Gen 9] Pure Hackmons",
 		desc: `Anything that can be hacked in-game and is usable in local battles is allowed.`,
 		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3656851/">Pure Hackmons</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3656851/">(Gen 8) Pure Hackmons</a>`,
 		],
 
-		mod: 'gen8',
+		mod: 'gen9',
 		debug: true,
-		ruleset: ['-Nonexistent', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause'],
-	},
-	{
-		name: "[Gen 8 BDSP] Pure Hackmons",
-		desc: `Anything that can be hacked in-game and is usable in local battles is allowed.`,
-		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3693868/">Pure Hackmons</a>`,
-		],
-
-		mod: 'gen8bdsp',
 		ruleset: ['-Nonexistent', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause'],
 	},
 	{

@@ -304,17 +304,17 @@ export class Battle {
 
 	// nihilslave: note that speedSort() also call a prng function
 	random(m?: number, n?: number) {		
-		// this.debug(`${arguments.callee.caller.name}()->PRNG.next(${(m === undefined) ? '' : ((n === undefined) ? m : `${m},${n}`)})`);
+		this.debug(`PRNG.next(${(m === undefined) ? '' : ((n === undefined) ? m : `${m},${n}`)})`);
 		return this.prng.next(m, n);
 	}
 
 	randomChance(numerator: number, denominator: number) {
-		// this.debug(`${arguments.callee.caller.name}()->PRNG.randomChance(${numerator},${denominator})`);
+		this.debug(`PRNG.randomChance(${numerator},${denominator})`);
 		return this.prng.randomChance(numerator, denominator);
 	}
 
 	sample<T>(items: readonly T[]): T {
-		// this.debug(`${arguments.callee.caller.name}()->PRNG.sample(0,${items.length})`);
+		this.debug(`PRNG.sample(0,${items.length})`);
 		return this.prng.sample(items);
 	}
 
