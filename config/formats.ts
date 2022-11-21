@@ -1832,6 +1832,7 @@ export const Formats: FormatList = [
 			'Arena Trap', 'Huge Power', 'Illusion', 'Innards Out', 'Magnet Pull', 'Neutralizing Gas', 'Parental Bond', 'Pure Power', 
 			'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
 			'Comatose + Sleep Talk', 
+			'Rage Fist', 'Shell Smash', 
 		],
 	},
 	{
