@@ -435,6 +435,7 @@ interface TextFile extends TextObject {
 	gen5?: ModdedTextObject;
 	gen6?: ModdedTextObject;
 	gen7?: ModdedTextObject;
+	gen8?: ModdedTextObject;
 }
 
 interface MovePlines extends Plines {
@@ -460,6 +461,7 @@ interface MovePlines extends Plines {
 interface AbilityText extends TextFile, Plines {
 	activateFromItem?: string;
 	activateNoTarget?: string;
+	copyBoost?: string;
 	transformEnd?: string;
 }
 
