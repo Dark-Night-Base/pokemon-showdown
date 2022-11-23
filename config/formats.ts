@@ -25,22 +25,16 @@ export const Formats: FormatList = [
 		section: "Server Special",
 	},
 	{
-		name: "[Gen 8] Balanced Hackmons 500 Cup",
+		name: "[Gen 9] Balanced Hackmons 500 Cup",
 		desc: `BH，但禁止使用种族和大于 500 的精灵。<br />BH but Pok&eacute;mon with BST > 500 are banned.`,
 		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3656408/">Balanced Hackmons</a>`,
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
-			`&bullet; <a href="https://replay.pokemonshowdown.com/gen8balancedhackmons-1611966917">示例录像 Sample Replay</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3710859/">Balanced Hackmons</a>`,
 		],
 
-		mod: 'gen8',
-		ruleset: ['[Gen 8] Balanced Hackmons'],
+		mod: 'gen9',
+		ruleset: ['[Gen 9] Balanced Hackmons'],
 		banlist: [
-			'Barraskewda', 'Chansey', 'Darmanitan', 'Darmanitan-Galar',
-			'Drizzle',
-		],
-		unbanlist: [
-			'Bolt Beak',
+			'Barraskewda', 'Chansey', 
 		],
 		onValidateSet(set) {
 			const bst = this.dex.species.get(set.species).bst;
@@ -2133,19 +2127,15 @@ export const Formats: FormatList = [
 		},
 	},
 	{
-		name: "[Gen 8] Camomons BH",
+		name: "[Gen 9] Camomons BH",
 		desc: `BH but Pok&eacute;mon change type to match their first two moves.`,
 		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3656413/">Camomons</a>`,
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3656408/">Balanced Hackmons</a>`,
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3656413/">Gen 8 Camomons</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3710859/">Balanced Hackmons</a>`,
 		],
 
-		mod: 'gen8',
-		ruleset: ['[Gen 8] Balanced Hackmons', 'Camomons Mod'],
-		unbanlist: [
-			'Darmanitan-Galar-Zen', 
-		],
+		mod: 'gen9',
+		ruleset: ['[Gen 9] Balanced Hackmons', 'Camomons Mod'],
 	},
 	{
 		name: "[Gen 8] Flipped BH",
@@ -2191,37 +2181,28 @@ export const Formats: FormatList = [
 		},
 	},
 	{
-		name: "[Gen 8] Godly Gift BH",
-		desc: `Godly Gift，但你可以如在 BH 那样自由编辑特性、技能和努力值。`,
+		name: "[Gen 9] Godly Gift BH",
+		desc: `Godly Gift + BH. Pok&eacute;mon with BST greater than or equal to 650 are Gods.`,
 		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3660461/">Godly Gift</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3710734/">Godly Gift</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3710859/">Balanced Hackmons</a>`,
 		],
 
-		mod: 'gen8',
-		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Moves Clause', 'Endless Battle Clause'],
-		banlist: [
-			'Calyrex-Shadow',
-			'Zacian-Crowned', 'Arena Trap', 'Huge Power', 'Moody', 'Pure Power',
-			'Shadow Tag',
-			'Pikachu',
-			'Cramorant-Gorging', 'Darmanitan-Galar-Zen', 'Eternatus-Eternamax', 'Shedinja',
-			'Contrary', 'Gorilla Tactics', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero',
-			'Magnet Pull', 'Neutralizing Gas', 'Parental Bond', 'Protean', 'Stakeout',
-			'Water Bubble', 'Wonder Guard', 'Comatose + Sleep Talk', 'Rusted Sword', 'Court Change', 'Bolt Beak', 'Double Iron Bash',
-			'Octolock', 'Shell Smash',
-		],
+		mod: 'gen9',
+		ruleset: ['[Gen 9] Balanced Hackmons'],
 		restricted: [
-			'Calyrex-Ice', 'Dialga', 'Eternatus', 'Giratina', 'Giratina-Origin', 'Groudon', 'Ho-Oh', 'Kyogre',
-			'Kyurem', 'Kyurem-Black', 'Kyurem-White', 'Lugia', 'Lunala', 'Mewtwo', 'Necrozma-Dawn-Wings', 'Necrozma-Dusk-Mane',
-			'Palkia', 'Rayquaza', 'Regigigas', 'Reshiram', 'Solgaleo', 'Xerneas', 'Yveltal', 'Zacian', 'Zamazenta', 'Zamazenta-Crowned', 
-			'Zekrom', 'Zygarde-Complete',
+			'Mewtwo', 'Slaking', 'Kyogre', 'Groudon', 'Rayquaza', 'Dialga', 'Dialga-Origin', 'Palkia', 'Palkia-Origin', 
+			'Giratina', 'Giratina-Origin', 'Arceus', 'Hoopa-Unbound', 'Zacian', 'Zacian-Crowned', 'Zamazenta', 'Zamazenta-Crowned', 
+			'Eternatus', 'Calyrex-Ice', 'Calyrex-Shadow', 'Palafin-Hero', 'Koraidon', 'Miraidon', 
 		],
 		onValidateTeam(team) {
 			const gods = new Set<string>();
 			for (const set of team) {
 				let species = this.dex.species.get(set.species);
-				// if (typeof species.battleOnly === 'string') species = this.dex.species.get(species.battleOnly);
-				if (this.ruleTable.isRestrictedSpecies(species) || this.toID(set.ability) === 'powerconstruct') {
+				if (species.baseSpecies === 'Arceus') {
+					gods.add(species.name);
+				}
+				if (this.ruleTable.isRestrictedSpecies(species)) {
 					gods.add(species.name);
 				}
 			}
@@ -2234,45 +2215,16 @@ export const Formats: FormatList = [
 			if (source || !target?.side) return;
 			const god = target.side.team.find(set => {
 				let godSpecies = this.dex.species.get(set.species);
-				// const validator = this.dex.formats.getRuleTable(this.dex.formats.get(`gen${this.gen}ou`));
-				if (this.toID(set.ability) === 'powerconstruct') {
-					return true;
-				}
-				if (set.item) {
-					const item = this.dex.items.get(set.item);
-					if (item.megaEvolves === set.species) godSpecies = this.dex.species.get(item.megaStone);
-				}
+				if (godSpecies.baseSpecies === 'Arceus') return true;
 				return this.ruleTable.isRestrictedSpecies(godSpecies);
 			}) || target.side.team[0];
 			const stat = Dex.stats.ids()[target.side.team.indexOf(target.set)];
 			const newSpecies = this.dex.deepClone(species);
 			let godSpecies = this.dex.species.get(god.species);
-			// if (godSpecies.forme === 'Crowned') {
-			// 	godSpecies = this.dex.species.get(godSpecies.changesFrom || godSpecies.baseSpecies);
-			// }
 			newSpecies.bst -= newSpecies.baseStats[stat];
 			newSpecies.baseStats[stat] = godSpecies.baseStats[stat];
 			newSpecies.bst += newSpecies.baseStats[stat];
 			return newSpecies;
-		},
-		onChangeSet(set) {
-			const item = this.dex.toID(set.item);
-			if (set.species === 'Zacian' && item === 'rustedsword') {
-				set.species = 'Zacian-Crowned';
-				set.ability = 'Intrepid Sword';
-				const ironHead = set.moves.indexOf('ironhead');
-				if (ironHead >= 0) {
-					set.moves[ironHead] = 'behemothblade';
-				}
-			}
-			if (set.species === 'Zamazenta' && item === 'rustedshield') {
-				set.species = 'Zamazenta-Crowned';
-				set.ability = 'Dauntless Shield';
-				const ironHead = set.moves.indexOf('ironhead');
-				if (ironHead >= 0) {
-					set.moves[ironHead] = 'behemothbash';
-				}
-			}
 		},
 	},
 	{
