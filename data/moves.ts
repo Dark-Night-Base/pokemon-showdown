@@ -2350,11 +2350,10 @@ export const Moves: {[moveid: string]: MoveData} = {
 		pp: 10,
 		priority: 0,
 		flags: {},
-		onTry(source) {
-			return !!this.canSwitch(source.side);
-		},
-		selfSwitch: true,
+		// TODO show prepare message before the "POKEMON used MOVE!" message
+		// This happens even before sleep shows its "POKEMON is fast asleep." message
 		weather: 'snow',
+		selfSwitch: true,
 		secondary: null,
 		target: "all",
 		type: "Ice",
@@ -11049,6 +11048,9 @@ export const Moves: {[moveid: string]: MoveData} = {
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
+		onHit() {
+			this.add('-fieldactivate', 'move: Make It Rain');
+		},
 		self: {
 			boosts: {
 				spa: -1,
@@ -15063,6 +15065,8 @@ export const Moves: {[moveid: string]: MoveData} = {
 		flags: {protect: 1, bypasssub: 1, allyanim: 1},
 		onHit(target, source) {
 			if (source.species && (source.species.num === 493 || source.species.num === 773)) return false;
+			if (source.terastallized) return false;
+			const oldApparentType = source.apparentType;
 			let newBaseTypes = target.getTypes(true).filter(type => type !== '???');
 			if (!newBaseTypes.length) {
 				if (target.addedType) {
@@ -15075,6 +15079,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 			source.setType(newBaseTypes);
 			source.addedType = target.addedType;
 			source.knownType = target.isAlly(source) && target.knownType;
+			if (!source.knownType) source.apparentType = oldApparentType;
 		},
 		secondary: null,
 		target: "normal",
@@ -15838,11 +15843,10 @@ export const Moves: {[moveid: string]: MoveData} = {
 		condition: {
 			onStart(pokemon, source) {
 				this.add('-start', pokemon, 'move: Salt Cure', '[of] ' + source);
-				this.effectState.boundDivisor = pokemon.hasType(['Water', 'Steel']) ? 4 : 8;
 			},
 			onResidualOrder: 13,
 			onResidual(pokemon) {
-				this.damage(pokemon.baseMaxhp / this.effectState.boundDivisor);
+				this.damage(pokemon.baseMaxhp / (pokemon.hasType(['Water', 'Steel']) ? 4 : 8));
 			},
 			onEnd(pokemon) {
 				this.add('-end', pokemon, 'move: Salt Cure');
@@ -16399,14 +16403,18 @@ export const Moves: {[moveid: string]: MoveData} = {
 		priority: 0,
 		flags: {},
 		volatileStatus: 'substitute',
-		onTryHit(target) {
-			if (target.volatiles['substitute'] || !this.canSwitch(target.side)) {
-				this.add('-fail', target, 'move: Shed Tail');
-				return null;
+		onTryHit(source) {
+			if (!this.canSwitch(source.side)) {
+				this.add('-fail', source);
+				return this.NOT_FAIL;
 			}
-			if (target.hp <= target.maxhp / 2 || target.maxhp === 1) { // Shedinja clause
-				this.add('-fail', target, 'move: Shed Tail', '[weak]');
-				return null;
+			if (source.volatiles['substitute']) {
+				this.add('-fail', source, 'move: Shed Tail');
+				return this.NOT_FAIL;
+			}
+			if (source.hp <= source.maxhp / 2 || source.maxhp === 1) { // Shedinja clause
+				this.add('-fail', source, 'move: Shed Tail', '[weak]');
+				return this.NOT_FAIL;
 			}
 		},
 		onHit(target) {
@@ -18629,14 +18637,14 @@ export const Moves: {[moveid: string]: MoveData} = {
 		priority: 0,
 		flags: {snatch: 1, nonsky: 1},
 		volatileStatus: 'substitute',
-		onTryHit(target) {
-			if (target.volatiles['substitute']) {
-				this.add('-fail', target, 'move: Substitute');
-				return null;
+		onTryHit(source) {
+			if (source.volatiles['substitute']) {
+				this.add('-fail', source, 'move: Substitute');
+				return this.NOT_FAIL;
 			}
-			if (target.hp <= target.maxhp / 4 || target.maxhp === 1) { // Shedinja clause
-				this.add('-fail', target, 'move: Substitute', '[weak]');
-				return null;
+			if (source.hp <= source.maxhp / 4 || source.maxhp === 1) { // Shedinja clause
+				this.add('-fail', source, 'move: Substitute', '[weak]');
+				return this.NOT_FAIL;
 			}
 		},
 		onHit(target) {
