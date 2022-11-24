@@ -76,6 +76,8 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
+		searchShow: false,
+		challengeShow: false,
 		ruleset: ['-Nonexistent', 'Standard NatDex', 'Little Cup', 'Forme Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Dynamax Clause', 'CFZ Clause', '!Obtainable'],
 		banlist: [
 			'Corsola-Galar', 
@@ -323,6 +325,8 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
+		searchShow: false,
+		challengeShow: false,
 		ruleset: ['[Gen 8] National Dex BH', '!Arceus Clause', 'Camomons Mod'],
 		unbanlist: [
 			'Calyrex-Shadow', 'Darmanitan-Galar-Zen', 'Groudon-Primal', 'Rayquaza-Mega', 
@@ -1310,6 +1314,8 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
+		searchShow: false,
+		challengeShow: false,
 		ruleset: ['[Gen 8] National Dex BH'],
 		onValidateSet(set) {
 			const ability = this.dex.abilities.get(set.ability);
@@ -1517,6 +1523,8 @@ export const Formats: FormatList = [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/national-dex-bh.3658587/">National Dex BH</a>`,
 		],
 		mod: 'gen8',
+		searchShow: false,
+		challengeShow: false,
 		ruleset: ['[Gen 8] National Dex BH', 'Scalemons Mod'],
 		banlist: [
 			'Abra', 'Beedrill-Mega', 'Gastly',
@@ -1539,6 +1547,8 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
+		searchShow: false,
+		challengeShow: false,
 		ruleset: ['-Nonexistent', 'Standard NatDex', 'Forme Clause', 'Sleep Clause Mod', 'Ability Clause = 2', 'OHKO Clause', 'Evasion Moves Clause', 'Dynamax Clause', 'CFZ Clause', '!Obtainable', 'Arceus Clause', 'Turn Tables Mod'],
 		banlist: [
 			'Cramorant-Gorging', 'Eternatus-Eternamax', 'Shedinja', 'Silvally', 
@@ -1808,6 +1818,8 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
+		searchShow: false,
+		challengeShow: false,
 		ruleset: ['Standard OMs', 'Sleep Clause Mod', 'Turn Tables Mod'],
 		banlist: [
 			'AG', 'Shadow Tag', 'Baton Pass',
@@ -1830,12 +1842,12 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen9',
-		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Species Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Sleep Moves Clause', 'Endless Battle Clause'],
+		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Clause', 'Species Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Sleep Moves Clause', 'Endless Battle Clause'],
 		banlist: [
 			'Arena Trap', 'Huge Power', 'Illusion', 'Innards Out', 'Magnet Pull', 'Neutralizing Gas', 'Parental Bond', 'Pure Power', 
 			'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
 			'Comatose + Sleep Talk', 
-			'Rage Fist', 'Shell Smash', 
+			'Rage Fist', 'Shed Tail', 'Shell Smash', 
 		],
 	},
 	{
@@ -2042,63 +2054,69 @@ export const Formats: FormatList = [
 		section: "BH Mashups",
 	},
 	{
-		name: "[Gen 8] Balanced Hackmons Doubles",
+		name: "[Gen 9] Balanced Hackmons Doubles",
+		desc: `Doubles, but BH.`,
 
-		mod: 'gen8',
+		mod: 'gen9',
 		gameType: 'doubles', 
-		ruleset: ['Standard Doubles', '!Gravity Sleep Clause', '!Obtainable', '-Nonexistent', 'Forme Clause', '!Species Clause',],
+		ruleset: ['Standard Doubles', '!Gravity Sleep Clause', '!Obtainable', '-Nonexistent'],
 		banlist: [
-			'Eternatus-Eternamax', 'Shedinja',
-			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Imposter', 'Innards Out', 'Libero', 'Moody',
-			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
+			'Arena Trap', 'Huge Power', 'Illusion', 'Innards Out', 'Neutralizing Gas', 'Parental Bond', 'Pure Power', 'Shadow Tag', 
+			'Stakeout', 'Water Bubble', 'Wonder Guard', 
+			// rest abilities and moves TBA
 			'Justified', 'Anger Point', 'Steam Engine', 'Stamina', 'Rattled', 'Wandering Spirit', 'Soul-Heart', 
-			'Comatose + Sleep Talk', 'Double Iron Bash', 'Octolock',
+			'Comatose + Sleep Talk', 
 		],
 	},
 	{
-		name: "[Gen 8] Balanced Hackmons Multi Battle",
-		desc: `Balanced Hackmons + Multi Battle.`,
+		name: "[Gen 9] Balanced Hackmons Multi Battle",
+		desc: `Multi Battle, but BH.`,
 
-		mod: 'gen8',
+		mod: 'gen9',
 		gameType: 'multi', 
 		rated: false,
 		tournamentShow: false,
-		ruleset: ['Standard Doubles', '!Gravity Sleep Clause', '!Obtainable', '-Nonexistent', 'Forme Clause', '!Species Clause', 'Picked Team Size = 3', ],
-		banlist: [
-			'Eternatus-Eternamax', 'Shedinja',
-			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Imposter', 'Innards Out', 'Libero', 'Moody',
-			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Justified', 'Anger Point', 'Steam Engine', 'Stamina', 'Rattled', 'Wandering Spirit', 'Soul-Heart', 
-			'Comatose + Sleep Talk', 'Double Iron Bash', 'Octolock',
-		],
+		ruleset: ['[Gen 9] Balanced Hackmons Doubles', 'Picked Team Size = 3'],
 	},
 	{
-		name: "[Gen 8] Free-For-All BH",
-		desc: `Still in alpha phase`,
+		name: "[Gen 9] Free-For-All BH",
+		desc: `FFA, but BH.`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3681641/">Free-For-All</a>`,
 		],
 
-		mod: 'gen8',
+		mod: 'gen9',
 		gameType: 'freeforall',
 		rated: false,
 		tournamentShow: false,
-		ruleset: ['Standard Doubles', '!Obtainable', '-Nonexistent', '!Species Clause', 'Forme Clause', 'Sleep Clause Mod', '!Gravity Sleep Clause'],
+		ruleset: ['[Gen 9] Balanced Hackmons Doubles', 'Sleep Clause Mod'],
 		banlist: [
-			'Eternatus-Eternamax', 'Shedinja',
-			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Moody',
-			'Neutralizing Gas', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Soul-Heart', 
-			'Comatose + Sleep Talk', 'Double Iron Bash', 'Octolock',
-			'Acupressure', 'Aromatic Mist', 'Coaching', 'Court Change', 
-			'Decorate', 'Final Gambit', 'Floral Healing', 'Follow Me', 
-			'Heal Pulse', 'Rage Powder',
+			// TBA
+			'Acupressure', 'Aromatic Mist', 'Coaching', 'Court Change', 'Decorate', 'Final Gambit', 'Floral Healing', 'Follow Me', 
+			'Heal Pulse', 'Rage Powder', 
 		],
+		unbanlist: [
+			// TBA
+			'Parental Bond', 
+		],
+	},
+	{
+		name: "[Gen 9] 350 Cup BH",
+		desc: `BH，但所有种族和在350及以下的宝可梦种族值翻倍。`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3656554/">350 Cup</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3710859/">Balanced Hackmons</a>`,
+		],
+
+		mod: 'gen9',
+		ruleset: ['[Gen 9] Balanced Hackmons', '350 Cup Mod', 'Overflow Stat Mod'],
 	},
 	{
 		name: "[Gen 8] Balanced Hackmons LC",
 
 		mod: 'gen8',
+		searchShow: false,
+		challengeShow: false,
 		ruleset: ['Little Cup', 'Standard OMs', 'Sleep Clause Mod', '!Obtainable', '-Nonexistent', '-Past'],
 		banlist: [
 			'Scyther', 'Sneasel', 'Type: Null', 
@@ -2115,6 +2133,8 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
+		searchShow: false,
+		challengeShow: false,
 		ruleset: ['[Gen 8] Balanced Hackmons'],
 		// unbanlist: [
 		// 	'Cramorant-Gorging'
@@ -2147,59 +2167,31 @@ export const Formats: FormatList = [
 		ruleset: ['[Gen 9] Balanced Hackmons', 'Camomons Mod'],
 	},
 	{
-		name: "[Gen 8] Flipped BH",
+		name: "[Gen 9] Flipped BH",
 		desc: `BH + Flipped.`,
 		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3662020/">Flipped</a>`, 
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3656408/">Balanced Hackmons</a>`,
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3662020/">Gen 8 Flipped</a>`, 
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3710859/">Balanced Hackmons</a>`,
 		],
 
-		mod: 'gen8',
-		// ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Moves Clause', 'Endless Battle Clause', 'Flipped Mod'],
-		// banlist: [
-		// 	'Cramorant-Gorging', 'Eternatus-Eternamax', 'Shedinja',
-		// 	'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
-		// 	'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-		// 	'Comatose + Sleep Talk', 'Belly Drum', 'Bolt Beak', 'Court Change', 'Double Iron Bash', 'Octolock', 'Shell Smash',
-		// ],
-		ruleset: ['[Gen 8] Balanced Hackmons', 'Flipped Mod'],
+		mod: 'gen9',
+		ruleset: ['[Gen 9] Balanced Hackmons', 'Flipped Mod'],
 		banlist: ['Fur Coat', 'Ice Scales'],
 		unbanlist: [
-			'Calyrex-Shadow', 'Darmanitan-Galar-Zen', 'Zacian-Crowned', 'Shell Smash', 'Rusted Sword', 'Intrepid Sword',
+			'Shell Smash', 
 		],
-		restricted: ['Intrepid Sword'],
-		onChangeSet(set) {
-			const item = this.dex.toID(set.item);
-			if (set.species === 'Zacian' && item === 'rustedsword') {
-				set.species = 'Zacian-Crowned';
-				set.ability = 'Intrepid Sword';
-				const ironHead = set.moves.indexOf('ironhead');
-				if (ironHead >= 0) {
-					set.moves[ironHead] = 'behemothblade';
-				}
-			}
-			if (set.species === 'Zamazenta' && item === 'rustedshield') {
-				set.species = 'Zamazenta-Crowned';
-				set.ability = 'Dauntless Shield';
-				const ironHead = set.moves.indexOf('ironhead');
-				if (ironHead >= 0) {
-					set.moves[ironHead] = 'behemothbash';
-				}
-			}
-		},
 	},
 	{
 		name: "[Gen 9] Fortemons BH",
 		desc: `BH，但精灵可以在道具栏携带攻击招式，然后该精灵的所有攻击招式共享其特效。<br />如，一只精灵道具栏带高速旋转，则其所有攻击招式都额外拥有扫钉和速度 +1 效果。<br />以下招式禁止作为道具携带：<br />&bullet; 一击必杀招式<br />&bullet; 降低命中率的招式<br />&bullet; 多段招式<br />&bullet; 正先制度招式<br />&bullet; 抓人招式<br />&bullet; 反击招式<br />&bullet; 比例伤害招式<br />&bullet; 蓄力招式<br />&bullet; 其它被禁止的招式：酸液炸弹、忍耐、爆裂拳、回声、诡异咒语、快速折返、冰息、冰球、炼狱、蹭蹭脸颊、嚣张、电力上升、滚动、臂贝武器、自由落体、辅助力量、大地波动、急速折返、伏特替换、气象球、暗冥强击、电磁炮<br />BH, but Pok&eacute;mon can have attack moves in their item slot as fortes. Every attack move of a Pok&eacute;mon will additionally have the move effects of its forte.<br />E.g. A Pok&eacute;mon with Rapid Spin as its forte will give all its attacks the effect of hazard removal and +1 Spe, along with their original effects.<br />The following moves are banned as forte:<br />&bullet; OHKO Moves<br />&bullet; Moves That Lower Accuracy<br />&bullet; Multi-hit Moves<br />&bullet; Positive Priority Moves<br />&bullet; Trapping Moves<br />&bullet; Counter-like Moves<br />&bullet; Ratio Damage Moves<br />&bullet; Charge Moves<br />&bullet; Other Banned Moves: Acid Spray, Bide, Bolt Beak, Dynamic Punch, Echoed Voice, Eerie Spell, Fishious Rend, Flip Turn, Frost Breath, Ice Ball, Inferno, Nuzzle, Power Trip, Pursuit, Rising Voltage, Rollout, Shell Side Arm, Sky Drop, Stored Power, Storm Throw, Terrain Pulse, U-turn, Volt Switch, Weather Ball, Wicked Blow, Zap Cannon`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3638520/">Fortemons</a>`,
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3710859/">Balanced Hackmons</a>`,
 		],
 
 		mod: 'gen9',
 		ruleset: ['[Gen 9] Balanced Hackmons', 'Forte Clause'],
 		banlist: [
+			// TBA
 			'Copycat', 'Nature Power',
 			'Serene Grace', 'Triage', 
 			'Endeavor', 'Super Fang', 
@@ -3153,6 +3145,8 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
+		searchShow: false,
+		challengeShow: false,
 		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Moves Clause', 'Endless Battle Clause'],
 		banlist: [
 			'Calyrex-Shadow', 'Cramorant-Gorging', 'Darmanitan-Galar-Zen', 'Eternatus-Eternamax', 'Shedinja', 'Zacian-Crowned',
@@ -3221,45 +3215,14 @@ export const Formats: FormatList = [
 		},
 	},
 	{
-		name: "[Gen 8] Inverse BH",
-		desc: `Still in alpha phase`,
-
-		mod: 'gen8',
-		ruleset: ['-Nonexistent', 'Inverse Mod', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod', 'Endless Battle Clause'],
-		banlist: [
-			'Calyrex-Shadow', 'Cramorant-Gorging', 'Darmanitan-Galar-Zen', 'Eternatus-Eternamax', 'Shedinja',
-			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Moody',
-			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Comatose + Sleep Talk', 'Double Iron Bash', 'Octolock', 'Shell Smash',
+		name: "[Gen 9] Inverse BH",
+		desc: `BH + Inverse`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3710859/">Balanced Hackmons</a>`,
 		],
-		restricted: ['Intrepid Sword'],
-		onValidateSet(set) {
-			const ability = this.dex.abilities.get(set.ability);
-			if (ability.id === 'intrepidsword') {
-				if (set.species !== 'Zacian-Crowned' || this.dex.toID(set.item) !== 'rustedsword') {
-					return [`${set.name}'s ability ${ability.name} is banned.`];
-				}
-			}
-		},
-		onChangeSet(set) {
-			const item = this.dex.toID(set.item);
-			if (set.species === 'Zacian' && item === 'rustedsword') {
-				set.species = 'Zacian-Crowned';
-				set.ability = 'Intrepid Sword';
-				const ironHead = set.moves.indexOf('ironhead');
-				if (ironHead >= 0) {
-					set.moves[ironHead] = 'behemothblade';
-				}
-			}
-			if (set.species === 'Zamazenta' && item === 'rustedshield') {
-				set.species = 'Zamazenta-Crowned';
-				set.ability = 'Dauntless Shield';
-				const ironHead = set.moves.indexOf('ironhead');
-				if (ironHead >= 0) {
-					set.moves[ironHead] = 'behemothbash';
-				}
-			}
-		},
+
+		mod: 'gen9',
+		ruleset: ['[Gen 9] Balanced Hackmons', 'Inverse Mod'],
 	},
 	{
 		name: "[Gen 8] Mix and Mega BH",
@@ -3273,6 +3236,8 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'mixandmegabh',
+		searchShow: false,
+		challengeShow: false,
 		ruleset: ['[Gen 8] Balanced Hackmons', 'Nickname Clause', 'Overflow Stat Mod'],
 		banlist: [
 			'Beedrillite', 'Gengarite', 'Kangaskhanite', 'Mawilite', 'Medichamite',
@@ -3390,43 +3355,192 @@ export const Formats: FormatList = [
 		},
 	},
 	{
-		name: "[Gen 8] Monotype BH",
-		desc: `BH but all Pok&eacute;mon on a team must share a type.`,
+		name: "[Gen 9] Monotype BH",
+		desc: `BH + Monotype.`,
 		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/om-mashup-megathread.3657159/post-9124457">Monotype BH</a>`,
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3656408/">Balanced Hackmons</a>`,
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3710859/">Balanced Hackmons</a>`,
 		],
 
-		mod: 'gen8',
-		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Moves Clause', 'Endless Battle Clause', 'Same Type Clause'],
-		banlist: [
-			'Calyrex-Shadow', 'Cramorant-Gorging', 'Darmanitan-Galar-Zen', 'Eternatus-Eternamax', 'Shedinja', 'Zacian-Crowned',
-			'Eternatus',
-			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
-			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Drizzle', 'Normalize',
-			'Comatose + Sleep Talk', 'Bolt Beak', 'Court Change', 'Double Iron Bash', 'Octolock', 'Shell Smash',
-			'Rusted Sword'
+		mod: 'gen9',
+		ruleset: ['[Gen 9] Balanced Hackmons', 'Same Type Clause'],
+	},
+	{
+		name: "[Gen 9] Multibility BH",
+		desc: `BH + Multibility.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3688892/">Gen 8 Multibility</a>`, 
 		],
-		onChangeSet(set) {
-			const item = this.dex.toID(set.item);
-			if (set.species === 'Zacian' && item === 'rustedsword') {
-				set.species = 'Zacian-Crowned';
-				set.ability = 'Intrepid Sword';
-				const ironHead = set.moves.indexOf('ironhead');
-				if (ironHead >= 0) {
-					set.moves[ironHead] = 'behemothblade';
+
+		mod: 'gen9',
+		debug: true,
+		ruleset: ['[Gen 9] Balanced Hackmons', 'Ability Clause = 2'],
+		validateSet(set, teamHas) {
+			const ability = this.dex.abilities.get(set.ability);
+			const item = this.dex.abilities.get(set.item);
+			if (!item.exists) return this.validateSet(set, teamHas);
+			const problems = [];
+			if (item.isNonstandard && !this.ruleTable.has(`+ability:${item.id}`)) {
+				problems.push(`${item.name} is banned.`);
+			}
+			if (ability.id === item.id) {
+				problems.push(`${set.species} has ${ability.name} as an ability and as an item.`);
+			}
+			if (this.ruleTable.isRestricted(`ability:${item.id}`) || this.ruleTable.isBanned(`ability:${item.id}`)) {
+				problems.push(`${set.species}'s second ability (${item.name}) can only be used as an ability.`);
+			}
+			if ((ability.id === 'regenerator' && ['emergencyexit', 'wimpout'].includes(item.id)) ||
+				(item.id === 'regenerator' && ['emergencyexit', 'wimpout'].includes(ability.id))) {
+				problems.push(`${ability.name} and ${item.name} are banned together.`);
+			}
+			if (item.id === 'comatose' && set.moves.map((value) => this.toID(value)).includes('sleeptalk' as ID)) {
+				problems.push(`${set.species} has the combination of Comatose + Sleep Talk, which is banned by [Gen 9] Balanced Hackmons.`);
+			}
+			const itemStr = set.item;
+			set.item = '';
+			const problem = this.validateSet(set, teamHas);
+			if (problem?.length) problems.push(...problem);
+			set.item = itemStr;
+			return problems;
+		},
+		onValidateTeam(team) {
+			if (!this.ruleTable.has('abilityclause')) return;
+			const abilityTable = new Map<string, number>();
+			const base: {[k: string]: string} = {
+				airlock: 'cloudnine',
+				armortail: 'queenlymajesty',
+				battlearmor: 'shellarmor',
+				clearbody: 'whitesmoke',
+				dazzling: 'queenlymajesty',
+				emergencyexit: 'wimpout',
+				filter: 'solidrock',
+				gooey: 'tanglinghair',
+				insomnia: 'vitalspirit',
+				ironbarbs: 'roughskin',
+				libero: 'protean',
+				minus: 'plus',
+				moxie: 'chillingneigh',
+				powerofalchemy: 'receiver',
+				propellertail: 'stalwart',
+				teravolt: 'moldbreaker',
+				turboblaze: 'moldbreaker',
+			};
+			const abilities: [string, string][] = [];
+			for (const set of team) {
+				abilities.push([set.ability, set.item].map((abil) => {
+					const id = this.toID(abil);
+					return base[id] || id;
+				}) as [string, string]);
+			}
+			for (const [abilityid, itemid] of abilities) {
+				const ability = this.dex.abilities.get(abilityid);
+				const item = this.dex.abilities.get(itemid);
+				if (ability.exists) abilityTable.set(ability.id, (abilityTable.get(ability.id) || 0) + 1);
+				if (item.exists) abilityTable.set(item.id, (abilityTable.get(item.id) || 0) + 1);
+			}
+			for (const [abilityid, size] of abilityTable) {
+				if (size > 2) {
+					return [
+						`You are limited to two of each ability by Ability Clause = 2.`,
+						`(You have more than two ${this.dex.abilities.get(abilityid).name} variants)`,
+					];
 				}
 			}
-			if (set.species === 'Zamazenta' && item === 'rustedshield') {
-				set.species = 'Zamazenta-Crowned';
-				set.ability = 'Dauntless Shield';
-				const ironHead = set.moves.indexOf('ironhead');
-				if (ironHead >= 0) {
-					set.moves[ironHead] = 'behemothbash';
-				}
+		},
+		onSwitchOut(pokemon) {
+			const item = this.dex.abilities.get(pokemon.item);
+			if (item.exists) {
+				this.singleEvent('End', item, pokemon.itemState, pokemon);
 			}
+		},
+		onFaint(pokemon) {
+			const item = this.dex.abilities.get(pokemon.item);
+			if (item.exists) {
+				this.singleEvent('End', item, pokemon.itemState, pokemon);
+			}
+		},
+		field: {
+			suppressingWeather() {
+				for (const pokemon of this.battle.getAllActive()) {
+					const item = this.battle.dex.abilities.get(pokemon.item);
+					if (pokemon && !pokemon.ignoringAbility() &&
+						(pokemon.getAbility().suppressWeather || (item.exists && item.suppressWeather))) {
+						return true;
+					}
+				}
+				return false;
+			},
+		},
+		pokemon: {
+			getItem() {
+				const ability = this.battle.dex.abilities.get(this.item);
+				if (!ability.exists) return Object.getPrototypeOf(this).getItem.call(this);
+				return {...ability, ignoreKlutz: true, onTakeItem: false};
+			},
+			hasItem(item) {
+				const ownItem = this.item;
+				if (this.battle.dex.abilities.get(ownItem).exists) return false;
+				if (this.ignoringItem()) return false;
+				if (!Array.isArray(item)) return ownItem === this.battle.toID(item);
+				return item.map(this.battle.toID).includes(ownItem);
+			},
+			hasAbility(ability) {
+				if (this.ignoringAbility()) return false;
+				if (Array.isArray(ability)) return ability.some(abil => this.hasAbility(abil));
+				const abilityid = this.battle.toID(ability);
+				const item = this.battle.dex.abilities.get(this.item);
+				return this.ability === abilityid || (item.exists && item.id === abilityid);
+			},
+			ignoringAbility() {
+				// Check if any active pokemon have the ability Neutralizing Gas
+				let neutralizinggas = false;
+				for (const pokemon of this.battle.getAllActive()) {
+					// can't use hasAbility because it would lead to infinite recursion
+					if ((pokemon.ability === ('neutralizinggas' as ID) || pokemon.item === ('neutralizinggas' as ID)) &&
+						!pokemon.volatiles['gastroacid'] && !pokemon.abilityState.ending) {
+						neutralizinggas = true;
+						break;
+					}
+				}
+				return !!(
+					(this.battle.gen >= 5 && !this.isActive) ||
+					((this.volatiles['gastroacid'] || (neutralizinggas && this.ability !== ('neutralizinggas' as ID) &&
+						this.item !== ('neutralizinggas' as ID))) && !this.getAbility().isPermanent));
+			},
+			ignoringItem() {
+				let nGas = false;
+				for (const pokemon of this.battle.getAllActive()) {
+					// can't use hasAbility because it would lead to infinite recursion
+					if (((pokemon.ability === ('neutralizinggas' as ID) && !pokemon.abilityState.ending) ||
+						(pokemon.item === ('neutralizinggas' as ID) && !pokemon.itemState.ending)) &&
+						!pokemon.volatiles['gastroacid'] && !pokemon.abilityState.ending) {
+						nGas = true;
+						break;
+					}
+				}
+				const item = this.battle.dex.abilities.get(this.item);
+				return !!((this.battle.gen >= 5 && !this.isActive) ||
+					(this.hasAbility('klutz') && !this.getItem().ignoreKlutz) ||
+					this.volatiles['embargo'] || this.battle.field.pseudoWeather['magicroom'] ||
+					(item.exists && item.id !== 'neutralizinggas' && (nGas || this.volatiles['gastroacid'])));
+			},
+			takeItem(source) {
+				if (!this.isActive) return false;
+				if (!this.item) return false;
+				if (this.battle.dex.abilities.get(this.item).exists) return false;
+				if (!source) source = this;
+				if (this.battle.gen === 4) {
+					if (this.battle.toID(this.ability) === 'multitype') return false;
+					if (source && this.battle.toID(source.ability) === 'multitype') return false;
+				}
+				const item = this.getItem();
+				if (this.battle.runEvent('TakeItem', this, source, null, item)) {
+					this.item = '';
+					this.itemState = {id: '', target: this};
+					this.pendingStaleness = undefined;
+					return item;
+				}
+				return false;
+			},
 		},
 	},
 	{
@@ -3439,6 +3553,8 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
+		searchShow: false,
+		challengeShow: false,
 		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Moves Clause', 'Endless Battle Clause'],
 		banlist: [
 			'Calyrex-Shadow', 'Cramorant-Gorging', 'Eternatus-Eternamax', 'Shedinja', 'Zacian-Crowned',
@@ -3514,6 +3630,8 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen8',
+		searchShow: false,
+		challengeShow: false,
 		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod', 'Endless Battle Clause', 'Overflow Stat Mod'],
 		banlist: [
 			'Cramorant-Gorging', 'Eternatus-Eternamax', 'Shedinja', 
@@ -3561,23 +3679,15 @@ export const Formats: FormatList = [
 		},
 	},
 	{
-		name: "[Gen 8] Scalemons BH",
+		name: "[Gen 9] Scalemons BH",
 		desc: `BH + Scalemons.`,
 		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/scalemons.3658482/">Scalemons</a>`,
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3656408/">Balanced Hackmons</a>`,
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3710859/">Balanced Hackmons</a>`,
 		],
-		mod: 'gen8',
-		ruleset: ['[Gen 8] Balanced Hackmons', 'Scalemons Mod'],
+		mod: 'gen9',
+		ruleset: ['[Gen 9] Balanced Hackmons', 'Scalemons Mod'],
 		banlist: [
-			'Abra', 'Gastly',
-			'Eviolite', 'Light Ball', 'Thick Club',
-		],
-		unbanlist: [
-			'Calyrex-Shadow', 'Eternatus-Eternamax', 'Zacian-Crowned',
-			'Belly Drum', 'Bolt Beak',
-			'Rusted Sword',
+			// TBA
 		],
 	},
 	{
@@ -3590,6 +3700,8 @@ export const Formats: FormatList = [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
 		],
 		mod: 'gen8',
+		searchShow: false,
+		challengeShow: false,
 		ruleset: ['[Gen 8] Balanced Hackmons', 'Scalemons Mod', 'Camomons Mod', 'Overflow Stat Mod'],
 		banlist: [
 			'Eviolite', 'Light Ball', 'Thick Club', 
@@ -3633,6 +3745,8 @@ export const Formats: FormatList = [
 		desc: `Still in alpha phase`,
 
 		mod: 'gen8',
+		searchShow: false,
+		challengeShow: false,
 		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod', 'Endless Battle Clause'],
 		banlist: [
 			'Calyrex-Shadow', 'Cramorant-Gorging', 'Darmanitan-Galar-Zen', 'Eternatus-Eternamax',
@@ -3731,58 +3845,6 @@ export const Formats: FormatList = [
 					set.moves[ironHead] = 'behemothbash';
 				}
 			}
-		},
-	},
-	{
-		name: "[Gen 8] 350 Cup BH",
-		desc: `BH，但所有种族和在350及以下的宝可梦种族值翻倍。`,
-		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/350-cup.3656554/">350 Cup</a>`,
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3656408/">Balanced Hackmons</a>`,
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
-		],
-
-		mod: 'gen8',
-		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Moves Clause', 'Endless Battle Clause'],
-		banlist: [
-			'Cramorant-Gorging', 'Eternatus-Eternamax', 'Shedinja',
-			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
-			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Comatose + Sleep Talk', 'Court Change','Double Iron Bash', 'Octolock', 'Shell Smash',
-			'Eviolite', 'Light Ball',
-		],
-		onChangeSet(set) {
-			const item = this.dex.toID(set.item);
-			if (set.species === 'Zacian' && item === 'rustedsword') {
-				set.species = 'Zacian-Crowned';
-				set.ability = 'Intrepid Sword';
-				const ironHead = set.moves.indexOf('ironhead');
-				if (ironHead >= 0) {
-					set.moves[ironHead] = 'behemothblade';
-				}
-			}
-			if (set.species === 'Zamazenta' && item === 'rustedshield') {
-				set.species = 'Zamazenta-Crowned';
-				set.ability = 'Dauntless Shield';
-				const ironHead = set.moves.indexOf('ironhead');
-				if (ironHead >= 0) {
-					set.moves[ironHead] = 'behemothbash';
-				}
-			}
-		},
-		onModifySpecies(species, target, source, effect) {
-			if (!species.baseStats) return;
-			const pokemon = this.dex.deepClone(species);
-			const pokemonBST = pokemon.bst;
-			if (pokemonBST <= 350) {
-				pokemon.bst = 0;
-				let statName: StatID;
-				for (statName in pokemon.baseStats as StatsTable) {
-					pokemon.baseStats[statName] = this.clampIntRange(pokemon.baseStats[statName] * 2, 1, 255);
-					pokemon.bst += pokemon.baseStats[statName];
-				}
-			}
-			return pokemon;
 		},
 	},
 
