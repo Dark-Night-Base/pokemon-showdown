@@ -1755,6 +1755,10 @@ export const Formats: FormatList = [
 		searchShow: false,
 		tournamentShow: false,
 		ruleset: ['Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'Createmons Mod', 'Terastal Clause', 'Species Clause'],
+		banlist: [
+			'Shedinja', 
+			'Arena Trap', 'Huge Power', 'Innards Out', 'Neutralizing Gas', 'Pure Power', 'Shadow Tag', 'Wonder Guard', 
+		],
 	},
 	{
 		// asked by boingk#6794
