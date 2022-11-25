@@ -2102,7 +2102,7 @@ export const Formats: FormatList = [
 	},
 	{
 		name: "[Gen 9] 350 Cup BH",
-		desc: `BH，但所有种族和在350及以下的宝可梦种族值翻倍。`,
+		desc: `BH，但所有种族和在350及以下的宝可梦种族值翻倍。<br />BH, but Pok&eacute;mon with BST <= 350 has their base stats doubled.`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3656554/">350 Cup</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3710859/">Balanced Hackmons</a>`,
@@ -5468,6 +5468,16 @@ export const Formats: FormatList = [
 	{
 		section: "Custom Games",
 		column: 3,
+	},
+	{
+		name: "[Gen 9] Custom Game",
+
+		mod: 'gen9',
+		searchShow: false,
+		debug: true,
+		battle: {trunc: Math.trunc},
+		// no restrictions, for serious (other than team preview)
+		ruleset: ['Team Preview', 'Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
 	},
 	{
 		name: "[Gen 8] Custom Game",
