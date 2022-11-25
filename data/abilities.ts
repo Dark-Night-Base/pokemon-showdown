@@ -2420,7 +2420,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			randomStat = stats.length ? this.sample(stats) : undefined;
 			if (randomStat) boost[randomStat] = -1;
 
-			this.boost(boost);
+			this.boost(boost, pokemon, pokemon);
 		},
 		name: "Moody",
 		rating: 5,
@@ -4285,21 +4285,22 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		num: 105,
 	},
 	supremeoverlord: {
-		onStart(target) {
-			this.add('-ability', target, 'Supreme Overlord');
+		onStart(pokemon) {
+			const faintedAllies = pokemon.side.pokemon.filter(ally => ally.fainted).length;
+			if (faintedAllies) {
+				this.add('-activate', pokemon, 'ability: Supreme Overlord');
+			}
 		},
 		onModifyAtk(atk, source, target, move) {
 			const faintedAllies = source.side.pokemon.filter(ally => ally.fainted).length;
 			if (faintedAllies < 1) return;
 			this.debug(`Supreme Overlord atk boost for ${faintedAllies} defeated allies.`);
-			// Placeholder 1.1 -> 1.5
 			return this.chainModify(1 + (0.1 * faintedAllies));
 		},
 		onModifySpA(spa, source, target, move) {
 			const faintedAllies = source.side.pokemon.filter(ally => ally.fainted).length;
 			if (faintedAllies < 1) return;
 			this.debug(`Supreme Overlord spa boost for ${faintedAllies} defeated allies.`);
-			// Placeholder 1.1 -> 1.5
 			return this.chainModify(1 + (0.1 * faintedAllies));
 		},
 		onAllyFaint() {

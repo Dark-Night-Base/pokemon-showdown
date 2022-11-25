@@ -17572,7 +17572,7 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 	gholdengo: {
 		num: 977,
 		name: "Gholdengo",
-		types: ["Ghost", "Steel"],
+		types: ["Steel", "Ghost"],
 		gender: "N",
 		baseStats: {hp: 87, atk: 60, def: 95, spa: 133, spd: 91, spe: 84},
 		abilities: {0: "Good as Gold"},
@@ -17904,7 +17904,7 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		num: 1003,
 		name: "Charcadet",
 		types: ["Fire"],
-		baseStats: {hp: 40, atk: 50, def: 40, spa: 50, spd: 40, spe: 30},
+		baseStats: {hp: 40, atk: 50, def: 40, spa: 50, spd: 40, spe: 35},
 		abilities: {0: "Flash Fire", H: "Flame Body"},
 		heightm: 0.6,
 		weightkg: 10.5,
