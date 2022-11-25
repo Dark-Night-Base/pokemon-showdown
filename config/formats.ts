@@ -32,21 +32,10 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen9',
-		ruleset: ['[Gen 9] Balanced Hackmons'],
+		ruleset: ['[Gen 9] Balanced Hackmons', 'BST Limit = 500'],
 		banlist: [
 			'Barraskewda', 'Chansey', 
 		],
-		onValidateSet(set) {
-			const bst = this.dex.species.get(set.species).bst;
-			if (bst > 500) {
-				if (set.species.endsWith('s') || set.species.endsWith('S')) {
-					return [`${set.species}' BST is greater than 500.`];
-				}
-				else {
-					return [`${set.species}'s BST is greater than 500.`];
-				}
-			}
-		},
 	},
 	{
 		name: "[Gen 8] Johto Dex BH",

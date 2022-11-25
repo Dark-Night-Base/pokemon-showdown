@@ -2471,4 +2471,30 @@ export const Rulesets: {[k: string]: FormatData} = {
 			return newSpecies;
 		},
 	},
+	bstlimit: {
+		effectType: 'ValidatorRule',
+		name: 'BST Limit',
+		desc: "Bans Pokemon with greater BST than allowed.",
+		hasValue: 'positive-integer',
+		onBegin() {
+			const num = this.ruleTable.valueRules.get('bstlimit');
+			this.add('rule', `${num} BST Limit: Limit ${num} BST`);
+		},
+		onValidateRule(value) {
+			const allowedBST = parseInt(value);
+			if (allowedBST < 1) throw new Error(`Must allow at least 1 BST`);
+		},
+		onValidateSet(set) {
+			const num = parseInt(this.ruleTable.valueRules.get('bstlimit')!);
+			const bst = this.dex.species.get(set.species).bst;
+			if (bst > num) {
+				if (set.species.endsWith('s') || set.species.endsWith('S')) {
+					return [`${set.species}' BST is greater than ${num}.`];
+				}
+				else {
+					return [`${set.species}'s BST is greater than ${num}.`];
+				}
+			}
+		},
+	},
 };
