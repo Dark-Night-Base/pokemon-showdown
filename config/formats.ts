@@ -1754,10 +1754,15 @@ export const Formats: FormatList = [
 		debug: true,
 		searchShow: false,
 		tournamentShow: false,
-		ruleset: ['Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'Createmons Mod', 'Terastal Clause', 'Species Clause'],
+		ruleset: ['Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'OHKO Clause', 'Evasion Moves Clause', '-CAP', 'Createmons Mod', 'Species Clause', 'CFZ Clause', 'Terastal Clause', ],
 		banlist: [
 			'Shedinja', 
 			'Arena Trap', 'Huge Power', 'Innards Out', 'Neutralizing Gas', 'Pure Power', 'Shadow Tag', 'Wonder Guard', 
+			'Comatose + Sleep Talk', 
+			'Double Iron Bash', 'Revival Blessing', 'Rage Fist', 'Shed Tail', 
+			'Adamant Orb', 'Blue Orb', 'Deep Sea Scale', 'Deep Sea Tooth', 'Eviolite', 'Griseous Orb', 'Leek', 'Light Ball', 
+			'Lucky Punch', 'Lustrous Orb', 'Metal Powder', 'Quick Powder', 'Red Orb', 'Rusted Shield', 'Rusted Sword', 
+			'Thick Club', 'Soul Dew', 
 		],
 	},
 	{
