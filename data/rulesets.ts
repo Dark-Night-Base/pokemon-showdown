@@ -2502,13 +2502,12 @@ export const Rulesets: {[k: string]: FormatData} = {
 		name: "Createmons Mod",
 		onValidateTeam(team) {
 			const dex = this.dex;
-			const pointLimit = 60000;
+			const pointLimit = 20000000;
 			let finalPoints = 0;
 			const pointDetails = team.map(function(set) {
 				const details: number[] = [];
 
 				// base stats points
-				// todo: find a better way to evaluate this
 				let bst = 0;
 				let sd = 0;
 				let statName: StatID;
@@ -2583,12 +2582,12 @@ export const Rulesets: {[k: string]: FormatData} = {
 			});
 
 			for (const detail of pointDetails) {
-				finalPoints += Math.floor((detail[0] * (detail[1] + 10)) * detail[2] * detail[3] * detail[4]);
+				finalPoints += Math.floor((detail[0] > 500 ? detail[0] - 450 : 50) * (detail[1] + 100) * detail[2] * detail[3] * detail[4]);
 			}
 			if (finalPoints > pointLimit) {
 				const problems = [`Your team's total point exceed limit ${pointLimit}:`];
 				for (let i = 0; i < pointDetails.length; ++i) {
-					problems.push(`${team[i].species}'s point is (${pointDetails[i][0]} * (${pointDetails[i][1] + 10})) * ${pointDetails[i][2]} * ${pointDetails[i][3]} * ${pointDetails[i][4]} = ${Math.floor((pointDetails[i][0] * (pointDetails[i][1] + 10)) * pointDetails[i][2] * pointDetails[i][3] * pointDetails[i][4])}`);
+					problems.push(`${team[i].species}'s point is ${pointDetails[i][0] > 500 ? `(${pointDetails[i][0]} - 450)` : '50'} * (${pointDetails[i][1] + 100}) * ${pointDetails[i][2]} * ${pointDetails[i][3]} * ${pointDetails[i][4]} = ${Math.floor((pointDetails[i][0] > 500 ? pointDetails[i][0] - 450 : 50) * (pointDetails[i][1] + 100) * pointDetails[i][2] * pointDetails[i][3] * pointDetails[i][4])}`);
 				}
 				return problems;
 			}
