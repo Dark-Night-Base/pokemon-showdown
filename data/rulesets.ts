@@ -2547,17 +2547,22 @@ export const Rulesets: {[k: string]: FormatData} = {
 				};
 				let typePoint = 0;
 				const species = dex.species.get(set.species);
+				let types: string[] = [];
 				if (set.hpType) {
-					typePoint += typeToPoint[dex.types.get(set.hpType).name];
+					types.push(dex.types.get(set.hpType).name);
 				} else {
-					typePoint += typeToPoint[dex.types.get(species.types[0]).name];
+					types.push(dex.types.get(species.types[0]).name);
 				}
 				if (set.teraType) {
-					typePoint += typeToPoint[dex.types.get(set.teraType).name];
+					types.push(dex.types.get(set.teraType).name);
 				} else if (species.types.length > 1) {
-					typePoint += typeToPoint[dex.types.get(species.types[1]).name];
-				} else {
+					types.push(dex.types.get(species.types[1]).name);
+				}
+				typePoint += typeToPoint[types[0]];
+				if (types.length < 2 || types[1] === types[0]) {
 					typePoint *= 1.5;
+				} else {
+					typePoint += typeToPoint[types[1]];
 				}
 				details.push(typePoint);
 
@@ -3070,8 +3075,9 @@ export const Rulesets: {[k: string]: FormatData} = {
 			if (finalPoints > pointLimit) {
 				const problems = [`Your team's total point exceed limit ${pointLimit}:`];
 				for (let i = 0; i < pointDetails.length; ++i) {
-					problems.push(`${team[i].species}'s point is ${pointDetails[i][0] > 500 ? `(${pointDetails[i][0]} - 450)` : '50'} * (${pointDetails[i][1] + 100}) * ${pointDetails[i][2]} * ${pointDetails[i][3]} * ${pointDetails[i][4]} / 10 = ${Math.floor((pointDetails[i][0] > 500 ? pointDetails[i][0] - 450 : 50) * (pointDetails[i][1] + 100) * pointDetails[i][2] * pointDetails[i][3] * pointDetails[i][4] * 41 / 4096)}`);
+					problems.push(`${team[i].species}'s point is ${pointDetails[i][0] > 500 ? `(${pointDetails[i][0]} - 450)` : '50'} * (${pointDetails[i][1].toFixed(2)} + 100) * ${pointDetails[i][2]} * ${pointDetails[i][3]} * ${pointDetails[i][4]} / 10 = ${Math.floor((pointDetails[i][0] > 500 ? pointDetails[i][0] - 450 : 50) * (pointDetails[i][1] + 100) * pointDetails[i][2] * pointDetails[i][3] * pointDetails[i][4] * 41 / 4096)}`);
 				}
+				problems.push(`Total Point: ${finalPoints}`);
 				return problems;
 			}
 		},
