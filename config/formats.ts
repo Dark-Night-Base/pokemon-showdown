@@ -1747,6 +1747,16 @@ export const Formats: FormatList = [
 		},
 	},
 	{
+		name: "[Gen 9] Balanced Createmons",
+		desc: `DIY your own Pok&eacute;mon with any base stats, type, ability, and moves.`,
+
+		mod: 'gen9',
+		debug: true,
+		searchShow: false,
+		tournamentShow: false,
+		ruleset: ['Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'Createmons Mod', 'Terastal Clause', 'Species Clause'],
+	},
+	{
 		// asked by boingk#6794
 		name: "[Gen 9] Godly Gift LC",
 		desc: `Each Pok&eacute;mon receives one base stat from a (smol) God (LC Ubers Pok&eacute;mon) depending on its position in the team. If there is no LC Ubers Pok&eacute;mon, it uses the Pok&eacute;mon in the first (HP) slot.`,

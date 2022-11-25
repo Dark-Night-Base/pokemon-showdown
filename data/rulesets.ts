@@ -2497,4 +2497,135 @@ export const Rulesets: {[k: string]: FormatData} = {
 			}
 		},
 	},
+	createmonsmod: {
+		effectType: 'Rule',
+		name: "Createmons Mod",
+		onValidateTeam(team) {
+			const dex = this.dex;
+			const pointLimit = 60000;
+			let finalPoints = 0;
+			const pointDetails = team.map(function(set) {
+				const details: number[] = [];
+
+				// base stats points
+				// todo: find a better way to evaluate this
+				let bst = 0;
+				let sd = 0;
+				let statName: StatID;
+				for (statName in set.evs as StatsTable) {
+					bst += set.evs[statName] || 1;
+				}
+				for (statName in set.evs as StatsTable) {
+					const diff = (bst * 683 / 4096 - set.evs[statName] || 1);
+					sd += diff * diff;
+				}
+				sd *= 683;
+				sd /= 4096;
+				sd = Math.sqrt(sd);
+				details.push(bst);
+				details.push(sd);
+
+				// type points
+				const typeToPoint: {[k: string]: number} = {
+					Bug: 0.5,
+					Dark: 2,
+					Dragon: 2,
+					Electric: 2,
+					Fairy: 3,
+					Fighting: 1.5,
+					Fire: 2.5,
+					Flying: 2,
+					Ghost: 2.5,
+					Grass: 1,
+					Ground: 2,
+					Ice: 1,
+					Normal: 2.5,
+					Poison: 1,
+					Psychic: 1,
+					Rock: 1,
+					Steel: 3,
+					Water: 2.5,
+				};
+				let typePoint = 0;
+				const species = dex.species.get(set.species);
+				if (set.hpType) {
+					typePoint += typeToPoint[dex.types.get(set.hpType).name];
+				} else {
+					typePoint += typeToPoint[dex.types.get(species.types[0]).name];
+				}
+				if (set.teraType) {
+					typePoint += typeToPoint[dex.types.get(set.teraType).name];
+				} else if (species.types.length > 1) {
+					typePoint += typeToPoint[dex.types.get(species.types[1]).name];
+				} else {
+					typePoint *= 1.5;
+				}
+				details.push(typePoint);
+
+				// ability points
+				const abilityToPoint: {[k: string]: number} = {
+
+				};
+				const abilityPoint = abilityToPoint[dex.abilities.get(set.ability).id] || 1;
+				details.push(abilityPoint);
+
+				// move points
+				const moveToPoint: {[k: string]: number} = {
+
+				};
+				let movePoint = 0;
+				for (const move of set.moves) {
+					movePoint += moveToPoint[dex.moves.get(move).id] || 0.5;
+				}
+				details.push(movePoint);
+
+				return details;
+			});
+
+			for (const detail of pointDetails) {
+				finalPoints += Math.floor((detail[0] * (detail[1] + 10)) * detail[2] * detail[3] * detail[4]);
+			}
+			if (finalPoints > pointLimit) {
+				const problems = [`Your team's total point exceed limit ${pointLimit}:`];
+				for (let i = 0; i < pointDetails.length; ++i) {
+					problems.push(`${team[i].species}'s point is (${pointDetails[i][0]} * (${pointDetails[i][1] + 10})) * ${pointDetails[i][2]} * ${pointDetails[i][3]} * ${pointDetails[i][4]} = ${Math.floor((pointDetails[i][0] * (pointDetails[i][1] + 10)) * pointDetails[i][2] * pointDetails[i][3] * pointDetails[i][4])}`);
+				}
+				return problems;
+			}
+		},
+		onModifySpeciesPriority: 2,
+		onModifySpecies(species, target, source, effect) {
+			if (!target) return; // Chat command
+			if (effect && ['imposter', 'transform'].includes(effect.id)) return;
+
+			const set = target.set;
+
+			// set types
+			const types = new Set<string>();
+			if (set.hpType) {
+				types.add(this.dex.types.get(set.hpType).name);
+			} else {
+				types.add(species.types[0]);
+			}
+			if (set.teraType) {
+				types.add(this.dex.types.get(set.teraType).name);
+			} else if (species.types.length > 1) {
+				types.add(species.types[1]);
+			}
+
+			// set base stats
+			const pokemon = this.dex.deepClone(species);
+			pokemon.bst = 0;
+			let statName: StatID;
+			for (statName in pokemon.baseStats as StatsTable) {
+				pokemon.baseStats[statName] = set.evs[statName] || 1;
+				pokemon.bst += pokemon.baseStats[statName];
+			}
+
+			return {...pokemon, types: [...types]};
+		},
+		onSwitchIn(pokemon) {
+			this.add('-start', pokemon, 'typechange', (pokemon.illusion || pokemon).getTypes(true).join('/'), '[silent]');
+		},
+	},
 };
