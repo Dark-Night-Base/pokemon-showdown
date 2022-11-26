@@ -513,10 +513,18 @@ export class TeamValidator {
 		}
 		if (set.hpType) {
 			const type = dex.types.get(set.hpType);
-			if (!type.exists || ['normal', 'fairy'].includes(type.id)) {
-				problems.push(`${name}'s Hidden Power type (${set.hpType}) is invalid.`);
+			if (!ruleTable.has('createmonsmod')) {
+				if (!type.exists || ['normal', 'fairy'].includes(type.id)) {
+					problems.push(`${name}'s Hidden Power type (${set.hpType}) is invalid.`);
+				} else {
+					set.hpType = type.name;
+				}
 			} else {
-				set.hpType = type.name;
+				if (!type.exists) {
+					problems.push(`${name}'s first type (${set.hpType}) is invalid.`);
+				} else {
+					set.hpType = type.name;
+				}
 			}
 		}
 		if (set.teraType) {

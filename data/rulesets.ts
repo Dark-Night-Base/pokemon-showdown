@@ -2513,11 +2513,15 @@ export const Rulesets: {[k: string]: FormatData} = {
 			const pointLimit = 100000;
 			let finalPoints = 0;
 			const pointDetails = team.map(function(set) {
+				// BST | SD | T1 | T2 | A | M1 | M2 | M3 | M4
+				//  0  |  1 |  2 |  3 | 4 |  5 |  6 |  7 |  8
 				const details: number[] = [];
+				const species = dex.species.get(set.species);
 
 				// base stats points
 				let bst = 0;
 				let sd = 0;
+				if (!set.evs) set.evs = species.baseStats;
 				let statName: StatID;
 				for (statName in set.evs as StatsTable) {
 					bst += set.evs[statName] || 1;
@@ -2553,26 +2557,23 @@ export const Rulesets: {[k: string]: FormatData} = {
 					Steel: 3,
 					Water: 2.5,
 				};
-				let typePoint = 0;
-				const species = dex.species.get(set.species);
 				let types: string[] = [];
 				if (set.hpType) {
 					types.push(dex.types.get(set.hpType).name);
 				} else {
 					types.push(dex.types.get(species.types[0]).name);
 				}
+				details.push(typeToPoint[types[0]]);
 				if (set.teraType) {
 					types.push(dex.types.get(set.teraType).name);
 				} else if (species.types.length > 1) {
 					types.push(dex.types.get(species.types[1]).name);
 				}
-				typePoint += typeToPoint[types[0]];
 				if (types.length < 2 || types[1] === types[0]) {
-					typePoint *= 1.5;
+					details.push(-1);
 				} else {
-					typePoint += typeToPoint[types[1]];
+					details.push(typeToPoint[types[1]]);
 				}
-				details.push(typePoint);
 
 				// ability points
 				const abilityToPoint: {[k: string]: number} = {
@@ -2616,6 +2617,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 					guts: 2,
 					hustle: 2,
 					hadronengine: 3.5,
+					iceface: 2,
 					icescales: 4,
 					illusion: 5,
 					imposter: 4,
@@ -2696,7 +2698,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 					toxicboost: 1.5,
 					transistor: 2.5,
 					triage: 3.5,
-					turant: 0.5,
+					truant: 0.5,
 					turboblaze: 3,
 					unaware: 3,
 					unburden: 2.5,
@@ -3067,25 +3069,45 @@ export const Rulesets: {[k: string]: FormatData} = {
 					yawn: 1.5,
 					zapcannon: 2,
 				};
-				let movePoint = 0;
 				for (const move of set.moves) {
-					movePoint += moveToPoint[dex.moves.get(move).id] || 0.5;
+					details.push(moveToPoint[dex.moves.get(move).id] || 0.5);
 				}
-				movePoint += (4 - set.moves.length) * 0.5;
-				details.push(movePoint);
+				for (let i = set.moves.length; i < 4; ++i) {
+					details.push(0.5);
+				}
 
 				return details;
 			});
 
-			for (const detail of pointDetails) {
-				finalPoints += Math.floor((detail[0] > 500 ? detail[0] - 450 : 50) * (detail[1] + 100) * detail[2] * detail[3] * detail[4] * 41 / 4096);
+			for (const details of pointDetails) {
+				const BST = details[0];
+				const SD = details[1];
+				const T = details[3] === -1 ? (details[2] * 1.5) : (details[2] + details[3]);
+				const A = details[4];
+				const M = details[5] + details[6] + details[7] + details[8];
+				const Total = Math.floor((Math.max(BST - 450, 50)) * (SD + 100) * T * A * M * 41 / 4096);
+				finalPoints += Total;
+				details.push(T);
+				details.push(M);
+				details.push(Total);
 			}
-			if (finalPoints > pointLimit) {
-				const problems = [`Your team's total point exceed limit ${pointLimit}:`];
-				for (let i = 0; i < pointDetails.length; ++i) {
-					problems.push(`${team[i].species}'s point is ${pointDetails[i][0] > 500 ? `(${pointDetails[i][0]} - 450)` : '50'} * (${pointDetails[i][1].toFixed(2)} + 100) * ${pointDetails[i][2]} * ${pointDetails[i][3]} * ${pointDetails[i][4]} / 100 = ${Math.floor((pointDetails[i][0] > 500 ? pointDetails[i][0] - 450 : 50) * (pointDetails[i][1] + 100) * pointDetails[i][2] * pointDetails[i][3] * pointDetails[i][4] * 41 / 4096)}`);
+			const problems: string[] = [];
+			if (finalPoints > pointLimit || team.length === 1) {
+				if (finalPoints > pointLimit) {
+					problems.push(`Your team's total point exceeds the limit ${pointLimit}:`);
 				}
-				problems.push(`Total Point: ${finalPoints}`);
+				for (let i = 0; i < pointDetails.length; ++i) {
+					problems.push(`${team[i].species}'s point details:`);
+					problems.push(`BST: ${pointDetails[i][0]},`);
+					problems.push(`SD: ${pointDetails[i][1].toFixed(2)},`);
+					problems.push(`T: ${pointDetails[i][3] === -1 ? `${pointDetails[i][2]} * 1.5` : `${pointDetails[i][2]} + ${pointDetails[i][3]}`} = ${pointDetails[i][9]},`);
+					problems.push(`A: ${pointDetails[i][4]}`,);
+					problems.push(`M: ${pointDetails[i][5]} + ${pointDetails[i][6]} + ${pointDetails[i][7]} + ${pointDetails[i][8]} = ${pointDetails[i][10]},`);
+					problems.push(`Total: ${pointDetails[i][11]}.`);
+				}
+				if (finalPoints > pointLimit) {
+					problems.push(`Total Point of Team: ${finalPoints}.`);
+				}
 				return problems;
 			}
 		},
@@ -3111,11 +3133,13 @@ export const Rulesets: {[k: string]: FormatData} = {
 
 			// set base stats
 			const pokemon = this.dex.deepClone(species);
-			pokemon.bst = 0;
-			let statName: StatID;
-			for (statName in pokemon.baseStats as StatsTable) {
-				pokemon.baseStats[statName] = set.evs[statName] || 1;
-				pokemon.bst += pokemon.baseStats[statName];
+			if (set.evs) {
+				pokemon.bst = 0;
+				let statName: StatID;
+				for (statName in pokemon.baseStats as StatsTable) {
+					pokemon.baseStats[statName] = set.evs[statName] || 1;
+					pokemon.bst += pokemon.baseStats[statName];
+				}
 			}
 
 			return {...pokemon, types: [...types]};
@@ -3141,6 +3165,47 @@ export const Rulesets: {[k: string]: FormatData} = {
 			if (item.megaStone) {
 				return [`${set.species}'s item ${item.name} is banned by Signature Items Clause.`];
 			}
+		},
+	},
+	teamspeciespreview: {
+		effectType: 'Rule',
+		name: 'Team Species Preview',
+		desc: "Allows each player to see the Pok&eacute;mon on their opponent's team and those Pok&eacute;mon's types and base stats before they choose their lead Pok&eacute;mon",
+		onTeamPreview() {
+			this.add('clearpoke');
+			for (const side of this.sides) {
+				for (const pokemon of side.pokemon) {
+					const details = pokemon.details;
+					this.add('poke', pokemon.side.id, details, '');
+				}
+				let buf = 'raw|';
+				for (const pokemon of side.pokemon) {
+					if (!buf.endsWith('|')) buf += '/</span>&#8203;';
+					buf += `<span style="white-space:nowrap"><psicon pokemon="${pokemon.species.id}" />`;
+					for (const type of pokemon.species.types) {
+						buf += `<psicon type="${type}" /> `;
+					}
+					let statName: StatID;
+					for (statName in pokemon.species.baseStats as StatsTable) {
+						buf += `${pokemon.species.baseStats[statName]}/`;
+					}
+				}
+				this.add(`${buf}</span>`);
+			}
+			this.makeRequest('teampreview');
+		},
+		onSwitchIn(pokemon) {
+			let buf = 'raw|';
+			if (!buf.endsWith('|')) buf += '/</span>&#8203;';
+			buf += `<span style="white-space:nowrap"><psicon pokemon="${pokemon.species.id}" />`;
+			for (const type of pokemon.species.types) {
+				buf += `<psicon type="${type}" /> `;
+			}
+			let statName: StatID;
+			for (statName in pokemon.species.baseStats as StatsTable) {
+				buf += `${pokemon.species.baseStats[statName]}/`;
+			}
+			this.add(`${buf}</span>`);
 		},
 	},
 };

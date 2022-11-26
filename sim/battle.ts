@@ -305,17 +305,17 @@ export class Battle {
 	// nihilslave: note that speedSort() also call a prng function
 	random(m?: number, n?: number) {
 		// todo: arguments.callee.caller
-		this.debug(`PRNG.next(${(m === undefined) ? '' : ((n === undefined) ? m : `${m},${n}`)})`);
+		// this.debug(`PRNG.next(${(m === undefined) ? '' : ((n === undefined) ? m : `${m},${n}`)})`);
 		return this.prng.next(m, n);
 	}
 
 	randomChance(numerator: number, denominator: number) {
-		this.debug(`PRNG.randomChance(${numerator},${denominator})`);
+		// this.debug(`PRNG.randomChance(${numerator},${denominator})`);
 		return this.prng.randomChance(numerator, denominator);
 	}
 
 	sample<T>(items: readonly T[]): T {
-		this.debug(`PRNG.sample(0,${items.length})`);
+		// this.debug(`PRNG.sample(0,${items.length})`);
 		return this.prng.sample(items);
 	}
 
@@ -413,7 +413,7 @@ export class Battle {
 				}
 			}
 			if (nextIndexes.length > 1) {
-				this.debug(`speedSort()->PRNG.shuffle(${sorted},${sorted + nextIndexes.length})`);
+				// this.debug(`speedSort()->PRNG.shuffle(${sorted},${sorted + nextIndexes.length})`);
 				this.prng.shuffle(list, sorted, sorted + nextIndexes.length);
 			}
 			sorted += nextIndexes.length;
