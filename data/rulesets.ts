@@ -2500,6 +2500,14 @@ export const Rulesets: {[k: string]: FormatData} = {
 	createmonsmod: {
 		effectType: 'Rule',
 		name: "Createmons Mod",
+		onValidateSet(set) {
+			let statName: StatID;
+			for (statName in set.evs as StatsTable) {
+				if (set.evs[statName] && set.evs[statName] > 252) {
+					return [`${set.species}'s ${statName} base stat exceeds the limit 252.`];
+				}
+			}
+		},
 		onValidateTeam(team) {
 			const dex = this.dex;
 			const pointLimit = 100000;
@@ -3075,7 +3083,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 			if (finalPoints > pointLimit) {
 				const problems = [`Your team's total point exceed limit ${pointLimit}:`];
 				for (let i = 0; i < pointDetails.length; ++i) {
-					problems.push(`${team[i].species}'s point is ${pointDetails[i][0] > 500 ? `(${pointDetails[i][0]} - 450)` : '50'} * (${pointDetails[i][1].toFixed(2)} + 100) * ${pointDetails[i][2]} * ${pointDetails[i][3]} * ${pointDetails[i][4]} / 10 = ${Math.floor((pointDetails[i][0] > 500 ? pointDetails[i][0] - 450 : 50) * (pointDetails[i][1] + 100) * pointDetails[i][2] * pointDetails[i][3] * pointDetails[i][4] * 41 / 4096)}`);
+					problems.push(`${team[i].species}'s point is ${pointDetails[i][0] > 500 ? `(${pointDetails[i][0]} - 450)` : '50'} * (${pointDetails[i][1].toFixed(2)} + 100) * ${pointDetails[i][2]} * ${pointDetails[i][3]} * ${pointDetails[i][4]} / 100 = ${Math.floor((pointDetails[i][0] > 500 ? pointDetails[i][0] - 450 : 50) * (pointDetails[i][1] + 100) * pointDetails[i][2] * pointDetails[i][3] * pointDetails[i][4] * 41 / 4096)}`);
 				}
 				problems.push(`Total Point: ${finalPoints}`);
 				return problems;
@@ -3114,6 +3122,25 @@ export const Rulesets: {[k: string]: FormatData} = {
 		},
 		onSwitchIn(pokemon) {
 			this.add('-start', pokemon, 'typechange', (pokemon.illusion || pokemon).getTypes(true).join('/'), '[silent]');
+		},
+	},
+	signatureitemsclause: {
+		effectType: 'ValidatorRule',
+		name: 'Signature Items Clause',
+		desc: "Bans signature items",
+		banlist: [
+			'Adamant Orb', 'Blue Orb', 'Deep Sea Scale', 'Deep Sea Tooth', 'Eviolite', 'Griseous Orb', 'Leek', 'Light Ball', 
+			'Lucky Punch', 'Lustrous Orb', 'Metal Powder', 'Quick Powder', 'Red Orb', 'Rusted Shield', 'Rusted Sword', 
+			'Thick Club', 'Soul Dew', 
+		],
+		onBegin() {
+			this.add('rule', 'Signature Items Clause: Signature items are banned');
+		},
+		onValidateSet(set) {
+			const item = this.dex.items.get(set.item);
+			if (item.megaStone) {
+				return [`${set.species}'s item ${item.name} is banned by Signature Items Clause.`];
+			}
 		},
 	},
 };
