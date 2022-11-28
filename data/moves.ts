@@ -1225,7 +1225,9 @@ export const Moves: {[moveid: string]: MoveData} = {
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1},
-		// Move disabling implemented in Battle#nextTurn in sim/battle.js
+		onDisableMove(pokemon) {
+			if (!pokemon.ateBerry) pokemon.disableMove('belch');
+		},
 		secondary: null,
 		target: "normal",
 		type: "Poison",
@@ -2078,7 +2080,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		self: {
 			onHit(pokemon) {
 				pokemon.setType(pokemon.getTypes(true).map(type => type === "Fire" ? "???" : type));
-				this.add('-start', pokemon, 'typechange', pokemon.types.join('/'), '[from] move: Burn Up');
+				this.add('-start', pokemon, 'typechange', pokemon.getTypes().join('/'), '[from] move: Burn Up');
 			},
 		},
 		secondary: null,
@@ -3959,7 +3961,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		self: {
 			onHit(pokemon) {
 				pokemon.setType(pokemon.getTypes(true).map(type => type === "Electric" ? "???" : type));
-				this.add('-start', pokemon, 'typechange', pokemon.types.join('/'), '[from] move: Double Shock');
+				this.add('-start', pokemon, 'typechange', pokemon.getTypes().join('/'), '[from] move: Double Shock');
 			},
 		},
 		secondary: null,
@@ -6617,7 +6619,9 @@ export const Moves: {[moveid: string]: MoveData} = {
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		// Move disabling implemented in Battle#nextTurn in sim/battle.ts
+		onDisableMove(pokemon) {
+			if (pokemon.lastMove?.id === 'gigatonhammer') pokemon.disableMove('gigatonhammer');
+		},
 		secondary: null,
 		target: "normal",
 		type: "Steel",
@@ -14735,7 +14739,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		accuracy: 100,
 		basePower: 50,
 		basePowerCallback(pokemon) {
-			return Math.min(300, 50 + 50 * pokemon.timesAttacked);
+			return Math.min(350, 50 + 50 * pokemon.timesAttacked);
 		},
 		category: "Physical",
 		name: "Rage Fist",
@@ -15633,7 +15637,11 @@ export const Moves: {[moveid: string]: MoveData} = {
 			duration: 1,
 			onResidualOrder: 25,
 			onStart(target) {
-				this.add('-singleturn', target, 'move: Roost');
+				if (!target.terastallized) {
+					this.add('-singleturn', target, 'move: Roost');
+				} else if (target.terastallized === "Flying") {
+					this.add('-hint', "If a Flying Terastallized Pokemon uses Roost, it remains Flying-type.");
+				}
 			},
 			onTypePriority: -1,
 			onType(types, pokemon) {
@@ -18569,7 +18577,9 @@ export const Moves: {[moveid: string]: MoveData} = {
 		pp: 10,
 		priority: 0,
 		flags: {snatch: 1},
-		// Move disabling implemented in Battle#nextTurn in sim/battle.ts
+		onDisableMove(pokemon) {
+			if (!pokemon.getItem().isBerry) pokemon.disableMove('stuffcheeks');
+		},
 		onTry(source) {
 			const item = source.getItem();
 			if (item.isBerry && source.eatItem(true)) {

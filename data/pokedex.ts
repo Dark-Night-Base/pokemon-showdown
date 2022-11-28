@@ -16707,7 +16707,8 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		weightkg: 39.2,
 		color: "Yellow",
 		prevo: "Dunsparce",
-		evoLevel: 18,
+		evoType: "levelMove",
+		evoMove: "Hyper Drill",
 		otherFormes: ["Dudunsparce-Three-Segment"],
 		formeOrder: ["Dudunsparce", "Dudunsparce-Three-Segment"],
 		eggGroups: ["Field"],
@@ -16724,7 +16725,8 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		weightkg: 47.4,
 		color: "Yellow",
 		prevo: "Dunsparce",
-		evoLevel: 18,
+		evoType: "levelMove",
+		evoMove: "Hyper Drill",
 		eggGroups: ["Field"],
 	},
 	tarountula: {
@@ -17923,7 +17925,7 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		color: "Red",
 		prevo: "Charcadet",
 		evoType: "useItem",
-		evoItem: "Malicious Armor",
+		evoItem: "Auspicious Armor",
 		eggGroups: ["Human-Like"],
 	},
 	ceruledge: {
@@ -17937,7 +17939,7 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		color: "Blue",
 		prevo: "Charcadet",
 		evoType: "useItem",
-		evoItem: "Auspicious Armor",
+		evoItem: "Malicious Armor",
 		eggGroups: ["Human-Like"],
 	},
 	toedscool: {

@@ -2487,14 +2487,12 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		num: 152,
 	},
 	myceliummight: {
-		onModifyPriority(priority, pokemon, target, move) {
-			if (move?.category === 'Status') {
-				// TODO what exactly does "The Pokémon will always act more slowly when using status moves" mean?
-				// Assuming -1 priority.
-				return priority - 1;
+		onFractionalPriorityPriority: -1,
+		onFractionalPriority(priority, pokemon, target, move) {
+			if (move.category === 'Status') {
+				return -0.1;
 			}
 		},
-		// Supress abilities when status moves are involved
 		onModifyMove(move) {
 			if (move.category === 'Status') {
 				move.ignoreAbility = true;
@@ -2717,7 +2715,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 	},
 	opportunist: {
 		onFoeAfterBoost(boost, target, source, effect) {
-			if (effect?.effectType !== 'Move') return;
+			if (effect?.fullname?.endsWith('Opportunist') || effect?.fullname?.endsWith('Mirror Herb')) return;
 			const pokemon = this.effectState.target;
 			const positiveBoosts: Partial<BoostsTable> = {};
 			let i: BoostID;
@@ -3605,9 +3603,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 	},
 	sandspit: {
 		onDamagingHit(damage, target, source, move) {
-			if (this.field.getWeather().id !== 'sandstorm') {
-				this.field.setWeather('sandstorm');
-			}
+			this.field.setWeather('sandstorm');
 		},
 		name: "Sand Spit",
 		rating: 2,
@@ -3733,10 +3729,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 	},
 	seedsower: {
 		onDamagingHit(damage, target, source, move) {
-			if (this.field.getTerrain().id !== 'grassyterrain') {
-				this.add('-activate', target, 'ability: Seed Sower');
-				this.field.setTerrain('grassyterrain', target);
-			}
+			this.field.setTerrain('grassyterrain');
 		},
 		name: "Seed Sower",
 		rating: 2,
