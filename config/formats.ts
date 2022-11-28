@@ -1748,7 +1748,14 @@ export const Formats: FormatList = [
 	},
 	{
 		name: "[Gen 9] Balanced Createmons",
-		desc: `DIY your own Pok&eacute;mon with any base stats, type, ability, and moves.`,
+		desc: `自定义你的精灵，包括种族值、属性、特性和招式。<br />` + 
+			`&bullet;通过在组队器中调整努力值来调整种族值：你的真实种族值等于你的努力值，你的真实努力值强制每项全满；<br />` + 
+			`&bullet;在组队器细节栏（就是调整钛晶属性的地方）设定第一属性及第二属性；<br />` + 
+			`&bullet;特性和招式的选择与 BH 相同。<br />` + 
+			`&bullet;根据你的配置，每只精灵都会算出一个固定的分数，精灵越强分数越高。每支队伍分数上限 100000，超过上限的队伍视为不合法。<br />` + 
+			`&bullet;可通过命令 /crtm formula 查看分数计算公式，也可按组队窗中的 Check 按钮快速计算精灵分数；<br />` + 
+			`&bullet;可通过命令 /crtm 属性/特性/招式 来查看该属性/特性/招式对应的分数，如用 /crtm fairy 查看妖精系的分数，得知其分数为 3 分。<br />` + 
+			`DIY your own Pok&eacute;mon with any base stats, type, ability, and moves. <br />`,
 
 		mod: 'gen9',
 		debug: true,
