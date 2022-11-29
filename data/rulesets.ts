@@ -2539,36 +2539,36 @@ export const Rulesets: {[k: string]: FormatData} = {
 
 				// type points
 				const typeToPoint: {[k: string]: number} = {
-					Bug: 0.5,
-					Dark: 2,
-					Dragon: 2,
-					Electric: 2,
-					Fairy: 3,
-					Fighting: 1.5,
-					Fire: 2.5,
-					Flying: 2,
-					Ghost: 2.5,
-					Grass: 1,
-					Ground: 2,
-					Ice: 1,
-					Normal: 2.5,
-					Poison: 1,
-					Psychic: 1,
-					Rock: 1,
-					Steel: 3,
-					Water: 2.5,
+					bug: 0.5,
+					dark: 2,
+					dragon: 2,
+					electric: 2,
+					fairy: 3,
+					fighting: 1.5,
+					fire: 2.5,
+					flying: 2,
+					ghost: 2.5,
+					grass: 1,
+					ground: 2,
+					ice: 1,
+					normal: 2.5,
+					poison: 1,
+					psychic: 1,
+					rock: 1,
+					steel: 3,
+					water: 2.5,
 				};
 				let types: string[] = [];
-				if (set.hpType) {
-					types.push(dex.types.get(set.hpType).name);
+				if (set.hpType && dex.types.get(set.hpType).exists) {
+					types.push(dex.types.get(set.hpType).id);
 				} else {
-					types.push(dex.types.get(species.types[0]).name);
+					types.push(dex.types.get(species.types[0]).id);
 				}
 				details.push(typeToPoint[types[0]]);
-				if (set.teraType) {
-					types.push(dex.types.get(set.teraType).name);
+				if (set.teraType && dex.types.get(set.teraType).exists) {
+					types.push(dex.types.get(set.teraType).id);
 				} else if (species.types.length > 1) {
-					types.push(dex.types.get(species.types[1]).name);
+					types.push(dex.types.get(species.types[1]).id);
 				}
 				if (types.length < 2 || types[1] === types[0]) {
 					details.push(-1);
@@ -3095,10 +3095,10 @@ export const Rulesets: {[k: string]: FormatData} = {
 			const problems: string[] = [];
 			if (finalPoints > pointLimit || team.length === 1) {
 				if (finalPoints > pointLimit) {
-					problems.push(`Your team's total point exceeds the limit ${pointLimit}:`);
+					problems.push(`Your team's total Point exceeds the limit ${pointLimit}:`);
 				}
 				for (let i = 0; i < pointDetails.length; ++i) {
-					problems.push(`${team[i].species}'s point details:`);
+					problems.push(`${team[i].species}'s Point details:`);
 					problems.push(`BST: ${pointDetails[i][0]},`);
 					problems.push(`SD: ${pointDetails[i][1].toFixed(2)},`);
 					problems.push(`T: ${pointDetails[i][3] === -1 ? `${pointDetails[i][2]} * 1.5` : `${pointDetails[i][2]} + ${pointDetails[i][3]}`} = ${pointDetails[i][9]},`);

@@ -17,8 +17,9 @@ export const commands: Chat.ChatCommands = {
 
 	crtm: 'createmons',
 	createmons(target, room, user, connection) {
+		if (!this.runBroadcast()) return;
 		if (!target) return this.parse('/help crtm');
-		if (target === 'formula') {
+		if (target === 'formula' || target === 'f') {
 			this.sendReplyBox(
 				`Createmons 分数计算方法：<br />` + 
 				`&bullet;首先计算出以下几项：<br />` + 
@@ -32,25 +33,26 @@ export const commands: Chat.ChatCommands = {
 			);
 			return;
 		}
+
 		const typeToPoint: {[k: string]: number} = {
-			Bug: 0.5,
-			Dark: 2,
-			Dragon: 2,
-			Electric: 2,
-			Fairy: 3,
-			Fighting: 1.5,
-			Fire: 2.5,
-			Flying: 2,
-			Ghost: 2.5,
-			Grass: 1,
-			Ground: 2,
-			Ice: 1,
-			Normal: 2.5,
-			Poison: 1,
-			Psychic: 1,
-			Rock: 1,
-			Steel: 3,
-			Water: 2.5,
+			bug: 0.5,
+			dark: 2,
+			dragon: 2,
+			electric: 2,
+			fairy: 3,
+			fighting: 1.5,
+			fire: 2.5,
+			flying: 2,
+			ghost: 2.5,
+			grass: 1,
+			ground: 2,
+			ice: 1,
+			normal: 2.5,
+			poison: 1,
+			psychic: 1,
+			rock: 1,
+			steel: 3,
+			water: 2.5,
 		};
 		const abilityToPoint: {[k: string]: number} = {
 			adaptability: 3,
@@ -540,25 +542,74 @@ export const commands: Chat.ChatCommands = {
 			yawn: 1.5,
 			zapcannon: 2,
 		};
+		
+		const point = Number(target);
+		if (!isNaN(point)) {
+			let buf = '';
+			let types: string[] = [];
+			let abilities: string[] = [];
+			let moves: string[] = [];
+			for (const type in typeToPoint) {
+				if (typeToPoint[type] === point) {
+					types.push(Dex.types.get(type).name);
+				}
+			}
+			for (const ability in abilityToPoint) {
+				if (abilityToPoint[ability] === point) {
+					abilities.push(Dex.abilities.get(ability).name);
+				}
+				if (point === 1) {
+					abilities = Dex.abilities.all().filter(value => !abilityToPoint[value.id]).map(value => value.name);
+				}
+			}
+			for (const move in moveToPoint) {
+				if (moveToPoint[move] === point) {
+					moves.push(Dex.moves.get(move).name);
+				}
+				if (point === 0.5) {
+					moves = Dex.moves.all().filter(value => !moveToPoint[value.id]).map(value => value.name);
+				}
+			}
+			if (types.length) {
+				buf += `&bullet;Types of ${point} Points: ${types.join(',')} <br />`;
+			}
+			if (abilities.length) {
+				buf += `&bullet;Abilities of ${point} Points: ${abilities.join(',')} <br />`;
+			}
+			if (moves.length) {
+				buf += `&bullet;Moves of ${point} Points: ${moves.join(',')} <br />`;
+			}
+			if (buf.length) {
+				this.sendReplyBox(buf);
+			} else {
+				this.errorReply(`No Type/Ability/Move of ${point} Points is found.`);
+			}
+			return;
+		}
+
 		const type = Dex.types.get(target);
 		const ability = Dex.abilities.get(target);
 		const move = Dex.moves.get(target);
 		if (type.exists) {
-			this.sendReply(`${type.name}'s point is ${typeToPoint[type.name]}.`);
+			this.sendReplyBox(`${type.name}'s Point is ${typeToPoint[type.id]}`);
 			return;
 		}
 		if (ability.exists) {
-			this.sendReply(`${ability.name}'s point is ${abilityToPoint[ability.id] || 1}.`);
+			this.sendReplyBox(`${ability.name}'s Point is ${abilityToPoint[ability.id] || 1}`);
 			return;
 		}
 		if (move.exists) {
-			this.sendReply(`${move.name}'s point is ${moveToPoint[move.id] || 0.5}`);
+			this.sendReplyBox(`${move.name}'s Point is ${moveToPoint[move.id] || 0.5}`);
 			return;
 		}
 		this.errorReply(`Type/Ability/Move doesn't exist.`);
 	},
 	createmonshelp: [
-		`/crtm or /createmons [type/ability/move] - See the point of that type/ability/move in Createmons.`, 
-		`/crtm or /createmons formula - See the formula Createmons uses to calculate the point.`
+		`/crtm [属性/特性/招式] - 查看该属性/特性/招式在 Createmons 中的分数。如：/crtm fairy 查看妖精属性的分数。`, 
+		`/crtm 分数 - 查看所有该分数的属性/特性/招式。如：/crtm 2 查看所有 2 分的属性、特性和招式。`, 
+		`/crtm formula 或 /crtm f - 查看 Createmons 的算分公式。`, 
+		`/crtm [type/ability/move] - Show the Point of that type/ability/move in Createmons. E.g. /crtm fairy to see the Point of fairy type.`, 
+		`/crtm number - Show all types/abilities/moves of that number of Points. E.g. /crtm 2 to see all types, abilities, and moves of 2 Point.`, 
+		`/crtm formula or /crtm f - See the formula Createmons uses to calculate the Point.`
 	],
 }
