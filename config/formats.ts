@@ -2315,8 +2315,23 @@ export const Formats: FormatList = [
 		onModifySecondaries(secondaries, target, source, move) {
 			if (secondaries.some(s => !!s.self)) move.selfDropped = false;
 		},
-		// for sheer force i guess
+		// set this to 1 for sheer force
 		onModifyMovePriority: 1,
+		/**
+		 * but listen, here we get an unsolvable bug (or feature)
+		 * usually items like king's rock, which give ur move a secondary, won't trigger sheer force
+		 * because they have their onModifyMovePriority set to -1, which is later than sheer force's onModifyMovePriority (0)
+		 * but here we want sheer force to work for forte's secondaries, so we set it to 1, adding them before sheer force works
+		 * you may think ahh it's totally ok, where's the bug?
+		 * check the code of diamond storm, a move without any secondary, but can trigger sheer force and have its "self" property disabled as the effect
+		 * actually just check the code of sheer force, it's triggered by secondary, but will remove self along with secondary
+		 * and the following two effects are also implemented by self property: stats drop of v-create, draco meteor, and etc; must recharge of hyper beam, etc;
+		 * there are more, but these two are the most important
+		 * so, by having sheer force ability and anything with secondary as forte, you will get a v-create that doesn't drop stats, or a hyper beam that doesn't requre recharge
+		 * i say this is unsolvable because we have to add secondary and self at the same time for diamond storm
+		 * which should be earlier than sheer force
+		 * commented by Nihilslave
+		 */		
 		onModifyMove(move, pokemon, target) {
 			// @ts-ignore
 			if (move.category !== 'Status' && pokemon.forte) {
