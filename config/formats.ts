@@ -3278,7 +3278,7 @@ export const Formats: FormatList = [
 	},
 	{
 		name: "[Gen 9] Mirror Move BH",
-		desc: `BH，但你与你的对手共享技能。<br /> BH, but you and your opponent share the moves.`,
+		desc: `BH，但你与你的对手共享技能。（但一只精灵自己至多携带 2 个技能。）<br /> BH, but you and your opponent share the moves. (One pok&eacute;mon can only choose at most 2 moves in the teambuilder.)`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3572990/">Gen 6 Mirror Move</a>`,
 		],
@@ -3289,6 +3289,11 @@ export const Formats: FormatList = [
 		banlist: [
 			'Imprison',
 		],
+		onValidateSet(set) {
+			if (set.moves.length > 2) {
+				return [`${set.species} has more than 2 moves`];
+			}
+		},
 	},
 	{
 		name: "[Gen 8] Mix and Mega BH",
