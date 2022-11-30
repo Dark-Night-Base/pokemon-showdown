@@ -361,7 +361,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 	beastboost: {
 		onSourceAfterFaint(length, target, source, effect) {
 			if (effect && effect.effectType === 'Move') {
-				const bestStat = source.getBestStoredStat();
+				const bestStat = source.getBestStat(true, true);
 				this.boost({[bestStat]: length}, source);
 			}
 		},
@@ -2602,6 +2602,10 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			pokemon.abilityState.ending = false;
 			const strongWeathers = ['desolateland', 'primordialsea', 'deltastream'];
 			for (const target of this.getAllActive()) {
+				if (target.hasItem('Ability Shield')) {
+					this.add('-block', target, 'item: Ability Shield');
+					continue;
+				}
 				if (target.illusion) {
 					this.singleEvent('End', this.dex.abilities.get('Illusion'), target.abilityState, target, pokemon, 'neutralizinggas');
 				}
@@ -3040,8 +3044,9 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 				'noability', 'flowergift', 'forecast', 'hungerswitch', 'illusion', 'imposter', 'neutralizinggas', 'powerofalchemy', 'receiver', 'trace', 'wonderguard',
 			];
 			if (target.getAbility().isPermanent || additionalBannedAbilities.includes(target.ability)) return;
-			this.add('-ability', this.effectState.target, ability, '[from] ability: Power of Alchemy', '[of] ' + target);
-			this.effectState.target.setAbility(ability);
+			if (this.effectState.target.setAbility(ability)) {
+				this.add('-ability', this.effectState.target, ability, '[from] ability: Power of Alchemy', '[of] ' + target);
+			}
 		},
 		name: "Power of Alchemy",
 		rating: 0,
@@ -3155,10 +3160,9 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 				pokemon.removeVolatile('protosynthesis');
 			}
 
-			if (pokemon.hasItem('boosterenergy') && !pokemon.volatiles['protosynthesis'] && pokemon.useItem()) {
+			if (pokemon.hasItem('boosterenergy') && !pokemon.getVolatile('protosynthesis') && pokemon.useItem()) {
 				this.add('-activate', pokemon, 'ability: Protosynthesis', '[fromitem]');
 				pokemon.addVolatile('protosynthesis');
-				// @ts-ignore - addVolatile makes this exist but TS can't tell that
 				pokemon.volatiles['protosynthesis'].fromBooster = true;
 			}
 		},
@@ -3169,7 +3173,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		condition: {
 			noCopy: true,
 			onStart(pokemon) {
-				this.effectState.bestStat = pokemon.getBestStoredStat();
+				this.effectState.bestStat = pokemon.getBestStat(false, true);
 				this.add('-start', pokemon, 'protosynthesis' + this.effectState.bestStat);
 			},
 			onModifyAtkPriority: 5,
@@ -3205,6 +3209,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 				this.add('-end', pokemon, 'Protosynthesis');
 			},
 		},
+		isPermanent: true,
 		name: "Protosynthesis",
 		rating: 2,
 		num: 281,
@@ -3288,10 +3293,9 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 				pokemon.removeVolatile('quarkdrive');
 			}
 
-			if (pokemon.hasItem('boosterenergy') && !pokemon.volatiles['quarkdrive'] && pokemon.useItem()) {
+			if (pokemon.hasItem('boosterenergy') && !pokemon.getVolatile('quarkdrive') && pokemon.useItem()) {
 				this.add('-activate', pokemon, 'ability: Quark Drive', '[fromitem]');
 				pokemon.addVolatile('quarkdrive');
-				// @ts-ignore - addVolatile makes this exist but TS can't tell that
 				pokemon.volatiles['quarkdrive'].fromBooster = true;
 			}
 		},
@@ -3302,7 +3306,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		condition: {
 			noCopy: true,
 			onStart(pokemon) {
-				this.effectState.bestStat = pokemon.getBestStoredStat();
+				this.effectState.bestStat = pokemon.getBestStat(false, true);
 				this.add('-start', pokemon, 'quarkdrive' + this.effectState.bestStat);
 			},
 			onModifyAtkPriority: 5,
@@ -3338,6 +3342,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 				this.add('-end', pokemon, 'Quark Drive');
 			},
 		},
+		isPermanent: true,
 		name: "Quark Drive",
 		rating: 2,
 		num: 282,
@@ -3417,8 +3422,9 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 				'noability', 'flowergift', 'forecast', 'hungerswitch', 'illusion', 'imposter', 'neutralizinggas', 'powerofalchemy', 'receiver', 'trace', 'wonderguard',
 			];
 			if (target.getAbility().isPermanent || additionalBannedAbilities.includes(target.ability)) return;
-			this.add('-ability', this.effectState.target, ability, '[from] ability: Receiver', '[of] ' + target);
-			this.effectState.target.setAbility(ability);
+			if (this.effectState.target.setAbility(ability)) {
+				this.add('-ability', this.effectState.target, ability, '[from] ability: Receiver', '[of] ' + target);
+			}
 		},
 		name: "Receiver",
 		rating: 0,
@@ -4598,6 +4604,11 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			if (pokemon.adjacentFoes().some(foeActive => foeActive.ability === 'noability')) {
 				this.effectState.gaveUp = true;
 			}
+			// interaction with Ability Shield is similar to No Ability
+			if (pokemon.hasItem('Ability Shield')) {
+				this.add('-block', pokemon, 'item: Ability Shield');
+				this.effectState.gaveUp = true;
+			}
 		},
 		onUpdate(pokemon) {
 			if (!pokemon.isStarted || this.effectState.gaveUp) return;
@@ -4613,8 +4624,9 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 
 			const target = this.sample(possibleTargets);
 			const ability = target.getAbility();
-			this.add('-ability', pokemon, ability, '[from] ability: Trace', '[of] ' + target);
-			pokemon.setAbility(ability);
+			if (pokemon.setAbility(ability)) {
+				this.add('-ability', pokemon, ability, '[from] ability: Trace', '[of] ' + target);
+			}
 		},
 		name: "Trace",
 		rating: 2.5,
@@ -4818,6 +4830,8 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			}
 
 			if (this.checkMoveMakesContact(move, source, target)) {
+				const targetCanBeSet = this.runEvent('SetAbility', target, source, this.effect, source.ability);
+				if (!targetCanBeSet) return targetCanBeSet;
 				const sourceAbility = source.setAbility('wanderingspirit', target);
 				if (!sourceAbility) return;
 				if (target.isAlly(source)) {
