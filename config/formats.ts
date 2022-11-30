@@ -3946,11 +3946,11 @@ export const Formats: FormatList = [
 		mod: 'mixandmega',
 		ruleset: ['Standard OMs', 'Evasion Items Clause', 'Evasion Abilities Clause', 'Sleep Moves Clause', 'Min Source Gen = 9'],
 		banlist: [
-			'Beedrillite', 'Blazikenite', 'Gengarite', 'Kangaskhanite', 'Mawilite', 'Medichamite',
+			'Miraidon', 'Beedrillite', 'Blazikenite', 'Gengarite', 'Kangaskhanite', 'Mawilite', 'Medichamite',
 			'Moody', 'Shadow Tag', 'Baton Pass', 'Electrify', 'Shed Tail', 'Zap Cannon',
 		],
 		restricted: [
-			'Flutter Mane', 'Gengar', 'Koraidon', 'Miraidon', 'Slaking',
+			'Flutter Mane', 'Gengar', 'Iron Bundle', 'Koraidon', 'Slaking',
 		],
 		onValidateTeam(team) {
 			const itemTable = new Set<ID>();
@@ -4001,6 +4001,17 @@ export const Formats: FormatList = [
 		},
 	},
 	{
+		name: "[Gen 9] Godly Gift",
+		desc: `Each Pok&eacute;mon receives one base stat from a God (AG/Uber Pok&eacute;mon) depending on its position in the team. If there is no Uber Pok&eacute;mon, it uses the Pok&eacute;mon in the first slot.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3710734/">Godly Gift</a>`,
+		],
+
+		mod: 'gen9',
+		ruleset: ['Standard OMs', 'Sleep Moves Clause', 'Godly Gift Mod', 'Min Source Gen = 9'],
+		banlist: ['Blissey', 'Chansey', 'Cyclizar', 'Iron Hands', 'Arena Trap', 'Huge Power', 'Moody', 'Pure Power', 'Shadow Tag', 'Booster Energy', 'Baton Pass'],
+	},
+	{
 		name: "[Gen 9] STABmons",
 		desc: `Pok&eacute;mon can use any move of their typing, in addition to the moves they can normally learn.`,
 		threads: [
@@ -4010,7 +4021,10 @@ export const Formats: FormatList = [
 		mod: 'gen9',
 		ruleset: ['Standard OMs', 'STABmons Move Legality', 'Sleep Moves Clause', 'Min Source Gen = 9'],
 		banlist: ['Dragapult', 'Flutter Mane', 'Komala', 'Koraidon', 'Miraidon', 'Arena Trap', 'Moody', 'Shadow Tag', 'Booster Energy', 'King\'s Rock', 'Baton Pass'],
-		restricted: ['Acupressure', 'Astral Barrage', 'Belly Drum', 'No Retreat', 'Shed Tail', 'Shell Smash', 'V-create', 'Victory Dance', 'Wicked Blow'],
+		restricted: [
+			'Acupressure', 'Astral Barrage', 'Belly Drum', 'Extreme Speed', 'Fillet Away', 'Last Respects',
+			'No Retreat', 'Shed Tail', 'Shell Smash', 'V-create', 'Victory Dance', 'Wicked Blow',
+		],
 	},
 	{
 		name: "[Gen 9] NFE",
@@ -4021,18 +4035,11 @@ export const Formats: FormatList = [
 
 		mod: 'gen9',
 		ruleset: ['Standard OMs', 'Not Fully Evolved', 'Sleep Moves Clause', 'Min Source Gen = 9'],
-		banlist: ['Haunter', 'Magneton', 'Scyther', 'Arena Trap', 'Shadow Tag', 'Baton Pass'],
-	},
-	{
-		name: "[Gen 9] Godly Gift",
-		desc: `Each Pok&eacute;mon receives one base stat from a God (AG/Uber Pok&eacute;mon) depending on its position in the team. If there is no Uber Pok&eacute;mon, it uses the Pok&eacute;mon in the first slot.`,
-		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3710734/">Godly Gift</a>`,
+		banlist: [
+			'Bisharp', 'Chansey', 'Haunter', 'Magneton', 'Primeape', 'Scyther', 'Arena Trap', 'Shadow Tag', 'Baton Pass',
+			// Shouldn't be legal
+			'Stantler', 'Ursaring',
 		],
-
-		mod: 'gen9',
-		ruleset: ['Standard OMs', 'Sleep Moves Clause', 'Godly Gift Mod', 'Min Source Gen = 9'],
-		banlist: ['Blissey', 'Chansey', 'Arena Trap', 'Huge Power', 'Moody', 'Pure Power', 'Shadow Tag'],
 	},
 	{
 		name: "[Gen 8] Free-For-All",
@@ -4561,7 +4568,7 @@ export const Formats: FormatList = [
 		debug: true,
 		ruleset: ['Standard OMs', '!Evasion Moves Clause', 'Evasion Clause', 'Min Source Gen = 9'],
 		banlist: [
-			'Uber', 'AG', 'Arena Trap', 'Moody', 'Sand Veil', 'Shadow Tag', 'Snow Cloak', 'King\'s Rock', 'Baton Pass', 
+			'Uber', 'AG', 'Arena Trap', 'Moody', 'Shadow Tag', 'King\'s Rock', 'Baton Pass', 
 			'Imprison',
 		],
 		onValidateSet(set) {
