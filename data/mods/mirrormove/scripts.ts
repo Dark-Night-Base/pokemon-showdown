@@ -3,6 +3,34 @@ export const Scripts: ModdedBattleScriptsData = {
 		this.turn++;
 		this.lastSuccessfulMoveThisTurn = null;
 
+		// Mirror Move moveSlot updating
+		// Must be highest priority so imprison doesn't lag behind.
+		// doubles unsupported currently
+		const side0 = this.sides[0];
+		const side1 = this.sides[1];
+		for (const pokemon of side0.active) {
+			pokemon.moveSlots = pokemon.moveSlots.filter(move => pokemon.m.curMoves.includes(move.id));
+			pokemon.m.curMoves = this.dex.deepClone(pokemon.moves);
+			const opp = side1.active.find(mon => mon && !mon.fainted);
+			let oppMoves = opp ? this.dex.deepClone(opp.moveSlots) : [];
+			if (opp) {
+				// @ts-ignore
+				oppMoves = oppMoves.filter(move => !pokemon.moves.includes(move.id) && opp.m.curMoves.includes(move.id));
+			}
+			pokemon.moveSlots = pokemon.moveSlots.concat(oppMoves);
+		}
+		for (const pokemon of side1.active) {
+			pokemon.moveSlots = pokemon.moveSlots.filter(move => pokemon.m.curMoves.includes(move.id));
+			pokemon.m.curMoves = this.dex.deepClone(pokemon.moves);
+			const opp = side0.active.find(mon => mon && !mon.fainted);
+			let oppMoves = opp ? this.dex.deepClone(opp.moveSlots) : [];
+			if (opp) {
+				// @ts-ignore
+				oppMoves = oppMoves.filter(move => !pokemon.moves.includes(move.id) && opp.m.curMoves.includes(move.id));
+			}
+			pokemon.moveSlots = pokemon.moveSlots.concat(oppMoves);
+		}
+
 		const dynamaxEnding: Pokemon[] = [];
 		for (const pokemon of this.getAllActive()) {
 			if (pokemon.volatiles['dynamax']?.turns === 3) {
@@ -17,6 +45,24 @@ export const Scripts: ModdedBattleScriptsData = {
 			pokemon.removeVolatile('dynamax');
 		}
 
+		// Gen 1 partial trapping ends when either Pokemon or a switch in faints to residual damage
+		if (this.gen === 1) {
+			for (const pokemon of this.getAllActive()) {
+				if (pokemon.volatiles['partialtrappinglock']) {
+					const target = pokemon.volatiles['partialtrappinglock'].locked;
+					if (target.hp <= 0 || !target.volatiles['partiallytrapped']) {
+						delete pokemon.volatiles['partialtrappinglock'];
+					}
+				}
+				if (pokemon.volatiles['partiallytrapped']) {
+					const source = pokemon.volatiles['partiallytrapped'].source;
+					if (source.hp <= 0 || !source.volatiles['partialtrappinglock']) {
+						delete pokemon.volatiles['partiallytrapped'];
+					}
+				}
+			}
+		}
+
 		const trappedBySide: boolean[] = [];
 		const stalenessBySide: ('internal' | 'external' | undefined)[] = [];
 		for (const side of this.sides) {
@@ -24,7 +70,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			let sideStaleness: 'internal' | 'external' | undefined;
 			for (const pokemon of side.active) {
 				if (!pokemon) continue;
-
 				pokemon.moveThisTurn = '';
 				pokemon.newlySwitched = false;
 				pokemon.moveLastTurnResult = pokemon.moveThisTurnResult;
@@ -44,8 +89,9 @@ export const Scripts: ModdedBattleScriptsData = {
 					moveSlot.disabledSource = '';
 				}
 				this.runEvent('DisableMove', pokemon);
-				if (!pokemon.ateBerry) pokemon.disableMove('belch');
-				if (!pokemon.getItem().isBerry) pokemon.disableMove('stuffcheeks');
+				for (const moveSlot of pokemon.moveSlots) {
+					this.singleEvent('DisableMove', this.dex.getActiveMove(moveSlot.id), null, pokemon);
+				}
 
 				// If it was an illusion, it's not any more
 				if (pokemon.getLastAttackedBy() && this.gen >= 7) pokemon.knownType = true;
@@ -133,7 +179,6 @@ export const Scripts: ModdedBattleScriptsData = {
 		}
 
 		this.add('turn', this.turn);
-
 		if (this.gameType === 'multi') {
 			for (const side of this.sides) {
 				if (side.canDynamaxNow()) {
@@ -165,47 +210,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 		}
 
-		// #region mirror move
-		const p1 = this.getSide('p1').active[0];
-		const p2 = this.getSide('p2').active[0];
-		if (p1 && p2) {
-			const p1Slots = JSON.parse(JSON.stringify(p1.moveSlots));
-			const p2Slots = JSON.parse(JSON.stringify(p2.moveSlots));
-			while (p1.moveSlots.length > 2) {
-				p1.moveSlots.pop();
-			}
-			while (p2.moveSlots.length > 2) {
-				p2.moveSlots.pop();
-			}
-			for (let i = 0; i < 2; ++i) {
-				if (!p2Slots[i]) continue;
-				p1.moveSlots.push({
-					move: p2Slots[i].move,
-					id: p2Slots[i].id,
-					pp: p1Slots[i + 2] ? p2Slots[i].maxpp - p1Slots[i + 2].maxpp + p1Slots[i + 2].pp : p2Slots[i].maxpp,
-					maxpp: p2Slots[i].maxpp,
-					target: p2Slots[i].target,
-					disabled: false,
-					used: false,
-					virtual: true,
-				})
-			}
-			for (let i = 0; i < 2; ++i) {
-				if (!p1Slots[i]) continue;
-				p2.moveSlots.push({
-					move: p1Slots[i].move,
-					id: p1Slots[i].id,
-					pp: p2Slots[i + 2] ? p1Slots[i].maxpp - p2Slots[i + 2].maxpp + p2Slots[i + 2].pp : p1Slots[i].maxpp,
-					maxpp: p1Slots[i].maxpp,
-					target: p1Slots[i].target,
-					disabled: false,
-					used: false,
-					virtual: true,
-				})
-			}
-		}
-		// #endregion mirror move
-
 		this.makeRequest('move');
-	},
+	}
 };

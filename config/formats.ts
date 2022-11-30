@@ -3277,6 +3277,20 @@ export const Formats: FormatList = [
 		ruleset: ['[Gen 9] Balanced Hackmons', 'Inverse Mod'],
 	},
 	{
+		name: "[Gen 9] Mirror Move BH",
+		desc: `BH，但你与你的对手共享技能。<br /> BH, but you share your opponent's moves.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3572990/">Gen 6 Mirror Move</a>`,
+		],
+
+		mod: 'mirrormove',
+		debug: true,
+		ruleset: ['[Gen 9] Balanced Hackmons'],
+		banlist: [
+			'Imprison',
+		],
+	},
+	{
 		name: "[Gen 8] Mix and Mega BH",
 		desc: `BH + MnM。在本分级，除了Mega石，你还可以使用朱红色宝珠、靛蓝色宝珠、腐朽的剑、腐朽的盾、画龙点睛、雪矛和星碎来让宝可梦“Mega 进化”。<br />输入“/mnm &lt;宝可梦名称&gt; @ &lt;Mega石&gt;, bh”来查看宝可梦 Mega 进化后的信息<br />例如：/mnm zygardecomplete@rustedshield,bh。<br />BH where you can mega evolve any Pok&eacute;mon (as long as they are not already in "mega" formes) with any mega stone and no limit. Boosts based on mega evolution from gen 7. <br /> You can also "mega evolve" any Pok&eacute;mon with Red Orb, Blue Orb, Rusted Sword, Rusted Shield, Dragon Ascent, Astral Barrage, and Glacial Lance in this format. <br /> Type "/mnm &lt;pokemon&gt; @ &lt;mega stone&gt;, bh" to see type and stats of Mix and Mega Evolved Pok&eacute;mon in this format. E.g. /mnm zygardecomplete@rustedshield,bh`,
 		threads: [
@@ -4537,23 +4551,22 @@ export const Formats: FormatList = [
 		},
 	},
 	{
-		name: "[Gen 8] Mirror Move",
+		name: "[Gen 9] Mirror Move",
 		desc: `Two of your moves are chosen in the teambuilder, and the other two moves are copied from the opponent's moves.`,
 		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/mirror-move.3572990/">Mirror Move</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3572990/">Gen 6 Mirror Move</a>`,
 		],
 
 		mod: 'mirrormove',
 		debug: true,
-		ruleset: ['Standard OMs', 'Sleep Clause Mod'],
+		ruleset: ['Standard OMs', '!Evasion Moves Clause', 'Evasion Clause', 'Min Source Gen = 9'],
 		banlist: [
-			'Uber', 'AG', 'Arena Trap', 'Moody', 'Power Construct', 'Sand Veil', 'Shadow Tag', 'Snow Cloak',
-			'Bright Powder', 'King\'s Rock', 'Lax Incense', 'Baton Pass',
+			'Uber', 'AG', 'Arena Trap', 'Moody', 'Sand Veil', 'Shadow Tag', 'Snow Cloak', 'King\'s Rock', 'Baton Pass', 
 			'Imprison',
 		],
 		onValidateSet(set) {
 			if (set.moves.length > 2) {
-				return ["You are allowed to bring only 2 moves on a Pokemon.", "(" + set.species + " has more than 2 moves)"];
+				return [`${set.species} has more than 2 moves`];
 			}
 		},
 	},

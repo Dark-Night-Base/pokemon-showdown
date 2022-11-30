@@ -2358,61 +2358,6 @@ export const Rulesets: {[k: string]: FormatData} = {
 			return pokemon;
 		},
 	},
-	mirrormovemod: {
-		effectType: 'Rule',
-		name: 'Mirror Move Mod',
-		desc: "Two of your moves are chosen in the teambuilder, and the other two moves are copied from the opponent's moves.",
-		onBegin() {
-			this.add('rule', 'Mirror Move Mod: Two of your moves are chosen in the teambuilder, and the other two are copied from the opponent.');
-		},
-		onValidateSet(set) {
-			if (set.moves.length > 2) {
-				return ["You are allowed to bring only 2 moves on a Pokemon.", "(" + set.species + " has more than 2 moves)"];
-			}
-		},
-		onBeforeTurn(this, pokemon) {
-			// doesn't work in turn 1
-			// onSwitch to be tested
-			const p1 = this.getSide('p1').active[0];
-			const p2 = this.getSide('p2').active[0];
-			if (p1 && p2) {
-				const p1Slots = JSON.parse(JSON.stringify(p1.moveSlots));
-				const p2Slots = JSON.parse(JSON.stringify(p2.moveSlots));
-				while (p1.moveSlots.length > 2) {
-					p1.moveSlots.pop();
-				}
-				while (p2.moveSlots.length > 2) {
-					p2.moveSlots.pop();
-				}
-				for (let i = 0; i < 2; ++i) {
-					if (!p2Slots[i]) continue;
-					p1.moveSlots.push({
-						move: p2Slots[i].move,
-						id: p2Slots[i].id,
-						pp: p1Slots[i + 2] ? Math.min(p1Slots[i + 2].pp, p2Slots[i].maxpp) : p2Slots[i].maxpp,
-						maxpp: p2Slots[i].maxpp,
-						target: p2Slots[i].target,
-						disabled: false,
-						used: false,
-						virtual: true,
-					})
-				}
-				for (let i = 0; i < 2; ++i) {
-					if (!p1Slots[i]) continue;
-					p2.moveSlots.push({
-						move: p1Slots[i].move,
-						id: p1Slots[i].id,
-						pp: p2Slots[i + 2] ? Math.min(p2Slots[i + 2].pp, p1Slots[i].maxpp) : p1Slots[i].maxpp,
-						maxpp: p1Slots[i].maxpp,
-						target: p1Slots[i].target,
-						disabled: false,
-						used: false,
-						virtual: true,
-					})
-				}
-			}
-		}
-	},
 	godlygiftmod: {
 		effectType: 'Rule',
 		name: "Godly Gift Mod",
