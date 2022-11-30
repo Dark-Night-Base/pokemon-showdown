@@ -1772,7 +1772,7 @@ export const Formats: FormatList = [
 			'Shedinja', 
 			'Arena Trap', 'Huge Power', 'Innards Out', 'Neutralizing Gas', 'Pure Power', 'Shadow Tag', 'Wonder Guard', 
 			'Comatose + Sleep Talk', 
-			'Double Iron Bash', 'Revival Blessing', 'Rage Fist', 'Shed Tail', 
+			'Double Iron Bash', 'Rage Fist', 'Revival Blessing', 'Shed Tail', 
 		],
 		// todo: merge this with Createmons Mod
 		battle: {
