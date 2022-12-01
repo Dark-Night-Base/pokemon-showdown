@@ -4,7 +4,7 @@ import { Utils } from "../lib";
 import { Pokemon } from "../sim/pokemon";
 
 // for Createmons, but should we import them here?
-import { typeToPoint, abilityToPoint, moveToPoint } from "./mods/createmons/pointchart";
+import { getSetPoint } from "./mods/createmons/pointchart";
 
 // The list of formats is stored in config/formats.js
 export const Rulesets: {[k: string]: FormatData} = {
@@ -2470,97 +2470,26 @@ export const Rulesets: {[k: string]: FormatData} = {
 			}
 		},
 		onValidateTeam(team) {
-			const dex = this.dex;
 			const pointLimit = 100000;
 			let finalPoints = 0;
-			const pointDetails = team.map(function(set) {
-				// BST | SD | T1 | T2 | A | M1 | M2 | M3 | M4
-				//  0  |  1 |  2 |  3 | 4 |  5 |  6 |  7 |  8
-				const details: number[] = [];
-				const species = dex.species.get(set.species);
-
-				// base stats points
-				let bst = 0;
-				let sd = 0;
-				if (!set.evs) set.evs = species.baseStats;
-				let statName: StatID;
-				for (statName in set.evs as StatsTable) {
-					bst += set.evs[statName] || 1;
-				}
-				for (statName in set.evs as StatsTable) {
-					const diff = (bst * 683 / 4096 - set.evs[statName] || 1);
-					sd += diff * diff;
-				}
-				sd *= 683;
-				sd /= 4096;
-				sd = Math.sqrt(sd);
-				details.push(bst);
-				details.push(sd);
-
-				// type points
-				let types: string[] = [];
-				if (set.hpType && dex.types.get(set.hpType).exists) {
-					types.push(dex.types.get(set.hpType).id);
-				} else {
-					types.push(dex.types.get(species.types[0]).id);
-				}
-				details.push(typeToPoint[types[0]]);
-				if (set.teraType && dex.types.get(set.teraType).exists) {
-					types.push(dex.types.get(set.teraType).id);
-				} else if (species.types.length > 1) {
-					types.push(dex.types.get(species.types[1]).id);
-				}
-				if (types.length < 2 || types[1] === types[0]) {
-					details.push(-1);
-				} else {
-					details.push(typeToPoint[types[1]]);
-				}
-
-				// ability points
-				const abilityPoint = abilityToPoint[dex.abilities.get(set.ability).id] || 1;
-				details.push(abilityPoint);
-
-				// move points
-				// mem: maybe all moves like fly should have 1 point
-				for (const move of set.moves) {
-					details.push(moveToPoint[dex.moves.get(move).id] || 0.5);
-				}
-				for (let i = set.moves.length; i < 4; ++i) {
-					details.push(0.5);
-				}
-
-				return details;
-			});
-
+			const pointDetails = team.map(set => getSetPoint(this.dex, set));
 			for (const details of pointDetails) {
-				const BST = details[0];
-				const SD = details[1];
-				const T = details[3] === -1 ? (details[2] * 1.5) : (details[2] + details[3]);
-				const A = details[4];
-				const M = details[5] + details[6] + details[7] + details[8];
-				const Total = Math.floor((Math.max(BST - 450, 50)) * (SD + 100) * T * A * M * 41 / 4096);
+				const Total = Math.floor(details[0] * details[3] * details[6] * details[7]);
 				finalPoints += Total;
-				details.push(T);
-				details.push(M);
 				details.push(Total);
 			}
 			const problems: string[] = [];
-			if (finalPoints > pointLimit || team.length === 1) {
-				if (finalPoints > pointLimit) {
-					problems.push(`Your team's total Point exceeds the limit ${pointLimit}:`);
-				}
+			if (finalPoints > pointLimit) {
+				problems.push(`Your team's total Point exceeds the limit ${pointLimit}:`);
 				for (let i = 0; i < pointDetails.length; ++i) {
 					problems.push(`${team[i].species}'s Point details:`);
-					problems.push(`BST: ${pointDetails[i][0]},`);
-					problems.push(`SD: ${pointDetails[i][1].toFixed(2)},`);
-					problems.push(`T: ${pointDetails[i][3] === -1 ? `${pointDetails[i][2]} * 1.5` : `${pointDetails[i][2]} + ${pointDetails[i][3]}`} = ${pointDetails[i][9]},`);
-					problems.push(`A: ${pointDetails[i][4]}`,);
-					problems.push(`M: ${pointDetails[i][5]} + ${pointDetails[i][6]} + ${pointDetails[i][7]} + ${pointDetails[i][8]} = ${pointDetails[i][10]},`);
-					problems.push(`Total: ${pointDetails[i][11]}.`);
+					problems.push(`- S: ${pointDetails[i][1].toFixed(1)} * ${pointDetails[i][2]} / 800 = ${pointDetails[i][0]}`);
+					problems.push(`- T: ${pointDetails[i][5] === -1 ? `${pointDetails[i][4]} * 1.5` : `${pointDetails[i][4]} + ${pointDetails[i][5]}`} = ${pointDetails[i][3]}`);
+					problems.push(`- A: ${pointDetails[i][6]}`);
+					problems.push(`- M: ${pointDetails[i][8]} + ${pointDetails[i][9]} + ${pointDetails[i][10]} + ${pointDetails[i][11]} = ${pointDetails[i][7]}`);
+					problems.push(`- Total: ${pointDetails[i][12]}`);
 				}
-				if (finalPoints > pointLimit) {
-					problems.push(`Total Point of Team: ${finalPoints}.`);
-				}
+				problems.push(`Total Point of Team: ${finalPoints}.`);
 				return problems;
 			}
 		},

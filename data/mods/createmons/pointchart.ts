@@ -520,3 +520,104 @@ export const moveToPoint: {[k: string]: number} = {
 	zapcannon: 2,
 	zippyzap: 1000000,
 };
+function calcBSPoint(stats: StatsTable) {
+	const retVals: number[] = [];
+	let statDetails: StatsTable = {hp: 1, atk: 1, def: 1, spa: 1, spd: 1, spe: 1};
+	let statName: StatID;
+	for (statName in stats as StatsTable) stats[statName] = stats[statName] || 1;
+	for (statName in stats as StatsTable) {
+		switch (statName) {
+			case 'atk':
+			case 'spa':
+				// 100(2a + 100)
+				statDetails[statName] = 200 * stats[statName] + 10000;
+				break;
+			case 'def':
+			case 'spd':
+				// (2h + 200)(2b + 100)
+				statDetails[statName] = 4 * stats['hp'] * stats[statName] + 400 * stats[statName] + 200 * stats['hp'] + 20000;
+				break;
+			case 'spe':
+				// [(2s + 100) - 300} ^ 2
+				const speTmp = 2 * stats[statName] - 200;
+				statDetails[statName] = speTmp * speTmp;
+				break;
+			default:
+				break;
+		}
+	}
+	// show these 2 to players
+	const h = stats['hp'];
+	const a = stats['atk'];
+	const b = stats['def'];
+	const c = stats['spa'];
+	const d = stats['spd'];
+	const s = stats['spe'];
+	const bs1 = Math.sqrt(statDetails['atk'] + statDetails['spa'] + statDetails['def'] + statDetails['spd'] + statDetails['spe']);
+	const bs2 = 2 * Math.max(h, a, b, c, d, s) + 100;
+	// the following is how we actually calculate the point
+	// hb + hd + s ^ 2 + 50(2h + a + 2b + c + 2d - 4s) + 25000
+	const actualBs1 = h * b + h * d + s * s + 50 * (2 * h + a + 2 * b + c + 2 * d - 4 * s) + 25000;
+	const sqrtActualBs1 = Math.sqrt(actualBs1);
+	const actualBs2 = Math.max(h, a, b, c, d, s) + 50;
+	const bs = Math.floor(Math.floor(sqrtActualBs1 * actualBs2) * 5 / 1024);
+
+	retVals.push(bs);
+	retVals.push(bs1);
+	retVals.push(bs2);
+	return retVals;
+}
+export function getSetPoint(dex: ModdedDex, set: PokemonSet) {
+	// BS | BS1 | BS2 | T | T1 | T2 | A | M | M1 | M2 | M3 | M4 | 
+	//  0 |  1  |  2  | 3 |  4 |  5 | 6 | 7 |  8 |  9 | 10 | 11 |
+	const details: number[] = [];
+	const species = dex.species.get(set.species);
+
+	// base stats points
+	if (!set.evs) set.evs = species.baseStats;
+	const bsDetails = calcBSPoint(set.evs);
+	details.push(bsDetails[0]);
+	details.push(bsDetails[1]);
+	details.push(bsDetails[2]);
+
+	// type points
+	let types: string[] = [];
+	if (set.hpType && dex.types.get(set.hpType).exists) {
+		types.push(dex.types.get(set.hpType).id);
+	} else {
+		types.push(dex.types.get(species.types[0]).id);
+	}
+	details.push(typeToPoint[types[0]]);
+	details.push(typeToPoint[types[0]]);
+	if (set.teraType && dex.types.get(set.teraType).exists) {
+		types.push(dex.types.get(set.teraType).id);
+	} else if (species.types.length > 1) {
+		types.push(dex.types.get(species.types[1]).id);
+	}
+	if (types.length < 2 || types[1] === types[0]) {
+		details[3] *= 1.5;
+		details.push(-1);
+	} else {
+		details[3] += typeToPoint[types[1]];
+		details.push(typeToPoint[types[1]]);
+	}
+
+	// ability points
+	const abilityPoint = abilityToPoint[dex.abilities.get(set.ability).id] || 1;
+	details.push(abilityPoint);
+
+	// move points
+	// mem: maybe all moves like fly should have 1 point
+	details.push(0);
+	for (const move of set.moves) {
+		const point = moveToPoint[dex.moves.get(move).id] || 0.5
+		details.push(point);
+		details[7] += point;
+	}
+	for (let i = set.moves.length; i < 4; ++i) {
+		details.push(0.5);
+		details[7] += 0.5;
+	}
+
+	return details;
+};
