@@ -1749,25 +1749,28 @@ export const Formats: FormatList = [
 	{
 		name: "[Gen 9] Balanced Createmons",
 		desc: `自定义你的精灵，包括种族值、属性、特性和招式。<br />` + 
-			`&bullet;通过在组队器中调整努力值来调整种族值：你的真实种族值等于你的努力值，你的真实努力值强制每项全满；<br />` + 
-			`&bullet;在组队器细节栏（就是调整钛晶属性的地方）设定第一属性及第二属性；<br />` + 
-			`&bullet;特性和招式可以自由选择。（但有很小一部分被禁用。）<br />` + 
-			`&bullet;根据你的配置，每只精灵都会算出一个固定的分数。每支队伍分数上限 100000，超过上限的队伍视为不合法。<br />` + 
-			`&bullet;可通过命令 /crtm formula 或 /crtm f 查看分数计算公式，也可按组队窗中的 Check 按钮快速计算精灵分数；<br />` + 
-			`&bullet;可通过命令 /crtm 属性/特性/招式 来查看该属性/特性/招式对应的分数，如用 /crtm fairy 查看妖精系的分数，得知其分数为 3 分。<br />` + 
+			`&bullet; 通过在组队器中调整努力值来调整种族值：你的真实种族值等于你的努力值，你的真实努力值强制每项全满；<br />` + 
+			`&bullet; 在组队器细节栏（就是调整钛晶属性的地方）设定第一属性及第二属性；<br />` + 
+			`&bullet; 特性和招式可以自由选择。（但有很小一部分被禁用。）<br />` + 
+			`&bullet; 根据你的配置，每只精灵都会算出一个固定的分数。每支队伍分数上限 100000，超过上限的队伍视为不合法。<br />` + 
+			`&bullet; 可通过命令 /crtm formula 或 /crtm f 查看分数计算公式，也可按组队窗中的 Check 按钮快速计算精灵分数；<br />` + 
+			`&bullet; 可通过命令 /crtm 属性/特性/招式 来查看该属性/特性/招式对应的分数，如用 /crtm fairy 查看妖精系的分数，得知其分数为 3 分。<br />` + 
+
+			`<br />` + 
+
 			`DIY your own Pok&eacute;mon with any base stats, type, ability, and moves. <br />` + 
-			`&bullet;Customize Base Stats by adjusting EVs in teambuilder. The true Base Stats of a Pok&eacute;mon equal to its EVs. And the true EVs of a Pok&eacute;mon are forced to be all 252. <br />` + 
-			`&bullet;Set First Type and Second Type in the details cell of teambuilder. <br />` + 
-			`&bullet;Select Ability and Moves freely. (With a few bans though.) <br />` + 
-			`&bullet;The Point of a Pok&eacute;mon will be calculated based on its set. Teams with Total Point exceeding 100000 are invalid.<br />` + 
-			`&bullet;Use the command /crtm formula or /crtm f to see the formula used for Point calculation. Click the "Check" button in teambuilder to check a Pok&eacute;mon's Point quickly. <br />` + 
-			`&bullet;Use the command /crtm [type/ability/move] to see the Point of that type/ability/move. E.g. use /crtm fairy to see the Point of fairy type, which is 3. <br />`,
+			`&bullet; Customize Base Stats by adjusting EVs in teambuilder. The true Base Stats of a Pok&eacute;mon equal to its EVs. And the true EVs of a Pok&eacute;mon are forced to be all 252. <br />` + 
+			`&bullet; Set First Type and Second Type in the details cell of teambuilder. <br />` + 
+			`&bullet; Select Ability and Moves freely. (With a few bans though.) <br />` + 
+			`&bullet; The Point of a Pok&eacute;mon will be calculated based on its set. Teams with Total Point exceeding 100000 are invalid.<br />` + 
+			`&bullet; Use the command /crtm formula or /crtm f to see the formula used for Point calculation. Click the "Check" button in teambuilder to check a Pok&eacute;mon's Point quickly. <br />` + 
+			`&bullet; Use the command /crtm [type/ability/move] to see the Point of that type/ability/move. E.g. use /crtm fairy to see the Point of fairy type, which is 3. <br />`,
 
 		mod: 'gen9',
 		debug: true,
 		searchShow: false,
 		tournamentShow: false,
-		ruleset: ['Team Species Preview', 'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'OHKO Clause', 'Evasion Moves Clause', '-CAP', 'Createmons Mod', 'Nickname Clause', 'Species Clause', 'Signature Items Clause', 'Z-Move Clause', 'CFZ Clause', 'Terastal Clause', 'Overflow Stat Mod'],
+		ruleset: ['Createmons Mod', 'Team Species Preview', 'Species Clause', 'Signature Items Clause', 'Z-Move Clause', 'CFZ Clause', 'Terastal Clause', 'Overflow Stat Mod', 'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Nickname Clause', '-CAP'],
 		banlist: [
 			'Shedinja', 
 			'Arena Trap', 'Huge Power', 'Innards Out', 'Neutralizing Gas', 'Pure Power', 'Shadow Tag', 'Wonder Guard', 
