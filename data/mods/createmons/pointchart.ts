@@ -309,6 +309,7 @@ export const moveToPoint: {[k: string]: number} = {
 	hydropump: 1.5,
 	hyperbeam: 1.5,
 	hyperdrill: 1.5,
+	hyperspacefury: 1,
 	hypnosis: 2,
 	iceburn: 1.5,
 	icehammer: 1,

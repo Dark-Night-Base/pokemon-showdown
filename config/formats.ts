@@ -1770,7 +1770,7 @@ export const Formats: FormatList = [
 		debug: true,
 		searchShow: false,
 		tournamentShow: false,
-		ruleset: ['Createmons Mod', 'Team Species Preview', 'Species Clause', 'Signature Items Clause', 'Z-Move Clause', 'CFZ Clause', 'Terastal Clause', 'Overflow Stat Mod', 'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Nickname Clause', '-CAP'],
+		ruleset: ['Createmons Mod = 120000', 'Team Species Preview', 'Species Clause', 'Signature Items Clause', 'Z-Move Clause', 'CFZ Clause', 'Terastal Clause', 'Overflow Stat Mod', 'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Nickname Clause', '-CAP'],
 		banlist: [
 			'Shedinja', 
 			'Arena Trap', 'Huge Power', 'Innards Out', 'Neutralizing Gas', 'Pure Power', 'Shadow Tag', 'Wonder Guard', 

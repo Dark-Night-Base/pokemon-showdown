@@ -2461,6 +2461,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 	createmonsmod: {
 		effectType: 'Rule',
 		name: "Createmons Mod",
+		hasValue: 'positive-integer',
 		onValidateSet(set) {
 			let statName: StatID;
 			for (statName in set.evs as StatsTable) {
@@ -2470,7 +2471,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 			}
 		},
 		onValidateTeam(team) {
-			const pointLimit = 100000;
+			const pointLimit = parseInt(this.ruleTable.valueRules.get('createmonsmod')!);
 			let finalPoints = 0;
 			const pointDetails = team.map(set => getSetPoint(this.dex, set));
 			for (const details of pointDetails) {
