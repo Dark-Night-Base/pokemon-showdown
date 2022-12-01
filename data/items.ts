@@ -2829,7 +2829,6 @@ export const Items: {[itemid: string]: ItemData} = {
 		},
 		num: 206,
 		gen: 3,
-		isNonstandard: "Unobtainable",
 	},
 	latiasite: {
 		name: "Latiasite",
@@ -4077,6 +4076,7 @@ export const Items: {[itemid: string]: ItemData} = {
 		forcedForme: "Arceus-Fairy",
 		num: 644,
 		gen: 6,
+		isNonstandard: "Unobtainable",
 	},
 	plumefossil: {
 		name: "Plume Fossil",

@@ -1938,14 +1938,27 @@ export const Rulesets: {[k: string]: FormatData} = {
 	reevolutionmod: {
 		effectType: "Rule",
 		name: "Re-Evolution Mod",
-		desc: "Pok&eacute;mon gain the boosts they would gain from evolving again",
-		ruleset: ['Overflow Stat Mod'],
+		desc: "Pok&eacute;mon gain the stat changes they would gain from evolving again.",
 		onBegin() {
 			this.add('rule', 'Re-Evolution Mod: Pok\u00e9mon gain the boosts they would gain from evolving again');
 		},
 		onModifySpecies(species, target) {
 			const newSpecies = this.dex.deepClone(species);
-			if (!newSpecies.prevo) return;
+			const baseSpecies = this.dex.species.get(species.baseSpecies);
+			if (!newSpecies.prevo) {
+				if (!baseSpecies.prevo) return;
+				const prevoSpecies = this.dex.species.get(baseSpecies.prevo);
+				let statid: StatID;
+				newSpecies.bst = 0;
+				for (statid in prevoSpecies.baseStats) {
+					const change = baseSpecies.baseStats[statid] - prevoSpecies.baseStats[statid];
+					const formeChange = newSpecies.baseStats[statid] - baseSpecies.baseStats[statid];
+					newSpecies.baseStats[statid] = this.clampIntRange(baseSpecies.baseStats[statid] + change, 1, 255);
+					newSpecies.baseStats[statid] = this.clampIntRange(newSpecies.baseStats[statid] + formeChange, 1, 255);
+					newSpecies.bst += newSpecies.baseStats[statid];
+				}
+				return newSpecies;
+			}
 			const prevoSpecies = this.dex.species.get(newSpecies.prevo);
 			let statid: StatID;
 			newSpecies.bst = 0;
