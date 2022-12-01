@@ -1,23 +1,6 @@
 import { typeToPoint, abilityToPoint, moveToPoint } from '../../data/mods/createmons/pointchart';
 
 export const commands: Chat.ChatCommands = {
-	ctm(target, room, user, connection) {
-		if (Monitor.countPrepBattle(connection.ip, connection)) {
-			return;
-		}
-		if (!target) return this.errorReply(this.tr`Provide a valid slot.`);
-		const slot = Number(target);
-		if (isNaN(slot)) return this.errorReply(this.tr`Provide a valid slot.`);
-		const format = Dex.formats.get('gen9balancedcreatemons');
-		const newTeam = user.battleSettings.team.split(']')[slot];
-
-		// todo: make this simpler w/o team.length === 1 in rulesets, or just move this to client
-		return TeamValidatorAsync.get(format.id).validateTeam(newTeam).then(result => {
-			connection.popup(`${result.slice(1).replace(/\n/g, '\n- ')}`);
-		});
-	},
-	ctmhelp: [`/ctm [slot] - Validates your current Createmons set (set with /utm).`],
-
 	crtm: 'createmons',
 	createmons(target, room, user, connection) {
 		if (!this.runBroadcast()) return;

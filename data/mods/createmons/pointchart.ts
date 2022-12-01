@@ -573,7 +573,7 @@ export function getSetPoint(dex: ModdedDex, set: PokemonSet) {
 	const details: number[] = [];
 	const species = dex.species.get(set.species);
 
-	// base stats points
+	// stats points
 	if (!set.evs) set.evs = species.baseStats;
 	const bsDetails = calcBSPoint(set.evs);
 	details.push(bsDetails[0]);
