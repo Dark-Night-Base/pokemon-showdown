@@ -27,9 +27,9 @@ export const commands: Chat.ChatCommands = {
 				`<b>Createmons 分数计算方法</b><br />` + 
 				`首先计算出以下几项: <br />` + 
 				`&bullet;S: 种族分. 计算方式在最后. <br />` + 
-				`&bullet;T: 属性分. 等于两个属性的分数之和; 如果是单属性则为属性分数乘以 1.5. <br />` + 
+				`&bullet;T: 属性分. 等于各属性分数之和; 如果是单属性则为属性分数乘以 1.5. <br />` + 
 				`&bullet;A: 特性分. <br />` + 
-				`&bullet;M: 招式分. 等于各招式分数之和, 空白招式计 0.5 分. <br />` + 
+				`&bullet;M: 招式分. 等于各招式分数之和; 空白招式计 0.5 分. <br />` + 
 				`总分 = S * T * A * M. <br />` + 
 				`<details><summary>种族分计算方式</summary>` + 
 				`h, a, b, c, d, s 分别代表 HP, 攻击, 防御, 特攻, 特防, 速度种族值. <br />` + 
@@ -57,7 +57,7 @@ export const commands: Chat.ChatCommands = {
 				`&bullet;S1 = 100 * (A + C) + H * (B + D) + (S - 300) ^ 2 <br />` + 
 				`&bullet;S2 = 2 * max(h, a, b, c, d, s) + 100 <br />` + 
 				`&bullet;S = sqrt(S1) * S2 / 800 <br />` + 
-				`TL;DR:  The higher the attacks / The more the bulk / The more extreme the speed / The higher the highest base stats, the greater the Stats Point.` + 
+				`TL;DR: The higher the attacks / The more the bulk / The more extreme the speed / The higher the highest base stats, the greater the Stats Point.` + 
 				`</details>`
 			);
 			return;

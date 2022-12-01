@@ -538,7 +538,7 @@ function calcBSPoint(stats: StatsTable) {
 				statDetails[statName] = 4 * stats['hp'] * stats[statName] + 400 * stats[statName] + 200 * stats['hp'] + 20000;
 				break;
 			case 'spe':
-				// [(2s + 100) - 300} ^ 2
+				// [(2s + 100) - 300] ^ 2
 				const speTmp = 2 * stats[statName] - 200;
 				statDetails[statName] = speTmp * speTmp;
 				break;
