@@ -16,8 +16,8 @@ export const commands: Chat.ChatCommands = {
 				`总分 = S * T * A * M. <br />` + 
 				`<details><summary><em>种族分计算方式</em></summary>` + 
 				`h, a, b, c, d, s 分别代表 HP, 攻击, 防御, 特攻, 特防, 速度种族值. <br />` + 
-				`&bullet; H = 2 * (h + 200) <br />` + 
-				`&bullet; A = 2 * (a + 100). (B, C, D, S 的计算与之相同.) <br />` + 
+				`&bullet; H = 2 * h + 200 <br />` + 
+				`&bullet; A = 2 * a + 100. (B, C, D, S 的计算与之相同.) <br />` + 
 				`&bullet; S1 = 100 * (A + C) + H * (B + D) + (S - 300) ^ 2 <br />` + 
 				`&bullet; S2 = 2 * max(h, a, b, c, d, s) + 100 <br />` + 
 				`&bullet; S = sqrt(S1) * S2 / 800 <br />` + 
@@ -35,8 +35,8 @@ export const commands: Chat.ChatCommands = {
 				`Total = S * T * A * M. <br />` + 
 				`<details><summary><em>How is Stats Point Calculated</em></summary>` + 
 				`h, a, b, c, d, s represent base stats of HP, Atk, Def, SpA, SpD, Spe respectively. <br />` + 
-				`&bullet; H = 2 * (h + 200) <br />` + 
-				`&bullet; A = 2 * (a + 100). (B, C, D, S calculated in the same way) <br />` + 
+				`&bullet; H = 2 * h + 200 <br />` + 
+				`&bullet; A = 2 * a + 100. (B, C, D, S calculated in the same way) <br />` + 
 				`&bullet; S1 = 100 * (A + C) + H * (B + D) + (S - 300) ^ 2 <br />` + 
 				`&bullet; S2 = 2 * max(h, a, b, c, d, s) + 100 <br />` + 
 				`&bullet; S = sqrt(S1) * S2 / 800 <br />` + 
