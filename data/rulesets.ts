@@ -2485,7 +2485,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 				for (let i = 0; i < pointDetails.length; ++i) {
 					problems.push(`${team[i].species}'s Point details:`);
 					problems.push(`- S: ${pointDetails[i][1].toFixed(1)} * ${pointDetails[i][2]} / 800 = ${pointDetails[i][0]}`);
-					problems.push(`- T: ${pointDetails[i][5] === -1 ? `${pointDetails[i][4]} * 1.5` : `${pointDetails[i][4]} + ${pointDetails[i][5]}`} = ${pointDetails[i][3]}`);
+					problems.push(`- T: ${pointDetails[i][5] === -1 ? `${pointDetails[i][4]} * 1.5` : `${pointDetails[i][4]} + ${pointDetails[i][5]}`} = ${pointDetails[i][3].toFixed(1)}`);
 					problems.push(`- A: ${pointDetails[i][6]}`);
 					problems.push(`- M: ${pointDetails[i][8]} + ${pointDetails[i][9]} + ${pointDetails[i][10]} + ${pointDetails[i][11]} = ${pointDetails[i][7]}`);
 					problems.push(`- Total: ${pointDetails[i][12]}`);
