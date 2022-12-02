@@ -602,7 +602,6 @@ export function getSetPoint(dex: ModdedDex, set: PokemonSet) {
 		details[3] += typeToPoint[types[1]];
 		details.push(typeToPoint[types[1]]);
 	}
-	details[3] = details[3].toFixed(1);
 
 	// ability points
 	const abilityPoint = abilityToPoint[dex.abilities.get(set.ability).id] || 1;
