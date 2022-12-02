@@ -1,22 +1,22 @@
 export const typeToPoint: {[k: string]: number} = {
-	bug: 0.5,
-	dark: 2,
-	dragon: 2,
-	electric: 2,
-	fairy: 3,
-	fighting: 1.5,
-	fire: 2.5,
-	flying: 2,
-	ghost: 2.5,
-	grass: 1,
-	ground: 2,
-	ice: 1,
-	normal: 2.5,
-	poison: 1,
-	psychic: 1,
-	rock: 1,
-	steel: 3,
-	water: 2.5,
+	bug: 1,
+	dark: 1.4,
+	dragon: 1.6,
+	electric: 1.6,
+	fairy: 2,
+	fighting: 1.4,
+	fire: 1.6,
+	flying: 1.6,
+	ghost: 1.8,
+	grass: 1.2,
+	ground: 1.6,
+	ice: 1.4,
+	normal: 1.6,
+	poison: 1.2,
+	psychic: 1.4,
+	rock: 1.2,
+	steel: 2,
+	water: 1.8,
 };
 export const abilityToPoint: {[k: string]: number} = {
 	adaptability: 3,
@@ -575,7 +575,7 @@ export function getSetPoint(dex: ModdedDex, set: PokemonSet) {
 	const species = dex.species.get(set.species);
 
 	// stats points
-	if (!set.evs) set.evs = species.baseStats;
+	if (!set.evs) set.evs = JSON.parse(JSON.stringify(species.baseStats));
 	const bsDetails = calcBSPoint(set.evs);
 	details.push(bsDetails[0]);
 	details.push(bsDetails[1]);
