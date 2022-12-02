@@ -34,7 +34,7 @@ export const Formats: FormatList = [
 		mod: 'gen9',
 		ruleset: ['[Gen 9] Balanced Hackmons', 'BST Limit = 500'],
 		banlist: [
-			'Barraskewda', 'Chansey', 
+			'Barraskewda', 'Chansey',
 		],
 	},
 	{
@@ -69,14 +69,14 @@ export const Formats: FormatList = [
 		challengeShow: false,
 		ruleset: ['-Nonexistent', 'Standard NatDex', 'Little Cup', 'Forme Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Dynamax Clause', 'CFZ Clause', '!Obtainable'],
 		banlist: [
-			'Corsola-Galar', 
-			'Archen', 'Gligar', 'Scyther', 'Sneasel', 'Tangela', 'Type: Null', 'Yanma', 
-			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 
-			'Moody', 'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard', 
-			'Psychic Surge', 
-			'Comatose + Sleep Talk', 
-			'Bolt Beak', 'Chatter', 'Dragon Rage', 'Double Iron Bash', 'Fishious Rend', 'Glacial Lance', 'Knock Off', 'Octolock', 'Photon Geyser', 
-			'Shell Smash', 'Sonic Boom', 'Surging Strikes', 'Triple Axel', 'V-Create', 'Wicked Blow', 
+			'Corsola-Galar',
+			'Archen', 'Gligar', 'Scyther', 'Sneasel', 'Tangela', 'Type: Null', 'Yanma',
+			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull',
+			'Moody', 'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
+			'Psychic Surge',
+			'Comatose + Sleep Talk',
+			'Bolt Beak', 'Chatter', 'Dragon Rage', 'Double Iron Bash', 'Fishious Rend', 'Glacial Lance', 'Knock Off', 'Octolock', 'Photon Geyser',
+			'Shell Smash', 'Sonic Boom', 'Surging Strikes', 'Triple Axel', 'V-Create', 'Wicked Blow',
 		],
 	},
 	{
@@ -123,8 +123,10 @@ export const Formats: FormatList = [
 		},
 		onValidateTeam(team, format, teamHas) {
 			for (const set of team) {
-				if (set.moves.length < 4) return [`You are forced to bring 4 moves by 24 Points Rule.`,
-				`${set.species} has less than 4 moves.`];
+				if (set.moves.length < 4) {
+					return [`You are forced to bring 4 moves by 24 Points Rule.`,
+					`${set.species} has less than 4 moves.`];
+				}
 				const moveTable = new Map<string, number>();
 				for (const move of set.moves) {
 					const moveId = this.dex.moves.get(move).id;
@@ -301,8 +303,8 @@ export const Formats: FormatList = [
 			'Rayquaza-Mega', 'Shedinja',
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
 			'Neutralizing Gas', 'Protean', 'Pure Power', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Comatose + Sleep Talk', 
-			'Chatter', 'Electrify', 
+			'Comatose + Sleep Talk',
+			'Chatter', 'Electrify',
 		],
 	},
 	{
@@ -318,8 +320,8 @@ export const Formats: FormatList = [
 		challengeShow: false,
 		ruleset: ['[Gen 8] National Dex BH', '!Arceus Clause', 'Camomons Mod'],
 		unbanlist: [
-			'Calyrex-Shadow', 'Darmanitan-Galar-Zen', 'Groudon-Primal', 'Rayquaza-Mega', 
-			'Protean', 'Libero', 
+			'Calyrex-Shadow', 'Darmanitan-Galar-Zen', 'Groudon-Primal', 'Rayquaza-Mega',
+			'Protean', 'Libero',
 		],
 	},
 	{
@@ -337,10 +339,10 @@ export const Formats: FormatList = [
 		ruleset: ['[Gen 8] National Dex BH', 'Forte Clause'],
 		banlist: [
 			'Copycat', 'Nature Power',
-			'Serene Grace', 'Triage', 
-			'Endeavor', 'Nature\'s Madness', 'Super Fang', 
-			'Arm Thrust', 'Barrage', 'Beat Up', 'Bone Rush', 'Bullet Seed', 'Comet Punch', 'Double Slap', 'Fury Attack', 'Fury Swipes', 'Icicle Spear', 
-			'Pin Missile', 'Rock Blast', 'Scale Shot', 'Spike Cannon', 'Tail Slap', 'Water Shuriken', 'Bonemerang', 'Double Hit', 'Double Kick', 
+			'Serene Grace', 'Triage',
+			'Endeavor', 'Nature\'s Madness', 'Super Fang',
+			'Arm Thrust', 'Barrage', 'Beat Up', 'Bone Rush', 'Bullet Seed', 'Comet Punch', 'Double Slap', 'Fury Attack', 'Fury Swipes', 'Icicle Spear',
+			'Pin Missile', 'Rock Blast', 'Scale Shot', 'Spike Cannon', 'Tail Slap', 'Water Shuriken', 'Bonemerang', 'Double Hit', 'Double Kick',
 			'Dragon Darts', 'Dual Chop', 'Dual Wingbeat', 'Gear Grind', 'Surging Strikes', 'Twineedle', 'Triple Axel', 'Triple Kick',
 		],
 		onValidateSet(set) {
@@ -376,22 +378,22 @@ export const Formats: FormatList = [
 			const item = this.dex.moves.get(set.item);
 			if (!item.exists) return this.validateSet(set, teamHas);
 			const problems = [];
-			const restrictedMoves = ['Acid Spray', 'Anchor Shot', 'Beat Up', 'Bide', 'Bolt Beak', 'Dynamic Punch', 'Echoed Voice', 'Eerie Spell', 'Fishious Rend', 
-			'Flip Turn', 'Frost Breath', 'Ice Ball', 'Inferno', 'Jaw Lock', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rising Voltage', 'Rollout', 'Shell Side Arm', 
+			const restrictedMoves = ['Acid Spray', 'Anchor Shot', 'Beat Up', 'Bide', 'Bolt Beak', 'Dynamic Punch', 'Echoed Voice', 'Eerie Spell', 'Fishious Rend',
+			'Flip Turn', 'Frost Breath', 'Ice Ball', 'Inferno', 'Jaw Lock', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rising Voltage', 'Rollout', 'Shell Side Arm',
 			'Spirit Shackle', 'Stored Power', 'Storm Throw', 'Terrain Pulse', 'Thousand Waves', 'U-turn', 'Volt Switch', 'Weather Ball', 'Wicked Blow', 'Zap Cannon',];
-			if (!item.exists || item.type === 'Status'
-			|| item.isNonstandard == "LGPE"
-			|| item.isZ
-			|| item.isMax
-			|| item.ohko
+			if (!item.exists || item.type === 'Status' ||
+			item.isNonstandard === "LGPE" ||
+			item.isZ ||
+			item.isMax ||
+			item.ohko ||
 			// @ts-ignore
-			|| item.secondaries && item.secondaries.some(secondary => secondary.boosts && secondary.boosts.accuracy < 0)
-			|| item.multihit
-			|| item.priority > 0
-			|| item.volatileStatus == 'partiallytrapped'
-			|| item.damageCallback && item.id !== 'psywave'
-			|| item.flags['charge']
-			|| restrictedMoves.includes(item.name)) 
+			item.secondaries && item.secondaries.some(secondary => secondary.boosts && secondary.boosts.accuracy < 0) ||
+			item.multihit ||
+			item.priority > 0 ||
+			item.volatileStatus === 'partiallytrapped' ||
+			item.damageCallback && item.id !== 'psywave' ||
+			item.flags['charge'] ||
+			restrictedMoves.includes(item.name))
 				problems.push(`${item.name} is banned as a forte.`);
 			const itemStr = set.item;
 			set.item = '';
@@ -464,9 +466,9 @@ export const Formats: FormatList = [
 				// pseudoWeather theoretically shouldn't be a simple property, but it is in practice cuz plasma fists is the only attack with it, maybe change this in later generations
 				// the same applies to volatileStatus, the only such property on attacks are partiallytrapped and smackdown, and partiallytrapped moves are banned
 				// + seflBoost, the only related attack is scale shot
-				const simpleProperties = ['breaksProtect', 'forceSwitch', 'hasCrashDamage', 'ignoreAbility', 'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity', 'isFutureMove', 'mindBlownRecoil', 
-				'overrideDefensiveStat', 'overrideOffensivePokemon', 'overrideOffensiveStat', 'pseudoWeather', 'selfBoost', 'selfdestruct', 'selfSwitch', 'sleepUsable', 'stealsBoosts', 'struggleRecoil', 
-				'thawsTarget', 'volatileStatus', 'willCrit', 
+				const simpleProperties = ['breaksProtect', 'forceSwitch', 'hasCrashDamage', 'ignoreAbility', 'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity', 'isFutureMove', 'mindBlownRecoil',
+				'overrideDefensiveStat', 'overrideOffensivePokemon', 'overrideOffensiveStat', 'pseudoWeather', 'selfBoost', 'selfdestruct', 'selfSwitch', 'sleepUsable', 'stealsBoosts', 'struggleRecoil',
+				'thawsTarget', 'volatileStatus', 'willCrit',
 				// function properties
 				'onDamage', 'onMoveFail', 'onUseMoveMessage'];
 				// omitted properties:
@@ -769,7 +771,7 @@ export const Formats: FormatList = [
 							if (forte.id !== 'doomdesire' && forte.id !== 'futuresight') {
 								ret2 = forte.onTry.call(this, source, target, this.dex.getActiveMove(forte.id));
 							} else {
-								if (!target.side.addSlotCondition(target, 'futuremove')) { 
+								if (!target.side.addSlotCondition(target, 'futuremove')) {
 									ret2 = false;
 								} else {
 									Object.assign(target.side.slotConditions[target.position]['futuremove'], {
@@ -1246,10 +1248,10 @@ export const Formats: FormatList = [
 		challengeShow: false,
 		ruleset: ['-Nonexistent', 'Standard NatDex', 'Forme Clause', 'Sleep Clause Mod', 'Ability Clause = 2', 'OHKO Clause', 'Evasion Moves Clause', 'Dynamax Clause', 'CFZ Clause', '!Obtainable', 'Arceus Clause'],
 		banlist: [
-			'Calyrex-Shadow', 'Cramorant-Gorging', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 
+			'Calyrex-Shadow', 'Cramorant-Gorging', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja',
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Magnet Pull', 'Moody',
 			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Comatose + Sleep Talk', 'Shell Smash', 'Spore', 
+			'Comatose + Sleep Talk', 'Shell Smash', 'Spore',
 			'Gengarite',
 		],
 		restricted: ['Zacian-Crowned', 'Intrepid Sword'],
@@ -1297,7 +1299,7 @@ export const Formats: FormatList = [
 		name: "[Gen 8] ND Multibility BH",
 		desc: `NDBH + Multibility.`,
 		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3688892/">Multibility</a>`, 
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3688892/">Multibility</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/national-dex-bh-v3.3690179/#post-9217527">National Dex BH v3</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/national-dex-bh.3658587/">National Dex BH</a>`,
 		],
@@ -1540,12 +1542,12 @@ export const Formats: FormatList = [
 		challengeShow: false,
 		ruleset: ['-Nonexistent', 'Standard NatDex', 'Forme Clause', 'Sleep Clause Mod', 'Ability Clause = 2', 'OHKO Clause', 'Evasion Moves Clause', 'Dynamax Clause', 'CFZ Clause', '!Obtainable', 'Arceus Clause', 'Turn Tables Mod'],
 		banlist: [
-			'Cramorant-Gorging', 'Eternatus-Eternamax', 'Shedinja', 'Silvally', 
+			'Cramorant-Gorging', 'Eternatus-Eternamax', 'Shedinja', 'Silvally',
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
 			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Comatose + Sleep Talk', 'Imprison + Transform', 
+			'Comatose + Sleep Talk', 'Imprison + Transform',
 			'Belly Drum', 'Court Change', 'Double Iron Bash', 'Electrify', 'Octolock', 'Shell Smash',
-			'Gengarite', 
+			'Gengarite',
 		],
 		onChangeSet(set) {
 			const item = this.dex.toID(set.item);
@@ -1748,24 +1750,24 @@ export const Formats: FormatList = [
 	},
 	{
 		name: "[Gen 9] Balanced Createmons",
-		desc: `自定义你的精灵，包括种族值、属性、特性和招式。<br />` + 
-			`&bullet; 通过在组队器中调整努力值来调整种族值：你的真实种族值等于你的努力值，你的真实努力值强制每项全满；<br />` + 
-			`&bullet; 在组队器细节栏（就是调整钛晶属性的地方）设定第一属性及第二属性；<br />` + 
-			`&bullet; 特性和招式可以自由选择。（但有很小一部分被禁用。）<br />` + 
-			`&bullet; 根据你的配置，每只精灵都会算出一个固定的分数。每支队伍分数上限 100000，超过上限的队伍视为不合法。<br />` + 
-			`&bullet; 可通过命令 /crtm formula 或 /crtm f 查看分数计算公式，也可按组队窗中的 Check 按钮快速计算精灵分数；<br />` + 
-			`&bullet; 可通过命令 /crtm 属性/特性/招式 来查看该属性/特性/招式对应的分数，如用 /crtm fairy 查看妖精系的分数，得知其分数为 3 分。<br />` + 
-			`&bullet; /crtm 的其它用途可通过 /help crtm 查看。<br />` + 
+		desc: `自定义你的精灵，包括种族值、属性、特性和招式。<br />` +
+			`&bullet; 通过在组队器中调整努力值来调整种族值：你的真实种族值等于你的努力值，你的真实努力值强制每项全满；<br />` +
+			`&bullet; 在组队器细节栏（就是调整钛晶属性的地方）设定第一属性及第二属性；<br />` +
+			`&bullet; 特性和招式可以自由选择。（但有很小一部分被禁用。）<br />` +
+			`&bullet; 根据你的配置，每只精灵都会算出一个固定的分数。每支队伍分数上限 100000，超过上限的队伍视为不合法。<br />` +
+			`&bullet; 可通过命令 /crtm formula 或 /crtm f 查看分数计算公式，也可按组队窗中的 Check 按钮快速计算精灵分数；<br />` +
+			`&bullet; 可通过命令 /crtm 属性/特性/招式 来查看该属性/特性/招式对应的分数，如用 /crtm fairy 查看妖精系的分数，得知其分数为 3 分。<br />` +
+			`&bullet; /crtm 的其它用途可通过 /help crtm 查看。<br />` +
 
-			`<br />` + 
+			`<br />` +
 
-			`DIY your own Pok&eacute;mon with any base stats, type, ability, and moves. <br />` + 
-			`&bullet; Customize Base Stats by adjusting EVs in teambuilder. The true Base Stats of a Pok&eacute;mon equal to its EVs. And the true EVs of a Pok&eacute;mon are forced to be all 252. <br />` + 
-			`&bullet; Set First Type and Second Type in the details cell of teambuilder. <br />` + 
-			`&bullet; Select Ability and Moves freely. (With a few bans though.) <br />` + 
-			`&bullet; The Point of a Pok&eacute;mon will be calculated based on its set. Teams with Total Point exceeding 100000 are invalid.<br />` + 
-			`&bullet; Use the command /crtm formula or /crtm f to see the formula used for Point calculation. Click the "Check" button in teambuilder to check a Pok&eacute;mon's Point quickly. <br />` + 
-			`&bullet; Use the command /crtm [type/ability/move] to see the Point of that type/ability/move. E.g. use /crtm fairy to see the Point of fairy type, which is 3. <br />` + 
+			`DIY your own Pok&eacute;mon with any base stats, type, ability, and moves. <br />` +
+			`&bullet; Customize Base Stats by adjusting EVs in teambuilder. The true Base Stats of a Pok&eacute;mon equal to its EVs. And the true EVs of a Pok&eacute;mon are forced to be all 252. <br />` +
+			`&bullet; Set First Type and Second Type in the details cell of teambuilder. <br />` +
+			`&bullet; Select Ability and Moves freely. (With a few bans though.) <br />` +
+			`&bullet; The Point of a Pok&eacute;mon will be calculated based on its set. Teams with Total Point exceeding 100000 are invalid.<br />` +
+			`&bullet; Use the command /crtm formula or /crtm f to see the formula used for Point calculation. Click the "Check" button in teambuilder to check a Pok&eacute;mon's Point quickly. <br />` +
+			`&bullet; Use the command /crtm [type/ability/move] to see the Point of that type/ability/move. E.g. use /crtm fairy to see the Point of fairy type, which is 3. <br />` +
 			`&bullet; Type /help crtm to see more usages of /crtm command. <br />`,
 
 		mod: 'gen9',
@@ -1774,10 +1776,10 @@ export const Formats: FormatList = [
 		tournamentShow: false,
 		ruleset: ['Createmons Mod = 100000', 'Team Species Preview', 'Species Clause', 'Signature Items Clause', 'Z-Move Clause', 'CFZ Clause', 'Terastal Clause', 'Overflow Stat Mod', 'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Nickname Clause', '-CAP'],
 		banlist: [
-			'Shedinja', 
-			'Arena Trap', 'Huge Power', 'Innards Out', 'Neutralizing Gas', 'Pure Power', 'Shadow Tag', 'Wonder Guard', 
-			'Comatose + Sleep Talk', 
-			'Double Iron Bash', 'Rage Fist', 'Revival Blessing', 'Shed Tail', 
+			'Shedinja',
+			'Arena Trap', 'Huge Power', 'Innards Out', 'Neutralizing Gas', 'Pure Power', 'Shadow Tag', 'Wonder Guard',
+			'Comatose + Sleep Talk',
+			'Double Iron Bash', 'Rage Fist', 'Revival Blessing', 'Shed Tail',
 		],
 		// todo: merge this with Createmons Mod
 		battle: {
@@ -1809,14 +1811,14 @@ export const Formats: FormatList = [
 		ruleset: ['Standard OMs', 'Sleep Moves Clause', 'Evasion Items Clause', 'Little Cup'],
 		banlist: [
 			'Basculin', 'Scyther', 'Swirlix',
-			'Arena Trap', 'Huge Power', 
-			'Baton Pass', 
-			'Focus Band', 'King\'s Rock', 'Quick Claw', 
-			'Sand Veil', 'Snow Cloak', 
+			'Arena Trap', 'Huge Power',
+			'Baton Pass',
+			'Focus Band', 'King\'s Rock', 'Quick Claw',
+			'Sand Veil', 'Snow Cloak',
 		],
 		restricted: [
-			'Murkrow', 'Meditite', 'Gothita', 'Gastly', 'Misdreavus', 'Dunsparce', 'Girafarig', 'Basculin', 
-			'Tandemaus', 
+			'Murkrow', 'Meditite', 'Gothita', 'Gastly', 'Misdreavus', 'Dunsparce', 'Girafarig', 'Basculin',
+			'Tandemaus',
 		],
 		onValidateTeam(team) {
 			const gods = new Set<string>();
@@ -1863,8 +1865,8 @@ export const Formats: FormatList = [
 		ruleset: ['Standard OMs', 'Sleep Clause Mod', 'Turn Tables Mod'],
 		banlist: [
 			'AG', 'Shadow Tag', 'Baton Pass',
-			'Huge Power',  
-			'Eviolite', 'Thick Club', 
+			'Huge Power', 
+			'Eviolite', 'Thick Club',
 		],
 	},
 
@@ -1884,10 +1886,10 @@ export const Formats: FormatList = [
 		mod: 'gen9',
 		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Clause', 'Species Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Sleep Moves Clause', 'Endless Battle Clause'],
 		banlist: [
-			'Arena Trap', 'Huge Power', 'Illusion', 'Innards Out', 'Magnet Pull', 'Neutralizing Gas', 'Parental Bond', 'Pure Power', 
+			'Arena Trap', 'Huge Power', 'Illusion', 'Innards Out', 'Magnet Pull', 'Neutralizing Gas', 'Parental Bond', 'Pure Power',
 			'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Comatose + Sleep Talk', 
-			'Rage Fist', 'Shed Tail', 'Shell Smash', 
+			'Comatose + Sleep Talk',
+			'Rage Fist', 'Shed Tail', 'Shell Smash',
 		],
 	},
 	{
@@ -1900,10 +1902,10 @@ export const Formats: FormatList = [
 		mod: 'gen9',
 		ruleset: ['Standard NatDex', '!Obtainable', 'Forme Clause', 'Sleep Clause Mod', 'Ability Clause = 2', 'OHKO Clause', 'Evasion Clause', 'CFZ Clause', 'Dynamax Clause', 'Arceus Clause'],
 		banlist: [
-			'Calyrex-Shadow', 'Cramorant-Gorging', 'Darmanitan-Galar-Zen', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 
-			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Magnet Pull', 'Moody','Neutralizing Gas', 
+			'Calyrex-Shadow', 'Cramorant-Gorging', 'Darmanitan-Galar-Zen', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja',
+			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Magnet Pull', 'Moody','Neutralizing Gas',
 			'Parental Bond', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Comatose + Sleep Talk', 'Imprison + Transform', 
+			'Comatose + Sleep Talk', 'Imprison + Transform',
 			'Belly Drum', 'Bolt Beak', 'Chatter', 'Double Iron Bash', 'Electrify', 'Octolock', 'Shell Smash',
 			'Gengarite',
 		],
@@ -1923,7 +1925,7 @@ export const Formats: FormatList = [
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
 			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
 			'Comatose + Sleep Talk', 'Belly Drum', 'Bolt Beak', 'Court Change', 'Double Iron Bash', 'Octolock', 'Shell Smash',
-			'Rusted Sword', 
+			'Rusted Sword',
 		],
 	},
 	{
@@ -1937,10 +1939,10 @@ export const Formats: FormatList = [
 		mod: 'gen8',
 		ruleset: ['-Nonexistent', 'Standard NatDex', 'Forme Clause', 'Sleep Moves Clause', 'Ability Clause = 2', 'OHKO Clause', 'Evasion Moves Clause', 'Dynamax Clause', 'CFZ Clause', '!Obtainable', 'Arceus Clause'],
 		banlist: [
-			'Calyrex-Shadow', 'Cramorant-Gorging', 'Darmanitan-Galar-Zen', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 
+			'Calyrex-Shadow', 'Cramorant-Gorging', 'Darmanitan-Galar-Zen', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja',
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Magnet Pull', 'Moody',
 			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Comatose + Sleep Talk', 'Imprison + Transform', 
+			'Comatose + Sleep Talk', 'Imprison + Transform',
 			'Belly Drum', 'Bolt Beak', 'Chatter', 'Court Change', 'Double Iron Bash', 'Electrify', 'Octolock', 'Shell Smash',
 			'Gengarite',
 		],
@@ -2055,7 +2057,7 @@ export const Formats: FormatList = [
 		mod: 'gen3',
 		ruleset: ['-Nonexistent', 'OHKO Clause', 'HP Percentage Mod', 'Cancel Mod', 'Sleep Clause Mod', 'Endless Battle Clause'],
 		banlist: [
-			'Slaking', 
+			'Slaking',
 			'Arena Trap', 'Huge Power', 'Pure Power', 'Shadow Tag', 'Wonder Guard',
 			'Soul Dew', 'Belly Drum',
 		],
@@ -2067,8 +2069,8 @@ export const Formats: FormatList = [
 		mod: 'gen2',
 		ruleset: ['-Nonexistent', 'Sleep Clause Mod', 'OHKO Clause', 'Evasion Moves Clause', 'Endless Battle Clause', 'HP Percentage Mod', 'Cancel Mod'],
 		banlist: [
-			'Mewtwo > 1', 
-			'Mean Look + Hypnosis', 'Mean Look + Lovely Kiss', 'Mean Look + Sing', 'Mean Look + Sleep Powder', 'Mean Look + Spore', 
+			'Mewtwo > 1',
+			'Mean Look + Hypnosis', 'Mean Look + Lovely Kiss', 'Mean Look + Sing', 'Mean Look + Sleep Powder', 'Mean Look + Spore',
 			'Spider Web + Hypnosis', 'Spider Web + Lovely Kiss', 'Spider Web + Sing', 'Spider Web + Sleep Powder', 'Spider Web + Spore'
 		],
 	},
@@ -2082,7 +2084,7 @@ export const Formats: FormatList = [
 		mod: 'gen1',
 		ruleset: ['-Nonexistent', 'Freeze Clause Mod', 'Sleep Clause Mod', 'OHKO Clause', 'Evasion Moves Clause', 'Endless Battle Clause', 'HP Percentage Mod', 'Cancel Mod'],
 		banlist: [
-			'Mewtwo', 
+			'Mewtwo',
 			'Bind', 'Clamp', 'Fire Spin', 'Wrap'
 		],
 	},
@@ -2098,14 +2100,14 @@ export const Formats: FormatList = [
 		desc: `Doubles, but BH.`,
 
 		mod: 'gen9',
-		gameType: 'doubles', 
+		gameType: 'doubles',
 		ruleset: ['Standard Doubles', '!Gravity Sleep Clause', '!Obtainable', '-Nonexistent'],
 		banlist: [
-			'Arena Trap', 'Huge Power', 'Illusion', 'Innards Out', 'Neutralizing Gas', 'Parental Bond', 'Pure Power', 'Shadow Tag', 
-			'Stakeout', 'Water Bubble', 'Wonder Guard', 
+			'Arena Trap', 'Huge Power', 'Illusion', 'Innards Out', 'Neutralizing Gas', 'Parental Bond', 'Pure Power', 'Shadow Tag',
+			'Stakeout', 'Water Bubble', 'Wonder Guard',
 			// rest abilities and moves TBA
-			'Justified', 'Anger Point', 'Steam Engine', 'Stamina', 'Rattled', 'Wandering Spirit', 'Soul-Heart', 
-			'Comatose + Sleep Talk', 
+			'Justified', 'Anger Point', 'Steam Engine', 'Stamina', 'Rattled', 'Wandering Spirit', 'Soul-Heart',
+			'Comatose + Sleep Talk',
 		],
 	},
 	{
@@ -2113,7 +2115,7 @@ export const Formats: FormatList = [
 		desc: `Multi Battle, but BH.`,
 
 		mod: 'gen9',
-		gameType: 'multi', 
+		gameType: 'multi',
 		rated: false,
 		tournamentShow: false,
 		ruleset: ['[Gen 9] Balanced Hackmons Doubles', 'Picked Team Size = 3'],
@@ -2132,12 +2134,12 @@ export const Formats: FormatList = [
 		ruleset: ['[Gen 9] Balanced Hackmons Doubles', 'Sleep Clause Mod'],
 		banlist: [
 			// TBA
-			'Acupressure', 'Aromatic Mist', 'Coaching', 'Court Change', 'Decorate', 'Final Gambit', 'Floral Healing', 'Follow Me', 
-			'Heal Pulse', 'Rage Powder', 
+			'Acupressure', 'Aromatic Mist', 'Coaching', 'Court Change', 'Decorate', 'Final Gambit', 'Floral Healing', 'Follow Me',
+			'Heal Pulse', 'Rage Powder',
 		],
 		unbanlist: [
 			// TBA
-			'Parental Bond', 
+			'Parental Bond',
 		],
 	},
 	{
@@ -2159,7 +2161,7 @@ export const Formats: FormatList = [
 		challengeShow: false,
 		ruleset: ['Little Cup', 'Standard OMs', 'Sleep Clause Mod', '!Obtainable', '-Nonexistent', '-Past'],
 		banlist: [
-			'Scyther', 'Sneasel', 'Type: Null', 
+			'Scyther', 'Sneasel', 'Type: Null',
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
 			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
 			'Comatose + Sleep Talk', 'Baton Pass', 'Bolt Beak', 'Double Iron Bash', 'Shell Smash',
@@ -2210,7 +2212,7 @@ export const Formats: FormatList = [
 		name: "[Gen 9] Flipped BH",
 		desc: `BH + Flipped.`,
 		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3662020/">Gen 8 Flipped</a>`, 
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3662020/">Gen 8 Flipped</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3710859/">Balanced Hackmons</a>`,
 		],
 
@@ -2218,7 +2220,7 @@ export const Formats: FormatList = [
 		ruleset: ['[Gen 9] Balanced Hackmons', 'Flipped Mod'],
 		banlist: ['Fur Coat', 'Ice Scales'],
 		unbanlist: [
-			'Shell Smash', 
+			'Shell Smash',
 		],
 	},
 	{
@@ -2232,33 +2234,33 @@ export const Formats: FormatList = [
 		ruleset: ['[Gen 9] Balanced Hackmons', 'Forte Clause'],
 		banlist: [
 			// TBA
-			'Copycat', 
-			'Serene Grace', 'Triage', 
-			'Endeavor', 'Ruination', 'Super Fang', 
-			'Arm Thrust', 'Beat Up', 'Bone Rush', 'Bullet Seed', 'Fury Attack', 'Fury Swipes', 'Icicle Spear', 
-			'Pin Missile', 'Population Bomb', 'Rock Blast', 'Scale Shot', 'Tail Slap', 'Water Shuriken', 'Double Hit', 'Double Kick', 
-			'Dragon Darts', 'Dual Wingbeat', 'Surging Strikes', 'Triple Axel', 
+			'Copycat',
+			'Serene Grace', 'Triage',
+			'Endeavor', 'Ruination', 'Super Fang',
+			'Arm Thrust', 'Beat Up', 'Bone Rush', 'Bullet Seed', 'Fury Attack', 'Fury Swipes', 'Icicle Spear',
+			'Pin Missile', 'Population Bomb', 'Rock Blast', 'Scale Shot', 'Tail Slap', 'Water Shuriken', 'Double Hit', 'Double Kick',
+			'Dragon Darts', 'Dual Wingbeat', 'Surging Strikes', 'Triple Axel',
 		],
 		validateSet(set, teamHas) {
 			const item = this.dex.moves.get(set.item);
 			if (!item.exists) return this.validateSet(set, teamHas);
 			const problems = [];
 			// keep nd moves just in case they are back one day
-			const restrictedMoves = ['Acid Spray', 'Anchor Shot', 'Beat Up', 'Bide', 'Bolt Beak', 'Dynamic Punch', 'Echoed Voice', 'Eerie Spell', 'Fishious Rend', 
-			'Flip Turn', 'Frost Breath', 'Ice Ball', 'Inferno', 'Jaw Lock', 'Last Respects', 'Lumina Crash', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rage Fist', 
-			'Rising Voltage', 'Rollout', 'Shell Side Arm', 'Spirit Shackle', 'Stored Power', 'Storm Throw', 'Terrain Pulse', 'Thousand Waves', 'U-turn', 'Volt Switch', 
+			const restrictedMoves = ['Acid Spray', 'Anchor Shot', 'Beat Up', 'Bide', 'Bolt Beak', 'Dynamic Punch', 'Echoed Voice', 'Eerie Spell', 'Fishious Rend',
+			'Flip Turn', 'Frost Breath', 'Ice Ball', 'Inferno', 'Jaw Lock', 'Last Respects', 'Lumina Crash', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rage Fist',
+			'Rising Voltage', 'Rollout', 'Shell Side Arm', 'Spirit Shackle', 'Stored Power', 'Storm Throw', 'Terrain Pulse', 'Thousand Waves', 'U-turn', 'Volt Switch',
 			'Weather Ball', 'Wicked Blow', 'Zap Cannon', ];
-			if (item.type === 'Status'
-			|| (!!item.isNonstandard && item.isNonstandard !== 'Unobtainable') // check if move is in gen 9
-			|| item.ohko
+			if (item.type === 'Status' ||
+			(!!item.isNonstandard && item.isNonstandard !== 'Unobtainable') || // check if move is in gen 9
+			item.ohko ||
 			// @ts-ignore
-			|| item.secondaries && item.secondaries.some(secondary => secondary.boosts && secondary.boosts.accuracy < 0)
-			|| item.multihit
-			|| item.priority > 0
-			|| item.volatileStatus == 'partiallytrapped'
-			|| item.damageCallback && item.id !== 'psywave'
-			|| item.flags['charge']
-			|| restrictedMoves.includes(item.name)) 
+			item.secondaries && item.secondaries.some(secondary => secondary.boosts && secondary.boosts.accuracy < 0) ||
+			item.multihit ||
+			item.priority > 0 ||
+			item.volatileStatus === 'partiallytrapped' ||
+			item.damageCallback && item.id !== 'psywave' ||
+			item.flags['charge'] ||
+			restrictedMoves.includes(item.name))
 				problems.push(`${item.name} is banned as a Forte.`);
 			const itemStr = set.item;
 			set.item = '';
@@ -2348,9 +2350,9 @@ export const Formats: FormatList = [
 				// pseudoWeather theoretically shouldn't be a simple property, but it is in practice cuz plasma fists is the only attack with it, maybe change this in later generations
 				// the same applies to volatileStatus, the only such property on attacks are partiallytrapped and smackdown, and partiallytrapped moves are banned
 				// + seflBoost, the only related attack is scale shot
-				const simpleProperties = ['breaksProtect', 'forceSwitch', 'hasCrashDamage', 'ignoreAbility', 'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity', 'isFutureMove', 'mindBlownRecoil', 
-				'overrideDefensiveStat', 'overrideOffensivePokemon', 'overrideOffensiveStat', 'pseudoWeather', 'selfBoost', 'selfdestruct', 'selfSwitch', 'sleepUsable', 'stealsBoosts', 'struggleRecoil', 
-				'thawsTarget', 'volatileStatus', 'willCrit', 
+				const simpleProperties = ['breaksProtect', 'forceSwitch', 'hasCrashDamage', 'ignoreAbility', 'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity', 'isFutureMove', 'mindBlownRecoil',
+				'overrideDefensiveStat', 'overrideOffensivePokemon', 'overrideOffensiveStat', 'pseudoWeather', 'selfBoost', 'selfdestruct', 'selfSwitch', 'sleepUsable', 'stealsBoosts', 'struggleRecoil',
+				'thawsTarget', 'volatileStatus', 'willCrit',
 				// function properties
 				'onDamage', 'onMoveFail', 'onUseMoveMessage'];
 				// omitted properties:
@@ -2653,7 +2655,7 @@ export const Formats: FormatList = [
 							if (forte.id !== 'doomdesire' && forte.id !== 'futuresight') {
 								ret2 = forte.onTry.call(this, source, target, this.dex.getActiveMove(forte.id));
 							} else {
-								if (!target.side.addSlotCondition(target, 'futuremove')) { 
+								if (!target.side.addSlotCondition(target, 'futuremove')) {
 									ret2 = false;
 								} else {
 									Object.assign(target.side.slotConditions[target.position]['futuremove'], {
@@ -3158,9 +3160,9 @@ export const Formats: FormatList = [
 		mod: 'gen9',
 		ruleset: ['[Gen 9] Balanced Hackmons'],
 		restricted: [
-			'Mewtwo', 'Slaking', 'Kyogre', 'Groudon', 'Rayquaza', 'Dialga', 'Dialga-Origin', 'Palkia', 'Palkia-Origin', 
-			'Giratina', 'Giratina-Origin', 'Arceus', 'Hoopa-Unbound', 'Zacian', 'Zacian-Crowned', 'Zamazenta', 'Zamazenta-Crowned', 
-			'Eternatus', 'Calyrex-Ice', 'Calyrex-Shadow', 'Palafin-Hero', 'Koraidon', 'Miraidon', 
+			'Mewtwo', 'Slaking', 'Kyogre', 'Groudon', 'Rayquaza', 'Dialga', 'Dialga-Origin', 'Palkia', 'Palkia-Origin',
+			'Giratina', 'Giratina-Origin', 'Arceus', 'Hoopa-Unbound', 'Zacian', 'Zacian-Crowned', 'Zamazenta', 'Zamazenta-Crowned',
+			'Eternatus', 'Calyrex-Ice', 'Calyrex-Shadow', 'Palafin-Hero', 'Koraidon', 'Miraidon',
 		],
 		onValidateTeam(team) {
 			const gods = new Set<string>();
@@ -3317,12 +3319,12 @@ export const Formats: FormatList = [
 		ruleset: ['[Gen 8] Balanced Hackmons', 'Nickname Clause', 'Overflow Stat Mod'],
 		banlist: [
 			'Beedrillite', 'Gengarite', 'Kangaskhanite', 'Mawilite', 'Medichamite',
-			'Astral Barrage > 1', 'Dragon Ascent > 1', 'Glacial Lance > 1', 
+			'Astral Barrage > 1', 'Dragon Ascent > 1', 'Glacial Lance > 1',
 		],
 		unbanlist: [
-			'Calyrex-Shadow', 'Darmanitan-Galar-Zen', 'Shedinja', 'Zacian-Crowned', 
-			'Belly Drum', 
-			'Rusted Sword', 
+			'Calyrex-Shadow', 'Darmanitan-Galar-Zen', 'Shedinja', 'Zacian-Crowned',
+			'Belly Drum',
+			'Rusted Sword',
 		],
 		restricted: ['Intrepid Sword'],
 		onValidateSet(set) {
@@ -3444,7 +3446,7 @@ export const Formats: FormatList = [
 		name: "[Gen 9] Multibility BH",
 		desc: `BH + Multibility.`,
 		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3688892/">Gen 8 Multibility</a>`, 
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3688892/">Gen 8 Multibility</a>`,
 		],
 
 		mod: 'gen9',
@@ -3637,7 +3639,7 @@ export const Formats: FormatList = [
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
 			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
 			'Comatose + Sleep Talk', 'Belly Drum', 'Bolt Beak', 'Court Change', 'Double Iron Bash', 'Octolock', 'Shell Smash',
-			'Rusted Sword', 
+			'Rusted Sword',
 		],
 		battle: {
 			spreadModify(baseStats, set) {
@@ -3700,7 +3702,7 @@ export const Formats: FormatList = [
 		name: "[Gen 8] Re-Evolution BH",
 		desc: `BH but Pok&eacute;mon gain base stats equal to the difference with their previous stage.`,
 		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3703643/">Re-Evolution</a>`, 
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3703643/">Re-Evolution</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3656408/">Balanced Hackmons</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
 		],
@@ -3710,11 +3712,11 @@ export const Formats: FormatList = [
 		challengeShow: false,
 		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod', 'Endless Battle Clause', 'Overflow Stat Mod'],
 		banlist: [
-			'Cramorant-Gorging', 'Eternatus-Eternamax', 'Shedinja', 
-			'Lunala', 'Solgaleo', 
+			'Cramorant-Gorging', 'Eternatus-Eternamax', 'Shedinja',
+			'Lunala', 'Solgaleo',
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
 			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Comatose + Sleep Talk', 'Court Change', 'Double Iron Bash', 'Octolock', 'Shell Smash', 
+			'Comatose + Sleep Talk', 'Court Change', 'Double Iron Bash', 'Octolock', 'Shell Smash',
 		],
 		onChangeSet(set) {
 			const item = this.dex.toID(set.item);
@@ -3780,12 +3782,12 @@ export const Formats: FormatList = [
 		challengeShow: false,
 		ruleset: ['[Gen 8] Balanced Hackmons', 'Scalemons Mod', 'Camomons Mod', 'Overflow Stat Mod'],
 		banlist: [
-			'Eviolite', 'Light Ball', 'Thick Club', 
+			'Eviolite', 'Light Ball', 'Thick Club',
 		],
 		unbanlist: [
-			'Calyrex-Shadow', 'Darmanitan-Galar-Zen', 'Eternatus-Eternamax', 'Zacian-Crowned', 
-			'Bolt Beak', 
-			'Rusted Sword', 
+			'Calyrex-Shadow', 'Darmanitan-Galar-Zen', 'Eternatus-Eternamax', 'Zacian-Crowned',
+			'Bolt Beak',
+			'Rusted Sword',
 		],
 		restricted: ['Intrepid Sword'],
 		onChangeSet(set) {
@@ -3831,7 +3833,7 @@ export const Formats: FormatList = [
 			'Comatose + Sleep Talk', 'Bolt Beak', 'Double Iron Bash', 'Octolock',
 		],
 		restricted: [
-			'Zacian-Crowned', 
+			'Zacian-Crowned',
 			'Baneful Bunker', 'Block', 'Copycat', 'Corrosive Gas', 'Detect', 'Destiny Bond', 'Disable', 'Encore', 'Fairy Lock', 'Ingrain', 'Instruct',
 			'King\'s Shield', 'Mat Block', 'Mean Look', 'Obstruct', 'Octolock', 'Nature Power', 'Parting Shot', 'Psycho Shift',
 			'Protect', 'Roar', 'Skill Swap', 'Sleep Talk', 'Spiky Shield', 'Substitute', 'Teleport', 'Whirlwind', 'Wish', 'Yawn',
@@ -4105,8 +4107,8 @@ export const Formats: FormatList = [
 		ruleset: ['Standard OMs', 'Sleep Clause Mod'],
 		banlist: [
 			'AG', 'Shadow Tag', 'Baton Pass',
-			'Huge Power',  
-			'Eviolite', 
+			'Huge Power', 
+			'Eviolite',
 		],
 		onModifySpecies(species, target, source, effect) {
 			if (!species.baseStats) return;
@@ -4336,20 +4338,20 @@ export const Formats: FormatList = [
 		name: "[Gen 8] Flipped",
 		desc: `All Pok&eacute;mon have their base stats flipped. (HP/Atk/Def/SpA/SpD/Spe --> Spe/SpD/SpA/Def/Atk/HP)`,
 		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3662020/">Flipped</a>`, 
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3662020/">Flipped</a>`,
 		],
 
 		mod: 'gen8',
 		ruleset: ['Standard OMs', 'Sleep Clause Mod', 'Flipped Mod'],
 		banlist: [
-			'Calyrex-Ice', 'Calyrex-Shadow', 'Dialga', 'Eternatus', 'Giratina', 'Giratina-Origin', 
-			'Groudon', 'Ho-oh', 'Kyogre', 'Kyurem-Black', 'Kyurem-White', 'Lugia', 'Lunala', 'Marshadow', 
-			'Melmetal', 'Mewtwo', 'Necrozma-Dawn Wings', 'Necrozma-Dusk Mane', 'Palkia', 'Rayquaza', 
-			'Reshiram', 'Solgaleo', 'Xerneas', 'Yveltal', 'Zacian', 'Zacian-Crowned', 'Zamazenta', 
-			'Zamazenta-Crowned', 'Zekrom', 'Zygarde', 'Zygarde-Complete', 
+			'Calyrex-Ice', 'Calyrex-Shadow', 'Dialga', 'Eternatus', 'Giratina', 'Giratina-Origin',
+			'Groudon', 'Ho-oh', 'Kyogre', 'Kyurem-Black', 'Kyurem-White', 'Lugia', 'Lunala', 'Marshadow',
+			'Melmetal', 'Mewtwo', 'Necrozma-Dawn Wings', 'Necrozma-Dusk Mane', 'Palkia', 'Rayquaza',
+			'Reshiram', 'Solgaleo', 'Xerneas', 'Yveltal', 'Zacian', 'Zacian-Crowned', 'Zamazenta',
+			'Zamazenta-Crowned', 'Zekrom', 'Zygarde', 'Zygarde-Complete',
 			'Arena Trap', 'Moody', 'Power Construct', 'Sand Veil', 'Shadow Tag', 'Snow Cloak',
-			'Bright Powder', 'King\'s Rock', 'Lax Incense', 'Baton Pass', 
-			'Azumarill', 'Blissey', 'Steelix', 'Psychic Surge', 'Psychic Terrain', 'Shell Smash', 
+			'Bright Powder', 'King\'s Rock', 'Lax Incense', 'Baton Pass',
+			'Azumarill', 'Blissey', 'Steelix', 'Psychic Surge', 'Psychic Terrain', 'Shell Smash',
 		],
 	},
 	{
@@ -4578,7 +4580,7 @@ export const Formats: FormatList = [
 		debug: true,
 		ruleset: ['Standard OMs', '!Evasion Moves Clause', 'Evasion Clause', 'Min Source Gen = 9'],
 		banlist: [
-			'Uber', 'AG', 'Arena Trap', 'Moody', 'Shadow Tag', 'King\'s Rock', 'Baton Pass', 
+			'Uber', 'AG', 'Arena Trap', 'Moody', 'Shadow Tag', 'King\'s Rock', 'Baton Pass',
 			'Imprison',
 		],
 		onValidateSet(set) {
@@ -5261,7 +5263,7 @@ export const Formats: FormatList = [
 		mod: 'gen8',
 		ruleset: ['Standard OMs', 'Sleep Clause Mod', 'Tier Shift Mod'],
 		banlist: [
-			'Uber', 'AG', 'Arena Trap', 'Moody', 'Power Construct', 'Shadow Tag', 'Baton Pass', 
+			'Uber', 'AG', 'Arena Trap', 'Moody', 'Power Construct', 'Shadow Tag', 'Baton Pass',
 			'Damp Rock', 'Eviolite', 'Heat Rock'
 		],
 		unbanlist: ['Zamazenta-Crowned'],
