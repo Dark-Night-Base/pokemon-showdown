@@ -1755,6 +1755,7 @@ export const Formats: FormatList = [
 			`&bullet; 根据你的配置，每只精灵都会算出一个固定的分数。每支队伍分数上限 100000，超过上限的队伍视为不合法。<br />` + 
 			`&bullet; 可通过命令 /crtm formula 或 /crtm f 查看分数计算公式，也可按组队窗中的 Check 按钮快速计算精灵分数；<br />` + 
 			`&bullet; 可通过命令 /crtm 属性/特性/招式 来查看该属性/特性/招式对应的分数，如用 /crtm fairy 查看妖精系的分数，得知其分数为 3 分。<br />` + 
+			`&bullet; /crtm 的其它用途可通过 /help crtm 查看。<br />` + 
 
 			`<br />` + 
 
@@ -1764,7 +1765,8 @@ export const Formats: FormatList = [
 			`&bullet; Select Ability and Moves freely. (With a few bans though.) <br />` + 
 			`&bullet; The Point of a Pok&eacute;mon will be calculated based on its set. Teams with Total Point exceeding 100000 are invalid.<br />` + 
 			`&bullet; Use the command /crtm formula or /crtm f to see the formula used for Point calculation. Click the "Check" button in teambuilder to check a Pok&eacute;mon's Point quickly. <br />` + 
-			`&bullet; Use the command /crtm [type/ability/move] to see the Point of that type/ability/move. E.g. use /crtm fairy to see the Point of fairy type, which is 3. <br />`,
+			`&bullet; Use the command /crtm [type/ability/move] to see the Point of that type/ability/move. E.g. use /crtm fairy to see the Point of fairy type, which is 3. <br />` + 
+			`&bullet; Type /help crtm to see more usages of /crtm command. <br />`,
 
 		mod: 'gen9',
 		debug: true,

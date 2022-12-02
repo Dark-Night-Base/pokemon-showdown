@@ -13,7 +13,7 @@ export const typeToPoint: {[k: string]: number} = {
 	ice: 1.4,
 	normal: 1.6,
 	poison: 1.2,
-	psychic: 1.4,
+	psychic: 1.2,
 	rock: 1.2,
 	steel: 2,
 	water: 1.8,

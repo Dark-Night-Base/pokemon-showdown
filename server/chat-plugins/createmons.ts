@@ -1,11 +1,60 @@
 import { typeToPoint, abilityToPoint, moveToPoint } from '../../data/mods/createmons/pointchart';
 
+function orderByPoint(category: string) {
+	let buf = '';
+	const categoryToData: {[k: string]: {[k: string]: number}} = {
+		Type: typeToPoint,
+		Ability: abilityToPoint,
+		Move: moveToPoint,
+	};
+	const categoryToDex: {[k: string]: any} = {
+		Type: Dex.types,
+		Ability: Dex.abilities,
+		Move: Dex.moves,
+	}
+	let data: {[k: string]: number};
+	let dexData;
+	if (category in categoryToData) {
+		data = categoryToData[category];
+		dexData = categoryToDex[category];
+	} else {
+		return 'Something wrong!';
+	}
+	const sheet: {[k: string]: string[]} = {};
+	let pointList: number[] = [];
+	for (const val in data) {
+		const point = data[val].toFixed(1);
+		if (point in sheet) {
+			sheet[point].push(dexData.get(val).name);
+		} else {
+			sheet[point] = [dexData.get(val).name];
+			pointList.push(data[val]);
+		}
+	}
+	pointList = pointList.sort((a, b) => a - b);
+	const categoryPlural = category === 'Ability' ? 'Abilities' : (category + 's');
+	for (const point of pointList) {
+		const pointstring = point.toFixed(1);
+		buf += `<b>${categoryPlural} of ${pointstring} Points</b><br />${sheet[pointstring].join(', ')}<br />`;
+	}
+	if (category === 'Ability') {
+		buf += `<b>Abilities of 1 Point</b><br />All Others<br />`;
+	}
+	if (category === 'Move') {
+		buf += `<b>Moves of 0.5 Point</b><br />All Others<br />`;
+	}
+	return buf;
+}
+
 export const commands: Chat.ChatCommands = {
 	crtm: 'createmons',
 	createmons(target, room, user, connection) {
 		if (!this.runBroadcast()) return;
 		if (!target) return this.parse('/help crtm');
-		if (target === 'formula' || target === 'f') {
+
+		switch (target.toLowerCase()) {
+		case 'formula':
+		case 'f':
 			this.sendReplyBox(
 				`<b>Createmons 分数计算方法</b><br />` + 
 				`首先计算出以下几项: <br />` + 
@@ -44,6 +93,26 @@ export const commands: Chat.ChatCommands = {
 				`</details>`
 			);
 			return;
+		case 'type':
+		case 'types':
+		case 't':
+			const tBuf = orderByPoint('Type');
+			this.sendReplyBox(tBuf);
+			return;
+		case 'ability':
+		case 'abilities':
+		case 'a':
+			const aBuf = orderByPoint('Ability');
+			this.sendReplyBox(aBuf);
+			return;
+		case 'move':
+		case 'moves':
+		case 'm':
+			const mBuf = orderByPoint('Move');
+			this.sendReplyBox(mBuf);
+			return;
+		default:
+			break;
 		}
 		
 		const point = Number(target);
@@ -111,8 +180,10 @@ export const commands: Chat.ChatCommands = {
 		`/crtm [属性/特性/招式] - 查看该属性/特性/招式在 Createmons 中的分数。如：/crtm fairy 查看妖精属性的分数。`, 
 		`/crtm 分数 - 查看所有该分数的属性/特性/招式。如：/crtm 2 查看所有 2 分的属性、特性和招式。`, 
 		`/crtm formula 或 /crtm f - 查看 Createmons 的算分公式。`, 
+		`/crtm type/ability/move - 查看全属性/特性/招式分数表。`, 
 		`/crtm [type/ability/move] - Show the Point of that type/ability/move in Createmons. E.g. /crtm fairy to see the Point of fairy type.`, 
 		`/crtm number - Show all types/abilities/moves of that number of Points. E.g. /crtm 2 to see all types, abilities, and moves of 2 Points.`, 
-		`/crtm formula or /crtm f - See the formula Createmons uses to calculate the Point.`
+		`/crtm formula or /crtm f - See the formula Createmons uses to calculate the Point.`, 
+		`/crtm type/ability/move - Show the Point list of all types/abilities/moves in Createmons.`, 
 	],
 }
