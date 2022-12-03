@@ -431,6 +431,7 @@ export const moveToPoint: {[k: string]: number} = {
 	shadowsneak: 1,
 	sharpen: 1,
 	shedtail: 1000000,
+	shellsidearm: 1,
 	shellsmash: 2.5,
 	shelter: 1,
 	shiftgear: 2,
