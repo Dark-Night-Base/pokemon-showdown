@@ -59,7 +59,7 @@ export const abilityToPoint: {[k: string]: number} = {
 	gulpmissile: 5,
 	guts: 2,
 	hugepower: 1000000,
-	hustle: 2,
+	hustle: 3.5,
 	hadronengine: 3.5,
 	iceface: 2,
 	icescales: 4,
