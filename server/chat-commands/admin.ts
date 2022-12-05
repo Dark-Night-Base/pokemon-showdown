@@ -517,6 +517,8 @@ export const commands: Chat.ChatCommands = {
 		if (!target) return this.parse('/help hotpatch');
 		this.canUseConsole();
 
+		if (user.id !== 'asouchihiro') return this.errorReply('Access Denied!');
+
 		if (Monitor.updateServerLock) {
 			return this.errorReply("Wait for /updateserver to finish before hotpatching.");
 		}
