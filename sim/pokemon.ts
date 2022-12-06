@@ -1078,6 +1078,7 @@ export class Pokemon {
 			baseAbility: this.baseAbility,
 			item: this.item,
 			commanding: !!this.volatiles['commanding'] && !this.fainted,
+			reviving: this.isActive && !!this.side.slotConditions[this.position]['revivalblessing'],
 			pokeball: this.pokeball,
 		};
 		if (this.battle.gen > 6) entry.ability = this.ability;
@@ -1710,6 +1711,7 @@ export class Pokemon {
 			this.item = '';
 			this.itemState = {id: '', target: this};
 			this.pendingStaleness = undefined;
+			this.battle.runEvent('AfterTakeItem', this, null, null, item);
 			return item;
 		}
 		return false;

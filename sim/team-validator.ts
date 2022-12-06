@@ -373,6 +373,46 @@ export class TeamValidator {
 		return {species, eventData: learnset.eventData};
 	}
 
+	getValidationSpecies(set: PokemonSet): [Species, Species] {
+		const dex = this.dex;
+		const ruleTable = this.ruleTable;
+		const species = dex.species.get(set.species);
+		const item = dex.items.get(set.item);
+		const ability = dex.abilities.get(set.ability);
+
+		let outOfBattleSpecies = species;
+		let tierSpecies = species;
+		if (ability.id === 'battlebond' && species.id === 'greninja') {
+			if (this.gen < 9) outOfBattleSpecies = dex.species.get('greninjaash');
+			if (ruleTable.has('obtainableformes')) {
+				tierSpecies = outOfBattleSpecies;
+			}
+		}
+		if (ability.id === 'owntempo' && species.id === 'rockruff') {
+			tierSpecies = outOfBattleSpecies = dex.species.get('rockruffdusk');
+		}
+
+		if (ruleTable.has('obtainableformes')) {
+			const canMegaEvo = dex.gen <= 7 || ruleTable.has('standardnatdex');
+			if (item.megaEvolves === species.name) {
+				if (!item.megaStone) throw new Error(`Item ${item.name} has no base form for mega evolution`);
+				tierSpecies = dex.species.get(item.megaStone);
+			} else if (item.id === 'redorb' && species.id === 'groudon') {
+				tierSpecies = dex.species.get('Groudon-Primal');
+			} else if (item.id === 'blueorb' && species.id === 'kyogre') {
+				tierSpecies = dex.species.get('Kyogre-Primal');
+			} else if (canMegaEvo && species.id === 'rayquaza' && set.moves.map(toID).includes('dragonascent' as ID)) {
+				tierSpecies = dex.species.get('Rayquaza-Mega');
+			} else if (item.id === 'rustedsword' && species.id === 'zacian') {
+				tierSpecies = dex.species.get('Zacian-Crowned');
+			} else if (item.id === 'rustedshield' && species.id === 'zamazenta') {
+				tierSpecies = dex.species.get('Zamazenta-Crowned');
+			}
+		}
+
+		return [outOfBattleSpecies, tierSpecies];
+	}
+
 	validateSet(set: PokemonSet, teamHas: AnyObject): string[] | null {
 		const format = this.format;
 		const dex = this.dex;
@@ -465,22 +505,14 @@ export class TeamValidator {
 		item = dex.items.get(set.item);
 		ability = dex.abilities.get(set.ability);
 
-		let outOfBattleSpecies = species;
-		let tierSpecies = species;
+		const [outOfBattleSpecies, tierSpecies] = this.getValidationSpecies(set);
 		if (ability.id === 'battlebond' && species.id === 'greninja') {
-			if (this.gen < 9) outOfBattleSpecies = dex.species.get('greninjaash');
-			if (ruleTable.has('obtainableformes')) {
-				tierSpecies = outOfBattleSpecies;
-			}
 			if (ruleTable.has('obtainablemisc')) {
 				if (set.gender && set.gender !== 'M') {
 					problems.push(`Battle Bond Greninja must be male.`);
 				}
 				set.gender = 'M';
 			}
-		}
-		if (ability.id === 'owntempo' && species.id === 'rockruff') {
-			tierSpecies = outOfBattleSpecies = dex.species.get('rockruffdusk');
 		}
 		if (species.id === 'melmetal' && set.gigantamax && this.dex.species.getLearnsetData(species.id).eventData) {
 			setSources.sourcesBefore = 0;
@@ -536,24 +568,6 @@ export class TeamValidator {
 				problems.push(`${name}'s Terastal type (${set.teraType}) is invalid.`);
 			} else {
 				set.teraType = type.name;
-			}
-		}
-
-		if (ruleTable.has('obtainableformes')) {
-			const canMegaEvo = dex.gen <= 7 || ruleTable.has('standardnatdex');
-			if (item.megaEvolves === species.name) {
-				if (!item.megaStone) throw new Error(`Item ${item.name} has no base form for mega evolution`);
-				tierSpecies = dex.species.get(item.megaStone);
-			} else if (item.id === 'redorb' && species.id === 'groudon') {
-				tierSpecies = dex.species.get('Groudon-Primal');
-			} else if (item.id === 'blueorb' && species.id === 'kyogre') {
-				tierSpecies = dex.species.get('Kyogre-Primal');
-			} else if (canMegaEvo && species.id === 'rayquaza' && set.moves.map(toID).includes('dragonascent' as ID)) {
-				tierSpecies = dex.species.get('Rayquaza-Mega');
-			} else if (item.id === 'rustedsword' && species.id === 'zacian') {
-				tierSpecies = dex.species.get('Zacian-Crowned');
-			} else if (item.id === 'rustedshield' && species.id === 'zamazenta') {
-				tierSpecies = dex.species.get('Zamazenta-Crowned');
 			}
 		}
 
@@ -644,17 +658,30 @@ export class TeamValidator {
 			problems.push(...this.validateStats(set, species, setSources));
 		}
 
+		const moveLegalityWhitelist: {[k: string]: true | undefined} = {};
 		for (const moveName of set.moves) {
 			if (!moveName) continue;
 			const move = dex.moves.get(Utils.getString(moveName));
 			if (!move.exists) return [`"${move.name}" is an invalid move.`];
 
 			problem = this.checkMove(set, move, setHas);
-			if (problem) problems.push(problem);
+			if (problem) {
+				let allowedByOM;
+				if (problem.endsWith('is not obtainable without hacking or glitches.') &&
+					ruleTable.has('omunobtainablemoves')) {
+					problem = `${name}'s ${problem}`;
+					allowedByOM = !this.omCheckCanLearn(move, outOfBattleSpecies, setSources, set, problem);
+				}
+				if (!allowedByOM) {
+					problems.push(problem);
+				} else {
+					moveLegalityWhitelist[move.id] = true;
+				}
+			}
 		}
 
 		if (ruleTable.has('obtainablemoves')) {
-			problems.push(...this.validateMoves(outOfBattleSpecies, set.moves, setSources, set, name));
+			problems.push(...this.validateMoves(outOfBattleSpecies, set.moves, setSources, set, name, moveLegalityWhitelist));
 		}
 
 		const learnsetSpecies = dex.species.getLearnsetData(outOfBattleSpecies.id);
@@ -1573,7 +1600,7 @@ export class TeamValidator {
 			banReason = ruleTable.check('pokemontag:' + toID(move.isNonstandard));
 			if (banReason) {
 				if (move.isNonstandard === 'Unobtainable') {
-					return `${move.name} is not obtainable without hacking or glitches.`;
+					return `${move.name} is not obtainable without hacking or glitches${dex.gen >= 9 && move.gen < dex.gen ? ` in Gen ${dex.gen}` : ``}.`;
 				}
 				if (move.isNonstandard === 'Gigantamax') {
 					return `${move.name} is not usable without Gigantamaxing its user, ${move.isMax}.`;
@@ -1592,9 +1619,6 @@ export class TeamValidator {
 				return `${set.name}'s move ${move.name} does not exist in this game.`;
 			}
 			if (banReason === '') return null;
-		}
-		if (move.id === 'revivalblessing') {
-			return "Revival Blessing is currently not implemented. It won't be usable until it is.";
 		}
 
 		return null;
@@ -1870,16 +1894,17 @@ export class TeamValidator {
 
 	validateMoves(
 		species: Species, moves: string[], setSources: PokemonSources, set?: Partial<PokemonSet>,
-		name: string = species.name
+		name: string = species.name, moveLegalityWhitelist: {[k: string]: true | undefined} = {}
 	) {
 		const dex = this.dex;
 		const ruleTable = this.ruleTable;
 
 		const problems = [];
 
-		const checkCanLearn = (ruleTable.checkCanLearn && ruleTable.checkCanLearn[0] || this.checkCanLearn);
+		const checkCanLearn = (ruleTable.checkCanLearn?.[0] || this.checkCanLearn);
 		for (const moveName of moves) {
 			const move = dex.moves.get(moveName);
+			if (moveLegalityWhitelist[move.id]) continue;
 			const problem = checkCanLearn.call(this, move, species, setSources, set);
 			if (problem) {
 				problems.push(`${name}${problem}`);
@@ -1951,6 +1976,22 @@ export class TeamValidator {
 		return problems;
 	}
 
+	omCheckCanLearn(
+		move: Move,
+		s: Species,
+		setSources = this.allSources(s),
+		set: Partial<PokemonSet> = {},
+		problem = `${set.name || s.name} can't learn ${move.name}`,
+	): string | null {
+		if (!this.ruleTable.checkCanLearn?.[0]) return problem;
+		const baseCheckCanLearn = this.checkCanLearn;
+		// tell the custom move legality check that the move is illegal by default
+		this.checkCanLearn = () => problem;
+		const omVerdict = this.ruleTable.checkCanLearn[0].call(this, move, s, setSources, set);
+		this.checkCanLearn = baseCheckCanLearn;
+		return omVerdict;
+	}
+
 	/** Returns null if you can learn the move, or a string explaining why you can't learn it */
 	checkCanLearn(
 		move: Move,
@@ -1997,7 +2038,7 @@ export class TeamValidator {
 		/**
 		 * The format allows Sketch to copy moves in Gen 8
 		 */
-		const canSketchGen8Moves = ruleTable.has('sketchgen8moves') || this.dex.currentMod === 'gen8bdsp';
+		const canSketchPostGen7Moves = ruleTable.has('sketchpostgen7moves') || this.dex.currentMod === 'gen8bdsp';
 
 		let tradebackEligible = false;
 		while (species?.name && !alreadyChecked[species.id]) {
@@ -2039,8 +2080,8 @@ export class TeamValidator {
 			} else if (learnset['sketch']) {
 				if (move.noSketch || move.isZ || move.isMax) {
 					cantLearnReason = `can't be Sketched.`;
-				} else if (move.gen > 7 && !canSketchGen8Moves) {
-					cantLearnReason = `can't be Sketched because it's a Gen 8 move and Sketch isn't available in Gen 8.`;
+				} else if (move.gen > 7 && !canSketchPostGen7Moves) {
+					cantLearnReason = `can't be Sketched because it's a Gen ${move.gen} move and Sketch isn't available in Gen ${move.gen}.`;
 				} else {
 					if (!sources) sketch = true;
 					sources = learnset['sketch'].concat(sources || []);
