@@ -5744,25 +5744,16 @@ export const Formats: FormatList = [
 	// Digimon
 	///////////////////////////////////////////////////////////////////
 
-	{
-		section: "Digimon(Alpha)",
-		column: 3,
-	},
-	{
-		name: "[Gen 8] Digimon(Alpha)",
+	// {
+	// 	section: "Digimon(Alpha)",
+	// 	column: 3,
+	// },
+	// {
+	// 	name: "[Gen 9] Digimon(Alpha)",
 
-		mod: 'digimon',
-		searchShow: false,
-		debug: true,
-		ruleset: ['Standard Digimon'],
-	},
-	{
-		name: "[Gen 8] Digimon Doubles(Alpha)",
-
-		mod: 'digimon',
-		gameType: 'doubles',
-		searchShow: false,
-		debug: true,
-		ruleset: ['Standard Digimon'],
-	},
+	// 	mod: 'digimon',
+	// 	searchShow: false,
+	// 	debug: true,
+	// 	ruleset: ['Standard Digimon'],
+	// },
 ];
