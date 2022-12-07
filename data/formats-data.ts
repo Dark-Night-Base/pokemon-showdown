@@ -3061,8 +3061,8 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 		isNonstandard: "Unobtainable",
 	},
 	victini: {
-		isNonstandard: "Unobtainable",
-		tier: "Unreleased",
+		isNonstandard: "Past",
+		tier: "Illegal",
 		natDexTier: "UU",
 	},
 	snivy: {
@@ -5851,7 +5851,7 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	chiyu: {
 		tier: "OU",
 		doublesTier: "DOU",
-		natDexTier: "UU",
+		natDexTier: "Uber",
 	},
 	koraidon: {
 		tier: "Uber",
