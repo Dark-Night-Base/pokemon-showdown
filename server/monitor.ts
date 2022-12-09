@@ -152,9 +152,7 @@ export const Monitor = new class {
 		this.battlePreps.clear();
 		this.battles.clear();
 		this.connections.clear();
-		// Nihilslave: temporarily add a ? here, 
-		// trying to fix the CRASH: ReferenceError: IPTools is not defined problem
-		IPTools?.dnsblCache.clear();
+		IPTools.dnsblCache.clear();
 	}
 
 	/**
