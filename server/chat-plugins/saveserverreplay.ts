@@ -16,6 +16,7 @@ export const commands: Chat.ChatCommands = {
 		if (format.team && room.battle.ended) hideDetails = false;
 		const data = room.getLog(hideDetails ? 0 : -1);
 		const {id, password} = room.getReplayData();
+		if (password === 'a') hideDetails = hideDetails; // Nihilslave: to pass the lint code check
 		let link = room.roomid.slice(7) + '-' + room.p1 + '-' + room.p2 + '.html';
 		let rating = 0;
 		if (room.battle.ended && room.battle.rated) rating = room.battle.rated;

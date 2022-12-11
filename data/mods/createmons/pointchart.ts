@@ -527,6 +527,12 @@ function calcBSPoint(stats: StatsTable) {
 	const statDetails: StatsTable = {hp: 1, atk: 1, def: 1, spa: 1, spd: 1, spe: 1};
 	let statName: StatID;
 	for (statName in stats) stats[statName] = stats[statName] || 1;
+	const h = stats['hp'];
+	const a = stats['atk'];
+	const b = stats['def'];
+	const c = stats['spa'];
+	const d = stats['spd'];
+	const s = stats['spe'];
 	for (statName in stats) {
 		switch (statName) {
 		case 'atk':
@@ -537,7 +543,7 @@ function calcBSPoint(stats: StatsTable) {
 		case 'def':
 		case 'spd':
 			// (2h + 200)(2b + 100)
-			statDetails[statName] = 4 * stats['hp'] * stats[statName] + 400 * stats[statName] + 200 * stats['hp'] + 20000;
+			statDetails[statName] = 4 * h * stats[statName] + 400 * stats[statName] + 200 * h + 20000;
 			break;
 		case 'spe':
 			// [(2s + 100) - 300] ^ 2
@@ -549,12 +555,6 @@ function calcBSPoint(stats: StatsTable) {
 		}
 	}
 	// show these 2 to players
-	const h = stats['hp'];
-	const a = stats['atk'];
-	const b = stats['def'];
-	const c = stats['spa'];
-	const d = stats['spd'];
-	const s = stats['spe'];
 	const bs1 = Math.sqrt(statDetails['atk'] + statDetails['spa'] + statDetails['def'] + statDetails['spd'] + statDetails['spe']);
 	const bs2 = 2 * Math.max(h, a, b, c, d, s) + 100;
 	// the following is how we actually calculate the point

@@ -1446,7 +1446,7 @@ export const Formats: FormatList = [
 		 * but it can trigger sheer force and have its "self" property disabled as the effect
 		 * actually just check the code of sheer force
 		 * it's triggered by secondary, but will remove self along with secondary
-		 * and the following two effects are also implemented by self property: 
+		 * and the following two effects are also implemented by self property:
 		 * stats drop of v-create, draco meteor, and etc; must recharge of hyper beam, etc;
 		 * there are more, but these two are the most important
 		 * so, by having sheer force ability and anything with secondary as forte
@@ -1466,8 +1466,10 @@ export const Formats: FormatList = [
 				// pseudoWeather is a simple prop in practice cuz plasma fists is the only attack with it,
 				// the same applies to volatileStatus, (partiallytrapped moves and smackdown only)
 				// + seflBoost, the only related attack is scale shot
-				const simpleProperties = ['breaksProtect', 'forceSwitch', 'hasCrashDamage', 'ignoreAbility', 'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity', 'isFutureMove', 'mindBlownRecoil',
-					'overrideDefensiveStat', 'overrideOffensivePokemon', 'overrideOffensiveStat', 'pseudoWeather', 'selfBoost', 'selfdestruct', 'selfSwitch', 'sleepUsable', 'stealsBoosts', 'struggleRecoil',
+				const simpleProperties = ['breaksProtect', 'forceSwitch', 'hasCrashDamage', 'ignoreAbility',
+					'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity', 'isFutureMove', 'mindBlownRecoil',
+					'overrideDefensiveStat', 'overrideOffensivePokemon', 'overrideOffensiveStat', 'pseudoWeather',
+					'selfBoost', 'selfdestruct', 'selfSwitch', 'sleepUsable', 'stealsBoosts', 'struggleRecoil',
 					'thawsTarget', 'volatileStatus', 'willCrit',
 					// function properties
 					'onDamage', 'onMoveFail', 'onUseMoveMessage'];
@@ -1957,7 +1959,9 @@ export const Formats: FormatList = [
 							}));
 						}
 						// here we change the code
-						if (!action.maxMove && !action.zmove && (action.move.priorityChargeCallback || action.pokemon.forte && action.pokemon.forte.priorityChargeCallback)) {
+						if (!action.maxMove && !action.zmove &&
+							(action.move.priorityChargeCallback ||
+								action.pokemon.forte && action.pokemon.forte.priorityChargeCallback)) {
 							actions.unshift(...this.resolveAction({
 								choice: 'priorityChargeMove',
 								pokemon: action.pokemon,
@@ -2866,7 +2870,8 @@ export const Formats: FormatList = [
 			const prevoSpecies = this.dex.species.get(baseSpecies.prevo);
 			let statName: StatID;
 			for (statName in newSpecies.baseStats as StatsTable) {
-				newSpecies.baseStats[statName] = this.clampIntRange(newSpecies.baseStats[statName] + baseSpecies.baseStats[statName] - prevoSpecies.baseStats[statName], 1, 255);
+				newSpecies.baseStats[statName] = this.clampIntRange(newSpecies.baseStats[statName] +
+					baseSpecies.baseStats[statName] - prevoSpecies.baseStats[statName], 1, 255);
 				newSpecies.bst += newSpecies.baseStats[statName];
 			}
 			return newSpecies;
@@ -3232,7 +3237,8 @@ export const Formats: FormatList = [
 			pokemon.bst = 0;
 			let statName: StatID;
 			for (statName in pokemon.baseStats as StatsTable) {
-				pokemon.baseStats[statName] = pokemon.baseStats[statName] <= 70 ? this.clampIntRange(pokemon.baseStats[statName] * 2, 1, 255) : pokemon.baseStats[statName];
+				pokemon.baseStats[statName] = pokemon.baseStats[statName] <= 70 ?
+				this.clampIntRange(pokemon.baseStats[statName] * 2, 1, 255) : pokemon.baseStats[statName];
 				pokemon.bst += pokemon.baseStats[statName];
 			}
 			return pokemon;

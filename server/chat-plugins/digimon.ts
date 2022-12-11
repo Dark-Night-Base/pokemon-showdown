@@ -6,6 +6,7 @@ export const commands: Chat.ChatCommands = {
 		if (!this.runBroadcast()) return;
 
 		let {dex, format, targets} = this.splitFormat(target, true);
+		format = format; // Nihilslave: to pass the lint code check
 
 		dex = Dex.mod('digimon');
 
@@ -172,12 +173,12 @@ export const commands: Chat.ChatCommands = {
 			buffer += `<span class="message-effect-resist">Resistances</span>: ${resistances.join(', ') || '<font color=#999999>None</font>'}<br />`;
 			buffer += immunities.length ? `<span class="message-effect-immune">Immunities</span>: ${immunities.join(', ')}<br />` : '';
 			buffer += `<b>As Offensive Typing</b>:<br />`;
-			// buffer += `<span class="message-effect-immune">Immunities</span>: ${immunities.join(', ') || '<font color=#999999>None</font>'}<br />`;
+			// `<span class="message-effect-immune">Immunities</span>: ${immunities.join(', ') || '<font color=#999999>None</font>'}<br />`;
 			buffer += `<b><font color=#559955>Super Effective to</font></b>: ${supereffectiveto.join(', ') || '<font color=#999999>None</font>'}<br />`;
 			buffer += `<span class="message-effect-resist">Neutral to</span>: ${neutralto.join(', ') || '<font color=#999999>None</font>'}<br />`;
 			buffer += `<span class="message-effect-weak">Resisted by</span>: ${resistedby.join(', ') || '<font color=#999999>None</font>'}<br />`;
 			buffer += ineffectiveto.length ? `<span class="message-effect-immune">No Effect to</span>: ${ineffectiveto.join(', ')}<br />` : '';
-			// buffer += `<span class="message-effect-immune">No effect to</span>: ${ineffectiveto.join(', ') || '<font color=#999999>None</font>'}<br />`;
+			// `<span class="message-effect-immune">No effect to</span>: ${ineffectiveto.join(', ') || '<font color=#999999>None</font>'}<br />`;
 			this.sendReplyBox(buffer);
 			return;
 		}

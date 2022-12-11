@@ -807,7 +807,8 @@ export const commands: Chat.ChatCommands = {
 		newSpecies.bst = 0;
 		let i: StatID;
 		for (i in evo.baseStats) {
-			newSpecies.baseStats[i] = Utils.clampIntRange(baseSpecies.baseStats[i] + evo.baseStats[i] - prevoSpecies.baseStats[i], 1, 255);
+			newSpecies.baseStats[i] = Utils.clampIntRange(baseSpecies.baseStats[i] +
+				evo.baseStats[i] - prevoSpecies.baseStats[i], 1, 255);
 			newSpecies.bst += newSpecies.baseStats[i];
 		}
 		this.sendReply(`|raw|${Chat.getDataPokemonHTML(newSpecies, Dex.gen)}`);
@@ -830,7 +831,8 @@ export const commands: Chat.ChatCommands = {
 		let statName: StatID;
 		for (statName in newSpecies.baseStats as StatsTable) {
 			if (statName === 'hp') continue;
-			newSpecies.baseStats[statName] = newSpecies.baseStats[statName] < 100 ? Utils.clampIntRange(newSpecies.baseStats[statName] * 2, 1, 255) : newSpecies.baseStats[statName];
+			newSpecies.baseStats[statName] = newSpecies.baseStats[statName] < 100 ?
+				Utils.clampIntRange(newSpecies.baseStats[statName] * 2, 1, 255) : newSpecies.baseStats[statName];
 			newSpecies.bst += newSpecies.baseStats[statName];
 		}
 		this.sendReply(`|raw|${Chat.getDataPokemonHTML(newSpecies, Dex.gen)}`);
@@ -852,7 +854,8 @@ export const commands: Chat.ChatCommands = {
 		newSpecies.bst = 0;
 		let statName: StatID;
 		for (statName in newSpecies.baseStats as StatsTable) {
-			newSpecies.baseStats[statName] = newSpecies.baseStats[statName] <= 70 ? Utils.clampIntRange(newSpecies.baseStats[statName] * 2, 1, 255) : newSpecies.baseStats[statName];
+			newSpecies.baseStats[statName] = newSpecies.baseStats[statName] <= 70 ?
+				Utils.clampIntRange(newSpecies.baseStats[statName] * 2, 1, 255) : newSpecies.baseStats[statName];
 			newSpecies.bst += newSpecies.baseStats[statName];
 		}
 		this.sendReply(`|raw|${Chat.getDataPokemonHTML(newSpecies, Dex.gen)}`);

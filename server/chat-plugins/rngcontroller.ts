@@ -47,7 +47,8 @@ export const commands: Chat.ChatCommands = {
 	 * >>> It somehow takes 6 random numbers to determine the order to move when there is SpeedTie (otherwise takes 1)
 	 * > BattleActions.hitStepAccuracy(): Battle.randomChance(): PRNG.randomChance(accuracy, 100): PRNG.next(100)
 	 * >>> Sometimes hitStepAccuracy looks like the 3rd instead of the 2nd, I'm not sure
-	 * > BattleActions.getDamage(): Battle.randomChance(): PRNG.randomChance(1, critMult[critRatio]): PRNG.next(critMult[critRatio])
+	 * > BattleActions.getDamage(): Battle.randomChance(): PRNG.randomChance(1, critMult[critRatio]): 
+	 *       PRNG.next(critMult[critRatio])
 	 * > BattleActions.getDamage(): Battle.randomizer(): Battle.random(): PRNG.next(16)
 	 * > BattleActions.secondaries(): Battle.random(): PRNG.next(100)
 	 */
