@@ -7,12 +7,12 @@
  * @license MIT
  */
 
- 'use strict';
+'use strict';
 
- if (process.argv[2]) {
+if (process.argv[2]) {
 	 const help = ['help', '-help', '--help', 'h', '-h', '--help', '?', '-?', '--?'].includes(process.argv[2]);
 	 const unknown = !['multi', 'random', 'exhaustive'].includes(process.argv[2]) && !/^[0-9]+$/.test(process.argv[2]);
- 
+
 	 if (help || unknown) {
 		 const out = help ? console.log : console.error;
 		 if (unknown) out(`Unrecognized command: ${process.argv[2]}\n`);
@@ -34,32 +34,32 @@
 		 out('Please refer to tools/SIMULATE.md for full documentation');
 		 process.exit(+!help);
 	 }
- }
- 
- require('ts-node').register({project: './tsconfig.json', files: true, transpileOnly: true, transpiler: 'ts-node/transpilers/swc-experimental'});
- const Dex = require('../../.sim-dist/dex').Dex;
- global.Config = {allowrequestingties: false};
- Dex.includeModData();
- 
- const {ExhaustiveRunner} = require('../../.sim-dist/tools/exhaustive-runner');
- const {MultiRandomRunner} = require('../../.sim-dist/tools/multi-random-runner');
- 
- // Tracks whether some promises threw errors that weren't caught so we can log
- // and exit with a non-zero status to fail any tests. This "shouldn't happen"
- // because we're "great at propagating promises (TM)", but better safe than sorry.
- const RejectionTracker = new class {
+}
+
+require('ts-node').register({project: './tsconfig.json', files: true, transpileOnly: true, transpiler: 'ts-node/transpilers/swc-experimental'});
+const Dex = require('../../.sim-dist/dex').Dex;
+global.Config = {allowrequestingties: false};
+Dex.includeModData();
+
+const {ExhaustiveRunner} = require('../../.sim-dist/tools/exhaustive-runner');
+const {MultiRandomRunner} = require('../../.sim-dist/tools/multi-random-runner');
+
+// Tracks whether some promises threw errors that weren't caught so we can log
+// and exit with a non-zero status to fail any tests. This "shouldn't happen"
+// because we're "great at propagating promises (TM)", but better safe than sorry.
+const RejectionTracker = new class {
 	 constructor() {
 		 this.unhandled = [];
 	 }
- 
+
 	 onUnhandledRejection(reason, promise) {
 		 this.unhandled.push({reason, promise});
 	 }
- 
+
 	 onRejectionHandled(promise) {
 		 this.unhandled.splice(this.unhandled.findIndex(u => u.promise === promise), 1);
 	 }
- 
+
 	 onExit(code) {
 		 let i = 0;
 		 for (const u of this.unhandled) {
@@ -70,17 +70,17 @@
 		 }
 		 process.exit(code + i);
 	 }
- 
+
 	 register() {
 		 process.on('unhandledRejection', (r, p) => this.onUnhandledRejection(r, p));
 		 process.on('rejectionHandled', p => this.onRejectionHandled(p));
 		 process.on('exit', c => this.onExit(c)); // TODO
 	 }
- }();
- 
- RejectionTracker.register();
- 
- function missing(dep) {
+}();
+
+RejectionTracker.register();
+
+function missing(dep) {
 	 try {
 		 require.resolve(dep);
 		 return false;
@@ -88,18 +88,18 @@
 		 if (err.code !== 'MODULE_NOT_FOUND') throw err;
 		 return true;
 	 }
- }
- 
- function parseFlags(argv) {
+}
+
+function parseFlags(argv) {
 	 if (!(argv.length > 3 || argv.length === 3 && argv[2].startsWith('-'))) return {_: argv.slice(2)};
 	 if (missing('minimist')) shell('npm install minimist');
 	 return require('minimist')(argv.slice(2));
- }
- 
- if (!process.argv[2] || /^[0-9]+$/.test(process.argv[2])) process.argv.splice(2, 0, 'multi');
- switch (process.argv[2]) {
- case 'multi':
- case 'random':
+}
+
+if (!process.argv[2] || /^[0-9]+$/.test(process.argv[2])) process.argv.splice(2, 0, 'multi');
+switch (process.argv[2]) {
+case 'multi':
+case 'random':
 	 {
 		 const argv = parseFlags(process.argv);
 		 const options = Object.assign({totalGames: 100}, argv);
@@ -109,7 +109,7 @@
 		 (async () => process.exit(await new MultiRandomRunner(options).run()))();
 	 }
 	 break;
- case 'exhaustive':
+case 'exhaustive':
 	 {
 		 const argv = parseFlags(process.argv);
 		 let formats;
@@ -144,6 +144,6 @@
 		 })();
 	 }
 	 break;
- default:
+default:
 	 throw new TypeError('Unknown command' + process.argv[2]);
- }
+}

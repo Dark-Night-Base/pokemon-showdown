@@ -100,16 +100,16 @@ export const Aliases: {[alias: string]: string} = {
 	bhlc: "[Gen 8] Balanced Hackmons LC",
 	btbh: "[Gen 8] Bonus Type BH",
 	bbh: "[Gen 8] Bonus Type BH",
-	camobh: "[Gen 8] Camomons BH", 
-	cbh: "[Gen 8] Camomons BH", 
+	camobh: "[Gen 8] Camomons BH",
+	cbh: "[Gen 8] Camomons BH",
 	ffabh: "[Gen 8] Free-For-All BH",
-	ibh: "[Gen 8] Inverse BH", 
-	mnmbh: "[Gen 8] Mix and Mega BH", 
-	mbh: "[Gen 8] Mix and Mega BH", 
+	ibh: "[Gen 8] Inverse BH",
+	mnmbh: "[Gen 8] Mix and Mega BH",
+	mbh: "[Gen 8] Mix and Mega BH",
 	scamobh: "[Gen 8] SCAMO BH",
 	tbh: "[Gen 8] Trademarked BH",
 	tmbh: "[Gen 8] Trademarked BH",
-	
+
 	// mega evos
 	fabio: "Ampharos-Mega",
 	maero: "Aerodactyl-Mega",

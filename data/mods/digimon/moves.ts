@@ -711,7 +711,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				// strange, but yea this is necessary
 				if (!move.negateSecondary) {
 					this.add('-activate', source, 'move: Kuzuryujin');
-					let ninethDragonMove = this.dex.getActiveMove('kuzuryujin');
+					const ninethDragonMove = this.dex.getActiveMove('kuzuryujin');
 					ninethDragonMove.accuracy = true;
 					ninethDragonMove.basePower = 30;
 					ninethDragonMove.category = "Physical";

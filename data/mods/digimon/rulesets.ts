@@ -4,8 +4,8 @@ export const Rulesets: {[k: string]: ModdedFormatData} = {
 		name: 'Standard Digimon',
 		desc: "The standard ruleset for Digimon.",
 		ruleset: [
-			'Cancel Mod', 'Dynamax Clause', 'Endless Battle Clause', 'HP Percentage Mod', 'Obtainable', 'Team Preview', 
-			'Nickname Clause', 'Species Clause', 
+			'Cancel Mod', 'Dynamax Clause', 'Endless Battle Clause', 'HP Percentage Mod', 'Obtainable', 'Team Preview',
+			'Nickname Clause', 'Species Clause',
 		],
 		onChangeSet(set) {
 			const species = this.dex.species.get(set.species);

@@ -2330,12 +2330,12 @@ export const Rulesets: {[k: string]: FormatData} = {
 				// originpulse: 'dragonpulse',
 			};
 			for (const set of team) {
-				let item = set.item;
+				const item = set.item;
 				if (this.dex.items.get(set.item).exists) continue;
 				let forte = this.dex.moves.get(set.item).id;
 				if (!forte) continue;
 				for (const move of set.moves) {
-					let moveId = this.dex.moves.get(move).id;
+					const moveId = this.dex.moves.get(move).id;
 					if (moveId === forte) {
 						return [`${this.dex.moves.get(forte).name} is used both as an item and as a move on ${set.species}.`];
 					}
@@ -2540,7 +2540,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 		hasValue: 'positive-integer',
 		onValidateSet(set) {
 			let statName: StatID;
-			for (statName in set.evs as StatsTable) {
+			for (statName in set.evs) {
 				if (set.evs[statName] && set.evs[statName] > 252) {
 					return [`${set.species}'s ${statName} base stat exceeds the limit 252.`];
 				}
@@ -2648,7 +2648,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 						buf += `<psicon type="${type}" /> `;
 					}
 					let statName: StatID;
-					for (statName in pokemon.species.baseStats as StatsTable) {
+					for (statName in pokemon.species.baseStats) {
 						buf += `${pokemon.species.baseStats[statName]}/`;
 					}
 				}
@@ -2664,7 +2664,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 				buf += `<psicon type="${type}" /> `;
 			}
 			let statName: StatID;
-			for (statName in pokemon.species.baseStats as StatsTable) {
+			for (statName in pokemon.species.baseStats) {
 				buf += `${pokemon.species.baseStats[statName]}/`;
 			}
 			this.add(`${buf}</span>`);

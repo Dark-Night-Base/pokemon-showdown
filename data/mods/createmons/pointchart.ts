@@ -297,7 +297,7 @@ export const moveToPoint: {[k: string]: number} = {
 	headsmash: 2,
 	healbell: 1.5,
 	healblock: 1,
-	healingwish: 1.5,					
+	healingwish: 1.5,
 	healorder: 2,
 	heartswap: 1,
 	hex: 1,
@@ -524,28 +524,28 @@ export const moveToPoint: {[k: string]: number} = {
 };
 function calcBSPoint(stats: StatsTable) {
 	const retVals: number[] = [];
-	let statDetails: StatsTable = {hp: 1, atk: 1, def: 1, spa: 1, spd: 1, spe: 1};
+	const statDetails: StatsTable = {hp: 1, atk: 1, def: 1, spa: 1, spd: 1, spe: 1};
 	let statName: StatID;
-	for (statName in stats as StatsTable) stats[statName] = stats[statName] || 1;
-	for (statName in stats as StatsTable) {
+	for (statName in stats) stats[statName] = stats[statName] || 1;
+	for (statName in stats) {
 		switch (statName) {
-			case 'atk':
-			case 'spa':
-				// 100(2a + 100)
-				statDetails[statName] = 200 * stats[statName] + 10000;
-				break;
-			case 'def':
-			case 'spd':
-				// (2h + 200)(2b + 100)
-				statDetails[statName] = 4 * stats['hp'] * stats[statName] + 400 * stats[statName] + 200 * stats['hp'] + 20000;
-				break;
-			case 'spe':
-				// [(2s + 100) - 300] ^ 2
-				const speTmp = 2 * stats[statName] - 200;
-				statDetails[statName] = speTmp * speTmp;
-				break;
-			default:
-				break;
+		case 'atk':
+		case 'spa':
+			// 100(2a + 100)
+			statDetails[statName] = 200 * stats[statName] + 10000;
+			break;
+		case 'def':
+		case 'spd':
+			// (2h + 200)(2b + 100)
+			statDetails[statName] = 4 * stats['hp'] * stats[statName] + 400 * stats[statName] + 200 * stats['hp'] + 20000;
+			break;
+		case 'spe':
+			// [(2s + 100) - 300] ^ 2
+			const speTmp = 2 * stats[statName] - 200;
+			statDetails[statName] = speTmp * speTmp;
+			break;
+		default:
+			break;
 		}
 	}
 	// show these 2 to players
@@ -570,7 +570,7 @@ function calcBSPoint(stats: StatsTable) {
 	return retVals;
 }
 export function getSetPoint(dex: ModdedDex, set: PokemonSet) {
-	// BS | BS1 | BS2 | T | T1 | T2 | A | M | M1 | M2 | M3 | M4 | 
+	// BS | BS1 | BS2 | T | T1 | T2 | A | M | M1 | M2 | M3 | M4 |
 	//  0 |  1  |  2  | 3 |  4 |  5 | 6 | 7 |  8 |  9 | 10 | 11 |
 	const details: number[] = [];
 	const species = dex.species.get(set.species);
@@ -583,7 +583,7 @@ export function getSetPoint(dex: ModdedDex, set: PokemonSet) {
 	details.push(bsDetails[2]);
 
 	// type points
-	let types: string[] = [];
+	const types: string[] = [];
 	if (set.hpType && dex.types.get(set.hpType).exists) {
 		types.push(dex.types.get(set.hpType).id);
 	} else {
@@ -612,7 +612,7 @@ export function getSetPoint(dex: ModdedDex, set: PokemonSet) {
 	// mem: maybe all moves like fly should have 1 point
 	details.push(0);
 	for (const move of set.moves) {
-		const point = moveToPoint[dex.moves.get(move).id] || 0.5
+		const point = moveToPoint[dex.moves.get(move).id] || 0.5;
 		details.push(point);
 		details[7] += point;
 	}
@@ -622,4 +622,4 @@ export function getSetPoint(dex: ModdedDex, set: PokemonSet) {
 	}
 
 	return details;
-};
+}

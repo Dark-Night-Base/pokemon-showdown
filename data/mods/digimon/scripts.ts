@@ -88,14 +88,14 @@ export const Scripts: ModdedBattleScriptsData = {
 			target.getMoveHitData(move).typeMod = typeMod;
 			if (typeMod > 0) {
 				if (!suppressMessages) this.battle.add('-supereffective', target);
-	
+
 				for (let i = 0; i < typeMod; i++) {
 					baseDamage *= 2;
 				}
 			}
 			if (typeMod < 0) {
 				if (!suppressMessages) this.battle.add('-resisted', target);
-	
+
 				for (let i = 0; i > typeMod; i--) {
 					baseDamage = tr(baseDamage / 2);
 				}
@@ -145,7 +145,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (this.battle.gen !== 5 && !baseDamage) return 1;
 
 			// ...but 16-bit truncation happens even later, and can truncate to 0
-			return tr(baseDamage, 16);			
+			return tr(baseDamage, 16);
 		},
 	},
 };

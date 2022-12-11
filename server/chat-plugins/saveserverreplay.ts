@@ -45,7 +45,7 @@ export const commands: Chat.ChatCommands = {
 				`<input type="hidden" name="replayid" value="${id}" />\n` +
 				'<div class="battle"></div><div class="battle-log"></div><div class="replay-controls"></div><div class="replay-controls-2"></div>\n' +
 				`<pre class="urlbox" style="word-wrap: break-word;">http://replay.sciroccogti.top/files/${link}</pre>\n` +
-				`<h1 style="font-weight:normal;text-align:left"><strong>${format}</strong>: <a href="http://pokemonshowdown.com/users/${toID(room.p1?.name)}" class="subtle" target="_blank">${room.p1?.name}</a> vs. <a href="http://pokemonshowdown.com/users/${toID(room.p2?.name)}" class="subtle" target="_blank">${room.p2?.name}</a></h1>\n` + 				
+				`<h1 style="font-weight:normal;text-align:left"><strong>${format}</strong>: <a href="http://pokemonshowdown.com/users/${toID(room.p1?.name)}" class="subtle" target="_blank">${room.p1?.name}</a> vs. <a href="http://pokemonshowdown.com/users/${toID(room.p2?.name)}" class="subtle" target="_blank">${room.p2?.name}</a></h1>\n` +
 				'<p style="padding:0 1em;margin-top:0">' +
 				`<small class="uploaddate" data-timestamp="${Date.now() / 1000}"><em>Uploaded:</em> ${new Date().toDateString().split(" ")[1]} ${new Date().toDateString().split(" ")[2]}, ${new Date().getFullYear()} ${rating ? '| <em>Rating:</em>' + rating : ''}</small>` +
 				'</p>' +
@@ -66,7 +66,7 @@ export const commands: Chat.ChatCommands = {
 			);
 			out.end();
 		});
-		
+
 		// #region onlineReplay
 		// tried to keep up with replay.pokemonshowdown.com but failed.
 		// out.on('open', () => {

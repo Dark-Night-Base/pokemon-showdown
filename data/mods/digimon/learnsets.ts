@@ -1,5 +1,5 @@
 export const Learnsets: {[k: string]: ModdedLearnsetData} = {
-	/* Sample: 
+	/* Sample:
 	omegamon: {
 		learnset: {
 			gigaimpact: ["8L1"],
@@ -67,7 +67,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			dragonhammer: ["8L1"],
 			endure: ["8L1"],
 			facade: ["8L1"],
-			falseswipe: ["8L1"],			
+			falseswipe: ["8L1"],
 			fireblast: ["8L1"],
 			firepledge: ["8L1"],
 			firepunch: ["8L1"],
@@ -83,7 +83,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			furycutter: ["8L1"],
 			furyswipes: ["8L1"],
 			gigaimpact: ["8L1"],
-			hiddenpower: ["8L1"],		
+			hiddenpower: ["8L1"],
 			hyperbeam: ["8L1"],
 			icebeam: ["8L1"],
 			incinerate: ["8L1"],
@@ -133,7 +133,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			sleeptalk: ["8L1"],
 			substitute: ["8L1"],
 		},
-	}, 
+	},
 	wargreymon: {
 		learnset: {
 			braveshield: ["8L1"],
@@ -200,7 +200,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			workup: ["8L1"],
 			xscissor: ["8L1"],
 		},
-	}, 
+	},
 	weregarurumon: {
 		learnset: {
 			agility: ["8L1"],
@@ -1041,7 +1041,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	crossmon: {
 		learnset: {
-			//nf all after
+			// nf all after
 			aircutter: ["8L1"],
 			airslash: ["8L1"],
 			agility: ["8L1"],
@@ -1693,7 +1693,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			willowisp: ["8L1"],
 			zenheadbutt: ["8L1"],
 		},
-	}, 
+	},
 	diablomon: {
 		learnset: {
 			acrobatics: ["8L1"],

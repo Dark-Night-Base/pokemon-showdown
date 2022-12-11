@@ -76,8 +76,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	legendaryspirits: {
 		onModifyAtkPriority: 5,
 		onModifyAtk(atk, attacker, defender, move) {
-			const legendaryTypes = ['Fire', 'Light', 'Flying', 'Ice', 'Electric', 
-			'Ground', 'Grass', 'Water', 'Steel', 'Dark'];
+			const legendaryTypes = ['Fire', 'Light', 'Flying', 'Ice', 'Electric',
+				'Ground', 'Grass', 'Water', 'Steel', 'Dark'];
 			if (legendaryTypes.includes(move.type)) {
 				this.debug('Legendary Spirits boost');
 				return this.chainModify([4915, 4096]);
@@ -85,8 +85,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		onModifySpAPriority: 5,
 		onModifySpA(atk, attacker, defender, move) {
-			const legendaryTypes = ['Fire', 'Light', 'Flying', 'Ice', 'Electric', 
-			'Ground', 'Grass', 'Water', 'Steel', 'Dark'];
+			const legendaryTypes = ['Fire', 'Light', 'Flying', 'Ice', 'Electric',
+				'Ground', 'Grass', 'Water', 'Steel', 'Dark'];
 			if (legendaryTypes.includes(move.type)) {
 				this.debug('Legendary Spirits boost');
 				return this.chainModify([4915, 4096]);

@@ -17,7 +17,7 @@ New sections will be added to the bottom of the specified column.
 The column value will be ignored for repeat sections.
 */
 
-import { Species } from '../sim/dex-species';
+import {Species} from '../sim/dex-species';
 
 export const Formats: FormatList = [
 
@@ -125,7 +125,7 @@ export const Formats: FormatList = [
 			for (const set of team) {
 				if (set.moves.length < 4) {
 					return [`You are forced to bring 4 moves by 24 Points Rule.`,
-					`${set.species} has less than 4 moves.`];
+						`${set.species} has less than 4 moves.`];
 				}
 				const moveTable = new Map<string, number>();
 				for (const move of set.moves) {
@@ -166,11 +166,11 @@ export const Formats: FormatList = [
 				} else if (maxMove) {
 					move = this.getActiveMaxMove(baseMove, pokemon);
 				}
-		
+
 				move.isExternal = externalMove;
-		
+
 				this.battle.setActiveMove(move, pokemon, target);
-		
+
 				/* if (pokemon.moveThisTurn) {
 					// THIS IS PURELY A SANITY CHECK
 					// DO NOT TAKE ADVANTAGE OF THIS TO PREVENT A POKEMON FROM MOVING;
@@ -213,11 +213,11 @@ export const Formats: FormatList = [
 					}
 					pokemon.moveUsed(move, targetLoc);
 				}
-		
+
 				// Dancer Petal Dance hack
 				// TODO: implement properly
 				const noLock = externalMove && !pokemon.volatiles['lockedmove'];
-		
+
 				if (zMove) {
 					if (pokemon.illusion) {
 						this.battle.singleEvent('End', this.dex.abilities.get('Illusion'), pokemon.abilityState, pokemon);
@@ -230,7 +230,7 @@ export const Formats: FormatList = [
 				if (this.battle.activeMove) move = this.battle.activeMove;
 				this.battle.singleEvent('AfterMove', move, null, pokemon, target, move);
 				this.battle.runEvent('AfterMove', pokemon, target, move);
-		
+
 				// Dancer's activation order is completely different from any other event, so it's handled separately
 				if (move.flags['dance'] && moveDidSomething && !move.isExternal) {
 					const dancers = [];
@@ -281,7 +281,7 @@ export const Formats: FormatList = [
 				if (canRuleWin === true) this.battle.win(pokemon.side);
 
 				this.battle.checkWin();
-			}
+			},
 		},
 	},
 	{
@@ -379,8 +379,8 @@ export const Formats: FormatList = [
 			if (!item.exists) return this.validateSet(set, teamHas);
 			const problems = [];
 			const restrictedMoves = ['Acid Spray', 'Anchor Shot', 'Beat Up', 'Bide', 'Bolt Beak', 'Dynamic Punch', 'Echoed Voice', 'Eerie Spell', 'Fishious Rend',
-			'Flip Turn', 'Frost Breath', 'Ice Ball', 'Inferno', 'Jaw Lock', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rising Voltage', 'Rollout', 'Shell Side Arm',
-			'Spirit Shackle', 'Stored Power', 'Storm Throw', 'Terrain Pulse', 'Thousand Waves', 'U-turn', 'Volt Switch', 'Weather Ball', 'Wicked Blow', 'Zap Cannon',];
+				'Flip Turn', 'Frost Breath', 'Ice Ball', 'Inferno', 'Jaw Lock', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rising Voltage', 'Rollout', 'Shell Side Arm',
+				'Spirit Shackle', 'Stored Power', 'Storm Throw', 'Terrain Pulse', 'Thousand Waves', 'U-turn', 'Volt Switch', 'Weather Ball', 'Wicked Blow', 'Zap Cannon'];
 			if (!item.exists || item.type === 'Status' ||
 			item.isNonstandard === "LGPE" ||
 			item.isZ ||
@@ -393,8 +393,7 @@ export const Formats: FormatList = [
 			item.volatileStatus === 'partiallytrapped' ||
 			item.damageCallback && item.id !== 'psywave' ||
 			item.flags['charge'] ||
-			restrictedMoves.includes(item.name))
-				problems.push(`${item.name} is banned as a forte.`);
+			restrictedMoves.includes(item.name)) { problems.push(`${item.name} is banned as a forte.`); }
 			const itemStr = set.item;
 			set.item = '';
 			const problem = this.validateSet(set, teamHas);
@@ -404,15 +403,14 @@ export const Formats: FormatList = [
 		},
 		onBegin() {
 			for (const pokemon of this.p1.pokemon.concat(this.p2.pokemon)) {
-				let move = this.dex.moves.get(pokemon.set.item);
+				const move = this.dex.moves.get(pokemon.set.item);
 				if (move.exists && move.category !== 'Status') {
 					// @ts-ignore
 					pokemon.forte = move;
-					
+
 					if (pokemon.baseSpecies.name.startsWith('Necrozma')) {
 						pokemon.item = this.dex.toID('mimikiumz');
-					}
-					else {
+					} else {
 						pokemon.item = this.dex.toID('ultranecroziumz');
 					}
 				}
@@ -462,18 +460,18 @@ export const Formats: FormatList = [
 				const forte = pokemon.forte;
 
 				Object.assign(move.flags, forte.flags);
-				
+
 				// pseudoWeather theoretically shouldn't be a simple property, but it is in practice cuz plasma fists is the only attack with it, maybe change this in later generations
 				// the same applies to volatileStatus, the only such property on attacks are partiallytrapped and smackdown, and partiallytrapped moves are banned
 				// + seflBoost, the only related attack is scale shot
 				const simpleProperties = ['breaksProtect', 'forceSwitch', 'hasCrashDamage', 'ignoreAbility', 'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity', 'isFutureMove', 'mindBlownRecoil',
-				'overrideDefensiveStat', 'overrideOffensivePokemon', 'overrideOffensiveStat', 'pseudoWeather', 'selfBoost', 'selfdestruct', 'selfSwitch', 'sleepUsable', 'stealsBoosts', 'struggleRecoil',
-				'thawsTarget', 'volatileStatus', 'willCrit',
-				// function properties
-				'onDamage', 'onMoveFail', 'onUseMoveMessage'];
+					'overrideDefensiveStat', 'overrideOffensivePokemon', 'overrideOffensiveStat', 'pseudoWeather', 'selfBoost', 'selfdestruct', 'selfSwitch', 'sleepUsable', 'stealsBoosts', 'struggleRecoil',
+					'thawsTarget', 'volatileStatus', 'willCrit',
+					// function properties
+					'onDamage', 'onMoveFail', 'onUseMoveMessage'];
 				// omitted properties:
 				// onPrepareHit
-				for (let prop of simpleProperties) {
+				for (const prop of simpleProperties) {
 					if (forte[prop]) {
 						// @ts-ignore
 						move[prop] = forte[prop];
@@ -510,7 +508,7 @@ export const Formats: FormatList = [
 				// 	}
 				// }
 				// self
-				if (forte.self) {// && forte.id !== 'diamondstorm') {
+				if (forte.self) { // && forte.id !== 'diamondstorm') {
 					if (move.self) {
 						for (const i in forte.self) {
 							// @ts-ignore
@@ -691,7 +689,7 @@ export const Formats: FormatList = [
 						move.onAfterHit = function (source, target, move) {
 							this.dex.moves.get(move.id).onAfterHit?.call(this, source, target, move);
 							forte.onAfterHit.call(this, source, target, this.dex.getActiveMove(forte.id));
-						}
+						};
 					} else {
 						move.onAfterHit = forte.onAfterHit;
 					}
@@ -721,7 +719,7 @@ export const Formats: FormatList = [
 						move.onAfterSubDamage = function (damage, target, source, move) {
 							this.dex.moves.get(move.id).onAfterSubDamage?.call(this, damage, target, source, move);
 							forte.onAfterSubDamage.call(this, damage, target, source, this.dex.getActiveMove(forte.id));
-						}
+						};
 					} else {
 						move.onAfterSubDamage = forte.onAfterSubDamage;
 					}
@@ -767,7 +765,7 @@ export const Formats: FormatList = [
 						move.onTry = function (source, target, move) {
 							// @ts-ignore
 							const ret1 = this.dex.moves.get(move.id).onTry.call(this, source, target, move);
-							var ret2;
+							let ret2;
 							if (forte.id !== 'doomdesire' && forte.id !== 'futuresight') {
 								ret2 = forte.onTry.call(this, source, target, this.dex.getActiveMove(forte.id));
 							} else {
@@ -857,7 +855,7 @@ export const Formats: FormatList = [
 							const ret1 = this.dex.moves.get(move.id).onTryMove.call(this, pokemon);
 							const ret2 = forte.onTryMove.call(this, pokemon);
 							if (ret1 === null || ret2 === null) return null;
-						}
+						};
 					} else {
 						move.onTryMove = forte.onTryMove;
 					}
@@ -875,7 +873,7 @@ export const Formats: FormatList = [
 				if (!action) throw new Error(`Action not passed to resolveAction`);
 				if (action.choice === 'pass') return [];
 				const actions = [action];
-		
+
 				if (!action.side && action.pokemon) action.side = action.pokemon.side;
 				if (!action.move && action.moveid) action.move = this.battle.dex.getActiveMove(action.moveid);
 				if (!action.order) {
@@ -885,7 +883,7 @@ export const Formats: FormatList = [
 						instaswitch: 3,
 						beforeTurn: 4,
 						beforeTurnMove: 5,
-		
+
 						runUnnerve: 100,
 						runSwitch: 101,
 						runPrimal: 102,
@@ -893,10 +891,10 @@ export const Formats: FormatList = [
 						megaEvo: 104,
 						runDynamax: 105,
 						priorityChargeMove: 106,
-		
+
 						shift: 200,
 						// default is 200 (for moves)
-		
+
 						residual: 300,
 					};
 					if (action.choice in orders) {
@@ -943,12 +941,12 @@ export const Formats: FormatList = [
 						action.pokemon.switchFlag = false;
 					}
 				}
-		
+
 				const deferPriority = this.battle.gen === 7 && action.mega && action.mega !== 'done';
 				if (action.move) {
 					let target = null;
 					action.move = this.battle.dex.getActiveMove(action.move);
-		
+
 					if (!action.targetLoc) {
 						target = this.battle.getRandomTarget(action.pokemon, action.move);
 						// TODO: what actually happens here?
@@ -958,7 +956,7 @@ export const Formats: FormatList = [
 				}
 				if (!deferPriority) this.battle.getActionSpeed(action);
 				return actions as any;
-			}
+			},
 		},
 		battle: {
 			runAction(action: Action) {
@@ -970,9 +968,9 @@ export const Formats: FormatList = [
 					for (const side of this.sides) {
 						if (side.pokemonLeft) side.pokemonLeft = side.pokemon.length;
 					}
-		
+
 					this.add('start');
-		
+
 					// Change Zacian/Zamazenta into their Crowned formes
 					for (const pokemon of this.getAllPokemon()) {
 						let rawSpecies: Species | null = null;
@@ -989,7 +987,7 @@ export const Formats: FormatList = [
 							(pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
 						pokemon.setAbility(species.abilities['0'], null, true);
 						pokemon.baseAbility = pokemon.ability;
-		
+
 						const behemothMove: {[k: string]: string} = {
 							'Zacian-Crowned': 'behemothblade', 'Zamazenta-Crowned': 'behemothbash',
 						};
@@ -1009,14 +1007,14 @@ export const Formats: FormatList = [
 							pokemon.moveSlots = pokemon.baseMoveSlots.slice();
 						}
 					}
-		
+
 					if (this.format.onBattleStart) this.format.onBattleStart.call(this);
 					for (const rule of this.ruleTable.keys()) {
 						if ('+*-!'.includes(rule.charAt(0))) continue;
 						const subFormat = this.dex.formats.get(rule);
 						if (subFormat.onBattleStart) subFormat.onBattleStart.call(this);
 					}
-		
+
 					for (const side of this.sides) {
 						for (let i = 0; i < side.active.length; i++) {
 							if (!side.pokemonLeft) {
@@ -1035,7 +1033,7 @@ export const Formats: FormatList = [
 					this.midTurn = true;
 					break;
 				}
-		
+
 				case 'move':
 					if (!action.pokemon.isActive) return false;
 					if (action.pokemon.fainted) return false;
@@ -1068,7 +1066,7 @@ export const Formats: FormatList = [
 					// @ts-ignore
 					if (action.pokemon.forte.priorityChargeCallback) action.pokemon.forte.priorityChargeCallback.call(this, action.pokemon);
 					break;
-		
+
 				case 'event':
 					this.runEvent(action.event!, action.pokemon);
 					break;
@@ -1080,7 +1078,7 @@ export const Formats: FormatList = [
 					action.pokemon.position = action.index;
 					// we return here because the update event would crash since there are no active pokemon yet
 					return;
-		
+
 				case 'pass':
 					return;
 				case 'instaswitch':
@@ -1119,7 +1117,7 @@ export const Formats: FormatList = [
 					if (action.pokemon.fainted) return false;
 					this.swapPosition(action.pokemon, 1);
 					break;
-		
+
 				case 'beforeTurn':
 					this.eachEvent('BeforeTurn');
 					break;
@@ -1132,7 +1130,7 @@ export const Formats: FormatList = [
 					this.add('upkeep');
 					break;
 				}
-		
+
 				// phazing (Roar, etc)
 				for (const side of this.sides) {
 					for (const pokemon of side.active) {
@@ -1142,16 +1140,16 @@ export const Formats: FormatList = [
 						}
 					}
 				}
-		
+
 				this.clearActiveMove();
-		
+
 				// fainting
-		
+
 				this.faintMessages();
 				if (this.ended) return true;
-		
+
 				// switching (fainted pokemon, U-turn, Baton Pass, etc)
-		
+
 				if (!this.queue.peek() || (this.gen <= 3 && ['move', 'residual'].includes(this.queue.peek()!.choice))) {
 					// in gen 3 or earlier, switching in fainted pokemon is done after
 					// every move, rather than only at the end of the turn.
@@ -1171,7 +1169,7 @@ export const Formats: FormatList = [
 				} else if (this.queue.peek()?.choice === 'instaswitch') {
 					return false;
 				}
-		
+
 				if (this.gen >= 5) {
 					this.eachEvent('Update');
 					for (const [pokemon, originalHP] of residualPokemon) {
@@ -1181,18 +1179,18 @@ export const Formats: FormatList = [
 						}
 					}
 				}
-		
+
 				if (action.choice === 'runSwitch') {
 					const pokemon = action.pokemon;
 					if (pokemon.hp && pokemon.hp <= pokemon.maxhp / 2 && pokemonOriginalHP! > pokemon.maxhp / 2) {
 						this.runEvent('EmergencyExit', pokemon);
 					}
 				}
-		
+
 				const switches = this.sides.map(
 					side => side.active.some(pokemon => pokemon && !!pokemon.switchFlag)
 				);
-		
+
 				for (let i = 0; i < this.sides.length; i++) {
 					if (switches[i] && !this.canSwitch(this.sides[i])) {
 						for (const pokemon of this.sides[i].active) {
@@ -1213,16 +1211,16 @@ export const Formats: FormatList = [
 						}
 					}
 				}
-		
+
 				for (const playerSwitch of switches) {
 					if (playerSwitch) {
 						this.makeRequest('switch');
 						return true;
 					}
 				}
-		
+
 				if (this.gen < 5) this.eachEvent('Update');
-		
+
 				if (this.gen >= 8 && (this.queue.peek()?.choice === 'move' || this.queue.peek()?.choice === 'runDynamax')) {
 					// In gen 8, speed is updated dynamically so update the queue's speed properties and sort it.
 					this.updateSpeed();
@@ -1231,9 +1229,9 @@ export const Formats: FormatList = [
 					}
 					this.queue.sort();
 				}
-		
+
 				return false;
-			}
+			},
 		},
 	},
 	{
@@ -1265,8 +1263,8 @@ export const Formats: FormatList = [
 			} else if (ability.id === 'intrepidsword') {
 				problems.push(`${set.name}'s ability ${ability.name} is banned.`);
 			}
-			var c = set.moves[0].charAt(0).toUpperCase();
-			for (var i = 1; i < set.moves.length; ++i) {
+			const c = set.moves[0].charAt(0).toUpperCase();
+			for (let i = 1; i < set.moves.length; ++i) {
 				const letter = set.moves[i].charAt(0).toUpperCase();
 				if (letter !== c) {
 					problems.push(`${set.name || set.species}'s moves have different initial letters.`);
@@ -1585,12 +1583,14 @@ export const Formats: FormatList = [
 		challengeShow: false,
 		ruleset: ['Standard OMs', 'Sleep Clause Mod'],
 		banlist: [
-			'Uber', 'AG', 'Arena Trap', 'Moody', 'Power Construct', 'Sand Veil', 'Shadow Tag', 'Snow Cloak', 'King\'s Rock', 'Baton Pass'
+			'Uber', 'AG', 'Arena Trap', 'Moody', 'Power Construct', 'Sand Veil', 'Shadow Tag', 'Snow Cloak', 'King\'s Rock', 'Baton Pass',
 		],
 		onValidateTeam(team, format, teamHas) {
 			for (const set of team) {
-				if (set.moves.length < 4) return [`You are forced to bring 4 moves by 24 Points Rule.`,
-				`${set.species} has less than 4 moves.`];
+				if (set.moves.length < 4) {
+					return [`You are forced to bring 4 moves by 24 Points Rule.`,
+						`${set.species} has less than 4 moves.`];
+				}
 				const moveTable = new Map<string, number>();
 				for (const move of set.moves) {
 					const moveId = this.dex.moves.get(move).id;
@@ -1630,11 +1630,11 @@ export const Formats: FormatList = [
 				} else if (maxMove) {
 					move = this.getActiveMaxMove(baseMove, pokemon);
 				}
-		
+
 				move.isExternal = externalMove;
-		
+
 				this.battle.setActiveMove(move, pokemon, target);
-		
+
 				/* if (pokemon.moveThisTurn) {
 					// THIS IS PURELY A SANITY CHECK
 					// DO NOT TAKE ADVANTAGE OF THIS TO PREVENT A POKEMON FROM MOVING;
@@ -1677,11 +1677,11 @@ export const Formats: FormatList = [
 					}
 					pokemon.moveUsed(move, targetLoc);
 				}
-		
+
 				// Dancer Petal Dance hack
 				// TODO: implement properly
 				const noLock = externalMove && !pokemon.volatiles['lockedmove'];
-		
+
 				if (zMove) {
 					if (pokemon.illusion) {
 						this.battle.singleEvent('End', this.dex.abilities.get('Illusion'), pokemon.abilityState, pokemon);
@@ -1694,7 +1694,7 @@ export const Formats: FormatList = [
 				if (this.battle.activeMove) move = this.battle.activeMove;
 				this.battle.singleEvent('AfterMove', move, null, pokemon, target, move);
 				this.battle.runEvent('AfterMove', pokemon, target, move);
-		
+
 				// Dancer's activation order is completely different from any other event, so it's handled separately
 				if (move.flags['dance'] && moveDidSomething && !move.isExternal) {
 					const dancers = [];
@@ -1745,7 +1745,7 @@ export const Formats: FormatList = [
 				if (canRuleWin === true) this.battle.win(pokemon.side);
 
 				this.battle.checkWin();
-			}
+			},
 		},
 	},
 	{
@@ -1796,7 +1796,7 @@ export const Formats: FormatList = [
 					modStats['hp'] = tr(tr(2 * stat + set.ivs['hp'] + 63 + 100) + 10);
 				}
 				return this.natureModify(modStats as StatsTable, set);
-			}
+			},
 		},
 	},
 	{
@@ -1837,7 +1837,7 @@ export const Formats: FormatList = [
 		onModifySpecies(species, target, source) {
 			if (source || !target?.side) return;
 			const god = target.side.team.find(set => {
-				let godSpecies = this.dex.species.get(set.species);
+				const godSpecies = this.dex.species.get(set.species);
 				return this.ruleTable.isRestrictedSpecies(godSpecies);
 			}) || target.side.team[0];
 			const stat = Dex.stats.ids()[target.side.team.indexOf(target.set)];
@@ -1865,7 +1865,7 @@ export const Formats: FormatList = [
 		ruleset: ['Standard OMs', 'Sleep Clause Mod', 'Turn Tables Mod'],
 		banlist: [
 			'AG', 'Shadow Tag', 'Baton Pass',
-			'Huge Power', 
+			'Huge Power',
 			'Eviolite', 'Thick Club',
 		],
 	},
@@ -1886,7 +1886,7 @@ export const Formats: FormatList = [
 		mod: 'gen9',
 		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Clause', 'Species Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Sleep Moves Clause', 'Endless Battle Clause'],
 		banlist: [
-			'Calyrex-Shadow', 'Slaking', 
+			'Calyrex-Shadow', 'Slaking',
 			'Arena Trap', 'Contrary', 'Huge Power', 'Illusion', 'Innards Out', 'Magnet Pull', 'Neutralizing Gas', 'Parental Bond', 'Pure Power',
 			'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
 			'Comatose + Sleep Talk',
@@ -2034,7 +2034,7 @@ export const Formats: FormatList = [
 		banlist: [
 			'Groudon-Primal', 'Kyogre-Primal',
 			'Arena Trap', 'Huge Power', 'Moody', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Wonder Guard',
-			'Assist', 'Chatter'
+			'Assist', 'Chatter',
 		],
 	},
 	{
@@ -2087,7 +2087,7 @@ export const Formats: FormatList = [
 		banlist: [
 			'Mewtwo > 1',
 			'Mean Look + Hypnosis', 'Mean Look + Lovely Kiss', 'Mean Look + Sing', 'Mean Look + Sleep Powder', 'Mean Look + Spore',
-			'Spider Web + Hypnosis', 'Spider Web + Lovely Kiss', 'Spider Web + Sing', 'Spider Web + Sleep Powder', 'Spider Web + Spore'
+			'Spider Web + Hypnosis', 'Spider Web + Lovely Kiss', 'Spider Web + Sing', 'Spider Web + Sleep Powder', 'Spider Web + Spore',
 		],
 	},
 	{
@@ -2101,7 +2101,7 @@ export const Formats: FormatList = [
 		ruleset: ['-Nonexistent', 'Freeze Clause Mod', 'Sleep Clause Mod', 'OHKO Clause', 'Evasion Moves Clause', 'Endless Battle Clause', 'HP Percentage Mod', 'Cancel Mod'],
 		banlist: [
 			'Mewtwo',
-			'Bind', 'Clamp', 'Fire Spin', 'Wrap'
+			'Bind', 'Clamp', 'Fire Spin', 'Wrap',
 		],
 	},
 
@@ -2263,9 +2263,9 @@ export const Formats: FormatList = [
 			const problems = [];
 			// keep nd moves just in case they are back one day
 			const restrictedMoves = ['Acid Spray', 'Anchor Shot', 'Beat Up', 'Bide', 'Bolt Beak', 'Dynamic Punch', 'Echoed Voice', 'Eerie Spell', 'Fishious Rend',
-			'Flip Turn', 'Frost Breath', 'Ice Ball', 'Inferno', 'Jaw Lock', 'Last Respects', 'Lumina Crash', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rage Fist',
-			'Rising Voltage', 'Rollout', 'Shell Side Arm', 'Spirit Shackle', 'Stored Power', 'Storm Throw', 'Terrain Pulse', 'Thousand Waves', 'U-turn', 'Volt Switch',
-			'Weather Ball', 'Wicked Blow', 'Zap Cannon', ];
+				'Flip Turn', 'Frost Breath', 'Ice Ball', 'Inferno', 'Jaw Lock', 'Last Respects', 'Lumina Crash', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rage Fist',
+				'Rising Voltage', 'Rollout', 'Shell Side Arm', 'Spirit Shackle', 'Stored Power', 'Storm Throw', 'Terrain Pulse', 'Thousand Waves', 'U-turn', 'Volt Switch',
+				'Weather Ball', 'Wicked Blow', 'Zap Cannon'];
 			if (item.type === 'Status' ||
 			(!!item.isNonstandard && item.isNonstandard !== 'Unobtainable') || // check if move is in gen 9
 			item.ohko ||
@@ -2276,8 +2276,7 @@ export const Formats: FormatList = [
 			item.volatileStatus === 'partiallytrapped' ||
 			item.damageCallback && item.id !== 'psywave' ||
 			item.flags['charge'] ||
-			restrictedMoves.includes(item.name))
-				problems.push(`${item.name} is banned as a Forte.`);
+			restrictedMoves.includes(item.name)) { problems.push(`${item.name} is banned as a Forte.`); }
 			const itemStr = set.item;
 			set.item = '';
 			const problem = this.validateSet(set, teamHas);
@@ -2287,13 +2286,13 @@ export const Formats: FormatList = [
 		},
 		onBegin() {
 			for (const pokemon of this.p1.pokemon.concat(this.p2.pokemon)) {
-				let move = this.dex.moves.get(pokemon.set.item);
+				const move = this.dex.moves.get(pokemon.set.item);
 				if (move.exists && move.category !== 'Status') {
 					// @ts-ignore
 					pokemon.forte = move;
-					
+
 					// we have a better way for this now
-					
+
 					// if (pokemon.baseSpecies.name.startsWith('Necrozma')) {
 					// 	pokemon.item = this.dex.toID('mimikiumz');
 					// }
@@ -2354,7 +2353,7 @@ export const Formats: FormatList = [
 		 * i say this is unsolvable because we have to add secondary and self at the same time for diamond storm
 		 * which should be earlier than sheer force
 		 * commented by Nihilslave
-		 */		
+		 */
 		onModifyMove(move, pokemon, target) {
 			// @ts-ignore
 			if (move.category !== 'Status' && pokemon.forte) {
@@ -2362,18 +2361,18 @@ export const Formats: FormatList = [
 				const forte = pokemon.forte;
 
 				Object.assign(move.flags, forte.flags);
-				
+
 				// pseudoWeather theoretically shouldn't be a simple property, but it is in practice cuz plasma fists is the only attack with it, maybe change this in later generations
 				// the same applies to volatileStatus, the only such property on attacks are partiallytrapped and smackdown, and partiallytrapped moves are banned
 				// + seflBoost, the only related attack is scale shot
 				const simpleProperties = ['breaksProtect', 'forceSwitch', 'hasCrashDamage', 'ignoreAbility', 'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity', 'isFutureMove', 'mindBlownRecoil',
-				'overrideDefensiveStat', 'overrideOffensivePokemon', 'overrideOffensiveStat', 'pseudoWeather', 'selfBoost', 'selfdestruct', 'selfSwitch', 'sleepUsable', 'stealsBoosts', 'struggleRecoil',
-				'thawsTarget', 'volatileStatus', 'willCrit',
-				// function properties
-				'onDamage', 'onMoveFail', 'onUseMoveMessage'];
+					'overrideDefensiveStat', 'overrideOffensivePokemon', 'overrideOffensiveStat', 'pseudoWeather', 'selfBoost', 'selfdestruct', 'selfSwitch', 'sleepUsable', 'stealsBoosts', 'struggleRecoil',
+					'thawsTarget', 'volatileStatus', 'willCrit',
+					// function properties
+					'onDamage', 'onMoveFail', 'onUseMoveMessage'];
 				// omitted properties:
 				// onPrepareHit
-				for (let prop of simpleProperties) {
+				for (const prop of simpleProperties) {
 					if (forte[prop]) {
 						// @ts-ignore
 						move[prop] = forte[prop];
@@ -2410,7 +2409,7 @@ export const Formats: FormatList = [
 				// 	}
 				// }
 				// self
-				if (forte.self) {// && forte.id !== 'diamondstorm') {
+				if (forte.self) { // && forte.id !== 'diamondstorm') {
 					if (move.self) {
 						for (const i in forte.self) {
 							// @ts-ignore
@@ -2591,7 +2590,7 @@ export const Formats: FormatList = [
 						move.onAfterHit = function (source, target, move) {
 							this.dex.moves.get(move.id).onAfterHit?.call(this, source, target, move);
 							forte.onAfterHit.call(this, source, target, this.dex.getActiveMove(forte.id));
-						}
+						};
 					} else {
 						move.onAfterHit = forte.onAfterHit;
 					}
@@ -2621,7 +2620,7 @@ export const Formats: FormatList = [
 						move.onAfterSubDamage = function (damage, target, source, move) {
 							this.dex.moves.get(move.id).onAfterSubDamage?.call(this, damage, target, source, move);
 							forte.onAfterSubDamage.call(this, damage, target, source, this.dex.getActiveMove(forte.id));
-						}
+						};
 					} else {
 						move.onAfterSubDamage = forte.onAfterSubDamage;
 					}
@@ -2667,7 +2666,7 @@ export const Formats: FormatList = [
 						move.onTry = function (source, target, move) {
 							// @ts-ignore
 							const ret1 = this.dex.moves.get(move.id).onTry.call(this, source, target, move);
-							var ret2;
+							let ret2;
 							if (forte.id !== 'doomdesire' && forte.id !== 'futuresight') {
 								ret2 = forte.onTry.call(this, source, target, this.dex.getActiveMove(forte.id));
 							} else {
@@ -2757,7 +2756,7 @@ export const Formats: FormatList = [
 							const ret1 = this.dex.moves.get(move.id).onTryMove.call(this, pokemon);
 							const ret2 = forte.onTryMove.call(this, pokemon);
 							if (ret1 === null || ret2 === null) return null;
-						}
+						};
 					} else {
 						move.onTryMove = forte.onTryMove;
 					}
@@ -2804,7 +2803,7 @@ export const Formats: FormatList = [
 				if (!action) throw new Error(`Action not passed to resolveAction`);
 				if (action.choice === 'pass') return [];
 				const actions = [action];
-		
+
 				if (!action.side && action.pokemon) action.side = action.pokemon.side;
 				if (!action.move && action.moveid) action.move = this.battle.dex.getActiveMove(action.moveid);
 				if (!action.order) {
@@ -2814,7 +2813,7 @@ export const Formats: FormatList = [
 						instaswitch: 3,
 						beforeTurn: 4,
 						beforeTurnMove: 5,
-		
+
 						runUnnerve: 100,
 						runSwitch: 101,
 						runPrimal: 102,
@@ -2822,10 +2821,10 @@ export const Formats: FormatList = [
 						megaEvo: 104,
 						runDynamax: 105,
 						priorityChargeMove: 106,
-		
+
 						shift: 200,
 						// default is 200 (for moves)
-		
+
 						residual: 300,
 					};
 					if (action.choice in orders) {
@@ -2872,12 +2871,12 @@ export const Formats: FormatList = [
 						action.pokemon.switchFlag = false;
 					}
 				}
-		
+
 				const deferPriority = this.battle.gen === 7 && action.mega && action.mega !== 'done';
 				if (action.move) {
 					let target = null;
 					action.move = this.battle.dex.getActiveMove(action.move);
-		
+
 					if (!action.targetLoc) {
 						target = this.battle.getRandomTarget(action.pokemon, action.move);
 						// TODO: what actually happens here?
@@ -2887,7 +2886,7 @@ export const Formats: FormatList = [
 				}
 				if (!deferPriority) this.battle.getActionSpeed(action);
 				return actions as any;
-			}
+			},
 		},
 		battle: {
 			runAction(action: Action) {
@@ -2899,9 +2898,9 @@ export const Formats: FormatList = [
 					for (const side of this.sides) {
 						if (side.pokemonLeft) side.pokemonLeft = side.pokemon.length;
 					}
-		
+
 					this.add('start');
-		
+
 					// Change Zacian/Zamazenta into their Crowned formes
 					for (const pokemon of this.getAllPokemon()) {
 						let rawSpecies: Species | null = null;
@@ -2918,7 +2917,7 @@ export const Formats: FormatList = [
 							(pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
 						pokemon.setAbility(species.abilities['0'], null, true);
 						pokemon.baseAbility = pokemon.ability;
-		
+
 						const behemothMove: {[k: string]: string} = {
 							'Zacian-Crowned': 'behemothblade', 'Zamazenta-Crowned': 'behemothbash',
 						};
@@ -2938,14 +2937,14 @@ export const Formats: FormatList = [
 							pokemon.moveSlots = pokemon.baseMoveSlots.slice();
 						}
 					}
-		
+
 					if (this.format.onBattleStart) this.format.onBattleStart.call(this);
 					for (const rule of this.ruleTable.keys()) {
 						if ('+*-!'.includes(rule.charAt(0))) continue;
 						const subFormat = this.dex.formats.get(rule);
 						if (subFormat.onBattleStart) subFormat.onBattleStart.call(this);
 					}
-		
+
 					for (const side of this.sides) {
 						for (let i = 0; i < side.active.length; i++) {
 							if (!side.pokemonLeft) {
@@ -2964,7 +2963,7 @@ export const Formats: FormatList = [
 					this.midTurn = true;
 					break;
 				}
-		
+
 				case 'move':
 					if (!action.pokemon.isActive) return false;
 					if (action.pokemon.fainted) return false;
@@ -2997,7 +2996,7 @@ export const Formats: FormatList = [
 					// @ts-ignore
 					if (action.pokemon.forte.priorityChargeCallback) action.pokemon.forte.priorityChargeCallback.call(this, action.pokemon);
 					break;
-		
+
 				case 'event':
 					this.runEvent(action.event!, action.pokemon);
 					break;
@@ -3009,7 +3008,7 @@ export const Formats: FormatList = [
 					action.pokemon.position = action.index;
 					// we return here because the update event would crash since there are no active pokemon yet
 					return;
-		
+
 				case 'pass':
 					return;
 				case 'instaswitch':
@@ -3048,7 +3047,7 @@ export const Formats: FormatList = [
 					if (action.pokemon.fainted) return false;
 					this.swapPosition(action.pokemon, 1);
 					break;
-		
+
 				case 'beforeTurn':
 					this.eachEvent('BeforeTurn');
 					break;
@@ -3061,7 +3060,7 @@ export const Formats: FormatList = [
 					this.add('upkeep');
 					break;
 				}
-		
+
 				// phazing (Roar, etc)
 				for (const side of this.sides) {
 					for (const pokemon of side.active) {
@@ -3071,16 +3070,16 @@ export const Formats: FormatList = [
 						}
 					}
 				}
-		
+
 				this.clearActiveMove();
-		
+
 				// fainting
-		
+
 				this.faintMessages();
 				if (this.ended) return true;
-		
+
 				// switching (fainted pokemon, U-turn, Baton Pass, etc)
-		
+
 				if (!this.queue.peek() || (this.gen <= 3 && ['move', 'residual'].includes(this.queue.peek()!.choice))) {
 					// in gen 3 or earlier, switching in fainted pokemon is done after
 					// every move, rather than only at the end of the turn.
@@ -3100,7 +3099,7 @@ export const Formats: FormatList = [
 				} else if (this.queue.peek()?.choice === 'instaswitch') {
 					return false;
 				}
-		
+
 				if (this.gen >= 5) {
 					this.eachEvent('Update');
 					for (const [pokemon, originalHP] of residualPokemon) {
@@ -3110,18 +3109,18 @@ export const Formats: FormatList = [
 						}
 					}
 				}
-		
+
 				if (action.choice === 'runSwitch') {
 					const pokemon = action.pokemon;
 					if (pokemon.hp && pokemon.hp <= pokemon.maxhp / 2 && pokemonOriginalHP! > pokemon.maxhp / 2) {
 						this.runEvent('EmergencyExit', pokemon);
 					}
 				}
-		
+
 				const switches = this.sides.map(
 					side => side.active.some(pokemon => pokemon && !!pokemon.switchFlag)
 				);
-		
+
 				for (let i = 0; i < this.sides.length; i++) {
 					if (switches[i] && !this.canSwitch(this.sides[i])) {
 						for (const pokemon of this.sides[i].active) {
@@ -3142,16 +3141,16 @@ export const Formats: FormatList = [
 						}
 					}
 				}
-		
+
 				for (const playerSwitch of switches) {
 					if (playerSwitch) {
 						this.makeRequest('switch');
 						return true;
 					}
 				}
-		
+
 				if (this.gen < 5) this.eachEvent('Update');
-		
+
 				if (this.gen >= 8 && (this.queue.peek()?.choice === 'move' || this.queue.peek()?.choice === 'runDynamax')) {
 					// In gen 8, speed is updated dynamically so update the queue's speed properties and sort it.
 					this.updateSpeed();
@@ -3160,9 +3159,9 @@ export const Formats: FormatList = [
 					}
 					this.queue.sort();
 				}
-		
+
 				return false;
-			}
+			},
 		},
 	},
 	{
@@ -3183,7 +3182,7 @@ export const Formats: FormatList = [
 		onValidateTeam(team) {
 			const gods = new Set<string>();
 			for (const set of team) {
-				let species = this.dex.species.get(set.species);
+				const species = this.dex.species.get(set.species);
 				if (species.baseSpecies === 'Arceus') {
 					gods.add(species.name);
 				}
@@ -3199,13 +3198,13 @@ export const Formats: FormatList = [
 		onModifySpecies(species, target, source) {
 			if (source || !target?.side) return;
 			const god = target.side.team.find(set => {
-				let godSpecies = this.dex.species.get(set.species);
+				const godSpecies = this.dex.species.get(set.species);
 				if (godSpecies.baseSpecies === 'Arceus') return true;
 				return this.ruleTable.isRestrictedSpecies(godSpecies);
 			}) || target.side.team[0];
 			const stat = Dex.stats.ids()[target.side.team.indexOf(target.set)];
 			const newSpecies = this.dex.deepClone(species);
-			let godSpecies = this.dex.species.get(god.species);
+			const godSpecies = this.dex.species.get(god.species);
 			newSpecies.bst -= newSpecies.baseStats[stat];
 			newSpecies.baseStats[stat] = godSpecies.baseStats[stat];
 			newSpecies.bst += newSpecies.baseStats[stat];
@@ -3228,21 +3227,21 @@ export const Formats: FormatList = [
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
 			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
 			'Comatose + Sleep Talk', 'Bolt Beak', 'Court Change', 'Double Iron Bash', 'Octolock', 'Shell Smash',
-			'Rusted Sword'
+			'Rusted Sword',
 		],
 		onModifySpeciesPriority: 3,
 		onModifySpecies(species, target, source) {
 			if (source || !target?.side) return;
 
-			var godIndex = 0, godBst = 0;
-			for (var i = 0; i < target.side.team.length; i++) {
-				var tempSpecies = this.dex.species.get(target.side.team[i].species);
+			let godIndex = 0, godBst = 0;
+			for (let i = 0; i < target.side.team.length; i++) {
+				const tempSpecies = this.dex.species.get(target.side.team[i].species);
 				if (tempSpecies.bst > godBst) {
 					godBst = tempSpecies.bst;
 					godIndex = i;
 				}
 			}
-			var god = target.side.team[godIndex];
+			const god = target.side.team[godIndex];
 
 			// const god = target.side.team.find(set => {
 			// 	let godSpecies = this.dex.species.get(set.species);
@@ -3260,7 +3259,7 @@ export const Formats: FormatList = [
 
 			const stat = Dex.stats.ids()[target.side.team.indexOf(target.set)];
 			const newSpecies = this.dex.deepClone(species);
-			let godSpecies = this.dex.species.get(god.species);
+			const godSpecies = this.dex.species.get(god.species);
 			// if (godSpecies.forme === 'Crowned') {
 			// 	godSpecies = this.dex.species.get(godSpecies.changesFrom || godSpecies.baseSpecies);
 			// }
@@ -3396,7 +3395,7 @@ export const Formats: FormatList = [
 			const species = this.dex.species.get(set.species);
 			if (species.forme && ['Mega', 'Mega-X', 'Mega-Y', 'Primal'].includes(species.forme)) return;
 
-			const item = this.dex.toID(set.item);			
+			const item = this.dex.toID(set.item);
 			if (item === 'rustedshield') {
 				set.ability = 'Dauntless Shield';
 				if (set.species === 'Zamazenta') {
@@ -3428,10 +3427,10 @@ export const Formats: FormatList = [
 				mSpecies.originalMega = 'Zamazenta-Crowned';
 				mSpecies.requiredItem = 'rustedshield';
 				target.baseSpecies = mSpecies;
-				// unnecessary target.canMegaEvo = null;	
+				// unnecessary target.canMegaEvo = null;
 				return mSpecies;
 			}
-			if (item === 'rustedsword') {			
+			if (item === 'rustedsword') {
 				const mSpecies = this.dex.deepClone(this.dex.species.get(target.species.name));
 				mSpecies.types = [target.species.types[0], 'Steel'];
 				mSpecies.baseStats.atk = this.clampIntRange(mSpecies.baseStats.atk + 40, 1, 255);
@@ -4123,7 +4122,7 @@ export const Formats: FormatList = [
 		ruleset: ['Standard OMs', 'Sleep Clause Mod'],
 		banlist: [
 			'AG', 'Shadow Tag', 'Baton Pass',
-			'Huge Power', 
+			'Huge Power',
 			'Eviolite',
 		],
 		onModifySpecies(species, target, source, effect) {
@@ -5261,7 +5260,7 @@ export const Formats: FormatList = [
 		ruleset: ['Standard OMs', 'Sleep Clause Mod', 'Tier Shift Mod'],
 		banlist: [
 			'Uber', 'AG', 'Arena Trap', 'Moody', 'Power Construct', 'Shadow Tag', 'Baton Pass',
-			'Damp Rock', 'Eviolite', 'Heat Rock'
+			'Damp Rock', 'Eviolite', 'Heat Rock',
 		],
 		unbanlist: ['Zamazenta-Crowned'],
 	},
@@ -5542,7 +5541,7 @@ export const Formats: FormatList = [
 			}
 		},
 	},
-	
+
 	// Custom Games
 	///////////////////////////////////////////////////////////////////
 
