@@ -2444,7 +2444,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 			for (statName in pokemon.baseStats as StatsTable) {
 				if (statName === 'hp') continue;
 				pokemon.baseStats[statName] = pokemon.baseStats[statName] < 100 ?
-				this.clampIntRange(pokemon.baseStats[statName] * 2, 1, 255) : pokemon.baseStats[statName];
+					this.clampIntRange(pokemon.baseStats[statName] * 2, 1, 255) : pokemon.baseStats[statName];
 				pokemon.bst += pokemon.baseStats[statName];
 			}
 			return pokemon;

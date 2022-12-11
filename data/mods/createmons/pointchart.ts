@@ -555,7 +555,8 @@ function calcBSPoint(stats: StatsTable) {
 		}
 	}
 	// show these 2 to players
-	const bs1 = Math.sqrt(statDetails['atk'] + statDetails['spa'] + statDetails['def'] + statDetails['spd'] + statDetails['spe']);
+	const bs1 = Math.sqrt(statDetails['atk'] + statDetails['spa'] +
+		statDetails['def'] + statDetails['spd'] + statDetails['spe']);
 	const bs2 = 2 * Math.max(h, a, b, c, d, s) + 100;
 	// the following is how we actually calculate the point
 	// hb + hd + s ^ 2 + 50(2h + a + 2b + c + 2d - 4s) + 25000

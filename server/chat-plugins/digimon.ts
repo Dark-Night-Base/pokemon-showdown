@@ -6,7 +6,7 @@ export const commands: Chat.ChatCommands = {
 		if (!this.runBroadcast()) return;
 
 		let {dex, format, targets} = this.splitFormat(target, true);
-		format = format; // Nihilslave: to pass the lint code check
+		format = null; // Nihilslave: to pass the lint code check
 
 		dex = Dex.mod('digimon');
 
@@ -224,7 +224,8 @@ export const commands: Chat.ChatCommands = {
 					details["Stage"] = "Ultimate";
 				}
 				const exceptAdult = [40046, 40059, 40063, 40064, 40098, 40116, 40146, 40192, 40369, 40370, 40543, 40550];
-				const exceptPerfect = [40005, 40060, 40065, 40096, 40108, 40130, 40164, 40215, 40236, 40248, 40371, 40372, 40452, 40459, 40460, 40464, 40472];
+				const exceptPerfect = [40005, 40060, 40065, 40096, 40108, 40130, 40164, 40215, 40236, 40248, 40371, 40372,
+					40452, 40459, 40460, 40464, 40472];
 				const exceptUltimate = [40120, 40339, 40544];
 				const exceptXevo = [40146, 40248, 40452];
 				if (pokemon.num === 40451) details["Stage"] = "Child";

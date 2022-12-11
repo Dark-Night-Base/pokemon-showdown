@@ -3238,7 +3238,7 @@ export const Formats: FormatList = [
 			let statName: StatID;
 			for (statName in pokemon.baseStats as StatsTable) {
 				pokemon.baseStats[statName] = pokemon.baseStats[statName] <= 70 ?
-				this.clampIntRange(pokemon.baseStats[statName] * 2, 1, 255) : pokemon.baseStats[statName];
+					this.clampIntRange(pokemon.baseStats[statName] * 2, 1, 255) : pokemon.baseStats[statName];
 				pokemon.bst += pokemon.baseStats[statName];
 			}
 			return pokemon;

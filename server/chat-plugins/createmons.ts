@@ -131,7 +131,7 @@ export const commands: Chat.ChatCommands = {
 					abilities.push(Dex.abilities.get(ability).name);
 				}
 				if (point === 1) {
-					abilities = Dex.abilities.all().filter(value => 
+					abilities = Dex.abilities.all().filter(value =>
 						!abilityToPoint[value.id] && value.isNonstandard !== "CAP").map(value => value.name);
 				}
 			}
