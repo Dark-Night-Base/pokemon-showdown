@@ -6,7 +6,10 @@ export const commands: Chat.ChatCommands = {
 		if (!this.runBroadcast()) return;
 
 		let {dex, format, targets} = this.splitFormat(target, true);
-		format = null; // Nihilslave: to pass the lint code check
+		// Nihilslave: to pass the no-unused-vars check
+		if (format === null) {
+			dex = Dex.mod('digimon');
+		}
 
 		dex = Dex.mod('digimon');
 
