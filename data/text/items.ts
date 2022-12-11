@@ -2381,7 +2381,7 @@ export const ItemsText: {[k: string]: ItemText} = {
 
 	xantibody: {
 		name: "X-Antibody",
-		desc: "This item allows Digimon to X-Evolve in battle."
+		desc: "This item allows Digimon to X-Evolve in battle.",
 	},
 	holyring: {
 		name: "Holy Ring",
@@ -2389,6 +2389,6 @@ export const ItemsText: {[k: string]: ItemText} = {
 	},
 	omegasword: {
 		name: "Omega Sword",
-		desc: "If held by an Imperialdramon-Paladin, its Fire- and Ice-type attacks have 1.2x power."
-	}
+		desc: "If held by an Imperialdramon-Paladin, its Fire- and Ice-type attacks have 1.2x power.",
+	},
 };

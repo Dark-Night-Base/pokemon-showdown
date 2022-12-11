@@ -3766,7 +3766,7 @@ export const PokedexText: {[k: string]: PokedexText} = {
 	},
 
 	// Digimon
-	
+
 	omegamon: {
 		name: "Omegamon",
 	},

@@ -47,9 +47,9 @@ export const Scripts: ModdedBattleScriptsData = {
 			const tr = this.battle.trunc;
 			if (!move.type) move.type = '???';
 			const type = move.type;
-	
+
 			baseDamage += 2;
-	
+
 			if (move.spreadHit) {
 				// multi-target modifier (doubles only)
 				const spreadModifier = move.spreadModifier || (this.battle.gameType === 'freeforall' ? 0.5 : 0.75);
@@ -61,19 +61,19 @@ export const Scripts: ModdedBattleScriptsData = {
 				this.battle.debug(`Parental Bond modifier: ${bondModifier}`);
 				baseDamage = this.battle.modify(baseDamage, bondModifier);
 			}
-	
+
 			// weather modifier
 			baseDamage = this.battle.runEvent('WeatherModifyDamage', pokemon, target, move, baseDamage);
-	
+
 			// crit - not a modifier
 			const isCrit = target.getMoveHitData(move).crit;
 			if (isCrit) {
 				baseDamage = tr(baseDamage * (move.critModifier || (this.battle.gen >= 6 ? 1.5 : 2)));
 			}
-	
+
 			// random factor - also not a modifier
 			baseDamage = this.battle.randomizer(baseDamage);
-	
+
 			// STAB
 			if (move.forceSTAB || (type !== '???' && pokemon.hasType(type))) {
 				// The "???" type never gets STAB
@@ -110,8 +110,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			// }
 
 			// try to make this less simple
-			if (pokemon.hasType('Vaccine') && target.hasType('Virus')
-			|| pokemon.hasType('Virus') && target.hasType('Data')) {
+			if (pokemon.hasType('Vaccine') && target.hasType('Virus') ||
+				pokemon.hasType('Virus') && target.hasType('Data')) {
 				if (!suppressMessages && typeMod === 0) this.battle.add('-supereffective', target);
 				baseDamage = tr(baseDamage * 1.5);
 				this.battle.debug('Digimon Type modifier: 1.5');
@@ -121,29 +121,29 @@ export const Scripts: ModdedBattleScriptsData = {
 				baseDamage = this.battle.modify(baseDamage, [2732, 4096]);
 				this.battle.debug('Digimon Type modifier: 0.67');
 			}
-	
+
 			if (isCrit && !suppressMessages) this.battle.add('-crit', target);
-	
+
 			if (pokemon.status === 'brn' && move.category === 'Physical' && !pokemon.hasAbility('guts')) {
 				if (this.battle.gen < 6 || move.id !== 'facade') {
 					baseDamage = this.battle.modify(baseDamage, 0.5);
 				}
 			}
-	
+
 			// Generation 5, but nothing later, sets damage to 1 before the final damage modifiers
 			if (this.battle.gen === 5 && !baseDamage) baseDamage = 1;
-	
+
 			// Final modifier. Modifiers that modify damage after min damage check, such as Life Orb.
 			baseDamage = this.battle.runEvent('ModifyDamage', pokemon, target, move, baseDamage);
-	
+
 			if (move.isZOrMaxPowered && target.getMoveHitData(move).zBrokeProtect) {
 				baseDamage = this.battle.modify(baseDamage, 0.25);
 				this.battle.add('-zbroken', target);
 			}
-	
+
 			// Generation 6-7 moves the check for minimum 1 damage after the final modifier...
 			if (this.battle.gen !== 5 && !baseDamage) return 1;
-	
+
 			// ...but 16-bit truncation happens even later, and can truncate to 0
 			return tr(baseDamage, 16);			
 		},

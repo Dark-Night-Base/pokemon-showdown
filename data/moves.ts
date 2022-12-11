@@ -28,8 +28,6 @@ wind: Activates the Wind Power and Wind Rider Abilities.
 
 */
 
-import { State } from "../sim/state";
-
 export const Moves: {[moveid: string]: MoveData} = {
 	"10000000voltthunderbolt": {
 		num: 719,

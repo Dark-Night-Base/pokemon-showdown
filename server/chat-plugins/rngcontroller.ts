@@ -52,7 +52,7 @@ export const commands: Chat.ChatCommands = {
 	 * > BattleActions.secondaries(): Battle.random(): PRNG.next(100)
 	 */
 	rng: 'rngcontrol',
-	async rngcontrol(target, room, user, connection, cmd) {
+	rngcontrol(target, room, user, connection, cmd) {
 		if (!room?.battle) return;
 		if (!user.isStaff) return;
 		if (!target) return;
@@ -120,7 +120,7 @@ export const commands: Chat.ChatCommands = {
 		this.sendReplyBox(`${user.name} is setting the next ${realNumbers.length} random number(s) to: ${realNumbers.map((value) => typeof value === 'number' ? value : `[${value[0]}, ${value[1]})`).join(',').replace(RegExp('-1', 'g'), '*')}`);
 		this.sendReplyBox(`Ranges: ${realRanges.map((value) => `[${value[0]}, ${value[1]})`).join(',')}`);
 
-		const seed = await findSeed(realNumbers, realRanges);
+		const seed = findSeed(realNumbers, realRanges);
 		if (seed === undefined) {
 			this.errorReply(`Setting random number failed!`);
 		} else {

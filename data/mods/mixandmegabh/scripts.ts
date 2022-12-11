@@ -1,5 +1,3 @@
-import { Moves } from "../../moves";
-
 export const Scripts: ModdedBattleScriptsData = {
 	init() {
 		for (const i in this.data.Items) {

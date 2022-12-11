@@ -2292,7 +2292,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 			this.add('rule', '-ate Clause: Limit one Pokemon with the ability Aerilate, Refrigerate or Pixilate.');
 		},
 		onValidateTeam(team) {
-			let ateCount:number = 0;
+			let ateCount = 0;
 			for (const set of team) {
 				const ability = this.dex.abilities.get(set.ability);
 				if (ability.id === 'aerilate' || ability.id === 'refrigerate' || ability.id === 'pixilate') {
@@ -2336,7 +2336,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 				if (!forte) continue;
 				for (const move of set.moves) {
 					let moveId = this.dex.moves.get(move).id;
-					if (moveId == forte) {
+					if (moveId === forte) {
 						return [`${this.dex.moves.get(forte).name} is used both as an item and as a move on ${set.species}.`];
 					}
 				}
@@ -2363,63 +2363,63 @@ export const Rulesets: {[k: string]: FormatData} = {
 		name: 'Johto Pokedex',
 		desc: "Only allows Pok&eacute;mon and Moves native to the Kanto region and the Johto region",
 		banlist: [
-			'Max Strike', 'Max Knuckle', 'Max Airstream', 'Max Ooze', 'Max Quake', 
-			'Max Rockfall', 'Max Flutterby', 'Max Phantasm', 'Max Steelspike', 
-			'Max Flare', 'Max Geyser', 'Max Overgrowth', 'Max Lightning', 'Max Mindstorm', 
-			'Max Hailstorm', 'Max Wyrmwind', 'Max Darkness', 'Max Starfall', 'Max Guard', 
-			'G-Max Vine Lash', 'G-Max Wildfire', 'G-Max Cannonade', 'G-Max Befuddle', 
-			'G-Max Volt Crash', 'G-Max Gold Rush', 'G-Max Chi Strike', 'G-Max Terror', 
-			'G-Max Foam Burst', 'G-Max Resonance', 'G-Max Cuddle', 'G-Max Replenish', 
-			'G-Max Malodor', 'G-Max Meltdown', 'G-Max Drum Solo', 'G-Max Fireball', 
-			'G-Max Hydrosnipe', 'G-Max Wind Rage', 'G-Max Gravitas', 'G-Max Stonesurge', 
-			'G-Max Volcalith', 'G-Max Tartness', 'G-Max Sweetness', 'G-Max Sandblast', 
-			'G-Max Stun Shock', 'G-Max Centiferno', 'G-Max Smite', 'G-Max Snooze', 'G-Max Finale', 
-			'G-Max Steelsurge', 'G-Max Depletion', 'G-Max One Blow', 'G-Max Rapid Flow', 
+			'Max Strike', 'Max Knuckle', 'Max Airstream', 'Max Ooze', 'Max Quake',
+			'Max Rockfall', 'Max Flutterby', 'Max Phantasm', 'Max Steelspike',
+			'Max Flare', 'Max Geyser', 'Max Overgrowth', 'Max Lightning', 'Max Mindstorm',
+			'Max Hailstorm', 'Max Wyrmwind', 'Max Darkness', 'Max Starfall', 'Max Guard',
+			'G-Max Vine Lash', 'G-Max Wildfire', 'G-Max Cannonade', 'G-Max Befuddle',
+			'G-Max Volt Crash', 'G-Max Gold Rush', 'G-Max Chi Strike', 'G-Max Terror',
+			'G-Max Foam Burst', 'G-Max Resonance', 'G-Max Cuddle', 'G-Max Replenish',
+			'G-Max Malodor', 'G-Max Meltdown', 'G-Max Drum Solo', 'G-Max Fireball',
+			'G-Max Hydrosnipe', 'G-Max Wind Rage', 'G-Max Gravitas', 'G-Max Stonesurge',
+			'G-Max Volcalith', 'G-Max Tartness', 'G-Max Sweetness', 'G-Max Sandblast',
+			'G-Max Stun Shock', 'G-Max Centiferno', 'G-Max Smite', 'G-Max Snooze', 'G-Max Finale',
+			'G-Max Steelsurge', 'G-Max Depletion', 'G-Max One Blow', 'G-Max Rapid Flow',
 			'Baddy Bad', 'Bouncy Bubble', 'Buzzy Buzz', 'Floaty Fall', 'Freezy Frost',
 			'Glitzy Glow', 'Sappy Seed', 'Sizzly Slide', 'Sparkly Swirl', 'Splishy Splash',
-			'Zippy Zap', 
-			'Venusaurite', 'Charizardite X', 'Charizardite Y', 'Blastoisinite', 'Beedrillite', 
-			'Pidgeotite', 'Alakazite', 'Slowbronite', 'Gengarite', 'Kangaskhanite', 'Pinsirite', 
-			'Gyaradosite', 'Aerodactylite', 'Mewtwonite X', 'Mewtwonite Y', 'Ampharosite', 
-			'Steelixite', 'Scizorite', 'Heracronite', 'Houndoominite', 'Tyranitarite', 
-			'Sceptilite', 'Blazikenite', 'Swampertite', 'Gardevoirite', 'Sablenite', 'Mawilite', 
-			'Aggronite', 'Medichamite', 'Manectite', 'Sharpedonite', 'Cameruptite', 'Altarianite', 
-			'Banettite', 'Absolite', 'Glalitite', 'Salamencite', 'Metagrossite', 'Latiasite', 
-			'Latiosite', 'Lopunnite', 'Garchompite', 'Lucarionite', 'Abomasite', 'Galladite', 
-			'Audinite', 'Diancite', 
-			'Attack Order', 'Defend Order', 'Heal Order', 'Powder', 'Tail Glow', 'Dark Void', 
-			'Hyperspace Fury', 'Night Daze', 'Parting Shot', 'Topsy Turvy', 'Fiery Wrath', 
-			'Wicked Blow', 'False Surrender', 'Jaw Lock', 'Obstruct', 'Clanging Scales', 
-			'Core Enforcer', 'Dragon Hammer', 'Roar of Time', 'Spacial Rend', 'Dragon Energy', 
-			'Clangorous Soul', 'Dragon Darts', 'Dynamax Cannon', 'Eternabeam', 'Bolt Strike', 
-			'Electrify', 'Fusion Bolt', 'Parabolic Charge', 'Plasma Fists', 'Zing Zap', 'Thunder Cage', 
-			'Aura Wheel', 'Bolt Beak', 'Overdrive', 'Aromatic Mist', 'Crafty Shield', 'Fairy Lock', 
+			'Zippy Zap',
+			'Venusaurite', 'Charizardite X', 'Charizardite Y', 'Blastoisinite', 'Beedrillite',
+			'Pidgeotite', 'Alakazite', 'Slowbronite', 'Gengarite', 'Kangaskhanite', 'Pinsirite',
+			'Gyaradosite', 'Aerodactylite', 'Mewtwonite X', 'Mewtwonite Y', 'Ampharosite',
+			'Steelixite', 'Scizorite', 'Heracronite', 'Houndoominite', 'Tyranitarite',
+			'Sceptilite', 'Blazikenite', 'Swampertite', 'Gardevoirite', 'Sablenite', 'Mawilite',
+			'Aggronite', 'Medichamite', 'Manectite', 'Sharpedonite', 'Cameruptite', 'Altarianite',
+			'Banettite', 'Absolite', 'Glalitite', 'Salamencite', 'Metagrossite', 'Latiasite',
+			'Latiosite', 'Lopunnite', 'Garchompite', 'Lucarionite', 'Abomasite', 'Galladite',
+			'Audinite', 'Diancite',
+			'Attack Order', 'Defend Order', 'Heal Order', 'Powder', 'Tail Glow', 'Dark Void',
+			'Hyperspace Fury', 'Night Daze', 'Parting Shot', 'Topsy Turvy', 'Fiery Wrath',
+			'Wicked Blow', 'False Surrender', 'Jaw Lock', 'Obstruct', 'Clanging Scales',
+			'Core Enforcer', 'Dragon Hammer', 'Roar of Time', 'Spacial Rend', 'Dragon Energy',
+			'Clangorous Soul', 'Dragon Darts', 'Dynamax Cannon', 'Eternabeam', 'Bolt Strike',
+			'Electrify', 'Fusion Bolt', 'Parabolic Charge', 'Plasma Fists', 'Zing Zap', 'Thunder Cage',
+			'Aura Wheel', 'Bolt Beak', 'Overdrive', 'Aromatic Mist', 'Crafty Shield', 'Fairy Lock',
 			'Fleur Cannon', 'Floral Healing', 'Geomancy', 'Light of Ruin', 'Nature\'s Madness',
-			'Decorate', 'Spirit Break', 'Strange Steam', 'Flying Press', 'Mat Block', 'Sacred Sword', 
-			'Secret Sword', 'Thunderous Kick', 'Meteor Assault', 'No Retreat', 'Octolock', 
-			'Blue Flare', 'Fiery Dance', 'Fire Lash', 'Fusion Flare', 'Magma Storm', 'Mind Blown', 
-			'Searing Shot', 'Shell Trap', 'V-Create', 'Pyro Ball', 'Beak Blast', 'Chatter', 
-			'Dragon Ascent', 'Oblivion Wing', 'Moongeist Beam', 'Shadow Bone', 'Shadow Force', 
-			'Spectral Thief', 'Spirit Shackle', 'Astral Barrage', 'Trick or Treat', 'Forest\'s Curse', 
-			'Horn Leech', 'Leafage', 'Needle Arm', 'Seed Flare', 'Trop Kick', 'Apple Acid', 
-			'Grav Apple', 'Branch Poke', 'Jungle Healing', 'Snap Trap', 'Land\'s Wrath', 
-			'Precipice Blades', 'Thousand Arrows', 'Thousand Waves', 'Freeze Shock', 'Glaciate', 
-			'Ice Burn', 'Ice Hammer', 'Glacial Lance', 'Purify', 'Shell Side Arm', 'Hyperspace Hole', 
-			'Instruct', 'Lunar Dance', 'Luster Purge', 'Mist Ball', 'Photon Geyser', 'Prismatic Laser', 
-			'Eerie Spell', 'Freezing Glare', 'Magic Powder', 'Accelerock', 'Diamond Storm', 'Tar Shot', 
-			'Anchor Shot', 'Doom Desire', 'Double Iron Bash', 'Gear Grind', 'Gear Up', 'King\'s Shield', 
-			'Shift Gear', 'Behemoth Bash', 'Behemoth Blade', 'Sunsteel Strike', 'Sparkling Aria', 
-			'Steam Eruption', 'Water Shuriken', 'Surging Strikes', 'Fishious Rend', 'Snipe Shot', 
-			'Boomburst', 'Crush Grip', 'Head Charge', 'Judgment', 'Multi Attack', 'Noble Roar', 
-			'Relic Song', 'Revelation Dance', 'Techno Blast', 'Court Change', 'Stuff Cheeks', 
-			'Teatime', 
+			'Decorate', 'Spirit Break', 'Strange Steam', 'Flying Press', 'Mat Block', 'Sacred Sword',
+			'Secret Sword', 'Thunderous Kick', 'Meteor Assault', 'No Retreat', 'Octolock',
+			'Blue Flare', 'Fiery Dance', 'Fire Lash', 'Fusion Flare', 'Magma Storm', 'Mind Blown',
+			'Searing Shot', 'Shell Trap', 'V-Create', 'Pyro Ball', 'Beak Blast', 'Chatter',
+			'Dragon Ascent', 'Oblivion Wing', 'Moongeist Beam', 'Shadow Bone', 'Shadow Force',
+			'Spectral Thief', 'Spirit Shackle', 'Astral Barrage', 'Trick or Treat', 'Forest\'s Curse',
+			'Horn Leech', 'Leafage', 'Needle Arm', 'Seed Flare', 'Trop Kick', 'Apple Acid',
+			'Grav Apple', 'Branch Poke', 'Jungle Healing', 'Snap Trap', 'Land\'s Wrath',
+			'Precipice Blades', 'Thousand Arrows', 'Thousand Waves', 'Freeze Shock', 'Glaciate',
+			'Ice Burn', 'Ice Hammer', 'Glacial Lance', 'Purify', 'Shell Side Arm', 'Hyperspace Hole',
+			'Instruct', 'Lunar Dance', 'Luster Purge', 'Mist Ball', 'Photon Geyser', 'Prismatic Laser',
+			'Eerie Spell', 'Freezing Glare', 'Magic Powder', 'Accelerock', 'Diamond Storm', 'Tar Shot',
+			'Anchor Shot', 'Doom Desire', 'Double Iron Bash', 'Gear Grind', 'Gear Up', 'King\'s Shield',
+			'Shift Gear', 'Behemoth Bash', 'Behemoth Blade', 'Sunsteel Strike', 'Sparkling Aria',
+			'Steam Eruption', 'Water Shuriken', 'Surging Strikes', 'Fishious Rend', 'Snipe Shot',
+			'Boomburst', 'Crush Grip', 'Head Charge', 'Judgment', 'Multi Attack', 'Noble Roar',
+			'Relic Song', 'Revelation Dance', 'Techno Blast', 'Court Change', 'Stuff Cheeks',
+			'Teatime',
 		],
 		onValidateSet(set, format) {
 			const additionalDex = [
-				"Ambipom", "Electivire", "Glaceon", "Gliscor", "Honchkrow", "Leafeon", "Lickilicky", "Magmortar", 
-				"Magnezone", "Mamoswine", "Mismagius", "Porygon-Z", "Rhyperior", "Sylveon", "Tangrowth", "Togekiss", 
-				"Weavile", "Yanmega", 
-				"Azurill", "Bonsly", "Happiny", "Mantyke", "Mime Jr.", "Munchlax", "Wynaut", 
+				"Ambipom", "Electivire", "Glaceon", "Gliscor", "Honchkrow", "Leafeon", "Lickilicky", "Magmortar",
+				"Magnezone", "Mamoswine", "Mismagius", "Porygon-Z", "Rhyperior", "Sylveon", "Tangrowth", "Togekiss",
+				"Weavile", "Yanmega",
+				"Azurill", "Bonsly", "Happiny", "Mantyke", "Mime Jr.", "Munchlax", "Wynaut",
 			];
 			const species = this.dex.species.get(set.species || set.name);
 			if (!this.ruleTable.has('+' + species.id)) {
@@ -2528,8 +2528,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 			if (bst > num) {
 				if (set.species.endsWith('s') || set.species.endsWith('S')) {
 					return [`${set.species}' BST is greater than ${num}.`];
-				}
-				else {
+				} else {
 					return [`${set.species}'s BST is greater than ${num}.`];
 				}
 			}
@@ -2613,9 +2612,9 @@ export const Rulesets: {[k: string]: FormatData} = {
 		name: 'Signature Items Clause',
 		desc: "Bans signature items",
 		banlist: [
-			'Adamant Orb', 'Blue Orb', 'Deep Sea Scale', 'Deep Sea Tooth', 'Eviolite', 'Griseous Orb', 'Leek', 'Light Ball', 
-			'Lucky Punch', 'Lustrous Orb', 'Metal Powder', 'Quick Powder', 'Red Orb', 'Rusted Shield', 'Rusted Sword', 
-			'Thick Club', 'Soul Dew', 
+			'Adamant Orb', 'Blue Orb', 'Deep Sea Scale', 'Deep Sea Tooth', 'Eviolite', 'Griseous Orb', 'Leek', 'Light Ball',
+			'Lucky Punch', 'Lustrous Orb', 'Metal Powder', 'Quick Powder', 'Red Orb', 'Rusted Shield', 'Rusted Sword',
+			'Thick Club', 'Soul Dew',
 		],
 		onBegin() {
 			this.add('rule', 'Signature Items Clause: Signature items are banned');

@@ -1,19 +1,19 @@
 export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	calyrexice: {
-		inherit: true, 
+		inherit: true,
 		baseSpecies: "Glastrier",
 		requiredMove: "Glacial Lance",
 		forme: "Mega",
 	},
 	calyrexshadow: {
-		inherit: true, 
+		inherit: true,
 		baseSpecies: "Spectrier",
 		requiredMove: "Astral Barrage",
 		forme: "Mega",
 	},
 	zaciancrowned: {
 		inherit: true,
-		forme: "Primal", 
+		forme: "Primal",
 	},
 	zamazentacrowned: {
 		inherit: true,
