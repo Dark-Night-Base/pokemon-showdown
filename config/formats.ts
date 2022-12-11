@@ -1556,35 +1556,35 @@ export const Formats: FormatList = [
 						if (move.id === 'psywave') damageLevel *= 7;
 						switch (damageLevel) {
 						case 35:
-							move.damageCallback = function (pokemon) {
-								return (this.random(50, 151) * pokemon.level) / 100 + pokemon.level;
+							move.damageCallback = function (pkm) {
+								return (this.random(50, 151) * pkm.level) / 100 + pkm.level;
 							};
 							break;
 						case 25:
-							move.damageCallback = function (pokemon) {
-								return pokemon.level * 2;
+							move.damageCallback = function (pkm) {
+								return pkm.level * 2;
 							};
 							break;
 						case 21:
-							move.damageCallback = function (pokemon) {
+							move.damageCallback = function (pkm) {
 								// @ts-ignore
-								return (this.random(50, 151) * pokemon.level) / 100 + move.damage;
+								return (this.random(50, 151) * pkm.level) / 100 + move.damage;
 							};
 							break;
 						case 15:
-							move.damageCallback = function (pokemon) {
+							move.damageCallback = function (pkm) {
 								// @ts-ignore
-								return pokemon.level + move.damage;
+								return pkm.level + move.damage;
 							};
 							break;
 						case 14:
-							move.damageCallback = function (pokemon) {
-								return (this.random(50, 151) * pokemon.level) / 100 + forte.damage;
+							move.damageCallback = function (pkm) {
+								return (this.random(50, 151) * pkm.level) / 100 + forte.damage;
 							};
 							break;
 						case 10:
-							move.damageCallback = function (pokemon) {
-								return pokemon.level + forte.damage;
+							move.damageCallback = function (pkm) {
+								return pkm.level + forte.damage;
 							};
 							break;
 						case 6:
@@ -1663,12 +1663,12 @@ export const Formats: FormatList = [
 				// but yea it works
 				if (forte.basePowerCallback) {
 					if (move.basePowerCallback) {
-						move.basePowerCallback = function (pokemon, target, move) {
+						move.basePowerCallback = function (pkm, tgt, mv) {
 							// the "move" here is the move param in the function
-							let basePower = this.dex.moves.get(move.id).basePowerCallback!.call(this, pokemon, target, move);
+							let basePower = this.dex.moves.get(mv.id).basePowerCallback!.call(this, pkm, tgt, mv);
 							const forteMove = this.dex.getActiveMove(forte.id);
 							forteMove.basePower = basePower || 1;
-							basePower = forteMove.basePowerCallback!.call(this, pokemon, target, forteMove);
+							basePower = forteMove.basePowerCallback!.call(this, pkm, tgt, forteMove);
 							return basePower;
 						};
 					} else {
@@ -1677,9 +1677,9 @@ export const Formats: FormatList = [
 				}
 				if (forte.onAfterHit) {
 					if (move.onAfterHit) {
-						move.onAfterHit = function (source, target, move) {
-							this.dex.moves.get(move.id).onAfterHit?.call(this, source, target, move);
-							forte.onAfterHit.call(this, source, target, this.dex.getActiveMove(forte.id));
+						move.onAfterHit = function (src, tgt, mv) {
+							this.dex.moves.get(mv.id).onAfterHit?.call(this, src, tgt, mv);
+							forte.onAfterHit.call(this, src, tgt, this.dex.getActiveMove(forte.id));
 						};
 					} else {
 						move.onAfterHit = forte.onAfterHit;
@@ -1687,9 +1687,9 @@ export const Formats: FormatList = [
 				}
 				if (forte.onAfterMove) {
 					if (move.onAfterMove) {
-						move.onAfterMove = function (source, target, move) {
-							this.dex.moves.get(move.id).onAfterMove?.call(this, source, target, move);
-							forte.onAfterMove.call(this, source, target, this.dex.getActiveMove(forte.id));
+						move.onAfterMove = function (src, tgt, mv) {
+							this.dex.moves.get(mv.id).onAfterMove?.call(this, src, tgt, mv);
+							forte.onAfterMove.call(this, src, tgt, this.dex.getActiveMove(forte.id));
 						};
 					} else {
 						move.onAfterMove = forte.onAfterMove;
@@ -1697,9 +1697,9 @@ export const Formats: FormatList = [
 				}
 				if (forte.onAfterMoveSecondarySelf) {
 					if (move.onAfterMoveSecondarySelf) {
-						move.onAfterMoveSecondarySelf = function (source, target, move) {
-							this.dex.moves.get(move.id).onAfterMoveSecondarySelf?.call(this, source, target, move);
-							forte.onAfterMoveSecondarySelf.call(this, source, target, this.dex.getActiveMove(forte.id));
+						move.onAfterMoveSecondarySelf = function (src, tgt, mv) {
+							this.dex.moves.get(mv.id).onAfterMoveSecondarySelf?.call(this, src, tgt, mv);
+							forte.onAfterMoveSecondarySelf.call(this, src, tgt, this.dex.getActiveMove(forte.id));
 						};
 					} else {
 						move.onAfterMoveSecondarySelf = forte.onAfterMoveSecondarySelf;
@@ -1707,9 +1707,9 @@ export const Formats: FormatList = [
 				}
 				if (forte.onAfterSubDamage) {
 					if (move.onAfterSubDamage) {
-						move.onAfterSubDamage = function (damage, target, source, move) {
-							this.dex.moves.get(move.id).onAfterSubDamage?.call(this, damage, target, source, move);
-							forte.onAfterSubDamage.call(this, damage, target, source, this.dex.getActiveMove(forte.id));
+						move.onAfterSubDamage = function (dmg, tgt, src, mv) {
+							this.dex.moves.get(mv.id).onAfterSubDamage?.call(this, dmg, tgt, src, mv);
+							forte.onAfterSubDamage.call(this, dmg, tgt, src, this.dex.getActiveMove(forte.id));
 						};
 					} else {
 						move.onAfterSubDamage = forte.onAfterSubDamage;
@@ -1717,11 +1717,11 @@ export const Formats: FormatList = [
 				}
 				if (forte.onBasePower) {
 					if (move.onBasePower) {
-						move.onBasePower = function (basePower, source, target, move) {
+						move.onBasePower = function (basePower, src, tgt, mv) {
 							// it will never return a number believe me
 							// the last param will not be used except for knock off
-							this.dex.moves.get(move.id).onBasePower?.call(this, basePower, source, target, move);
-							forte.onBasePower.call(this, basePower, source, target, this.dex.getActiveMove(forte.id));
+							this.dex.moves.get(mv.id).onBasePower?.call(this, basePower, src, tgt, mv);
+							forte.onBasePower.call(this, basePower, src, tgt, this.dex.getActiveMove(forte.id));
 						};
 					} else {
 						move.onBasePower = forte.onBasePower;
@@ -1729,9 +1729,9 @@ export const Formats: FormatList = [
 				}
 				if (forte.onEffectiveness) {
 					if (move.onEffectiveness) {
-						move.onEffectiveness = function (typeMod, target, type, move) {
-							const moveEffectiveness = this.dex.moves.get(move.id).onEffectiveness?.call(this, typeMod, target, type, move);
-							const forteEffectiveness = forte.onEffectiveness.call(this, typeMod, target, type, this.dex.getActiveMove(forte.id));
+						move.onEffectiveness = function (typeMod, tgt, tp, mv) {
+							const moveEffectiveness = this.dex.moves.get(mv.id).onEffectiveness?.call(this, typeMod, tgt, tp, mv);
+							const forteEffectiveness = forte.onEffectiveness.call(this, typeMod, tgt, tp, this.dex.getActiveMove(forte.id));
 							return (moveEffectiveness || 0) + (forteEffectiveness || 0);
 						};
 					} else {
@@ -1740,10 +1740,10 @@ export const Formats: FormatList = [
 				}
 				if (forte.onHit) {
 					if (move.onHit) {
-						move.onHit = function (target, source, move) {
+						move.onHit = function (tgt, src, mv) {
 							// @ts-ignore
-							const ret1 = this.dex.moves.get(move.id).onHit.call(this, target, source, move);
-							const ret2 = forte.onHit.call(this, target, source, this.dex.getActiveMove(forte.id));
+							const ret1 = this.dex.moves.get(mv.id).onHit.call(this, tgt, src, mv);
+							const ret2 = forte.onHit.call(this, tgt, src, this.dex.getActiveMove(forte.id));
 							if (ret1 === this.NOT_FAIL || ret2 === this.NOT_FAIL) return this.NOT_FAIL;
 						};
 					} else {
@@ -1753,33 +1753,33 @@ export const Formats: FormatList = [
 				// not sure about the following two
 				if (forte.onTry) {
 					if (move.onTry) {
-						move.onTry = function (source, target, move) {
+						move.onTry = function (src, tgt, mv) {
 							// @ts-ignore
-							const ret1 = this.dex.moves.get(move.id).onTry.call(this, source, target, move);
+							const ret1 = this.dex.moves.get(mv.id).onTry.call(this, src, tgt, mv);
 							let ret2;
 							if (forte.id !== 'doomdesire' && forte.id !== 'futuresight') {
-								ret2 = forte.onTry.call(this, source, target, this.dex.getActiveMove(forte.id));
+								ret2 = forte.onTry.call(this, src, tgt, this.dex.getActiveMove(forte.id));
 							} else {
-								if (!target.side.addSlotCondition(target, 'futuremove')) {
+								if (!tgt.side.addSlotCondition(tgt, 'futuremove')) {
 									ret2 = false;
 								} else {
-									Object.assign(target.side.slotConditions[target.position]['futuremove'], {
-										move: move.id,
-										source: source,
+									Object.assign(tgt.side.slotConditions[tgt.position]['futuremove'], {
+										move: mv.id,
+										source: src,
 										moveData: {
-											id: move.id,
-											name: move.name,
-											accuracy: move.accuracy,
-											basePower: move.basePower,
-											category: move.category,
-											priority: move.priority,
-											flags: move.flags,
+											id: mv.id,
+											name: mv.name,
+											accuracy: mv.accuracy,
+											basePower: mv.basePower,
+											category: mv.category,
+											priority: mv.priority,
+											flags: mv.flags,
 											effectType: 'Move',
 											isFutureMove: true,
-											type: move.baseMoveType,
+											type: mv.baseMoveType,
 										},
 									});
-									this.add('-start', source, forte.name);
+									this.add('-start', src, forte.name);
 									ret2 = this.NOT_FAIL;
 								}
 							}
@@ -1792,25 +1792,25 @@ export const Formats: FormatList = [
 						if (forte.id !== 'doomdesire' && forte.id !== 'futuresight') {
 							move.onTry = forte.onTry;
 						} else {
-							move.onTry = function (source, target, move) {
-								if (!target.side.addSlotCondition(target, 'futuremove')) return false;
-								Object.assign(target.side.slotConditions[target.position]['futuremove'], {
-									move: move.id,
-									source: source,
+							move.onTry = function (src, tgt, mv) {
+								if (!tgt.side.addSlotCondition(tgt, 'futuremove')) return false;
+								Object.assign(tgt.side.slotConditions[tgt.position]['futuremove'], {
+									move: mv.id,
+									source: src,
 									moveData: {
-										id: move.id,
-										name: move.name,
-										accuracy: move.accuracy,
-										basePower: move.basePower,
-										category: move.category,
-										priority: move.priority,
-										flags: move.flags,
+										id: mv.id,
+										name: mv.name,
+										accuracy: mv.accuracy,
+										basePower: mv.basePower,
+										category: mv.category,
+										priority: mv.priority,
+										flags: mv.flags,
 										effectType: 'Move',
 										isFutureMove: true,
-										type: move.baseMoveType,
+										type: mv.baseMoveType,
 									},
 								});
-								this.add('-start', source, forte.name);
+								this.add('-start', src, forte.name);
 								return this.NOT_FAIL;
 							};
 						}
@@ -1818,10 +1818,10 @@ export const Formats: FormatList = [
 				}
 				if (forte.onTryHit) {
 					if (move.onTryHit) {
-						move.onTryHit = function (source, target, move) {
+						move.onTryHit = function (src, tgt, mv) {
 							// @ts-ignore
-							const ret1 = this.dex.moves.get(move.id).onTryHit.call(this, source, target, move);
-							const ret2 = forte.onTryHit.call(this, source, target, this.dex.getActiveMove(forte.id));
+							const ret1 = this.dex.moves.get(mv.id).onTryHit.call(this, src, tgt, mv);
+							const ret2 = forte.onTryHit.call(this, src, tgt, this.dex.getActiveMove(forte.id));
 							if (ret1 === false || ret2 === false) return false;
 							if (ret1 === null || ret2 === null) return null;
 						};
@@ -1831,9 +1831,9 @@ export const Formats: FormatList = [
 				}
 				if (forte.onTryImmunity) {
 					if (move.onTryImmunity) {
-						move.onTryImmunity = function (target, source) {
+						move.onTryImmunity = function (tgt, src) {
 							// @ts-ignore
-							return this.dex.moves.get(move.id).onTryImmunity.call(this, target, source) && forte.onTryImmunity.call(this, target, source);
+							return this.dex.moves.get(move.id).onTryImmunity.call(this, tgt, src) && forte.onTryImmunity.call(this, tgt, src);
 						};
 					} else {
 						move.onTryImmunity = forte.onTryImmunity;
@@ -1841,10 +1841,10 @@ export const Formats: FormatList = [
 				}
 				if (forte.onTryMove) {
 					if (move.onTryMove) {
-						move.onTryMove = function (pokemon) {
+						move.onTryMove = function (pkm) {
 							// @ts-ignore
-							const ret1 = this.dex.moves.get(move.id).onTryMove.call(this, pokemon);
-							const ret2 = forte.onTryMove.call(this, pokemon);
+							const ret1 = this.dex.moves.get(move.id).onTryMove.call(this, pkm);
+							const ret2 = forte.onTryMove.call(this, pkm);
 							if (ret1 === null || ret2 === null) return null;
 						};
 					} else {
