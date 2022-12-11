@@ -1,6 +1,6 @@
-import { PRNG } from "../../sim";
+import {PRNG} from "../../sim";
 
-async function findSeed(realNumbers : (number | number[])[], realRanges : number[][]) {
+function findSeed(realNumbers: (number | number[])[], realRanges: number[][]) {
 	const length = realNumbers.length;
 	const iRN = Math.floor(Math.random() * 0x10000);
 	const jRN = Math.floor(Math.random() * 0x10000);
@@ -12,7 +12,7 @@ async function findSeed(realNumbers : (number | number[])[], realRanges : number
 		for (let j = jRN; ; j = (j + 1) % 0x10000) {
 			for (let k = kRN; ; k = (k + 1) % 0x10000) {
 				for (let l = lRN; ; l = (l + 1) % 0x10000) {
-					const seed : PRNGSeed = [i, j, k, l];
+					const seed: PRNGSeed = [i, j, k, l];
 					const prng = new PRNG(seed);
 					++loopCount;
 					for (let m = 0; m < length; ++m) {
@@ -66,8 +66,8 @@ export const commands: Chat.ChatCommands = {
 		const targets = target.split(';');
 		const numbers = targets[0].split(',');
 		const ranges = targets.length > 1 ? targets[1].split(',') : [];
-		const realNumbers : (number | number[])[] = [];
-		const realRanges : number[][] = [];
+		const realNumbers: (number | number[])[] = [];
+		const realRanges: number[][] = [];
 		for (const number of numbers) {
 			if (number.startsWith('*')) {
 				const anyCount = number === '*' ? 1 : Number(number.substring(1));
@@ -126,13 +126,13 @@ export const commands: Chat.ChatCommands = {
 		} else {
 			this.sendReplyBox(`Seed: ${seed.join(',')}`);
 
-			const nextRNs : number[] = [];
+			const nextRNs: number[] = [];
 			const resultRNG = new PRNG(seed);
 			for (let i = 0; i < realNumbers.length; ++i) {
 				nextRNs.push(resultRNG.next(realRanges[i][0], realRanges[i][1]));
 			}
 			this.sendReplyBox(`Next ${realNumbers.length} Random Number(s): ${nextRNs.join(',')}`);
-			
+
 			return this.parse(`/editbattle reseed ${seed.join(',')}`);
 		}
 	},

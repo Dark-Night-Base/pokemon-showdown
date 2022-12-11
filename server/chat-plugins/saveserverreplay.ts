@@ -1,14 +1,7 @@
-import {FS, Utils} from '../../lib';
+import {FS} from '../../lib';
 
 const path = require('path');
 const fs = require('fs');
-
-function escapeHTML(str: string, jsEscapeToo?: boolean) {
-	if (typeof str !== 'string') return '';
-	str = str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-	if (jsEscapeToo) str = str.replace(/\\/g, '\\\\').replace(/'/g, '\\\'');
-	return str;
-}
 
 export const commands: Chat.ChatCommands = {
 	ssr: 'saveserverreplay',
@@ -26,7 +19,7 @@ export const commands: Chat.ChatCommands = {
 		let link = room.roomid.slice(7) + '-' + room.p1 + '-' + room.p2 + '.html';
 		let rating = 0;
 		if (room.battle.ended && room.battle.rated) rating = room.battle.rated;
-		let secret = room.settings.isPrivate || room.hideReplay;
+		const secret = room.settings.isPrivate || room.hideReplay;
 
 		var filePath = path.resolve(__dirname, `../../replays/${link}`);
 		if (room.battle.replaySaved) {

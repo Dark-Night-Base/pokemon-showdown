@@ -1,5 +1,3 @@
-import { getSupportedCodeFixes } from "typescript";
-
 export const commands: Chat.ChatCommands = {
 	dg: 'digimon',
 	digi: 'digimon',
@@ -42,30 +40,30 @@ export const commands: Chat.ChatCommands = {
 				switch (type1.name) {
 				case 'Vaccine':
 					buffer += `Vaccine: <br />`;
-					buffer += `<b>As Defensive Typing</b>:<br />`
+					buffer += `<b>As Defensive Typing</b>:<br />`;
 					buffer += `<span class="message-effect-weak">Weaknesses</span>: <font color=#999999>None</font><br />`;
 					buffer += `<span class="message-effect-resist">Resistances</span>: <font color=#999999>None</font><br />`;
-					buffer += `<b>As Offensive Typing</b>:<br />`
+					buffer += `<b>As Offensive Typing</b>:<br />`;
 					buffer += `<b><font color=#559955>Super Effective to</font></b>: Virus <font color=#999999>(Attacks from Vaccine-type Digimon deal 1.5x damage to Virus-type Digimon.)</font><br />`;
 					buffer += `<span class="message-effect-weak">Resisted by</span>: Data <font color=#999999>(Attacks from Vaccine-type Digimon deal 0.67x damage to Data-type Digimon.)</font><br />`;
 					this.sendReplyBox(buffer);
 					return;
 				case 'Data':
 					buffer += `Data: <br />`;
-					buffer += `<b>As Defensive Typing</b>:<br />`
+					buffer += `<b>As Defensive Typing</b>:<br />`;
 					buffer += `<span class="message-effect-weak">Weaknesses</span>: Virus <font color=#999999>(Data-type Digimon receive 1.5x damage from Virus-type Digimon's attacks.)</font><br />`;
 					buffer += `<span class="message-effect-resist">Resistances</span>: Vaccine <font color=#999999>(Data-type Digimon receive 0.67x damage from Vaccine-type Digimon's attacks.)</font><br />`;
-					buffer += `<b>As Offensive Typing</b>:<br />`
+					buffer += `<b>As Offensive Typing</b>:<br />`;
 					buffer += `<b><font color=#559955>Super Effective to</font></b>: <font color=#999999>None</font><br />`;
 					buffer += `<span class="message-effect-weak">Resisted by</span>: <font color=#999999>None</font><br />`;
 					this.sendReplyBox(buffer);
 					return;
 				case 'Virus':
 					buffer += `Virus: <br />`;
-					buffer += `<b>As Defensive Typing</b>:<br />`
+					buffer += `<b>As Defensive Typing</b>:<br />`;
 					buffer += `<span class="message-effect-weak">Weaknesses</span>: Vaccine <font color=#999999>(Virus-type Digimon receive 1.5x damage from Vaccine-type Digimon's attacks.)</font><br />`;
 					buffer += `<span class="message-effect-resist">Resistances</span>: <font color=#999999>None</font><br />`;
-					buffer += `<b>As Offensive Typing</b>:<br />`
+					buffer += `<b>As Offensive Typing</b>:<br />`;
 					buffer += `<b><font color=#559955>Super Effective to</font></b>: Data <font color=#999999>(Attacks from Virus-type Digimon deal 1.5x damage to Data-type Digimon.)</font><br />`;
 					buffer += `<span class="message-effect-weak">Resisted by</span>: <font color=#999999>None</font><br />`;
 					this.sendReplyBox(buffer);
@@ -132,8 +130,8 @@ export const commands: Chat.ChatCommands = {
 					continue;
 				}
 				let attackTypeMod = -2;
-				for (const i in types) {
-					const tempTypeMod = dex.getImmunity(types[i], type) ? dex.getEffectiveness(types[i], type) : -2;
+				for (const t of types) {
+					const tempTypeMod = dex.getImmunity(t, type) ? dex.getEffectiveness(t, type) : -2;
 					attackTypeMod = tempTypeMod > attackTypeMod ? tempTypeMod : attackTypeMod;
 				}
 				switch (attackTypeMod) {
@@ -169,11 +167,11 @@ export const commands: Chat.ChatCommands = {
 			}
 
 			buffer += `${types.join('/')}:<br />`;
-			buffer += `<b>As Defensive Typing</b>:<br />`
+			buffer += `<b>As Defensive Typing</b>:<br />`;
 			buffer += `<span class="message-effect-weak">Weaknesses</span>: ${weaknesses.join(', ') || '<font color=#999999>None</font>'}<br />`;
 			buffer += `<span class="message-effect-resist">Resistances</span>: ${resistances.join(', ') || '<font color=#999999>None</font>'}<br />`;
 			buffer += immunities.length ? `<span class="message-effect-immune">Immunities</span>: ${immunities.join(', ')}<br />` : '';
-			buffer += `<b>As Offensive Typing</b>:<br />`
+			buffer += `<b>As Offensive Typing</b>:<br />`;
 			// buffer += `<span class="message-effect-immune">Immunities</span>: ${immunities.join(', ') || '<font color=#999999>None</font>'}<br />`;
 			buffer += `<b><font color=#559955>Super Effective to</font></b>: ${supereffectiveto.join(', ') || '<font color=#999999>None</font>'}<br />`;
 			buffer += `<span class="message-effect-resist">Neutral to</span>: ${neutralto.join(', ') || '<font color=#999999>None</font>'}<br />`;
@@ -207,7 +205,7 @@ export const commands: Chat.ChatCommands = {
 			let details: {[k: string]: string} = {};
 			switch (newTarget.searchType) {
 			case 'pokemon':
-				let pokemon = dex.species.get(newTarget.name);
+				const pokemon = dex.species.get(newTarget.name);
 				if (pokemon.num <= 40000) return this.parse(`/dt ${pokemon.id}`);
 				buffer += `|raw|${Chat.getDataPokemonHTML(pokemon, dex.gen, String(pokemon.num - 40000))}\n`;
 
@@ -234,7 +232,7 @@ export const commands: Chat.ChatCommands = {
 				if (exceptUltimate.includes(pokemon.num)) details["Stage"] = "Ultimate";
 				if (exceptXevo.includes(pokemon.num) && pokemon.forme === 'X') details["Stage"] = "Ultimate";
 
-				let organizations = [];
+				const organizations = [];
 				const royalKnights = [40001, 40146, 40151, 40244, 40428, 40429, 40493, 40511, 40555, 40556];
 				const archangels = [40032, 40039, 40264];
 				const greatDragons = [40033, 40038, 40243, 40316];

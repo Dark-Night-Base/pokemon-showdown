@@ -139,7 +139,7 @@ export const commands: Chat.ChatCommands = {
 		}
 		const stone = getMegaStone(stoneName[0], mod);
 		const species = dex.species.get(sep[0]);
-		if (!stone || (dex.gen >= 8 && dex.currentMod != 'mixandmegabh' && ['redorb', 'blueorb'].includes(stone.id))) {
+		if (!stone || (dex.gen >= 8 && dex.currentMod !== 'mixandmegabh' && ['redorb', 'blueorb'].includes(stone.id))) {
 			throw new Chat.ErrorMessage(`Error: Mega Stone not found.`);
 		}
 		if (!species.exists) throw new Chat.ErrorMessage(`Error: Pok\u00e9mon not found.`);
@@ -421,7 +421,7 @@ export const commands: Chat.ChatCommands = {
 		};
 		let tier = species.tier;
 		if (tier[0] === '(') tier = tier.slice(1, -1);
-		if (tier in boosts) { 
+		if (tier in boosts) {
 			const boost = boosts[tier as TierShiftTiers];
 			species.bst = species.baseStats.hp;
 			for (const statName in species.baseStats) {
@@ -859,5 +859,5 @@ export const commands: Chat.ChatCommands = {
 	},
 	badnboostedhelp: [
 		"/bnb <pokemon> - Shows the stats that a Pok\u00e9mon would have in Bad'n'Boosted.",
-	]
+	],
 };

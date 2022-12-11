@@ -2283,19 +2283,6 @@ export const Rulesets: {[k: string]: FormatData} = {
 		onBegin() {
 			this.add('rule', 'Arceus Clause: Limit one Arceus.');
 		},
-		/*onValidateTeam(team) {
-			let arceusCount:number = 0;
-			for (const set of team) {
-				const species = this.dex.species.get(set.species);
-				const basePokemon = species.baseSpecies;
-				if (basePokemon === 'Arceus') {
-					arceusCount++;
-				}
-			}
-			if (arceusCount > 1) {
-				return [`You can only use one Arceus`];
-			}
-		},*/
 	},
 	ateclause: {
 		effectType: 'ValidatorRule',
