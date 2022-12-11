@@ -174,13 +174,15 @@ export const commands: Chat.ChatCommands = {
 			buffer += `<b>As Defensive Typing</b>:<br />`;
 			buffer += `<span class="message-effect-weak">Weaknesses</span>: ${weaknesses.join(', ') || '<font color=#999999>None</font>'}<br />`;
 			buffer += `<span class="message-effect-resist">Resistances</span>: ${resistances.join(', ') || '<font color=#999999>None</font>'}<br />`;
-			buffer += immunities.length ? `<span class="message-effect-immune">Immunities</span>: ${immunities.join(', ')}<br />` : '';
+			buffer += immunities.length ?
+				`<span class="message-effect-immune">Immunities</span>: ${immunities.join(', ')}<br />` : '';
 			buffer += `<b>As Offensive Typing</b>:<br />`;
 			// `<span class="message-effect-immune">Immunities</span>: ${immunities.join(', ') || '<font color=#999999>None</font>'}<br />`;
 			buffer += `<b><font color=#559955>Super Effective to</font></b>: ${supereffectiveto.join(', ') || '<font color=#999999>None</font>'}<br />`;
 			buffer += `<span class="message-effect-resist">Neutral to</span>: ${neutralto.join(', ') || '<font color=#999999>None</font>'}<br />`;
 			buffer += `<span class="message-effect-weak">Resisted by</span>: ${resistedby.join(', ') || '<font color=#999999>None</font>'}<br />`;
-			buffer += ineffectiveto.length ? `<span class="message-effect-immune">No Effect to</span>: ${ineffectiveto.join(', ')}<br />` : '';
+			buffer += ineffectiveto.length ?
+				`<span class="message-effect-immune">No Effect to</span>: ${ineffectiveto.join(', ')}<br />` : '';
 			// `<span class="message-effect-immune">No effect to</span>: ${ineffectiveto.join(', ') || '<font color=#999999>None</font>'}<br />`;
 			this.sendReplyBox(buffer);
 			return;
