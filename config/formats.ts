@@ -1352,10 +1352,13 @@ export const Formats: FormatList = [
 			if (!item.exists) return this.validateSet(set, teamHas);
 			const problems = [];
 			// keep nd moves just in case they are back one day
-			const restrictedMoves = ['Acid Spray', 'Anchor Shot', 'Beat Up', 'Bide', 'Bolt Beak', 'Dynamic Punch', 'Echoed Voice', 'Eerie Spell', 'Fishious Rend',
-				'Flip Turn', 'Frost Breath', 'Ice Ball', 'Inferno', 'Jaw Lock', 'Last Respects', 'Lumina Crash', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rage Fist',
-				'Rising Voltage', 'Rollout', 'Shell Side Arm', 'Spirit Shackle', 'Stored Power', 'Storm Throw', 'Terrain Pulse', 'Thousand Waves', 'U-turn', 'Volt Switch',
-				'Weather Ball', 'Wicked Blow', 'Zap Cannon'];
+			const restrictedMoves = ['Acid Spray', 'Anchor Shot', 'Beat Up', 'Bide', 'Bolt Beak', 'Dynamic Punch',
+				'Echoed Voice', 'Eerie Spell', 'Fishious Rend', 'Flip Turn', 'Frost Breath', 'Ice Ball', 'Inferno',
+				'Jaw Lock', 'Last Respects', 'Lumina Crash', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rage Fist',
+				'Rising Voltage', 'Rollout', 'Shell Side Arm', 'Spirit Shackle', 'Stored Power', 'Storm Throw',
+				'Terrain Pulse', 'Thousand Waves', 'U-turn', 'Volt Switch', 'Weather Ball', 'Wicked Blow',
+				'Zap Cannon',
+			];
 			if (item.type === 'Status' ||
 			(!!item.isNonstandard && item.isNonstandard !== 'Unobtainable') || // check if move is in gen 9
 			item.ohko ||
@@ -1408,9 +1411,13 @@ export const Formats: FormatList = [
 			if (move && move.category !== 'Status' && source.forte) {
 				let additionalPriority = 0;
 				// @ts-ignore
-				if (source.forte.id === 'grassyglide' && this.field.isTerrain('grassyterrain') && source.isGrounded()) additionalPriority += 1;
-				// @ts-ignore
-				if (source.getAbility().id === 'triage' && source.forte.flags.heal && !move.flags.heal) additionalPriority += 3;
+				if (source.forte.id === 'grassyglide' &&
+					this.field.isTerrain('grassyterrain') &&
+					source.isGrounded()) additionalPriority += 1;
+				if (source.getAbility().id === 'triage' &&
+					// @ts-ignore
+					source.forte.flags.heal &&
+					!move.flags.heal) additionalPriority += 3;
 				// @ts-ignore
 				return priority + source.forte.priority + additionalPriority;
 			}
@@ -1432,14 +1439,18 @@ export const Formats: FormatList = [
 		/**
 		 * but listen, here we get an unsolvable bug (or feature)
 		 * usually items like king's rock, which give ur move a secondary, won't trigger sheer force
-		 * because they have their onModifyMovePriority set to -1, which is later than sheer force's onModifyMovePriority (0)
-		 * but here we want sheer force to work for forte's secondaries, so we set it to 1, adding them before sheer force works
+		 * because they have their onModifyMovePriority set to -1, which is later than sheer force (0)
+		 * but here we want sheer force to work for forte's secondaries, so we set it to 1
 		 * you may think ahh it's totally ok, where's the bug?
-		 * check the code of diamond storm, a move without any secondary, but can trigger sheer force and have its "self" property disabled as the effect
-		 * actually just check the code of sheer force, it's triggered by secondary, but will remove self along with secondary
-		 * and the following two effects are also implemented by self property: stats drop of v-create, draco meteor, and etc; must recharge of hyper beam, etc;
+		 * check the code of diamond storm, a move without any secondary
+		 * but it can trigger sheer force and have its "self" property disabled as the effect
+		 * actually just check the code of sheer force
+		 * it's triggered by secondary, but will remove self along with secondary
+		 * and the following two effects are also implemented by self property: 
+		 * stats drop of v-create, draco meteor, and etc; must recharge of hyper beam, etc;
 		 * there are more, but these two are the most important
-		 * so, by having sheer force ability and anything with secondary as forte, you will get a v-create that doesn't drop stats, or a hyper beam that doesn't requre recharge
+		 * so, by having sheer force ability and anything with secondary as forte
+		 * you will get a v-create that doesn't drop stats, or a hyper beam that doesn't require recharge
 		 * i say this is unsolvable because we have to add secondary and self at the same time for diamond storm
 		 * which should be earlier than sheer force
 		 * commented by Nihilslave
@@ -1452,8 +1463,8 @@ export const Formats: FormatList = [
 
 				Object.assign(move.flags, forte.flags);
 
-				// pseudoWeather theoretically shouldn't be a simple property, but it is in practice cuz plasma fists is the only attack with it, maybe change this in later generations
-				// the same applies to volatileStatus, the only such property on attacks are partiallytrapped and smackdown, and partiallytrapped moves are banned
+				// pseudoWeather is a simple prop in practice cuz plasma fists is the only attack with it,
+				// the same applies to volatileStatus, (partiallytrapped moves and smackdown only)
 				// + seflBoost, the only related attack is scale shot
 				const simpleProperties = ['breaksProtect', 'forceSwitch', 'hasCrashDamage', 'ignoreAbility', 'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity', 'isFutureMove', 'mindBlownRecoil',
 					'overrideDefensiveStat', 'overrideOffensivePokemon', 'overrideOffensiveStat', 'pseudoWeather', 'selfBoost', 'selfdestruct', 'selfSwitch', 'sleepUsable', 'stealsBoosts', 'struggleRecoil',
