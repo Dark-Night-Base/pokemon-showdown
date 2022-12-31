@@ -6023,6 +6023,9 @@ export const MovesText: {[k: string]: MoveText} = {
 		name: "Spin Out",
 		desc: "Lowers the user's Speed by 2 stages.",
 		shortDesc: "Lowers the user's Speed by 2.",
+
+		// Nihilslave: have a try for more balanced hackmons v4
+		switchOut: "#uturn",
 	},
 	spiritbreak: {
 		name: "Spirit Break",
