@@ -25,13 +25,13 @@ export const commands: Chat.ChatCommands = {
 		if (room.battle.ended && room.battle.rated) rating = room.battle.rated;
 		const secret = room.settings.isPrivate || room.hideReplay;
 
-		let filePath = path.resolve(__dirname, `../../replays/${link}`);
+		let filePath = path.resolve(__dirname, `../../../replays/${link}`);
 		if (room.battle.replaySaved) {
 			FS(filePath).unlinkIfExistsSync();
 		}
 		if (secret || target === 'silent') {
 			link = '.' + link;
-			filePath = path.resolve(__dirname, `../../replays/${link}`);
+			filePath = path.resolve(__dirname, `../../../replays/${link}`);
 		}
 
 		const out = fs.createWriteStream(filePath, {flags: 'w'});
