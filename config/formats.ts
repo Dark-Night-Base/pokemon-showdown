@@ -980,7 +980,7 @@ export const Formats: FormatList = [
 			'Arena Trap', 'Contrary', 'Huge Power', 'Illusion', 'Innards Out', 'Magnet Pull', 'Neutralizing Gas', 'Parental Bond', 'Pure Power',
 			'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
 			'Comatose + Sleep Talk',
-			'Rage Fist', 'Revival Blessing', 'Shed Tail', 'Shell Smash',
+			'Belly Drum', 'Last Respects', 'Rage Fist', 'Revival Blessing', 'Shed Tail', 'Shell Smash',
 		],
 	},
 	{
