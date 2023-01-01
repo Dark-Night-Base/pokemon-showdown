@@ -11,6 +11,19 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		desc: "This Pokemon is immune to Ground-type moves and restores 1/4 of its maximum HP, rounded down, when hit by a Ground-type move.",
 		shortDesc: "Heals 1/4 HP when hit by Ground moves; Absorbs spikes on switch-in; Ground immunity.",
 	},
+	galewings: {
+		// for ngas
+		inherit: true,
+		onModifyPriority(priority, pokemon, target, move) {
+			for (const poke of this.getAllActive()) {
+				if (poke.hasAbility('neutralizinggas') && poke.side.id !== pokemon.side.id &&
+					!poke.volatiles['gastroacid'] && !poke.transformed) {
+					return;
+				}
+			}
+			if (move?.type === 'Flying' && pokemon.hp === pokemon.maxhp) return priority + 1;
+		},
+	},
 	gulpmissile: {
 		inherit: true,
 		onDamagingHit(damage, target, source, move) {
@@ -37,8 +50,34 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onStart(pokemon) {
 			this.add('-ability', pokemon, 'Neutralizing Gas');
 		},
+		// onModifyPriority implemented in relevant abilities
+		onFoeBeforeMovePriority: 13,
+		onFoeBeforeMove(attacker, defender, move) {
+			attacker.addVolatile('neutralizinggas');
+		},
+		condition: {
+			onAfterMove(pokemon) {
+				pokemon.removeVolatile('neutralizinggas');
+			},
+		},
 		desc: "While this Pokemon is active, opposing Pokemon's moves and their effects ignore its own Ability. Does not affect the As One, Battle Bond, Comatose, Disguise, Gulp Missile, Ice Face, Multitype, Power Construct, RKS System, Schooling, Shields Down, Stance Change, or Zen Mode Abilities.",
 		shortDesc: "While this Pokemon is active, opposing Pokemon's Ability has no effect.",
+	},
+	prankster: {
+		// for ngas
+		inherit: true,
+		onModifyPriority(priority, pokemon, target, move) {
+			for (const poke of this.getAllActive()) {
+				if (poke.hasAbility('neutralizinggas') && poke.side.id !== pokemon.side.id &&
+					!poke.volatiles['gastroacid'] && !poke.transformed) {
+					return;
+				}
+			}
+			if (move?.category === 'Status') {
+				move.pranksterBoosted = true;
+				return priority + 1;
+			}
+		},
 	},
 	purepower: {
 		inherit: true,
@@ -75,6 +114,13 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	triage: {
 		inherit: true,
 		onModifyPriority(priority, pokemon, target, move) {
+			// for ngas
+			for (const poke of this.getAllActive()) {
+				if (poke.hasAbility('neutralizinggas') && poke.side.id !== pokemon.side.id &&
+					!poke.volatiles['gastroacid'] && !poke.transformed) {
+					return;
+				}
+			}
 			if (move?.flags['heal']) return priority + 1;
 		},
 		shortDesc: "This Pokemon's healing moves have their priority increased by 1.",
@@ -89,7 +135,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onModifySpA(atk, attacker, defender, move) {},
 		isBreakable: false, // accoding to designer (akira)
 		// ignoring weather implemented in conditions.ts
-		// todo: implement ignoring items
 		onModifyMove(move) {
 			if (move.type === 'Water') {
 				this.debug('Water Bubble modification');
