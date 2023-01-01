@@ -1,21 +1,17 @@
 export const Items: {[k: string]: ModdedItemData} = {
 	// covert cloak implemented in moves.ts
 	maliciousarmor: {
-		name: "Malicious Armor",
-		spritenum: 0, // TODO
+		inherit: true,
 		fling: {
 			basePower: 100,
 			volatileStatus: 'torment',
 		},
 		onTakeItem: false,
 		onHit(target, source, move) {
-			// todo: test
 			if (['corrosivegas', 'covet', 'knockoff', 'switcheroo', 'thief', 'trick'].includes(move.id)) {
 				source.addVolatile('torment');
 			}
 		},
-		num: -401,
-		gen: 9,
 		desc: "When any Pokemon attempts to remove this item, they are inflicted with Torment.",
 	},
 	roomservice: {
@@ -55,7 +51,6 @@ export const Items: {[k: string]: ModdedItemData} = {
 	utilityumbrella: {
 		inherit: true,
 		// implemented in scripts.ts
-		// todo: test
 		desc: "While this Pokemon is active, the effects of weather conditions are disabled.",
 		shortDesc: "While this Pokemon is active, the effects of weather conditions are disabled.",
 	},
