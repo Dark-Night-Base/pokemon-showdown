@@ -24,6 +24,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 			}
 		},
 		desc: "When any Pokemon attempts to remove this item, they are inflicted with Torment.",
+		shortDesc: "When any Pokemon attempts to remove this item, they are inflicted with Torment.",
 	},
 	roomservice: {
 		inherit: true,
@@ -32,6 +33,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 		boosts: undefined,
 		// implemented in moves.ts
 		desc: "Holder's use of room moves lasts 8 turns instead of 5.",
+		shortDesc: "Holder's use of room moves lasts 8 turns instead of 5.",
 	},
 	souldew: {
 		inherit: true,
@@ -58,6 +60,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 			return true;
 		},
 		desc: "If held by a Latias or a Latios, its Sp. Atk and Sp. Def are 1.5x.",
+		shortDesc: "If held by a Latias or a Latios, its Sp. Atk and Sp. Def are 1.5x.",
 	},
 	utilityumbrella: {
 		inherit: true,
