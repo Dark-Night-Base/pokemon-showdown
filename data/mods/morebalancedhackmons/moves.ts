@@ -7,8 +7,22 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		inherit: true,
 		basePower: 75,
 	},
+	ceaselessedge: {
+		inherit: true,
+		self: undefined,
+		// make it secondary for covert cloak
+		secondary: {
+			chance: 100,
+			onHit(source) {
+				for (const side of source.side.foeSidesWithConditions()) {
+					side.addSideCondition('spikes');
+				}
+			},
+		},
+	},
 	direclaw: {
 		inherit: true,
+		basePower: 90,
 		secondary: {
 			chance: 40,
 			onHit(target, source) {
@@ -27,6 +41,17 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		inherit: true,
 		basePower: 75,
 	},
+	luminacrash: {
+		inherit: true,
+		secondary: {
+			chance: 100,
+			boosts: {
+				spd: -1,
+			},
+		},
+		desc: "Has a 100% chance to lower the target's Special Defense by 1 stage.",
+		shortDesc: "100% chance to lower the target's Sp. Def by 1.",
+	},
 	magicaltorque: {
 		inherit: true,
 		flags: {contact: 1, protect: 1},
@@ -36,6 +61,42 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		desc: "Has a 10% chance to confuse the target.",
 		shortDesc: "10% chance to confuse the target.",
+	},
+	magicroom: {
+		// for room service
+		inherit: true,
+		condition: {
+			duration: 5,
+			durationCallback(source, effect) {
+				if (source?.hasItem('roomservice')) {
+					return 8;
+				}
+				if (source?.hasAbility('persistent')) {
+					this.add('-activate', source, 'ability: Persistent', '[move] Magic Room');
+					return 7;
+				}
+				return 5;
+			},
+			onFieldStart(target, source) {
+				if (source?.hasAbility('persistent')) {
+					this.add('-fieldstart', 'move: Magic Room', '[of] ' + source, '[persistent]');
+				} else {
+					this.add('-fieldstart', 'move: Magic Room', '[of] ' + source);
+				}
+				for (const mon of this.getAllActive()) {
+					this.singleEvent('End', mon.getItem(), mon.itemState, mon);
+				}
+			},
+			onFieldRestart(target, source) {
+				this.field.removePseudoWeather('magicroom');
+			},
+			// Item suppression implemented in Pokemon.ignoringItem() within sim/pokemon.js
+			onFieldResidualOrder: 27,
+			onFieldResidualSubOrder: 6,
+			onFieldEnd() {
+				this.add('-fieldend', 'move: Magic Room', '[of] ' + this.effectState.source);
+			},
+		},
 	},
 	milkdrink: {
 		inherit: true,
@@ -77,6 +138,19 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		selfSwitch: true,
 		desc: "If this move is successful and the user has not fainted, the user switches out even if it is trapped and is replaced immediately by a selected party member. The user does not switch out if there are no unfainted party members, or if the target switched out using an Eject Button or through the effect of the Emergency Exit or Wimp Out Abilities.",
 		shortDesc: "User switches out after damaging the target.",
+	},
+	stoneaxe: {
+		inherit: true,
+		self: undefined,
+		// make it secondary for covert cloak
+		secondary: {
+			chance: 100,
+			onHit(source) {
+				for (const side of source.side.foeSidesWithConditions()) {
+					side.addSideCondition('stealthrock');
+				}
+			},
+		},
 	},
 	trickroom: {
 		// for room service
@@ -122,7 +196,49 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				return this.chainModify(1.5);
 			}
 		},
+		zMove: {basePower: 190},
 		desc: "Lowers the user's Speed, Defense, and Special Defense by 1 stage. Damage is multiplied by 1.5 if this move is super effective against the target.",
 		shortDesc: "-1 Def, -1 Sp. Def, -1 Spe. Deals 1.5x damage with supereffective hits.",
+	},
+	wonderroom: {
+		// for room service
+		inherit: true,
+		condition: {
+			duration: 5,
+			durationCallback(source, effect) {
+				if (source?.hasItem('roomservice')) {
+					return 8;
+				}
+				if (source?.hasAbility('persistent')) {
+					this.add('-activate', source, 'ability: Persistent', '[move] Wonder Room');
+					return 7;
+				}
+				return 5;
+			},
+			onModifyMove(move, source, target) {
+				// This code is for moves that use defensive stats as the attacking stat; see below for most of the implementation
+				if (!move.overrideOffensiveStat) return;
+				const statAndBoosts = move.overrideOffensiveStat;
+				if (!['def', 'spd'].includes(statAndBoosts)) return;
+				move.overrideOffensiveStat = statAndBoosts === 'def' ? 'spd' : 'def';
+				this.hint(`${move.name} uses ${statAndBoosts === 'def' ? '' : 'Sp. '}Def boosts when Wonder Room is active.`);
+			},
+			onFieldStart(field, source) {
+				if (source?.hasAbility('persistent')) {
+					this.add('-fieldstart', 'move: Wonder Room', '[of] ' + source, '[persistent]');
+				} else {
+					this.add('-fieldstart', 'move: Wonder Room', '[of] ' + source);
+				}
+			},
+			onFieldRestart(target, source) {
+				this.field.removePseudoWeather('wonderroom');
+			},
+			// Swapping defenses partially implemented in sim/pokemon.js:Pokemon#calculateStat and Pokemon#getStat
+			onFieldResidualOrder: 27,
+			onFieldResidualSubOrder: 5,
+			onFieldEnd() {
+				this.add('-fieldend', 'move: Wonder Room');
+			},
+		},
 	},
 };

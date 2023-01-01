@@ -1,8 +1,5 @@
 export const Items: {[k: string]: ModdedItemData} = {
-	covertcloak: {
-		inherit: true,
-		// todo: just make stoneaxe and ceaselessedge effects secondaries plz ;-;
-	},
+	// covert cloak implemented in moves.ts
 	maliciousarmor: {
 		name: "Malicious Armor",
 		spritenum: 0, // TODO
@@ -13,18 +10,21 @@ export const Items: {[k: string]: ModdedItemData} = {
 		onTakeItem: false,
 		onHit(target, source, move) {
 			// todo: test
-			if (['corrosivegas', 'knockoff', 'switcheroo', 'trick'].includes(move.id)) {
+			if (['corrosivegas', 'covet', 'knockoff', 'switcheroo', 'thief', 'trick'].includes(move.id)) {
 				source.addVolatile('torment');
 			}
 		},
-		num: -403,
+		num: -401,
 		gen: 9,
+		desc: "When any Pokemon attempts to remove this item, they are inflicted with Torment.",
 	},
 	roomservice: {
 		inherit: true,
 		onStart(pokemon) {},
 		onAnyPseudoWeatherChange() {},
-		boosts: {},
+		boosts: undefined,
+		// implemented in moves.ts
+		desc: "Holder's use of room moves lasts 8 turns instead of 5.",
 	},
 	souldew: {
 		inherit: true,
@@ -50,9 +50,13 @@ export const Items: {[k: string]: ModdedItemData} = {
 			}
 			return true;
 		},
+		desc: "If held by a Latias or a Latios, its Sp. Atk and Sp. Def are 1.5x.",
 	},
 	utilityumbrella: {
 		inherit: true,
-		// todo: maybe this needs to be implemented in scripts.ts
+		// implemented in scripts.ts
+		// todo: test
+		desc: "While this Pokemon is active, the effects of weather conditions are disabled.",
+		shortDesc: "While this Pokemon is active, the effects of weather conditions are disabled.",
 	},
 };

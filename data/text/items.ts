@@ -2236,6 +2236,9 @@ export const ItemsText: {[k: string]: ItemText} = {
 		name: "Utility Umbrella",
 		desc: "The holder ignores rain- and sun-based effects. Damage and accuracy calculations from attacks used by the holder are affected by rain and sun, but not attacks used against the holder.",
 		shortDesc: "The holder ignores rain- and sun-based effects.",
+
+		// Nihilslave: have a try for more balanced hackmons v4
+		start: "  The effects of the weather disappeared.",
 	},
 	venusaurite: {
 		name: "Venusaurite",
