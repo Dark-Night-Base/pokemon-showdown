@@ -7,14 +7,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	},
 	eartheater: {
 		inherit: true,
-		// todo: test
-		onEntryHazard(pokemon) {
-			if (pokemon.side.getSideCondition('spikes')) {
-				this.add('-sideend', pokemon.side, 'move: Spikes', '[of] ' + pokemon);
-				pokemon.side.removeSideCondition('spikes');
-				this.heal(pokemon.baseMaxhp / 4);
-			}
-		},
+		// implemented in moves.ts
 		desc: "This Pokemon is immune to Ground-type moves and restores 1/4 of its maximum HP, rounded down, when hit by a Ground-type move.",
 		shortDesc: "Heals 1/4 HP when hit by Ground moves; Absorbs spikes on switch-in; Ground immunity.",
 	},

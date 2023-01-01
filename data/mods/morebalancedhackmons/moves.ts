@@ -13,11 +13,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		// make it secondary for covert cloak
 		secondary: {
 			chance: 100,
-			onHit(source) {
-				for (const side of source.side.foeSidesWithConditions()) {
-					side.addSideCondition('spikes');
-				}
-			},
+			sideCondition: 'spikes',
 		},
 	},
 	direclaw: {
@@ -131,6 +127,40 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		inherit: true,
 		pp: 10,
 	},
+	spikes: {
+		// for eartheater
+		inherit: true,
+		condition: {
+			// this is a side condition
+			onSideStart(side) {
+				this.add('-sidestart', side, 'Spikes');
+				this.effectState.layers = 1;
+			},
+			onSideRestart(side) {
+				if (this.effectState.layers >= 3) return false;
+				this.add('-sidestart', side, 'Spikes');
+				this.effectState.layers++;
+			},
+			onEntryHazard(pokemon) {
+				if (!pokemon.isGrounded() || pokemon.hasItem('heavydutyboots')) return;
+				if (pokemon.hasAbility('eartheater')) {
+					this.debug('Earth Eater absorbs spikes');
+					this.add('-activate', pokemon, 'ability: Earth Eater');
+					this.add('-sideend', pokemon.side, this.dex.conditions.get('spikes').name, '[from] ability: Earth Eater', '[of] ' + pokemon);
+					pokemon.side.removeSideCondition('spikes');
+					this.heal(pokemon.baseMaxhp / 4, pokemon, pokemon);
+					return;
+				}
+				const damageAmounts = [0, 3, 4, 6]; // 1/8, 1/6, 1/4
+				this.damage(damageAmounts[this.effectState.layers] * pokemon.maxhp / 24);
+			},
+		},
+		secondary: null,
+		target: "foeSide",
+		type: "Ground",
+		zMove: {boost: {def: 1}},
+		contestType: "Clever",
+	},
 	spinout: {
 		inherit: true,
 		basePower: 60,
@@ -145,11 +175,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		// make it secondary for covert cloak
 		secondary: {
 			chance: 100,
-			onHit(source) {
-				for (const side of source.side.foeSidesWithConditions()) {
-					side.addSideCondition('stealthrock');
-				}
-			},
+			sideCondition: 'stealthrock',
 		},
 	},
 	trickroom: {

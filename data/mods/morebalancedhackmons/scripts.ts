@@ -26,12 +26,10 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (this.hasItem('Ability Shield')) return false;
 			for (const pokemon of this.battle.getAllActive()) {
 				// can't use hasAbility because it would lead to infinite recursion
-				if (!pokemon.volatiles['gastroacid'] && !pokemon.transformed && !pokemon.abilityState.ending) {
-					return true;
-				}
 				// todo: fix the wrong implement
 				// ngas doesn't nullify furscales, bounce, ph, and etc
-				if (pokemon.ability === ('neutralizinggas' as ID) && pokemon.side.id !== this.side.id) {
+				if (pokemon.ability === ('neutralizinggas' as ID) && pokemon.side.id !== this.side.id &&
+					!pokemon.volatiles['gastroacid'] && !pokemon.transformed && !pokemon.abilityState.ending) {
 					return true;
 				}
 			}
