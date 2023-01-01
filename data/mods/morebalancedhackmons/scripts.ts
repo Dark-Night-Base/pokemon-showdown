@@ -47,7 +47,8 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (pokemon && !pokemon.fainted && !pokemon.ignoringAbility() && pokemon.getAbility().suppressWeather) {
 						return true;
 					}
-					if (pokemon.getItem().id === 'utilityumbrella') {
+					if (pokemon && !pokemon.fainted && !pokemon.ignoringItem() &&
+						pokemon.getItem().id === 'utilityumbrella') {
 						return true;
 					}
 				}
