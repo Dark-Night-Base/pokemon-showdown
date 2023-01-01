@@ -68,7 +68,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 				this.add('-item', target, 'Utility Umbrella');
 			}
 		},
-		desc: "While this Pokemon is active, the effects of weather conditions are disabled.",
-		shortDesc: "While this Pokemon is active, the effects of weather conditions are disabled.",
+		desc: "The effects of weather conditions are disabled.",
+		shortDesc: "The effects of weather conditions are disabled.",
 	},
 };
