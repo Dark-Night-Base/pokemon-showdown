@@ -98,6 +98,19 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				move.ignoreEvasion = true;
 			}
 		},
+		onTryMove(source, target, move) {
+			if (move.type === 'Water') {
+				target.addVolatile('waterbubble');
+			}
+		},
+		condition: {
+			duration: 1,
+			onStart(pokemon) {
+				this.singleEvent('End', pokemon.getItem(), pokemon.itemState, pokemon);
+			},
+			onResidualOrder: 4,
+			onResidualSubOrder: 2,
+		},
 		desc: "This Pokemon's Water-type moves ignore the effect of weather, abilities, opposing stat changes, and opposing items. This Pokemon cannot be burned. Gaining this Ability while burned cures it.",
 		shortDesc: "Water-type moves ignore weather, abilities, stat changes and items; Can't be burned.",
 	},
