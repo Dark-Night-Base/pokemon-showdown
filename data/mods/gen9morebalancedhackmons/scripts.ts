@@ -64,10 +64,9 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (this.volatiles['gastroacid']) return true;
 
 			if (this.ability === ('neutralizinggas' as ID)) return false;
+			if (this.hasItem('Ability Shield')) return false;
 			if (this.volatiles['neutralizinggas']) return true;
 
-			// if (this.hasItem('Ability Shield')) return false;
-	
 			return false;
 		},
 		// for water bubble
