@@ -10,6 +10,17 @@ export const Items: {[k: string]: ModdedItemData} = {
 		onHit(target, source, move) {
 			if (['corrosivegas', 'covet', 'knockoff', 'switcheroo', 'thief', 'trick'].includes(move.id)) {
 				source.addVolatile('torment');
+				return;
+			}
+			if (target !== source && !source.item) {
+				if (source.hasAbility('magician') && move.category !== 'Status') {
+					source.addVolatile('torment');
+					return;
+				}
+				if (source.hasAbility('pickpocket') && move.flags.contact) {
+					source.addVolatile('torment');
+					return;
+				}
 			}
 		},
 		desc: "When any Pokemon attempts to remove this item, they are inflicted with Torment.",
