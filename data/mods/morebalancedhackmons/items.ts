@@ -51,6 +51,12 @@ export const Items: {[k: string]: ModdedItemData} = {
 	utilityumbrella: {
 		inherit: true,
 		// implemented in scripts.ts
+		onStart(target) {
+			if (!target.ignoringItem()) {
+				this.debug('Utility Umbrella');
+				this.add('-item', target, 'Utility Umbrella');
+			}
+		},
 		desc: "While this Pokemon is active, the effects of weather conditions are disabled.",
 		shortDesc: "While this Pokemon is active, the effects of weather conditions are disabled.",
 	},

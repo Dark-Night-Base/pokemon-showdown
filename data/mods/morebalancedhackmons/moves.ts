@@ -100,8 +100,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	},
 	ragefist: {
 		inherit: true,
+		// the rest implemented in scripts.ts
 		basePowerCallback(pokemon) {
-			// todo: check sim/battle-actions.ts:979 and modify it in scripts.ts
 			return Math.min(200, 50 + 25 * pokemon.timesAttacked);
 		},
 		desc: "Power is equal to 50+(X*25), where X is the total number of times the user has been hit by a damaging attack since switch-in, even if the user did not lose HP from the attack. X cannot be greater than 6. Each hit of a multi-hit attack is counted, but confusion damage is not counted.",
