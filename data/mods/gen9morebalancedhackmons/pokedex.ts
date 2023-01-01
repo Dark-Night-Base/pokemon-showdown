@@ -17,7 +17,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	},
 	cameruptmega: {
 		inherit: true,
-		baseStats: {hp: 80, atk: 150, def: 100, spa: 90, spd: 100, spe: 20},
+		baseStats: {hp: 80, atk: 120, def: 140, spa: 150, spd: 140, spe: 10},
 		abilities: {0: "Contrary"},
 	},
 	cresselia: {
