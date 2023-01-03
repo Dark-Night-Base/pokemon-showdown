@@ -63,8 +63,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (this.getAbility().isPermanent) return false;
 			if (this.volatiles['gastroacid']) return true;
 
-			if (this.ability === ('neutralizinggas' as ID)) return false;
-			if (this.hasItem('Ability Shield')) return false;
+			if (this.hasItem('Ability Shield') || this.ability === ('neutralizinggas' as ID)) return false;
 			if (this.volatiles['neutralizinggas']) return true;
 
 			return false;

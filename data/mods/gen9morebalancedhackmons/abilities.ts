@@ -8,7 +8,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	eartheater: {
 		inherit: true,
 		// implemented in moves.ts
-		desc: "This Pokemon is immune to Ground-type moves and restores 1/4 of its maximum HP, rounded down, when hit by a Ground-type move.",
+		desc: "This Pokemon is immune to Ground-type moves and restores 1/4 of its maximum HP, rounded down, when hit by a Ground-type move. It also absorbs Spikes and then restores 1/4 of its maximum HP on switch-in.",
 		shortDesc: "Heals 1/4 HP when hit by Ground moves; Absorbs spikes on switch-in; Ground immunity.",
 	},
 	galewings: {
@@ -157,6 +157,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			onResidualSubOrder: 2,
 		},
 		desc: "This Pokemon's Water-type moves ignore the effect of weather, abilities, opposing stat changes, and opposing items. This Pokemon cannot be burned. Gaining this Ability while burned cures it.",
-		shortDesc: "Water-type moves ignore weather, abilities, stat changes and items; Can't be burned.",
+		shortDesc: "Water moves ignore weather, abilities, target's stat changes and items; No burns.",
 	},
 };

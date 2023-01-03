@@ -105,7 +105,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			return Math.min(200, 50 + 25 * pokemon.timesAttacked);
 		},
 		desc: "Power is equal to 50+(X*25), where X is the total number of times the user has been hit by a damaging attack since switch-in, even if the user did not lose HP from the attack. X cannot be greater than 6. Each hit of a multi-hit attack is counted, but confusion damage is not counted.",
-		shortDesc: "+25 power for each time user was hit. Max 6 hits.",
+		shortDesc: "+25 power for each time user was hit. Max 6 hits. Reset on switch-in.",
 	},
 	recover: {
 		inherit: true,
@@ -224,7 +224,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		zMove: {basePower: 190},
 		desc: "Lowers the user's Speed, Defense, and Special Defense by 1 stage. Damage is multiplied by 1.5 if this move is super effective against the target.",
-		shortDesc: "-1 Def, -1 Sp. Def, -1 Spe. Deals 1.5x damage with supereffective hits.",
+		shortDesc: "-1 Def, -1 SpD, -1 Spe. 1.5x damage when supereffective.",
 	},
 	wonderroom: {
 		// for room service
