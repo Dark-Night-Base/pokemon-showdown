@@ -156,7 +156,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			onResidualOrder: 4,
 			onResidualSubOrder: 2,
 		},
-		desc: "This Pokemon's Water-type moves ignore the effect of weather, abilities, opposing stat changes, and opposing items. This Pokemon cannot be burned. Gaining this Ability while burned cures it.",
+		desc: "This Pokemon's Water-type moves ignore the effect of weather, abilities, target's stat changes, and target's items. This Pokemon cannot be burned. Gaining this Ability while burned cures it.",
 		shortDesc: "Water moves ignore weather, abilities, target's stat changes and items; No burns.",
 	},
 };
