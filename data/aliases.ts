@@ -89,8 +89,8 @@ export const Aliases: {[alias: string]: string} = {
 	gen6ag: "[Gen 6] Anything Goes",
 	crossevo: "[Gen 9] Cross Evolution",
 	mayhem: "[Gen 9] Random Battle Mayhem",
-	omotm: "[Gen 9] Shared Power",
-	lcotm: "[Gen 9] Full Potential",
+	omotm: "[Gen 9] VoltTurn Mayhem",
+	lcotm: "[Gen 9] Partners in Crime",
 
 	"500bh": "[Gen 8] Balanced Hackmons 500 Cup",
 	bh500: "[Gen 8] Balanced Hackmons 500 Cup",
@@ -734,6 +734,7 @@ export const Aliases: {[alias: string]: string} = {
 	bliss: "Blissey",
 	bull: "Tauros",
 	bulu: "Tapu Bulu",
+	bundlechan: "Iron Bundle",
 	camel: "Camerupt",
 	cathy: "Trevenant",
 	chandy: "Chandelure",
