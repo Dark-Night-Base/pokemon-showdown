@@ -3,6 +3,10 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		inherit: true,
 		flags: {contact: 1, protect: 1, mirror: 1, slicing: 1, heal: 1},
 	},
+	bleakwindstorm: {
+		inherit: true,
+		accuracy: 100,
+	},
 	boltbeak: {
 		inherit: true,
 		basePower: 75,
@@ -98,6 +102,19 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		inherit: true,
 		pp: 10,
 	},
+	originpulse: {
+		inherit: true,
+		basePower: 120,
+	},
+	psyshieldbash: {
+		inherit: true,
+		accuracy: 100,
+		basePower: 80,
+		secondary: undefined,
+		overrideOffensiveStat: 'spd',
+		desc: "Damage is calculated using the user's Special Defense stat as its Attack, including stat stage changes. Other effects that modify the Attack stat are used as normal.",
+		shortDesc: "Uses user's Sp. Def stat as Atk in damage calculation.",
+	},
 	ragefist: {
 		inherit: true,
 		// the rest implemented in scripts.ts
@@ -114,6 +131,10 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	roost: {
 		inherit: true,
 		pp: 10,
+	},
+	sandsearstorm: {
+		inherit: true,
+		accuracy: 100,
 	},
 	shoreup: {
 		inherit: true,
@@ -169,6 +190,11 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		desc: "If this move is successful and the user has not fainted, the user switches out even if it is trapped and is replaced immediately by a selected party member. The user does not switch out if there are no unfainted party members, or if the target switched out using an Eject Button or through the effect of the Emergency Exit or Wimp Out Abilities.",
 		shortDesc: "User switches out after damaging the target.",
 	},
+	springtidestorm: {
+		inherit: true,
+		accuracy: 100,
+		pp: 10,
+	},
 	stoneaxe: {
 		inherit: true,
 		self: undefined,
@@ -214,17 +240,21 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	vcreate: {
 		inherit: true,
 		accuracy: 100,
-		basePower: 120,
+		basePower: 150,
 		onBasePower(basePower, source, target, move) {
 			if (target.runEffectiveness(move) > 0) {
 				// Placeholder
 				this.debug(`v-create super effective buff`);
-				return this.chainModify(1.5);
+				return this.chainModify([4915, 4096]);
 			}
 		},
 		zMove: {basePower: 190},
-		desc: "Lowers the user's Speed, Defense, and Special Defense by 1 stage. Damage is multiplied by 1.5 if this move is super effective against the target.",
-		shortDesc: "-1 Def, -1 SpD, -1 Spe. 1.5x damage when supereffective.",
+		desc: "Lowers the user's Speed, Defense, and Special Defense by 1 stage. Damage is multiplied by 1.2 if this move is super effective against the target.",
+		shortDesc: "-1 Def, -1 SpD, -1 Spe. 1.2x damage when supereffective.",
+	},
+	wildboltstorm: {
+		inherit: true,
+		accuracy: 100,
 	},
 	wonderroom: {
 		// for room service

@@ -1,5 +1,14 @@
 export const Items: {[k: string]: ModdedItemData} = {
 	// covert cloak implemented in moves.ts
+	expertbelt: {
+		inherit: true,
+		onModifyDamage(damage, source, target, move) {
+			if (move && target.getMoveHitData(move).typeMod > 0) {
+				return this.chainModify([5324, 4096]);
+			}
+		},
+		desc: "Holder's attacks that are super effective against the target do 1.3x damage.",
+	},
 	maliciousarmor: {
 		inherit: true,
 		fling: {
@@ -13,10 +22,11 @@ export const Items: {[k: string]: ModdedItemData} = {
 				return;
 			}
 			if (target !== source && !source.item) {
-				if (source.hasAbility('magician') && move.category !== 'Status') {
-					source.addVolatile('torment');
-					return;
-				}
+				// disabling this cuz magician is changed
+				// if (source.hasAbility('magician') && move.category !== 'Status') {
+				// 	source.addVolatile('torment');
+				// 	return;
+				// }
 				if (source.hasAbility('pickpocket') && move.flags.contact) {
 					source.addVolatile('torment');
 					return;
@@ -25,6 +35,23 @@ export const Items: {[k: string]: ModdedItemData} = {
 		},
 		desc: "When any Pokemon attempts to remove this item, they are inflicted with Torment.",
 		shortDesc: "When any Pokemon attempts to remove this item, they are inflicted with Torment.",
+	},
+	ringtarget: {
+		inherit: true,
+		onNegateImmunity: undefined,
+		onModifyMove(move, pokemon, target) {
+			if (move.category !== 'Status') {
+				move.ignoreImmunity = true;
+			}
+		},
+		onModifyDamage(damage, source, target, move) {
+			if (!target.runImmunity(move.type)) {
+				this.debug('Ring Target unboost');
+				return this.chainModify(0.5);
+			}
+		},
+		desc: "The holder's same-typed attacks deal resisted damage to type-based immunities.",
+		shortDesc: "The holder's same-typed attacks deal resisted damage to type-based immunities.",
 	},
 	roomservice: {
 		inherit: true,

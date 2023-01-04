@@ -75,7 +75,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				(this.battle.gen >= 5 && !this.isActive) ||
 				(!this.getItem().ignoreKlutz && this.hasAbility('klutz')) ||
 				this.volatiles['embargo'] || this.battle.field.pseudoWeather['magicroom'] ||
-				this.volatiles['waterbubble']
+				this.volatiles['magician']
 			);
 		},
 	},

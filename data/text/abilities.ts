@@ -904,6 +904,9 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 		name: "Magician",
 		desc: "If this Pokemon has no item, it steals the item off a Pokemon it hits with an attack. Does not affect Doom Desire and Future Sight.",
 		shortDesc: "If this Pokemon has no item, it steals the item off a Pokemon it hits with an attack.",
+
+		// Nihilslave: add this for mbhv4
+		start: "  [POKEMON] is performing a magic show!",
 	},
 	magmaarmor: {
 		name: "Magma Armor",
