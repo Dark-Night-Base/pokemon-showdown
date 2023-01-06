@@ -4,7 +4,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onStart(pokemon) {
 			if (this.suppressingAbility(pokemon)) return;
 			this.add('-ability', pokemon, 'Beads of Ruin');
-			this.add('-message', '(In mbhv4, ruin abilities weaken the certain stat of all active Pok¨¦mon.)');
+			this.add('-message', '(In mbhv4, ruin abilities weaken the certain stat of all active Pokemon.)');
 		},
 		onAnyModifySpD(spd, target, source, move) {
 			const abilityHolder = this.effectState.target;
@@ -170,7 +170,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onStart(pokemon) {
 			if (this.suppressingAbility(pokemon)) return;
 			this.add('-ability', pokemon, 'Sword of Ruin');
-			this.add('-message', '(In mbhv4, ruin abilities weaken the certain stat of all active Pok¨¦mon.)');
+			this.add('-message', '(In mbhv4, ruin abilities weaken the certain stat of all active Pokemon.)');
 		},
 		onAnyModifyDef(def, target, source, move) {
 			const abilityHolder = this.effectState.target;
@@ -187,7 +187,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onStart(pokemon) {
 			if (this.suppressingAbility(pokemon)) return;
 			this.add('-ability', pokemon, 'Tablets of Ruin');
-			this.add('-message', '(In mbhv4, ruin abilities weaken the certain stat of all active Pok¨¦mon.)');
+			this.add('-message', '(In mbhv4, ruin abilities weaken the certain stat of all active Pokemon.)');
 		},
 		onAnyModifyAtk(atk, source, target, move) {
 			// the original implement of this ability is different from the first 2 ruin abilities, why?
@@ -220,7 +220,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onStart(pokemon) {
 			if (this.suppressingAbility(pokemon)) return;
 			this.add('-ability', pokemon, 'Vessel of Ruin');
-			this.add('-message', '(In mbhv4, ruin abilities weaken the certain stat of all active Pok¨¦mon.)');
+			this.add('-message', '(In mbhv4, ruin abilities weaken the certain stat of all active Pokemon.)');
 		},
 		onAnyModifySpA(spa, source, target, move) {
 			const abilityHolder = this.effectState.target;
