@@ -1,6 +1,7 @@
 export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	brutebonnet: {
 		inherit: true,
+		types: ["Poison", "Dark"],
 		baseStats: {hp: 111, atk: 127, def: 109, spa: 59, spd: 109, spe: 55},
 	},
 	calyrexice: {
