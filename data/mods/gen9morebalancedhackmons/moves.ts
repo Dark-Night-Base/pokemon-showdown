@@ -176,11 +176,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				this.damage(damageAmounts[this.effectState.layers] * pokemon.maxhp / 24);
 			},
 		},
-		secondary: null,
-		target: "foeSide",
-		type: "Ground",
-		zMove: {boost: {def: 1}},
-		contestType: "Clever",
 	},
 	spinout: {
 		inherit: true,
