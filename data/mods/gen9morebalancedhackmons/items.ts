@@ -15,7 +15,12 @@ export const Items: {[k: string]: ModdedItemData} = {
 			basePower: 100,
 			volatileStatus: 'torment',
 		},
-		onTakeItem: false,
+		onTakeItem(item, pokemon, source, move) {
+			if (move && move.id === 'fling') {
+				return true;
+			}
+			return false;
+		},
 		onHit(target, source, move) {
 			if (['corrosivegas', 'covet', 'knockoff', 'switcheroo', 'thief', 'trick'].includes(move.id)) {
 				source.addVolatile('torment');
@@ -33,8 +38,8 @@ export const Items: {[k: string]: ModdedItemData} = {
 				}
 			}
 		},
-		desc: "When any Pokemon attempts to remove this item, they are inflicted with Torment.",
-		shortDesc: "When any Pokemon attempts to remove this item, they are inflicted with Torment.",
+		desc: "Cannot be removed from a Pokemon, except by Fling. When other Pokemon attempt to remove this item, they are inflicted with Torment.",
+		shortDesc: "Cannot be removed. Inflicts Pokemon with Torment if it tried to.",
 	},
 	ringtarget: {
 		inherit: true,
