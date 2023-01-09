@@ -1476,11 +1476,13 @@ export const Formats: FormatList = [
 		 * because they have their onModifyMovePriority set to -1, which is later than sheer force (0)
 		 * but here we want sheer force to work for forte's secondaries, so we set it to 1
 		 * you may think ahh it's totally ok, where's the bug?
-		 * check the code of diamond storm, a move without any secondary
-		 * but it can trigger sheer force and have its "self" property disabled as the effect
-		 * actually just check the code of sheer force
+		 * check the code of diamond storm, a move without any real secondary
+		 * it can trigger sheer force and have its "self" property disabled as the result
+		 * and it should be implemented like that cuz it hits both adjacent foes
+		 * so having its effect in self can avoid triggering it twice in doubles
+		 * then check the code of sheer force
 		 * it's triggered by secondary, but will remove self along with secondary
-		 * and the following two effects are also implemented by self property:
+		 * and the following two effects are also implemented in self property:
 		 * stats drop of v-create, draco meteor, and etc; must recharge of hyper beam, etc;
 		 * there are more, but these two are the most important
 		 * so, by having sheer force ability and anything with secondary as forte
@@ -1499,7 +1501,7 @@ export const Formats: FormatList = [
 
 				// pseudoWeather is a simple prop in practice cuz plasma fists is the only attack with it,
 				// the same applies to volatileStatus, (partiallytrapped moves and smackdown only)
-				// + seflBoost, the only related attack is scale shot
+				// + selfBoost, the only related attack is scale shot
 				const simpleProperties = ['breaksProtect', 'forceSwitch', 'hasCrashDamage', 'ignoreAbility',
 					'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity', 'isFutureMove', 'mindBlownRecoil',
 					'overrideDefensiveStat', 'overrideOffensivePokemon', 'overrideOffensiveStat', 'pseudoWeather',
@@ -1940,7 +1942,7 @@ export const Formats: FormatList = [
 				if (!action) throw new Error(`Action not passed to resolveAction`);
 				if (action.choice === 'pass') return [];
 				const actions = [action];
-
+		
 				if (!action.side && action.pokemon) action.side = action.pokemon.side;
 				if (!action.move && action.moveid) action.move = this.battle.dex.getActiveMove(action.moveid);
 				if (!action.order) {
@@ -1950,18 +1952,20 @@ export const Formats: FormatList = [
 						instaswitch: 3,
 						beforeTurn: 4,
 						beforeTurnMove: 5,
-
+						revivalblessing: 6,
+		
 						runUnnerve: 100,
 						runSwitch: 101,
 						runPrimal: 102,
 						switch: 103,
 						megaEvo: 104,
 						runDynamax: 105,
-						priorityChargeMove: 106,
-
+						terastallize: 106,
+						priorityChargeMove: 107,
+		
 						shift: 200,
 						// default is 200 (for moves)
-
+		
 						residual: 300,
 					};
 					if (action.choice in orders) {
@@ -1983,6 +1987,12 @@ export const Formats: FormatList = [
 						if (action.mega && !action.pokemon.isSkyDropped()) {
 							actions.unshift(...this.resolveAction({
 								choice: 'megaEvo',
+								pokemon: action.pokemon,
+							}));
+						}
+						if (action.terastallize && !action.pokemon.terastallized) {
+							actions.unshift(...this.resolveAction({
+								choice: 'terastallize',
 								pokemon: action.pokemon,
 							}));
 						}
@@ -2037,9 +2047,9 @@ export const Formats: FormatList = [
 					for (const side of this.sides) {
 						if (side.pokemonLeft) side.pokemonLeft = side.pokemon.length;
 					}
-
+		
 					this.add('start');
-
+		
 					// Change Zacian/Zamazenta into their Crowned formes
 					for (const pokemon of this.getAllPokemon()) {
 						let rawSpecies: Species | null = null;
@@ -2056,7 +2066,7 @@ export const Formats: FormatList = [
 							(pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
 						pokemon.setAbility(species.abilities['0'], null, true);
 						pokemon.baseAbility = pokemon.ability;
-
+		
 						const behemothMove: {[k: string]: string} = {
 							'Zacian-Crowned': 'behemothblade', 'Zamazenta-Crowned': 'behemothbash',
 						};
@@ -2076,14 +2086,14 @@ export const Formats: FormatList = [
 							pokemon.moveSlots = pokemon.baseMoveSlots.slice();
 						}
 					}
-
+		
 					if (this.format.onBattleStart) this.format.onBattleStart.call(this);
 					for (const rule of this.ruleTable.keys()) {
 						if ('+*-!'.includes(rule.charAt(0))) continue;
 						const subFormat = this.dex.formats.get(rule);
 						if (subFormat.onBattleStart) subFormat.onBattleStart.call(this);
 					}
-
+		
 					for (const side of this.sides) {
 						for (let i = 0; i < side.active.length; i++) {
 							if (!side.pokemonLeft) {
@@ -2102,7 +2112,7 @@ export const Formats: FormatList = [
 					this.midTurn = true;
 					break;
 				}
-
+		
 				case 'move':
 					if (!action.pokemon.isActive) return false;
 					if (action.pokemon.fainted) return false;
@@ -2116,6 +2126,9 @@ export const Formats: FormatList = [
 					action.pokemon.addVolatile('dynamax');
 					action.pokemon.side.dynamaxUsed = true;
 					if (action.pokemon.side.allySide) action.pokemon.side.allySide.dynamaxUsed = true;
+					break;
+				case 'terastallize':
+					this.actions.terastallize(action.pokemon);
 					break;
 				case 'beforeTurnMove':
 					if (!action.pokemon.isActive) return false;
@@ -2169,6 +2182,24 @@ export const Formats: FormatList = [
 							break;
 						}
 					}
+					break;
+				case 'revivalblessing':
+					action.pokemon.side.pokemonLeft++;
+					if (action.target.position < action.pokemon.side.active.length) {
+						this.queue.addChoice({
+							choice: 'instaswitch',
+							pokemon: action.target,
+							target: action.target,
+						});
+					}
+					action.target.fainted = false;
+					action.target.faintQueued = false;
+					action.target.subFainted = false;
+					action.target.status = '';
+					action.target.hp = 1; // Needed so hp functions works
+					action.target.sethp(action.target.maxhp / 2);
+					this.add('-heal', action.target, action.target.getHealth, '[from] move: Revival Blessing');
+					action.pokemon.side.removeSlotCondition(action.pokemon, 'revivalblessing');
 					break;
 				case 'runUnnerve':
 					this.singleEvent('PreStart', action.pokemon.getAbility(), action.pokemon.abilityState, action.pokemon);
@@ -2261,11 +2292,16 @@ export const Formats: FormatList = [
 				);
 
 				for (let i = 0; i < this.sides.length; i++) {
+					let reviveSwitch = false; // Used to ignore the fake switch for Revival Blessing
 					if (switches[i] && !this.canSwitch(this.sides[i])) {
 						for (const pokemon of this.sides[i].active) {
-							pokemon.switchFlag = false;
+							if (this.sides[i].slotConditions[pokemon.position]['revivalblessing']) {
+								reviveSwitch = true;
+								continue;
+							}
+						  pokemon.switchFlag = false;
 						}
-						switches[i] = false;
+						if (!reviveSwitch) switches[i] = false;
 					} else if (switches[i]) {
 						for (const pokemon of this.sides[i].active) {
 							if (pokemon.switchFlag && !pokemon.skipBeforeSwitchOutEventFlag) {
