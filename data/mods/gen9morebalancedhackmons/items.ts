@@ -1,4 +1,13 @@
 export const Items: {[k: string]: ModdedItemData} = {
+	adamantorb: {
+		inherit: true,
+		onTakeItem(item, pokemon, source) {
+			if (source?.baseSpecies.num === 483 || pokemon.baseSpecies.num === 483) {
+				return false;
+			}
+			return true;
+		},
+	},
 	// covert cloak implemented in moves.ts
 	expertbelt: {
 		inherit: true,
@@ -8,6 +17,24 @@ export const Items: {[k: string]: ModdedItemData} = {
 			}
 		},
 		desc: "Holder's attacks that are super effective against the target do 1.3x damage.",
+	},
+	griseousorb: {
+		inherit: true,
+		onTakeItem(item, pokemon, source) {
+			if (source?.baseSpecies.num === 487 || pokemon.baseSpecies.num === 487) {
+				return false;
+			}
+			return true;
+		},
+	},
+	lustrousorb: {
+		inherit: true,
+		onTakeItem(item, pokemon, source) {
+			if (source?.baseSpecies.num === 484 || pokemon.baseSpecies.num === 484) {
+				return false;
+			}
+			return true;
+		},
 	},
 	maliciousarmor: {
 		inherit: true,
