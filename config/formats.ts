@@ -4954,16 +4954,16 @@ export const Formats: FormatList = [
 	// Digimon
 	///////////////////////////////////////////////////////////////////
 
-	// {
-	// 	section: "Digimon(Alpha)",
-	// 	column: 3,
-	// },
-	// {
-	// 	name: "[Gen 9] Digimon(Alpha)",
+	{
+		section: "Digimon",
+		column: 3,
+	},
+	{
+		name: "[Gen 9] Digimon",
 
-	// 	mod: 'digimon',
-	// 	searchShow: false,
-	// 	debug: true,
-	// 	ruleset: ['Standard Digimon'],
-	// },
+		mod: 'digimon',
+		searchShow: false,
+		debug: true,
+		ruleset: ['Standard Digimon'],
+	},
 ];

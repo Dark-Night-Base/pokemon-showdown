@@ -1,4 +1,15 @@
 export const Abilities: {[k: string]: ModdedAbilityData} = {
+	damp: {
+		inherit: true,
+		onAnyTryMove(target, source, effect) {
+			// for testament
+			if (['explosion', 'mindblown', 'mistyexplosion', 'selfdestruct', 'testament'].includes(effect.id)) {
+				this.attrLastMove('[still]');
+				this.add('cant', this.effectState.target, 'ability: Damp', effect, '[of] ' + target);
+				return false;
+			}
+		},
+	},
 	omegainforce: {
 		onSourceModifyDamage(damage, source, target, move) {
 			if (target.newlySwitched || this.queue.willMove(target)) {
