@@ -1050,6 +1050,12 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		rating: 3,
 		num: 87,
 	},
+	earlybird: {
+		name: "Early Bird",
+		// Implemented in statuses.js
+		rating: 1.5,
+		num: 48,
+	},
 	eartheater: {
 		onTryHit(target, source, move) {
 			if (target !== source && move.type === 'Ground') {
@@ -1063,12 +1069,6 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		name: "Earth Eater",
 		rating: 3.5,
 		num: 297,
-	},
-	earlybird: {
-		name: "Early Bird",
-		// Implemented in statuses.js
-		rating: 1.5,
-		num: 48,
 	},
 	effectspore: {
 		onDamagingHit(damage, target, source, move) {
@@ -1266,7 +1266,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		onAllySetStatus(status, target, source, effect) {
 			if (target.hasType('Grass') && source && target !== source && effect && effect.id !== 'yawn') {
 				this.debug('interrupting setStatus with Flower Veil');
-				if (effect.id === 'synchronize' || (effect.effectType === 'Move' && !effect.secondaries)) {
+				if (effect.name === 'Synchronize' || (effect.effectType === 'Move' && !effect.secondaries)) {
 					const effectHolder = this.effectState.target;
 					this.add('-block', target, 'ability: Flower Veil', '[of] ' + effectHolder);
 				}
@@ -2136,23 +2136,6 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		rating: 3,
 		num: 31,
 	},
-	lingeringaroma: {
-		onDamagingHit(damage, target, source, move) {
-			const sourceAbility = source.getAbility();
-			if (sourceAbility.isPermanent || sourceAbility.id === 'lingeringaroma') {
-				return;
-			}
-			if (this.checkMoveMakesContact(move, source, target, !source.isAlly(target))) {
-				const oldAbility = source.setAbility('lingeringaroma', target);
-				if (oldAbility) {
-					this.add('-activate', target, 'ability: Lingering Aroma', this.dex.abilities.get(oldAbility).name, '[of] ' + source);
-				}
-			}
-		},
-		name: "Lingering Aroma",
-		rating: 2,
-		num: 268,
-	},
 	limber: {
 		onUpdate(pokemon) {
 			if (pokemon.status === 'par') {
@@ -2171,6 +2154,23 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		name: "Limber",
 		rating: 2,
 		num: 7,
+	},
+	lingeringaroma: {
+		onDamagingHit(damage, target, source, move) {
+			const sourceAbility = source.getAbility();
+			if (sourceAbility.isPermanent || sourceAbility.id === 'lingeringaroma') {
+				return;
+			}
+			if (this.checkMoveMakesContact(move, source, target, !source.isAlly(target))) {
+				const oldAbility = source.setAbility('lingeringaroma', target);
+				if (oldAbility) {
+					this.add('-activate', target, 'ability: Lingering Aroma', this.dex.abilities.get(oldAbility).name, '[of] ' + source);
+				}
+			}
+		},
+		name: "Lingering Aroma",
+		rating: 2,
+		num: 268,
 	},
 	liquidooze: {
 		onSourceTryHeal(damage, target, source, effect) {
@@ -2746,7 +2746,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 	},
 	opportunist: {
 		onFoeAfterBoost(boost, target, source, effect) {
-			if (effect?.fullname?.endsWith('Opportunist') || effect?.fullname?.endsWith('Mirror Herb')) return;
+			if (effect?.name === 'Opportunist' || effect?.name === 'Mirror Herb') return;
 			const pokemon = this.effectState.target;
 			const positiveBoosts: Partial<BoostsTable> = {};
 			let i: BoostID;
@@ -3434,7 +3434,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			}
 		},
 		onAfterBoost(boost, target, source, effect) {
-			if (effect && effect.id === 'intimidate') {
+			if (effect?.name === 'Intimidate') {
 				this.boost({spe: 1});
 			}
 		},
