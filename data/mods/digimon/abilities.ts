@@ -155,7 +155,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onFoeBasePowerPriority: 20,
 		onFoeBasePower(basePower, source, target, move) {
 			if (target === source || move.category === 'Status') return;
-			const holyKnightNums = [40001, 40146, 40151, 40244, 40248, 40428, 40429, 40493, 40511, 40555, 40556];
+			const holyKnightNums = [1, 146, 151, 244, 248, 428, 429, 493, 511, 555, 556];
 			if (!holyKnightNums.includes(source.species.num)) return;
 			return this.chainModify([2732, 4096]);
 		},
