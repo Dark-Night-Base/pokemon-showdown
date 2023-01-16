@@ -139,7 +139,10 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onModifyAtk(atk) {},
 		onModifyBoost(boosts, pokemon) {
 			boosts['atk'] = Math.max(0, boosts['atk']!);
+			boosts['def'] = Math.max(0, boosts['def']!);
 			boosts['spa'] = Math.max(0, boosts['spa']!);
+			boosts['spd'] = Math.max(0, boosts['spd']!);
+			// todo: test this and think if it should modify spe
 		},
 		// according to designer (anaconja)
 		onModifyMove(move) {
