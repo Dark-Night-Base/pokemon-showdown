@@ -571,8 +571,8 @@ function calcBSPoint(stats: StatsTable) {
 	return retVals;
 }
 export function getSetPoint(dex: ModdedDex, set: PokemonSet) {
-	// BS | BS1 | BS2 | T | T1 | T2 | A | M | M1 | M2 | M3 | M4 |
-	//  0 |  1  |  2  | 3 |  4 |  5 | 6 | 7 |  8 |  9 | 10 | 11 |
+	// BS | BS1 | BS2 | T | T1 | T2 | A | M | M1 | M2 | M3 | M4 |  P |
+	//  0 |  1  |  2  | 3 |  4 |  5 | 6 | 7 |  8 |  9 | 10 | 11 | 12 |
 	const details: number[] = [];
 	const species = dex.species.get(set.species);
 
@@ -620,6 +620,18 @@ export function getSetPoint(dex: ModdedDex, set: PokemonSet) {
 	for (let i = set.moves.length; i < 4; ++i) {
 		details.push(0.5);
 		details[7] += 0.5;
+	}
+
+	// penalty
+	details.push(0);
+	let statName: StatID;
+	for (statName in set.evs) {
+		if (set.evs[statName] > 150) {
+			++details[12];
+			if (statName === 'hp') {
+				++details[12];
+			}
+		}
 	}
 
 	return details;
