@@ -1942,7 +1942,7 @@ export const Formats: FormatList = [
 				if (!action) throw new Error(`Action not passed to resolveAction`);
 				if (action.choice === 'pass') return [];
 				const actions = [action];
-		
+
 				if (!action.side && action.pokemon) action.side = action.pokemon.side;
 				if (!action.move && action.moveid) action.move = this.battle.dex.getActiveMove(action.moveid);
 				if (!action.order) {
@@ -1953,7 +1953,7 @@ export const Formats: FormatList = [
 						beforeTurn: 4,
 						beforeTurnMove: 5,
 						revivalblessing: 6,
-		
+
 						runUnnerve: 100,
 						runSwitch: 101,
 						runPrimal: 102,
@@ -1965,7 +1965,7 @@ export const Formats: FormatList = [
 		
 						shift: 200,
 						// default is 200 (for moves)
-		
+
 						residual: 300,
 					};
 					if (action.choice in orders) {
@@ -2047,9 +2047,9 @@ export const Formats: FormatList = [
 					for (const side of this.sides) {
 						if (side.pokemonLeft) side.pokemonLeft = side.pokemon.length;
 					}
-		
+
 					this.add('start');
-		
+
 					// Change Zacian/Zamazenta into their Crowned formes
 					for (const pokemon of this.getAllPokemon()) {
 						let rawSpecies: Species | null = null;
@@ -2086,14 +2086,14 @@ export const Formats: FormatList = [
 							pokemon.moveSlots = pokemon.baseMoveSlots.slice();
 						}
 					}
-		
+
 					if (this.format.onBattleStart) this.format.onBattleStart.call(this);
 					for (const rule of this.ruleTable.keys()) {
 						if ('+*-!'.includes(rule.charAt(0))) continue;
 						const subFormat = this.dex.formats.get(rule);
 						if (subFormat.onBattleStart) subFormat.onBattleStart.call(this);
 					}
-		
+
 					for (const side of this.sides) {
 						for (let i = 0; i < side.active.length; i++) {
 							if (!side.pokemonLeft) {
@@ -2112,7 +2112,7 @@ export const Formats: FormatList = [
 					this.midTurn = true;
 					break;
 				}
-		
+
 				case 'move':
 					if (!action.pokemon.isActive) return false;
 					if (action.pokemon.fainted) return false;
