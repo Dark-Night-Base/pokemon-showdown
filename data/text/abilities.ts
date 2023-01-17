@@ -2182,6 +2182,7 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 		shortDesc: "While this Digimon is active, hurts Digimon on switch-in.",
 
 		start: "  [POKEMON] is exerting digital hazard!",
+		activate: "  [POKEMON] is damaged by digital hazard!",
 	},
 	legendaryspirits: {
 		name: "Legendary Spirits",

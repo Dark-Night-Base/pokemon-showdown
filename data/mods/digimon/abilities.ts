@@ -72,11 +72,29 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onStart(pokemon) {
 			if (this.suppressingAbility(pokemon)) return;
 			this.add('-ability', pokemon, 'Digital Hazard');
+			// for (const side of this.sides) {
+			// 	if (side.id !== pokemon.side.id) side.addSideCondition('digitalhazard');
+			// }
 		},
 		// better to implement this with field effect or condition
-		onFoeSwitchIn(this, pokemon) {
-			this.damage(pokemon.baseMaxhp / 8);
+		// onFoeSwitchIn(this, pokemon) {
+		// 	this.damage(pokemon.baseMaxhp / 8);
+		// },
+		onAnySwitchIn(pokemon) {
+			// todo: use this, this should be the right way
+			const abilityHolder = this.effectState.target;
+			if (pokemon.hasAbility('Digital Hazard')) return;
+			// looks like we need to add something here like the ruin abilities, but maybe not?
+			this.add('-activate', pokemon, 'ability: Digital Hazard');
+			this.damage(pokemon.maxhp / 8);
 		},
+		// condition: {
+		// 	noCopy: true,
+		// 	onEntryHazard(pokemon) {
+		// 		this.add('-activate', pokemon, 'ability: Digital Hazard');
+		// 		this.damage(pokemon.maxhp / 8);
+		// 	},
+		// },
 		// onAllySwitchIn(this, pokemon) {
 		// 	this.damage(pokemon.baseMaxhp / 8);
 		// },
