@@ -62,7 +62,8 @@ export const commands: Chat.ChatCommands = {
 				`&bullet; T: 属性分. 等于各属性分数之和; 如果是单属性则为属性分数乘以 1.5. <br />` +
 				`&bullet; A: 特性分. <br />` +
 				`&bullet; M: 招式分. 等于各招式分数之和; 空白招式计 0.5 分. <br />` +
-				`总分 = S * T * A * M. <br />` +
+				`&bullet; P: 高种族惩罚. 每有一项种族值超过 150, 此项加 5000, 若为 HP 则加 10000. <br />` +
+				`总分 = S * T * A * M + P. <br />` +
 				`<details><summary><em>种族分计算方式</em></summary>` +
 				`h, a, b, c, d, s 分别代表 HP, 攻击, 防御, 特攻, 特防, 速度种族值. <br />` +
 				`&bullet; H = 2 * h + 200 <br />` +
@@ -81,7 +82,8 @@ export const commands: Chat.ChatCommands = {
 				`&bullet; T: Type Point. Equals to the sum of the Points of Types. Times 1.5 if single Type. <br />` +
 				`&bullet; A: Ability Point. <br />` +
 				`&bullet; M: Move Point. Equals to the sum of the Points of Moves. Blank Move counts as 0.5 Point. <br />` +
-				`Total = S * T * A * M. <br />` +
+				`&bullet; P: High Stats Penalty. This term is increased by 5000 for each base stats (except HP) higher than 150, and 10000 for HP. <br />` +
+				`Total = S * T * A * M + P. <br />` +
 				`<details><summary><em>How is Stats Point Calculated</em></summary>` +
 				`h, a, b, c, d, s represent base stats of HP, Atk, Def, SpA, SpD, Spe respectively. <br />` +
 				`&bullet; H = 2 * h + 200 <br />` +
