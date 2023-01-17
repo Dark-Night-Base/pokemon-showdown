@@ -2621,7 +2621,14 @@ export const Rulesets: {[k: string]: FormatData} = {
 				}
 			}
 
-			return {...pokemon, types: [...types]};
+			// set weight
+			let weight = 999;
+			if (typeof set.dynamaxLevel === 'number') {
+				if (set.dynamaxLevel < 999) weight = set.dynamaxLevel;
+				if (set.dynamaxLevel < 1) weight = 1;
+			}
+
+			return {...pokemon, types: [...types], weightkg: weight};
 		},
 		onSwitchIn(pokemon) {
 			this.add('-start', pokemon, 'typechange', (pokemon.illusion || pokemon).getTypes(true).join('/'), '[silent]');
