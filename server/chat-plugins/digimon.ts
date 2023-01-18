@@ -190,7 +190,7 @@ export const commands: Chat.ChatCommands = {
 
 		const targetNum = parseInt(target);
 		if (!isNaN(targetNum) && `${targetNum}` === target) {
-			if (targetNum <= 40000) return this.parse(`/dt ${targetNum}`);
+			// if (targetNum <= 40000) return this.parse(`/dt ${targetNum}`);
 			for (const pokemon of dex.species.all()) {
 				if (pokemon.num === targetNum) {
 					target = pokemon.baseSpecies;
@@ -212,11 +212,11 @@ export const commands: Chat.ChatCommands = {
 			switch (newTarget.searchType) {
 			case 'pokemon':
 				const pokemon = dex.species.get(newTarget.name);
-				if (pokemon.num <= 40000) return this.parse(`/dt ${pokemon.id}`);
-				buffer += `|raw|${Chat.getDataPokemonHTML(pokemon, dex.gen, String(pokemon.num - 40000))}\n`;
+				// if (pokemon.num <= 40000) return this.parse(`/dt ${pokemon.id}`);
+				buffer += `|raw|${Chat.getDataPokemonHTML(pokemon, dex.gen, String(pokemon.num))}\n`;
 
 				details = {
-					"Dex#": String(pokemon.num - 40000),
+					"Dex#": String(pokemon.num),
 				};
 				const bst = pokemon.forme === 'X' ? dex.species.get(pokemon.baseSpecies).bst : pokemon.bst;
 				if (bst <= 280) {
@@ -228,23 +228,23 @@ export const commands: Chat.ChatCommands = {
 				} else {
 					details["Stage"] = "Ultimate";
 				}
-				const exceptAdult = [40046, 40059, 40063, 40064, 40098, 40116, 40146, 40192, 40369, 40370, 40543, 40550];
-				const exceptPerfect = [40005, 40060, 40065, 40096, 40108, 40130, 40164, 40215, 40236, 40248, 40371, 40372,
-					40452, 40459, 40460, 40464, 40472];
-				const exceptUltimate = [40120, 40339, 40544];
-				const exceptXevo = [40146, 40248, 40452];
-				if (pokemon.num === 40451) details["Stage"] = "Child";
+				const exceptAdult = [46, 59, 63, 64, 98, 116, 146, 192, 369, 370, 543, 550];
+				const exceptPerfect = [5, 60, 65, 96, 108, 130, 164, 215, 236, 248, 371, 372,
+					452, 459, 460, 464, 472];
+				const exceptUltimate = [120, 339, 544];
+				const exceptXevo = [146, 248, 452];
+				if (pokemon.num === 451) details["Stage"] = "Child";
 				if (exceptAdult.includes(pokemon.num)) details["Stage"] = "Adult";
 				if (exceptPerfect.includes(pokemon.num)) details["Stage"] = "Perfect";
 				if (exceptUltimate.includes(pokemon.num)) details["Stage"] = "Ultimate";
 				if (exceptXevo.includes(pokemon.num) && pokemon.forme === 'X') details["Stage"] = "Ultimate";
 
 				const organizations = [];
-				const royalKnights = [40001, 40146, 40151, 40244, 40428, 40429, 40493, 40511, 40555, 40556];
-				const archangels = [40032, 40039, 40264];
-				const greatDragons = [40033, 40038, 40243, 40316];
-				const demonLords = [40228, 40259, 40450, 40452, 40491, 40492, 40554];
-				const olympos = [40449];
+				const royalKnights = [1, 146, 151, 244, 428, 429, 493, 511, 555, 556];
+				const archangels = [32, 39, 264];
+				const greatDragons = [33, 38, 243, 316];
+				const demonLords = [228, 259, 450, 452, 491, 492, 554];
+				const olympos = [449];
 				if (royalKnights.includes(pokemon.num)) organizations.push("Royal Knights");
 				if (archangels.includes(pokemon.num)) organizations.push("3 Archangels");
 				if (demonLords.includes(pokemon.num)) organizations.push("7 Great Demon Lords");
@@ -295,7 +295,7 @@ export const commands: Chat.ChatCommands = {
 				break;
 			case 'move':
 				const move = dex.moves.get(newTarget.name);
-				if (move.num <= 40000) return this.parse(`/dt ${move.id}`);
+				// if (move.num <= 40000) return this.parse(`/dt ${move.id}`);
 				buffer += `|raw|${Chat.getDataMoveHTML(move)}\n`;
 				details = {
 					Priority: String(move.priority),

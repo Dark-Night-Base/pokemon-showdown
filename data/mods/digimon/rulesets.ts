@@ -57,9 +57,9 @@ export const Rulesets: {[k: string]: ModdedFormatData} = {
 			// set args
 
 			// check digimon
-			if (species.num <= 40000) {
-				return [`${species.baseSpecies} is not a Digimon.`];
-			}
+			// if (species.num <= 40000) {
+			// 	return [`${species.baseSpecies} is not a Digimon.`];
+			// }
 
 			// check moves
 			// sim/team-validator.ts::validateMoves()

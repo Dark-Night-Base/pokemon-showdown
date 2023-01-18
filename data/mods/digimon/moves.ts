@@ -287,7 +287,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			},
 		},
 		target: "normal",
-		type: "Fairy",
+		type: "Light",
 	},
 	gigablaster: {
 		num: 40012,
@@ -367,7 +367,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		smartTarget: true,
 		secondary: null,
 		target: "normal",
-		type: "Fairy",
+		type: "Light",
 	},
 	testament: {
 		num: 40017,
@@ -381,7 +381,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		selfdestruct: "always",
 		secondary: null,
 		target: "allAdjacent",
-		type: "Fairy",
+		type: "Light",
 	},
 	godflame: {
 		num: 40018,
@@ -411,7 +411,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		recoil: [33, 100],
 		secondary: null,
 		target: "normal",
-		type: "Fairy",
+		type: "Light",
 	},
 	edensjavelin: {
 		num: 40020,
@@ -429,7 +429,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			},
 		},
 		target: "normal",
-		type: "Fairy",
+		type: "Light",
 	},
 	sefirotcrystal: {
 		num: 40021,
@@ -476,7 +476,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		critRatio: 2,
 		secondary: null,
 		target: "normal",
-		type: "Fairy",
+		type: "Light",
 	},
 	finalelysion: {
 		num: 40024,
@@ -488,7 +488,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		target: "allAdjacentFoes",
-		type: "Fairy",
+		type: "Light",
 	},
 	shininggoldsolarstorm: {
 		num: 40025,
@@ -504,7 +504,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			status: 'brn',
 		},
 		target: "allAdjacentFoes",
-		type: "Fairy",
+		type: "Light",
 	},
 	extremejihad: {
 		num: 40026,
@@ -518,7 +518,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		recoil: [1, 2],
 		secondary: null,
 		target: "normal",
-		type: "Fairy",
+		type: "Light",
 	},
 	mugen: {
 		num: 40027,
@@ -618,7 +618,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		secondary: null,
 		target: "allAdjacent",
-		type: "Fairy",
+		type: "Light",
 	},
 	oukai: {
 		num: 40032,
@@ -754,7 +754,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		flags: {contact: 1, protect: 1, mirror: 1},
 		secondary: null,
 		target: "normal",
-		type: "Fairy",
+		type: "Light",
 	},
 	dragonsroar: {
 		num: 40040,
@@ -765,7 +765,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		pp: 15,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		// in move type change hard coded in sim/battle-action.ts: hitStepMoveHitLoop
+		// in move type change implemented in scripts.ts
 		multihit: 2,
 		secondary: null,
 		target: "normal",
@@ -850,7 +850,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		secondary: null,
 		target: "allAdjacentFoes",
-		type: "Fairy",
+		type: "Light",
 	},
 	paradiselost: {
 		num: 40045,
@@ -875,7 +875,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		priority: 0,
 		critRatio: 3,
 		flags: {protect: 1, mirror: 1},
-		// in move type change hard coded in sim/battle-action.ts: hitStepMoveHitLoop
+		// in move type change implemented in scripts.ts
 		multihit: 2,
 		secondary: null,
 		target: "allAdjacentFoes",
@@ -911,7 +911,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		secondary: null,
 		target: "normal",
-		type: "Fairy",
+		type: "Light",
 	},
 	juuouken: {
 		num: 40049,
