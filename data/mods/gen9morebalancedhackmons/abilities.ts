@@ -17,7 +17,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	},
 	contrary: {
 		inherit: true,
-		onBoost(boost, target, source, effect) {
+		onChangeBoost(boost, target, source, effect) {
 			if (effect && effect.id === 'zpower') return;
 			if (this.effectState.contrary) return;
 			let i: BoostID;
