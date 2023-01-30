@@ -1,18 +1,15 @@
 // new
 base_attack_moves: {
+	// we only include necessary big-power, mid-power, and low-power moves here
 	bug: {
 		megahorn: ["9L1"],
 		bugbuzz: ["9L1"],
-		leechlife: ["9L1"],
-		uturn: ["9L1"],
 		bugbite: ["9L1"],
 		silverwind: ["9L1"],
 	},
 	dark: {
 		crunch: ["9L1"],
 		darkpulse: ["9L1"],
-		suckerpunch: ["9L1"],
-		knockoff: ["9L1"],
 		bite: ["9L1"],
 		snarl: ["9L1"],
 	},
@@ -22,26 +19,23 @@ base_attack_moves: {
 		dragonpulse: ["9L1"],
 		dragonclaw: ["9L1"],
 		dragonbreath: ["9L1"],
-		dragontail: ["9L1"],
 	},
 	electric: {
 		thunder: ["9L1"],
 		thunderbolt: ["9L1"],
 		wildcharge: ["9L1"],
 		thunderpunch: ["9L1"],
-		voltswitch: ["9L1"],
 		thunderfang: ["9L1"],
 		shockwave: ["9L1"],
 	},
 	fighting: {
+		seismictoss: ["9L1"],
 		closecombat: ["9L1"],
 		focusblast: ["9L1"],
 		superpower: ["9L1"],
 		sacredsword: ["9L1"],
 		aurasphere: ["9L1"],
 		brickbreak: ["9L1"],
-		drainpunch: ["9L1"],
-		circlethrow: ["9L1"],
 		machpunch: ["9L1"],
 		vacuumwave: ["9L1"],
 	},
@@ -52,11 +46,10 @@ base_attack_moves: {
 		flamethrower: ["9L1"],
 		firepunch: ["9L1"],
 		firefang: ["9L1"],
-		incinerate: ["9L1"],
 	},
 	flying: {
 		bravebird: ["9L1"],
-		hurricane
+		hurricane: ["9L1"],
 		fly: ["9L1"],
 		bounce: ["9L1"],
 		drillpeck: ["9L1"],
@@ -65,7 +58,7 @@ base_attack_moves: {
 		aircutter: ["9L1"],
 	},
 	ghost: {
-		poltergeist: ["9L1"],
+		nightshade: ["9L1"],
 		phantomforce: ["9L1"],
 		shadowball: ["9L1"],
 		shadowclaw: ["9L1"],
@@ -81,17 +74,14 @@ base_attack_moves: {
 		energyball: ["9L1"],
 		leafblade: ["9L1"],
 		seedbomb: ["9L1"],
-		gigadrain: ["9L1"],
 		hornleech: ["9L1"],
 		magicalleaf: ["9L1"],
-		megadrain: ["9L1"],
 	},
 	ground: {
 		earthquake: ["9L1"],
 		earthpower: ["9L1"],
 		dig: ["9L1"],
 		stompingtantrum: ["9L1"],
-		bulldoze: ["9L1"],
 		mudbomb: ["9L1"],
 	},
 	ice: {
@@ -106,6 +96,90 @@ base_attack_moves: {
 	light: {
 		dazzlinggleam: ["9L1"],
 		drainingkiss: ["9L1"],
+	},
+	normal: {
+		sonicboom: ["9L1"],
+		gigaimpact: ["9L1"],
+		hyperbeam: ["9L1"],
+		doubleedge: ["9L1"],
+		hypervoice: ["9L1"],
+		bodyslam: ["9L1"],
+		headbutt: ["9L1"],
+		slash: ["9L1"],
+		hiddenpower: ["9L1"],
+		swift: ["9L1"],
+		quickattack: ["9L1"],
+	},
+	poison: {
+		sludgebomb: ["9L1"],
+		poisonjab: ["9L1"],
+		sludge: ["9L1"],
+	},
+	psychic: {
+		psywave: ["9L1"],
+		psychic: ["9L1"],
+		psyshock: ["9L1"],
+		zenheadbutt: ["9L1"],
+		psybeam: ["9L1"],
+	},
+	rock: {
+		stoneedge: ["9L1"],
+		powergem: ["9L1"],
+		rockslide: ["9L1"],
+		ancientpower: ["9L1"],
+		rocktomb: ["9L1"],
+		accelerock: ["9L1"],
+	},
+	steel: {
+		irontail: ["9L1"],
+		meteormash: ["9L1"],
+		flashcannon: ["9L1"],
+		ironhead: ["9L1"],
+		mirrorshot: ["9L1"],
+		magnetbomb: ["9L1"],
+		bulletpunch: ["9L1"],
+	},
+	water: {
+		hydropump: ["9L1"],
+		surf: ["9L1"],
+		dive: ["9L1"],
+		waterfall: ["9L1"],
+		bubblebeam: ["9L1"],
+		waterpulse: ["9L1"],
+		aquajet: ["9L1"],
+	},
+},
+advanced_attack_moves: {
+	bug: {
+		leechlife: ["9L1"],
+		uturn: ["9L1"],
+	},
+	dark: {
+		suckerpunch: ["9L1"],
+		knockoff: ["9L1"],
+		pursuit\
+	},
+	dragon: {
+		dragontail: ["9L1"],
+	},
+	electric: {
+		voltswitch: ["9L1"],
+	},
+	fighting: {
+		drainpunch: ["9L1"],
+		circlethrow: ["9L1"],
+	},
+	grass: {
+		gigadrain: ["9L1"],
+		megadrain: ["9L1"],
+	},
+	normal: {
+		extremespeed\
+	},
+},
+weak_attack_moves: {
+	bug: {
+
 	},
 },
 

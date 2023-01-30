@@ -121,7 +121,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 			if (pokemon.hasType('Vaccine') && target.hasType('Data')) {
 				if (!suppressMessages && typeMod === 0) this.battle.add('-resisted', target);
-				baseDamage = this.battle.modify(baseDamage, [2731, 4096]);
+				baseDamage = this.battle.modify(baseDamage, [2732, 4096]);
 				this.battle.debug('Digimon Type modifier: 0.67');
 			}
 
