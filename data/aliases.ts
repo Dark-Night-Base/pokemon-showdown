@@ -320,6 +320,9 @@ export const Aliases: {[alias: string]: string} = {
 	zacc: "Zacian-Crowned",
 	zama: "Zamazenta",
 	zamac: "Zamazenta-Crowned",
+	taurospaldea: "Tauros-Paldea-Combat",
+	taurospaldeafire: "Tauros-Paldea-Blaze",
+	taurospaldeawater: "Tauros-Paldea-Aqua",
 
 	// base formes
 	nidoranfemale: "Nidoran-F",
