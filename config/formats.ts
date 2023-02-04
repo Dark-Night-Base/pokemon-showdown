@@ -72,6 +72,46 @@ export const Formats: FormatList = [
 		},
 	},
 	{
+		name: "[Gen 9] ND Godly Gift BH",
+		desc: `Godly Gift + BH ver. NatDex. Pok&eacute;mon with BST > 651 are Gods.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3710734/">Godly Gift</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3711099/">National Dex BH</a>`,
+		],
+
+		mod: 'gen9',
+		// we cannot use godly gift mod here
+		ruleset: ['[Gen 9] National Dex BH'],
+		restricted: [],
+		onValidateTeam(team) {
+			const gods = new Set<string>();
+			for (const set of team) {
+				const species = this.dex.species.get(set.species);
+				if (species.bst > 651) {
+					gods.add(species.name);
+				}
+			}
+			if (gods.size > 1) {
+				return [`You have too many Gods.`, `(${Array.from(gods).join(', ')} are Gods.)`];
+			}
+		},
+		onModifySpeciesPriority: 3,
+		onModifySpecies(species, target, source) {
+			if (source || !target?.side) return;
+			const god = target.side.team.find(set => {
+				const godSpecies = this.dex.species.get(set.species);
+				return godSpecies.bst > 651;
+			}) || target.side.team[0];
+			const stat = Dex.stats.ids()[target.side.team.indexOf(target.set)];
+			const newSpecies = this.dex.deepClone(species);
+			const godSpecies = this.dex.species.get(god.species);
+			newSpecies.bst -= newSpecies.baseStats[stat];
+			newSpecies.baseStats[stat] = godSpecies.baseStats[stat];
+			newSpecies.bst += newSpecies.baseStats[stat];
+			return newSpecies;
+		},
+	},
+	{
 		name: "[Gen 8] Johto Dex BH",
 		desc: `BH, but only things that are native to Kanto and Johto regions are usable.`,
 		threads: [
