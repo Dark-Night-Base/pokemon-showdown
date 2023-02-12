@@ -2153,6 +2153,12 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 		activate: "  [POKEMON] extends [MOVE] by 2 turns!",
 	},
 
+	// mbhv4
+	allseeingeye: {
+		name: "All-Seeing Eye",
+		shortDesc: "This Pokemon's Psychic-type status moves heal it for 1/4 max HP.",
+	},
+
 	// Digimon
 	omegainforce: {
 		name: "Omega inForce",

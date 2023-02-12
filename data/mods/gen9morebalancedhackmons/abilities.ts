@@ -1,10 +1,16 @@
 export const Abilities: {[k: string]: ModdedAbilityData} = {
 	allseeingeye: {
-		onPrepareHit(source, target, move) {
-			if (move.type !== "Psychic" || move.category !== "Status") return;
-			// not sure what this does, just keep it
-			if (move.hasBounced || move.isFutureMove || move.sourceEffect === 'snatch') return;
-			this.heal(source.baseMaxhp / 4);
+		// onPrepareHit(source, target, move) {
+		// 	if (move.type !== "Psychic" || move.category !== "Status") return;
+		// 	// not sure what this does, just keep it
+		// 	if (move.hasBounced || move.isFutureMove || move.sourceEffect === 'snatch') return;
+		// 	this.heal(source.baseMaxhp / 4);
+		// },
+		onAfterMoveSecondary(target, source, move) {
+			if (move.type === "Psychic" && move.category === "Status") {
+				this.heal(source.baseMaxhp / 4);
+				this.add('-activate', source, 'ability: All-Seeing Eye');
+			}
 		},
 		name: "All-Seeing Eye",
 		rating: 3.5,
