@@ -1,4 +1,11 @@
 export const Moves: {[k: string]: ModdedMoveData} = {
+	anchorshot: {
+		inherit: true,
+		onHit(target, source, move) {
+			if (source.isActive) target.addVolatile('trapped', source, move, 'trapper');
+		},
+		secondary: undefined,
+	},
 	bitterblade: {
 		inherit: true,
 		flags: {contact: 1, protect: 1, mirror: 1, slicing: 1, heal: 1},
@@ -124,6 +131,22 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		desc: "Power is equal to 50+(X*25), where X is the total number of times the user has been hit by a damaging attack since switch-in, even if the user did not lose HP from the attack. X cannot be greater than 6. Each hit of a multi-hit attack is counted, but confusion damage is not counted.",
 		shortDesc: "+25 power for each time user was hit. Max 6 hits. Reset on switch-in.",
 	},
+	ragingbull: {
+		inherit: true,
+		pp: 15,
+		onModifyType(move, pokemon) {
+			const types = pokemon.getTypes();
+			if (types.length < 2) {
+				move.type = "Normal";
+			} else {
+				let type = types[1];
+				if (type === "Bird") type = "???";
+				move.type = type;
+			}
+		},
+		desc: "If this attack does not miss, the effects of Reflect, Light Screen, and Aurora Veil end for the target's side of the field before damage is calculated. This move's type depends on the user's secondary type. ",
+		shortDesc: "Destroys screens. Type depends on user's secondary type.",
+	},
 	recover: {
 		inherit: true,
 		pp: 10,
@@ -165,11 +188,11 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			onEntryHazard(pokemon) {
 				if (!pokemon.isGrounded() || pokemon.hasItem('heavydutyboots')) return;
 				if (pokemon.hasAbility('eartheater')) {
-					this.debug('Earth Eater absorbs spikes');
-					this.add('-activate', pokemon, 'ability: Earth Eater');
-					this.add('-sideend', pokemon.side, this.dex.conditions.get('spikes').name, '[from] ability: Earth Eater', '[of] ' + pokemon);
-					pokemon.side.removeSideCondition('spikes');
-					this.heal(pokemon.baseMaxhp / 4, pokemon, pokemon);
+					// this.debug('Earth Eater absorbs spikes');
+					// this.add('-activate', pokemon, 'ability: Earth Eater');
+					// this.add('-sideend', pokemon.side, this.dex.conditions.get('spikes').name, '[from] ability: Earth Eater', '[of] ' + pokemon);
+					// pokemon.side.removeSideCondition('spikes');
+					// this.heal(pokemon.baseMaxhp / 4, pokemon, pokemon);
 					return;
 				}
 				const damageAmounts = [0, 3, 4, 6]; // 1/8, 1/6, 1/4
@@ -187,10 +210,28 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		desc: "If this move is successful and the user has not fainted, the user switches out even if it is trapped and is replaced immediately by a selected party member. The user does not switch out if there are no unfainted party members, or if the target switched out using an Eject Button or through the effect of the Emergency Exit or Wimp Out Abilities.",
 		shortDesc: "User switches out after damaging the target.",
 	},
+	spiritshackle: {
+		inherit: true,
+		onHit(target, source, move) {
+			if (source.isActive) target.addVolatile('trapped', source, move, 'trapper');
+		},
+		secondary: undefined,
+	},
 	springtidestorm: {
 		inherit: true,
 		accuracy: 100,
 		pp: 10,
+	},
+	strengthsap: {
+		inherit: true,
+		onHit(target, source) {
+			if (target.boosts.atk === -6) return false;
+			// for clear amulet, i'm lazy lol
+			if (target.hasItem('clearamulet')) return false;
+			const atk = target.getStat('atk', false, true);
+			const success = this.boost({atk: -1}, target, source, null, false, true);
+			return !!(this.heal(atk, source, target) || success);
+		},
 	},
 	stoneaxe: {
 		inherit: true,
@@ -200,6 +241,13 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			chance: 100,
 			sideCondition: 'stealthrock',
 		},
+	},
+	tarshot: {
+		inherit: true,
+		basePower: 75,
+		category: "Special",
+		flags: {bullet: 1, protect: 1, mirror: 1},
+		zMove: {basePower: 160},
 	},
 	trickroom: {
 		// for room service

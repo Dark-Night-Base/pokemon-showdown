@@ -1,4 +1,16 @@
 export const Abilities: {[k: string]: ModdedAbilityData} = {
+	allseeingeye: {
+		onPrepareHit(source, target, move) {
+			if (move.type !== "Psychic" || move.category !== "Status") return;
+			// not sure what this does, just keep it
+			if (move.hasBounced || move.isFutureMove || move.sourceEffect === 'snatch') return;
+			this.heal(source.baseMaxhp / 4);
+		},
+		name: "All-Seeing Eye",
+		rating: 3.5,
+		num: -101,
+		shortDesc: "This Pokemon's Psychic-type status moves heal it for 1/4 max HP.",
+	},
 	beadsofruin: {
 		inherit: true,
 		onStart(pokemon) {
@@ -31,6 +43,16 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		shortDesc: "This Pokemon's stat changes are reversed. Once per switch-in.",
 	},
+	curiousmedicine: {
+		inherit: true,
+		onStart(pokemon) {
+			for (const poke of this.getAllActive()) {
+				poke.clearBoosts();
+				this.add('-clearboost', poke, '[from] ability: Curious Medicine', '[of] ' + pokemon);
+			}
+		},
+		shortDesc: "On switch-in, all Pokemon have their stat stages reset to 0.",
+	},
 	deltastream: {
 		inherit: true,
 		// implemented in conditions.ts
@@ -40,8 +62,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	eartheater: {
 		inherit: true,
 		// implemented in moves.ts
-		desc: "This Pokemon is immune to Ground-type moves and restores 1/4 of its maximum HP, rounded down, when hit by a Ground-type move. It also absorbs Spikes and then restores 1/4 of its maximum HP on switch-in.",
-		shortDesc: "Heals 1/4 HP when hit by Ground moves; Absorbs spikes on switch-in; Ground immunity.",
+		desc: "This Pokemon is immune to Ground-type moves and restores 1/4 of its maximum HP, rounded down, when hit by a Ground-type move. It's also immune to Spikes.",
+		shortDesc: "Heals 1/4 HP when hit by Ground moves; Ground immunity; Spikes immunity.",
 	},
 	galewings: {
 		// for ngas
@@ -94,6 +116,16 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		desc: "This Pokemon's attacks and their effects ignore certain Items of other Pokemon.",
 		shortDesc: "This Pokemon's attacks and their effects ignore the Items of other Pokemon.",
+	},
+	neuroforce: {
+		inherit: true,
+		onModifyDamage(damage, source, target, move) {
+			if (move && target.getMoveHitData(move).typeMod > 0) {
+				return this.chainModify(1.5);
+			}
+		},
+		desc: "This Pokemon's attacks that are super effective against the target have their damage multiplied by 1.5.",
+		shortDesc: "This Pokemon's attacks that are super effective against the target do 1.5x damage.",
 	},
 	neutralizinggas: {
 		inherit: true,

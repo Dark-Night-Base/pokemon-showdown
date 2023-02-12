@@ -271,7 +271,49 @@ advanced_attack_moves: {
 },
 weak_attack_moves: {
 	bug: {
-
+		furycutter: ["9L1"],
+	},
+	dark: {
+	},
+	dragon: {
+		twister: ["9L1"],
+	},
+	electric: {
+	},
+	fighting: {
+	},
+	fire: {
+		ember: ["9L1"],
+	},
+	flying: {
+	},
+	ghost: {
+		astonish: ["9L1"],
+	},
+	grass: {
+	},
+	ground: {
+	},
+	ice: {
+		powdersnow: ["9L1"],
+	},
+	light: {
+	},
+	normal: {
+		scratch: ["9L1"],
+		tackle: ["9L1"],
+	},
+	poison: {
+	},
+	psychic: {
+	},
+	rock: {
+	},
+	steel: {
+		metalclaw: ["9L1"],
+	},
+	water: {
+		watergun: ["9L1"],
 	},
 },
 

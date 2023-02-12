@@ -2,7 +2,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	brutebonnet: {
 		inherit: true,
 		types: ["Poison", "Dark"],
-		baseStats: {hp: 111, atk: 127, def: 109, spa: 59, spd: 109, spe: 55},
+		baseStats: {hp: 111, atk: 117, def: 103, spa: 81, spd: 103, spe: 55},
 	},
 	calyrexice: {
 		inherit: true,
@@ -21,6 +21,10 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 80, atk: 120, def: 140, spa: 150, spd: 140, spe: 10},
 		abilities: {0: "Contrary"},
 	},
+	celesteela: {
+		inherit: true,
+		baseStats: {hp: 107, atk: 61, def: 113, spa: 127, spd: 101, spe: 61},
+	},
 	cramorant: {
 		inherit: true,
 		baseStats: {hp: 100, atk: 105, def: 85, spa: 105, spd: 95, spe: 60},
@@ -36,6 +40,26 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	cresselia: {
 		inherit: true,
 		baseStats: {hp: 120, atk: 70, def: 130, spa: 75, spd: 130, spe: 75},
+	},
+	genesectdouse: {
+		inherit: true,
+		types: ["Water", "Steel"],
+		baseStats: {hp: 71, atk: 120, def: 125, spa: 120, spd: 125, spe: 89},
+	},
+	genesectshock: {
+		inherit: true,
+		types: ["Electric", "Steel"],
+		baseStats: {hp: 71, atk: 120, def: 95, spa: 120, spd: 95, spe: 149},
+	},
+	genesectburn: {
+		inherit: true,
+		types: ["Fire", "Steel"],
+		baseStats: {hp: 71, atk: 140, def: 95, spa: 140, spd: 95, spe: 109},
+	},
+	genesectchill: {
+		inherit: true,
+		types: ["Ice", "Steel"],
+		baseStats: {hp: 71, atk: 160, def: 100, spa: 120, spd: 100, spe: 99},
 	},
 	gholdengo: {
 		inherit: true,
@@ -58,6 +82,10 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		inherit: true,
 		baseStats: {hp: 115, atk: 135, def: 115, spa: 135, spd: 75, spe: 125},
 		abilities: {0: "Delta Stream"},
+	},
+	sandyshocks: {
+		inherit: true,
+		baseStats: {hp: 85, atk: 81, def: 133, spa: 151, spd: 55, spe: 107},
 	},
 	toxapex: {
 		inherit: true,
