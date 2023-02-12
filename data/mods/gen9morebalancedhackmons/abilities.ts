@@ -9,7 +9,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onAfterMoveSecondary(target, source, move) {
 			if (move.type === "Psychic" && move.category === "Status") {
 				this.heal(source.baseMaxhp / 4);
-				this.add('-activate', source, 'ability: All-Seeing Eye');
+				// this.add('-activate', source, 'ability: All-Seeing Eye');
 			}
 		},
 		name: "All-Seeing Eye",
