@@ -85,7 +85,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	},
 	sandyshocks: {
 		inherit: true,
-		baseStats: {hp: 85, atk: 81, def: 131, spa: 151, spd: 55, spe: 107},
+		baseStats: {hp: 85, atk: 81, def: 133, spa: 151, spd: 55, spe: 107},
 	},
 	toxapex: {
 		inherit: true,
