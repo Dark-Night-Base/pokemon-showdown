@@ -135,7 +135,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			},
 		},
 		desc: "While this Pokemon is active, opposing Pokemon's moves and their effects ignore its own Ability. Does not affect the As One, Battle Bond, Comatose, Disguise, Gulp Missile, Ice Face, Multitype, Power Construct, RKS System, Schooling, Shields Down, Stance Change, or Zen Mode Abilities.",
-		shortDesc: "While this Pokemon is active, opposing Pokemon's Ability has no effect when it attacks.",
+		shortDesc: "While this Pokemon is active, opposing Pokemon's Ability has no effect when it uses moves.",
 	},
 	prankster: {
 		// for ngas
