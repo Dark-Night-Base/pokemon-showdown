@@ -1487,7 +1487,8 @@ export const Formats: FormatList = [
 			if (species.battleOnly || !species.nfe) return;
 			const crossIsUnreleased = (crossSpecies.tier === "Unreleased" && crossSpecies.isNonstandard === "Unobtainable" &&
 				!this.ruleTable.has('+unobtainable'));
-			if (crossSpecies.battleOnly || crossIsUnreleased || !crossSpecies.prevo) return;
+			// Nihilslave: remove the crossIsUnreleased judge here cuz it's bh
+			if (crossSpecies.battleOnly || !crossSpecies.prevo) return;
 			const crossPrevoSpecies = this.dex.species.get(crossSpecies.prevo);
 			if (!crossPrevoSpecies.prevo !== !species.prevo) return;
 
