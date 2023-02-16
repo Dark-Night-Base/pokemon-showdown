@@ -1445,7 +1445,8 @@ export const Formats: FormatList = [
 			if (!species.nfe) return [`${species.name} cannot cross evolve because it doesn't evolve.`];
 			const crossIsUnreleased = (crossSpecies.tier === "Unreleased" && crossSpecies.isNonstandard === "Unobtainable" &&
 				!this.ruleTable.has('+unobtainable'));
-			if (crossSpecies.battleOnly || crossIsUnreleased || !crossSpecies.prevo) {
+			// Nihilslave: remove the crossIsUnreleased judge here cuz it's bh
+			if (crossSpecies.battleOnly || !crossSpecies.prevo) {
 				return [`${species.name} cannot cross evolve into ${crossSpecies.name} because it isn't an evolution.`];
 			}
 			if (this.ruleTable.isRestrictedSpecies(crossSpecies)) {
