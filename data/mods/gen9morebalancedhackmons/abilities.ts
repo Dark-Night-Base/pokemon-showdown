@@ -1,4 +1,5 @@
 export const Abilities: {[k: string]: ModdedAbilityData} = {
+	// all-seeing eyes implemented in general abilities.ts
 	beadsofruin: {
 		inherit: true,
 		onStart(pokemon) {
