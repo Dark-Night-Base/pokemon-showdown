@@ -4899,7 +4899,7 @@ export const Formats: FormatList = [
 		gameType: 'freeforall',
 		rated: false,
 		tournamentShow: false,
-		ruleset: ['Obtainable', 'Team Preview', 'Nickname Clause', 'Endless Battle Clause', 'HP Percentage Mod', 'Cancel Mod'],
+		ruleset: ['Obtainable', 'Team Preview', 'Endless Battle Clause', 'HP Percentage Mod', 'Cancel Mod'],
 		banlist: [
 			'Aromatic Mist', 'Final Gambit', 'Flatter', 'Flower Shield', 'Follow Me', 'Gear Up', 'Magnetic Flux',
 			'Rage Powder', 'Rototiller', 'Spotlight', 'Swagger',
