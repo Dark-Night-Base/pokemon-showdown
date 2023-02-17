@@ -857,7 +857,7 @@ export const commands: Chat.ChatCommands = {
 		if (room.tour) {
 			return this.errorReply(this.tr`You can't offer ties in tournaments.`);
 		}
-		if (battle.turn < 100 && battle.format !== 'gen9nationaldexag') {
+		if (battle.turn < 100 && !battle.roomid.includes('gen9nationaldexag')) {
 			return this.errorReply(this.tr`It's too early to tie, please play until turn 100.`);
 		}
 		this.checkCan('roomvoice', null, room);
