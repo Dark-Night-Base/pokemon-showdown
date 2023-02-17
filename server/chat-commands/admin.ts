@@ -563,7 +563,8 @@ export const commands: Chat.ChatCommands = {
 	forcehotpatch: 'hotpatch',
 	async hotpatch(target, room, user, connection, cmd) {
 		if (!target) return this.parse('/help hotpatch');
-		this.canUseConsole();
+		// Nihilslave: no need to consolize this command, cuz it's restricted to only myself, i think
+		// this.canUseConsole();
 
 		if (user.id !== 'asouchihiro') return this.errorReply('Access Denied!');
 

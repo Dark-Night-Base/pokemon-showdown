@@ -718,10 +718,12 @@ export class User extends Chat.MessageContext {
 		}
 
 		// Nihilslave: Disable ALL unhealthy accounts
-		const banlist = ['nameofstrange', 'emanegnarts', 'pokemonshowdownsux', 'ultimatephoenixgod',
-			'dancingbeats', 'jamoftoxic', 'arayasoren', 'rokudoukyoukai', 'garannodou', 'dogofmakima',
-			'strangestrange', 'mamuerdusgelia', 'usptstrange', 'namestrange'];
+		// Nihilslave: this is no longer needed cuz we already fixed the ip problem
+		// const banlist = ['nameofstrange', 'emanegnarts', 'pokemonshowdownsux', 'ultimatephoenixgod',
+		// 	'dancingbeats', 'jamoftoxic', 'arayasoren', 'rokudoukyoukai', 'garannodou', 'dogofmakima',
+		// 	'strangestrange', 'mamuerdusgelia', 'usptstrange', 'namestrange'];
 		// if (userid.startsWith('n') && userid !== 'nihilslave') return false;
+		const banlist: ID[] = [];
 		if (banlist.includes(userid)) return false;
 
 		if (userid.length > 18) {
