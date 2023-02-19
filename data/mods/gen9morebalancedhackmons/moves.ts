@@ -222,17 +222,17 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		accuracy: 100,
 		pp: 10,
 	},
-	// strengthsap: {
-	// 	inherit: true,
-	// 	onHit(target, source) {
-	// 		if (target.boosts.atk === -6) return false;
-	// 		// for clear amulet, i'm lazy lol
-	// 		if (target.hasItem('clearamulet')) return false;
-	// 		const atk = target.getStat('atk', false, true);
-	// 		const success = this.boost({atk: -1}, target, source, null, false, true);
-	// 		return !!(this.heal(atk, source, target) || success);
-	// 	},
-	// },
+	strengthsap: {
+		inherit: true,
+		onHit(target, source) {
+			if (target.boosts.atk === -6) return false;
+			// for clear amulet, i'm lazy lol
+			if (target.hasItem('clearamulet')) return false;
+			const atk = target.getStat('atk', false, true);
+			const success = this.boost({atk: -1}, target, source, null, false, true);
+			return !!(this.heal(atk, source, target) || success);
+		},
+	},
 	stoneaxe: {
 		inherit: true,
 		self: undefined,
