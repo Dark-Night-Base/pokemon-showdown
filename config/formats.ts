@@ -3406,7 +3406,7 @@ export const Formats: FormatList = [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3672423/">National Dex AG</a>`,
 		],
 
-		mod: 'gen9',
+		mod: 'gen9nationaldexag',
 		ruleset: ['Standard NatDex'],
 	},
 	{
