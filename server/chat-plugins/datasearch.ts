@@ -561,7 +561,8 @@ function runDexsearch(target: string, cmd: string, canAll: boolean, message: str
 			gens: {}, moves: {}, types: {}, resists: {}, weak: {}, stats: {}, skip: false,
 		};
 		const parameters = andGroup.split("|");
-		if (parameters.length > 3) return {error: "No more than 3 alternatives for each parameter may be used."};
+		// Nihilslave: comment this restriction out under the request of Opacous
+		// if (parameters.length > 3) return {error: "No more than 3 alternatives for each parameter may be used."};
 		for (const parameter of parameters) {
 			let isNotSearch = false;
 			target = parameter.trim().toLowerCase();
