@@ -66,6 +66,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 			}
 		},
 		desc: "Holder's attacks that are super effective against the target do 1.3x damage.",
+		shortDesc: "Holder's attacks that are super effective against the target do 1.3x damage.",
 	},
 	griseousorb: {
 		inherit: true,
