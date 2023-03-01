@@ -14,7 +14,6 @@ superbindex.xslt
 npm-debug.log
 .eslintcache
 .eslintcache-no-types
-package-lock.json
 /tools/set-import/sets
 databases/*.db*
 *.o
