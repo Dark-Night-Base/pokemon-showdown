@@ -1589,17 +1589,7 @@ export const Formats: FormatList = [
 			for (const pokemon of this.p1.pokemon.concat(this.p2.pokemon)) {
 				const move = this.dex.moves.get(pokemon.set.item);
 				if (move.exists && move.category !== 'Status') {
-					// @ts-ignore
-					pokemon.forte = move;
-
-					// we have a better way for this now
-
-					// if (pokemon.baseSpecies.name.startsWith('Necrozma')) {
-					// 	pokemon.item = this.dex.toID('mimikiumz');
-					// }
-					// else {
-					// 	pokemon.item = this.dex.toID('ultranecroziumz');
-					// }
+					pokemon.m.forte = move;
 				}
 			}
 		},
@@ -1607,35 +1597,27 @@ export const Formats: FormatList = [
 		// see simulator-doc.txt and sim/battle-actions.ts
 		onBeforeMovePriority: 1,
 		onBeforeMove(source, target, move) {
-			// @ts-ignore
-			if (move && move.category !== 'Status' && source.forte && source.forte.beforeMoveCallback) {
-				// @ts-ignore
-				move.beforeMoveCallback = source.forte.beforeMoveCallback;
+			if (move && move.category !== 'Status' && source.m.forte && source.m.forte.beforeMoveCallback) {
+				move.beforeMoveCallback = source.m.forte.beforeMoveCallback;
 			}
 		},
 		onModifyPriorityPriority: 1,
 		onModifyPriority(priority, source, target, move) {
-			// @ts-ignore
-			if (move && move.category !== 'Status' && source.forte) {
+			if (move && move.category !== 'Status' && source.m.forte) {
 				let additionalPriority = 0;
-				// @ts-ignore
-				if (source.forte.id === 'grassyglide' &&
+				if (source.m.forte.id === 'grassyglide' &&
 					this.field.isTerrain('grassyterrain') &&
 					source.isGrounded()) additionalPriority += 1;
 				if (source.getAbility().id === 'triage' &&
-					// @ts-ignore
-					source.forte.flags.heal &&
+					source.m.forte.flags.heal &&
 					!move.flags.heal) additionalPriority += 3;
-				// @ts-ignore
-				return priority + source.forte.priority + additionalPriority;
+				return priority + source.m.forte.priority + additionalPriority;
 			}
 		},
 		onModifyTypePriority: 1,
 		onModifyType(move, pokemon, target) {
-			// @ts-ignore
-			if (move && move.category !== 'Status' && pokemon.forte && pokemon.forte.onModifyType) {
-				// @ts-ignore
-				this.singleEvent('ModifyType', pokemon.forte, null, pokemon, target, move, move);
+			if (move && move.category !== 'Status' && pokemon.m.forte && pokemon.m.forte.onModifyType) {
+				this.singleEvent('ModifyType', pokemon.m.forte, null, pokemon, target, move, move);
 			}
 		},
 		// don't know what this does, just keep it
@@ -1666,10 +1648,8 @@ export const Formats: FormatList = [
 		 * commented by Nihilslave
 		 */
 		onModifyMove(move, pokemon, target) {
-			// @ts-ignore
-			if (move.category !== 'Status' && pokemon.forte) {
-				// @ts-ignore
-				const forte = pokemon.forte;
+			if (move.category !== 'Status' && pokemon.m.forte) {
+				const forte = pokemon.m.forte;
 
 				Object.assign(move.flags, forte.flags);
 
@@ -1711,18 +1691,8 @@ export const Formats: FormatList = [
 						move.secondary = forte.secondary;
 					}
 				}
-				// if (forte.id === 'diamondstorm') { // it's a very strange sf move
-				// 	if (move.secondaries) {
-				// 		move.secondaries = move.secondaries.concat(forte.self);
-				// 	} else if (move.secondary) {
-				// 		move.secondaries = [move.secondary].concat(forte.self);
-				// 		move.secondary = undefined;
-				// 	} else {
-				// 		move.secondary = forte.self;
-				// 	}
-				// }
 				// self
-				if (forte.self) { // && forte.id !== 'diamondstorm') {
+				if (forte.self) {
 					if (move.self) {
 						for (const i in forte.self) {
 							// @ts-ignore
