@@ -1548,11 +1548,12 @@ export const Formats: FormatList = [
 		banlist: [
 			// TBA
 			'Copycat',
-			'Serene Grace', 'Triage',
+			'Serene Grace', 'Shield Dust', 'Triage',
 			'Endeavor', 'Ruination', 'Super Fang',
-			'Arm Thrust', 'Beat Up', 'Bone Rush', 'Bullet Seed', 'Fury Attack', 'Fury Swipes', 'Icicle Spear',
-			'Pin Missile', 'Population Bomb', 'Rock Blast', 'Scale Shot', 'Tail Slap', 'Water Shuriken', 'Double Hit', 'Double Kick',
-			'Dragon Darts', 'Dual Wingbeat', 'Surging Strikes', 'Triple Axel',
+			'Arm Thrust', 'Beat Up', 'Bone Rush', 'Bullet Seed', 'Dragon Darts', 'Dual Wingbeat', 'Fury Attack', 'Fury Swipes',
+			'Icicle Spear', 'Pin Missile', 'Population Bomb', 'Rock Blast', 'Scale Shot', 'Surging Strikes', 'Tail Slap',
+			'Triple Axel', 'Triple Dive', 'Water Shuriken', 'Double Hit', 'Double Kick',
+			'Covert Cloak',
 		],
 		validateSet(set, teamHas) {
 			const item = this.dex.moves.get(set.item);
@@ -1561,10 +1562,10 @@ export const Formats: FormatList = [
 			// keep nd moves just in case they are back one day
 			const restrictedMoves = ['Acid Spray', 'Anchor Shot', 'Beat Up', 'Bide', 'Bolt Beak', 'Dynamic Punch',
 				'Echoed Voice', 'Eerie Spell', 'Fishious Rend', 'Flip Turn', 'Frost Breath', 'Ice Ball', 'Inferno',
-				'Jaw Lock', 'Last Respects', 'Lumina Crash', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rage Fist',
-				'Rising Voltage', 'Rollout', 'Shell Side Arm', 'Spirit Shackle', 'Stored Power', 'Storm Throw',
-				'Terrain Pulse', 'Thousand Waves', 'U-turn', 'Volt Switch', 'Weather Ball', 'Wicked Blow',
-				'Zap Cannon',
+				'Jaw Lock', 'Last Respects', 'Lumina Crash', 'Mortal Spin', 'Nuzzle', 'Power Trip', 'Pursuit',
+				'Rage Fist', 'Rising Voltage', 'Rollout', 'Shell Side Arm', 'Spirit Shackle', 'Stored Power',
+				'Storm Throw', 'Terrain Pulse', 'Thousand Waves', 'U-turn', 'Volt Switch', 'Weather Ball',
+				'Wicked Blow', 'Zap Cannon',
 			];
 			if (item.type === 'Status' ||
 			(!!item.isNonstandard && item.isNonstandard !== 'Unobtainable') || // check if move is in gen 9
