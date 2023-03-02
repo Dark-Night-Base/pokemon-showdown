@@ -1552,7 +1552,7 @@ export const Formats: FormatList = [
 			'Endeavor', 'Ruination', 'Super Fang',
 			'Arm Thrust', 'Beat Up', 'Bone Rush', 'Bullet Seed', 'Dragon Darts', 'Dual Wingbeat', 'Fury Attack', 'Fury Swipes',
 			'Icicle Spear', 'Pin Missile', 'Population Bomb', 'Rock Blast', 'Scale Shot', 'Surging Strikes', 'Tail Slap',
-			'Triple Axel', 'Triple Dive', 'Water Shuriken', 'Double Hit', 'Double Kick',
+			'Triple Axel', 'Triple Dive', 'Twin Beam', 'Water Shuriken', 'Double Hit', 'Double Kick',
 			'Covert Cloak',
 		],
 		validateSet(set, teamHas) {
