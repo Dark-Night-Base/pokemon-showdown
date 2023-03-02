@@ -1671,6 +1671,14 @@ export const Formats: FormatList = [
 				// @ts-ignore
 				const forte = pokemon.forte;
 
+				// hardcode for hydrosteam cuz it's implemented badly
+				if (forte.id === 'hydrosteam') {
+					forte.onBasePower = function (basePower: number, src: Pokemon) {
+						this.debug('Sunny Day Hydro Steam boost');
+						return this.chainModify(1.5);
+					};
+				}
+
 				Object.assign(move.flags, forte.flags);
 
 				// pseudoWeather is a simple prop in practice cuz plasma fists is the only attack with it,
