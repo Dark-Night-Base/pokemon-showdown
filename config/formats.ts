@@ -1537,7 +1537,7 @@ export const Formats: FormatList = [
 	},
 	{
 		name: "[Gen 9] Fortemons BH",
-		desc: `BH，但精灵可以在道具栏携带攻击招式，然后该精灵的所有攻击招式共享其特效。<br />如，一只精灵道具栏带高速旋转，则其所有攻击招式都额外拥有扫钉和速度 +1 效果。<br />以下招式禁止作为道具携带：<br />&bullet; 一击必杀招式<br />&bullet; 降低命中率的招式<br />&bullet; 多段招式<br />&bullet; 正先制度招式<br />&bullet; 抓人招式<br />&bullet; 反击招式<br />&bullet; 比例伤害招式<br />&bullet; 蓄力招式<br />&bullet; 其它被禁止的招式：酸液炸弹、爆裂拳、回声、诡异咒语、快速折返、冰息、炼狱、扫墓、琉光冲激、晶光转转、蹭蹭脸颊、嚣张、愤怒之拳、电力上升、滚动、臂贝武器、自由落体、辅助力量、大地波动、急速折返、伏特替换、气象球、暗冥强击、电磁炮<br />BH, but Pok&eacute;mon can have attack moves in their item slot as fortes. Every attack move of a Pok&eacute;mon will additionally have the move effects of its forte.<br />E.g. A Pok&eacute;mon with Rapid Spin as its forte will give all its attacks the effect of hazard removal and +1 Spe, along with their original effects.<br />The following moves are banned as forte:<br />&bullet; OHKO Moves<br />&bullet; Moves That Lower Accuracy<br />&bullet; Multi-hit Moves<br />&bullet; Positive Priority Moves<br />&bullet; Trapping Moves<br />&bullet; Counter-like Moves<br />&bullet; Ratio Damage Moves<br />&bullet; Charge Moves<br />&bullet; Other Banned Moves: Acid Spray, Dynamic Punch, Echoed Voice, Eerie Spell, Flip Turn, Frost Breath, Inferno, Last Respects, Lumina Crash, Mortal Spin, Nuzzle, Power Trip, Rage Fist, Rising Voltage, Rollout, Shell Side Arm, Stored Power, Terrain Pulse, U-turn, Volt Switch, Weather Ball, Wicked Blow, Zap Cannon`,
+		desc: `BH，但精灵可以在道具栏携带攻击招式，然后该精灵的所有攻击招式共享其特效。<br />如，一只精灵道具栏带高速旋转，则其所有攻击招式都额外拥有扫钉和速度 +1 效果。<br />以下招式禁止作为道具携带：<br />&bullet; 一击必杀招式<br />&bullet; 降低命中率的招式<br />&bullet; 多段招式<br />&bullet; 正先制度招式<br />&bullet; 抓人招式<br />&bullet; 反击招式<br />&bullet; 比例伤害招式<br />&bullet; 蓄力招式<br />&bullet; 必定击中要害的招式<br />&bullet; 其它被禁止的招式：酸液炸弹、爆裂拳、回声、诡异咒语、快速折返、炼狱、扫墓、琉光冲激、晶光转转、蹭蹭脸颊、嚣张、愤怒之拳、电力上升、滚动、臂贝武器、自由落体、辅助力量、大地波动、急速折返、伏特替换、气象球、电磁炮<br />BH, but Pok&eacute;mon can have attack moves in their item slot as fortes. Every attack move of a Pok&eacute;mon will additionally have the move effects of its forte.<br />E.g. A Pok&eacute;mon with Rapid Spin as its forte will give all its attacks the effect of hazard removal and +1 Spe, along with their original effects.<br />The following moves are banned as forte:<br />&bullet; OHKO Moves<br />&bullet; Moves That Lower Accuracy<br />&bullet; Multi-hit Moves<br />&bullet; Positive Priority Moves<br />&bullet; Trapping Moves<br />&bullet; Counter-like Moves<br />&bullet; Ratio Damage Moves<br />&bullet; Charge Moves<br />&bullet; Always-Crit Moves<br />&bullet; Other Banned Moves: Acid Spray, Dynamic Punch, Echoed Voice, Eerie Spell, Flip Turn, Inferno, Last Respects, Lumina Crash, Mortal Spin, Nuzzle, Power Trip, Rage Fist, Rising Voltage, Rollout, Shell Side Arm, Stored Power, Terrain Pulse, U-turn, Volt Switch, Weather Ball, Zap Cannon`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3638520/">Fortemons</a>`,
 		],
@@ -1561,11 +1561,10 @@ export const Formats: FormatList = [
 			const problems = [];
 			// keep nd moves just in case they are back one day
 			const restrictedMoves = ['Acid Spray', 'Anchor Shot', 'Beat Up', 'Bide', 'Bolt Beak', 'Dynamic Punch',
-				'Echoed Voice', 'Eerie Spell', 'Fishious Rend', 'Flip Turn', 'Frost Breath', 'Ice Ball', 'Inferno',
-				'Jaw Lock', 'Last Respects', 'Lumina Crash', 'Mortal Spin', 'Nuzzle', 'Power Trip', 'Pursuit',
-				'Rage Fist', 'Rising Voltage', 'Rollout', 'Shell Side Arm', 'Spirit Shackle', 'Stored Power',
-				'Storm Throw', 'Terrain Pulse', 'Thousand Waves', 'U-turn', 'Volt Switch', 'Weather Ball',
-				'Wicked Blow', 'Zap Cannon',
+				'Echoed Voice', 'Eerie Spell', 'Fishious Rend', 'Flip Turn', 'Ice Ball', 'Inferno', 'Jaw Lock',
+				'Last Respects', 'Lumina Crash', 'Mortal Spin', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rage Fist',
+				'Rising Voltage', 'Rollout', 'Shell Side Arm', 'Spirit Shackle', 'Stored Power', 'Terrain Pulse',
+				'Thousand Waves', 'U-turn', 'Volt Switch', 'Weather Ball', 'Zap Cannon',
 			];
 			if (item.type === 'Status' ||
 			(!!item.isNonstandard && item.isNonstandard !== 'Unobtainable') || // check if move is in gen 9
@@ -1577,6 +1576,7 @@ export const Formats: FormatList = [
 			item.volatileStatus === 'partiallytrapped' ||
 			item.damageCallback && item.id !== 'psywave' ||
 			item.flags['charge'] ||
+			item.willCrit ||
 			restrictedMoves.includes(item.name)) { problems.push(`${item.name} is banned as a Forte.`); }
 			const itemStr = set.item;
 			set.item = '';
