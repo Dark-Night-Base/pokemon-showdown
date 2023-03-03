@@ -1,3 +1,5 @@
+import { Utils } from "../../../lib";
+
 export const Scripts: ModdedBattleScriptsData = {
 	runAction(action: Action) {
 		const pokemonOriginalHP = action.pokemon?.hp;
@@ -157,29 +159,41 @@ export const Scripts: ModdedBattleScriptsData = {
 			action.target.status = '';
 			action.target.hp = 1; // Needed so hp functions works
 			// Nihilslave: add code here so that battle-only formes return to their base formes
-			if (action.target.species.battleOnly || action.target.species.forme && action.target.species.forme.startsWith("Mega")) {
-				let rawSpeciesString: string;
-				if (action.target.species.battleOnly) {
-					if (typeof action.target.species.battleOnly === 'string') {
-						rawSpeciesString = action.target.species.battleOnly;
-					} else {
-						rawSpeciesString = action.target.species.battleOnly[0];
-					}
-				} else {
-					rawSpeciesString = action.target.species.baseSpecies;
-				}
-				const rawSpecies = this.dex.species.get(rawSpeciesString);
+			if (action.target.m.ndagRawSpecies) {
+				const rawSpecies = action.target.m.ndagRawSpecies;
+				const rawAbility = action.target.m.ndagRawAbility;
+				// recover species
 				const species = action.target.setSpecies(rawSpecies);
-				action.target.baseSpecies = rawSpecies;
+				action.target.baseSpecies = action.target.m.ndagRawSpecies;
 				action.target.details = species.name + (action.target.level === 100 ? '' : ', L' + action.target.level) +
 					(action.target.gender === '' ? '' : ', ' + action.target.gender) + (action.target.set.shiny ? ', shiny' : '');
-				if (species.id !== 'zygarde') {
-					action.target.setAbility(species.abilities['0'], null, true);
-				} else {
-					action.target.setAbility(species.abilities['S'], null, true);
-				}
+				// recover ability
+				action.target.setAbility(rawAbility, null, true);
 				action.target.baseAbility = action.target.ability;
 			}
+			// if (action.target.species.battleOnly || action.target.species.forme && action.target.species.forme.startsWith("Mega")) {
+			// 	let rawSpeciesString: string;
+			// 	if (action.target.species.battleOnly) {
+			// 		if (typeof action.target.species.battleOnly === 'string') {
+			// 			rawSpeciesString = action.target.species.battleOnly;
+			// 		} else {
+			// 			rawSpeciesString = action.target.species.battleOnly[0];
+			// 		}
+			// 	} else {
+			// 		rawSpeciesString = action.target.species.baseSpecies;
+			// 	}
+			// 	const rawSpecies = this.dex.species.get(rawSpeciesString);
+			// 	const species = action.target.setSpecies(rawSpecies);
+			// 	action.target.baseSpecies = rawSpecies;
+			// 	action.target.details = species.name + (action.target.level === 100 ? '' : ', L' + action.target.level) +
+			// 		(action.target.gender === '' ? '' : ', ' + action.target.gender) + (action.target.set.shiny ? ', shiny' : '');
+			// 	if (species.id !== 'zygarde') {
+			// 		action.target.setAbility(species.abilities['0'], null, true);
+			// 	} else {
+			// 		action.target.setAbility(species.abilities['S'], null, true);
+			// 	}
+			// 	action.target.baseAbility = action.target.ability;
+			// }
 			// Nihilslave: end
 			action.target.sethp(action.target.maxhp / 2);
 			this.add('-heal', action.target, action.target.getHealth, '[from] move: Revival Blessing');
@@ -320,5 +334,72 @@ export const Scripts: ModdedBattleScriptsData = {
 		}
 
 		return false;
+	},
+	pokemon: {
+		formeChange(
+			// @ts-ignore
+			speciesId: string | Species, source: Effect = this.battle.effect,
+			isPermanent?: boolean, message?: string
+		) {
+			const rawSpecies = this.battle.dex.species.get(speciesId);
+	
+			const species = this.setSpecies(rawSpecies, source);
+			if (!species) return false;
+	
+			if (this.battle.gen <= 2) return true;
+	
+			// The species the opponent sees
+			const apparentSpecies =
+				this.illusion ? this.illusion.species.name : species.baseSpecies;
+			if (isPermanent) {
+				// Nihilslave: save raw species
+				this.m.ndagRawSpecies = Utils.deepClone(this.baseSpecies);
+				// Nihilslave: save raw ability
+				this.m.ndagRawAbility = this.ability;
+				this.baseSpecies = rawSpecies;
+				this.details = species.name + (this.level === 100 ? '' : ', L' + this.level) +
+					(this.gender === '' ? '' : ', ' + this.gender) + (this.set.shiny ? ', shiny' : '');
+				let details = (this.illusion || this).details;
+				if (this.terastallized) details += `, tera:${this.terastallized}`;
+				this.battle.add('detailschange', this, details);
+				if (source.effectType === 'Item') {
+					if (source.zMove) {
+						this.battle.add('-burst', this, apparentSpecies, species.requiredItem);
+						this.moveThisTurnResult = true; // Ultra Burst counts as an action for Truant
+					} else if (source.onPrimal) {
+						if (this.illusion) {
+							this.ability = '';
+							this.battle.add('-primal', this.illusion);
+						} else {
+							this.battle.add('-primal', this);
+						}
+					} else {
+						this.battle.add('-mega', this, apparentSpecies, species.requiredItem);
+						this.moveThisTurnResult = true; // Mega Evolution counts as an action for Truant
+					}
+				} else if (source.effectType === 'Status') {
+					// Shaymin-Sky -> Shaymin
+					this.battle.add('-formechange', this, species.name, message);
+				}
+			} else {
+				if (source.effectType === 'Ability') {
+					this.battle.add('-formechange', this, species.name, message, `[from] ability: ${source.name}`);
+				} else {
+					this.battle.add('-formechange', this, this.illusion ? this.illusion.species.name : species.name, message);
+				}
+			}
+			if (isPermanent && !['disguise', 'iceface'].includes(source.id)) {
+				if (this.illusion) {
+					this.ability = ''; // Don't allow Illusion to wear off
+				}
+				this.setAbility(species.abilities['0'], null, true);
+				this.baseAbility = this.ability;
+			}
+			if (this.terastallized) {
+				this.knownType = true;
+				this.apparentType = this.terastallized;
+			}
+			return true;
+		}
 	}
 };
