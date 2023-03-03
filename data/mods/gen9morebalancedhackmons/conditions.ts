@@ -58,6 +58,10 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 	sunnyday: {
 		inherit: true,
 		onWeatherModifyDamage(damage, attacker, defender, move) {
+			if (move.id === 'hydrosteam') {
+				this.debug('Sunny Day Hydro Steam boost');
+				return this.chainModify(1.5);
+			}
 			if (move.type === 'Fire') {
 				this.debug('Sunny Day fire boost');
 				return this.chainModify(1.5);
