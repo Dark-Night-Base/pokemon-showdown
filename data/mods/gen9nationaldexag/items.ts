@@ -273,6 +273,11 @@ export const Items: {[k:string]:ModdedItemData} = {
         isNonstandard: null
     },
 
+    watergem: {
+        inherit: true,
+        isNonstandard: null
+    },
+
     watmelberry: {
         inherit: true,
         isNonstandard: null
