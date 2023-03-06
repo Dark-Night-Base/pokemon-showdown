@@ -1,6 +1,7 @@
 // Note: These are the rules that formats use
 
 import {Utils} from "../lib";
+import {Chat} from "../server/chat";
 import {Pokemon} from "../sim/pokemon";
 import {Teams} from "../sim/teams";
 
@@ -2683,8 +2684,6 @@ export const Rulesets: {[k: string]: FormatData} = {
 		effectType: 'Rule',
 		name: 'Team Species Preview',
 		desc: "Allows each player to see the Pok&eacute;mon on their opponent's team and those Pok&eacute;mon's types and base stats before they choose their lead Pok&eacute;mon",
-		// todo: see othermetas.ts:mixandmega to show better info
-		// todo: don't show the words for team preview
 		// todo: pokemon icon doesn't show in replay, try to fix client//replay-embed.js
 		onTeamPreview() {
 			this.add('clearpoke');
@@ -2693,33 +2692,27 @@ export const Rulesets: {[k: string]: FormatData} = {
 					const details = pokemon.details;
 					this.add('poke', pokemon.side.id, details, '');
 				}
-				let buf = 'raw|';
+			}
+			this.makeRequest('teampreview');
+			for (const side of this.sides) {
+				let buf = `raw|<strong>${side.name}'s team details:</strong><br/>`;
 				for (const pokemon of side.pokemon) {
-					if (!buf.endsWith('|')) buf += '/</span>&#8203;';
-					buf += `<span style="white-space:nowrap"><psicon pokemon="${pokemon.species.id}" />`;
-					for (const type of pokemon.species.types) {
-						buf += `<psicon type="${type}" /> `;
-					}
-					let statName: StatID;
-					for (statName in pokemon.species.baseStats) {
-						buf += `${pokemon.species.baseStats[statName]}/`;
-					}
+					if (!buf.endsWith('|')) buf += '</span>&#8203;';
+					const detailSpecies = Utils.deepClone(pokemon.species);
+					detailSpecies.tier = '';
+					detailSpecies.abilities = {0: side.name};
+					buf += `${Chat.getDataPokemonHTML(detailSpecies)}`;
 				}
 				this.add(`${buf}</span>`);
 			}
-			this.makeRequest('teampreview');
 		},
 		onSwitchIn(pokemon) {
 			let buf = 'raw|';
 			if (!buf.endsWith('|')) buf += '/</span>&#8203;';
-			buf += `<span style="white-space:nowrap"><psicon pokemon="${pokemon.species.id}" />`;
-			for (const type of pokemon.species.types) {
-				buf += `<psicon type="${type}" /> `;
-			}
-			let statName: StatID;
-			for (statName in pokemon.species.baseStats) {
-				buf += `${pokemon.species.baseStats[statName]}/`;
-			}
+			const detailSpecies = Utils.deepClone(pokemon.species);
+			detailSpecies.tier = '';
+			detailSpecies.abilities = {0: `<strong>${pokemon.side.name}</strong>`};
+			buf += `${Chat.getDataPokemonHTML(detailSpecies)}`;
 			this.add(`${buf}</span>`);
 		},
 	},
