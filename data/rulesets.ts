@@ -1,7 +1,6 @@
 // Note: These are the rules that formats use
 
 import {Utils} from "../lib";
-import {Chat} from "../server/chat";
 import {Pokemon} from "../sim/pokemon";
 import {Teams} from "../sim/teams";
 
@@ -2698,10 +2697,33 @@ export const Rulesets: {[k: string]: FormatData} = {
 				let buf = `raw|<strong>${side.name}'s team details:</strong><br/>`;
 				for (const pokemon of side.pokemon) {
 					if (!buf.endsWith('|')) buf += '</span>&#8203;';
-					const detailSpecies = Utils.deepClone(pokemon.species);
-					detailSpecies.tier = '';
-					detailSpecies.abilities = {0: side.name};
-					buf += `${Chat.getDataPokemonHTML(detailSpecies)}`;
+					const species = Utils.deepClone(pokemon.species);
+					// manually print details cuz using Chat.getDataPokemonHTML() will cause client build issues
+					buf += '<div class="message"><ul class="utilichart">';
+					buf += '<li class="result">';
+					buf += `<span class="col iconcol"><psicon pokemon="${species.id}"/></span> `;
+					buf += `<span class="col pokemonnamecol" style="white-space:nowrap"><a href="https://dex.pokemonshowdown.com/pokemon/${species.id}" target="_blank">${species.name}</a></span> `;
+					buf += '<span class="col typecol">';
+					if (species.types) {
+						for (const type of species.types) {
+							buf += `<img src="https://psc.sciroccogti.top/sprites/types/${type}.png" alt="${type}" height="14" width="32">`;
+						}
+					}
+					buf += '</span> ';
+					buf += '<span style="float:left;min-height:26px">';
+					buf += '<span class="col abilitycol">' + side.name + '</span>';
+					buf += '</span>';
+					buf += '<span style="float:left;min-height:26px">';
+					buf += '<span class="col statcol"><em>HP</em><br />' + species.baseStats.hp + '</span> ';
+					buf += '<span class="col statcol"><em>Atk</em><br />' + species.baseStats.atk + '</span> ';
+					buf += '<span class="col statcol"><em>Def</em><br />' + species.baseStats.def + '</span> ';
+					buf += '<span class="col statcol"><em>SpA</em><br />' + species.baseStats.spa + '</span> ';
+					buf += '<span class="col statcol"><em>SpD</em><br />' + species.baseStats.spd + '</span> ';
+					buf += '<span class="col statcol"><em>Spe</em><br />' + species.baseStats.spe + '</span> ';
+					buf += '<span class="col bstcol"><em>BST<br />' + species.bst + '</em></span> ';
+					buf += '</span>';
+					buf += '</li>';
+					buf += '<li style="clear:both"></li></ul></div>';
 				}
 				this.add(`${buf}</span>`);
 			}
@@ -2709,10 +2731,33 @@ export const Rulesets: {[k: string]: FormatData} = {
 		onSwitchIn(pokemon) {
 			let buf = 'raw|';
 			if (!buf.endsWith('|')) buf += '/</span>&#8203;';
-			const detailSpecies = Utils.deepClone(pokemon.species);
-			detailSpecies.tier = '';
-			detailSpecies.abilities = {0: `<strong>${pokemon.side.name}</strong>`};
-			buf += `${Chat.getDataPokemonHTML(detailSpecies)}`;
+			const species = Utils.deepClone(pokemon.species);
+			// manually print details cuz using Chat.getDataPokemonHTML() will cause client build issues
+			buf += '<div class="message"><ul class="utilichart">';
+			buf += '<li class="result">';
+			buf += `<span class="col iconcol"><psicon pokemon="${species.id}"/></span> `;
+			buf += `<span class="col pokemonnamecol" style="white-space:nowrap"><a href="https://dex.pokemonshowdown.com/pokemon/${species.id}" target="_blank">${species.name}</a></span> `;
+			buf += '<span class="col typecol">';
+			if (species.types) {
+				for (const type of species.types) {
+					buf += `<img src="https://psc.sciroccogti.top/sprites/types/${type}.png" alt="${type}" height="14" width="32">`;
+				}
+			}
+			buf += '</span> ';
+			buf += '<span style="float:left;min-height:26px">';
+			buf += '<span class="col abilitycol"><strong>' + pokemon.side.name + '</strong></span>';
+			buf += '</span>';
+			buf += '<span style="float:left;min-height:26px">';
+			buf += '<span class="col statcol"><em>HP</em><br />' + species.baseStats.hp + '</span> ';
+			buf += '<span class="col statcol"><em>Atk</em><br />' + species.baseStats.atk + '</span> ';
+			buf += '<span class="col statcol"><em>Def</em><br />' + species.baseStats.def + '</span> ';
+			buf += '<span class="col statcol"><em>SpA</em><br />' + species.baseStats.spa + '</span> ';
+			buf += '<span class="col statcol"><em>SpD</em><br />' + species.baseStats.spd + '</span> ';
+			buf += '<span class="col statcol"><em>Spe</em><br />' + species.baseStats.spe + '</span> ';
+			buf += '<span class="col bstcol"><em>BST<br />' + species.bst + '</em></span> ';
+			buf += '</span>';
+			buf += '</li>';
+			buf += '<li style="clear:both"></li></ul></div>';
 			this.add(`${buf}</span>`);
 		},
 	},
