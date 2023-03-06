@@ -163,6 +163,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				const rawSpecies = action.target.m.ndagRawSpecies;
 				const rawAbility = action.target.m.ndagRawAbility;
 				// recover species
+				action.target.maxhp = 0; // add this line to reset zygarde-c's maxhp
 				const species = action.target.setSpecies(rawSpecies);
 				action.target.baseSpecies = action.target.m.ndagRawSpecies;
 				action.target.details = species.name + (action.target.level === 100 ? '' : ', L' + action.target.level) +
