@@ -2731,7 +2731,8 @@ export const Rulesets: {[k: string]: FormatData} = {
 		onSwitchIn(pokemon) {
 			let buf = 'raw|';
 			if (!buf.endsWith('|')) buf += '/</span>&#8203;';
-			const species = Utils.deepClone(pokemon.species);
+			// todo: test this
+			const species = Utils.deepClone(pokemon.illusion ? pokemon.illusion.species : pokemon.species);
 			// manually print details cuz using Chat.getDataPokemonHTML() will cause client build issues
 			buf += '<div class="message"><ul class="utilichart">';
 			buf += '<li class="result">';
