@@ -183,7 +183,7 @@ export const moveToPoint: {[k: string]: number} = {
 	bellydrum: 2.5,
 	bitterblade: 1.5,
 	blastburn: 1.5,
-	blazingtorque: 1,
+	blazingtorque: 1.5,
 	bleakwindstorm: 1,
 	blizzard: 1.5,
 	block: 1,
