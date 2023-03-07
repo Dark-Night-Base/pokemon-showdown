@@ -2679,6 +2679,22 @@ export const Rulesets: {[k: string]: FormatData} = {
 			}
 		},
 	},
+	maxmovesclause: {
+		effectType: 'ValidatorRule',
+		name: 'Max Moves Clause',
+		desc: "Bans Max moves",
+		onBegin() {
+			this.add('rule', 'Max Moves Clause: Max moves are banned');
+		},
+		onValidateSet(set) {
+			for (const move of set.moves) {
+				const moveData = this.dex.moves.get(move);
+				if (moveData.isMax) {
+					return [`${set.species}'s move ${moveData.name} is banned by Max Moves Clause.`];
+				}
+			}
+		},
+	},
 	teamspeciespreview: {
 		effectType: 'Rule',
 		name: 'Team Species Preview',

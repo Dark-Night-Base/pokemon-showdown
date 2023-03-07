@@ -336,7 +336,7 @@ export const Formats: FormatList = [
 		mod: 'gen9',
 		debug: true,
 		ruleset: ['Createmons Mod = 100000', 'Team Species Preview', 'Adjust Level = 100', 'Overflow Stat Mod',
-			'Species Clause', 'Signature Items Clause', 'Z-Move Clause', 'CFZ Clause', 'Terastal Clause',
+			'Species Clause', 'Signature Items Clause', 'Z-Move Clause', 'CFZ Clause', 'Max Moves Clause', 'Terastal Clause',
 			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Nickname Clause',
 			'-CAP',
 		],
