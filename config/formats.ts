@@ -44,7 +44,7 @@ export const Formats: FormatList = [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3711482/">More Balanced Hackmons v4</a>`,
 		],
 		mod: 'gen9morebalancedhackmons',
-		debug: true,
+		// debug: true,
 		ruleset: ['-Nonexistent', 'Standard NatDex', 'Forme Clause', 'Sleep Moves Clause', 'Ability Clause = 2', 'OHKO Clause', 'Evasion Moves Clause', 'Dynamax Clause', 'CFZ Clause', '!Obtainable'],
 		banlist: [
 			'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 'Darmanitan-Galar-Zen', 'Arena Trap',
@@ -334,7 +334,7 @@ export const Formats: FormatList = [
 			`&bullet; Type /help crtm to see more usages of /crtm command. <br />`,
 
 		mod: 'gen9',
-		debug: true,
+		// debug: true,
 		ruleset: ['Createmons Mod = 100000', 'Team Species Preview', 'Adjust Level = 100', 'Overflow Stat Mod',
 			'Species Clause', 'Signature Items Clause', 'Z-Move Clause', 'CFZ Clause', 'Max Moves Clause', 'Terastal Clause',
 			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Nickname Clause',
@@ -945,7 +945,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'fortemons',
-		debug: true,
+		// debug: true,
 		ruleset: ['[Gen 9] Balanced Hackmons', 'Forte Clause'],
 		banlist: [
 			// TBA

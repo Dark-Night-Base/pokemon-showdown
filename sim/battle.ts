@@ -340,21 +340,63 @@ export class Battle {
 		return `Battle: ${this.format}`;
 	}
 
-	// nihilslave: note that speedSort() also call a prng function
+	// Nihilslave: note that speedSort() also call a prng function
 	random(m?: number, n?: number) {
-		// todo: arguments.callee.caller
-		// this.debug(`PRNG.next(${(m === undefined) ? '' : ((n === undefined) ? m : `${m},${n}`)})`);
+		// we cannot use arguments.callee.caller under strict mode
+
+		// const reg = /([^(]+)@|at ([^(]+) \(/g;
+        // const RegexResult = reg.exec(new Error().stack || '') || [];
+        // const caller = RegexResult[2] || RegexResult[3];
+		// this.debug(caller);
+
+		// the commented code also works strangely, let's just print all the stack
+		// avoid potential lag
+		if (this.debugMode) {
+			const stack = new Error().stack || '';
+			const stackInfo = stack.split('at ').map((value, index, array) =>
+			// remove some unknown char after each line
+				index !== array.length - 1 ? value.substring(0, value.length - 5) : value);
+			if (stackInfo.length) {
+				this.debug('Called at ' + stackInfo[1]);
+				for (let i = 2; i < stackInfo.length; ++i) {
+					this.debug('at ' + stackInfo[i]);
+				}
+			}
+			this.debug(`PRNG.next(${(m === undefined) ? '' : ((n === undefined) ? m : `${m},${n}`)})`);
+		}
 		return this.prng.next(m, n);
 	}
 
 	randomChance(numerator: number, denominator: number) {
-		// this.debug(`PRNG.randomChance(${numerator},${denominator})`);
+		if (this.debugMode) {
+			const stack = new Error().stack || '';
+			const stackInfo = stack.split('at ').map((value, index, array) =>
+				index !== array.length - 1 ? value.substring(0, value.length - 5) : value);
+			if (stackInfo.length) {
+				this.debug('Called at ' + stackInfo[1]);
+				for (let i = 2; i < stackInfo.length; ++i) {
+					this.debug('at ' + stackInfo[i]);
+				}
+			}
+			this.debug(`PRNG.randomChance(${numerator},${denominator})`);
+		}
 		if (this.forceRandomChance !== null) return this.forceRandomChance;
 		return this.prng.randomChance(numerator, denominator);
 	}
 
 	sample<T>(items: readonly T[]): T {
-		// this.debug(`PRNG.sample(0,${items.length})`);
+		if (this.debugMode) {
+			const stack = new Error().stack || '';
+			const stackInfo = stack.split('at ').map((value, index, array) =>
+				index !== array.length - 1 ? value.substring(0, value.length - 5) : value);
+			if (stackInfo.length) {
+				this.debug('Called at ' + stackInfo[1]);
+				for (let i = 2; i < stackInfo.length; ++i) {
+					this.debug('at ' + stackInfo[i]);
+				}
+			}
+			this.debug(`PRNG.sample(0,${items.length})`);
+		}
 		return this.prng.sample(items);
 	}
 
@@ -452,7 +494,19 @@ export class Battle {
 				}
 			}
 			if (nextIndexes.length > 1) {
-				// this.debug(`speedSort()->PRNG.shuffle(${sorted},${sorted + nextIndexes.length})`);
+				// Nihilslave: debug info for rngcontroller
+				if (this.debugMode) {
+					const stack = new Error().stack || '';
+					const stackInfo = stack.split('at ').map((value, index, array) =>
+						index !== array.length - 1 ? value.substring(0, value.length - 5) : value);
+					if (stackInfo.length) {
+						this.debug('Called at ' + stackInfo[1]);
+						for (let i = 2; i < stackInfo.length; ++i) {
+							this.debug('at ' + stackInfo[i]);
+						}
+					}
+					this.debug(`speedSort()->PRNG.shuffle(${sorted},${sorted + nextIndexes.length})`);
+				}
 				this.prng.shuffle(list, sorted, sorted + nextIndexes.length);
 			}
 			sorted += nextIndexes.length;
