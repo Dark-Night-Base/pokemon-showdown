@@ -31,6 +31,13 @@ export const Rulesets: {[k: string]: FormatData} = {
 		],
 		banlist: ['Soul Dew'],
 	},
+	showdown: {
+		effectType: 'ValidatorRule',
+		name: 'Showdown',
+		ruleset: [
+			'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause',
+		],
+	},
 	flatrules: {
 		effectType: 'ValidatorRule',
 		name: 'Flat Rules',
