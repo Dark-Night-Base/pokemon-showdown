@@ -968,6 +968,7 @@ export const Formats: FormatList = [
 				'Rising Voltage', 'Rollout', 'Shell Side Arm', 'Spirit Shackle', 'Stored Power', 'Terrain Pulse',
 				'Thousand Waves', 'U-turn', 'Volt Switch', 'Weather Ball', 'Zap Cannon',
 			];
+			// todo: ban VoltTurn by item.selfSwitch, remember to update the desc
 			if (item.type === 'Status' ||
 			(!!item.isNonstandard && item.isNonstandard !== 'Unobtainable') || // check if move is in gen 9
 			item.ohko ||
@@ -2244,11 +2245,11 @@ export const Formats: FormatList = [
 		mod: 'gen9',
 		ruleset: ['Standard OMs', '!Obtainable Abilities', 'Ability Clause = 1', 'Sleep Moves Clause', 'Terastal Clause', 'Min Source Gen = 9'],
 		banlist: [
-			'Annihilape', 'Dragapult', 'Flutter Mane', 'Iron Bundle', 'Iron Hands', 'Iron Valiant', 'Koraidon', 'Miraidon', 'Slaking',
-			'Arena Trap', 'Comatose', 'Contrary', 'Fur Coat', 'Gorilla Tactics', 'Huge Power', 'Ice Scales', 'Illusion', 'Imposter',
-			'Innards Out', 'Magic Bounce', 'Magnet Pull', 'Moody', 'Neutralizing Gas', 'Parental Bond', 'Poison Heal', 'Pure Power',
-			'Shadow Tag', 'Simple', 'Speed Boost', 'Stakeout', 'Unburden', 'Water Bubble', 'Wonder Guard', 'King\'s Rock', 'Baton Pass',
-			'Revival Blessing',
+			'Annihilape', 'Baxcalibur', 'Dragapult', 'Flutter Mane', 'Great Tusk', 'Gholdengo', 'Houndstone', 'Iron Bundle', 'Iron Hands',
+			'Iron Valiant', 'Koraidon', 'Miraidon', 'Noivern', 'Slaking', 'Walking Wake', 'Arena Trap', 'Comatose', 'Contrary', 'Fur Coat',
+			'Gorilla Tactics', 'Huge Power', 'Ice Scales', 'Illusion', 'Imposter', 'Innards Out', 'Magic Bounce', 'Magnet Pull', 'Moody',
+			'Neutralizing Gas', 'Orichalcum Pulse', 'Parental Bond', 'Poison Heal', 'Pure Power', 'Shadow Tag', 'Simple', 'Speed Boost',
+			'Stakeout', 'Unburden', 'Water Bubble', 'Wonder Guard', 'King\'s Rock', 'Baton Pass', 'Revival Blessing',
 		],
 	},
 	{
@@ -2260,8 +2261,8 @@ export const Formats: FormatList = [
 
 		mod: 'mixandmega',
 		ruleset: ['Standard OMs', 'Evasion Items Clause', 'Evasion Abilities Clause', 'Sleep Moves Clause', 'Min Source Gen = 9'],
-		banlist: ['Koraidon', 'Miraidon', 'Beedrillite', 'Blazikenite', 'Gengarite', 'Kangaskhanite', 'Mawilite', 'Medichamite', 'Moody', 'Shadow Tag', 'Baton Pass', 'Shed Tail', 'Zap Cannon'],
-		restricted: ['Flutter Mane', 'Gengar', 'Iron Bundle', 'Kilowattrel', 'Slaking'],
+		banlist: ['Koraidon', 'Miraidon', 'Beedrillite', 'Blazikenite', 'Gengarite', 'Kangaskhanite', 'Mawilite', 'Medichamite', 'Moody', 'Shadow Tag', 'Baton Pass', 'Shed Tail'],
+		restricted: ['Flutter Mane', 'Gengar', 'Iron Bundle', 'Kilowattrel', 'Sandy Shocks', 'Slaking'],
 		onValidateTeam(team) {
 			const itemTable = new Set<ID>();
 			for (const set of team) {
@@ -2270,7 +2271,7 @@ export const Formats: FormatList = [
 				const natdex = this.ruleTable.has('standardnatdex');
 				if (natdex && item.id !== 'ultranecroziumz') continue;
 				const species = this.dex.species.get(set.species);
-				if (species.isNonstandard && !this.ruleTable.has(`+${this.toID(species.isNonstandard)}`)) {
+				if (species.isNonstandard && !this.ruleTable.has(`+pokemontag:${this.toID(species.isNonstandard)}`)) {
 					return [`${species.baseSpecies} does not exist in gen 9.`];
 				}
 				if (natdex && species.name.startsWith('Necrozma-') && item.id === 'ultranecroziumz') {
@@ -2320,7 +2321,7 @@ export const Formats: FormatList = [
 		mod: 'gen9',
 		ruleset: ['Standard OMs', 'Sleep Moves Clause', 'Godly Gift Mod', 'Min Source Gen = 9'],
 		banlist: [
-			'Blissey', 'Chansey', 'Espathra', 'Great Tusk', 'Iron Hands', 'Iron Valiant', 'Arena Trap', 'Huge Power',
+			'Blissey', 'Chansey', 'Great Tusk', 'Iron Hands', 'Iron Valiant', 'Arena Trap', 'Huge Power',
 			'Moody', 'Pure Power', 'Shadow Tag', 'Swift Swim', 'Booster Energy', 'Baton Pass',
 		],
 	},
@@ -2333,8 +2334,14 @@ export const Formats: FormatList = [
 
 		mod: 'gen9',
 		ruleset: ['Standard OMs', 'STABmons Move Legality', 'Sleep Moves Clause', 'Min Source Gen = 9'],
-		banlist: ['Chien-Pao', 'Chi-Yu', 'Cloyster', 'Dragapult', 'Flutter Mane', 'Iron Bundle', 'Komala', 'Koraidon', 'Miraidon', 'Arena Trap', 'Moody', 'Shadow Tag', 'Booster Energy', 'King\'s Rock', 'Baton Pass'],
-		restricted: ['Acupressure', 'Astral Barrage', 'Belly Drum', 'Dire Claw', 'Extreme Speed', 'Fillet Away', 'Last Respects', 'No Retreat', 'Revival Blessing', 'Shed Tail', 'Shell Smash', 'Shift Gear', 'V-create', 'Victory Dance', 'Wicked Blow'],
+		banlist: [
+			'Chi-Yu', 'Chien-Pao', 'Cloyster', 'Dragapult', 'Dragonite', 'Flutter Mane', 'Garchomp', 'Iron Bundle', 'Komala',
+			'Koraidon', 'Miraidon', 'Zoroark-Hisui', 'Arena Trap', 'Moody', 'Shadow Tag', 'Booster Energy', 'King\'s Rock', 'Baton Pass',
+		],
+		restricted: [
+			'Acupressure', 'Astral Barrage', 'Belly Drum', 'Dire Claw', 'Extreme Speed', 'Fillet Away', 'Last Respects', 'No Retreat',
+			'Revival Blessing', 'Shed Tail', 'Shell Smash', 'Shift Gear', 'V-create', 'Victory Dance', 'Wicked Blow',
+		],
 	},
 	{
 		name: "[Gen 9] NFE",
@@ -2690,8 +2697,11 @@ export const Formats: FormatList = [
 
 		mod: 'gen9',
 		ruleset: ['Standard OMs', 'Sleep Clause Mod', 'Min Source Gen = 9'],
-		banlist: ['Cloyster', 'Houndstone', 'Koraidon', 'Miraidon', 'Palafin', 'Covert Cloak', 'Baton Pass', 'Fake Out'],
-		restricted: ['Dynamic Punch', 'Flame Charge', 'Fury Cutter', 'Inferno', 'Nuzzle', 'Power Trip', 'Rapid Spin', 'Stored Power', 'Zap Cannon'],
+		banlist: [
+			'Chi-Yu', 'Chien-Pao', 'Cloyster', 'Espathra', 'Flutter Mane', 'Great Tusk', 'Houndstone', 'Iron Bundle', 'Koraidon',
+			'Miraidon', 'Palafin', 'Riolu', 'Weavile', 'Arena Trap', 'Moody', 'Serene Grace', 'Shadow Tag', 'Covert Cloak', 'Baton Pass',
+		],
+		restricted: ['Dynamic Punch', 'Fury Cutter', 'Grass Knot', 'Inferno', 'Low Kick', 'Nuzzle', 'Power Trip', 'Reversal', 'Spit Up', 'Stored Power', 'Zap Cannon'],
 		validateSet(set, teamHas) {
 			const item = set.item;
 			const species = this.dex.species.get(set.species);
@@ -2705,12 +2715,16 @@ export const Formats: FormatList = [
 			if (this.checkCanLearn(move, species, this.allSources(species), set)) {
 				problems.push(`${species.name} can't learn ${move.name}.`);
 			}
+			if (set.moves.map(this.toID).includes(move.id)) {
+				problems.push(`Moves in the item slot can't be in the moveslots as well.`);
+			}
 			const accuracyLoweringMove =
 				move.secondaries?.some(secondary => secondary.boosts?.accuracy && secondary.boosts?.accuracy < 0);
 			const flinchMove = move.secondaries?.some(secondary => secondary.volatileStatus === 'flinch');
 			if (this.ruleTable.isRestricted(`move:${move.id}`) ||
 				((accuracyLoweringMove || move.ohko || move.multihit || move.id === 'beatup' || move.flags['charge'] ||
-					move.priority > 0 || move.damageCallback || flinchMove) && !this.ruleTable.has(`+move:${move.id}`))) {
+					move.priority > 0 || move.damageCallback || flinchMove || move.selfSwitch) &&
+				!this.ruleTable.has(`+move:${move.id}`))) {
 				problems.push(`The move ${move.name} can't be used as an item.`);
 			}
 			return problems.length ? problems : null;
@@ -2761,6 +2775,12 @@ export const Formats: FormatList = [
 					if (forte[property]) {
 						move[property] = forte[property] as any;
 					}
+				}
+				// Added here because onEffectiveness doesn't have an easy way to reference the source
+				if (forte.onEffectiveness) {
+					move.onEffectiveness = function (typeMod, t, type, m) {
+						return forte.onEffectiveness!.call(this, typeMod, t, type, m);
+					};
 				}
 				forte.onModifyMove?.call(this, move, pokemon, target);
 			}
@@ -3569,6 +3589,61 @@ export const Formats: FormatList = [
 			'Rayquaza', 'Reshiram', 'Solgaleo', 'Spectrier', 'Xerneas', 'Yveltal', 'Zacian', 'Zacian-Crowned', 'Zamazenta', 'Zamazenta-Crowned',
 			'Zekrom', 'Moody', 'Power Construct', 'Bright Powder', 'Focus Sash', 'King\'s Rock', 'Lax Incense', 'Final Gambit',
 		],
+	},
+	{
+		name: "[Gen 9] Tera Donation",
+		desc: `The first Pok&eacute;mon sent out immediately terastallizes. The other Pok&eacute;mon in the party inherit that Tera Type as an additional type.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3715801/">Tera Donation</a>`,
+		],
+
+		mod: 'gen9',
+		ruleset: ['Standard OMs', 'Sleep Moves CLause', 'Tera Type Preview', 'Min Source Gen = 9'],
+		banlist: [
+			'Annihilape', 'Chi-Yu', 'Chien-Pao', 'Espathra', 'Flutter Mane', 'Houndstone', 'Iron Bundle', 'Koraidon',
+			'Miraidon', 'Palafin', 'Arena Trap', 'Moody', 'Shadow Tag', 'Booster Energy', 'King\'s Rock', 'Baton Pass',
+		],
+		onSwitchIn(pokemon) {
+			if (this.turn === 0) {
+				this.actions.terastallize(pokemon);
+				const teraType = pokemon.teraType;
+				for (const poke of pokemon.side.pokemon) {
+					poke.m.thirdType = teraType;
+				}
+			}
+			if (!pokemon.terastallized) {
+				this.add('-start', pokemon, 'typechange', (pokemon.illusion || pokemon).getTypes(true).join('/'), '[silent]');
+			}
+		},
+		onModifyMove(move, pokemon, target) {
+			if (move.id === 'terablast') {
+				const teraType = pokemon.m.thirdType;
+				if (teraType && pokemon.getStat('atk', false, true) > pokemon.getStat('spa', false, true)) {
+					move.category = 'Physical';
+				}
+			}
+		},
+		onModifyType(move, pokemon, target) {
+			if (move.id === 'terablast') {
+				const teraType = pokemon.m.thirdType;
+				if (teraType) {
+					move.type = teraType;
+				}
+			}
+		},
+		pokemon: {
+			getTypes(excludeAdded, preterastallized) {
+				if (!preterastallized && this.terastallized) return [this.terastallized];
+				const types = this.battle.runEvent('Type', this, null, null, this.types);
+				if (!excludeAdded && this.addedType) return types.concat(this.addedType);
+				const addTeraType = this.m.thirdType;
+				if (types.length) {
+					if (addTeraType) return Array.from(new Set([...types, addTeraType]));
+					return types;
+				}
+				return [this.battle.gen >= 5 ? 'Normal' : '???'];
+			},
+		},
 	},
 	{
 		name: "[Gen 9] The Card Game",
