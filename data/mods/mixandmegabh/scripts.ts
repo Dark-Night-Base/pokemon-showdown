@@ -79,60 +79,61 @@ export const Scripts: ModdedBattleScriptsData = {
 			const species = this.doGetMixedSpecies(originalSpecies, deltas);
 			return species;
 		},
-		getMegaDeltas(megaSpecies) {
-			const baseSpecies = this.dex.species.get(megaSpecies.baseSpecies);
-			const deltas: {
-				ability: string,
-				baseStats: SparseStatsTable,
-				weighthg: number,
-				originalMega: string,
-				requiredItem: string | undefined,
-				type?: string,
-				isMega?: boolean,
-				isPrimal?: boolean,
-			} = {
-				ability: megaSpecies.abilities['0'],
-				baseStats: {},
-				weighthg: megaSpecies.weighthg - baseSpecies.weighthg,
-				originalMega: megaSpecies.name,
-				requiredItem: megaSpecies.requiredItem,
-			};
-			let statId: StatID;
-			for (statId in megaSpecies.baseStats) {
-				deltas.baseStats[statId] = megaSpecies.baseStats[statId] - baseSpecies.baseStats[statId];
-			}
-			if (megaSpecies.types.length > baseSpecies.types.length) {
-				deltas.type = megaSpecies.types[1];
-			} else if (megaSpecies.types.length < baseSpecies.types.length) {
-				deltas.type = 'mono';
-			} else if (megaSpecies.types[1] !== baseSpecies.types[1]) {
-				deltas.type = megaSpecies.types[1];
-			}
-			if (megaSpecies.isMega) deltas.isMega = true;
-			if (megaSpecies.isPrimal) deltas.isPrimal = true;
-			return deltas;
-		},
-		doGetMixedSpecies(speciesOrForme, deltas) {
-			if (!deltas) throw new TypeError("Must specify deltas!");
-			const species = this.dex.deepClone(this.dex.species.get(speciesOrForme));
-			species.abilities = {'0': deltas.ability};
-			if (species.types[0] === deltas.type) {
-				species.types = [deltas.type];
-			} else if (deltas.type === 'mono') {
-				species.types = [species.types[0]];
-			} else if (deltas.type) {
-				species.types = [species.types[0], deltas.type];
-			}
-			const baseStats = species.baseStats;
-			for (const statName in baseStats) {
-				baseStats[statName] = this.battle.clampIntRange(baseStats[statName] + deltas.baseStats[statName], 1, 255);
-			}
-			species.weighthg = Math.max(1, species.weighthg + deltas.weighthg);
-			species.originalMega = deltas.originalMega;
-			species.requiredItem = deltas.requiredItem;
-			if (deltas.isMega) species.isMega = true;
-			if (deltas.isPrimal) species.isPrimal = true;
-			return species;
-		},
+		// todo: rewrite
+		// getMegaDeltas(megaSpecies) {
+		// 	const baseSpecies = this.dex.species.get(megaSpecies.baseSpecies);
+		// 	const deltas: {
+		// 		ability: string,
+		// 		baseStats: SparseStatsTable,
+		// 		weighthg: number,
+		// 		originalMega: string,
+		// 		requiredItem: string | undefined,
+		// 		type?: string,
+		// 		isMega?: boolean,
+		// 		isPrimal?: boolean,
+		// 	} = {
+		// 		ability: megaSpecies.abilities['0'],
+		// 		baseStats: {},
+		// 		weighthg: megaSpecies.weighthg - baseSpecies.weighthg,
+		// 		originalMega: megaSpecies.name,
+		// 		requiredItem: megaSpecies.requiredItem,
+		// 	};
+		// 	let statId: StatID;
+		// 	for (statId in megaSpecies.baseStats) {
+		// 		deltas.baseStats[statId] = megaSpecies.baseStats[statId] - baseSpecies.baseStats[statId];
+		// 	}
+		// 	if (megaSpecies.types.length > baseSpecies.types.length) {
+		// 		deltas.type = megaSpecies.types[1];
+		// 	} else if (megaSpecies.types.length < baseSpecies.types.length) {
+		// 		deltas.type = 'mono';
+		// 	} else if (megaSpecies.types[1] !== baseSpecies.types[1]) {
+		// 		deltas.type = megaSpecies.types[1];
+		// 	}
+		// 	if (megaSpecies.isMega) deltas.isMega = true;
+		// 	if (megaSpecies.isPrimal) deltas.isPrimal = true;
+		// 	return deltas;
+		// },
+		// doGetMixedSpecies(speciesOrForme, deltas) {
+		// 	if (!deltas) throw new TypeError("Must specify deltas!");
+		// 	const species = this.dex.deepClone(this.dex.species.get(speciesOrForme));
+		// 	species.abilities = {'0': deltas.ability};
+		// 	if (species.types[0] === deltas.type) {
+		// 		species.types = [deltas.type];
+		// 	} else if (deltas.type === 'mono') {
+		// 		species.types = [species.types[0]];
+		// 	} else if (deltas.type) {
+		// 		species.types = [species.types[0], deltas.type];
+		// 	}
+		// 	const baseStats = species.baseStats;
+		// 	for (const statName in baseStats) {
+		// 		baseStats[statName] = this.battle.clampIntRange(baseStats[statName] + deltas.baseStats[statName], 1, 255);
+		// 	}
+		// 	species.weighthg = Math.max(1, species.weighthg + deltas.weighthg);
+		// 	species.originalMega = deltas.originalMega;
+		// 	species.requiredItem = deltas.requiredItem;
+		// 	if (deltas.isMega) species.isMega = true;
+		// 	if (deltas.isPrimal) species.isPrimal = true;
+		// 	return species;
+		// },
 	},
 };
