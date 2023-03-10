@@ -363,6 +363,7 @@ export class Battle {
 				}
 			}
 			this.debug(`PRNG.next(${(m === undefined) ? '' : ((n === undefined) ? m : `${m},${n}`)})`);
+			this.debug('');
 		}
 		return this.prng.next(m, n);
 	}
@@ -379,6 +380,7 @@ export class Battle {
 				}
 			}
 			this.debug(`PRNG.randomChance(${numerator},${denominator})`);
+			this.debug('');
 		}
 		if (this.forceRandomChance !== null) return this.forceRandomChance;
 		return this.prng.randomChance(numerator, denominator);
@@ -396,6 +398,7 @@ export class Battle {
 				}
 			}
 			this.debug(`PRNG.sample(0,${items.length})`);
+			this.debug('');
 		}
 		return this.prng.sample(items);
 	}
@@ -506,6 +509,7 @@ export class Battle {
 						}
 					}
 					this.debug(`speedSort()->PRNG.shuffle(${sorted},${sorted + nextIndexes.length})`);
+					this.debug('');
 				}
 				this.prng.shuffle(list, sorted, sorted + nextIndexes.length);
 			}
