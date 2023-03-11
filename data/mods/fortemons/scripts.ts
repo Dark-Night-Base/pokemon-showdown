@@ -263,12 +263,12 @@ export const Scripts: ModdedBattleScriptsData = {
 						reviveSwitch = true;
 						continue;
 					}
-				  pokemon.switchFlag = false;
+					pokemon.switchFlag = false;
 				}
 				if (!reviveSwitch) switches[i] = false;
 			} else if (switches[i]) {
 				for (const pokemon of this.sides[i].active) {
-					if (pokemon.switchFlag && !pokemon.skipBeforeSwitchOutEventFlag) {
+					if (pokemon.switchFlag && pokemon.switchFlag !== 'revivalblessing' && !pokemon.skipBeforeSwitchOutEventFlag) {
 						this.runEvent('BeforeSwitchOut', pokemon);
 						pokemon.skipBeforeSwitchOutEventFlag = true;
 						this.faintMessages(); // Pokemon may have fainted in BeforeSwitchOut
@@ -406,7 +406,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		getItem() {
 			const move = this.battle.dex.moves.get(this.item);
 			if (!move.exists) return Object.getPrototypeOf(this).getItem.call(this);
-			return {...move, ignoreKlutz: true, onTakeItem: false};
+			return {...move, ignoreKlutz: true, onTakeItem: false, zMove: undefined};
 		},
 		hasItem(item) {
 			const ownItem = this.item;
