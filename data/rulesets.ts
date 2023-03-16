@@ -2689,6 +2689,12 @@ export const Rulesets: {[k: string]: FormatData} = {
 		],
 		onBegin() {
 			this.add('rule', 'Signature Items Clause: Signature items are banned');
+			// Nihilslave: also prevent rayquaza from mega evolving here
+			for (const pokemon of this.getAllPokemon()) {
+				if (pokemon.species.id === 'rayquaza') {
+					pokemon.canMegaEvo = null;
+				}
+			}
 		},
 		onValidateSet(set) {
 			const item = this.dex.items.get(set.item);
