@@ -1036,28 +1036,27 @@ export const Formats: FormatList = [
 		 */
 		onModifyMove(move, pokemon, target) {
 			if (move.category !== 'Status' && pokemon.m.forte) {
-				const forte = pokemon.m.forte;
+				const forte: ActiveMove = pokemon.m.forte;
 
-				Object.assign(move.flags, forte.flags);
+				move.flags = {...move.flags, ...forte.flags};
 
 				// pseudoWeather is a simple prop in practice cuz plasma fists is the only attack with it,
 				// the same applies to volatileStatus, (partiallytrapped moves and smackdown only)
-				// + selfBoost, the only related attack is scale shot
-				const simpleProperties = ['breaksProtect', 'forceSwitch', 'hasCrashDamage', 'ignoreAbility',
-					'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity', 'isFutureMove', 'mindBlownRecoil',
-					'overrideDefensiveStat', 'overrideOffensivePokemon', 'overrideOffensiveStat', 'pseudoWeather',
-					'selfBoost', 'selfdestruct', 'selfSwitch', 'sleepUsable', 'stealsBoosts', 'struggleRecoil',
-					'thawsTarget', 'volatileStatus', 'willCrit',
+				const simpleProperties = ['breaksProtect', 'forceSwitch', 'hasCrashDamage', 'hasSheerForce',
+					'ignoreAbility', 'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity', 'isFutureMove', 'ohko', 
+					'mindBlownRecoil', 'overrideDefensiveStat', 'overrideOffensivePokemon', 'overrideOffensiveStat',
+					'pseudoWeather', 'selfdestruct', 'selfSwitch', 'sleepUsable', 'smartTarget', 'stealsBoosts',
+					'struggleRecoil', 'thawsTarget', 'volatileStatus', 'willCrit',
 					// function properties
-					'onDamage', 'onMoveFail', 'onUseMoveMessage'];
+					'onDamage', 'onMoveFail', 'onUseMoveMessage'] as const;
 				// omitted properties:
 				// onPrepareHit
 				for (const prop of simpleProperties) {
 					if (forte[prop]) {
-						// @ts-ignore
-						move[prop] = forte[prop];
+						move[prop] = forte[prop] as any;
 					}
 				}
+
 				// secondaries
 				if (forte.secondaries) {
 					if (move.secondaries) {
@@ -1079,52 +1078,24 @@ export const Formats: FormatList = [
 					}
 				}
 				// self
+				// volatileStatus will be overwritten, haven't figured out how to solve yet
+				// Nihilslave: use official code for self, not sure
+				// onHit should still be implemented in self cuz of sheer force
+				// but not overwritten cuz of stone axe and burn up
+				// also we still should add boosts together i think
 				if (forte.self) {
-					if (move.self) {
+					if (forte.self.onHit && move.self?.onHit) {
 						for (const i in forte.self) {
-							// @ts-ignore
-							if (move.self[i]) {
-								if (i === 'boosts') {
-									for (const stat of ['atk', 'def', 'spa', 'spd', 'spe', 'accuracy', 'evasion']) {
-										if (forte.self.boosts[stat]) {
-											// @ts-ignore
-											if (move.self.boosts[stat]) {
-												// @ts-ignore
-												move.self.boosts[stat] += forte.self.boosts[stat];
-											} else {
-												// @ts-ignore
-												move.self.boosts[stat] = forte.self.boosts[stat];
-											}
-										}
-									}
-								} else if (i === 'onHit') {
-									// only burnup relevant
-									move.self[i] = forte.self[i];
-								} else if (i === 'volatileStatus') {
-									// ;-; not perfect
-									move.self[i] = forte.self[i];
-								} else {
-									// @ts-ignore
-									move.self[i] = forte.self[i];
-								}
-							} else {
-								// @ts-ignore
-								move.self[i] = forte.self[i];
-							}
+							if (i.startsWith('onHit')) continue;
+							(move.self as any)[i] = (forte.self as any)[i];
 						}
 					} else {
-						move.self = forte.self;
+						move.self = {...(move.self || {}), ...forte.self};
 					}
 				}
 
 				// number properties
-				if (forte.critRatio) {
-					if (move.critRatio) {
-						move.critRatio += forte.critRatio - 1;
-					} else {
-						move.critRatio = forte.critRatio;
-					}
-				}
+				move.critRatio = (move.critRatio || 1) + (forte.critRatio || 1) - 1;
 				if (forte.damage || forte.id === 'psywave') {
 					if (move.damage || move.id === 'psywave') {
 						let damageLevel = 1;
@@ -1159,16 +1130,16 @@ export const Formats: FormatList = [
 							break;
 						case 14:
 							move.damageCallback = function (pkm) {
-								return (this.random(50, 151) * pkm.level) / 100 + forte.damage;
+								return (this.random(50, 151) * pkm.level) / 100 + (forte.damage as number);
 							};
 							break;
 						case 10:
 							move.damageCallback = function (pkm) {
-								return pkm.level + forte.damage;
+								return pkm.level + (forte.damage as number);
 							};
 							break;
 						case 6:
-							move.damage += forte.damage;
+							(move.damage as number) += (forte.damage as number);
 							break;
 						default:
 							move.damage = forte.damage;
@@ -1237,6 +1208,15 @@ export const Formats: FormatList = [
 						move.recoil = forte.recoil;
 					}
 				}
+				// Nihilslave: use official code
+				if (forte.selfBoost?.boosts) {
+					if (!move.selfBoost?.boosts) move.selfBoost = {boosts: {}};
+					let boostid: BoostID;
+					for (boostid in forte.selfBoost.boosts) {
+						if (!move.selfBoost.boosts![boostid]) move.selfBoost.boosts![boostid] = 0;
+						move.selfBoost.boosts![boostid]! += forte.selfBoost.boosts[boostid]!;
+					}
+				}
 
 				// complexProperties
 				// Nihilslave: just have a try, i'm not sure if it's the right place to deal with this
@@ -1259,7 +1239,7 @@ export const Formats: FormatList = [
 					if (move.onAfterHit) {
 						move.onAfterHit = function (src, tgt, mv) {
 							this.dex.moves.get(mv.id).onAfterHit?.call(this, src, tgt, mv);
-							forte.onAfterHit.call(this, src, tgt, this.dex.getActiveMove(forte.id));
+							forte.onAfterHit!.call(this, src, tgt, this.dex.getActiveMove(forte.id));
 						};
 					} else {
 						move.onAfterHit = forte.onAfterHit;
@@ -1269,7 +1249,7 @@ export const Formats: FormatList = [
 					if (move.onAfterMove) {
 						move.onAfterMove = function (src, tgt, mv) {
 							this.dex.moves.get(mv.id).onAfterMove?.call(this, src, tgt, mv);
-							forte.onAfterMove.call(this, src, tgt, this.dex.getActiveMove(forte.id));
+							forte.onAfterMove!.call(this, src, tgt, this.dex.getActiveMove(forte.id));
 						};
 					} else {
 						move.onAfterMove = forte.onAfterMove;
@@ -1279,7 +1259,7 @@ export const Formats: FormatList = [
 					if (move.onAfterMoveSecondarySelf) {
 						move.onAfterMoveSecondarySelf = function (src, tgt, mv) {
 							this.dex.moves.get(mv.id).onAfterMoveSecondarySelf?.call(this, src, tgt, mv);
-							forte.onAfterMoveSecondarySelf.call(this, src, tgt, this.dex.getActiveMove(forte.id));
+							forte.onAfterMoveSecondarySelf!.call(this, src, tgt, this.dex.getActiveMove(forte.id));
 						};
 					} else {
 						move.onAfterMoveSecondarySelf = forte.onAfterMoveSecondarySelf;
@@ -1289,7 +1269,7 @@ export const Formats: FormatList = [
 					if (move.onAfterSubDamage) {
 						move.onAfterSubDamage = function (dmg, tgt, src, mv) {
 							this.dex.moves.get(mv.id).onAfterSubDamage?.call(this, dmg, tgt, src, mv);
-							forte.onAfterSubDamage.call(this, dmg, tgt, src, this.dex.getActiveMove(forte.id));
+							forte.onAfterSubDamage!.call(this, dmg, tgt, src, this.dex.getActiveMove(forte.id));
 						};
 					} else {
 						move.onAfterSubDamage = forte.onAfterSubDamage;
@@ -1301,7 +1281,7 @@ export const Formats: FormatList = [
 							// it will never return a number believe me
 							// the last param will not be used except for knock off
 							this.dex.moves.get(mv.id).onBasePower?.call(this, basePower, src, tgt, mv);
-							forte.onBasePower.call(this, basePower, src, tgt, this.dex.getActiveMove(forte.id));
+							forte.onBasePower!.call(this, basePower, src, tgt, this.dex.getActiveMove(forte.id));
 						};
 					} else {
 						move.onBasePower = forte.onBasePower;
@@ -1311,7 +1291,7 @@ export const Formats: FormatList = [
 					if (move.onEffectiveness) {
 						move.onEffectiveness = function (typeMod, tgt, tp, mv) {
 							const moveEffectiveness = this.dex.moves.get(mv.id).onEffectiveness?.call(this, typeMod, tgt, tp, mv);
-							const forteEffectiveness = forte.onEffectiveness.call(this, typeMod, tgt, tp, this.dex.getActiveMove(forte.id));
+							const forteEffectiveness = forte.onEffectiveness!.call(this, typeMod, tgt, tp, this.dex.getActiveMove(forte.id));
 							return (moveEffectiveness || 0) + (forteEffectiveness || 0);
 						};
 					} else {
@@ -1323,7 +1303,7 @@ export const Formats: FormatList = [
 						move.onHit = function (tgt, src, mv) {
 							// @ts-ignore
 							const ret1 = this.dex.moves.get(mv.id).onHit.call(this, tgt, src, mv);
-							const ret2 = forte.onHit.call(this, tgt, src, this.dex.getActiveMove(forte.id));
+							const ret2 = (forte.onHit! as any).call(this, tgt, src, this.dex.getActiveMove(forte.id));
 							if (ret1 === this.NOT_FAIL || ret2 === this.NOT_FAIL) return this.NOT_FAIL;
 						};
 					} else {
@@ -1338,7 +1318,7 @@ export const Formats: FormatList = [
 							const ret1 = this.dex.moves.get(mv.id).onTry.call(this, src, tgt, mv);
 							let ret2;
 							if (forte.id !== 'doomdesire' && forte.id !== 'futuresight') {
-								ret2 = forte.onTry.call(this, src, tgt, this.dex.getActiveMove(forte.id));
+								ret2 = (forte.onTry! as any).call(this, src, tgt, this.dex.getActiveMove(forte.id));
 							} else {
 								if (!tgt.side.addSlotCondition(tgt, 'futuremove')) {
 									ret2 = false;
@@ -1401,7 +1381,7 @@ export const Formats: FormatList = [
 						move.onTryHit = function (src, tgt, mv) {
 							// @ts-ignore
 							const ret1 = this.dex.moves.get(mv.id).onTryHit.call(this, src, tgt, mv);
-							const ret2 = forte.onTryHit.call(this, src, tgt, this.dex.getActiveMove(forte.id));
+							const ret2 = (forte.onTryHit! as any).call(this, src, tgt, this.dex.getActiveMove(forte.id));
 							if (ret1 === false || ret2 === false) return false;
 							if (ret1 === null || ret2 === null) return null;
 						};
@@ -1424,7 +1404,7 @@ export const Formats: FormatList = [
 						move.onTryMove = function (pkm) {
 							// @ts-ignore
 							const ret1 = this.dex.moves.get(move.id).onTryMove.call(this, pkm);
-							const ret2 = forte.onTryMove.call(this, pkm);
+							const ret2 = (forte.onTryMove! as any).call(this, pkm);
 							if (ret1 === null || ret2 === null) return null;
 						};
 					} else {
