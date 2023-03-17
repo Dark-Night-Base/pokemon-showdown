@@ -109,8 +109,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			this.debug('priority charge callback: ' + action.move.id);
 			// here we change the code
 			if (action.move.priorityChargeCallback) action.move.priorityChargeCallback.call(this, action.pokemon);
-			// @ts-ignore
-			if (action.pokemon.forte.priorityChargeCallback) action.pokemon.forte.priorityChargeCallback.call(this, action.pokemon);
+			if (action.pokemon.m.forte.priorityChargeCallback) action.pokemon.m.forte.priorityChargeCallback.call(this, action.pokemon);
 			break;
 
 		case 'event':
@@ -369,7 +368,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					// here we change the code
 					if (!action.maxMove && !action.zmove &&
 						(action.move.priorityChargeCallback ||
-							action.pokemon.forte && action.pokemon.forte.priorityChargeCallback)) {
+							action.pokemon.m.forte && action.pokemon.m.forte.priorityChargeCallback)) {
 						actions.unshift(...this.resolveAction({
 							choice: 'priorityChargeMove',
 							pokemon: action.pokemon,
@@ -543,7 +542,15 @@ export const Scripts: ModdedBattleScriptsData = {
 		getItem() {
 			const move = this.battle.dex.moves.get(this.item);
 			if (!move.exists) return Object.getPrototypeOf(this).getItem.call(this);
-			return {...move, ignoreKlutz: true, onTakeItem: false, zMove: undefined};
+			return {
+				effectType: 'Item',
+				id: move.id,
+				name: move.name,
+				num: 137,
+				gen: 2,
+				ignoreKlutz: true,
+				onTakeItem: false,
+			}; // {...move, ignoreKlutz: true, onTakeItem: false, zMove: undefined};
 		},
 		hasItem(item) {
 			const ownItem = this.item;
