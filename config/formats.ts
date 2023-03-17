@@ -1238,8 +1238,6 @@ export const Formats: FormatList = [
 				}
 
 				// complexProperties
-				// Nihilslave: just have a try, i'm not sure if it's the right place to deal with this
-				// but yea it works
 				if (forte.basePowerCallback) {
 					if (move.basePowerCallback) {
 						move.basePowerCallback = function (pkm, tgt, mv) {
@@ -1257,7 +1255,7 @@ export const Formats: FormatList = [
 				if (forte.onAfterMove) {
 					if (move.onAfterMove) {
 						move.onAfterMove = function (src, tgt, mv) {
-							this.dex.moves.get(move.id).onAfterMove?.call(this, src, tgt, mv);
+							this.dex.moves.get(move.id).onAfterMove!.call(this, src, tgt, mv);
 							forte.onAfterMove!.call(this, src, tgt, mv);
 						};
 					} else {
@@ -1266,11 +1264,11 @@ export const Formats: FormatList = [
 				}
 				if (forte.onEffectiveness) {
 					if (move.onEffectiveness) {
+						// todo: test
 						move.onEffectiveness = function (typeMod, tgt, tp, mv) {
-							// todo: fix this
-							const moveEffectiveness = this.dex.moves.get(mv.id).onEffectiveness?.call(this, typeMod, tgt, tp, mv);
-							const forteEffectiveness = forte.onEffectiveness!.call(this, typeMod, tgt, tp, this.dex.getActiveMove(forte.id));
-							return (moveEffectiveness || 0) + (forteEffectiveness || 0);
+							const moveEffectiveness = this.dex.moves.get(move.id).onEffectiveness!.call(this, typeMod, tgt, tp, mv);
+							const forteEffectiveness = forte.onEffectiveness!.call(this, moveEffectiveness || typeMod, tgt, tp, mv);
+							return forteEffectiveness || 0;
 						};
 					} else {
 						move.onEffectiveness = forte.onEffectiveness;
