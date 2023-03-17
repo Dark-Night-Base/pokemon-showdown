@@ -929,7 +929,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'fortemons',
-		// debug: true,
+		debug: true,
 		ruleset: ['[Gen 9] Balanced Hackmons', 'Forte Clause'],
 		banlist: [
 			// TBA
@@ -973,8 +973,8 @@ export const Formats: FormatList = [
 			return problems;
 		},
 		onBegin() {
-			for (const pokemon of this.p1.pokemon.concat(this.p2.pokemon)) {
-				const move = this.dex.moves.get(pokemon.set.item);
+			for (const pokemon of this.getAllPokemon()) {
+				const move = this.dex.getActiveMove(pokemon.set.item);
 				if (move.exists && move.category !== 'Status') {
 					pokemon.m.forte = move;
 				}
@@ -1006,10 +1006,6 @@ export const Formats: FormatList = [
 			if (move && move.category !== 'Status' && pokemon.m.forte && pokemon.m.forte.onModifyType) {
 				this.singleEvent('ModifyType', pokemon.m.forte, null, pokemon, target, move, move);
 			}
-		},
-		// don't know what this does, just keep it
-		onModifySecondaries(secondaries, target, source, move) {
-			if (secondaries.some(s => !!s.self)) move.selfDropped = false;
 		},
 		// set this to 1 for sheer force
 		onModifyMovePriority: 1,
@@ -1078,16 +1074,41 @@ export const Formats: FormatList = [
 					}
 				}
 				// self
-				// volatileStatus will be overwritten, haven't figured out how to solve yet
-				// Nihilslave: use official code for self, not sure
-				// onHit should still be implemented in self cuz of sheer force
-				// but not overwritten cuz of stone axe and burn up
-				// also we still should add boosts together i think
+				// todo: test
 				if (forte.self) {
-					if (forte.self.onHit && move.self?.onHit) {
+					if (forte.self.onHit && move.self?.onHit ||
+						forte.self.boosts && move.self?.boosts ||
+						forte.self.volatileStatus && move.self?.volatileStatus) {
 						for (const i in forte.self) {
-							if (i.startsWith('onHit')) continue;
+							if (['onHit', 'boosts', 'volatileStatus'].includes(i)) continue;
 							(move.self as any)[i] = (forte.self as any)[i];
+						}
+						if (forte.self.onHit) {
+							if (move.self.onHit) {
+								move.self.onHit = function (tgt, src, mv) {
+									(this.dex.moves.get(move.id).self!.onHit as any).call(this, tgt, src, mv);
+									(forte.self!.onHit as any).call(this, tgt, src, mv);
+								}
+							} else {
+								move.self.onHit = forte.self.onHit;
+							}
+						}
+						// todo: fix diamond storm, it has a chance of 50%
+						if (forte.self.boosts) {
+							if (!move.self.boosts) move.self.boosts = {};
+							let boostid: BoostID;
+							for (boostid in forte.self.boosts) {
+								if (!move.self.boosts[boostid]) move.self.boosts[boostid] = 0;
+								move.self.boosts[boostid]! += forte.self.boosts[boostid]!;
+							}
+						}
+						if (forte.self.volatileStatus) {
+							if (move.self.volatileStatus) {
+								// the other part implemented in data/mods
+								move.self.volatileStatus += '+' + forte.self.volatileStatus;
+							} else {
+								move.self.volatileStatus = forte.self.volatileStatus;
+							}
 						}
 					} else {
 						move.self = {...(move.self || {}), ...forte.self};
@@ -1222,9 +1243,10 @@ export const Formats: FormatList = [
 				if (forte.basePowerCallback) {
 					if (move.basePowerCallback) {
 						move.basePowerCallback = function (pkm, tgt, mv) {
-							let basePower = this.dex.moves.get(mv.id).basePowerCallback!.call(this, pkm, tgt, mv);
+							let basePower = this.dex.moves.get(move.id).basePowerCallback!.call(this, pkm, tgt, mv);
 							const forteMove = this.dex.getActiveMove(forte.id);
 							forteMove.basePower = basePower || 1;
+							// here we should use "forteMove" as the last param instead of mv
 							basePower = forteMove.basePowerCallback!.call(this, pkm, tgt, forteMove);
 							return basePower;
 						};
@@ -1232,61 +1254,20 @@ export const Formats: FormatList = [
 						move.basePowerCallback = forte.basePowerCallback;
 					}
 				}
-				if (forte.onAfterHit) {
-					if (move.onAfterHit) {
-						move.onAfterHit = function (src, tgt, mv) {
-							this.dex.moves.get(mv.id).onAfterHit?.call(this, src, tgt, mv);
-							forte.onAfterHit!.call(this, src, tgt, this.dex.getActiveMove(forte.id));
-						};
-					} else {
-						move.onAfterHit = forte.onAfterHit;
-					}
-				}
 				if (forte.onAfterMove) {
 					if (move.onAfterMove) {
 						move.onAfterMove = function (src, tgt, mv) {
-							this.dex.moves.get(mv.id).onAfterMove?.call(this, src, tgt, mv);
-							forte.onAfterMove!.call(this, src, tgt, this.dex.getActiveMove(forte.id));
+							this.dex.moves.get(move.id).onAfterMove?.call(this, src, tgt, mv);
+							forte.onAfterMove!.call(this, src, tgt, mv);
 						};
 					} else {
 						move.onAfterMove = forte.onAfterMove;
 					}
 				}
-				if (forte.onAfterMoveSecondarySelf) {
-					if (move.onAfterMoveSecondarySelf) {
-						move.onAfterMoveSecondarySelf = function (src, tgt, mv) {
-							this.dex.moves.get(mv.id).onAfterMoveSecondarySelf?.call(this, src, tgt, mv);
-							forte.onAfterMoveSecondarySelf!.call(this, src, tgt, this.dex.getActiveMove(forte.id));
-						};
-					} else {
-						move.onAfterMoveSecondarySelf = forte.onAfterMoveSecondarySelf;
-					}
-				}
-				if (forte.onAfterSubDamage) {
-					if (move.onAfterSubDamage) {
-						move.onAfterSubDamage = function (dmg, tgt, src, mv) {
-							this.dex.moves.get(mv.id).onAfterSubDamage?.call(this, dmg, tgt, src, mv);
-							forte.onAfterSubDamage!.call(this, dmg, tgt, src, this.dex.getActiveMove(forte.id));
-						};
-					} else {
-						move.onAfterSubDamage = forte.onAfterSubDamage;
-					}
-				}
-				if (forte.onBasePower) {
-					if (move.onBasePower) {
-						move.onBasePower = function (basePower, src, tgt, mv) {
-							// it will never return a number believe me
-							// the last param will not be used except for knock off
-							this.dex.moves.get(mv.id).onBasePower?.call(this, basePower, src, tgt, mv);
-							forte.onBasePower!.call(this, basePower, src, tgt, this.dex.getActiveMove(forte.id));
-						};
-					} else {
-						move.onBasePower = forte.onBasePower;
-					}
-				}
 				if (forte.onEffectiveness) {
 					if (move.onEffectiveness) {
 						move.onEffectiveness = function (typeMod, tgt, tp, mv) {
+							// todo: fix this
 							const moveEffectiveness = this.dex.moves.get(mv.id).onEffectiveness?.call(this, typeMod, tgt, tp, mv);
 							const forteEffectiveness = forte.onEffectiveness!.call(this, typeMod, tgt, tp, this.dex.getActiveMove(forte.id));
 							return (moveEffectiveness || 0) + (forteEffectiveness || 0);
@@ -1295,17 +1276,18 @@ export const Formats: FormatList = [
 						move.onEffectiveness = forte.onEffectiveness;
 					}
 				}
-				if (forte.onHit) {
-					if (move.onHit) {
-						move.onHit = function (tgt, src, mv) {
-							const ret1 = (this.dex.moves.get(mv.id).onHit as any).call(this, tgt, src, mv);
-							const ret2 = (forte.onHit as any).call(this, tgt, src, this.dex.getActiveMove(forte.id));
-							if (ret1 === this.NOT_FAIL || ret2 === this.NOT_FAIL) return this.NOT_FAIL;
-						};
-					} else {
-						move.onHit = forte.onHit;
-					}
-				}
+				// see sim/battle-actions.ts:1246
+				// if (forte.onHit) {
+				// 	if (move.onHit) {
+				// 		move.onHit = function (tgt, src, mv) {
+				// 			const ret1 = (this.dex.moves.get(mv.id).onHit as any).call(this, tgt, src, mv);
+				// 			const ret2 = (forte.onHit as any).call(this, tgt, src, this.dex.getActiveMove(forte.id));
+				// 			if (ret1 === this.NOT_FAIL || ret2 === this.NOT_FAIL) return this.NOT_FAIL;
+				// 		};
+				// 	} else {
+				// 		move.onHit = forte.onHit;
+				// 	}
+				// }
 				// not sure about the following two
 				if (forte.onTry) {
 					if (move.onTry) {
@@ -1313,7 +1295,8 @@ export const Formats: FormatList = [
 							const ret1 = (this.dex.moves.get(mv.id).onTry as any).call(this, src, tgt, mv);
 							let ret2;
 							if (forte.id !== 'doomdesire' && forte.id !== 'futuresight') {
-								ret2 = (forte.onTry! as any).call(this, src, tgt, this.dex.getActiveMove(forte.id));
+								// not sure about using mv here, round is the only relevant move tho
+								ret2 = (forte.onTry as any).call(this, src, tgt, mv);
 							} else {
 								if (!tgt.side.addSlotCondition(tgt, 'futuremove')) {
 									ret2 = false;
@@ -1375,7 +1358,8 @@ export const Formats: FormatList = [
 					if (move.onTryHit) {
 						move.onTryHit = function (src, tgt, mv) {
 							const ret1 = (this.dex.moves.get(mv.id).onTryHit as any).call(this, src, tgt, mv);
-							const ret2 = (forte.onTryHit as any).call(this, src, tgt, this.dex.getActiveMove(forte.id));
+							// not sure about using mv here, pollenpuff is the only relevant move tho
+							const ret2 = (forte.onTryHit as any).call(this, src, tgt, mv);
 							if (ret1 === false || ret2 === false) return false;
 							if (ret1 === null || ret2 === null) return null;
 						};
@@ -1407,6 +1391,40 @@ export const Formats: FormatList = [
 				if (forte.onModifyMove) {
 					forte.onModifyMove.call(this, move, pokemon, target);
 				}
+			}
+		},
+		onHitPriority: 1,
+		onHit(target, source, move) {
+			const forte = source.m.forte;
+			if (move?.category !== 'Status' && forte) {
+				this.singleEvent('Hit', forte, {}, target, source, move);
+				// we should still implement self.onHit in self cuz of sheer force
+				// if (forte.self) this.singleEvent('Hit', forte.self, {}, source, source, move);
+				this.singleEvent('AfterHit', forte, {}, target, source, move);
+			}
+		},
+		onAfterSubDamage(damage, target, source, move) {
+			const forte = source.m.forte;
+			if (move?.category !== 'Status' && forte) {
+				this.singleEvent('AfterSubDamage', forte, null, target, source, move);
+			}
+		},
+		// don't know what this does, just keep it
+		onModifySecondaries(secondaries, target, source, move) {
+			if (secondaries.some(s => !!s.self)) move.selfDropped = false;
+		},
+		onAfterMoveSecondaryPriority: 1,
+		onAfterMoveSecondarySelf(source, target, move) {
+			const forte = source.m.forte;
+			if (move?.category !== 'Status' && forte) {
+				this.singleEvent('AfterMoveSecondarySelf', forte, null, source, target, move);
+			}
+		},
+		onBasePowerPriority: 1,
+		onBasePower(basePower, source, target, move) {
+			const forte = source.m.forte;
+			if (move.category !== 'Status' && forte?.onBasePower) {
+				forte.onBasePower.call(this, basePower, source, target, move);
 			}
 		},
 		// beak blast / focus punch forte implemented in data/mods/fortemons/scripts.ts
