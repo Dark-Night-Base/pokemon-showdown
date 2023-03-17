@@ -2419,6 +2419,25 @@ export const Rulesets: {[k: string]: FormatData} = {
 			// return problems;
 		},
 	},
+	multihitmovesclause: {
+		effectType: 'ValidatorRule',
+		name: 'Multi-hit Moves Clause',
+		desc: "Bans Multi-hit moves",
+		banlist: [
+			'Beat Up',
+		],
+		onBegin() {
+			this.add('rule', 'Multi-hit Moves Clause: Multi-hit moves are banned');
+		},
+		onValidateSet(set) {
+			for (const move of set.moves) {
+				const moveData = this.dex.moves.get(move);
+				if (moveData.multihit) {
+					return [`${set.species}'s move ${moveData.name} is banned by Multi-hit Moves Clause.`];
+				}
+			}
+		},
+	},
 	johtopokedex: { // proposed by Akira#4194 on discord
 		effectType: 'ValidatorRule',
 		name: 'Johto Pokedex',

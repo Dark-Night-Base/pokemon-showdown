@@ -930,47 +930,50 @@ export const Formats: FormatList = [
 
 		mod: 'fortemons',
 		debug: true,
-		ruleset: ['[Gen 9] Balanced Hackmons', 'Forte Clause'],
+		ruleset: ['[Gen 9] Balanced Hackmons', 'Forte Clause', 'Multi-hit Moves Clause'],
 		banlist: [
-			// TBA
 			'Copycat',
 			'Serene Grace', 'Shield Dust', 'Triage',
 			'Endeavor', 'Ruination', 'Super Fang',
-			'Arm Thrust', 'Beat Up', 'Bone Rush', 'Bullet Seed', 'Dragon Darts', 'Dual Wingbeat', 'Fury Attack', 'Fury Swipes',
-			'Icicle Spear', 'Pin Missile', 'Population Bomb', 'Rock Blast', 'Scale Shot', 'Surging Strikes', 'Tail Slap',
-			'Triple Axel', 'Triple Dive', 'Twin Beam', 'Water Shuriken', 'Double Hit', 'Double Kick',
+			// multi-hit moves banned by multihitmovesclause
 			'Covert Cloak',
 		],
 		validateSet(set, teamHas) {
-			const item = this.dex.moves.get(set.item);
-			if (!item.exists) return this.validateSet(set, teamHas);
-			const problems = [];
+			const item = set.item;
+			const move = this.dex.moves.get(item);
+			if (!move.exists || move.id === 'metronome' || move.category === 'Status') {
+				return this.validateSet(set, teamHas);
+			}
+			set.item = '';
+			const problems = this.validateSet(set, teamHas) || [];
+			set.item = item;
+			if (set.moves.map(this.toID).includes(move.id)) {
+				problems.push(`Moves in the item slot can't be in the moveslots as well.`);
+			}
 			// keep nd moves just in case they are back one day
 			const restrictedMoves = ['Acid Spray', 'Anchor Shot', 'Beat Up', 'Bide', 'Bolt Beak', 'Dynamic Punch',
-				'Echoed Voice', 'Eerie Spell', 'Fishious Rend', 'Flip Turn', 'Ice Ball', 'Inferno', 'Jaw Lock',
-				'Last Respects', 'Lumina Crash', 'Mortal Spin', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rage Fist',
-				'Rising Voltage', 'Rollout', 'Shell Side Arm', 'Spirit Shackle', 'Stored Power', 'Terrain Pulse',
-				'Thousand Waves', 'U-turn', 'Volt Switch', 'Weather Ball', 'Zap Cannon',
+				'Echoed Voice', 'Eerie Spell', 'Fishious Rend', 'Ice Ball', 'Inferno', 'Jaw Lock', 'Last Respects',
+				'Lumina Crash', 'Mortal Spin', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rage Fist', 'Rising Voltage',
+				'Rollout', 'Shell Side Arm', 'Spirit Shackle', 'Stored Power', 'Terrain Pulse', 'Thousand Waves',
+				'Weather Ball', 'Zap Cannon',
 			];
-			// todo: ban VoltTurn by item.selfSwitch, remember to update the desc
-			if (item.type === 'Status' ||
-			(!!item.isNonstandard && item.isNonstandard !== 'Unobtainable') || // check if move is in gen 9
-			item.ohko ||
-			// @ts-ignore
-			item.secondaries && item.secondaries.some(secondary => secondary.boosts && secondary.boosts.accuracy < 0) ||
-			item.multihit ||
-			item.priority > 0 ||
-			item.volatileStatus === 'partiallytrapped' ||
-			item.damageCallback && item.id !== 'psywave' ||
-			item.flags['charge'] ||
-			item.willCrit ||
-			restrictedMoves.includes(item.name)) { problems.push(`${item.name} is banned as a Forte.`); }
-			const itemStr = set.item;
-			set.item = '';
-			const problem = this.validateSet(set, teamHas);
-			if (problem?.length) problems.push(...problem);
-			set.item = itemStr;
-			return problems;
+			const accuracyLoweringMove = move.secondaries?.some(secondary => secondary.boosts?.accuracy && secondary.boosts?.accuracy < 0);
+			if ((move.isNonstandard && move.isNonstandard !== 'Unobtainable') ||
+				move.ohko ||
+				accuracyLoweringMove ||
+				move.multihit ||
+				move.priority > 0 ||
+				move.volatileStatus === 'partiallytrapped' ||
+				move.damageCallback && move.id !== 'psywave' ||
+				move.flags['charge'] ||
+				move.willCrit ||
+				// ban voltturn
+				move.selfSwitch ||
+				restrictedMoves.includes(move.name)
+			) {
+				problems.push(`The move ${move.name} is banned as a Forte.`);
+			}
+			return problems.length ? problems : null;
 		},
 		onBegin() {
 			for (const pokemon of this.getAllPokemon()) {
