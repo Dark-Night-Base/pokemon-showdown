@@ -923,9 +923,46 @@ export const Formats: FormatList = [
 	},
 	{
 		name: "[Gen 9] Fortemons BH",
-		desc: `BH，但精灵可以在道具栏携带攻击招式，然后该精灵的所有攻击招式共享其特效。<br />如，一只精灵道具栏带高速旋转，则其所有攻击招式都额外拥有扫钉和速度 +1 效果。<br />以下招式禁止作为道具携带：<br />&bullet; 一击必杀招式<br />&bullet; 降低命中率的招式<br />&bullet; 多段招式<br />&bullet; 正先制度招式<br />&bullet; 抓人招式<br />&bullet; 反击招式<br />&bullet; 比例伤害招式<br />&bullet; 蓄力招式<br />&bullet; 必定击中要害的招式<br />&bullet; 其它被禁止的招式：酸液炸弹、爆裂拳、回声、诡异咒语、快速折返、炼狱、扫墓、琉光冲激、晶光转转、蹭蹭脸颊、嚣张、愤怒之拳、电力上升、滚动、臂贝武器、自由落体、辅助力量、大地波动、急速折返、伏特替换、气象球、电磁炮<br />BH, but Pok&eacute;mon can have attack moves in their item slot as fortes. Every attack move of a Pok&eacute;mon will additionally have the move effects of its forte.<br />E.g. A Pok&eacute;mon with Rapid Spin as its forte will give all its attacks the effect of hazard removal and +1 Spe, along with their original effects.<br />The following moves are banned as forte:<br />&bullet; OHKO Moves<br />&bullet; Moves That Lower Accuracy<br />&bullet; Multi-hit Moves<br />&bullet; Positive Priority Moves<br />&bullet; Trapping Moves<br />&bullet; Counter-like Moves<br />&bullet; Ratio Damage Moves<br />&bullet; Charge Moves<br />&bullet; Always-Crit Moves<br />&bullet; Other Banned Moves: Acid Spray, Dynamic Punch, Echoed Voice, Eerie Spell, Flip Turn, Inferno, Last Respects, Lumina Crash, Mortal Spin, Nuzzle, Power Trip, Rage Fist, Rising Voltage, Rollout, Shell Side Arm, Stored Power, Terrain Pulse, U-turn, Volt Switch, Weather Ball, Zap Cannon`,
+		desc: `BH，但精灵可以在道具栏携带攻击招式，然后该精灵的所有攻击招式共享其特效。<br/>\
+			如，一只精灵道具栏带高速旋转，则其所有攻击招式都额外拥有扫钉和速度 +1 效果。<br/>\
+			<details><summary>以下招式禁止作为道具携带：</summary>\
+			&bullet; 一击必杀招式<br/>\
+			&bullet; 降低命中率的招式<br/>\
+			&bullet; 多段招式<br/>\
+			&bullet; 正先制度招式<br/>\
+			&bullet; 抓人招式<br/>\
+			&bullet; 反击招式<br/>\
+			&bullet; 比例伤害招式<br/>\
+			&bullet; 蓄力招式<br/>\
+			&bullet; 必定击中要害的招式<br/>\
+			<details><summary>其它被禁止的招式：</summary>\
+			&emsp;&bullet; 快速折返、急速折返、伏特替换<br/>\
+			&emsp;&bullet; 爆裂拳、炼狱、晶光转转、蹭蹭脸颊、电磁炮<br/>\
+			&emsp;&bullet; 酸液炸弹、琉光冲激<br/>\
+			&emsp;&bullet; 回声、扫墓、嚣张、愤怒之拳、滚动、辅助力量<br/>\
+			&emsp;&bullet; 电力上升、大地波动、气象球<br/>\
+			&emsp;&bullet; 秘剑千重涛、诡异咒语、臂贝武器</details></details><br/>\
+			BH, but Pok&eacute;mon can have attack moves in their item slot as fortes. Every attack move of a Pok&eacute;mon will additionally have the move effects of its forte.<br/>\
+			E.g. A Pok&eacute;mon with Rapid Spin as its forte will give all its attacks the effect of hazard removal and +1 Spe, along with their original effects.<br/>\
+			<details><summary>The following moves are banned as forte:</summary>\
+			&bullet; OHKO Moves<br/>\
+			&bullet; Moves That Lower Accuracy<br/>\
+			&bullet; Multi-hit Moves<br/>\
+			&bullet; Positive Priority Moves<br/>\
+			&bullet; Trapping Moves<br/>\
+			&bullet; Counter-like Moves<br/>\
+			&bullet; Ratio Damage Moves<br/>\
+			&bullet; Charge Moves<br/>\
+			&bullet; Always-Crit Moves<br/>\
+			<details><summary>Other Banned Moves:</summary>\
+			&emsp;&bullet; Flip Turn, U-turn, Volt Switch<br/>\
+			&emsp;&bullet; Dynamic Punch, Inferno, Mortal Spin, Nuzzle, Zap Cannon<br/>\
+			&emsp;&bullet; Acid Spray, Lumina Crash<br/>\
+			&emsp;&bullet; Echoed Voice, Last Respects, Power Trip, Rage Fist, Rollout, Stored Power<br/>\
+			&emsp;&bullet; Rising Voltage, Terrain Pulse, Weather Ball<br/>\
+			&emsp;&bullet; Ceaseless Edge, Eerie Spell, Shell Side Arm</details></details>`,
 		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3638520/">Fortemons</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3713983/">Fortemons</a>`,
 		],
 
 		mod: 'fortemons',
@@ -951,11 +988,11 @@ export const Formats: FormatList = [
 				problems.push(`Moves in the item slot can't be in the moveslots as well.`);
 			}
 			// keep nd moves just in case they are back one day
-			const restrictedMoves = ['Acid Spray', 'Anchor Shot', 'Beat Up', 'Bide', 'Bolt Beak', 'Dynamic Punch',
-				'Echoed Voice', 'Eerie Spell', 'Fishious Rend', 'Ice Ball', 'Inferno', 'Jaw Lock', 'Last Respects',
-				'Lumina Crash', 'Mortal Spin', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rage Fist', 'Rising Voltage',
-				'Rollout', 'Shell Side Arm', 'Spirit Shackle', 'Stored Power', 'Terrain Pulse', 'Thousand Waves',
-				'Weather Ball', 'Zap Cannon',
+			const restrictedMoves = ['Acid Spray', 'Anchor Shot', 'Beat Up', 'Bide', 'Bolt Beak', 'Ceaseless Edge',
+				'Dynamic Punch', 'Echoed Voice', 'Eerie Spell', 'Fishious Rend', 'Ice Ball', 'Inferno', 'Jaw Lock',
+				'Last Respects', 'Lumina Crash', 'Mortal Spin', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rage Fist',
+				'Rising Voltage', 'Rollout', 'Shell Side Arm', 'Spirit Shackle', 'Stored Power', 'Terrain Pulse',
+				'Thousand Waves', 'Weather Ball', 'Zap Cannon',
 			];
 			const accuracyLoweringMove = move.secondaries?.some(secondary => secondary.boosts?.accuracy && secondary.boosts?.accuracy < 0);
 			if ((move.isNonstandard && move.isNonstandard !== 'Unobtainable') ||
