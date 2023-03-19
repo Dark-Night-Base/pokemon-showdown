@@ -966,7 +966,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'fortemons',
-		debug: true,
+		// debug: true,
 		ruleset: ['[Gen 9] Balanced Hackmons', 'Forte Clause', 'Multi-hit Moves Clause'],
 		banlist: [
 			'Copycat',
