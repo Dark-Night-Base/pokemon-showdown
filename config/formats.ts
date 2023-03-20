@@ -1448,11 +1448,13 @@ export const Formats: FormatList = [
 				if (forte.basePowerCallback) {
 					if (move.basePowerCallback) {
 						move.basePowerCallback = function (pkm, tgt, mv) {
+							let baseMove = this.dex.getActiveMove(mv.id);
 							let basePower = this.dex.moves.get(move.id).basePowerCallback!.call(this, pkm, tgt, mv);
-							const forteMove = this.dex.getActiveMove(forte.id);
-							forteMove.basePower = basePower || 1;
+							// const forteMove = this.dex.getActiveMove(forte.id);
+							baseMove.basePower = basePower || 1; // should this be 1 or something else?
 							// here we should use "forteMove" as the last param instead of mv
-							basePower = forteMove.basePowerCallback!.call(this, pkm, tgt, forteMove);
+							// ^ no, just use baseMove
+							basePower = forte.basePowerCallback!.call(this, pkm, tgt, baseMove);
 							return basePower;
 						};
 					} else {
@@ -1598,6 +1600,7 @@ export const Formats: FormatList = [
 				}
 			}
 		},
+		// todo: add onPrepareHit here?
 		onHitPriority: 1,
 		onHit(target, source, move) {
 			const forte = source.m.forte;
