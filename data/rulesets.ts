@@ -2375,48 +2375,31 @@ export const Rulesets: {[k: string]: FormatData} = {
 		},
 		onValidateTeam(team, format, teamHas) {
 			const forteTable = new Map<string, number>();
-			const base: {[k: string]: string} = {
-				// petaldance: 'outrage',
-				// thrash: 'outrage',
-				circlethrow: 'dragontail',
-				// revenge: 'avalanche',
-				doomdesire: 'futuresight',
-				drainingkiss: 'oblivionwing',
-				absorb: 'paraboliccharge',
-				gigadrain: 'paraboliccharge',
-				megadrain: 'paraboliccharge',
-				hornleech: 'leechlife',
-				firelash: 'thunderouskick',
-				grassknot: 'lowkick',
-				// heatcrash: 'heavyslam',
-				// originpulse: 'dragonpulse',
-			};
 			for (const set of team) {
 				if (this.dex.items.get(set.item).exists) continue;
-				let forte = this.dex.moves.get(set.item).id;
-				if (!forte) continue;
-				for (const move of set.moves) {
-					const moveId = this.dex.moves.get(move).id;
-					if (moveId === forte) {
-						return [`${this.dex.moves.get(forte).name} is used both as an item and as a move on ${set.species}.`];
-					}
+				const forte = this.dex.moves.get(set.item);
+				// forte should be leagal anyway, allowing empty item here
+				if (!forte.exists) continue;
+				const forteMove = this.dex.deepClone(forte);
+				const irrelevantProperties = [
+					'exists', 'desc', 'shortDesc', 'id', 'fullname', 'effectType', 'gen', 'isNonstandard', 'baseMoveType',
+					'num', 'accuracy', 'basePower', 'category', 'name', 'pp', 'target', 'type',
+					'contestType', 'zMove', 'maxMove', 'noPPBoosts', 'noSketch',
+					// won't affect leagal forte, just in case
+					'isZ', 'isMax', 'stallingMove',
+				];
+				for (const prop of irrelevantProperties) {
+					if (prop in forteMove) delete forteMove[prop];
 				}
-				if (forte in base) forte = base[forte] as ID;
-				if ((forteTable.get(forte) || 0) >= 1) {
+				const forteMoveString = JSON.stringify(forteMove);
+				if ((forteTable.get(forteMoveString) || 0) >= 1) {
 					return [
 						`You are limited to one of each Forte by Forte Clause.`,
-						`(You have more than two ${this.dex.moves.get(forte).name} variants)`,
+						`(You have more than two ${forte.name} variants)`,
 					];
 				}
-				forteTable.set(forte, (forteTable.get(forte) || 0) + 1);
+				forteTable.set(forteMoveString, (forteTable.get(forteMoveString) || 0) + 1);
 			}
-			// const problems = [];
-			// for (const forte in teamHas.fortes) {
-			// 	if (teamHas.fortes[forte] > 1) {
-			// 		problems.push(`You are limited to 1 of each Forte.`, `(You have ${teamHas.fortes[forte]} Pok\u00e9mon with ${forte} as a Forte.)`);
-			// 	}
-			// }
-			// return problems;
 		},
 	},
 	multihitmovesclause: {

@@ -1162,7 +1162,7 @@ export const Formats: FormatList = [
 				'Thousand Waves', 'Weather Ball', 'Zap Cannon',
 			];
 			const accuracyLoweringMove = move.secondaries?.some(secondary => secondary.boosts?.accuracy && secondary.boosts?.accuracy < 0);
-			if ((move.isNonstandard && move.isNonstandard !== 'Unobtainable') ||
+			if ((move.isNonstandard && move.isNonstandard !== 'Unobtainable') || move.isZ || move.isMax ||
 				move.ohko ||
 				accuracyLoweringMove ||
 				move.multihit ||
