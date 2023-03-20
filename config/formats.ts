@@ -1106,7 +1106,7 @@ export const Formats: FormatList = [
 			&emsp;&bullet; 快速折返、急速折返、伏特替换<br/>\
 			&emsp;&bullet; 爆裂拳、炼狱、晶光转转、蹭蹭脸颊、电磁炮<br/>\
 			&emsp;&bullet; 酸液炸弹、琉光冲激<br/>\
-			&emsp;&bullet; 回声、扫墓、嚣张、愤怒之拳、滚动、辅助力量<br/>\
+			&emsp;&bullet; 回声、连斩、扫墓、嚣张、愤怒之拳、滚动、辅助力量<br/>\
 			&emsp;&bullet; 电力上升、大地波动、气象球<br/>\
 			&emsp;&bullet; 秘剑千重涛、诡异咒语、臂贝武器</details></details><br/>\
 			BH, but Pok&eacute;mon can have attack moves in their item slot as fortes. Every attack move of a Pok&eacute;mon will additionally have the move effects of its forte.<br/>\
@@ -1125,7 +1125,7 @@ export const Formats: FormatList = [
 			&emsp;&bullet; Flip Turn, U-turn, Volt Switch<br/>\
 			&emsp;&bullet; Dynamic Punch, Inferno, Mortal Spin, Nuzzle, Zap Cannon<br/>\
 			&emsp;&bullet; Acid Spray, Lumina Crash<br/>\
-			&emsp;&bullet; Echoed Voice, Last Respects, Power Trip, Rage Fist, Rollout, Stored Power<br/>\
+			&emsp;&bullet; Echoed Voice, Fury Cutter, Last Respects, Power Trip, Rage Fist, Rollout, Stored Power<br/>\
 			&emsp;&bullet; Rising Voltage, Terrain Pulse, Weather Ball<br/>\
 			&emsp;&bullet; Ceaseless Edge, Eerie Spell, Shell Side Arm</details></details>`,
 		threads: [
@@ -1156,8 +1156,8 @@ export const Formats: FormatList = [
 			}
 			// keep nd moves just in case they are back one day
 			const restrictedMoves = ['Acid Spray', 'Anchor Shot', 'Beat Up', 'Bide', 'Bolt Beak', 'Ceaseless Edge',
-				'Dynamic Punch', 'Echoed Voice', 'Eerie Spell', 'Fishious Rend', 'Ice Ball', 'Inferno', 'Jaw Lock',
-				'Last Respects', 'Lumina Crash', 'Mortal Spin', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rage Fist',
+				'Dynamic Punch', 'Echoed Voice', 'Eerie Spell', 'Fishious Rend', 'Fury Cutter', 'Ice Ball', 'Inferno',
+				'Jaw Lock', 'Last Respects', 'Lumina Crash', 'Mortal Spin', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rage Fist',
 				'Rising Voltage', 'Rollout', 'Shell Side Arm', 'Spirit Shackle', 'Stored Power', 'Terrain Pulse',
 				'Thousand Waves', 'Weather Ball', 'Zap Cannon',
 			];
