@@ -633,7 +633,7 @@ export const Formats: FormatList = [
 		mod: 'gen9',
 		ruleset: ['-Nonexistent', 'Standard NatDex', 'Forme Clause', 'Sleep Moves Clause', 'Ability Clause = 2', 'OHKO Clause', 'Evasion Moves Clause', 'Dynamax Clause', 'CFZ Clause', '!Obtainable'],
 		banlist: [
-			'Arceus > 1', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 'Cramorant-Gorging', 'Calyrex-Shadow', 'Darmanitan-Galar-Zen',
+			'Arceus > 1', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 'Cramorant-Gorging', 'Calyrex-Shadow', 'Darmanitan-Galar-Zen', 'Zygarde-Complete',
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Magnet Pull', 'Moody', 'Neutralizing Gas', 'Parental Bond',
 			'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
 			'Gengarite',
@@ -1136,7 +1136,6 @@ export const Formats: FormatList = [
 		// debug: true,
 		ruleset: ['[Gen 9] Balanced Hackmons', 'Forte Clause', 'Multi-hit Moves Clause'],
 		banlist: [
-			'Copycat',
 			'Serene Grace', 'Shield Dust', 'Triage',
 			'Endeavor', 'Ruination', 'Super Fang',
 			// multi-hit moves banned by multihitmovesclause
@@ -2886,7 +2885,7 @@ export const Formats: FormatList = [
 		ruleset: ['Standard OMs', 'Sleep Clause Mod', 'Min Source Gen = 9'],
 		banlist: [
 			'Chi-Yu', 'Chien-Pao', 'Cloyster', 'Espathra', 'Flutter Mane', 'Great Tusk', 'Houndstone', 'Iron Bundle', 'Koraidon',
-			'Miraidon', 'Palafin', 'Riolu', 'Weavile', 'Arena Trap', 'Moody', 'Serene Grace', 'Shadow Tag', 'Covert Cloak', 'Baton Pass',
+			'Miraidon', 'Palafin', 'Weavile', 'Arena Trap', 'Moody', 'Serene Grace', 'Shadow Tag', 'Covert Cloak', 'Baton Pass',
 		],
 		restricted: ['Dynamic Punch', 'Fury Cutter', 'Grass Knot', 'Inferno', 'Low Kick', 'Nuzzle', 'Power Trip', 'Reversal', 'Spit Up', 'Stored Power', 'Zap Cannon'],
 		validateSet(set, teamHas) {
