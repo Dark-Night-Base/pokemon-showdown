@@ -1266,10 +1266,10 @@ export const Formats: FormatList = [
 				// pseudoWeather is a simple prop in practice cuz plasma fists is the only attack with it,
 				// the same applies to volatileStatus, (partiallytrapped moves and smackdown only)
 				const simpleProperties = ['breaksProtect', 'forceSwitch', 'hasCrashDamage', 'hasSheerForce',
-					'ignoreAbility', 'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity', 'isFutureMove',
-					'mindBlownRecoil', 'ohko', 'overrideDefensiveStat', 'overrideOffensivePokemon',
-					'overrideOffensiveStat', 'pseudoWeather', 'selfdestruct', 'selfSwitch', 'sleepUsable',
-					'smartTarget', 'stealsBoosts', 'struggleRecoil', 'thawsTarget', 'volatileStatus', 'willCrit',
+					'ignoreAbility', 'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity', 'mindBlownRecoil',
+					'ohko', 'overrideDefensiveStat', 'overrideOffensivePokemon', 'overrideOffensiveStat',
+					'pseudoWeather', 'selfdestruct', 'selfSwitch', 'sleepUsable', 'smartTarget', 'stealsBoosts',
+					'struggleRecoil', 'thawsTarget', 'volatileStatus', 'willCrit',
 					// function properties
 					'onDamage', 'onMoveFail', 'onUseMoveMessage'
 				] as const;
