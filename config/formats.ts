@@ -1108,7 +1108,7 @@ export const Formats: FormatList = [
 			&emsp;&bullet; 酸液炸弹、琉光冲激<br/>\
 			&emsp;&bullet; 回声、连斩、扫墓、嚣张、愤怒之拳、滚动、辅助力量<br/>\
 			&emsp;&bullet; 电力上升、大地波动、气象球<br/>\
-			&emsp;&bullet; 秘剑千重涛、诡异咒语、臂贝武器</details></details><br/>\
+			&emsp;&bullet; 秘剑千重涛、诡异咒语</details></details><br/>\
 			BH, but Pok&eacute;mon can have attack moves in their item slot as fortes. Every attack move of a Pok&eacute;mon will additionally have the move effects of its forte.<br/>\
 			E.g. A Pok&eacute;mon with Rapid Spin as its forte will give all its attacks the effect of hazard removal and +1 Spe, along with their original effects.<br/>\
 			<details><summary>The following moves are banned as forte:</summary>\
@@ -1127,7 +1127,7 @@ export const Formats: FormatList = [
 			&emsp;&bullet; Acid Spray, Lumina Crash<br/>\
 			&emsp;&bullet; Echoed Voice, Fury Cutter, Last Respects, Power Trip, Rage Fist, Rollout, Stored Power<br/>\
 			&emsp;&bullet; Rising Voltage, Terrain Pulse, Weather Ball<br/>\
-			&emsp;&bullet; Ceaseless Edge, Eerie Spell, Shell Side Arm</details></details>`,
+			&emsp;&bullet; Ceaseless Edge, Eerie Spell</details></details>`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3713983/">Fortemons</a>`,
 		],
@@ -1158,8 +1158,9 @@ export const Formats: FormatList = [
 			const restrictedMoves = ['Acid Spray', 'Anchor Shot', 'Beat Up', 'Bide', 'Bolt Beak', 'Ceaseless Edge',
 				'Dynamic Punch', 'Echoed Voice', 'Eerie Spell', 'Fishious Rend', 'Fury Cutter', 'Ice Ball', 'Inferno',
 				'Jaw Lock', 'Last Respects', 'Lumina Crash', 'Mortal Spin', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rage Fist',
-				'Rising Voltage', 'Rollout', 'Shell Side Arm', 'Spirit Shackle', 'Stored Power', 'Terrain Pulse',
+				'Rising Voltage', 'Rollout', 'Spirit Shackle', 'Stored Power', 'Terrain Pulse',
 				'Thousand Waves', 'Weather Ball', 'Zap Cannon',
+				// watchlist 'Shell Side Arm',
 			];
 			const accuracyLoweringMove = move.secondaries?.some(secondary => secondary.boosts?.accuracy && secondary.boosts?.accuracy < 0);
 			if ((move.isNonstandard && move.isNonstandard !== 'Unobtainable') ||
