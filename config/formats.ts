@@ -1099,8 +1099,8 @@ export const Formats: FormatList = [
 			&bullet; 正先制度招式<br/>\
 			&bullet; 抓人招式<br/>\
 			&bullet; 反击招式<br/>\
-			&bullet; 比例伤害招式<br/>\
-			&bullet; 蓄力招式<br/>\
+			&bullet; 比例伤害招式（如愤怒门牙）<br/>\
+			&bullet; 蓄力招式（如飞翔）<br/>\
 			&bullet; 必定击中要害的招式<br/>\
 			<details><summary>其它被禁止的招式：</summary>\
 			&emsp;&bullet; 快速折返、急速折返、伏特替换<br/>\
@@ -1118,8 +1118,8 @@ export const Formats: FormatList = [
 			&bullet; Positive Priority Moves<br/>\
 			&bullet; Trapping Moves<br/>\
 			&bullet; Counter-like Moves<br/>\
-			&bullet; Ratio Damage Moves<br/>\
-			&bullet; Charge Moves<br/>\
+			&bullet; Ratio Damage Moves (e.g. Super Fang)<br/>\
+			&bullet; Charge Moves (e.g. Fly)<br/>\
 			&bullet; Always-Crit Moves<br/>\
 			<details><summary>Other Banned Moves:</summary>\
 			&emsp;&bullet; Flip Turn, U-turn, Volt Switch<br/>\
