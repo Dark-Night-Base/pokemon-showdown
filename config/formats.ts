@@ -1615,6 +1615,14 @@ export const Formats: FormatList = [
 				this.singleEvent('Hit', forte, {}, target, source, move);
 				// we should still implement self.onHit in self cuz of sheer force
 				// if (forte.self) this.singleEvent('Hit', forte.self, {}, source, source, move);
+
+				// why is this implemented here???
+				// this.singleEvent('AfterHit', forte, {}, target, source, move);
+			}
+		},
+		onAfterHit(source, target, move) {
+			const forte = source.m.forte;
+			if (move?.category !== 'Status' && forte) {
 				this.singleEvent('AfterHit', forte, {}, target, source, move);
 			}
 		},
