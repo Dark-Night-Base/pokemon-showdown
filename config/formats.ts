@@ -1601,7 +1601,13 @@ export const Formats: FormatList = [
 				}
 			}
 		},
-		// todo: add onPrepareHit here?
+		// todo: test
+		onPrepareHit(source, target, move) {
+			const forte = source.m.forte;
+			if (move?.category !== 'Status' && forte) {
+				this.singleEvent('PrepareHit', forte, {}, target, source, move);
+			}
+		},
 		onHitPriority: 1,
 		onHit(target, source, move) {
 			const forte = source.m.forte;
