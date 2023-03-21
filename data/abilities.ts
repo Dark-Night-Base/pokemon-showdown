@@ -5216,12 +5216,6 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 	// mbhv4
 	allseeingeye: {
 		isNonstandard: "CAP",
-		// onPrepareHit(source, target, move) {
-		// 	if (move.type !== "Psychic" || move.category !== "Status") return;
-		// 	// not sure what this does, just keep it
-		// 	if (move.hasBounced || move.isFutureMove || move.sourceEffect === 'snatch') return;
-		// 	this.heal(source.baseMaxhp / 4);
-		// },
 		onAfterMove(source, target, move) {
 			if (move.type === "Psychic" && move.category === "Status") {
 				this.heal(source.baseMaxhp / 4);

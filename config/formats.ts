@@ -1496,7 +1496,7 @@ export const Formats: FormatList = [
 				if (forte.onTry) {
 					if (move.onTry) {
 						move.onTry = function (src, tgt, mv) {
-							const ret1 = (this.dex.moves.get(mv.id).onTry as any).call(this, src, tgt, mv);
+							const ret1 = (this.dex.moves.get(move.id).onTry as any).call(this, src, tgt, mv);
 							let ret2;
 							if (forte.id !== 'doomdesire' && forte.id !== 'futuresight') {
 								// not sure about using mv here, round is the only relevant move tho
@@ -1506,19 +1506,19 @@ export const Formats: FormatList = [
 									ret2 = false;
 								} else {
 									Object.assign(tgt.side.slotConditions[tgt.position]['futuremove'], {
-										move: mv.id,
+										duration: 3,
+										move: move.id,
 										source: src,
 										moveData: {
-											id: mv.id,
-											name: mv.name,
-											accuracy: mv.accuracy,
-											basePower: mv.basePower,
-											category: mv.category,
-											priority: mv.priority,
-											flags: mv.flags,
+											id: move.id,
+											name: move.name,
+											accuracy: move.accuracy,
+											basePower: move.basePower,
+											category: move.category,
+											priority: move.priority,
+											flags: move.flags,
 											effectType: 'Move',
-											isFutureMove: true,
-											type: mv.baseMoveType,
+											type: move.baseMoveType,
 										},
 									});
 									this.add('-start', src, forte.name);
@@ -1534,19 +1534,19 @@ export const Formats: FormatList = [
 							move.onTry = function (src, tgt, mv) {
 								if (!tgt.side.addSlotCondition(tgt, 'futuremove')) return false;
 								Object.assign(tgt.side.slotConditions[tgt.position]['futuremove'], {
-									move: mv.id,
+									duration: 3,
+									move: move.id,
 									source: src,
 									moveData: {
-										id: mv.id,
-										name: mv.name,
-										accuracy: mv.accuracy,
-										basePower: mv.basePower,
-										category: mv.category,
-										priority: mv.priority,
-										flags: mv.flags,
+										id: move.id,
+										name: move.name,
+										accuracy: move.accuracy,
+										basePower: move.basePower,
+										category: move.category,
+										priority: move.priority,
+										flags: move.flags,
 										effectType: 'Move',
-										isFutureMove: true,
-										type: mv.baseMoveType,
+										type: move.baseMoveType,
 									},
 								});
 								this.add('-start', src, forte.name);
