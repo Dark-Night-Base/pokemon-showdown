@@ -1188,7 +1188,7 @@ export const Formats: FormatList = [
 				}
 			}
 		},
-		// we should deal with the following properties here instead of in onModifyMove, cuz they're called before onModifyMove
+		// we should deal with the following 3 properties here instead of in onModifyMove, cuz they're called before onModifyMove
 		// see simulator-doc.txt and sim/battle-actions.ts
 		// set priority to 11 for sleepUsable and defrost
 		onBeforeMovePriority: 11,
@@ -1295,7 +1295,6 @@ export const Formats: FormatList = [
 					}
 				}
 				// self
-				// todo: test
 				if (forte.self) {
 					if (forte.self.onHit && move.self?.onHit ||
 						forte.self.boosts && move.self?.boosts ||
@@ -1458,7 +1457,8 @@ export const Formats: FormatList = [
 					}
 				}
 
-				// complexProperties
+				// complexProperties - part 1
+				// here we only deal with properties whose return value matters
 				if (forte.basePowerCallback) {
 					if (move.basePowerCallback) {
 						move.basePowerCallback = function (pkm, tgt, mv) {
@@ -1477,7 +1477,6 @@ export const Formats: FormatList = [
 				}
 				if (forte.onEffectiveness) {
 					if (move.onEffectiveness) {
-						// todo: test
 						move.onEffectiveness = function (typeMod, tgt, tp, mv) {
 							const moveEffectiveness = this.dex.moves.get(move.id).onEffectiveness!.call(this, typeMod, tgt, tp, mv);
 							const forteEffectiveness = forte.onEffectiveness!.call(this, moveEffectiveness || typeMod, tgt, tp, mv);
@@ -1487,19 +1486,28 @@ export const Formats: FormatList = [
 						move.onEffectiveness = forte.onEffectiveness;
 					}
 				}
-				// see sim/battle-actions.ts:1246
-				// if (forte.onHit) {
-				// 	if (move.onHit) {
-				// 		move.onHit = function (tgt, src, mv) {
-				// 			const ret1 = (this.dex.moves.get(mv.id).onHit as any).call(this, tgt, src, mv);
-				// 			const ret2 = (forte.onHit as any).call(this, tgt, src, this.dex.getActiveMove(forte.id));
-				// 			if (ret1 === this.NOT_FAIL || ret2 === this.NOT_FAIL) return this.NOT_FAIL;
-				// 		};
-				// 	} else {
-				// 		move.onHit = forte.onHit;
-				// 	}
-				// }
-				// not sure about the following two
+				if (forte.onPrepareHit) {
+					if (move.onPrepareHit) {
+						move.onPrepareHit = function (tgt, src, mv) {
+							const ret1 = (this.dex.moves.get(move.id).onPrepareHit as any).call(this, tgt, src, mv);
+							const ret2 = (forte.onPrepareHit as any).call(this, tgt, src, mv);
+							return this.actions.combineResults(ret1, ret2);
+						}
+					} else {
+						move.onPrepareHit = forte.onPrepareHit;
+					}
+				}
+				if (forte.onHit) {
+					if (move.onHit) {
+						move.onHit = function (tgt, src, mv) {
+							const ret1 = (this.dex.moves.get(move.id).onHit as any).call(this, tgt, src, mv);
+							const ret2 = (forte.onHit as any).call(this, tgt, src, mv);
+							return this.actions.combineResults(ret1, ret2);
+						};
+					} else {
+						move.onHit = forte.onHit;
+					}
+				}
 				if (forte.onTry) {
 					if (move.onTry) {
 						move.onTry = function (src, tgt, mv) {
@@ -1532,10 +1540,7 @@ export const Formats: FormatList = [
 									ret2 = this.NOT_FAIL;
 								}
 							}
-							if (ret1 === false || ret2 === false) return false;
-							if (ret1 === null || ret2 === null) return null;
-							if (ret1 === this.NOT_FAIL || ret2 === this.NOT_FAIL) return this.NOT_FAIL;
-							if (ret1 === true || ret2 === true) return true;
+							return this.actions.combineResults(ret1, ret2);
 						};
 					} else {
 						if (forte.id !== 'doomdesire' && forte.id !== 'futuresight') {
@@ -1571,8 +1576,7 @@ export const Formats: FormatList = [
 							const ret1 = (this.dex.moves.get(mv.id).onTryHit as any).call(this, src, tgt, mv);
 							// not sure about using mv here, pollenpuff is the only relevant move tho
 							const ret2 = (forte.onTryHit as any).call(this, src, tgt, mv);
-							if (ret1 === false || ret2 === false) return false;
-							if (ret1 === null || ret2 === null) return null;
+							return this.actions.combineResults(ret1, ret2);
 						};
 					} else {
 						move.onTryHit = forte.onTryHit;
@@ -1581,7 +1585,9 @@ export const Formats: FormatList = [
 				if (forte.onTryImmunity) {
 					if (move.onTryImmunity) {
 						move.onTryImmunity = function (tgt, src) {
-							return (this.dex.moves.get(move.id).onTryImmunity as any).call(this, tgt, src) && (forte.onTryImmunity as any).call(this, tgt, src);
+							const ret1 = (this.dex.moves.get(move.id).onTryImmunity as any).call(this, tgt, src);
+							const ret2 = (forte.onTryImmunity as any).call(this, tgt, src);
+							return this.actions.combineResults(ret1, ret2);
 						};
 					} else {
 						move.onTryImmunity = forte.onTryImmunity;
@@ -1592,7 +1598,7 @@ export const Formats: FormatList = [
 						move.onTryMove = function (pkm) {
 							const ret1 = (this.dex.moves.get(move.id).onTryMove as any).call(this, pkm);
 							const ret2 = (forte.onTryMove as any).call(this, pkm);
-							if (ret1 === null || ret2 === null) return null;
+							return this.actions.combineResults(ret1, ret2);
 						};
 					} else {
 						move.onTryMove = forte.onTryMove;
@@ -1604,27 +1610,8 @@ export const Formats: FormatList = [
 				}
 			}
 		},
-		// todo: test
-		// todo: deal with the return value, maybe move this back to onModifyMove
-		onPrepareHit(source, target, move) {
-			const forte = source.m.forte;
-			if (move?.category !== 'Status' && forte) {
-				this.singleEvent('PrepareHit', forte, {}, target, source, move);
-			}
-		},
-		// todo: deal with the return value
-		onHitPriority: 1,
-		onHit(target, source, move) {
-			const forte = source.m.forte;
-			if (move?.category !== 'Status' && forte) {
-				this.singleEvent('Hit', forte, {}, target, source, move);
-				// we should still implement self.onHit in self cuz of sheer force
-				// if (forte.self) this.singleEvent('Hit', forte.self, {}, source, source, move);
-
-				// why is this implemented here???
-				// this.singleEvent('AfterHit', forte, {}, target, source, move);
-			}
-		},
+		// complexProperties - part 2
+		// these are both after onModifyMove and have irrelevant return value
 		onAfterHit(source, target, move) {
 			const forte = source.m.forte;
 			if (move?.category !== 'Status' && forte) {
