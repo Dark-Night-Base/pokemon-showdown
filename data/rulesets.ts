@@ -2388,8 +2388,14 @@ export const Rulesets: {[k: string]: FormatData} = {
 					// won't affect leagal forte, just in case
 					'isZ', 'isMax', 'stallingMove',
 				];
+				const irrelevantFlags = [
+					'allyanim', 'nonsky',
+				];
 				for (const prop of irrelevantProperties) {
-					if (prop in forteMove) delete forteMove[prop];
+					if (forteMove[prop]) delete forteMove[prop];
+				}
+				for (const flag of irrelevantFlags) {
+					if (forteMove.flags[flag]) delete forteMove.flags[flag];
 				}
 				const forteMoveString = JSON.stringify(forteMove);
 				if ((forteTable.get(forteMoveString) || 0) >= 1) {
