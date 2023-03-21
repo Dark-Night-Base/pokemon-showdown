@@ -1275,8 +1275,6 @@ export const Formats: FormatList = [
 					// function properties
 					'onDamage', 'onMoveFail', 'onUseMoveMessage'
 				] as const;
-				// omitted properties:
-				// onPrepareHit
 				for (const prop of simpleProperties) {
 					if (forte[prop]) {
 						move[prop] = forte[prop] as any;
