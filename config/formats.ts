@@ -1269,11 +1269,11 @@ export const Formats: FormatList = [
 				const simpleProperties = ['breaksProtect', 'forceSwitch', 'hasCrashDamage', 'hasSheerForce',
 					'ignoreAbility', 'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity', 'isFutureMove',
 					'mindBlownRecoil', 'ohko', 'overrideDefensiveStat', 'overrideOffensivePokemon',
-					'overrideOffensiveStat', 'pseudoWeather', 'selfdestruct', 'selfSwitch', 'smartTarget',
-					'stealsBoosts', 'struggleRecoil', 'thawsTarget', 'volatileStatus', 'willCrit',
-					// 'sleepUsable' implemented in onBeforeMove
+					'overrideOffensiveStat', 'pseudoWeather', 'selfdestruct', 'selfSwitch', 'sleepUsable',
+					'smartTarget', 'stealsBoosts', 'struggleRecoil', 'thawsTarget', 'volatileStatus', 'willCrit',
 					// function properties
-					'onDamage', 'onMoveFail', 'onUseMoveMessage'] as const;
+					'onDamage', 'onMoveFail', 'onUseMoveMessage'
+				] as const;
 				// omitted properties:
 				// onPrepareHit
 				for (const prop of simpleProperties) {
@@ -1494,28 +1494,6 @@ export const Formats: FormatList = [
 						move.onEffectiveness = forte.onEffectiveness;
 					}
 				}
-				if (forte.onPrepareHit) {
-					if (move.onPrepareHit) {
-						move.onPrepareHit = function (tgt, src, mv) {
-							const ret1 = (this.dex.moves.get(move.id).onPrepareHit as any).call(this, tgt, src, mv);
-							const ret2 = (forte.onPrepareHit as any).call(this, tgt, src, mv);
-							return this.actions.combineResults(ret1, ret2);
-						}
-					} else {
-						move.onPrepareHit = forte.onPrepareHit;
-					}
-				}
-				if (forte.onHit) {
-					if (move.onHit) {
-						move.onHit = function (tgt, src, mv) {
-							const ret1 = (this.dex.moves.get(move.id).onHit as any).call(this, tgt, src, mv);
-							const ret2 = (forte.onHit as any).call(this, tgt, src, mv);
-							return this.actions.combineResults(ret1, ret2);
-						};
-					} else {
-						move.onHit = forte.onHit;
-					}
-				}
 				if (forte.onTry) {
 					if (move.onTry) {
 						move.onTry = function (src, tgt, mv) {
@@ -1578,38 +1556,21 @@ export const Formats: FormatList = [
 						}
 					}
 				}
-				if (forte.onTryHit) {
-					if (move.onTryHit) {
-						move.onTryHit = function (src, tgt, mv) {
-							const ret1 = (this.dex.moves.get(mv.id).onTryHit as any).call(this, src, tgt, mv);
-							// not sure about using mv here, pollenpuff is the only relevant move tho
-							const ret2 = (forte.onTryHit as any).call(this, src, tgt, mv);
-							return this.actions.combineResults(ret1, ret2);
-						};
-					} else {
-						move.onTryHit = forte.onTryHit;
-					}
-				}
-				if (forte.onTryImmunity) {
-					if (move.onTryImmunity) {
-						move.onTryImmunity = function (tgt, src) {
-							const ret1 = (this.dex.moves.get(move.id).onTryImmunity as any).call(this, tgt, src);
-							const ret2 = (forte.onTryImmunity as any).call(this, tgt, src);
-							return this.actions.combineResults(ret1, ret2);
-						};
-					} else {
-						move.onTryImmunity = forte.onTryImmunity;
-					}
-				}
-				if (forte.onTryMove) {
-					if (move.onTryMove) {
-						move.onTryMove = function (pkm) {
-							const ret1 = (this.dex.moves.get(move.id).onTryMove as any).call(this, pkm);
-							const ret2 = (forte.onTryMove as any).call(this, pkm);
-							return this.actions.combineResults(ret1, ret2);
-						};
-					} else {
-						move.onTryMove = forte.onTryMove;
+				const retValComplexProperties = [
+					'onPrepareHit', 'onHit', 'onTryHit', 'onTryImmunity', 'onTryMove'
+				] as const;
+				for (const prop of retValComplexProperties) {
+					if (forte[prop]) {
+						if (move[prop]) {
+							// using a gimmick here since they all have argument lists of the same type
+							move[prop] = function (pkm1, pkm2, mv) {
+								const ret1 = (this.dex.moves.get(move.id)[prop] as any).call(this, pkm1, pkm2, mv);
+								const ret2 = (forte[prop] as any).call(this, pkm1, pkm2, mv);
+								return this.actions.combineResults(ret1, ret2);
+							}
+						} else {
+							move[prop] = forte[prop] as any;
+						}
 					}
 				}
 
