@@ -1192,7 +1192,6 @@ export const Formats: FormatList = [
 		// see simulator-doc.txt and sim/battle-actions.ts
 		onModifyPriorityPriority: 1,
 		onModifyPriority(priority, source, target, move) {
-			// todo: test
 			// works for grassyglide and triage
 			// but not for revelationdance + galewings, since onModifyType is called later
 			const forte = source.m.forte;
@@ -1200,7 +1199,10 @@ export const Formats: FormatList = [
 				if (forte.flags['heal']) {
 					move.flags['heal'] = forte.flags['heal'];
 				}
-				return this.singleEvent('ModifyPriority', forte, null, source, target, move, priority);
+				// don't use singleEvent here, will cause some issues
+				if (forte.onModifyPriority) {
+					return forte.onModifyPriority.call(this, priority, source, target, move) || priority;
+				}
 			}
 		},
 		// set priority to 11 for sleepUsable and defrost
