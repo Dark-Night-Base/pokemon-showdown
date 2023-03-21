@@ -1188,15 +1188,37 @@ export const Formats: FormatList = [
 				}
 			}
 		},
-		// we should deal with the following 3 properties here instead of in onModifyMove, cuz they're called before onModifyMove
+		// complexProperties - part 0
+		// these are called before onModifyMove
 		// see simulator-doc.txt and sim/battle-actions.ts
+		onModifyPriorityPriority: 1,
+		onModifyPriority(priority, source, target, move) {
+			// todo: test
+			// works for grassyglide and triage
+			// but not for revelationdance + galewings, since onModifyType is called later
+			const forte = source.m.forte;
+			if (move?.category !== 'Status' && forte) {
+				if (forte.flags['heal']) {
+					move.flags['heal'] = forte.flags['heal'];
+				}
+				return this.singleEvent('ModifyPriority', forte, null, source, target, move, priority);
+			}
+		},
 		// set priority to 11 for sleepUsable and defrost
 		onBeforeMovePriority: 11,
 		onBeforeMove(source, target, move) {
 			const forte = source.m.forte;
 			if (move?.category !== 'Status' && forte) {
 				if (forte.beforeMoveCallback) {
-					move.beforeMoveCallback = forte.beforeMoveCallback;
+					if (move.beforeMoveCallback) {
+						move.beforeMoveCallback = function (pkm, tgt, mv) {
+							const ret1 = this.dex.moves.get(move.id).beforeMoveCallback!.call(this, pkm, tgt, mv);
+							const ret2 = forte.beforeMoveCallback.call(this, pkm, tgt, mv);
+							return this.actions.combineResults(ret1 as any, ret2);
+						}
+					} else {
+						move.beforeMoveCallback = forte.beforeMoveCallback;
+					}
 				}
 				if (forte.sleepUsable) {
 					move.sleepUsable = forte.sleepUsable;
@@ -1204,20 +1226,6 @@ export const Formats: FormatList = [
 				if (forte.flags['defrost']) {
 					move.flags['defrost'] = forte.flags['defrost'];
 				}
-			}
-		},
-		onModifyPriorityPriority: 1,
-		onModifyPriority(priority, source, target, move) {
-			const forte = source.m.forte;
-			if (move?.category !== 'Status' && forte) {
-				let additionalPriority = 0;
-				if (forte.id === 'grassyglide' &&
-					this.field.isTerrain('grassyterrain') &&
-					source.isGrounded()) additionalPriority += 1;
-				if (source.getAbility().id === 'triage' &&
-					forte.flags.heal &&
-					!move.flags.heal) additionalPriority += 3;
-				return priority + forte.priority + additionalPriority;
 			}
 		},
 		onModifyTypePriority: 1,
