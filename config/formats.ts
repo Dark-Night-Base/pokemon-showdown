@@ -1462,16 +1462,6 @@ export const Formats: FormatList = [
 						move.basePowerCallback = forte.basePowerCallback;
 					}
 				}
-				if (forte.onAfterMove) {
-					if (move.onAfterMove) {
-						move.onAfterMove = function (src, tgt, mv) {
-							this.dex.moves.get(move.id).onAfterMove!.call(this, src, tgt, mv);
-							forte.onAfterMove!.call(this, src, tgt, mv);
-						};
-					} else {
-						move.onAfterMove = forte.onAfterMove;
-					}
-				}
 				if (forte.onEffectiveness) {
 					if (move.onEffectiveness) {
 						// todo: test
@@ -1602,12 +1592,14 @@ export const Formats: FormatList = [
 			}
 		},
 		// todo: test
+		// todo: deal with the return value, maybe move this back to onModifyMove
 		onPrepareHit(source, target, move) {
 			const forte = source.m.forte;
 			if (move?.category !== 'Status' && forte) {
 				this.singleEvent('PrepareHit', forte, {}, target, source, move);
 			}
 		},
+		// todo: deal with the return value
 		onHitPriority: 1,
 		onHit(target, source, move) {
 			const forte = source.m.forte;
@@ -1641,6 +1633,12 @@ export const Formats: FormatList = [
 			const forte = source.m.forte;
 			if (move?.category !== 'Status' && forte) {
 				this.singleEvent('AfterMoveSecondarySelf', forte, null, source, target, move);
+			}
+		},
+		onAfterMove(source, target, move) {
+			const forte = source.m.forte;
+			if (move?.category !== 'Status' && forte) {
+				this.singleEvent('AfterMove', forte, null, source, target, move);
 			}
 		},
 		onBasePowerPriority: 1,
