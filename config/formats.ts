@@ -1190,29 +1190,41 @@ export const Formats: FormatList = [
 		},
 		// we should deal with the following properties here instead of in onModifyMove, cuz they're called before onModifyMove
 		// see simulator-doc.txt and sim/battle-actions.ts
-		onBeforeMovePriority: 1,
+		// set priority to 11 for sleepUsable and defrost
+		onBeforeMovePriority: 11,
 		onBeforeMove(source, target, move) {
-			if (move && move.category !== 'Status' && source.m.forte && source.m.forte.beforeMoveCallback) {
-				move.beforeMoveCallback = source.m.forte.beforeMoveCallback;
+			const forte = source.m.forte;
+			if (move?.category !== 'Status' && forte) {
+				if (forte.beforeMoveCallback) {
+					move.beforeMoveCallback = forte.beforeMoveCallback;
+				}
+				if (forte.sleepUsable) {
+					move.sleepUsable = forte.sleepUsable;
+				}
+				if (forte.flags['defrost']) {
+					move.flags['defrost'] = forte.flags['defrost'];
+				}
 			}
 		},
 		onModifyPriorityPriority: 1,
 		onModifyPriority(priority, source, target, move) {
-			if (move && move.category !== 'Status' && source.m.forte) {
+			const forte = source.m.forte;
+			if (move?.category !== 'Status' && forte) {
 				let additionalPriority = 0;
-				if (source.m.forte.id === 'grassyglide' &&
+				if (forte.id === 'grassyglide' &&
 					this.field.isTerrain('grassyterrain') &&
 					source.isGrounded()) additionalPriority += 1;
 				if (source.getAbility().id === 'triage' &&
-					source.m.forte.flags.heal &&
+					forte.flags.heal &&
 					!move.flags.heal) additionalPriority += 3;
-				return priority + source.m.forte.priority + additionalPriority;
+				return priority + forte.priority + additionalPriority;
 			}
 		},
 		onModifyTypePriority: 1,
 		onModifyType(move, pokemon, target) {
-			if (move && move.category !== 'Status' && pokemon.m.forte && pokemon.m.forte.onModifyType) {
-				this.singleEvent('ModifyType', pokemon.m.forte, null, pokemon, target, move, move);
+			const forte = pokemon.m.forte;
+			if (move?.category !== 'Status' && forte) {
+				this.singleEvent('ModifyType', forte, null, pokemon, target, move, move);
 			}
 		},
 		// set this to 1 for sheer force
@@ -1247,10 +1259,11 @@ export const Formats: FormatList = [
 				// pseudoWeather is a simple prop in practice cuz plasma fists is the only attack with it,
 				// the same applies to volatileStatus, (partiallytrapped moves and smackdown only)
 				const simpleProperties = ['breaksProtect', 'forceSwitch', 'hasCrashDamage', 'hasSheerForce',
-					'ignoreAbility', 'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity', 'isFutureMove', 'ohko', 
-					'mindBlownRecoil', 'overrideDefensiveStat', 'overrideOffensivePokemon', 'overrideOffensiveStat',
-					'pseudoWeather', 'selfdestruct', 'selfSwitch', 'sleepUsable', 'smartTarget', 'stealsBoosts',
-					'struggleRecoil', 'thawsTarget', 'volatileStatus', 'willCrit',
+					'ignoreAbility', 'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity', 'isFutureMove',
+					'mindBlownRecoil', 'ohko', 'overrideDefensiveStat', 'overrideOffensivePokemon',
+					'overrideOffensiveStat', 'pseudoWeather', 'selfdestruct', 'selfSwitch', 'smartTarget',
+					'stealsBoosts', 'struggleRecoil', 'thawsTarget', 'volatileStatus', 'willCrit',
+					// 'sleepUsable' implemented in onBeforeMove
 					// function properties
 					'onDamage', 'onMoveFail', 'onUseMoveMessage'] as const;
 				// omitted properties:
