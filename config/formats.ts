@@ -1605,7 +1605,8 @@ export const Formats: FormatList = [
 		onModifySecondaries(secondaries, target, source, move) {
 			if (secondaries.some(s => !!s.self)) move.selfDropped = false;
 		},
-		onAfterMoveSecondaryPriority: 1,
+		// this should be -1 to be applied later than the move itself i think?
+		onAfterMoveSecondaryPriority: -1,
 		onAfterMoveSecondarySelf(source, target, move) {
 			const forte = source.m.forte;
 			if (move?.category !== 'Status' && forte) {
@@ -1618,7 +1619,8 @@ export const Formats: FormatList = [
 				this.singleEvent('AfterMove', forte, null, source, target, move);
 			}
 		},
-		onBasePowerPriority: 1,
+		// still, irrelevant tho, i think this should be -1
+		onBasePowerPriority: -1,
 		onBasePower(basePower, source, target, move) {
 			const forte = source.m.forte;
 			if (move.category !== 'Status' && forte?.onBasePower) {
