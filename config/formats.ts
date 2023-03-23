@@ -1266,12 +1266,11 @@ export const Formats: FormatList = [
 				move.flags = {...move.flags, ...forte.flags};
 
 				// pseudoWeather is a simple prop in practice cuz plasma fists is the only attack with it,
-				// the same applies to volatileStatus, (partiallytrapped moves and smackdown only)
 				const simpleProperties = ['breaksProtect', 'forceSwitch', 'hasCrashDamage', 'hasSheerForce',
 					'ignoreAbility', 'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity', 'mindBlownRecoil',
 					'ohko', 'overrideDefensiveStat', 'overrideOffensivePokemon', 'overrideOffensiveStat',
 					'pseudoWeather', 'selfdestruct', 'selfSwitch', 'sleepUsable', 'smartTarget', 'stealsBoosts',
-					'struggleRecoil', 'thawsTarget', 'volatileStatus', 'willCrit',
+					'struggleRecoil', 'thawsTarget', 'willCrit',
 					// function properties
 					'onDamage', 'onMoveFail', 'onUseMoveMessage'
 				] as const;
@@ -1299,6 +1298,15 @@ export const Formats: FormatList = [
 						move.secondary = undefined;
 					} else {
 						move.secondary = forte.secondary;
+					}
+				}
+				// volatileStatus
+				// todo: test
+				if (forte.volatileStatus) {
+					if (move.volatileStatus) {
+						move.volatileStatus += '+' + forte.volatileStatus;
+					} else {
+						move.volatileStatus = forte.volatileStatus;
 					}
 				}
 				// self
@@ -1329,6 +1337,7 @@ export const Formats: FormatList = [
 								move.self.boosts[boostid]! += forte.self.boosts[boostid]!;
 							}
 						}
+						// todo: test if this really works
 						if (forte.self.volatileStatus) {
 							if (move.self.volatileStatus) {
 								// the other part implemented in data/mods
@@ -1466,6 +1475,7 @@ export const Formats: FormatList = [
 
 				// complexProperties - part 1
 				// here we only deal with properties whose return value matters
+				// return value of some of them are practically irrelevant, but there's not harm to deal with them
 				if (forte.basePowerCallback) {
 					if (move.basePowerCallback) {
 						move.basePowerCallback = function (pkm, tgt, mv) {

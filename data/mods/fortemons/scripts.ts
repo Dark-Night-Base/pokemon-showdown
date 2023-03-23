@@ -400,7 +400,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			return actions as any;
 		},
 	},
-	// Nihilslave: make self.volatileStatus stack
+	// Nihilslave: make volatileStatus stack
 	actions: {
 		runMoveEffects(
 			damage: SpreadMoveDamage, targets: SpreadMoveTargets, source: Pokemon,
