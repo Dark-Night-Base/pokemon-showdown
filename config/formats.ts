@@ -1508,8 +1508,7 @@ export const Formats: FormatList = [
 						move.onTry = function (src, tgt, mv) {
 							const ret1 = (this.dex.moves.get(move.id).onTry as any).call(this, src, tgt, mv);
 							let ret2;
-							if (forte.id !== 'doomdesire' && forte.id !== 'futuresight') {
-								// not sure about using mv here, round is the only relevant move tho
+							if (!forte.flags['futuremove']) {
 								ret2 = (forte.onTry as any).call(this, src, tgt, mv);
 							} else {
 								if (!tgt.side.addSlotCondition(tgt, 'futuremove')) {
@@ -1538,7 +1537,7 @@ export const Formats: FormatList = [
 							return this.actions.combineResults(ret1, ret2);
 						};
 					} else {
-						if (forte.id !== 'doomdesire' && forte.id !== 'futuresight') {
+						if (!forte.flags['futuremove']) {
 							move.onTry = forte.onTry;
 						} else {
 							move.onTry = function (src, tgt, mv) {
