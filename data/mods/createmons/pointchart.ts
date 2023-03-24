@@ -64,7 +64,7 @@ export const abilityToPoint: {[k: string]: number} = {
 	iceface: 2,
 	icescales: 4,
 	illusion: 5,
-	imposter: 1.5,
+	imposter: 1,
 	innardsout: 1000000,
 	intimidate: 2.5,
 	intrepidsword: 1.5,
@@ -576,8 +576,8 @@ function calcBSPoint(stats: StatsTable) {
 	return retVals;
 }
 export function getSetPoint(dex: ModdedDex, set: PokemonSet) {
-	// BS | BS1 | BS2 | T | T1 | T2 | A | M | M1 | M2 | M3 | M4 |  P |
-	//  0 |  1  |  2  | 3 |  4 |  5 | 6 | 7 |  8 |  9 | 10 | 11 | 12 |
+	// BS | BS1 | BS2 | T | T1 | T2 | A | M | M1 | M2 | M3 | M4 |  P | P1 | P2 | P3 | P4 | P5 | P6 |
+	//  0 |  1  |  2  | 3 |  4 |  5 | 6 | 7 |  8 |  9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 |
 	const details: number[] = [];
 	const species = dex.species.get(set.species);
 
@@ -631,12 +631,18 @@ export function getSetPoint(dex: ModdedDex, set: PokemonSet) {
 	details.push(0);
 	let statName: StatID;
 	for (statName in set.evs) {
-		if (set.evs[statName] > 150) {
-			++details[12];
+		const stat = set.evs[statName];
+		let penalty = 0;
+		if (stat > 150) {
+			// (stat-150)^3/10.61
+			penalty = (stat - 150) * (stat - 150) * (stat - 150) * 193 / 2048;
+			penalty = Math.floor(penalty);
+			details[12] += penalty
 			if (statName === 'hp') {
-				++details[12];
+				details[12] += penalty;
 			}
 		}
+		details.push(penalty);
 	}
 
 	return details;

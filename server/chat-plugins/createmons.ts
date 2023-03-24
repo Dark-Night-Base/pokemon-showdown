@@ -62,7 +62,7 @@ export const commands: Chat.ChatCommands = {
 				`&bullet; T: 属性分. 等于各属性分数之和; 如果是单属性则为属性分数乘以 1.5. <br />` +
 				`&bullet; A: 特性分. <br />` +
 				`&bullet; M: 招式分. 等于各招式分数之和; 空白招式计 0.5 分. <br />` +
-				`&bullet; P: 高种族惩罚. 每有一项种族值超过 150, 此项加 5000, 若为 HP 则加 10000. <br />` +
+				`&bullet; P: 惩罚分. 每项超过 150 的种族值会根据超过的多少受到惩罚, HP 受双倍惩罚. <br />` +
 				`总分 = S * T * A * M + P. <br />` +
 				`<details><summary><em>种族分计算方式</em></summary>` +
 				`h, a, b, c, d, s 分别代表 HP, 攻击, 防御, 特攻, 特防, 速度种族值. <br />` +
@@ -71,7 +71,10 @@ export const commands: Chat.ChatCommands = {
 				`&bullet; S1 = 100 * (A + C) + H * (B + D) + (S - 300) ^ 2 <br />` +
 				`&bullet; S2 = 2 * max(h, a, b, c, d, s) + 100 <br />` +
 				`&bullet; S = sqrt(S1) * S2 / 800 <br />` +
-				`<b>太长不看</b>: 双攻越高、耐久越高、速度越极端、最高种族越高, S 越大.` +
+				`<b>太长不看</b>: 双攻越高、耐久越高、速度越极端、最高种族越高, S 越大. </details>` +
+				`<details><summary><em>惩罚分计算方式</em></summary>` +
+				`&bullet; 单项种族 P = (单项种族 - 150)^3 / 10.61` +
+				`&bullet; P = 2 * HP 种族 P + 其它种族 P 之和` +
 				`</details><br />` +
 
 				`<br />` +
@@ -82,16 +85,19 @@ export const commands: Chat.ChatCommands = {
 				`&bullet; T: Type Point. Equals to the sum of the Points of Types. Times 1.5 if single Type. <br />` +
 				`&bullet; A: Ability Point. <br />` +
 				`&bullet; M: Move Point. Equals to the sum of the Points of Moves. Blank Move counts as 0.5 Point. <br />` +
-				`&bullet; P: High Stats Penalty. This term is increased by 5000 for each base stats (except HP) higher than 150, and 10000 for HP. <br />` +
+				`&bullet; P: Penalty Point. Each base stats higher than 150 gets the penalty depending on how much it's greater than 150. HP base stat receives double penalty. <br />` +
 				`Total = S * T * A * M + P. <br />` +
-				`<details><summary><em>How is Stats Point Calculated</em></summary>` +
+				`<details><summary><em>How Stats Point is Calculated</em></summary>` +
 				`h, a, b, c, d, s represent base stats of HP, Atk, Def, SpA, SpD, Spe respectively. <br />` +
 				`&bullet; H = 2 * h + 200 <br />` +
 				`&bullet; A = 2 * a + 100. (B, C, D, S calculated in the same way) <br />` +
 				`&bullet; S1 = 100 * (A + C) + H * (B + D) + (S - 300) ^ 2 <br />` +
 				`&bullet; S2 = 2 * max(h, a, b, c, d, s) + 100 <br />` +
 				`&bullet; S = sqrt(S1) * S2 / 800 <br />` +
-				`<b>TL;DR</b>: The higher the attacks / The more the bulk / The more extreme the speed / The higher the highest base stats, the greater the Stats Point.` +
+				`<b>TL;DR</b>: The higher the attacks / The more the bulk / The more extreme the speed / The higher the highest base stats, the greater the Stats Point.</details>` +
+				`<details><summary><em>How Penalty Point is Calculated</em></summary>` +
+				`&bullet; P for each base stats = (base stats - 150)^3 / 10.61` +
+				`&bullet; P = 2 * (P for HP) + the sum of (P for other base stats)` +
 				`</details>`
 			);
 			return;
