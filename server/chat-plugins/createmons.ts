@@ -73,7 +73,7 @@ export const commands: Chat.ChatCommands = {
 				`&bullet; S = sqrt(S1) * S2 / 800 <br />` +
 				`<b>太长不看</b>: 双攻越高、耐久越高、速度越极端、最高种族越高, S 越大. </details>` +
 				`<details><summary><em>惩罚分计算方式</em></summary>` +
-				`&bullet; 单项种族 P = (单项种族 - 150)^3 / 10.61` +
+				`&bullet; 单项种族 P = (单项种族 - 150)^3 / 10.61<br />` +
 				`&bullet; P = 2 * HP 种族 P + 其它种族 P 之和` +
 				`</details><br />` +
 
@@ -96,7 +96,7 @@ export const commands: Chat.ChatCommands = {
 				`&bullet; S = sqrt(S1) * S2 / 800 <br />` +
 				`<b>TL;DR</b>: The higher the attacks / The more the bulk / The more extreme the speed / The higher the highest base stats, the greater the Stats Point.</details>` +
 				`<details><summary><em>How Penalty Point is Calculated</em></summary>` +
-				`&bullet; P for each base stats = (base stats - 150)^3 / 10.61` +
+				`&bullet; P for each base stats = (base stats - 150)^3 / 10.61<br />` +
 				`&bullet; P = 2 * (P for HP) + the sum of (P for other base stats)` +
 				`</details>`
 			);
