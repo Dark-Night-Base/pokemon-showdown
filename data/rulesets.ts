@@ -2634,7 +2634,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 					problems.push(`- A: <strong>${pointDetails[i][6]}</strong>`);
 					problems.push(`- M: <strong>${pointDetails[i][7]}</strong> = ${pointDetails[i][8]} + ${pointDetails[i][9]} + ${pointDetails[i][10]} + ${pointDetails[i][11]}`);
 					if (pointDetails[i][12]) problems.push(`- P: </strong>${pointDetails[i][12]}</strong> = 2 * ${pointDetails[i][13]} + ${pointDetails[i][14]} + ${pointDetails[i][15]} + ${pointDetails[i][16]} + ${pointDetails[i][17]} + ${pointDetails[i][18]}`);
-					problems.push(`- Total: ${pointDetails[i][19]}`);
+					problems.push(`- Total: <strong>${pointDetails[i][19]}</strong>`);
 				}
 				problems.push(`Total Point of Team: ${finalPoints}.`);
 				return problems;
