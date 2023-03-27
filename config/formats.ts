@@ -1303,7 +1303,7 @@ export const Formats: FormatList = [
 				// volatileStatus
 				// todo: test
 				if (forte.volatileStatus) {
-					if (move.volatileStatus) {
+					if (move.volatileStatus && move.volatileStatus !== forte.volatileStatus) {
 						move.volatileStatus += '+' + forte.volatileStatus;
 					} else {
 						move.volatileStatus = forte.volatileStatus;
@@ -1339,7 +1339,7 @@ export const Formats: FormatList = [
 						}
 						// todo: test if this really works
 						if (forte.self.volatileStatus) {
-							if (move.self.volatileStatus) {
+							if (move.self.volatileStatus && move.self.volatileStatus !== forte.self.volatileStatus) {
 								// the other part implemented in data/mods
 								move.self.volatileStatus += '+' + forte.self.volatileStatus;
 							} else {
