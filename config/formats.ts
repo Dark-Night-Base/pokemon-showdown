@@ -2301,6 +2301,58 @@ export const Formats: FormatList = [
 		},
 	},
 	{
+		name: "[Gen 9] Tera Donation BH",
+		desc: `The first Pok&eacute;mon sent out immediately terastallizes. The other Pok&eacute;mon in the party inherit that Tera Type as an additional type.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3715801/">Tera Donation</a>`,
+		],
+
+		mod: 'gen9',
+		ruleset: ['[Gen 9] Balanced Hackmons'],
+		banlist: [],
+		onSwitchIn(pokemon) {
+			if (this.turn === 0) {
+				this.actions.terastallize(pokemon);
+				const teraType = pokemon.teraType;
+				for (const poke of pokemon.side.pokemon) {
+					poke.m.thirdType = teraType;
+				}
+			}
+			if (!pokemon.terastallized) {
+				this.add('-start', pokemon, 'typechange', (pokemon.illusion || pokemon).getTypes(true).join('/'), '[silent]');
+			}
+		},
+		onModifyMove(move, pokemon, target) {
+			if (move.id === 'terablast') {
+				const teraType = pokemon.m.thirdType;
+				if (teraType && pokemon.getStat('atk', false, true) > pokemon.getStat('spa', false, true)) {
+					move.category = 'Physical';
+				}
+			}
+		},
+		onModifyType(move, pokemon, target) {
+			if (move.id === 'terablast') {
+				const teraType = pokemon.m.thirdType;
+				if (teraType) {
+					move.type = teraType;
+				}
+			}
+		},
+		pokemon: {
+			getTypes(excludeAdded, preterastallized) {
+				if (!preterastallized && this.terastallized) return [this.terastallized];
+				const types = this.battle.runEvent('Type', this, null, null, this.types);
+				if (!excludeAdded && this.addedType) return types.concat(this.addedType);
+				const addTeraType = this.m.thirdType;
+				if (types.length) {
+					if (addTeraType) return Array.from(new Set([...types, addTeraType]));
+					return types;
+				}
+				return [this.battle.gen >= 5 ? 'Normal' : '???'];
+			},
+		},
+	},
+	{
 		name: "[Gen 9] The Card Game BH",
 		desc: `The type chart is simplified based off of the Pok&eacute;mon Trading Card Game.`,
 		threads: [
