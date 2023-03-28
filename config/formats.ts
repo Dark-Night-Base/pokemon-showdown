@@ -2362,7 +2362,7 @@ export const Formats: FormatList = [
 		mod: 'thecardgame',
 		ruleset: ['[Gen 9] Balanced Hackmons'],
 		unbanlist: [
-			'Calyrex-Shadow',
+			'Calyrex-Shadow', 'Zacian-Crowned',
 		],
 		onBegin() {
 			for (const pokemon of this.getAllPokemon()) {
