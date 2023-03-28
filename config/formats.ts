@@ -1123,6 +1123,10 @@ export const Formats: FormatList = [
 						move[prop] = forte[prop] as any;
 					}
 				}
+				// otherwise the move still won't break protect
+				if (move.breaksProtect) {
+					delete move.flags['protect'];
+				}
 
 				// secondaries
 				if (forte.secondaries) {
