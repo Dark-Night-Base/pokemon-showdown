@@ -2439,22 +2439,16 @@ export const Formats: FormatList = [
 		],
 	},
 	{
-		name: "[Gen 8] Category Swap",
+		name: "[Gen 9] Category Swap",
 		desc: `All physical moves become special, and all special moves become physical.`,
 		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3702709/">Category Swap</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3711668/">Category Swap</a>`,
 		],
 
-		mod: 'gen8',
-		searchShow: false,
-		challengeShow: false,
-		ruleset: ['Standard OMs', 'Category Swap Mod', 'Sleep Clause Mod'],
+		mod: 'gen9',
+		ruleset: ['Standard OMs', 'Sleep Clause Mod', 'Category Swap Mod', 'Min Source Gen = 9'],
 		banlist: [
-			'Calyrex-Ice', 'Calyrex-Shadow', 'Darmanitan-Galar', 'Dialga', 'Dracovish', 'Dragapult', 'Eternatus', 'Genesect', 'Giratina',
-			'Giratina-Origin', 'Groudon', 'Ho-Oh', 'Kyogre', 'Kyurem', 'Kyurem-Black', 'Kyurem-White', 'Landorus-Base', 'Lugia', 'Lunala',
-			'Magearna', 'Mewtwo', 'Necrozma-Dawn-Wings', 'Necrozma-Dusk-Mane', 'Nidoking', 'Palkia', 'Pheromosa', 'Rayquaza', 'Reshiram',
-			'Solgaleo', 'Xerneas', 'Yveltal', 'Zacian', 'Zacian-Crowned', 'Zamazenta', 'Zamazenta-Crowned', 'Zekrom', 'Arena Trap', 'Moody',
-			'Power Construct', 'Shadow Tag', 'King\'s Rock', 'Baton Pass', 'Draco Meteor', 'Overheat',
+			'Arena Trap', 'Moody', 'Shadow Tag', 'King\'s Rock', 'Baton Pass', 'Draco Meteor', 'Overheat', 'Miraidon', 'Koraidon',
 		],
 	},
 	{
