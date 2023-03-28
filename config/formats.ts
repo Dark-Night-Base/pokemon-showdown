@@ -72,8 +72,18 @@ export const Formats: FormatList = [
 		},
 	},
 	{
+		name: "[Gen 9] ND Category Swap BH",
+		desc: `NDBH but all physical moves become special, and all special moves become physical.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3711668/">Category Swap</a>`,
+		],
+
+		mod: 'gen9',
+		ruleset: ['[Gen 9] National Dex BH', 'Category Swap Mod'],
+	},
+	{
 		name: "[Gen 9] ND Godly Gift BH",
-		desc: `Godly Gift + BH ver. NatDex. Pok&eacute;mon with BST > 651 are Gods.`,
+		desc: `Godly Gift + NDBH, Pok&eacute;mon with BST > 651 are Gods.`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3710734/">Godly Gift</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3711099/">National Dex BH</a>`,
@@ -455,7 +465,7 @@ export const Formats: FormatList = [
 		mod: 'gen9',
 		ruleset: ['-Nonexistent', 'Standard NatDex', 'Forme Clause', 'Sleep Moves Clause', 'Ability Clause = 2', 'OHKO Clause', 'Evasion Moves Clause', 'Dynamax Clause', 'CFZ Clause', '!Obtainable'],
 		banlist: [
-			'Arceus > 1', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 'Cramorant-Gorging', 'Calyrex-Shadow', 'Darmanitan-Galar-Zen', 'Zygarde-Complete',
+			'Arceus > 1', 'Calyrex-Shadow', 'Cramorant-Gorging', 'Darmanitan-Galar-Zen', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 'Zygarde-Complete',
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Magnet Pull', 'Moody', 'Neutralizing Gas', 'Parental Bond',
 			'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
 			'Gengarite',
@@ -747,6 +757,16 @@ export const Formats: FormatList = [
 
 		mod: 'gen9',
 		ruleset: ['[Gen 9] Balanced Hackmons', 'Camomons Mod'],
+	},
+	{
+		name: "[Gen 9] Category Swap BH",
+		desc: `BH but all physical moves become special, and all special moves become physical.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3711668/">Category Swap</a>`,
+		],
+
+		mod: 'gen9',
+		ruleset: ['[Gen 9] Balanced Hackmons', 'Category Swap Mod'],
 	},
 	{
 		name: "[Gen 9] Cross Evolution BH",
