@@ -2361,6 +2361,9 @@ export const Formats: FormatList = [
 
 		mod: 'thecardgame',
 		ruleset: ['[Gen 9] Balanced Hackmons'],
+		banlist: [
+			'Miraidon',
+		],
 		unbanlist: [
 			'Calyrex-Shadow', 'Zacian-Crowned',
 		],
