@@ -304,6 +304,8 @@ export const Formats: FormatList = [
 			return problems;
 		},
 		onValidateSet(set, format) {
+			// todo: manually set the types of crossSpecies
+			// actually, do ^ in validateSet
 			// @ts-ignore
 			const species = set.crossSpecies || set.species;
 			const curSpecies = this.dex.species.get(species);
@@ -671,6 +673,7 @@ export const Formats: FormatList = [
 		banlist: [
 			'Arena Trap', 'Huge Power', 'Illusion', 'Innards Out', 'Neutralizing Gas', 'Parental Bond', 'Pure Power', 'Shadow Tag',
 			'Stakeout', 'Water Bubble', 'Wonder Guard',
+			'Last Respect', 'Rage Fist', 'Revival Blessing', 'Shed Tail',
 			// rest abilities and moves TBA
 			'Justified', 'Anger Point', 'Steam Engine', 'Stamina', 'Rattled', 'Wandering Spirit', 'Soul-Heart',
 			'Comatose + Sleep Talk',
