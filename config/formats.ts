@@ -296,8 +296,15 @@ export const Formats: FormatList = [
 
 			// @ts-ignore
 			set.sp = species;
+			// set types for validation
+			let mixedTypes = this.dex.deepClone(species.types);
+			if (crossSpecies.types[0] !== crossPrevoSpecies.types[0]) mixedTypes[0] = crossSpecies.types[0];
+			if (crossSpecies.types[1] !== crossPrevoSpecies.types[1]) {
+				mixedTypes[1] = crossSpecies.types[1] || crossSpecies.types[0];
+			}
+			if (mixedTypes[0] === mixedTypes[1]) mixedTypes = [mixedTypes[0]];
 			// @ts-ignore
-			set.crossSpecies = crossSpecies;
+			set.crossSpecies = {...crossSpecies, types: mixedTypes};
 			problems = this.validateSet(set, teamHas);
 			set.name = crossSpecies.name;
 			set.species = species.name;
