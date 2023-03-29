@@ -1169,8 +1169,9 @@ export const Formats: FormatList = [
 						if (forte.self.onHit) {
 							if (move.self.onHit) {
 								move.self.onHit = function (tgt, src, mv) {
-									(this.dex.moves.get(move.id).self!.onHit as any).call(this, tgt, src, mv);
-									(forte.self!.onHit as any).call(this, tgt, src, mv);
+									const ret1 = (this.dex.moves.get(move.id).self!.onHit as any).call(this, tgt, src, mv);
+									const ret2 = (forte.self!.onHit as any).call(this, tgt, src, mv);
+									return this.actions.combineResults(ret1, ret2);
 								}
 							} else {
 								move.self.onHit = forte.self.onHit;
