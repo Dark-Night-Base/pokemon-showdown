@@ -304,7 +304,9 @@ export const Formats: FormatList = [
 			return problems;
 		},
 		onValidateSet(set, format) {
-			const curSpecies = this.dex.species.get(set.species);
+			// @ts-ignore
+			const species = set.crossSpecies || set.species;
+			const curSpecies = this.dex.species.get(species);
 			const obtainableAbilityPool = new Set<string>();
 			const matchingSpecies = this.dex.species.all()
 				.filter(species => (
