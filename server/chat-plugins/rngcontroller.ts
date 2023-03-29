@@ -115,8 +115,8 @@ export const commands: Chat.ChatCommands = {
 		for (const realRange of realRanges) {
 			if (isNaN(realRange[0]) || isNaN(realRange[1])) return;
 		}
-		if (realNumbers.filter((value) => typeof value !== 'number' || value !== -1).length >= 5) {
-			this.errorReply(`Warning: Too long random number series. Server may fail to set the correct seed.`);
+		if (realNumbers.filter((value) => typeof value !== 'number' || value !== -1).length > 8) {
+			return this.errorReply(`Too long random number series. It will take too much time to set the correct seed.`);
 		}
 		this.sendReplyBox(`${user.name} is setting the next ${realNumbers.length} random number(s) to: ${realNumbers.map((value) => typeof value === 'number' ? value : `[${value[0]}, ${value[1]})`).join(',').replace(RegExp('-1', 'g'), '*')}`);
 		this.sendReplyBox(`Ranges: ${realRanges.map((value) => `[${value[0]}, ${value[1]})`).join(',')}`);
