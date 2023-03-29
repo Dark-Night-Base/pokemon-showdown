@@ -1159,44 +1159,41 @@ export const Formats: FormatList = [
 				}
 				// self
 				if (forte.self) {
-					if (forte.self.onHit && move.self?.onHit ||
-						forte.self.boosts && move.self?.boosts ||
-						forte.self.volatileStatus && move.self?.volatileStatus) {
-						for (const i in forte.self) {
-							if (['onHit', 'boosts', 'volatileStatus'].includes(i)) continue;
-							(move.self as any)[i] = (forte.self as any)[i];
-						}
-						if (forte.self.onHit) {
-							if (move.self.onHit) {
-								move.self.onHit = function (tgt, src, mv) {
-									const ret1 = (this.dex.moves.get(move.id).self!.onHit as any).call(this, tgt, src, mv);
-									const ret2 = (forte.self!.onHit as any).call(this, tgt, src, mv);
-									return this.actions.combineResults(ret1, ret2);
-								}
-							} else {
-								move.self.onHit = forte.self.onHit;
+					if (!move.self) {
+						move.self = {};
+					}
+					for (const i in forte.self) {
+						if (['onHit', 'boosts', 'volatileStatus'].includes(i)) continue;
+						(move.self as any)[i] = (forte.self as any)[i];
+					}
+					if (forte.self.onHit) {
+						if (move.self.onHit) {
+							move.self.onHit = function (tgt, src, mv) {
+								const ret1 = (this.dex.moves.get(move.id).self!.onHit as any).call(this, tgt, src, mv);
+								const ret2 = (forte.self!.onHit as any).call(this, tgt, src, mv);
+								return this.actions.combineResults(ret1, ret2);
 							}
+						} else {
+							(move.self as any).onHit = forte.self.onHit;
 						}
-						// todo: fix diamond storm, it has a chance of 50%
-						if (forte.self.boosts) {
-							if (!move.self.boosts) move.self.boosts = {};
-							let boostid: BoostID;
-							for (boostid in forte.self.boosts) {
-								if (!move.self.boosts[boostid]) move.self.boosts[boostid] = 0;
-								move.self.boosts[boostid]! += forte.self.boosts[boostid]!;
-							}
+					}
+					// todo: fix diamond storm, it has a chance of 50%
+					if (forte.self.boosts) {
+						if (!move.self.boosts) move.self.boosts = {};
+						let boostid: BoostID;
+						for (boostid in forte.self.boosts) {
+							if (!move.self.boosts[boostid]) move.self.boosts[boostid] = 0;
+							move.self.boosts[boostid]! += forte.self.boosts[boostid]!;
 						}
-						// todo: test if this really works
-						if (forte.self.volatileStatus) {
-							if (move.self.volatileStatus && move.self.volatileStatus !== forte.self.volatileStatus) {
-								// the other part implemented in data/mods
-								move.self.volatileStatus += '+' + forte.self.volatileStatus;
-							} else {
-								move.self.volatileStatus = forte.self.volatileStatus;
-							}
+					}
+					// todo: test if this really works
+					if (forte.self.volatileStatus) {
+						if (move.self.volatileStatus && move.self.volatileStatus !== forte.self.volatileStatus) {
+							// the other part implemented in data/mods
+							move.self.volatileStatus += '+' + forte.self.volatileStatus;
+						} else {
+							move.self.volatileStatus = forte.self.volatileStatus;
 						}
-					} else {
-						move.self = {...(move.self || {}), ...forte.self};
 					}
 				}
 
