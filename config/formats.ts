@@ -673,7 +673,7 @@ export const Formats: FormatList = [
 		banlist: [
 			'Arena Trap', 'Huge Power', 'Illusion', 'Innards Out', 'Neutralizing Gas', 'Parental Bond', 'Pure Power', 'Shadow Tag',
 			'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Last Respect', 'Rage Fist', 'Revival Blessing', 'Shed Tail',
+			'Last Respects', 'Rage Fist', 'Revival Blessing', 'Shed Tail',
 			// rest abilities and moves TBA
 			'Justified', 'Anger Point', 'Steam Engine', 'Stamina', 'Rattled', 'Wandering Spirit', 'Soul-Heart',
 			'Comatose + Sleep Talk',
