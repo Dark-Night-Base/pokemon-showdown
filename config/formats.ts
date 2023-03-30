@@ -329,6 +329,11 @@ export const Formats: FormatList = [
 					obtainableAbilityPool.add(abilityid);
 				}
 			}
+			// Nihilslave: add original abilities
+			for (const abilityName of Object.values(species.abilities)) {
+				const abilityid = this.toID(abilityName);
+				obtainableAbilityPool.add(abilityid);
+			}
 			if (!obtainableAbilityPool.has(this.toID(set.ability))) {
 				return [`${curSpecies.name} doesn't have access to ${this.dex.abilities.get(set.ability).name}.`];
 			}
