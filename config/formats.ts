@@ -311,8 +311,6 @@ export const Formats: FormatList = [
 			return problems;
 		},
 		onValidateSet(set, format) {
-			// todo: manually set the types of crossSpecies
-			// actually, do ^ in validateSet
 			// @ts-ignore
 			const species = set.crossSpecies || set.species;
 			const curSpecies = this.dex.species.get(species);
