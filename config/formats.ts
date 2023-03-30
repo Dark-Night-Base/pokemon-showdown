@@ -330,7 +330,7 @@ export const Formats: FormatList = [
 				}
 			}
 			// Nihilslave: add original abilities
-			for (const abilityName of Object.values(species.abilities)) {
+			for (const abilityName of Object.values(curSpecies.abilities)) {
 				const abilityid = this.toID(abilityName);
 				obtainableAbilityPool.add(abilityid);
 			}
