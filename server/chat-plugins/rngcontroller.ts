@@ -1,5 +1,56 @@
 import {PRNG} from "../../sim";
 
+const {create, all} = require('mathjs');
+const config = {
+	number: 'BigNumber',
+	precision: 128, // this should be set otherwise the calc will be imprecise
+}
+const mathjs = create(all, config);
+let fs = require('fs');
+
+interface tableData {
+	2?: string;
+	4?: string;
+	8?: string;
+	16?: string;
+	24?: string;
+	100?: string;
+}
+
+interface stepModTable {
+	1?: tableData;
+	2?: tableData;
+	3?: tableData;
+	4?: tableData;
+	5?: tableData;
+	6?: tableData;
+	7?: tableData;
+	8?: tableData;
+	9?: tableData;
+	10?: tableData;
+}
+
+function generateStepModTable() {
+	if (fs.existsSync('../../config/chat-plugins/rngcontroller.json')) return;
+	const table: stepModTable = {};
+
+	const a = mathjs.evaluate('0x5D588B656C078965');
+	const c = mathjs.evaluate('0x269EC3');
+	const m = mathjs.evaluate('2^64');
+	const twoE32 = mathjs.evaluate('2^32');
+	const aInvValues: string[] = [];
+	const cValues: string[] = ['0x269EC3'];
+
+	let aInv = mathjs.invmod(a, m);
+	const aInvInitial = mathjs.invmod(a, m);
+	aInvValues.push(aInv.toHex().toUpperCase());
+	for (let i = 1; i < 10; i++) {
+		aInv = mathjs.mod(mathjs.multiply(aInv, aInvInitial),m);
+		aInvValues.push(aInv.toHex().toUpperCase());
+	}
+	fs.writeFileSync('../../config/chat-plugins/rngcontroller.json', JSON.stringify(table));
+}
+
 function findSeed(realNumbers: (number | number[])[], realRanges: number[][]) {
 	const length = realNumbers.length;
 	const iRN = Math.floor(Math.random() * 0x10000);
@@ -64,6 +115,7 @@ export const commands: Chat.ChatCommands = {
 			this.sendReplyBox(`${user.name} clears the set random numbers.`);
 			return this.parse('/editbattle reseed');
 		}
+
 		const targets = target.split(';');
 		const numbers = targets[0].split(',');
 		const ranges = targets.length > 1 ? targets[1].split(',') : [];
@@ -123,6 +175,7 @@ export const commands: Chat.ChatCommands = {
 		this.sendReplyBox(`${user.name} is setting the next ${realNumbers.length} random number(s) to: ${realNumbers.map((value) => typeof value === 'number' ? value : `[${value[0]}, ${value[1]})`).join(',').replace(RegExp('-1', 'g'), '*')}`);
 		this.sendReplyBox(`Ranges: ${realRanges.map((value) => `[${value[0]}, ${value[1]})`).join(',')}`);
 
+		generateStepModTable();
 		const seed = findSeed(realNumbers, realRanges);
 		if (seed === undefined) {
 			this.errorReply(`Setting random number failed!`);
