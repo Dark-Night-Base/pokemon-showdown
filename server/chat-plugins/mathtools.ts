@@ -19,11 +19,15 @@ export const commands: Chat.ChatCommands = {
 		if (!user.isStaff) return; // remove this line after bug fixed
 		const numbers = target.split(',');
 		if (numbers.length !== 2) return;
-		const a = math.bignumber(numbers[0]);
-		const b = math.bignumber(numbers[1]);
-		// ehh, where's the invmod the doc says?
-		const results = math.xgcd(a, b);
-		// todo: figure out why it crashes and catch every error
-		this.sendReply(results[1].toString());
+		try {
+			const a = math.bignumber(numbers[0]);
+			const b = math.bignumber(numbers[1]);
+			// ehh, where's the invmod the doc says?
+			const results = math.xgcd(a, b);
+			// todo: figure out why it crashes and catch every error
+			this.sendReply(results[1].toString());
+		} catch (e) {
+			this.errorReply('invmod error!');
+		}
 	}
 };
