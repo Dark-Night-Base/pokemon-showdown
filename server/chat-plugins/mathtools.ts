@@ -1,17 +1,10 @@
 // https://mathjs.org/index.html
 
-import {create, all} from 'mathjs';
+const math = require('mathjs');
 
-const config = {
-	epsilon: 1e-12,
-	matrix: 'Matrix',
-	number: 'BigNumber',
-	precision: 64,
-	predictable: false,
-	randomSeed: null,
-};
-
-const math = create(all, config as any);
+function toPRNGSeed(a: any) {
+	return a;
+}
 
 export const commands: Chat.ChatCommands = {
 	invmod(target, room, user, connection, cmd) {
@@ -22,10 +15,8 @@ export const commands: Chat.ChatCommands = {
 		try {
 			const a = math.bignumber(numbers[0]);
 			const b = math.bignumber(numbers[1]);
-			// ehh, where's the invmod the doc says?
-			const results = math.xgcd(a, b);
-			// todo: figure out why it crashes and catch every error
-			this.sendReply(results[1].toString());
+			const result = math.invmod(a, b);
+			this.sendReplyBox(`invmod: ${result.toHex().toUpperCase()}`);
 		} catch (e) {
 			this.errorReply('invmod error!');
 		}
