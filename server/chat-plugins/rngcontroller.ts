@@ -281,8 +281,6 @@ export const commands: Chat.ChatCommands = {
 		for (const realRange of realRanges) {
 			if (isNaN(realRange[0]) || isNaN(realRange[1])) return;
 		}
-		// todo: i think the actual thing we need to do here is to make findSeed() really async so that it won't lag the server
-		// todo: if that failed, just try to get a more precise estimate of how long this will take and then block long requests
 		if (realNumbers.findIndex(value => typeof value !== 'number' || value !== -1) >= 10) {
 			return this.errorReply(`Too long random number series.`);
 		}
