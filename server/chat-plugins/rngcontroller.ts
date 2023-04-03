@@ -9,47 +9,33 @@ const config = {
 const mathjs = create(all, config);
 
 interface tableData {
-	2?: string;
-	4?: string;
-	8?: string;
-	16?: string;
-	24?: string;
-	100?: string;
-}
-
-interface stepModTable {
-	1?: tableData;
-	2?: tableData;
-	3?: tableData;
-	4?: tableData;
-	5?: tableData;
-	6?: tableData;
-	7?: tableData;
-	8?: tableData;
-	9?: tableData;
-	10?: tableData;
+	2?: string[];
+	4?: string[];
+	8?: string[];
+	16?: string[];
+	24?: string[];
+	100?: string[];
 }
 
 function generateStepModTable() {
 	if (FS('config/chat-plugins/rngcontroller.json').existsSync()) return;
-	const table: stepModTable = {};
+	const table: tableData[] = [{}]; // step as index
 
 	const a = mathjs.evaluate('0x5D588B656C078965');
 	const c = mathjs.evaluate('0x269EC3');
 	const m = mathjs.evaluate('2^64');
 	const twoE32 = mathjs.evaluate('2^32');
-	const aInvValues: string[] = [];
-	const cValues: string[] = ['0x269EC3'];
+	const aInvValues: string[] = ['0x1'];
+	const cValues: string[] = ['0x0'];
 
-	let aInv = mathjs.invmod(a, m);
-	const aInvInitial = mathjs.invmod(a, m);
-	aInvValues.push(aInv.toHex());
-	for (let i = 1; i < 10; i++) {
-		aInv = mathjs.mod(mathjs.multiply(aInv, aInvInitial), m);
-		aInvValues.push(aInv.toHex());
+	let aInvValue = mathjs.evaluate('1');
+	const aInv = mathjs.invmod(a, m);
+	for (let i = 1; i <= 10; i++) {
+		aInvValue = mathjs.mod(mathjs.multiply(aInvValue, aInv), m);
+		aInvValues.push(aInvValue.toHex());
 	}
-	let aGeo = mathjs.evaluate('1');
-	for (let i = 1; i < 10; i++) {
+	let aGeo = mathjs.evaluate('0');
+	for (let i = 1; i <= 10; i++) {
 		aGeo = mathjs.multiply(aGeo, a);
 		aGeo = mathjs.add(aGeo, 1);
 		cValues.push(mathjs.mod(mathjs.multiply(aGeo, c), m).toHex());
@@ -57,6 +43,7 @@ function generateStepModTable() {
 	FS('config/chat-plugins/rngcontroller.json').writeSync(JSON.stringify(table));
 }
 
+// '0xabcdefghijklmnop' => [seed0, seed1, seed2, seed3]
 function toPRNGSeed(a: string) {
 	let num = a.slice(2);
 	num = num.padStart(16, '0');
