@@ -45,16 +45,24 @@ function generateStepModTable() {
 	const aInvInitial = mathjs.invmod(a, m);
 	aInvValues.push(aInv.toHex());
 	for (let i = 1; i < 10; i++) {
-		aInv = mathjs.mod(mathjs.multiply(aInv, aInvInitial),m);
+		aInv = mathjs.mod(mathjs.multiply(aInv, aInvInitial), m);
 		aInvValues.push(aInv.toHex());
 	}
 	let aGeo = mathjs.evaluate('1');
 	for (let i = 1; i < 10; i++) {
 		aGeo = mathjs.multiply(aGeo, a);
 		aGeo = mathjs.add(aGeo, 1);
-		cValues.push(mathjs.mod(mathjs.multiply(aGeo, c)).toHex());
+		cValues.push(mathjs.mod(mathjs.multiply(aGeo, c), m).toHex());
 	}
 	FS('config/chat-plugins/rngcontroller.json').writeSync(JSON.stringify(table));
+}
+
+function toPRNGSeed(a: string) {
+	let num = a.slice(2);
+	num = num.padStart(16, '0');
+	const numSlice = [num.slice(0, 4), num.slice(4, 8), num.slice(8, 12), num.slice(12, 16)];
+	const seed = numSlice.map(value => Number('0x' + value));
+	return seed as PRNGSeed;
 }
 
 function findSeed(realNumbers: (number | number[])[], realRanges: number[][]) {
