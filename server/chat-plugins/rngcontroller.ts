@@ -1,12 +1,12 @@
+import {FS} from "../../lib";
 import {PRNG} from "../../sim";
 
 const {create, all} = require('mathjs');
 const config = {
 	number: 'BigNumber',
-	precision: 128, // this should be set otherwise the calc will be imprecise
+	precision: 256, // this should be set to at least 128 otherwise the calc will be imprecise
 }
 const mathjs = create(all, config);
-let fs = require('fs');
 
 interface tableData {
 	2?: string;
@@ -31,7 +31,7 @@ interface stepModTable {
 }
 
 function generateStepModTable() {
-	if (fs.existsSync('../../config/chat-plugins/rngcontroller.json')) return;
+	if (FS('config/chat-plugins/rngcontroller.json').existsSync()) return;
 	const table: stepModTable = {};
 
 	const a = mathjs.evaluate('0x5D588B656C078965');
@@ -43,12 +43,18 @@ function generateStepModTable() {
 
 	let aInv = mathjs.invmod(a, m);
 	const aInvInitial = mathjs.invmod(a, m);
-	aInvValues.push(aInv.toHex().toUpperCase());
+	aInvValues.push(aInv.toHex());
 	for (let i = 1; i < 10; i++) {
 		aInv = mathjs.mod(mathjs.multiply(aInv, aInvInitial),m);
-		aInvValues.push(aInv.toHex().toUpperCase());
+		aInvValues.push(aInv.toHex());
 	}
-	fs.writeFileSync('../../config/chat-plugins/rngcontroller.json', JSON.stringify(table));
+	let aGeo = mathjs.evaluate('1');
+	for (let i = 1; i < 10; i++) {
+		aGeo = mathjs.multiply(aGeo, a);
+		aGeo = mathjs.add(aGeo, 1);
+		cValues.push(mathjs.mod(mathjs.multiply(aGeo, c)).toHex());
+	}
+	FS('config/chat-plugins/rngcontroller.json').writeSync(JSON.stringify(table));
 }
 
 function findSeed(realNumbers: (number | number[])[], realRanges: number[][]) {
