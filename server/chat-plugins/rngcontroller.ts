@@ -283,8 +283,8 @@ export const commands: Chat.ChatCommands = {
 		}
 		// todo: i think the actual thing we need to do here is to make findSeed() really async so that it won't lag the server
 		// todo: if that failed, just try to get a more precise estimate of how long this will take and then block long requests
-		if (realNumbers.filter((value) => typeof value !== 'number' || value !== -1).length > 4) {
-			return this.errorReply(`Too long random number series. It will take too much time to set the correct seed.`);
+		if (realNumbers.findIndex(value => typeof value !== 'number' || value !== -1) >= 10) {
+			return this.errorReply(`Too long random number series.`);
 		}
 		this.sendReplyBox(`${user.name} is setting the next ${realNumbers.length} random number(s) to: ${realNumbers.map((value) => typeof value === 'number' ? value : `[${value[0]}, ${value[1]})`).join(',').replace(RegExp('-1', 'g'), '*')}`);
 		this.sendReplyBox(`Ranges: ${realRanges.map((value) => `[${value[0]}, ${value[1]})`).join(',')}`);
