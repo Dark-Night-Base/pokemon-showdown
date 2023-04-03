@@ -10,6 +10,7 @@ const mathjs = create(all, config);
 
 interface seedTable {
 	seed: PRNGSeed;
+	stepSeed?: PRNGSeed;
 	[step: number]: modTable;
 }
 interface remainderTable {
@@ -68,6 +69,7 @@ function generateStepModTable() {
 	let value, seed;
 	for (let n = 1; n <= 10; n++) { // step
 		const aInv_n = mathjs.evaluate(aInvValues[n]);
+		const a_n = mathjs.invmod(aInv_n, m);
 		const c_n = mathjs.evaluate(cValues[n]);
 		const G_n = mathjs.mod(mathjs.multiply(aInv_n, c_n), m);
 		for (const module of [2, 4, 8, 16, 24, 100]) { // module, or range tbh
@@ -90,6 +92,7 @@ function generateStepModTable() {
 
 					seed = toPRNGSeed(value.toHex());
 					const result: seedTable = {seed: seed};
+
 					// temporarily disable this cuz it makes heap overflow
 					// const prng = new PRNG(seed);
 					// for (let s = n + 1; s <= furtherStep; s++) {
@@ -101,6 +104,13 @@ function generateStepModTable() {
 					// 	}
 					// 	prng.seed = frame;
 					// }
+
+					// use this instead
+					value = mathjs.multiply(value, a_n);
+					value = mathjs.add(value, c_n);
+					value = mathjs.mod(value, m);
+					seed = toPRNGSeed(value.toHex());
+					result.stepSeed = seed;
 
 					if (!table[n]) table[n] = {};
 					if (!table[n][module]) table[n][module] = {};
@@ -116,7 +126,43 @@ function generateStepModTable() {
 
 function findSeedNew(realNumbers: (number | number[])[], realRanges: number[][]) {
 	if (!TABLE) TABLE = JSON.parse(FS('config/chat-plugins/rngcontroller.json').readSync());
-	return TABLE[1][100][1][1].seed;
+	const length = realNumbers.length;
+	let notNumber;
+	let firstStep = 0;
+	for (let i = 0; i < length; i++) {
+		notNumber = (typeof realNumbers[i] !== 'number');
+		if (notNumber || realNumbers[i] !== -1) {
+			firstStep = i;
+			break;
+		}
+	}
+	let lowerBound: number = notNumber ? (realNumbers[firstStep] as number[])[0] : (realNumbers[firstStep] as number);
+	let upperBound: number = notNumber ? (realNumbers[firstStep] as number[])[1] : ((realNumbers[firstStep] as number) + 1);
+	if (lowerBound === -1) lowerBound = realRanges[firstStep][0];
+	if (upperBound === -1) upperBound = realRanges[firstStep][1];
+	const range = realRanges[firstStep][1] - realRanges[firstStep][0];
+	for (let remainder = lowerBound; remainder < upperBound; remainder++) {
+		for (let i = 0; i < tableSize; i++) {
+			const stepSeed = TABLE[firstStep + 1][range][remainder][i].stepSeed;
+			if (!stepSeed) return;
+			const prng = new PRNG(stepSeed);
+			if (firstStep + 1 === length) return TABLE[firstStep + 1][range][remainder][i].seed;
+			for (let j = firstStep + 1; j < length; j++) {
+				const rng = prng.next(realRanges[j][0], realRanges[j][1]);
+				const realNumber = realNumbers[j];
+				if (typeof realNumber === 'number') {
+					if (realNumber === -1) continue;
+					if (rng !== realNumber) break;
+				} else {
+					if (realNumber[0] !== -1 && rng < realNumber[0]) break;
+					if (realNumber[1] !== -1 && rng >= realNumber[1]) break;
+				}
+				if (j === length - 1) {
+					return TABLE[firstStep + 1][range][remainder][i].seed;
+				}
+			}
+		}
+	}
 }
 
 function findSeed(realNumbers: (number | number[])[], realRanges: number[][]) {
