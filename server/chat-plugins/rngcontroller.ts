@@ -8,8 +8,12 @@ const config = {
 }
 const mathjs = create(all, config);
 
+interface seedTable {
+	seed: PRNGSeed;
+	[step: number]: modTable;
+}
 interface remainderTable {
-	[remainder: number]: string[];
+	[remainder: number]: seedTable[];
 }
 interface modTable {
 	[module: number]: remainderTable;
@@ -17,6 +21,9 @@ interface modTable {
 interface stepModTable {
 	[step: number]: modTable;
 }
+
+const tableSize = 1000;
+const furtherStep = 10;
 
 function generateStepModTable() {
 	if (FS('config/chat-plugins/rngcontroller.json').existsSync()) return;
@@ -42,32 +49,40 @@ function generateStepModTable() {
 		cValues.push(mathjs.mod(mathjs.multiply(aGeo, c), m).toHex());
 	}
 	let kValue, lValue, k, l;
-	let value;
+	let value, seed;
 	for (let n = 1; n <= 10; n++) { // step
 		const aInv_n = mathjs.evaluate(aInvValues[n]);
+		const a_n = mathjs.invmod(aInv_n, m);
 		const c_n = mathjs.evaluate(cValues[n]);
 		const G_n = mathjs.mod(mathjs.multiply(aInv_n, c_n), m);
 		for (const module of [2, 4, 8, 16, 24, 100]) { // module
 			const y = mathjs.evaluate(module.toString());
 			for (let remainder = 0; remainder < module; remainder++) { // remainder
 				const r = mathjs.evaluate(remainder.toString());
-				for (let i = 0; i < 1000; i++) { // amount, 1000 for test
-					kValue = Math.floor(Math.random() * 0xFFFFFF00 / module); // don't let r + k * module be bigger than 0xFFFFFFFF
+				for (let i = 0; i < tableSize; i++) { // size, 1000 for test
+					kValue = Math.floor(Math.random() * 0xFFFFFF00 / module); // don't let r + k * y be bigger than 0xFFFFFFFF
 					lValue = Math.floor(Math.random() * 0xFFFFFFFF);
 					k = mathjs.evaluate(kValue.toString());
 					l = mathjs.evaluate(lValue.toString());
-					// x(n, r, y) = 2^32 * a^{-n} * (r + k * y) - G_n + a^{-n} * l
+
+					// x(n, r, y) = 2^{32} * a^{-n} * (r + k * y) - G_n + a^{-n} * l
 					value = mathjs.multiply(k, y);
 					value = mathjs.add(value, r);
 					value = mathjs.multiply(value, twoE32);
 					value = mathjs.multiply(value, aInv_n);
-					value = mathjs.mod(value, m);
 					value = mathjs.subtract(value, G_n);
-					value = mathjs.mod(value, m);
-					const left = mathjs.mod(mathjs.multiply(aInv_n, l), m);
+					const left = mathjs.multiply(aInv_n, l);
 					value = mathjs.add(value, left);
 					value = mathjs.mod(value, m);
-					table[n][module][remainder].push(value.toHex());
+
+					seed = toPRNGSeed(value.toHex());
+					const result = {seed: seed};
+					const prng = new PRNG(seed);
+
+					if (!table[n]) table[n] = {};
+					if (!table[n][module]) table[n][module] = {};
+					if (!table[n][module][remainder]) table[n][module][remainder] = [];
+					table[n][module][remainder].push(result);
 				}
 			}
 		}
@@ -82,6 +97,10 @@ function toPRNGSeed(a: string) {
 	const numSlice = [num.slice(0, 4), num.slice(4, 8), num.slice(8, 12), num.slice(12, 16)];
 	const seed = numSlice.map(value => Number('0x' + value));
 	return seed as PRNGSeed;
+}
+
+function findSeedNew(realNumbers: (number | number[])[], realRanges: number[][]) {
+
 }
 
 function findSeed(realNumbers: (number | number[])[], realRanges: number[][]) {
