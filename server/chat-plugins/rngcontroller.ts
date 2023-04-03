@@ -8,18 +8,19 @@ const config = {
 }
 const mathjs = create(all, config);
 
-interface tableData {
-	2?: string[];
-	4?: string[];
-	8?: string[];
-	16?: string[];
-	24?: string[];
-	100?: string[];
+interface remainderTable {
+	[remainder: number]: string[];
+}
+interface modTable {
+	[module: number]: remainderTable;
+}
+interface stepModTable {
+	[step: number]: modTable;
 }
 
 function generateStepModTable() {
 	if (FS('config/chat-plugins/rngcontroller.json').existsSync()) return;
-	const table: tableData[] = [{}]; // step as index
+	const table: stepModTable = {};
 
 	const a = mathjs.evaluate('0x5D588B656C078965');
 	const c = mathjs.evaluate('0x269EC3');
@@ -39,6 +40,37 @@ function generateStepModTable() {
 		aGeo = mathjs.multiply(aGeo, a);
 		aGeo = mathjs.add(aGeo, 1);
 		cValues.push(mathjs.mod(mathjs.multiply(aGeo, c), m).toHex());
+	}
+	let kValue, lValue, k, l;
+	let value;
+	for (let n = 1; n <= 10; n++) { // step
+		const aInv_n = mathjs.evaluate(aInvValues[n]);
+		const c_n = mathjs.evaluate(cValues[n]);
+		const G_n = mathjs.mod(mathjs.multiply(aInv_n, c_n), m);
+		for (const module of [2, 4, 8, 16, 24, 100]) { // module
+			const y = mathjs.evaluate(module.toString());
+			for (let remainder = 0; remainder < module; remainder++) { // remainder
+				const r = mathjs.evaluate(remainder.toString());
+				for (let i = 0; i < 1000; i++) { // amount, 1000 for test
+					kValue = Math.floor(Math.random() * 0xFFFFFF00 / module); // don't let r + k * module be bigger than 0xFFFFFFFF
+					lValue = Math.floor(Math.random() * 0xFFFFFFFF);
+					k = mathjs.evaluate(kValue.toString());
+					l = mathjs.evaluate(lValue.toString());
+					// x(n, r, y) = 2^32 * a^{-n} * (r + k * y) - G_n + a^{-n} * l
+					value = mathjs.multiply(k, y);
+					value = mathjs.add(value, r);
+					value = mathjs.multiply(value, twoE32);
+					value = mathjs.multiply(value, aInv_n);
+					value = mathjs.mod(value, m);
+					value = mathjs.subtract(value, G_n);
+					value = mathjs.mod(value, m);
+					const left = mathjs.mod(mathjs.multiply(aInv_n, l), m);
+					value = mathjs.add(value, left);
+					value = mathjs.mod(value, m);
+					table[n][module][remainder].push(value.toHex());
+				}
+			}
+		}
 	}
 	FS('config/chat-plugins/rngcontroller.json').writeSync(JSON.stringify(table));
 }
