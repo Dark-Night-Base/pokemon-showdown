@@ -25,6 +25,22 @@ interface stepModTable {
 const tableSize = 1000;
 const furtherStep = 10;
 
+let TABLE: stepModTable;
+
+// '0xabcdefghijklmnop' => [seed0, seed1, seed2, seed3]
+function toPRNGSeed(a: string) {
+	let num = a.slice(2);
+	num = num.padStart(16, '0');
+	const numSlice = [num.slice(0, 4), num.slice(4, 8), num.slice(8, 12), num.slice(12, 16)];
+	const seed = numSlice.map(value => Number('0x' + value));
+	return seed as PRNGSeed;
+}
+
+function frameToResult(frame: PRNGSeed, module: number) {
+	let result = (frame[0] << 16 >>> 0) + frame[1];
+	return Math.floor(result * module / 0x100000000);
+}
+
 function generateStepModTable() {
 	if (FS('config/chat-plugins/rngcontroller.json').existsSync()) return;
 	const table: stepModTable = {};
@@ -52,23 +68,20 @@ function generateStepModTable() {
 	let value, seed;
 	for (let n = 1; n <= 10; n++) { // step
 		const aInv_n = mathjs.evaluate(aInvValues[n]);
-		const a_n = mathjs.invmod(aInv_n, m);
 		const c_n = mathjs.evaluate(cValues[n]);
 		const G_n = mathjs.mod(mathjs.multiply(aInv_n, c_n), m);
-		for (const module of [2, 4, 8, 16, 24, 100]) { // module
-			const y = mathjs.evaluate(module.toString());
+		for (const module of [2, 4, 8, 16, 24, 100]) { // module, or range tbh
+			// should use ceil here, i think
+			const rangeCore = Math.ceil(0x100000000 / module);
 			for (let remainder = 0; remainder < module; remainder++) { // remainder
-				const r = mathjs.evaluate(remainder.toString());
 				for (let i = 0; i < tableSize; i++) { // size, 1000 for test
-					kValue = Math.floor(Math.random() * 0xFFFFFF00 / module); // don't let r + k * y be bigger than 0xFFFFFFFF
-					lValue = Math.floor(Math.random() * 0xFFFFFFFF);
+					kValue = Math.floor(Math.random() * rangeCore + rangeCore * remainder);
+					lValue = Math.floor(Math.random() * 0x100000000);
 					k = mathjs.evaluate(kValue.toString());
 					l = mathjs.evaluate(lValue.toString());
 
-					// x(n, r, y) = 2^{32} * a^{-n} * (r + k * y) - G_n + a^{-n} * l
-					value = mathjs.multiply(k, y);
-					value = mathjs.add(value, r);
-					value = mathjs.multiply(value, twoE32);
+					// x(n, module, remainder) = 2^{32} * a^{-n} * k - G_n + a^{-n} * l
+					value = mathjs.multiply(k, twoE32);
 					value = mathjs.multiply(value, aInv_n);
 					value = mathjs.subtract(value, G_n);
 					const left = mathjs.multiply(aInv_n, l);
@@ -76,8 +89,18 @@ function generateStepModTable() {
 					value = mathjs.mod(value, m);
 
 					seed = toPRNGSeed(value.toHex());
-					const result = {seed: seed};
-					const prng = new PRNG(seed);
+					const result: seedTable = {seed: seed};
+					// temporarily disable this cuz it makes heap overflow
+					// const prng = new PRNG(seed);
+					// for (let s = n + 1; s <= furtherStep; s++) {
+					// 	result[s] = {};
+					// 	const frame = prng.nextFrame(prng.seed);
+					// 	for (const r of [2, 4, 8, 16, 24, 100]) {
+					// 		result[s][r] = {};
+					// 		result[s][r][frameToResult(frame, r)] = [];
+					// 	}
+					// 	prng.seed = frame;
+					// }
 
 					if (!table[n]) table[n] = {};
 					if (!table[n][module]) table[n][module] = {};
@@ -87,20 +110,13 @@ function generateStepModTable() {
 			}
 		}
 	}
+	TABLE = table;
 	FS('config/chat-plugins/rngcontroller.json').writeSync(JSON.stringify(table));
 }
 
-// '0xabcdefghijklmnop' => [seed0, seed1, seed2, seed3]
-function toPRNGSeed(a: string) {
-	let num = a.slice(2);
-	num = num.padStart(16, '0');
-	const numSlice = [num.slice(0, 4), num.slice(4, 8), num.slice(8, 12), num.slice(12, 16)];
-	const seed = numSlice.map(value => Number('0x' + value));
-	return seed as PRNGSeed;
-}
-
 function findSeedNew(realNumbers: (number | number[])[], realRanges: number[][]) {
-
+	if (!TABLE) TABLE = JSON.parse(FS('config/chat-plugins/rngcontroller.json').readSync());
+	return TABLE[1][100][1][1].seed;
 }
 
 function findSeed(realNumbers: (number | number[])[], realRanges: number[][]) {
@@ -228,7 +244,7 @@ export const commands: Chat.ChatCommands = {
 		this.sendReplyBox(`Ranges: ${realRanges.map((value) => `[${value[0]}, ${value[1]})`).join(',')}`);
 
 		generateStepModTable();
-		const seed = findSeed(realNumbers, realRanges);
+		const seed = findSeedNew(realNumbers, realRanges);
 		if (seed === undefined) {
 			this.errorReply(`Setting random number failed!`);
 		} else {
