@@ -236,6 +236,9 @@ export const commands: Chat.ChatCommands = {
 		const ranges = targets.length > 1 ? targets[1].split(',') : [];
 		const realNumbers: (number | number[])[] = [];
 		const realRanges: number[][] = [];
+		// todo: modify the syntax
+		// 1. use a/b|c/d,... format
+		// 2. add ...;force option
 		for (const number of numbers) {
 			if (number.startsWith('*')) {
 				const anyCount = number === '*' ? 1 : Number(number.substring(1));
