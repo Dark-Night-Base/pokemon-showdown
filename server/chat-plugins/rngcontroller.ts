@@ -42,8 +42,8 @@ function frameToResult(frame: PRNGSeed, module: number) {
 	return Math.floor(result * module / 0x100000000);
 }
 
-function generateStepModTable() {
-	if (FS('config/chat-plugins/rngcontroller.json').existsSync()) return;
+function generateStepModTable(force = false) {
+	if (FS('config/chat-plugins/rngcontroller.json').existsSync() && !force) return;
 	const table: stepModTable = {};
 
 	const a = mathjs.evaluate('0x5D588B656C078965');
@@ -143,6 +143,7 @@ function findSeedNew(realNumbers: (number | number[])[], realRanges: number[][])
 	const range = realRanges[firstStep][1] - realRanges[firstStep][0];
 	for (let remainder = lowerBound; remainder < upperBound; remainder++) {
 		for (let i = 0; i < tableSize; i++) {
+			if (!TABLE[firstStep + 1][range]) return;
 			const stepSeed = TABLE[firstStep + 1][range][remainder][i].stepSeed;
 			if (!stepSeed) return;
 			const prng = new PRNG(stepSeed);
@@ -308,4 +309,9 @@ export const commands: Chat.ChatCommands = {
 		`/rng [number 1], [number 2] ... ; [range 1], [range 2] ... - Set the next random numbers to be number 1, number 2, ... (Will inform others when you use it. Test Use Only.)`,
 		`E.g. /rng *,/70,0,0,/10;,,24,16 to get a hit, crit, max roll, and lowering spd focus blast`,
 	],
+	rngtable(target, room, user, connection, cmd) {
+		if (!user.isStaff) return;
+		generateStepModTable(true);
+		this.sendReplyBox(`RNG Table Generated.`);
+	},
 };
