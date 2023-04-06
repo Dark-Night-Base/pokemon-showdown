@@ -198,12 +198,12 @@ function findSeed(realNumbers: (number | number[])[], realRanges: number[][]) {
 	}
 }
 
-function parseNumberRangeCell(nr: string, splits: string[] = []): any {
+function parseNumberRangeCells(nr: string, splits: string[] = []): any {
 	const splitsCopy = splits.slice();
 	const splitChar = splitsCopy.pop();
 	if (nr === '') return -1;
 	if (splitChar === undefined) return Number(nr);
-	return nr.split(splitChar).map(value => parseNumberRangeCell(value, splitsCopy))
+	return nr.split(splitChar).map(value => parseNumberRangeCells(value, splitsCopy))
 		// [a] => a
 		.map(value => (typeof value !== 'number' && value.length === 1) ? value[0] : value);
 }
@@ -235,10 +235,10 @@ export const commands: Chat.ChatCommands = {
 
 		const targets = target.split(';');
 		const force = (targets.length > 1);
-		const rawParsedResults = parseNumberRangeCell(targets[0], ['/', '|', ',']);
+		const rawParsedResults = parseNumberRangeCells(targets[0], ['/', '|', ',']);
 		const realNumbers: number[][] = [];
 		const realRanges: number[][] = [];
-		
+
 		// set numbers & ranges
 		if (rawParsedResults === -1) {
 			return this.errorReply(`Invalid params, won't do anything.`);
