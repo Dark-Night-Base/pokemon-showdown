@@ -124,22 +124,18 @@ function generateStepModTable(force = false) {
 	FS('config/chat-plugins/rngcontroller.json').writeSync(JSON.stringify(table));
 }
 
-function findSeedNew(realNumbers: (number | number[])[], realRanges: number[][]) {
+function findSeedNew(realNumbers: number[][], realRanges: number[][]) {
 	if (!TABLE) TABLE = JSON.parse(FS('config/chat-plugins/rngcontroller.json').readSync());
 	const length = realNumbers.length;
-	let notNumber;
 	let firstStep = 0;
 	for (let i = 0; i < length; i++) {
-		notNumber = (typeof realNumbers[i] !== 'number');
-		if (notNumber || realNumbers[i] !== -1) {
+		if (realNumbers[i].length !== 0) {
 			firstStep = i;
 			break;
 		}
 	}
-	let lowerBound: number = notNumber ? (realNumbers[firstStep] as number[])[0] : (realNumbers[firstStep] as number);
-	let upperBound: number = notNumber ? (realNumbers[firstStep] as number[])[1] : ((realNumbers[firstStep] as number) + 1);
-	if (lowerBound === -1) lowerBound = realRanges[firstStep][0];
-	if (upperBound === -1) upperBound = realRanges[firstStep][1];
+	const lowerBound = realNumbers[firstStep][0];
+	const upperBound = realNumbers[firstStep][1];
 	const range = realRanges[firstStep][1] - realRanges[firstStep][0];
 	for (let remainder = lowerBound; remainder < upperBound; remainder++) {
 		for (let i = 0; i < tableSize; i++) {
@@ -151,13 +147,9 @@ function findSeedNew(realNumbers: (number | number[])[], realRanges: number[][])
 			for (let j = firstStep + 1; j < length; j++) {
 				const rng = prng.next(realRanges[j][0], realRanges[j][1]);
 				const realNumber = realNumbers[j];
-				if (typeof realNumber === 'number') {
-					if (realNumber === -1) continue;
-					if (rng !== realNumber) break;
-				} else {
-					if (realNumber[0] !== -1 && rng < realNumber[0]) break;
-					if (realNumber[1] !== -1 && rng >= realNumber[1]) break;
-				}
+				if (realNumber.length === 0) continue;
+				if (rng < realNumber[0]) break;
+				if (rng >= realNumber[1]) break;
 				if (j === length - 1) {
 					return TABLE[firstStep + 1][range][remainder][i].seed;
 				}
@@ -206,6 +198,16 @@ function findSeed(realNumbers: (number | number[])[], realRanges: number[][]) {
 	}
 }
 
+function parseNumberRangeCell(nr: string, splits: string[] = []): any {
+	const splitsCopy = splits.slice();
+	const splitChar = splitsCopy.pop();
+	if (nr === '') return -1;
+	if (splitChar === undefined) return Number(nr);
+	return nr.split(splitChar).map(value => parseNumberRangeCell(value, splitsCopy))
+		// [a] => a
+		.map(value => (typeof value !== 'number' && value.length === 1) ? value[0] : value);
+}
+
 export const commands: Chat.ChatCommands = {
 	/**
 	 * Order of RNG in Battle:
@@ -232,67 +234,79 @@ export const commands: Chat.ChatCommands = {
 		}
 
 		const targets = target.split(';');
-		const numbers = targets[0].split(',');
-		const ranges = targets.length > 1 ? targets[1].split(',') : [];
-		const realNumbers: (number | number[])[] = [];
+		const force = (targets.length > 1);
+		const rawParsedResults = parseNumberRangeCell(targets[0], ['/', '|', ',']);
+		const realNumbers: number[][] = [];
 		const realRanges: number[][] = [];
-		// todo: modify the syntax
-		// 1. use a/b|c/d,... format
-		// 2. add ...;force option
-		for (const number of numbers) {
-			if (number.startsWith('*')) {
-				const anyCount = number === '*' ? 1 : Number(number.substring(1));
-				if (isNaN(anyCount)) return;
-				for (let i = 0; i < anyCount; ++i) {
-					realNumbers.push(-1);
-				}
-			} else if (number.includes('/')) {
-				if (number === '/') {
-					realNumbers.push(-1);
-				} else if (number.startsWith('/')) {
-					realNumbers.push([-1, Number(number.substring(1))]);
-				} else if (number.endsWith('/')) {
-					realNumbers.push([Number(number.substring(0, number.length - 1)), -1]);
-				} else {
-					realNumbers.push(number.split('/').map(Number));
-				}
-			} else {
-				realNumbers.push(Number(number));
-			}
+		
+		// set numbers & ranges
+		if (rawParsedResults === -1) {
+			return this.errorReply(`Invalid params, won't do anything.`);
 		}
-		for (const range of ranges) {
-			if (range.includes('/')) {
-				realRanges.push(range.split('/').map(Number));
-			} else if (range === '') {
-				realRanges.push([0, 100]);
-			} else if (range.startsWith('*')) {
-				const anyCount = range === '*' ? 1 : Number(range.substring(1));
-				if (isNaN(anyCount)) return;
-				for (let i = 0; i < anyCount; ++i) {
+		for (const numberRange of rawParsedResults) {
+			if (typeof numberRange === 'number') {
+				for (let i = 0; i > numberRange; i--) {
+					realNumbers.push([]);
 					realRanges.push([0, 100]);
 				}
+				if (numberRange >= 0) {
+					realNumbers.push([numberRange, numberRange + 1]);
+					realRanges.push([0, 100]);
+				}
+				continue;
+			}
+			// parse range
+			if (typeof numberRange[1] === 'number') {
+				realRanges.push([0, numberRange[1] > 0 ? numberRange[1] : 100]);
 			} else {
-				realRanges.push([0, Number(range)]);
+				realRanges.push((numberRange[1] as number[]).map((value, index) => {
+					if (value === -1) {
+						if (index === 0) return 0;
+						return 100;
+					}
+					return value;
+				}));
+			}
+			// parse number
+			if (typeof numberRange[0] === 'number') {
+				if (numberRange[0] >= 0) {
+					realNumbers.push([numberRange[0], numberRange[0] + 1]);
+				} else {
+					realNumbers.push([]);
+				}
+			} else {
+				realNumbers.push((numberRange[0] as number[]).map((value, index) => value === -1 ? realRanges[realRanges.length - 1][index] : value));
 			}
 		}
-		while (realRanges.length < realNumbers.length) {
-			realRanges.push([0, 100]);
+		// validation
+		for (const range of realRanges) {
+			if (!range) return this.errorReply(`Wrong ranges!`);
+			if (range.length !== 2) return this.errorReply(`Wrong ranges!`);
+			if (isNaN(range[0]) || isNaN(range[1])) return this.errorReply(`Wrong ranges!`);
 		}
-		for (const realNumber of realNumbers) {
-			if (typeof realNumber === 'number' && isNaN(realNumber)) return;
-			if (typeof realNumber !== 'number' && (isNaN(realNumber[0]) || isNaN(realNumber[1]))) return;
+		for (const num of realNumbers) {
+			if (num === undefined) return this.errorReply(`Wrong numbers!`);
+			if (num.length !== 0 && num.length !== 2) return this.errorReply(`Wrong numbers!`);
+			if (num.length === 2 && (isNaN(num[0]) || isNaN(num[1]))) return this.errorReply(`Wrong numbers!`);
 		}
-		for (const realRange of realRanges) {
-			if (isNaN(realRange[0]) || isNaN(realRange[1])) return;
+		if (realNumbers.findIndex(value => value.length !== 0) >= 10) {
+			return this.errorReply(`Too long series!`);
 		}
-		if (realNumbers.findIndex(value => typeof value !== 'number' || value !== -1) >= 10) {
-			return this.errorReply(`Too long random number series.`);
-		}
-		this.sendReplyBox(`${user.name} is setting the next ${realNumbers.length} random number(s) to: ${realNumbers.map((value) => typeof value === 'number' ? value : `[${value[0]}, ${value[1]})`).join(',').replace(RegExp('-1', 'g'), '*')}`);
+		// output 0
+		this.sendReplyBox(`${user.name} is setting the next ${realNumbers.length} random number(s) to: ${realNumbers.map(value => value.length === 0 ? '*' : `[${value[0]}, ${value[1]})`).join(',')}`);
 		this.sendReplyBox(`Ranges: ${realRanges.map((value) => `[${value[0]}, ${value[1]})`).join(',')}`);
 
+		// find seed
 		generateStepModTable();
-		const seed = findSeedNew(realNumbers, realRanges);
+		let seed = findSeedNew(realNumbers, realRanges);
+		if (force) {
+			for (let i = 0; i < 10; i++) {
+				if (seed !== undefined) break;
+				generateStepModTable(true);
+				seed = findSeedNew(realNumbers, realRanges);
+			}
+		}
+		// output 1
 		if (seed === undefined) {
 			this.errorReply(`Setting random number failed!`);
 		} else {
@@ -309,8 +323,10 @@ export const commands: Chat.ChatCommands = {
 		}
 	},
 	rngcontrolhelp: [
-		`/rng [number 1], [number 2] ... ; [range 1], [range 2] ... - Set the next random numbers to be number 1, number 2, ... (Will inform others when you use it. Test Use Only.)`,
-		`E.g. /rng *,/70,0,0,/10;,,24,16 to get a hit, crit, max roll, and lowering spd focus blast`,
+		`/rng cell1,cell2,cell3,... - Set the next random numbers described by the cells. (Will inform others when you use it. Test Use Only.)`,
+		`Syntax for a cell is generally d*/?d*|?d*/?d*. E.g. /rng 0/30|0/100 to set a random number in range [0,30) for PRNG.next(0,100).`,
+		`If u wanna leave n consecutive random numbers uncontrolled u can use -n. E.g. /rng -4,0/30|0/100 to set the 5th next random number as [0,30).`,
+		`Sometimes the command will fail to find the seed you demand, u can add a ; at the end of it to force one.`
 	],
 	rngtable(target, room, user, connection, cmd) {
 		if (!user.isStaff) return;
