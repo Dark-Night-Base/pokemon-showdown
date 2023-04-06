@@ -842,7 +842,7 @@ export const Formats: FormatList = [
 		tournamentShow: false,
 		ruleset: ['[Gen 9] Balanced Hackmons Doubles', 'Sleep Clause Mod'],
 		banlist: [
-			// TBA
+			'Poison Heal',
 			'Acupressure', 'Aromatic Mist', 'Coaching', 'Court Change', 'Decorate', 'Final Gambit', 'Floral Healing', 'Follow Me',
 			'Heal Pulse', 'Rage Powder',
 		],
