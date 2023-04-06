@@ -47,6 +47,8 @@ export const commands: Chat.ChatCommands = {
 				'</style>\n' +
 				'<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">\n' +
 				`<input type="hidden" name="replayid" value="${id}" />\n` +
+				// todo: somehow add seed info here
+				// maybe use room.battle.stream?
 				'<div class="battle"></div><div class="battle-log"></div><div class="replay-controls"></div><div class="replay-controls-2"></div>\n' +
 				`<pre class="urlbox" style="word-wrap: break-word;">http://replay.sciroccogti.top/files/${link}</pre>\n` +
 				`<h1 style="font-weight:normal;text-align:left"><strong>${format}</strong>: <a href="http://pokemonshowdown.com/users/${toID(room.p1?.name)}" class="subtle" target="_blank">${room.p1?.name}</a> vs. <a href="http://pokemonshowdown.com/users/${toID(room.p2?.name)}" class="subtle" target="_blank">${room.p2?.name}</a></h1>\n` +
