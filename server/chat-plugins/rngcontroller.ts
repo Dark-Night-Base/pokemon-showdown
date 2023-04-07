@@ -25,7 +25,7 @@ interface stepModTable {
 }
 
 const tableSize = 1000;
-const furtherStep = 10;
+const maxTry = 5e5;
 
 let TABLE: stepModTable;
 
@@ -45,6 +45,19 @@ function toPRNGSeed(a: string) {
 function toBigNumber(a: PRNGSeed) {
 	const num = a.map(value => value.toString(16).padStart(4, '0')).join('').padStart(18, '0x');
 	return mathjs.evaluate(num);
+}
+function toPRNGResult(a: PRNGSeed, from?: number, to?: number) {
+	let result = (a[0] << 16 >>> 0) + a[1];
+	if (from) from = Math.floor(from);
+	if (to) to = Math.floor(to);
+	if (from === undefined) {
+		result = result / 0x100000000;
+	} else if (!to) {
+		result = Math.floor(result * from / 0x100000000);
+	} else {
+		result = Math.floor(result * (to - from) / 0x100000000) + from;
+	}
+	return result;
 }
 
 function powmod(a: BigNumber, p: number, m: BigNumber): BigNumber {
@@ -70,7 +83,7 @@ function geomod(a: BigNumber, n: number, m: BigNumber): BigNumber {
 
 // 1. find seed s, s.t. after {step} steps, PRNG.next(0, module) = remainder
 // 2. given seed, find the frame after {step} steps
-function generateSeed(step: number, module: number, remainder: number, seed: PRNGSeed | undefined) {
+function generateSeed(step: number, module: number, remainder: number, seed?: PRNGSeed) {
 	const result = [];
 	let S;
 
@@ -184,6 +197,39 @@ function generateStepModTable(force = false) {
 	}
 	TABLE = table;
 	FS('config/chat-plugins/rngcontroller.json').writeSync(JSON.stringify(table));
+}
+
+function findSeedRT(realNumbers: number[][], realRanges: number[][], force = false) {
+	const steps: number[] = [];
+	for (let i = 0; i < realNumbers.length; i++) {
+		if (realNumbers[i].length !== 0) {
+			steps.push(i);
+		}
+	}
+	for (let i = steps.length - 1; i > 0; i--) {
+		steps[i] -= steps[i - 1];
+	}
+	const firstStep = steps[0];
+	const lowerBound = realNumbers[firstStep][0];
+	const upperBound = realNumbers[firstStep][1];
+	const range = realRanges[firstStep][1] - realRanges[firstStep][0];
+	const maxTryTimes = force ? (maxTry * 100) : maxTry;
+	for (let i = 0; i < maxTryTimes; i++) {
+		const randomRemainder = Math.floor(Math.random() * (upperBound - lowerBound) + lowerBound);
+		let seeds = generateSeed(firstStep + 1, range, randomRemainder);
+		const seed = seeds[0].slice() as PRNGSeed;
+		if (steps.length === 1) return seed;
+		for (let j = 1; j < steps.length; j++) {
+			const step = steps[j];
+			// module & remainder irrelevant here
+			seeds = generateSeed(step, range, randomRemainder, seeds[1]);
+			const result = toPRNGResult(seeds[1], realRanges[step][0], realRanges[step][1]);
+			if (result < realNumbers[step][0] || result >= realNumbers[step][1]) break;
+			if (j === steps.length - 1) {
+				return seed as PRNGSeed;
+			}
+		}
+	}
 }
 
 function findSeedNew(realNumbers: number[][], realRanges: number[][]) {
@@ -358,15 +404,7 @@ export const commands: Chat.ChatCommands = {
 		this.sendReplyBox(`Ranges: ${realRanges.map((value) => `[${value[0]}, ${value[1]})`).join(',')}`);
 
 		// find seed
-		generateStepModTable();
-		let seed = findSeedNew(realNumbers, realRanges);
-		if (force) {
-			for (let i = 0; i < 10; i++) {
-				if (seed !== undefined) break;
-				generateStepModTable(true);
-				seed = findSeedNew(realNumbers, realRanges);
-			}
-		}
+		let seed = findSeedRT(realNumbers, realRanges, force);
 		// output 1
 		if (seed === undefined) {
 			this.errorReply(`Setting random number failed!`);
