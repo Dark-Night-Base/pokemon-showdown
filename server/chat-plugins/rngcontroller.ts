@@ -1,3 +1,4 @@
+import {BigNumber} from "mathjs";
 import {FS} from "../../lib";
 import {PRNG} from "../../sim";
 
@@ -28,7 +29,12 @@ const furtherStep = 10;
 
 let TABLE: stepModTable;
 
-// '0xabcdefghijklmnop' => [seed0, seed1, seed2, seed3]
+const a = mathjs.evaluate('0x5D588B656C078965');
+const c = mathjs.evaluate('0x269EC3');
+const m = mathjs.evaluate('2^64');
+const twoE32 = mathjs.evaluate('2^32');
+
+// '0x1234567890abcdef' => [seed0, seed1, seed2, seed3]
 function toPRNGSeed(a: string) {
 	let num = a.slice(2);
 	num = num.padStart(16, '0');
@@ -36,20 +42,76 @@ function toPRNGSeed(a: string) {
 	const seed = numSlice.map(value => Number('0x' + value));
 	return seed as PRNGSeed;
 }
+function toBigNumber(a: PRNGSeed) {
+	const num = a.map(value => value.toString(16).padStart(4, '0')).join('').padStart(18, '0x');
+	return mathjs.evaluate(num);
+}
 
-function frameToResult(frame: PRNGSeed, module: number) {
-	let result = (frame[0] << 16 >>> 0) + frame[1];
-	return Math.floor(result * module / 0x100000000);
+function powmod(a: BigNumber, p: number, m: BigNumber): BigNumber {
+	if (p < 0) return powmod(mathjs.invmod(a, m), -p, m);
+	if (p === 0) return mathjs.evaluate('1');
+	if (p === 1) return a;
+	let result = powmod(a, p >> 1, m);
+	result = mathjs.multiply(result, result);
+	if (p & 1) result = mathjs.multiply(result, a);
+	result = mathjs.mod(result, m);
+	return result;
+}
+// 1 + a + a^2 + ... + a^{2n+1} = (1 + a) * (1 + a^2 + (a^2)^2 + ... + (a^2)^n)
+function geomod(a: BigNumber, n: number, m: BigNumber): BigNumber {
+	if (n === 0) return mathjs.evaluate('1');
+	if (n === 1) return mathjs.add(a, 1);
+	let result = geomod(mathjs.mod(mathjs.multiply(a, a), m), n >> 1, m);
+	result = mathjs.multiply(result, mathjs.add(a, 1));
+	if (n & 1) return mathjs.mod(result, m);
+	result = mathjs.subtract(result, powmod(a, n + 1, m));
+	return mathjs.mod(result, m);
+}
+
+// 1. find seed s, s.t. after {step} steps, PRNG.next(0, module) = remainder
+// 2. given seed, find the frame after {step} steps
+function generateSeed(step: number, module: number, remainder: number, seed: PRNGSeed | undefined) {
+	const result = [];
+	let S;
+
+	const a_n = powmod(a, step, m);
+	const aInv_n = mathjs.invmod(a_n, m);
+	let c_n = geomod(a, step - 1, m);
+	c_n = mathjs.multiply(c_n, c);
+	c_n = mathjs.mod(c_n, m);
+
+	if (seed === undefined) {
+		const G_n = mathjs.mod(mathjs.multiply(aInv_n, c_n), m);
+
+		const rangeCore = Math.ceil(0x100000000 / module);
+		const kValue = Math.floor(Math.random() * rangeCore + rangeCore * remainder);
+		const lValue = Math.floor(Math.random() * 0x100000000);
+		const k = mathjs.evaluate(kValue.toString());
+		const l = mathjs.evaluate(lValue.toString());
+
+		S = mathjs.multiply(k, twoE32);
+		S = mathjs.multiply(S, aInv_n);
+		S = mathjs.subtract(S, G_n);
+		const left = mathjs.multiply(aInv_n, l);
+		S = mathjs.add(S, left);
+		S = mathjs.mod(S, m);
+
+		result.push(toPRNGSeed(S.toHex()));
+	} else {
+		S = toBigNumber(seed);
+		result.push(seed);
+	}
+	S = mathjs.multiply(S, a_n);
+	S = mathjs.add(S, c_n);
+	S = mathjs.mod(S, m);
+	result.push(toPRNGSeed(S.toHex()));
+	return result;
 }
 
 function generateStepModTable(force = false) {
 	if (FS('config/chat-plugins/rngcontroller.json').existsSync() && !force) return;
 	const table: stepModTable = {};
 
-	const a = mathjs.evaluate('0x5D588B656C078965');
-	const c = mathjs.evaluate('0x269EC3');
-	const m = mathjs.evaluate('2^64');
-	const twoE32 = mathjs.evaluate('2^32');
 	const aInvValues: string[] = ['0x1'];
 	const cValues: string[] = ['0x0'];
 
@@ -148,8 +210,7 @@ function findSeedNew(realNumbers: number[][], realRanges: number[][]) {
 				const rng = prng.next(realRanges[j][0], realRanges[j][1]);
 				const realNumber = realNumbers[j];
 				if (realNumber.length === 0) continue;
-				if (rng < realNumber[0]) break;
-				if (rng >= realNumber[1]) break;
+				if (rng < realNumber[0] || rng >= realNumber[1]) break;
 				if (j === length - 1) {
 					return TABLE[firstStep + 1][range][remainder][i].seed;
 				}
