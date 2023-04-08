@@ -212,9 +212,6 @@ function findSeedRT(realNumbers: number[][], realRanges: number[][], force = fal
 			steps.push(i);
 		}
 	}
-	for (let i = steps.length - 1; i > 0; i--) {
-		steps[i] -= steps[i - 1];
-	}
 	const firstStep = steps[0];
 	const lowerBound = realNumbers[firstStep][0];
 	const upperBound = realNumbers[firstStep][1];
@@ -226,9 +223,10 @@ function findSeedRT(realNumbers: number[][], realRanges: number[][], force = fal
 		const seed = seeds[0].slice() as PRNGSeed;
 		if (steps.length === 1) return seed;
 		for (let j = 1; j < steps.length; j++) {
+			const advanceStep = steps[j] - steps[j - 1];
 			const step = steps[j];
 			// module & remainder irrelevant here
-			seeds = generateSeed(step, range, randomRemainder, seeds[1]);
+			seeds = generateSeed(advanceStep, range, randomRemainder, seeds[1]);
 			const result = toPRNGResult(seeds[1], realRanges[step][0], realRanges[step][1]);
 			if (result < realNumbers[step][0] || result >= realNumbers[step][1]) break;
 			if (j === steps.length - 1) {
