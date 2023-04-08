@@ -35,8 +35,14 @@ const m = mathjs.evaluate('2^64');
 const twoE32 = mathjs.evaluate('2^32');
 
 // '0x1234567890abcdef' => [seed0, seed1, seed2, seed3]
-function toPRNGSeed(a: string) {
-	let num = a.slice(2);
+function toPRNGSeed(a: string | BigNumber) {
+	let A;
+	if (typeof a !== 'string') {
+		A = a.toHex();
+	} else {
+		A = a;
+	}
+	let num = A.slice(2);
 	num = num.padStart(16, '0');
 	const numSlice = [num.slice(0, 4), num.slice(4, 8), num.slice(8, 12), num.slice(12, 16)];
 	const seed = numSlice.map(value => Number('0x' + value));
@@ -109,7 +115,7 @@ function generateSeed(step: number, module: number, remainder: number, seed?: PR
 		S = mathjs.add(S, left);
 		S = mathjs.mod(S, m);
 
-		result.push(toPRNGSeed(S.toHex()));
+		result.push(toPRNGSeed(S));
 	} else {
 		S = toBigNumber(seed);
 		result.push(seed);
@@ -117,7 +123,7 @@ function generateSeed(step: number, module: number, remainder: number, seed?: PR
 	S = mathjs.multiply(S, a_n);
 	S = mathjs.add(S, c_n);
 	S = mathjs.mod(S, m);
-	result.push(toPRNGSeed(S.toHex()));
+	result.push(toPRNGSeed(S));
 	return result;
 }
 
@@ -226,7 +232,7 @@ function findSeedRT(realNumbers: number[][], realRanges: number[][], force = fal
 			const result = toPRNGResult(seeds[1], realRanges[step][0], realRanges[step][1]);
 			if (result < realNumbers[step][0] || result >= realNumbers[step][1]) break;
 			if (j === steps.length - 1) {
-				return seed as PRNGSeed;
+				return seed;
 			}
 		}
 	}
