@@ -268,6 +268,9 @@ export const commands: Chat.ChatCommands = {
 		if (realNumbers.findIndex(value => value.length !== 0) >= 24) {
 			return this.errorReply(`Too long series!`);
 		}
+		if (realNumbers.findIndex(value => value.length !== 0) == -1) {
+			return this.errorReply(`Invalid params, won't do anything.`);
+		}
 		// output 0
 		this.sendReplyBox(`${user.name} is setting the next ${realNumbers.length} random number(s) to: ${realNumbers.map(value => value.length === 0 ? '*' : `[${value[0]}, ${value[1]})`).join(',')}`);
 		this.sendReplyBox(`Ranges: ${realRanges.map((value) => `[${value[0]}, ${value[1]})`).join(',')}`);
@@ -294,6 +297,7 @@ export const commands: Chat.ChatCommands = {
 		`/rng cell1,cell2,cell3,... - Set the next random numbers described by the cells. (Will inform others when you use it. Test Use Only.)`,
 		`Syntax for a cell is generally d*/?d*|?d*/?d*. E.g. /rng 0/30|0/100 to set a random number in range [0,30) for PRNG.next(0,100).`,
 		`If u wanna leave n consecutive random numbers uncontrolled u can use -n. E.g. /rng -4,0/30|0/100 to set the 5th next random number as [0,30).`,
-		`Sometimes the command will fail to find the seed you demand, u can add a ; at the end of it to force one.`
+		`(Cancelled) Sometimes the command will fail to find the seed you demand, u can add a ; at the end of it to force one.`,
+		`Tips: '30' = '30/31|0/100'; '0|16' = '0|0/16' = '0/1|0/16'; '/70' = '|70' = '-1'; '/70|' = '0/70|0/100'`,
 	],
 };
