@@ -137,12 +137,13 @@ function generateSeed(step: number, module: number, remainder: number, seed?: PR
 	result.push(toPRNGSeed(S));
 	return result;
 }
-function getSeed(step: number, module: number, remainder: number) {
+function getSeed(step: number, module: number, remainder: number, force = false) {
+	if (force) return generateSeed(step, module, remainder); // use no cache
 	if (!tableExists(step, module, remainder)) generateSeedTable(step, module, remainder);
 	return TABLE[TABLE_INDEXES.index++ % tableSize];
 }
 
-function findSeedRT(realNumbers: number[][], realRanges: number[][]) {
+function findSeedRT(realNumbers: number[][], realRanges: number[][], force = false) {
 	const steps: number[] = [];
 	for (let i = 0; i < realNumbers.length; i++) {
 		if (realNumbers[i].length !== 0) {
@@ -155,7 +156,7 @@ function findSeedRT(realNumbers: number[][], realRanges: number[][]) {
 	const range = realRanges[firstStep][1] - realRanges[firstStep][0];
 	const randomRemainder = Math.floor(Math.random() * (upperBound - lowerBound) + lowerBound);
 	for (let i = 0; i < tableSize; i++) {
-		let seeds = getSeed(firstStep + 1, range, randomRemainder);
+		let seeds = getSeed(firstStep + 1, range, randomRemainder, force);
 		const seed = seeds[0].slice() as PRNGSeed;
 		if (steps.length === 1) return seed;
 		for (let j = 1; j < steps.length; j++) {
@@ -208,8 +209,6 @@ export const commands: Chat.ChatCommands = {
 		}
 
 		const targets = target.split(';');
-		// currently not used
-		// if u wanna force a seed, just try a lot of times
 		const force = (targets.length > 1);
 		const rawParsedResults = parseNumberRangeCells(targets[0], ['/', '|', ',']);
 		const realNumbers: number[][] = [];
@@ -276,7 +275,7 @@ export const commands: Chat.ChatCommands = {
 		this.sendReplyBox(`Ranges: ${realRanges.map((value) => `[${value[0]}, ${value[1]})`).join(',')}`);
 
 		// find seed
-		let seed = findSeedRT(realNumbers, realRanges);
+		let seed = findSeedRT(realNumbers, realRanges, force);
 		// output 1
 		if (seed === undefined) {
 			this.errorReply(`Setting random number failed!`);
