@@ -610,7 +610,7 @@ export const Formats: FormatList = [
 					bodyStat = bodySpecies.baseStats[i] * 2;
 				}
 				fusionSpecies.baseStats[i] = this.clampIntRange(Math.floor((headStat + bodyStat) / 3), 1, 255);
-				if (fusionSpecies.maxHP) fusionSpecies.baseStats[i] = 1;
+				if (i === 'hp' && fusionSpecies.maxHP) fusionSpecies.baseStats[i] = 1;
 				fusionSpecies.bst += fusionSpecies.baseStats[i];
 			}
 			fusionSpecies.types[0] = headSpecies.types[0];
