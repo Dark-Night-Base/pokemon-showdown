@@ -598,6 +598,7 @@ export const Formats: FormatList = [
 				H: headSpecies.abilities['H'],
 			};
 			fusionSpecies.bst = 0;
+			if (headSpecies.maxHP || bodySpecies.maxHP) fusionSpecies.maxHP = 1;
 			let i: StatID;
 			for (i in species.baseStats) {
 				let headStat, bodyStat;
@@ -609,6 +610,7 @@ export const Formats: FormatList = [
 					bodyStat = bodySpecies.baseStats[i] * 2;
 				}
 				fusionSpecies.baseStats[i] = this.clampIntRange(Math.floor((headStat + bodyStat) / 3), 1, 255);
+				if (fusionSpecies.maxHP) fusionSpecies.baseStats[i] = 1;
 				fusionSpecies.bst += fusionSpecies.baseStats[i];
 			}
 			fusionSpecies.types[0] = headSpecies.types[0];
