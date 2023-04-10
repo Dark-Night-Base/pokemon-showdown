@@ -851,7 +851,8 @@ export const Rulesets: {[k: string]: FormatData} = {
 				if (!hasOrbeetle && species.name === "Orbeetle-Gmax") hasOrbeetle = true;
 				for (const moveid of set.moves) {
 					const move = this.dex.moves.get(moveid);
-					if (move.status && move.status === 'slp' && move.accuracy < 100) hasSleepMove = true;
+					// Nihilslave: add type check
+					if (move.status && move.status === 'slp' && (typeof move.accuracy === 'number') && move.accuracy < 100) hasSleepMove = true;
 				}
 			}
 			if (hasOrbeetle && hasSleepMove) {

@@ -438,24 +438,38 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen9',
-		ruleset: ['Standard NatDex'],
+		ruleset: ['Obtainable', '+Past', '+Unobtainable', '+Unreleased', 'Showdown', 'Sketch Post-Gen 7 Moves'],
 		onValidateTeam(team) {
 			const names = new Set<ID>();
 			for (const set of team) {
 				const name = set.name;
+				const headSpecies = this.dex.species.get(name);
+				const bodySpecies = this.dex.species.get(set.species);
+				if (headSpecies.exists && headSpecies.baseSpecies !== headSpecies.name) {
+					return [
+						`You have not allowed to use non-base formes`,
+						`${headSpecies.name} is a non-base forme`,
+					];
+				}
+				if (bodySpecies.baseSpecies !== bodySpecies.name) {
+					return [
+						`You have not allowed to use non-base formes`,
+						`${bodySpecies.name} is a non-base forme`,
+					];
+				}
+				const species = bodySpecies.name;
 				if (names.has(this.dex.toID(name))) {
 					return [
-						`Your Pok\u00e9mon must have different nicknames.`,
-						`(You have more than one Pok\u00e9mon named '${name}')`,
+						`You have more than one ${name}`,
+					];
+				}
+				if (names.has(this.dex.toID(species))) {
+					return [
+						`You have more than one ${species}`,
 					];
 				}
 				names.add(this.dex.toID(name));
-			}
-			if (!names.size) {
-				return [
-					`${this.format.name} works using nicknames; your team has 0 nicknamed Pok\u00e9mon.`,
-					`(If this was intentional, add a nickname to one Pok\u00e9mon that isn't the name of a Pok\u00e9mon species.)`,
-				];
+				if (species !== name) names.add(this.dex.toID(species));
 			}
 		},
 		checkCanLearn(move, species, lsetData, set) {
@@ -522,42 +536,85 @@ export const Formats: FormatList = [
 		onModifySpecies(species, target, source, effect) {
 			if (!target) return; // chat
 			if (effect && ['imposter', 'transform'].includes(effect.id)) return;
-			if (target.set.name === target.set.species) return;
-			const crossSpecies = this.dex.species.get(target.set.name);
-			if (!crossSpecies.exists) return;
-			if (species.battleOnly || !species.nfe) return;
-			const crossIsUnreleased = (crossSpecies.tier === "Unreleased" && crossSpecies.isNonstandard === "Unobtainable" &&
-				!this.ruleTable.has('+unobtainable'));
-			if (crossSpecies.battleOnly || crossIsUnreleased || !crossSpecies.prevo) return;
-			const crossPrevoSpecies = this.dex.species.get(crossSpecies.prevo);
-			if (!crossPrevoSpecies.prevo !== !species.prevo) return;
+			const headSpecies = this.dex.species.get(target.set.name);
+			const bodySpecies = this.dex.species.get(target.set.species);
+			if (!headSpecies.exists || !bodySpecies.exists) return;
+			if (headSpecies.baseSpecies !== headSpecies.name || bodySpecies.baseSpecies !== bodySpecies.name) return;
+			const nonstandard = ['CAP', 'LGPE', 'Custom', 'Gigantamax'];
+			if (headSpecies.isNonstandard && nonstandard.includes(headSpecies.isNonstandard) ||
+				bodySpecies.isNonstandard && nonstandard.includes(bodySpecies.isNonstandard)
+			) return;
+			if (headSpecies.name === bodySpecies.name) {
+				const specialSelfFusions: {[key: string]: string} = {
+					deoxys: 'Deoxys-Attack',
+					rotom: 'Rotom-Heat',
+					shaymin: 'Shaymin-Sky',
+					keldeo: 'Keldeo-Resolute',
+					meloetta: 'Meloetta-Pirouette',
+					greninja: 'Greninja-Ash',
+					floette: 'Floette-Eternal',
+					zygarde: 'Zygarde-Complete',
+					hoopa: 'Hoopa-Unbound',
+					lycanroc: 'Lycanroc-Dusk',
+					wishiwashi: 'Wishiwashi-School',
+					necrozma: 'Necrozma-Ultra',
+					cramorant: 'Cramorant-Gorging',
+					eternatus: 'Eternatus-Eternamax',
+					palafin: 'Palafin-Hero',
+				};
+				if (this.dex.toID(headSpecies.name) in specialSelfFusions) {
+					return this.dex.species.get(specialSelfFusions[this.dex.toID(headSpecies.name)]);
+				}
+				if (headSpecies.otherFormes) {
+					for (const forme of headSpecies.otherFormes) {
+						if (forme.endsWith('-Mega') || forme.endsWith('-Mega-Y') ||
+							forme.endsWith('-Primal') ||
+							forme.endsWith('-Origin') ||
+							forme.endsWith('-Therian') ||
+							forme.endsWith('-Starter') ||
+							forme.endsWith('-Crowned')
+						) return this.dex.species.get(forme);
+					}
+				}
+				return this.dex.deepClone(headSpecies);
+			}
+			const pair = [headSpecies.name, bodySpecies.name].sort();
+			if (pair[0] === 'Kyurem' && pair[1] === 'Reshiram') return this.dex.species.get('Kyurem-White');
+			if (pair[0] === 'Kyurem' && pair[1] === 'Zekrom') return this.dex.species.get('Kyurem-Black');
+			if (pair[0] === 'Necrozma' && pair[1] === 'Solgaleo') return this.dex.species.get('Necrozma-Dusk-Mane');
+			if (pair[0] === 'Lunala' && pair[1] === 'Necrozma') return this.dex.species.get('Necrozma-Dawn-Wings');
+			if (pair[0] === 'Calyrex' && pair[1] === 'Glastrier') return this.dex.species.get('Calyrex-Ice');
+			if (pair[0] === 'Calyrex' && pair[1] === 'Spectrier') return this.dex.species.get('Calyrex-Shadow');
 
-			const mixedSpecies = this.dex.deepClone(species);
-			mixedSpecies.weightkg =
-				Math.max(0.1, +(species.weightkg + crossSpecies.weightkg - crossPrevoSpecies.weightkg)).toFixed(1);
-			mixedSpecies.nfe = false;
-			mixedSpecies.evos = [];
-			mixedSpecies.eggGroups = crossSpecies.eggGroups;
-			mixedSpecies.abilities = crossSpecies.abilities;
-			mixedSpecies.bst = 0;
+			const fusionSpecies = this.dex.deepClone(species);
+			fusionSpecies.weightkg = Math.max(0.1, (headSpecies.weightkg + bodySpecies.weightkg) / 2).toFixed(1);
+			fusionSpecies.weighthg = Math.max(0.1, (headSpecies.weighthg + bodySpecies.weighthg) / 2).toFixed(1);
+			fusionSpecies.nfe = headSpecies.nfe || bodySpecies.nfe;
+			// fusionSpecies.evos
+			// fusionSpecies.eggGroups
+			fusionSpecies.abilities = {
+				0: headSpecies.abilities[0],
+				1: bodySpecies.abilities[1] || bodySpecies.abilities[0],
+				H: headSpecies.abilities['H'],
+			};
+			fusionSpecies.bst = 0;
 			let i: StatID;
 			for (i in species.baseStats) {
-				const statChange = crossSpecies.baseStats[i] - crossPrevoSpecies.baseStats[i];
-				mixedSpecies.baseStats[i] = this.clampIntRange(species.baseStats[i] + statChange, 1, 255);
-				mixedSpecies.bst += mixedSpecies.baseStats[i];
+				let headStat, bodyStat;
+				if (['hp', 'spa', 'spd'].includes(i)) {
+					headStat = headSpecies.baseStats[i] * 2;
+					bodyStat = bodySpecies.baseStats[i];
+				} else {
+					headStat = headSpecies.baseStats[i];
+					bodyStat = bodySpecies.baseStats[i] * 2;
+				}
+				fusionSpecies.baseStats[i] = this.clampIntRange(Math.floor((headStat + bodyStat) / 3), 1, 255);
+				fusionSpecies.bst += fusionSpecies.baseStats[i];
 			}
-			if (crossSpecies.types[0] !== crossPrevoSpecies.types[0]) mixedSpecies.types[0] = crossSpecies.types[0];
-			if (crossSpecies.types[1] !== crossPrevoSpecies.types[1]) {
-				mixedSpecies.types[1] = crossSpecies.types[1] || crossSpecies.types[0];
-			}
-			if (mixedSpecies.types[0] === mixedSpecies.types[1]) mixedSpecies.types = [mixedSpecies.types[0]];
+			fusionSpecies.types[0] = headSpecies.types[0];
+			fusionSpecies.types[1] = bodySpecies.types[1] || bodySpecies.types[0];
 
-			return mixedSpecies;
-		},
-		onBegin() {
-			for (const pokemon of this.getAllPokemon()) {
-				pokemon.baseSpecies = pokemon.species;
-			}
+			return fusionSpecies;
 		},
 	},
 	{
@@ -850,6 +907,19 @@ export const Formats: FormatList = [
 			// TBA
 			'Parental Bond',
 		],
+	},
+	{
+		name: "[Gen 9] FFA Balanced Hackmons 600 Cup",
+		desc: `FFABH, but Pok&eacute;mon with BST > 600 are banned.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3681641/">Free-For-All</a>`,
+		],
+
+		mod: 'gen9',
+		gameType: 'freeforall',
+		rated: false,
+		tournamentShow: false,
+		ruleset: ['[Gen 9] Free-For-All BH', 'BST Limit = 600'],
 	},
 	{
 		name: "[Gen 9] 350 Cup BH",

@@ -846,7 +846,9 @@ export class TeamValidator {
 			} else if (nameSpecies.name !== species.name && nameSpecies.name !== species.baseSpecies) {
 				// nickname species doesn't match actual species
 				// Nickname Clause
-				problems.push(`${name} must not be nicknamed a different Pokémon species than what it actually is.`);
+				if (ruleTable.has('nicknameclause')) { // Nihilslave: check if there really is the clause
+					problems.push(`${name} must not be nicknamed a different Pokémon species than what it actually is.`);
+				}
 			}
 		}
 
