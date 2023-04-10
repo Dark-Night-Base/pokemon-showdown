@@ -438,7 +438,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen9',
-		ruleset: ['Obtainable', '+Past', '+Unobtainable', '+Unreleased', 'Showdown', 'Sketch Post-Gen 7 Moves'],
+		ruleset: ['Obtainable', '+Past', '+Unobtainable', '+Unreleased', 'Showdown', 'Sketch Post-Gen 7 Moves', 'OHKO Clause', 'Terastal Clause'],
 		onValidateTeam(team) {
 			const names = new Set<ID>();
 			for (const set of team) {
