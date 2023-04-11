@@ -542,7 +542,19 @@ export const Formats: FormatList = [
 				} else {
 					fusionSpecies.species = this.dex.deepClone(headSpecies);
 				}
+			} else {
+				const pair = [headSpecies.name, bodySpecies.name].sort();
+				if (pair[0] === 'Kyurem' && pair[1] === 'Reshiram') fusionSpecies.species = this.dex.species.get('Kyurem-White');
+				if (pair[0] === 'Kyurem' && pair[1] === 'Zekrom') fusionSpecies.species = this.dex.species.get('Kyurem-Black');
+				if (pair[0] === 'Necrozma' && pair[1] === 'Solgaleo') fusionSpecies.species = this.dex.species.get('Necrozma-Dusk-Mane');
+				if (pair[0] === 'Lunala' && pair[1] === 'Necrozma') fusionSpecies.species = this.dex.species.get('Necrozma-Dawn-Wings');
+				if (pair[0] === 'Calyrex' && pair[1] === 'Glastrier') fusionSpecies.species = this.dex.species.get('Calyrex-Ice');
+				if (pair[0] === 'Calyrex' && pair[1] === 'Spectrier') fusionSpecies.species = this.dex.species.get('Calyrex-Shadow');
+			}
+			if (fusionSpecies.species) {
 				fusionSpecies.abilities = Object.values(fusionSpecies.species!.abilities);
+				// @ts-ignore
+				set.fusionSpecies = fusionSpecies.species;
 			} else {
 				fusionSpecies.abilities = [
 					headSpecies.abilities[0],
@@ -550,8 +562,6 @@ export const Formats: FormatList = [
 					headSpecies.abilities['H'] || headSpecies.abilities[0],
 				];
 			}
-			// @ts-ignore
-			if (fusionSpecies.species) set.fusionSpecies = fusionSpecies.species;
 			const ability = this.dex.abilities.get(set.ability);
 			if (!fusionSpecies.abilities.includes(ability.name)) {
 				return [`${bodySpecies.name} can't have ${ability.name}`];
@@ -573,47 +583,9 @@ export const Formats: FormatList = [
 			if (headSpecies.isNonstandard && nonstandard.includes(headSpecies.isNonstandard) ||
 				bodySpecies.isNonstandard && nonstandard.includes(bodySpecies.isNonstandard)
 			) return;
-			if (headSpecies.name === bodySpecies.name) {
-				const specialSelfFusions: {[key: string]: string} = {
-					deoxys: 'Deoxys-Attack',
-					rotom: 'Rotom-Heat',
-					shaymin: 'Shaymin-Sky',
-					keldeo: 'Keldeo-Resolute',
-					meloetta: 'Meloetta-Pirouette',
-					greninja: 'Greninja-Ash',
-					floette: 'Floette-Eternal',
-					zygarde: 'Zygarde-Complete',
-					hoopa: 'Hoopa-Unbound',
-					lycanroc: 'Lycanroc-Dusk',
-					wishiwashi: 'Wishiwashi-School',
-					necrozma: 'Necrozma-Ultra',
-					cramorant: 'Cramorant-Gorging',
-					eternatus: 'Eternatus-Eternamax',
-					palafin: 'Palafin-Hero',
-				};
-				if (this.dex.toID(headSpecies.name) in specialSelfFusions) {
-					return this.dex.species.get(specialSelfFusions[this.dex.toID(headSpecies.name)]);
-				}
-				if (headSpecies.otherFormes) {
-					for (const forme of headSpecies.otherFormes) {
-						if (forme.endsWith('-Mega') || forme.endsWith('-Mega-Y') ||
-							forme.endsWith('-Primal') ||
-							forme.endsWith('-Origin') ||
-							forme.endsWith('-Therian') ||
-							forme.endsWith('-Starter') ||
-							forme.endsWith('-Crowned')
-						) return this.dex.species.get(forme);
-					}
-				}
-				return this.dex.deepClone(headSpecies);
-			}
-			const pair = [headSpecies.name, bodySpecies.name].sort();
-			if (pair[0] === 'Kyurem' && pair[1] === 'Reshiram') return this.dex.species.get('Kyurem-White');
-			if (pair[0] === 'Kyurem' && pair[1] === 'Zekrom') return this.dex.species.get('Kyurem-Black');
-			if (pair[0] === 'Necrozma' && pair[1] === 'Solgaleo') return this.dex.species.get('Necrozma-Dusk-Mane');
-			if (pair[0] === 'Lunala' && pair[1] === 'Necrozma') return this.dex.species.get('Necrozma-Dawn-Wings');
-			if (pair[0] === 'Calyrex' && pair[1] === 'Glastrier') return this.dex.species.get('Calyrex-Ice');
-			if (pair[0] === 'Calyrex' && pair[1] === 'Spectrier') return this.dex.species.get('Calyrex-Shadow');
+			// special fusions, already got in validateSet, i guess
+			// @ts-ignore
+			if (target.set.fusionSpecies) return target.set.fusionSpecies;
 
 			const fusionSpecies = this.dex.deepClone(species);
 			fusionSpecies.weightkg = Math.max(0.1, (headSpecies.weightkg + bodySpecies.weightkg) / 2).toFixed(1);
