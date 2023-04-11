@@ -439,7 +439,7 @@ export const Formats: FormatList = [
 
 		mod: 'gen9',
 		ruleset: [
-			'Obtainable', '+Past', '+Unobtainable', '+Unreleased', 'Team Species Preview', '!!EV Limit = 1020',
+			'Obtainable', '+Past', '+Unobtainable', '+Unreleased', 'Team Species Preview', '!!EV Limit = 1020', 'Species Clause',
 			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'Sketch Post-Gen 7 Moves', 'Dynamax Clause', 'Terastal Clause',
 			'OHKO Clause',
 		],
