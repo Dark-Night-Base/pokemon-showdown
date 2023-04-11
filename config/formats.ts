@@ -438,7 +438,11 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen9',
-		ruleset: ['Obtainable', '+Past', '+Unobtainable', '+Unreleased', 'Showdown', 'Sketch Post-Gen 7 Moves', '!!EV Limit = 1020', 'OHKO Clause', 'Terastal Clause'],
+		ruleset: [
+			'Obtainable', '+Past', '+Unobtainable', '+Unreleased', 'Team Species Preview', '!!EV Limit = 1020',
+			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'Sketch Post-Gen 7 Moves', 'Dynamax Clause', 'Terastal Clause',
+			'OHKO Clause',
+		],
 		onValidateTeam(team) {
 			const names = new Set<ID>();
 			for (const set of team) {
@@ -550,6 +554,10 @@ export const Formats: FormatList = [
 			if (!fusionSpecies.abilities.includes(ability.name)) {
 				return [`${bodySpecies.name} can't have ${ability.name}`];
 			}
+			const item = this.dex.items.get(set.item);
+			if (item.megaStone || item.zMove) {
+				return [`${bodySpecies.name}'s item ${item.name} is banned`];
+			}
 
 			set.ability = bodySpecies.abilities[0];
 			problems = this.validateSet(set, teamHas);
@@ -604,6 +612,14 @@ export const Formats: FormatList = [
 			if (fusionSpecies.types[1] === fusionSpecies.types[0]) fusionSpecies.types = [fusionSpecies.types[0]];
 
 			return fusionSpecies;
+		},
+		onBegin() {
+			// prevent rayquaza from mega evolving
+			for (const pokemon of this.getAllPokemon()) {
+				if (pokemon.species.id === 'rayquaza') {
+					pokemon.canMegaEvo = null;
+				}
+			}
 		},
 	},
 	{

@@ -2740,6 +2740,8 @@ export const Rulesets: {[k: string]: FormatData} = {
 				}
 			}
 			this.makeRequest('teampreview');
+			const isCreatemon = this.format.id.includes('createmons');
+			const isIF = this.format.id.includes('infinitefusion');
 			for (const side of this.sides) {
 				let buf = `raw|<strong>${side.name}'s team details:</strong><br/>`;
 				for (const pokemon of side.pokemon) {
@@ -2749,7 +2751,11 @@ export const Rulesets: {[k: string]: FormatData} = {
 					buf += '<div class="message"><ul class="utilichart">';
 					buf += '<li class="result">';
 					buf += `<span class="col iconcol"><psicon pokemon="${species.id}"/></span> `;
-					buf += `<span class="col pokemonnamecol" style="white-space:nowrap"><a href="https://dex.pokemonshowdown.com/pokemon/${species.id}" target="_blank">${species.name}</a></span> `;
+					if (!isIF) {
+						buf += `<span class="col pokemonnamecol" style="white-space:nowrap"><a href="https://dex.pokemonshowdown.com/pokemon/${species.id}" target="_blank">${species.name}</a></span> `;
+					} else {
+						buf += `<span class="col pokemonnamecol" style="white-space:nowrap"><a href="https://dex.pokemonshowdown.com/pokemon/${species.id}" target="_blank">${pokemon.name}+${species.name}</a></span> `;
+					}
 					buf += '<span class="col typecol">';
 					if (species.types) {
 						for (const type of species.types) {
@@ -2758,7 +2764,25 @@ export const Rulesets: {[k: string]: FormatData} = {
 					}
 					buf += '</span> ';
 					buf += '<span style="float:left;min-height:26px">';
-					buf += '<span class="col abilitycol">' + side.name + '</span>';
+					if (isCreatemon) {
+						buf += '<span class="col abilitycol">' + side.name + '</span>';
+					} else {
+						if (species.abilities['1']) {
+							buf += '<span class="col twoabilitycol">' + species.abilities['0'] + '<br />' + species.abilities['1'] + '</span>';
+						} else {
+							buf += '<span class="col abilitycol">' + species.abilities['0'] + '</span>';
+						}
+						if (species.abilities['H'] && species.abilities['S']) {
+							buf += '<span class="col twoabilitycol' + (species.unreleasedHidden ? ' unreleasedhacol' : '') + '"><em>' + species.abilities['H'] + '<br />(' + species.abilities['S'] + ')</em></span>';
+						} else if (species.abilities['H']) {
+							buf += '<span class="col abilitycol' + (species.unreleasedHidden ? ' unreleasedhacol' : '') + '"><em>' + species.abilities['H'] + '</em></span>';
+						} else if (species.abilities['S']) {
+							// special case for Zygarde
+							buf += '<span class="col abilitycol"><em>(' + species.abilities['S'] + ')</em></span>';
+						} else {
+							buf += '<span class="col abilitycol"></span>';
+						}
+					}
 					buf += '</span>';
 					buf += '<span style="float:left;min-height:26px">';
 					buf += '<span class="col statcol"><em>HP</em><br />' + species.baseStats.hp + '</span> ';
@@ -2780,11 +2804,17 @@ export const Rulesets: {[k: string]: FormatData} = {
 			if (!buf.endsWith('|')) buf += '/</span>&#8203;';
 			// todo: test this
 			const species = Utils.deepClone(pokemon.illusion ? pokemon.illusion.species : pokemon.species);
+			const isCreatemon = this.format.id.includes('createmons');
+			const isIF = this.format.id.includes('infinitefusion');
 			// manually print details cuz using Chat.getDataPokemonHTML() will cause client build issues
 			buf += '<div class="message"><ul class="utilichart">';
 			buf += '<li class="result">';
 			buf += `<span class="col iconcol"><psicon pokemon="${species.id}"/></span> `;
-			buf += `<span class="col pokemonnamecol" style="white-space:nowrap"><a href="https://dex.pokemonshowdown.com/pokemon/${species.id}" target="_blank">${species.name}</a></span> `;
+			if (!isIF) {
+				buf += `<span class="col pokemonnamecol" style="white-space:nowrap"><a href="https://dex.pokemonshowdown.com/pokemon/${species.id}" target="_blank">${species.name}</a></span> `;
+			} else {
+				buf += `<span class="col pokemonnamecol" style="white-space:nowrap"><a href="https://dex.pokemonshowdown.com/pokemon/${species.id}" target="_blank">${pokemon.name}+${species.name}</a></span> `;
+			}
 			buf += '<span class="col typecol">';
 			if (species.types) {
 				for (const type of species.types) {
@@ -2793,7 +2823,25 @@ export const Rulesets: {[k: string]: FormatData} = {
 			}
 			buf += '</span> ';
 			buf += '<span style="float:left;min-height:26px">';
-			buf += '<span class="col abilitycol"><strong>' + pokemon.side.name + '</strong></span>';
+			if (isCreatemon) {
+				buf += '<span class="col abilitycol"><strong>' + pokemon.side.name + '</strong></span>';
+			} else {
+				if (species.abilities['1']) {
+					buf += '<span class="col twoabilitycol">' + species.abilities['0'] + '<br />' + species.abilities['1'] + '</span>';
+				} else {
+					buf += '<span class="col abilitycol">' + species.abilities['0'] + '</span>';
+				}
+				if (species.abilities['H'] && species.abilities['S']) {
+					buf += '<span class="col twoabilitycol' + (species.unreleasedHidden ? ' unreleasedhacol' : '') + '"><em>' + species.abilities['H'] + '<br />(' + species.abilities['S'] + ')</em></span>';
+				} else if (species.abilities['H']) {
+					buf += '<span class="col abilitycol' + (species.unreleasedHidden ? ' unreleasedhacol' : '') + '"><em>' + species.abilities['H'] + '</em></span>';
+				} else if (species.abilities['S']) {
+					// special case for Zygarde
+					buf += '<span class="col abilitycol"><em>(' + species.abilities['S'] + ')</em></span>';
+				} else {
+					buf += '<span class="col abilitycol"></span>';
+				}
+			}
 			buf += '</span>';
 			buf += '<span style="float:left;min-height:26px">';
 			buf += '<span class="col statcol"><em>HP</em><br />' + species.baseStats.hp + '</span> ';
