@@ -485,52 +485,81 @@ export const Formats: FormatList = [
 			return null;
 		},
 		validateSet(set, teamHas) {
-			const crossSpecies = this.dex.species.get(set.name);
+			const headSpecies = this.dex.species.get(set.name);
+			const bodySpecies = this.dex.species.get(set.species);
 			let problems = this.dex.formats.get('Obtainable Misc').onChangeSet?.call(this, set, this.format) || null;
 			if (Array.isArray(problems) && problems.length) return problems;
-			const crossNonstandard = (!this.ruleTable.has('standardnatdex') && crossSpecies.isNonstandard === 'Past') ||
-				crossSpecies.isNonstandard === 'Future';
-			const crossIsCap = !this.ruleTable.has('+pokemontag:cap') && crossSpecies.isNonstandard === 'CAP';
-			if (!crossSpecies.exists || crossNonstandard || crossIsCap) return this.validateSet(set, teamHas);
-			const species = this.dex.species.get(set.species);
-			const check = this.checkSpecies(set, species, species, {});
+			const nonstandard = ['CAP', 'LGPE', 'Custom', 'Gigantamax'];
+			if (headSpecies.isNonstandard && nonstandard.includes(headSpecies.isNonstandard)) {
+				return [`${headSpecies.name} does not exist`];
+			}
+			if (this.ruleTable.isBannedSpecies(headSpecies)) {
+				return [`${headSpecies.name} is banned.`];
+			}
+			if (!headSpecies.exists) return this.validateSet(set, teamHas);
+			const check = this.checkSpecies(set, bodySpecies, bodySpecies, {});
 			if (check) return [check];
-			const nonstandard = !this.ruleTable.has('standardnatdex') && species.isNonstandard === 'Past';
-			const isCap = !this.ruleTable.has('+pokemontag:cap') && species.isNonstandard === 'CAP';
-			if (!species.exists || nonstandard || isCap || species === crossSpecies) return this.validateSet(set, teamHas);
-			if (!species.nfe) return [`${species.name} cannot cross evolve because it doesn't evolve.`];
-			const crossIsUnreleased = (crossSpecies.tier === "Unreleased" && crossSpecies.isNonstandard === "Unobtainable" &&
-				!this.ruleTable.has('+unobtainable'));
-			if (crossSpecies.battleOnly || crossIsUnreleased || !crossSpecies.prevo) {
-				return [`${species.name} cannot cross evolve into ${crossSpecies.name} because it isn't an evolution.`];
+			if (headSpecies.baseSpecies !== headSpecies.name) {
+				return [`${headSpecies.name} is not in base forme`];
 			}
-			if (this.ruleTable.isRestrictedSpecies(crossSpecies)) {
-				return [`${species.name} cannot cross evolve into ${crossSpecies.name} because it is banned.`];
+			if (bodySpecies.baseSpecies !== bodySpecies.name) {
+				return [`${bodySpecies.name} is not in base forme`];
 			}
-			const crossPrevoSpecies = this.dex.species.get(crossSpecies.prevo);
-			if (!crossPrevoSpecies.prevo !== !species.prevo) {
-				return [
-					`${species.name} cannot cross evolve into ${crossSpecies.name} because they are not consecutive evolution stages.`,
+			let fusionSpecies: {
+				species?: Species,
+				abilities: string[],
+			} = { abilities: [] };
+			if (headSpecies.name === bodySpecies.name) {
+				const specialSelfFusions: {[key: string]: string} = {
+					deoxys: 'Deoxys-Attack',
+					rotom: 'Rotom-Heat',
+					shaymin: 'Shaymin-Sky',
+					keldeo: 'Keldeo-Resolute',
+					meloetta: 'Meloetta-Pirouette',
+					greninja: 'Greninja-Ash',
+					floette: 'Floette-Eternal',
+					zygarde: 'Zygarde-Complete',
+					hoopa: 'Hoopa-Unbound',
+					lycanroc: 'Lycanroc-Dusk',
+					wishiwashi: 'Wishiwashi-School',
+					necrozma: 'Necrozma-Ultra',
+					cramorant: 'Cramorant-Gorging',
+					eternatus: 'Eternatus-Eternamax',
+					palafin: 'Palafin-Hero',
+				};
+				if (this.dex.toID(headSpecies.name) in specialSelfFusions) {
+					fusionSpecies.species = this.dex.species.get(specialSelfFusions[this.dex.toID(headSpecies.name)]);
+				} else if (headSpecies.otherFormes) {
+					for (const forme of headSpecies.otherFormes) {
+						if (forme.endsWith('-Mega') || forme.endsWith('-Mega-Y') ||
+							forme.endsWith('-Primal') ||
+							forme.endsWith('-Origin') ||
+							forme.endsWith('-Therian') ||
+							forme.endsWith('-Starter') ||
+							forme.endsWith('-Crowned')
+						) fusionSpecies.species = this.dex.species.get(forme);
+					}
+				} else {
+					fusionSpecies.species = this.dex.deepClone(headSpecies);
+				}
+				fusionSpecies.abilities = Object.values(fusionSpecies.species!.abilities);
+			} else {
+				fusionSpecies.abilities = [
+					headSpecies.abilities[0],
+					bodySpecies.abilities[1] || bodySpecies.abilities[0],
+					headSpecies.abilities['H'] || headSpecies.abilities[0],
 				];
 			}
-			const item = this.dex.items.get(set.item);
-			if (item.itemUser?.length) {
-				if (!item.itemUser.includes(crossSpecies.name) || crossSpecies.name !== species.name) {
-					return [`${species.name} cannot use ${item.name} because it is cross evolved into ${crossSpecies.name}.`];
-				}
-			}
+			// @ts-ignore
+			if (fusionSpecies.species) set.fusionSpecies = fusionSpecies.species;
 			const ability = this.dex.abilities.get(set.ability);
-			if (!this.ruleTable.isRestricted(`ability:${ability.id}`) || Object.values(species.abilities).includes(ability.name)) {
-				set.species = crossSpecies.name;
+			if (!fusionSpecies.abilities.includes(ability.name)) {
+				return [`${bodySpecies.name} can't have ${ability.name}`];
 			}
 
-			// @ts-ignore
-			set.sp = species;
-			// @ts-ignore
-			set.crossSpecies = crossSpecies;
+			set.ability = bodySpecies.abilities[0];
 			problems = this.validateSet(set, teamHas);
-			set.name = crossSpecies.name;
-			set.species = species.name;
+			set.ability = ability.name;
 			return problems;
 		},
 		onModifySpecies(species, target, source, effect) {
