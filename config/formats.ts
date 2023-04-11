@@ -443,21 +443,7 @@ export const Formats: FormatList = [
 			const names = new Set<ID>();
 			for (const set of team) {
 				const name = set.name;
-				const headSpecies = this.dex.species.get(name);
-				const bodySpecies = this.dex.species.get(set.species);
-				if (headSpecies.exists && headSpecies.baseSpecies !== headSpecies.name) {
-					return [
-						`You have not allowed to use non-base formes`,
-						`${headSpecies.name} is a non-base forme`,
-					];
-				}
-				if (bodySpecies.baseSpecies !== bodySpecies.name) {
-					return [
-						`You have not allowed to use non-base formes`,
-						`${bodySpecies.name} is a non-base forme`,
-					];
-				}
-				const species = bodySpecies.name;
+				const species = this.dex.species.get(set.species).name;
 				if (names.has(this.dex.toID(name))) {
 					return [
 						`You have more than one ${name}`,
@@ -474,14 +460,12 @@ export const Formats: FormatList = [
 		},
 		checkCanLearn(move, species, lsetData, set) {
 			// @ts-ignore
-			if (!set.sp?.exists || !set.crossSpecies?.exists) {
-				return this.checkCanLearn(move, species, lsetData, set);
-			}
-			// @ts-ignore
-			const problem = this.checkCanLearn(move, set.sp);
+			if (set.fusionSpecies) return this.checkCanLearn(move, set.fusionSpecies);
+			const headSpecies = this.dex.species.get(set.name);
+			if (!headSpecies.exists) return this.checkCanLearn(move, species, lsetData, set);
+			const problem = this.checkCanLearn(move, species);
 			if (!problem) return null;
-			// @ts-ignore
-			if (this.checkCanLearn(move, set.crossSpecies)) return problem;
+			if (this.checkCanLearn(move, headSpecies)) return problem;
 			return null;
 		},
 		validateSet(set, teamHas) {
