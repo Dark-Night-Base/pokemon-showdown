@@ -566,7 +566,8 @@ export const Formats: FormatList = [
 				return [`${bodySpecies.name} can't have ${ability.name}`];
 			}
 			const item = this.dex.items.get(set.item);
-			if (item.megaStone || item.zMove || ['blueorb', 'redorb'].includes(item.id)) {
+			const NonexistentItems = ['blueorb', 'redorb', 'rustedshield', 'rustedsword'];
+			if (item.megaStone || item.zMove || NonexistentItems.includes(item.id)) {
 				return [`${bodySpecies.name}'s item ${item.name} doesn't exist in Infinite Fusion`];
 			}
 
