@@ -443,6 +443,12 @@ export const Formats: FormatList = [
 			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'Sketch Post-Gen 7 Moves', 'Dynamax Clause', 'Terastal Clause',
 			'OHKO Clause',
 		],
+		banlist: [
+			'Revival Blessing',
+		],
+		restricted: [
+			'Eternatus',
+		],
 		onValidateTeam(team) {
 			const names = new Set<ID>();
 			for (const set of team) {
@@ -482,7 +488,7 @@ export const Formats: FormatList = [
 				return [`${headSpecies.name} does not exist`];
 			}
 			if (this.ruleTable.isBannedSpecies(headSpecies)) {
-				return [`${headSpecies.name} is banned.`];
+				return [`${headSpecies.name} is banned`];
 			}
 			if (!headSpecies.exists) return this.validateSet(set, teamHas);
 			const check = this.checkSpecies(set, bodySpecies, bodySpecies, {});
@@ -498,6 +504,9 @@ export const Formats: FormatList = [
 				abilities: string[],
 			} = { abilities: [] };
 			if (headSpecies.name === bodySpecies.name) {
+				if (this.ruleTable.isRestrictedSpecies(headSpecies)) {
+					return [`${headSpecies.name} is banned from self-fusion`];
+				}
 				const specialSelfFusions: {[key: string]: string} = {
 					deoxys: 'Deoxys-Attack',
 					rotom: 'Rotom-Heat',
