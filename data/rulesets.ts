@@ -2754,7 +2754,8 @@ export const Rulesets: {[k: string]: FormatData} = {
 					if (!isIF) {
 						buf += `<span class="col pokemonnamecol" style="white-space:nowrap"><a href="https://dex.pokemonshowdown.com/pokemon/${species.id}" target="_blank">${species.name}</a></span> `;
 					} else {
-						buf += `<span class="col pokemonnamecol" style="white-space:nowrap"><a href="https://dex.pokemonshowdown.com/pokemon/${species.id}" target="_blank">${pokemon.name}+${species.name}</a></span> `;
+						const fianlName = species.id.includes(this.dex.toID(pokemon.name)) ? species.name : `${pokemon.name}&sect;${species.name}`; // §
+						buf += `<span class="col pokemonnamecol" style="white-space:nowrap"><a href="https://dex.pokemonshowdown.com/pokemon/${species.id}" target="_blank">${fianlName}</a></span> `;
 					}
 					buf += '<span class="col typecol">';
 					if (species.types) {
@@ -2813,7 +2814,8 @@ export const Rulesets: {[k: string]: FormatData} = {
 			if (!isIF) {
 				buf += `<span class="col pokemonnamecol" style="white-space:nowrap"><a href="https://dex.pokemonshowdown.com/pokemon/${species.id}" target="_blank">${species.name}</a></span> `;
 			} else {
-				buf += `<span class="col pokemonnamecol" style="white-space:nowrap"><a href="https://dex.pokemonshowdown.com/pokemon/${species.id}" target="_blank">${pokemon.name}+${species.name}</a></span> `;
+				const fianlName = species.id.includes(this.dex.toID(pokemon.name)) ? species.name : `${pokemon.name}&sect;${species.name}`; // §
+				buf += `<span class="col pokemonnamecol" style="white-space:nowrap"><a href="https://dex.pokemonshowdown.com/pokemon/${species.id}" target="_blank">${fianlName}</a></span> `;
 			}
 			buf += '<span class="col typecol">';
 			if (species.types) {
