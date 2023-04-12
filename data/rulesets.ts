@@ -2754,7 +2754,8 @@ export const Rulesets: {[k: string]: FormatData} = {
 					if (!isIF) {
 						buf += `<span class="col pokemonnamecol" style="white-space:nowrap"><a href="https://dex.pokemonshowdown.com/pokemon/${species.id}" target="_blank">${species.name}</a></span> `;
 					} else {
-						const fianlName = species.id.includes(this.dex.toID(pokemon.name)) ? species.name : `${pokemon.name}&sect;${species.name}`; // §
+						const fianlName = (species.id.includes(this.dex.toID(pokemon.name)) || ['cramorantgorging', 'cramorantgulping'].includes(species.id)) ?
+							species.name : `${pokemon.name}&sect;${species.name}`; // §
 						buf += `<span class="col pokemonnamecol" style="white-space:nowrap"><a href="https://dex.pokemonshowdown.com/pokemon/${species.id}" target="_blank">${fianlName}</a></span> `;
 					}
 					buf += '<span class="col typecol">';
@@ -2814,7 +2815,8 @@ export const Rulesets: {[k: string]: FormatData} = {
 			if (!isIF) {
 				buf += `<span class="col pokemonnamecol" style="white-space:nowrap"><a href="https://dex.pokemonshowdown.com/pokemon/${species.id}" target="_blank">${species.name}</a></span> `;
 			} else {
-				const fianlName = species.id.includes(this.dex.toID(pokemon.name)) ? species.name : `${pokemon.name}&sect;${species.name}`; // §
+				const fianlName = (species.id.includes(this.dex.toID(pokemon.name)) || ['cramorantgorging', 'cramorantgulping'].includes(species.id)) ?
+					species.name : `${pokemon.name}&sect;${species.name}`; // §
 				buf += `<span class="col pokemonnamecol" style="white-space:nowrap"><a href="https://dex.pokemonshowdown.com/pokemon/${species.id}" target="_blank">${fianlName}</a></span> `;
 			}
 			buf += '<span class="col typecol">';
