@@ -437,7 +437,7 @@ export const Formats: FormatList = [
 			`&bullet; <a href="https://aegide.github.io/">Infinite Fusion Calculator</a>`,
 		],
 
-		mod: 'gen9',
+		mod: 'infinitefusion',
 		ruleset: [
 			'Obtainable', '+Past', '+Unobtainable', '+Unreleased', 'Team Species Preview', '!!EV Limit = 1020', 'Species Clause',
 			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'Sketch Post-Gen 7 Moves', 'Dynamax Clause', 'Terastal Clause',
@@ -520,7 +520,7 @@ export const Formats: FormatList = [
 					lycanroc: 'Lycanroc-Dusk',
 					wishiwashi: 'Wishiwashi-School',
 					necrozma: 'Necrozma-Ultra',
-					cramorant: 'Cramorant-Gorging',
+					// cramorant: 'Cramorant-Gorging',
 					eternatus: 'Eternatus-Eternamax',
 					palafin: 'Palafin-Hero',
 				};
@@ -547,6 +547,8 @@ export const Formats: FormatList = [
 				if (pair[0] === 'Lunala' && pair[1] === 'Necrozma') fusionSpecies.species = this.dex.species.get('Necrozma-Dawn-Wings');
 				if (pair[0] === 'Calyrex' && pair[1] === 'Glastrier') fusionSpecies.species = this.dex.species.get('Calyrex-Ice');
 				if (pair[0] === 'Calyrex' && pair[1] === 'Spectrier') fusionSpecies.species = this.dex.species.get('Calyrex-Shadow');
+				if (pair[0] === 'Arrokuda' && pair[1] === 'Cramorant') fusionSpecies.species = this.dex.species.get('Cramorant-Gulping');
+				if (pair[0] === 'Cramorant' && pair[1] === 'Pikachu') fusionSpecies.species = this.dex.species.get('Cramorant-Gorging');
 			}
 			if (fusionSpecies.species) {
 				fusionSpecies.abilities = Object.values(fusionSpecies.species!.abilities);
@@ -564,8 +566,8 @@ export const Formats: FormatList = [
 				return [`${bodySpecies.name} can't have ${ability.name}`];
 			}
 			const item = this.dex.items.get(set.item);
-			if (item.megaStone || item.zMove) {
-				return [`${bodySpecies.name}'s item ${item.name} is banned`];
+			if (item.megaStone || item.zMove || ['blueorb', 'redorb'].includes(item.id)) {
+				return [`${bodySpecies.name}'s item ${item.name} doesn't exist in Infinite Fusion`];
 			}
 
 			set.ability = bodySpecies.abilities[0];
@@ -598,7 +600,7 @@ export const Formats: FormatList = [
 					lycanroc: 'Lycanroc-Dusk',
 					wishiwashi: 'Wishiwashi-School',
 					necrozma: 'Necrozma-Ultra',
-					cramorant: 'Cramorant-Gorging',
+					// cramorant: 'Cramorant-Gorging',
 					eternatus: 'Eternatus-Eternamax',
 					palafin: 'Palafin-Hero',
 				};
@@ -625,6 +627,8 @@ export const Formats: FormatList = [
 			if (pair[0] === 'Lunala' && pair[1] === 'Necrozma') return this.dex.species.get('Necrozma-Dawn-Wings');
 			if (pair[0] === 'Calyrex' && pair[1] === 'Glastrier') return this.dex.species.get('Calyrex-Ice');
 			if (pair[0] === 'Calyrex' && pair[1] === 'Spectrier') return this.dex.species.get('Calyrex-Shadow');
+			if (pair[0] === 'Arrokuda' && pair[1] === 'Cramorant') return this.dex.species.get('Cramorant-Gulping');
+			if (pair[0] === 'Cramorant' && pair[1] === 'Pikachu') return this.dex.species.get('Cramorant-Gorging');
 
 			const fusionSpecies = this.dex.deepClone(species);
 			fusionSpecies.weightkg = Math.max(0.1, (headSpecies.weightkg + bodySpecies.weightkg) / 2).toFixed(1);
