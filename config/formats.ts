@@ -648,7 +648,11 @@ export const Formats: FormatList = [
 				0: headSpecies.abilities[0],
 				1: bodySpecies.abilities[1] || bodySpecies.abilities[0],
 				H: headSpecies.abilities['H'],
+				S: headSpecies.abilities['S'],
 			};
+			if (fusionSpecies.abilities['H'] === fusionSpecies.abilities[1] ||
+				fusionSpecies.abilities['H'] === fusionSpecies.abilities[0]) delete fusionSpecies.abilities['H'];
+			if (fusionSpecies.abilities[1] === fusionSpecies.abilities[0]) delete fusionSpecies.abilities[1];
 			fusionSpecies.bst = 0;
 			// if (headSpecies.maxHP || bodySpecies.maxHP) fusionSpecies.maxHP = 1;
 			if (this.dex.abilities.get(target.set.ability).id === 'wonderguard') fusionSpecies.maxHP = 1;
