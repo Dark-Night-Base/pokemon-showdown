@@ -82,13 +82,15 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		onAllyModifyAtk(atk, pokemon) {
-			if (this.effectState.target.baseSpecies.baseSpecies !== 'Cherrim') return;
+			const ids = [this.dex.species.get(this.effectState.target.name).id, this.effectState.target.species.id];
+			if (!ids.includes('cherrim')) return;
 			if (['sunnyday', 'desolateland'].includes(pokemon.effectiveWeather())) {
 				return this.chainModify(1.5);
 			}
 		},
 		onAllyModifySpD(spd, pokemon) {
-			if (this.effectState.target.baseSpecies.baseSpecies !== 'Cherrim') return;
+			const ids = [this.dex.species.get(this.effectState.target.name).id, this.effectState.target.species.id];
+			if (!ids.includes('cherrim')) return;
 			if (['sunnyday', 'desolateland'].includes(pokemon.effectiveWeather())) {
 				return this.chainModify(1.5);
 			}
@@ -97,20 +99,21 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	forecast: {
 		inherit: true,
 		onWeatherChange(pokemon) {
-			if (pokemon.baseSpecies.baseSpecies !== 'Castform' || pokemon.transformed) return;
+			const ids = [this.dex.species.get(pokemon.name).id, pokemon.species.id];
+			if (!ids.includes('castform' as ID) || pokemon.transformed) return;
 			let forme = null;
 			switch (pokemon.effectiveWeather()) {
 			case 'sunnyday':
 			case 'desolateland':
-				if (pokemon.species.id !== 'castformsunny') forme = 'Castform-Sunny';
+				if (!ids.includes('castformsunny' as ID)) forme = 'Castform-Sunny';
 				break;
 			case 'raindance':
 			case 'primordialsea':
-				if (pokemon.species.id !== 'castformrainy') forme = 'Castform-Rainy';
+				if (!ids.includes('castformrainy' as ID)) forme = 'Castform-Rainy';
 				break;
 			case 'hail':
 			case 'snow':
-				if (pokemon.species.id !== 'castformsnowy') forme = 'Castform-Snowy';
+				if (!ids.includes('castformsnowy' as ID)) forme = 'Castform-Snowy';
 				break;
 			default:
 				if (pokemon.species.id !== 'castform') forme = 'Castform';

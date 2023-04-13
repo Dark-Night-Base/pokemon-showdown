@@ -525,8 +525,8 @@ export const Formats: FormatList = [
 					eternatus: 'Eternatus-Eternamax',
 					palafin: 'Palafin-Hero',
 				};
-				if (this.dex.toID(headSpecies.name) in specialSelfFusions) {
-					fusionSpecies.species = this.dex.species.get(specialSelfFusions[this.dex.toID(headSpecies.name)]);
+				if (headSpecies.id in specialSelfFusions) {
+					fusionSpecies.species = this.dex.species.get(specialSelfFusions[headSpecies.id]);
 				} else if (headSpecies.otherFormes) {
 					for (const forme of headSpecies.otherFormes) {
 						if (forme.endsWith('-Mega') || forme.endsWith('-Mega-Y') ||
@@ -580,14 +580,19 @@ export const Formats: FormatList = [
 		onModifySpecies(species, target, source, effect) {
 			if (!target) return; // chat
 			if (effect && ['imposter', 'transform'].includes(effect.id)) return;
-			const headSpecies = this.dex.species.get(target.set.name);
-			const bodySpecies = this.dex.species.get(target.set.species);
+			let headSpecies = this.dex.species.get(target.set.name);
+			let bodySpecies = this.dex.species.get(target.set.species);
 			if (!headSpecies.exists || !bodySpecies.exists) return;
-			if (headSpecies.baseSpecies !== headSpecies.name || bodySpecies.baseSpecies !== bodySpecies.name) return;
-			const nonstandard = ['CAP', 'LGPE', 'Custom', 'Gigantamax'];
-			if (headSpecies.isNonstandard && nonstandard.includes(headSpecies.isNonstandard) ||
-				bodySpecies.isNonstandard && nonstandard.includes(bodySpecies.isNonstandard)
-			) return;
+			// Nihilslave: no need to check these
+			// if (headSpecies.baseSpecies !== headSpecies.name || bodySpecies.baseSpecies !== bodySpecies.name) return;
+			// const nonstandard = ['CAP', 'LGPE', 'Custom', 'Gigantamax'];
+			// if (headSpecies.isNonstandard && nonstandard.includes(headSpecies.isNonstandard) ||
+			// 	bodySpecies.isNonstandard && nonstandard.includes(bodySpecies.isNonstandard)
+			// ) return;
+			const toModifySpeciesID = this.dex.species.get(species.baseSpecies).id;
+			// todo: this may cause problems to darm-z and zygarde-c i guess, consider and fix
+			if (toModifySpeciesID === headSpecies.id) headSpecies = species;
+			if (toModifySpeciesID === bodySpecies.id) bodySpecies = species;
 			if (headSpecies.name === bodySpecies.name) {
 				const specialSelfFusions: {[key: string]: string} = {
 					deoxys: 'Deoxys-Attack',
@@ -607,8 +612,8 @@ export const Formats: FormatList = [
 					eternatus: 'Eternatus-Eternamax',
 					palafin: 'Palafin-Hero',
 				};
-				if (this.dex.toID(headSpecies.name) in specialSelfFusions) {
-					return this.dex.species.get(specialSelfFusions[this.dex.toID(headSpecies.name)]);
+				if (headSpecies.id in specialSelfFusions) {
+					return this.dex.species.get(specialSelfFusions[headSpecies.id]);
 				}
 				if (headSpecies.otherFormes) {
 					for (const forme of headSpecies.otherFormes) {
