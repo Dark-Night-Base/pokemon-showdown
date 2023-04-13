@@ -34,6 +34,9 @@ export const Scripts: ModdedBattleScriptsData = {
 					return true;
 				}
 			}
+			if (item.forcedForme) {
+				this.modData('Items', id).forcedForme = undefined;
+			}
 		}
 	}
 };

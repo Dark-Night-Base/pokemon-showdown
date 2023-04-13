@@ -438,6 +438,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'infinitefusion',
+		debug: true,
 		ruleset: [
 			'Obtainable', '+Past', '+Unobtainable', '+Unreleased', 'Team Species Preview', '!!EV Limit = 1020', 'Species Clause',
 			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'Sketch Post-Gen 7 Moves', 'Dynamax Clause', 'Terastal Clause',
@@ -580,9 +581,10 @@ export const Formats: FormatList = [
 		onModifySpecies(species, target, source, effect) {
 			if (!target) return; // chat
 			if (effect && ['imposter', 'transform'].includes(effect.id)) return;
-			let headSpecies = target.m.headSpecies;
-			let bodySpecies = target.m.bodySpecies;
-			if (!headSpecies || !bodySpecies) return;
+			// onModifySpecies can be called before onBegin, which is quite stupid
+			let headSpecies = target.m.headSpecies ? target.m.headSpecies : this.dex.species.get(target.set.name);
+			let bodySpecies = target.m.bodySpecies ? target.m.bodySpecies : this.dex.species.get(target.set.species);
+			if (!headSpecies?.exists || !bodySpecies?.exists) return;
 			// Nihilslave: no need to check these
 			// if (headSpecies.baseSpecies !== headSpecies.name || bodySpecies.baseSpecies !== bodySpecies.name) return;
 			// const nonstandard = ['CAP', 'LGPE', 'Custom', 'Gigantamax'];
@@ -592,9 +594,11 @@ export const Formats: FormatList = [
 			const toModifySpeciesID = this.dex.species.get(species.baseSpecies).id;
 			const headBaseSpeciesID = this.dex.species.get(headSpecies.baseSpecies).id;
 			const bodyBaseSpeciesID = this.dex.species.get(bodySpecies.baseSpecies).id;
+			// this.debug(`${species.id}`);
+			// this.debug(`${toModifySpeciesID}, ${headBaseSpeciesID}, ${bodyBaseSpeciesID}`);
 			// todo: this may cause problems to darm-z and zygarde-c i guess, consider and fix
-			if (toModifySpeciesID === headBaseSpeciesID) headSpecies = species;
-			if (toModifySpeciesID === bodyBaseSpeciesID) bodySpecies = species;
+			if (toModifySpeciesID === headBaseSpeciesID) target.m.headSpecies = headSpecies = species;
+			if (toModifySpeciesID === bodyBaseSpeciesID) target.m.bodySpecies = bodySpecies = species;
 			if (headSpecies.name === bodySpecies.name) {
 				const specialSelfFusions: {[key: string]: string} = {
 					deoxys: 'Deoxys-Attack',
@@ -678,6 +682,10 @@ export const Formats: FormatList = [
 
 			return fusionSpecies;
 		},
+		onTypePriority: 1,
+		onType(types, pokemon) {
+			// todo: if multitype doesn't work, do something here
+		},
 		onBegin() {
 			// prevent rayquaza from mega evolving
 			for (const pokemon of this.getAllPokemon()) {
@@ -688,6 +696,8 @@ export const Formats: FormatList = [
 				const bodySpecies = this.dex.species.get(pokemon.set.species);
 				if (headSpecies.exists) pokemon.m.headSpecies = headSpecies;
 				if (bodySpecies.exists) pokemon.m.bodySpecies = bodySpecies;
+				// this.debug(`headSpecies of ${pokemon.name}: ${pokemon.m.headSpecies?.id}`);
+				// this.debug(`bodySpecies of ${pokemon.name}: ${pokemon.m.bodySpecies?.id}`);
 			}
 		},
 	},

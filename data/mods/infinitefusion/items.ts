@@ -16,7 +16,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 			}
 			return true;
 		},
-		forcedForme: undefined,
+		// forcedForme deleted in scripts.ts
 	},
 	adamantorb: {
 		inherit: true,
@@ -61,7 +61,6 @@ export const Items: {[k: string]: ModdedItemData} = {
 			}
 			return true;
 		},
-		forcedForme: undefined,
 	},
 	griseousorb: {
 		inherit: true,
@@ -123,7 +122,6 @@ export const Items: {[k: string]: ModdedItemData} = {
 			}
 			return true;
 		},
-		forcedForme: undefined,
 	},
 	lustrousorb: {
 		inherit: true,
