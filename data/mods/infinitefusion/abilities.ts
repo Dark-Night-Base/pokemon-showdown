@@ -5,7 +5,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onSourceAfterFaint(length, target, source, effect) {
 			if (effect?.effectType !== 'Move') return;
 			if (source.abilityState.battleBondTriggered) return;
-			const ids = [this.dex.species.get(source.name).id, source.species.id];
+			const ids = [source.m.headSpecies?.id, source.species.id];
 			if (ids.includes('greninja' as ID) && source.hp && !source.transformed && source.side.foePokemonLeft()) {
 				this.add('-activate', source, 'ability: Battle Bond');
 				this.boost({atk: 1, spa: 1, spe: 1}, source, source, this.effect);
@@ -16,13 +16,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	disguise: {
 		inherit: true,
 		onDamage(damage, target, source, effect) {
-			const ids = [this.dex.species.get(target.name).id, target.species.id];
-			if (effect && effect.effectType === 'Move' &&
-				ids.includes('mimikyu' as ID) &&
-				// Nihilslave: we need to check this here, same for other functions
-				!this.effectState.busted &&
-				!target.transformed
-			) {
+			const ids = [target.m.headSpecies?.id, target.species.id];
+			if (effect && effect.effectType === 'Move' && ids.includes('mimikyu' as ID) && !target.transformed) {
 				this.add('-activate', target, 'ability: Disguise');
 				this.effectState.busted = true;
 				return 0;
@@ -30,8 +25,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		onCriticalHit(target, source, move) {
 			if (!target) return;
-			const ids = [this.dex.species.get(target.name).id, target.species.id];
-			if (!ids.includes('mimikyu' as ID) || this.effectState.busted || target.transformed) {
+			const ids = [target.m.headSpecies?.id, target.species.id];
+			if (!ids.includes('mimikyu' as ID) || target.transformed) {
 				return;
 			}
 			const hitSub = target.volatiles['substitute'] && !move.flags['bypasssub'] && !(move.infiltrates && this.gen >= 6);
@@ -42,8 +37,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		onEffectiveness(typeMod, target, type, move) {
 			if (!target || move.category === 'Status') return;
-			const ids = [this.dex.species.get(target.name).id, target.species.id];
-			if (!ids.includes('mimikyu' as ID) || this.effectState.busted || target.transformed) {
+			const ids = [target.m.headSpecies?.id, target.species.id];
+			if (!ids.includes('mimikyu' as ID) || target.transformed) {
 				return;
 			}
 
@@ -54,29 +49,30 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			return 0;
 		},
 		onUpdate(pokemon) {
-			const ids = [this.dex.species.get(pokemon.name).id, pokemon.species.id];
-			if (ids.includes('mimikyu' as ID) && this.effectState.busted === true) {
+			const ids = [pokemon.m.headSpecies?.id, pokemon.species.id];
+			if (ids.includes('mimikyu' as ID) && this.effectState.busted) {
 				const speciesid = pokemon.species.id === 'mimikyutotem' ? 'Mimikyu-Busted-Totem' : 'Mimikyu-Busted';
 				pokemon.formeChange(speciesid, this.effect, true);
 				this.damage(pokemon.baseMaxhp / 8, pokemon, pokemon, this.dex.species.get(speciesid));
-				// Nihilslave: try change this value so that it no longer gets in again
-				this.effectState.busted = 2;
 			}
 		},
 	},
 	flowergift: {
 		inherit: true,
 		onWeatherChange(pokemon) {
-			if (!pokemon.isActive || pokemon.baseSpecies.baseSpecies !== 'Cherrim' || pokemon.transformed) return;
+			// if disguise somehow has bugs, i think it needs this
+			const baseSpecies = [this.dex.species.get(pokemon.name).baseSpecies, pokemon.species.baseSpecies];
+			const ids = [this.dex.species.get(pokemon.name).id, pokemon.species.id];
+			if (!pokemon.isActive || !baseSpecies.includes('Cherrim') || pokemon.transformed) return;
 			if (!pokemon.hp) return;
 			if (['sunnyday', 'desolateland'].includes(pokemon.effectiveWeather())) {
 				// todo: make sure disguise
-				if (pokemon.species.id !== 'cherrimsunshine') {
+				if (!ids.includes('cherrimsunshine' as ID)) {
 					pokemon.formeChange('Cherrim-Sunshine', this.effect, false, '[msg]');
 				}
 			} else {
 				// todo: make sure disguise
-				if (pokemon.species.id === 'cherrimsunshine') {
+				if (ids.includes('cherrimsunshine' as ID)) {
 					pokemon.formeChange('Cherrim', this.effect, false, '[msg]');
 				}
 			}

@@ -580,9 +580,9 @@ export const Formats: FormatList = [
 		onModifySpecies(species, target, source, effect) {
 			if (!target) return; // chat
 			if (effect && ['imposter', 'transform'].includes(effect.id)) return;
-			let headSpecies = this.dex.species.get(target.set.name);
-			let bodySpecies = this.dex.species.get(target.set.species);
-			if (!headSpecies.exists || !bodySpecies.exists) return;
+			let headSpecies = target.m.headSpecies;
+			let bodySpecies = target.species;
+			if (!headSpecies || !headSpecies.exists) return;
 			// Nihilslave: no need to check these
 			// if (headSpecies.baseSpecies !== headSpecies.name || bodySpecies.baseSpecies !== bodySpecies.name) return;
 			// const nonstandard = ['CAP', 'LGPE', 'Custom', 'Gigantamax'];
@@ -682,6 +682,8 @@ export const Formats: FormatList = [
 				if (pokemon.species.id === 'rayquaza') {
 					pokemon.canMegaEvo = null;
 				}
+				const headSpecies = this.dex.species.get(pokemon.set.name);
+				if (headSpecies.exists) pokemon.m.headSpecies = headSpecies;
 			}
 		},
 	},
