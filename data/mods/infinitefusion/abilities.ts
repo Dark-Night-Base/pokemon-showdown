@@ -5,7 +5,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onSourceAfterFaint(length, target, source, effect) {
 			if (effect?.effectType !== 'Move') return;
 			if (source.abilityState.battleBondTriggered) return;
-			const ids = [source.m.headSpecies?.id, source.species.id];
+			const ids = [source.m.headSpecies?.id, source.m.bodySpecies?.id];
 			if (ids.includes('greninja' as ID) && source.hp && !source.transformed && source.side.foePokemonLeft()) {
 				this.add('-activate', source, 'ability: Battle Bond');
 				this.boost({atk: 1, spa: 1, spe: 1}, source, source, this.effect);
@@ -16,7 +16,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	disguise: {
 		inherit: true,
 		onDamage(damage, target, source, effect) {
-			const ids = [target.m.headSpecies?.id, target.species.id];
+			const ids = [target.m.headSpecies?.id, target.m.bodySpecies?.id];
 			if (effect && effect.effectType === 'Move' && ids.includes('mimikyu' as ID) && !target.transformed) {
 				this.add('-activate', target, 'ability: Disguise');
 				this.effectState.busted = true;
@@ -25,7 +25,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		onCriticalHit(target, source, move) {
 			if (!target) return;
-			const ids = [target.m.headSpecies?.id, target.species.id];
+			const ids = [target.m.headSpecies?.id, target.m.bodySpecies?.id];
 			if (!ids.includes('mimikyu' as ID) || target.transformed) {
 				return;
 			}
@@ -37,7 +37,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		onEffectiveness(typeMod, target, type, move) {
 			if (!target || move.category === 'Status') return;
-			const ids = [target.m.headSpecies?.id, target.species.id];
+			const ids = [target.m.headSpecies?.id, target.m.bodySpecies?.id];
 			if (!ids.includes('mimikyu' as ID) || target.transformed) {
 				return;
 			}
@@ -49,7 +49,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			return 0;
 		},
 		onUpdate(pokemon) {
-			const ids = [pokemon.m.headSpecies?.id, pokemon.species.id];
+			const ids = [pokemon.m.headSpecies?.id, pokemon.m.bodySpecies?.id];
 			if (ids.includes('mimikyu' as ID) && this.effectState.busted) {
 				const speciesid = pokemon.species.id === 'mimikyutotem' ? 'Mimikyu-Busted-Totem' : 'Mimikyu-Busted';
 				pokemon.formeChange(speciesid, this.effect, true);
@@ -61,8 +61,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		inherit: true,
 		onWeatherChange(pokemon) {
 			// if disguise somehow has bugs, i think it needs this
-			const baseSpecies = [this.dex.species.get(pokemon.name).baseSpecies, pokemon.species.baseSpecies];
-			const ids = [this.dex.species.get(pokemon.name).id, pokemon.species.id];
+			const baseSpecies = [pokemon.m.headSpecies?.baseSpecies, pokemon.m.bodySpecies?.baseSpecies];
+			const ids = [pokemon.m.headSpecies?.id, pokemon.m.bodySpecies?.id];
 			if (!pokemon.isActive || !baseSpecies.includes('Cherrim') || pokemon.transformed) return;
 			if (!pokemon.hp) return;
 			if (['sunnyday', 'desolateland'].includes(pokemon.effectiveWeather())) {
@@ -78,14 +78,14 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		onAllyModifyAtk(atk, pokemon) {
-			const ids = [this.dex.species.get(this.effectState.target.name).id, this.effectState.target.species.id];
+			const ids = [this.effectState.target.m.headSpecies?.id, this.effectState.target.m.bodySpecies?.id];
 			if (!ids.includes('cherrim')) return;
 			if (['sunnyday', 'desolateland'].includes(pokemon.effectiveWeather())) {
 				return this.chainModify(1.5);
 			}
 		},
 		onAllyModifySpD(spd, pokemon) {
-			const ids = [this.dex.species.get(this.effectState.target.name).id, this.effectState.target.species.id];
+			const ids = [this.effectState.target.m.headSpecies?.id, this.effectState.target.m.bodySpecies?.id];
 			if (!ids.includes('cherrim')) return;
 			if (['sunnyday', 'desolateland'].includes(pokemon.effectiveWeather())) {
 				return this.chainModify(1.5);
@@ -95,7 +95,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	forecast: {
 		inherit: true,
 		onWeatherChange(pokemon) {
-			const ids = [this.dex.species.get(pokemon.name).id, pokemon.species.id];
+			const ids = [pokemon.m.headSpecies?.id, pokemon.m.bodySpecies?.id];
 			if (!ids.includes('castform' as ID) || pokemon.transformed) return;
 			let forme = null;
 			switch (pokemon.effectiveWeather()) {

@@ -581,8 +581,8 @@ export const Formats: FormatList = [
 			if (!target) return; // chat
 			if (effect && ['imposter', 'transform'].includes(effect.id)) return;
 			let headSpecies = target.m.headSpecies;
-			let bodySpecies = target.species;
-			if (!headSpecies || !headSpecies.exists) return;
+			let bodySpecies = target.m.bodySpecies;
+			if (!headSpecies || !bodySpecies) return;
 			// Nihilslave: no need to check these
 			// if (headSpecies.baseSpecies !== headSpecies.name || bodySpecies.baseSpecies !== bodySpecies.name) return;
 			// const nonstandard = ['CAP', 'LGPE', 'Custom', 'Gigantamax'];
@@ -590,9 +590,11 @@ export const Formats: FormatList = [
 			// 	bodySpecies.isNonstandard && nonstandard.includes(bodySpecies.isNonstandard)
 			// ) return;
 			const toModifySpeciesID = this.dex.species.get(species.baseSpecies).id;
+			const headBaseSpeciesID = this.dex.species.get(headSpecies.baseSpecies).id;
+			const bodyBaseSpeciesID = this.dex.species.get(bodySpecies.baseSpecies).id;
 			// todo: this may cause problems to darm-z and zygarde-c i guess, consider and fix
-			if (toModifySpeciesID === headSpecies.id) headSpecies = species;
-			if (toModifySpeciesID === bodySpecies.id) bodySpecies = species;
+			if (toModifySpeciesID === headBaseSpeciesID) headSpecies = species;
+			if (toModifySpeciesID === bodyBaseSpeciesID) bodySpecies = species;
 			if (headSpecies.name === bodySpecies.name) {
 				const specialSelfFusions: {[key: string]: string} = {
 					deoxys: 'Deoxys-Attack',
@@ -640,7 +642,7 @@ export const Formats: FormatList = [
 
 			const fusionSpecies = this.dex.deepClone(species);
 			fusionSpecies.weightkg = Math.max(0.1, (headSpecies.weightkg + bodySpecies.weightkg) / 2).toFixed(1);
-			fusionSpecies.weighthg = Math.max(0.1, (headSpecies.weighthg + bodySpecies.weighthg) / 2).toFixed(1);
+			fusionSpecies.weighthg = Math.max(1, (headSpecies.weighthg + bodySpecies.weighthg) / 2).toFixed(1);
 			fusionSpecies.nfe = headSpecies.nfe || bodySpecies.nfe;
 			// fusionSpecies.evos
 			// fusionSpecies.eggGroups
@@ -683,7 +685,9 @@ export const Formats: FormatList = [
 					pokemon.canMegaEvo = null;
 				}
 				const headSpecies = this.dex.species.get(pokemon.set.name);
+				const bodySpecies = this.dex.species.get(pokemon.set.species);
 				if (headSpecies.exists) pokemon.m.headSpecies = headSpecies;
+				if (bodySpecies.exists) pokemon.m.bodySpecies = bodySpecies;
 			}
 		},
 	},
