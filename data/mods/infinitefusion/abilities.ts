@@ -17,7 +17,12 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		inherit: true,
 		onDamage(damage, target, source, effect) {
 			const ids = [this.dex.species.get(target.name).id, target.species.id];
-			if (effect && effect.effectType === 'Move' && ids.includes('mimikyu' as ID) && !target.transformed) {
+			if (effect && effect.effectType === 'Move' &&
+				ids.includes('mimikyu' as ID) &&
+				// Nihilslave: we need to check this here, same for other functions
+				!this.effectState.busted &&
+				!target.transformed
+			) {
 				this.add('-activate', target, 'ability: Disguise');
 				this.effectState.busted = true;
 				return 0;
@@ -26,7 +31,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onCriticalHit(target, source, move) {
 			if (!target) return;
 			const ids = [this.dex.species.get(target.name).id, target.species.id];
-			if (!ids.includes('mimikyu' as ID) || target.transformed) {
+			if (!ids.includes('mimikyu' as ID) || this.effectState.busted || target.transformed) {
 				return;
 			}
 			const hitSub = target.volatiles['substitute'] && !move.flags['bypasssub'] && !(move.infiltrates && this.gen >= 6);
@@ -38,7 +43,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onEffectiveness(typeMod, target, type, move) {
 			if (!target || move.category === 'Status') return;
 			const ids = [this.dex.species.get(target.name).id, target.species.id];
-			if (!ids.includes('mimikyu' as ID) || target.transformed) {
+			if (!ids.includes('mimikyu' as ID) || this.effectState.busted || target.transformed) {
 				return;
 			}
 
@@ -50,12 +55,12 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		onUpdate(pokemon) {
 			const ids = [this.dex.species.get(pokemon.name).id, pokemon.species.id];
-			if (ids.includes('mimikyu' as ID) && this.effectState.busted) {
+			if (ids.includes('mimikyu' as ID) && this.effectState.busted === true) {
 				const speciesid = pokemon.species.id === 'mimikyutotem' ? 'Mimikyu-Busted-Totem' : 'Mimikyu-Busted';
-				// pokemon.formeChange(speciesid, this.effect, true);
-				// Nihilslave: just pretend it changed forme?
 				pokemon.formeChange(speciesid, this.effect, true);
 				this.damage(pokemon.baseMaxhp / 8, pokemon, pokemon, this.dex.species.get(speciesid));
+				// Nihilslave: try change this value so that it no longer gets in again
+				this.effectState.busted = 2;
 			}
 		},
 	},
