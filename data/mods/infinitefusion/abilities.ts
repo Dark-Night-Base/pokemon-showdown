@@ -60,18 +60,15 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	flowergift: {
 		inherit: true,
 		onWeatherChange(pokemon) {
-			// if disguise somehow has bugs, i think it needs this
 			const baseSpecies = [pokemon.m.headSpecies?.baseSpecies, pokemon.m.bodySpecies?.baseSpecies];
 			const ids = [pokemon.m.headSpecies?.id, pokemon.m.bodySpecies?.id];
 			if (!pokemon.isActive || !baseSpecies.includes('Cherrim') || pokemon.transformed) return;
 			if (!pokemon.hp) return;
 			if (['sunnyday', 'desolateland'].includes(pokemon.effectiveWeather())) {
-				// todo: make sure disguise
 				if (!ids.includes('cherrimsunshine' as ID)) {
 					pokemon.formeChange('Cherrim-Sunshine', this.effect, false, '[msg]');
 				}
 			} else {
-				// todo: make sure disguise
 				if (ids.includes('cherrimsunshine' as ID)) {
 					pokemon.formeChange('Cherrim', this.effect, false, '[msg]');
 				}
@@ -124,9 +121,10 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		inherit: true,
 		onDamagingHit(damage, target, source, move) {
 			if (!source.hp || !source.isActive || target.transformed || target.isSemiInvulnerable()) return;
-			if (['cramorantgulping', 'cramorantgorging'].includes(target.species.id)) {
+			const ids = [target.m.headSpecies?.id, target.m.bodySpecies?.id];
+			if (ids.includes('cramorantgulping') || ids.includes('cramorantgorging')) {
 				this.damage(source.baseMaxhp / 4, source, target);
-				if (target.species.id === 'cramorantgulping') {
+				if (ids.includes('cramorantgulping')) {
 					this.boost({def: -1}, source, target, null, true);
 				} else {
 					source.trySetStatus('par', target, move);
@@ -136,9 +134,10 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		// The Dive part of this mechanic is implemented in Dive's `onTryMove` in moves.ts
 		onSourceTryPrimaryHit(target, source, effect) {
+			const ids = [source.m.headSpecies?.id, source.m.bodySpecies?.id];
 			if (
 				effect && effect.id === 'surf' && source.hasAbility('gulpmissile') &&
-				source.species.name === 'Cramorant' && !source.transformed
+				ids.includes('cramorant') && !source.transformed
 			) {
 				const forme = source.hp <= source.maxhp / 2 ? 'cramorantgorging' : 'cramorantgulping';
 				source.formeChange(forme, effect);

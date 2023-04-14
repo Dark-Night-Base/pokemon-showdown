@@ -85,14 +85,14 @@ export const Items: {[k: string]: ModdedItemData} = {
 		onModifyAtk(atk, pokemon) {
 			const nums = [pokemon.m.haedSpecies?.num, pokemon.m.bodySpecies?.num];
 			// rule out cramorant-gorging
-			if (nums.includes(25) && !pokemon.species.id.includes('cramorant')) {
+			if (nums.includes(25)) {
 				return this.chainModify(2);
 			}
 		},
 		onModifySpA(spa, pokemon) {
 			const nums = [pokemon.m.haedSpecies?.num, pokemon.m.bodySpecies?.num];
 			// rule out cramorant-gorging
-			if (nums.includes(25) && !pokemon.species.id.includes('cramorant')) {
+			if (nums.includes(25)) {
 				return this.chainModify(2);
 			}
 		},

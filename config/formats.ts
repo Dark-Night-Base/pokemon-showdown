@@ -438,7 +438,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'infinitefusion',
-		debug: true,
+		// debug: true,
 		ruleset: [
 			'Obtainable', '+Past', '+Unobtainable', '+Unreleased', 'Team Species Preview', '!!EV Limit = 1020', 'Species Clause',
 			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'Sketch Post-Gen 7 Moves', 'Dynamax Clause', 'Terastal Clause',
@@ -585,12 +585,7 @@ export const Formats: FormatList = [
 			let headSpecies = target.m.headSpecies ? target.m.headSpecies : this.dex.species.get(target.set.name);
 			let bodySpecies = target.m.bodySpecies ? target.m.bodySpecies : this.dex.species.get(target.set.species);
 			if (!headSpecies?.exists || !bodySpecies?.exists) return;
-			// Nihilslave: no need to check these
-			// if (headSpecies.baseSpecies !== headSpecies.name || bodySpecies.baseSpecies !== bodySpecies.name) return;
-			// const nonstandard = ['CAP', 'LGPE', 'Custom', 'Gigantamax'];
-			// if (headSpecies.isNonstandard && nonstandard.includes(headSpecies.isNonstandard) ||
-			// 	bodySpecies.isNonstandard && nonstandard.includes(bodySpecies.isNonstandard)
-			// ) return;
+			// Nihilslave: should let non-base formes to merge, don't check that here
 			const toModifySpeciesID = this.dex.species.get(species.baseSpecies).id;
 			const headBaseSpeciesID = this.dex.species.get(headSpecies.baseSpecies).id;
 			const bodyBaseSpeciesID = this.dex.species.get(bodySpecies.baseSpecies).id;
@@ -599,6 +594,7 @@ export const Formats: FormatList = [
 			// todo: this may cause problems to darm-z and zygarde-c i guess, consider and fix
 			if (toModifySpeciesID === headBaseSpeciesID) target.m.headSpecies = headSpecies = species;
 			if (toModifySpeciesID === bodyBaseSpeciesID) target.m.bodySpecies = bodySpecies = species;
+			let fSpecies;
 			if (headSpecies.name === bodySpecies.name) {
 				const specialSelfFusions: {[key: string]: string} = {
 					deoxys: 'Deoxys-Attack',
@@ -619,7 +615,10 @@ export const Formats: FormatList = [
 					palafin: 'Palafin-Hero',
 				};
 				if (headSpecies.id in specialSelfFusions) {
-					return this.dex.species.get(specialSelfFusions[headSpecies.id]);
+					fSpecies = this.dex.species.get(specialSelfFusions[headSpecies.id])
+					target.m.headSpecies = headSpecies = this.dex.deepClone(fSpecies);
+					target.m.bodySpecies = bodySpecies = this.dex.deepClone(fSpecies);
+					return fSpecies;
 				}
 				if (headSpecies.otherFormes) {
 					for (const forme of headSpecies.otherFormes) {
@@ -629,20 +628,30 @@ export const Formats: FormatList = [
 							forme.endsWith('-Therian') ||
 							forme.endsWith('-Starter') ||
 							forme.endsWith('-Crowned')
-						) return this.dex.species.get(forme);
+						) {
+							fSpecies = this.dex.species.get(forme);
+							target.m.headSpecies = headSpecies = this.dex.deepClone(fSpecies);
+							target.m.bodySpecies = bodySpecies = this.dex.deepClone(fSpecies);
+							return fSpecies;
+						}
 					}
 				}
 				return this.dex.deepClone(headSpecies);
 			}
 			const pair = [headSpecies.name, bodySpecies.name].sort();
-			if (pair[0] === 'Kyurem' && pair[1] === 'Reshiram') return this.dex.species.get('Kyurem-White');
-			if (pair[0] === 'Kyurem' && pair[1] === 'Zekrom') return this.dex.species.get('Kyurem-Black');
-			if (pair[0] === 'Necrozma' && pair[1] === 'Solgaleo') return this.dex.species.get('Necrozma-Dusk-Mane');
-			if (pair[0] === 'Lunala' && pair[1] === 'Necrozma') return this.dex.species.get('Necrozma-Dawn-Wings');
-			if (pair[0] === 'Calyrex' && pair[1] === 'Glastrier') return this.dex.species.get('Calyrex-Ice');
-			if (pair[0] === 'Calyrex' && pair[1] === 'Spectrier') return this.dex.species.get('Calyrex-Shadow');
-			if (pair[0] === 'Arrokuda' && pair[1] === 'Cramorant') return this.dex.species.get('Cramorant-Gulping');
-			if (pair[0] === 'Cramorant' && pair[1] === 'Pikachu') return this.dex.species.get('Cramorant-Gorging');
+			if (pair[0] === 'Kyurem' && pair[1] === 'Reshiram') fSpecies = this.dex.species.get('Kyurem-White');
+			if (pair[0] === 'Kyurem' && pair[1] === 'Zekrom') fSpecies = this.dex.species.get('Kyurem-Black');
+			if (pair[0] === 'Necrozma' && pair[1] === 'Solgaleo') fSpecies = this.dex.species.get('Necrozma-Dusk-Mane');
+			if (pair[0] === 'Lunala' && pair[1] === 'Necrozma') fSpecies = this.dex.species.get('Necrozma-Dawn-Wings');
+			if (pair[0] === 'Calyrex' && pair[1] === 'Glastrier') fSpecies = this.dex.species.get('Calyrex-Ice');
+			if (pair[0] === 'Calyrex' && pair[1] === 'Spectrier') fSpecies = this.dex.species.get('Calyrex-Shadow');
+			if (pair[0] === 'Arrokuda' && pair[1] === 'Cramorant') fSpecies = this.dex.species.get('Cramorant-Gulping');
+			if (pair[0] === 'Cramorant' && pair[1] === 'Pikachu') fSpecies = this.dex.species.get('Cramorant-Gorging');
+			if (fSpecies) {
+				target.m.headSpecies = headSpecies = this.dex.deepClone(fSpecies);
+				target.m.bodySpecies = bodySpecies = this.dex.deepClone(fSpecies);
+				return fSpecies;
+			}
 
 			const fusionSpecies = this.dex.deepClone(species);
 			fusionSpecies.weightkg = Math.max(0.1, (headSpecies.weightkg + bodySpecies.weightkg) / 2).toFixed(1);
