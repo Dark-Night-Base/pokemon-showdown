@@ -686,12 +686,8 @@ export const Formats: FormatList = [
 
 			return fusionSpecies;
 		},
-		onTypePriority: 2,
-		onType(types, pokemon) {
-			// todo: if multitype doesn't work, do something here
-			// this.battle.runEvent('Type') in Pokemon.getTypes()
+		onSwitchIn(pokemon) {
 			const baseSpecies = [pokemon.m.headSpecies?.baseSpecies, pokemon.m.bodySpecies?.baseSpecies];
-			// the two conditions implemented in conditions.ts
 			if (baseSpecies.includes('Arceus')) pokemon.addVolatile('arceus');
 			if (baseSpecies.includes('Silvally')) pokemon.addVolatile('silvally');
 		},
