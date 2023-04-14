@@ -560,7 +560,8 @@ export const Formats: FormatList = [
 				fusionSpecies.abilities = [
 					headSpecies.abilities[0],
 					bodySpecies.abilities[1] || bodySpecies.abilities[0],
-					headSpecies.abilities['H'] || headSpecies.abilities[0],
+					headSpecies.abilities['H'] || '',
+					headSpecies.abilities['S'] || '',
 				];
 			}
 			const ability = this.dex.abilities.get(set.ability);
