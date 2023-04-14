@@ -51,7 +51,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onUpdate(pokemon) {
 			const ids = [pokemon.m.headSpecies?.id, pokemon.m.bodySpecies?.id];
 			if (ids.includes('mimikyu') && this.effectState.busted) {
-				const speciesid = pokemon.species.id === 'mimikyutotem' ? 'Mimikyu-Busted-Totem' : 'Mimikyu-Busted';
+				const speciesid = ids.includes('mimikyutotem') ? 'Mimikyu-Busted-Totem' : 'Mimikyu-Busted';
 				pokemon.formeChange(speciesid, this.effect, true);
 				this.damage(pokemon.baseMaxhp / 8, pokemon, pokemon, this.dex.species.get(speciesid));
 			}
