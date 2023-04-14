@@ -512,7 +512,7 @@ export const Formats: FormatList = [
 					deoxys: 'Deoxys-Attack',
 					rotom: 'Rotom-Heat',
 					shaymin: 'Shaymin-Sky',
-					darmanitan: 'Darmanitan-Zen',
+					// darmanitan: 'Darmanitan-Zen',
 					keldeo: 'Keldeo-Resolute',
 					meloetta: 'Meloetta-Pirouette',
 					greninja: 'Greninja-Ash',
@@ -600,7 +600,7 @@ export const Formats: FormatList = [
 					deoxys: 'Deoxys-Attack',
 					rotom: 'Rotom-Heat',
 					shaymin: 'Shaymin-Sky',
-					darmanitan: 'Darmanitan-Zen',
+					// darmanitan: 'Darmanitan-Zen',
 					keldeo: 'Keldeo-Resolute',
 					meloetta: 'Meloetta-Pirouette',
 					greninja: 'Greninja-Ash',
@@ -701,12 +701,14 @@ export const Formats: FormatList = [
 				if (pokemon.species.id === 'rayquaza') {
 					pokemon.canMegaEvo = null;
 				}
-				const headSpecies = this.dex.species.get(pokemon.set.name);
-				const bodySpecies = this.dex.species.get(pokemon.set.species);
-				if (headSpecies.exists) pokemon.m.headSpecies = headSpecies;
-				if (bodySpecies.exists) pokemon.m.bodySpecies = bodySpecies;
-				// this.debug(`headSpecies of ${pokemon.name}: ${pokemon.m.headSpecies?.id}`);
-				// this.debug(`bodySpecies of ${pokemon.name}: ${pokemon.m.bodySpecies?.id}`);
+				// these 2 should be initially set in onModifySpecies, surprisingly
+				// but if not just set them here
+				if (!pokemon.m.headSpecies || !pokemon.m.bodySpecies) {
+					const headSpecies = this.dex.species.get(pokemon.set.name);
+					const bodySpecies = this.dex.species.get(pokemon.set.species);
+					if (headSpecies.exists) pokemon.m.headSpecies = headSpecies;
+					if (bodySpecies.exists) pokemon.m.bodySpecies = bodySpecies;
+				}
 			}
 		},
 	},

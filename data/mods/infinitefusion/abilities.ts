@@ -6,7 +6,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (effect?.effectType !== 'Move') return;
 			if (source.abilityState.battleBondTriggered) return;
 			const ids = [source.m.headSpecies?.id, source.m.bodySpecies?.id];
-			if (ids.includes('greninja' as ID) && source.hp && !source.transformed && source.side.foePokemonLeft()) {
+			if (ids.includes('greninja') && source.hp && !source.transformed && source.side.foePokemonLeft()) {
 				this.add('-activate', source, 'ability: Battle Bond');
 				this.boost({atk: 1, spa: 1, spe: 1}, source, source, this.effect);
 				source.abilityState.battleBondTriggered = true;
@@ -17,7 +17,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		inherit: true,
 		onDamage(damage, target, source, effect) {
 			const ids = [target.m.headSpecies?.id, target.m.bodySpecies?.id];
-			if (effect && effect.effectType === 'Move' && ids.includes('mimikyu' as ID) && !target.transformed) {
+			if (effect && effect.effectType === 'Move' && ids.includes('mimikyu') && !target.transformed) {
 				this.add('-activate', target, 'ability: Disguise');
 				this.effectState.busted = true;
 				return 0;
@@ -26,7 +26,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onCriticalHit(target, source, move) {
 			if (!target) return;
 			const ids = [target.m.headSpecies?.id, target.m.bodySpecies?.id];
-			if (!ids.includes('mimikyu' as ID) || target.transformed) {
+			if (!ids.includes('mimikyu') || target.transformed) {
 				return;
 			}
 			const hitSub = target.volatiles['substitute'] && !move.flags['bypasssub'] && !(move.infiltrates && this.gen >= 6);
@@ -38,7 +38,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onEffectiveness(typeMod, target, type, move) {
 			if (!target || move.category === 'Status') return;
 			const ids = [target.m.headSpecies?.id, target.m.bodySpecies?.id];
-			if (!ids.includes('mimikyu' as ID) || target.transformed) {
+			if (!ids.includes('mimikyu') || target.transformed) {
 				return;
 			}
 
@@ -50,7 +50,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		onUpdate(pokemon) {
 			const ids = [pokemon.m.headSpecies?.id, pokemon.m.bodySpecies?.id];
-			if (ids.includes('mimikyu' as ID) && this.effectState.busted) {
+			if (ids.includes('mimikyu') && this.effectState.busted) {
 				const speciesid = pokemon.species.id === 'mimikyutotem' ? 'Mimikyu-Busted-Totem' : 'Mimikyu-Busted';
 				pokemon.formeChange(speciesid, this.effect, true);
 				this.damage(pokemon.baseMaxhp / 8, pokemon, pokemon, this.dex.species.get(speciesid));
@@ -65,11 +65,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (!pokemon.isActive || !baseSpecies.includes('Cherrim') || pokemon.transformed) return;
 			if (!pokemon.hp) return;
 			if (['sunnyday', 'desolateland'].includes(pokemon.effectiveWeather())) {
-				if (!ids.includes('cherrimsunshine' as ID)) {
+				if (!ids.includes('cherrimsunshine')) {
 					pokemon.formeChange('Cherrim-Sunshine', this.effect, false, '[msg]');
 				}
 			} else {
-				if (ids.includes('cherrimsunshine' as ID)) {
+				if (ids.includes('cherrimsunshine')) {
 					pokemon.formeChange('Cherrim', this.effect, false, '[msg]');
 				}
 			}
@@ -93,20 +93,20 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		inherit: true,
 		onWeatherChange(pokemon) {
 			const ids = [pokemon.m.headSpecies?.id, pokemon.m.bodySpecies?.id];
-			if (!ids.includes('castform' as ID) || pokemon.transformed) return;
+			if (!ids.includes('castform') || pokemon.transformed) return;
 			let forme = null;
 			switch (pokemon.effectiveWeather()) {
 			case 'sunnyday':
 			case 'desolateland':
-				if (!ids.includes('castformsunny' as ID)) forme = 'Castform-Sunny';
+				if (!ids.includes('castformsunny')) forme = 'Castform-Sunny';
 				break;
 			case 'raindance':
 			case 'primordialsea':
-				if (!ids.includes('castformrainy' as ID)) forme = 'Castform-Rainy';
+				if (!ids.includes('castformrainy')) forme = 'Castform-Rainy';
 				break;
 			case 'hail':
 			case 'snow':
-				if (!ids.includes('castformsnowy' as ID)) forme = 'Castform-Snowy';
+				if (!ids.includes('castformsnowy')) forme = 'Castform-Snowy';
 				break;
 			default:
 				if (pokemon.species.id !== 'castform') forme = 'Castform';
@@ -147,25 +147,29 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	hungerswitch: {
 		inherit: true,
 		onResidual(pokemon) {
-			if (pokemon.species.baseSpecies !== 'Morpeko' || pokemon.transformed) return;
-			const targetForme = pokemon.species.name === 'Morpeko' ? 'Morpeko-Hangry' : 'Morpeko';
+			const baseSpecies = [pokemon.m.headSpecies?.baseSpecies, pokemon.m.bodySpecies?.baseSpecies];
+			const ids = [pokemon.m.headSpecies?.id, pokemon.m.bodySpecies?.id];
+			if (!baseSpecies.includes('Morpeko') || pokemon.transformed) return;
+			const targetForme = ids.includes('morpeko') ? 'Morpeko-Hangry' : 'Morpeko';
 			pokemon.formeChange(targetForme);
 		},
 	},
 	iceface: {
 		inherit: true,
 		onStart(pokemon) {
+			const ids = [pokemon.m.headSpecies?.id, pokemon.m.bodySpecies?.id];
 			if (this.field.isWeather(['hail', 'snow']) &&
-				pokemon.species.id === 'eiscuenoice' && !pokemon.transformed) {
+				ids.includes('eiscuenoice') && !pokemon.transformed) {
 				this.add('-activate', pokemon, 'ability: Ice Face');
 				this.effectState.busted = false;
 				pokemon.formeChange('Eiscue', this.effect, true);
 			}
 		},
 		onDamage(damage, target, source, effect) {
+			const ids = [target.m.headSpecies?.id, target.m.bodySpecies?.id];
 			if (
 				effect && effect.effectType === 'Move' && effect.category === 'Physical' &&
-				target.species.id === 'eiscue' && !target.transformed
+				ids.includes('eiscue') && !target.transformed
 			) {
 				this.add('-activate', target, 'ability: Ice Face');
 				this.effectState.busted = true;
@@ -174,14 +178,16 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		onCriticalHit(target, type, move) {
 			if (!target) return;
-			if (move.category !== 'Physical' || target.species.id !== 'eiscue' || target.transformed) return;
+			const ids = [target.m.headSpecies?.id, target.m.bodySpecies?.id];
+			if (move.category !== 'Physical' || !ids.includes('eiscue') || target.transformed) return;
 			if (target.volatiles['substitute'] && !(move.flags['bypasssub'] || move.infiltrates)) return;
 			if (!target.runImmunity(move.type)) return;
 			return false;
 		},
 		onEffectiveness(typeMod, target, type, move) {
 			if (!target) return;
-			if (move.category !== 'Physical' || target.species.id !== 'eiscue' || target.transformed) return;
+			const ids = [target.m.headSpecies?.id, target.m.bodySpecies?.id];
+			if (move.category !== 'Physical' || !ids.includes('eiscue') || target.transformed) return;
 
 			const hitSub = target.volatiles['substitute'] && !move.flags['bypasssub'] && !(move.infiltrates && this.gen >= 6);
 			if (hitSub) return;
@@ -190,7 +196,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			return 0;
 		},
 		onUpdate(pokemon) {
-			if (pokemon.species.id === 'eiscue' && this.effectState.busted) {
+			const ids = [pokemon.m.headSpecies?.id, pokemon.m.bodySpecies?.id];
+			if (ids.includes('eiscue') && this.effectState.busted) {
 				pokemon.formeChange('Eiscue-Noice', this.effect, true);
 			}
 		},
@@ -198,8 +205,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			// snow/hail resuming because Cloud Nine/Air Lock ended does not trigger Ice Face
 			if ((sourceEffect as Ability)?.suppressWeather) return;
 			if (!pokemon.hp) return;
+			const ids = [pokemon.m.headSpecies?.id, pokemon.m.bodySpecies?.id];
 			if (this.field.isWeather(['hail', 'snow']) &&
-				pokemon.species.id === 'eiscuenoice' && !pokemon.transformed) {
+				ids.includes('eiscuenoice') && !pokemon.transformed) {
 				this.add('-activate', pokemon, 'ability: Ice Face');
 				this.effectState.busted = false;
 				pokemon.formeChange('Eiscue', this.effect, true);
@@ -209,10 +217,13 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	powerconstruct: {
 		inherit: true,
 		onResidual(pokemon) {
-			if (pokemon.baseSpecies.baseSpecies !== 'Zygarde' || pokemon.transformed || !pokemon.hp) return;
-			if (pokemon.species.id === 'zygardecomplete' || pokemon.hp > pokemon.maxhp / 2) return;
+			const baseSpecies = [pokemon.m.headSpecies?.baseSpecies, pokemon.m.bodySpecies?.baseSpecies];
+			const ids = [pokemon.m.headSpecies?.id, pokemon.m.bodySpecies?.id];
+			if (!baseSpecies.includes('Zygarde') || pokemon.transformed || !pokemon.hp) return;
+			if (ids.includes('zygardecomplete') || pokemon.hp > pokemon.maxhp / 2) return;
 			this.add('-activate', pokemon, 'ability: Power Construct');
 			pokemon.formeChange('Zygarde-Complete', this.effect, true);
+			// Nihilslave: ehh, i guess we don't really need to do anything in this part?
 			pokemon.baseMaxhp = Math.floor(Math.floor(
 				2 * pokemon.species.baseStats['hp'] + pokemon.set.ivs['hp'] + Math.floor(pokemon.set.evs['hp'] / 4) + 100
 			) * pokemon.level / 100 + 10);
@@ -225,28 +236,32 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	schooling: {
 		inherit: true,
 		onStart(pokemon) {
-			if (pokemon.baseSpecies.baseSpecies !== 'Wishiwashi' || pokemon.level < 20 || pokemon.transformed) return;
+			const baseSpecies = [pokemon.m.headSpecies?.baseSpecies, pokemon.m.bodySpecies?.baseSpecies];
+			const ids = [pokemon.m.headSpecies?.id, pokemon.m.bodySpecies?.id];
+			if (!baseSpecies.includes('Wishiwashi') || pokemon.level < 20 || pokemon.transformed) return;
 			if (pokemon.hp > pokemon.maxhp / 4) {
-				if (pokemon.species.id === 'wishiwashi') {
+				if (ids.includes('wishiwashi')) {
 					pokemon.formeChange('Wishiwashi-School');
 				}
 			} else {
-				if (pokemon.species.id === 'wishiwashischool') {
+				if (ids.includes('wishiwashischool')) {
 					pokemon.formeChange('Wishiwashi');
 				}
 			}
 		},
 		onResidual(pokemon) {
+			const baseSpecies = [pokemon.m.headSpecies?.baseSpecies, pokemon.m.bodySpecies?.baseSpecies];
+			const ids = [pokemon.m.headSpecies?.id, pokemon.m.bodySpecies?.id];
 			if (
-				pokemon.baseSpecies.baseSpecies !== 'Wishiwashi' || pokemon.level < 20 ||
+				!baseSpecies.includes('Wishiwashi') || pokemon.level < 20 ||
 				pokemon.transformed || !pokemon.hp
 			) return;
 			if (pokemon.hp > pokemon.maxhp / 4) {
-				if (pokemon.species.id === 'wishiwashi') {
+				if (ids.includes('wishiwashi')) {
 					pokemon.formeChange('Wishiwashi-School');
 				}
 			} else {
-				if (pokemon.species.id === 'wishiwashischool') {
+				if (ids.includes('wishiwashischool')) {
 					pokemon.formeChange('Wishiwashi');
 				}
 			}
@@ -255,38 +270,46 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	shieldsdown: {
 		inherit: true,
 		onStart(pokemon) {
-			if (pokemon.baseSpecies.baseSpecies !== 'Minior' || pokemon.transformed) return;
+			const baseSpecies = [pokemon.m.headSpecies?.baseSpecies, pokemon.m.bodySpecies?.baseSpecies];
+			const formes = [pokemon.m.headSpecies?.forme, pokemon.m.bodySpecies?.forme];
+			if (!baseSpecies.includes('Minior') || pokemon.transformed) return;
 			if (pokemon.hp > pokemon.maxhp / 2) {
-				if (pokemon.species.forme !== 'Meteor') {
+				if (!formes.includes('Meteor')) {
 					pokemon.formeChange('Minior-Meteor');
 				}
 			} else {
-				if (pokemon.species.forme === 'Meteor') {
-					pokemon.formeChange(pokemon.set.species);
+				if (formes.includes('Meteor')) {
+					// ignore colors
+					pokemon.formeChange('Minior');
 				}
 			}
 		},
 		onResidual(pokemon) {
-			if (pokemon.baseSpecies.baseSpecies !== 'Minior' || pokemon.transformed || !pokemon.hp) return;
+			const baseSpecies = [pokemon.m.headSpecies?.baseSpecies, pokemon.m.bodySpecies?.baseSpecies];
+			const formes = [pokemon.m.headSpecies?.forme, pokemon.m.bodySpecies?.forme];
+			if (!baseSpecies.includes('Minior') || pokemon.transformed || !pokemon.hp) return;
 			if (pokemon.hp > pokemon.maxhp / 2) {
-				if (pokemon.species.forme !== 'Meteor') {
+				if (!formes.includes('Meteor')) {
 					pokemon.formeChange('Minior-Meteor');
 				}
 			} else {
-				if (pokemon.species.forme === 'Meteor') {
-					pokemon.formeChange(pokemon.set.species);
+				if (formes.includes('Meteor')) {
+					// ignore colors
+					pokemon.formeChange('Minior');
 				}
 			}
 		},
 		onSetStatus(status, target, source, effect) {
-			if (target.species.id !== 'miniormeteor' || target.transformed) return;
+			const ids = [target.m.headSpecies?.id, target.m.bodySpecies?.id];
+			if (!ids.includes('miniormeteor') || target.transformed) return;
 			if ((effect as Move)?.status) {
 				this.add('-immune', target, '[from] ability: Shields Down');
 			}
 			return false;
 		},
 		onTryAddVolatile(status, target) {
-			if (target.species.id !== 'miniormeteor' || target.transformed) return;
+			const ids = [target.m.headSpecies?.id, target.m.bodySpecies?.id];
+			if (!ids.includes('miniormeteor') || target.transformed) return;
 			if (status.id !== 'yawn') return;
 			this.add('-immune', target, '[from] ability: Shields Down');
 			return null;
@@ -295,21 +318,25 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	stancechange: {
 		inherit: true,
 		onModifyMove(move, attacker, defender) {
-			if (attacker.species.baseSpecies !== 'Aegislash' || attacker.transformed) return;
+			const baseSpecies = [attacker.m.headSpecies?.baseSpecies, attacker.m.bodySpecies?.baseSpecies];
+			const names = [attacker.m.headSpecies?.name, attacker.m.bodySpecies?.name];
+			if (!baseSpecies.includes('Aegislash') || attacker.transformed) return;
 			if (move.category === 'Status' && move.id !== 'kingsshield') return;
 			const targetForme = (move.id === 'kingsshield' ? 'Aegislash' : 'Aegislash-Blade');
-			if (attacker.species.name !== targetForme) attacker.formeChange(targetForme);
+			if (!names.includes(targetForme)) attacker.formeChange(targetForme);
 		},
 	},
 	zenmode: {
 		inherit: true,
 		onResidual(pokemon) {
-			if (pokemon.baseSpecies.baseSpecies !== 'Darmanitan' || pokemon.transformed) {
+			const baseSpecies = [pokemon.m.headSpecies?.baseSpecies, pokemon.m.bodySpecies?.baseSpecies];
+			const formes = [pokemon.m.headSpecies?.forme, pokemon.m.bodySpecies?.forme];
+			if (!baseSpecies.includes('Darmanitan') || pokemon.transformed) {
 				return;
 			}
-			if (pokemon.hp <= pokemon.maxhp / 2 && !['Zen', 'Galar-Zen'].includes(pokemon.species.forme)) {
+			if (pokemon.hp <= pokemon.maxhp / 2 && !formes.includes('Zen') && !formes.includes('Galar-Zen')) {
 				pokemon.addVolatile('zenmode');
-			} else if (pokemon.hp > pokemon.maxhp / 2 && ['Zen', 'Galar-Zen'].includes(pokemon.species.forme)) {
+			} else if (pokemon.hp > pokemon.maxhp / 2 && (formes.includes('Zen') || formes.includes('Galar-Zen'))) {
 				pokemon.addVolatile('zenmode'); // in case of base Darmanitan-Zen
 				pokemon.removeVolatile('zenmode');
 			}
@@ -318,8 +345,10 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (!pokemon.volatiles['zenmode'] || !pokemon.hp) return;
 			pokemon.transformed = false;
 			delete pokemon.volatiles['zenmode'];
-			if (pokemon.species.baseSpecies === 'Darmanitan' && pokemon.species.battleOnly) {
-				pokemon.formeChange(pokemon.species.battleOnly as string, this.effect, false, '[silent]');
+			const baseSpecies = [pokemon.m.headSpecies?.baseSpecies, pokemon.m.bodySpecies?.baseSpecies];
+			// i'm lazy
+			if (baseSpecies.includes('Darmanitan')) {
+				pokemon.formeChange('Darmanitan', this.effect, false, '[silent]');
 			}
 		},
 		condition: {
@@ -340,8 +369,10 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	zerotohero: {
 		inherit: true,
 		onSwitchOut(pokemon) {
-			if (pokemon.baseSpecies.baseSpecies !== 'Palafin' || pokemon.transformed) return;
-			if (pokemon.species.forme !== 'Hero') {
+			const baseSpecies = [pokemon.m.headSpecies?.baseSpecies, pokemon.m.bodySpecies?.baseSpecies];
+			const formes = [pokemon.m.headSpecies?.forme, pokemon.m.bodySpecies?.forme];
+			if (!baseSpecies.includes('Palafin') || pokemon.transformed) return;
+			if (!formes.includes('Hero')) {
 				pokemon.formeChange('Palafin-Hero', this.effect, true);
 			}
 		},
@@ -351,8 +382,10 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onStart(pokemon) {
 			if (!this.effectState.switchingIn) return;
 			this.effectState.switchingIn = false;
-			if (pokemon.baseSpecies.baseSpecies !== 'Palafin' || pokemon.transformed) return;
-			if (!this.effectState.heroMessageDisplayed && pokemon.species.forme === 'Hero') {
+			const baseSpecies = [pokemon.m.headSpecies?.baseSpecies, pokemon.m.bodySpecies?.baseSpecies];
+			const formes = [pokemon.m.headSpecies?.forme, pokemon.m.bodySpecies?.forme];
+			if (!baseSpecies.includes('Palafin') || pokemon.transformed) return;
+			if (!this.effectState.heroMessageDisplayed && formes.includes('Hero')) {
 				this.add('-activate', pokemon, 'ability: Zero to Hero');
 				this.effectState.heroMessageDisplayed = true;
 			}
