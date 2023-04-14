@@ -697,14 +697,10 @@ export const Formats: FormatList = [
 				if (pokemon.species.id === 'rayquaza') {
 					pokemon.canMegaEvo = null;
 				}
-				// these 2 should be initially set in onModifySpecies, surprisingly
-				// but if not just set them here
-				if (!pokemon.m.headSpecies || !pokemon.m.bodySpecies) {
-					const headSpecies = this.dex.species.get(pokemon.set.name);
-					const bodySpecies = this.dex.species.get(pokemon.set.species);
-					if (headSpecies.exists) pokemon.m.headSpecies = headSpecies;
-					if (bodySpecies.exists) pokemon.m.bodySpecies = bodySpecies;
-				}
+				const headSpecies = this.dex.species.get(pokemon.set.name);
+				const bodySpecies = this.dex.species.get(pokemon.set.species);
+				if (headSpecies.exists) pokemon.m.headSpecies = headSpecies;
+				if (bodySpecies.exists) pokemon.m.bodySpecies = bodySpecies;
 			}
 		},
 	},
