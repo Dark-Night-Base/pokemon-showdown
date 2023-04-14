@@ -585,13 +585,10 @@ export const Formats: FormatList = [
 			let headSpecies = target.m.headSpecies ? target.m.headSpecies : this.dex.species.get(target.set.name);
 			let bodySpecies = target.m.bodySpecies ? target.m.bodySpecies : this.dex.species.get(target.set.species);
 			if (!headSpecies?.exists || !bodySpecies?.exists) return;
-			// Nihilslave: should let non-base formes to merge, don't check that here
+			// Nihilslave: should let non-base formes to merge, don't check it here
 			const toModifySpeciesID = this.dex.species.get(species.baseSpecies).id;
 			const headBaseSpeciesID = this.dex.species.get(headSpecies.baseSpecies).id;
 			const bodyBaseSpeciesID = this.dex.species.get(bodySpecies.baseSpecies).id;
-			// this.debug(`${species.id}`);
-			// this.debug(`${toModifySpeciesID}, ${headBaseSpeciesID}, ${bodyBaseSpeciesID}`);
-			// todo: this may cause problems to darm-z and zygarde-c i guess, consider and fix
 			if (toModifySpeciesID === headBaseSpeciesID) target.m.headSpecies = headSpecies = species;
 			if (toModifySpeciesID === bodyBaseSpeciesID) target.m.bodySpecies = bodySpecies = species;
 			let fSpecies;
@@ -616,8 +613,8 @@ export const Formats: FormatList = [
 				};
 				if (headSpecies.id in specialSelfFusions) {
 					fSpecies = this.dex.species.get(specialSelfFusions[headSpecies.id])
-					target.m.headSpecies = headSpecies = this.dex.deepClone(fSpecies);
-					target.m.bodySpecies = bodySpecies = this.dex.deepClone(fSpecies);
+					target.m.headSpecies = this.dex.deepClone(fSpecies);
+					target.m.bodySpecies = this.dex.deepClone(fSpecies);
 					return fSpecies;
 				}
 				if (headSpecies.otherFormes) {
@@ -630,8 +627,8 @@ export const Formats: FormatList = [
 							forme.endsWith('-Crowned')
 						) {
 							fSpecies = this.dex.species.get(forme);
-							target.m.headSpecies = headSpecies = this.dex.deepClone(fSpecies);
-							target.m.bodySpecies = bodySpecies = this.dex.deepClone(fSpecies);
+							target.m.headSpecies = this.dex.deepClone(fSpecies);
+							target.m.bodySpecies = this.dex.deepClone(fSpecies);
 							return fSpecies;
 						}
 					}
@@ -648,8 +645,8 @@ export const Formats: FormatList = [
 			if (pair[0] === 'Arrokuda' && pair[1] === 'Cramorant') fSpecies = this.dex.species.get('Cramorant-Gulping');
 			if (pair[0] === 'Cramorant' && pair[1] === 'Pikachu') fSpecies = this.dex.species.get('Cramorant-Gorging');
 			if (fSpecies) {
-				target.m.headSpecies = headSpecies = this.dex.deepClone(fSpecies);
-				target.m.bodySpecies = bodySpecies = this.dex.deepClone(fSpecies);
+				target.m.headSpecies = this.dex.deepClone(fSpecies);
+				target.m.bodySpecies = this.dex.deepClone(fSpecies);
 				return fSpecies;
 			}
 
@@ -669,7 +666,6 @@ export const Formats: FormatList = [
 				fusionSpecies.abilities['H'] === fusionSpecies.abilities[0]) delete fusionSpecies.abilities['H'];
 			if (fusionSpecies.abilities[1] === fusionSpecies.abilities[0]) delete fusionSpecies.abilities[1];
 			fusionSpecies.bst = 0;
-			// if (headSpecies.maxHP || bodySpecies.maxHP) fusionSpecies.maxHP = 1;
 			if (this.dex.abilities.get(target.set.ability).id === 'wonderguard') fusionSpecies.maxHP = 1;
 			let i: StatID;
 			for (i in species.baseStats) {
@@ -682,7 +678,6 @@ export const Formats: FormatList = [
 					bodyStat = bodySpecies.baseStats[i] * 2;
 				}
 				fusionSpecies.baseStats[i] = this.clampIntRange(Math.floor((headStat + bodyStat) / 3), 1, 255);
-				// if (i === 'hp' && fusionSpecies.maxHP) fusionSpecies.baseStats[i] = 1;
 				fusionSpecies.bst += fusionSpecies.baseStats[i];
 			}
 			fusionSpecies.types[0] = headSpecies.types[0];
@@ -694,6 +689,7 @@ export const Formats: FormatList = [
 		onTypePriority: 1,
 		onType(types, pokemon) {
 			// todo: if multitype doesn't work, do something here
+			// this.battle.runEvent('Type') in Pokemon.getTypes()
 		},
 		onBegin() {
 			// prevent rayquaza from mega evolving
