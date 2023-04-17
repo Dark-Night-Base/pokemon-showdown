@@ -445,6 +445,7 @@ export const Formats: FormatList = [
 			'OHKO Clause',
 		],
 		banlist: [
+			'Shedinja',
 			'Revival Blessing',
 		],
 		restricted: [
@@ -643,12 +644,36 @@ export const Formats: FormatList = [
 			if (pair[0] === 'Lunala' && pair[1] === 'Necrozma') fSpecies = this.dex.species.get('Necrozma-Dawn-Wings');
 			if (pair[0] === 'Calyrex' && pair[1] === 'Glastrier') fSpecies = this.dex.species.get('Calyrex-Ice');
 			if (pair[0] === 'Calyrex' && pair[1] === 'Spectrier') fSpecies = this.dex.species.get('Calyrex-Shadow');
-			if (pair[0] === 'Arrokuda' && pair[1] === 'Cramorant') fSpecies = this.dex.species.get('Cramorant-Gulping');
-			if (pair[0] === 'Cramorant' && pair[1] === 'Pikachu') fSpecies = this.dex.species.get('Cramorant-Gorging');
+			// if (pair[0] === 'Arrokuda' && pair[1] === 'Cramorant') fSpecies = this.dex.species.get('Cramorant-Gulping');
+			// if (pair[0] === 'Cramorant' && pair[1] === 'Pikachu') fSpecies = this.dex.species.get('Cramorant-Gorging');
 			if (fSpecies) {
 				target.m.headSpecies = this.dex.deepClone(fSpecies);
 				target.m.bodySpecies = this.dex.deepClone(fSpecies);
 				return fSpecies;
+			}
+			if (headSpecies.name === 'Cramorant') {
+				switch(bodySpecies.name) {
+				case 'Arrokuda':
+					fSpecies = this.dex.species.get('Cramorant-Gulping');
+					target.m.headSpecies = this.dex.deepClone(fSpecies);
+					return fSpecies;
+				case 'Pikachu':
+					fSpecies = this.dex.species.get('Cramorant-Gorging');
+					target.m.headSpecies = this.dex.deepClone(fSpecies);
+					return fSpecies;
+				}
+			}
+			if (bodySpecies.name === 'Cramorant') {
+				switch(headSpecies.name) {
+				case 'Arrokuda':
+					fSpecies = this.dex.species.get('Cramorant-Gulping');
+					target.m.bodySpecies = this.dex.deepClone(fSpecies);
+					return fSpecies;
+				case 'Pikachu':
+					fSpecies = this.dex.species.get('Cramorant-Gorging');
+					target.m.bodySpecies = this.dex.deepClone(fSpecies);
+					return fSpecies;
+				}
 			}
 
 			const fusionSpecies = this.dex.deepClone(species);
@@ -688,9 +713,13 @@ export const Formats: FormatList = [
 			return fusionSpecies;
 		},
 		onSwitchIn(pokemon) {
-			const baseSpecies = [pokemon.m.headSpecies?.baseSpecies, pokemon.m.bodySpecies?.baseSpecies];
+			const baseSpecies = [pokemon.m.headSpecies?.baseSpecies, pokemon.m.bodySpecies?.baseSpecies].sort();
 			if (baseSpecies.includes('Arceus')) pokemon.addVolatile('arceus');
 			if (baseSpecies.includes('Silvally')) pokemon.addVolatile('silvally');
+			if (baseSpecies.includes('Cramorant')) {
+				if (baseSpecies.includes('Arrokuda')) pokemon.formeChange('cramorantgulping');
+				if (baseSpecies.includes('Pikachu')) pokemon.formeChange('cramorantgorging');
+			}
 		},
 		onBegin() {
 			// prevent rayquaza from mega evolving
@@ -698,10 +727,12 @@ export const Formats: FormatList = [
 				if (pokemon.species.id === 'rayquaza') {
 					pokemon.canMegaEvo = null;
 				}
-				const headSpecies = this.dex.species.get(pokemon.set.name);
-				const bodySpecies = this.dex.species.get(pokemon.set.species);
-				if (headSpecies.exists) pokemon.m.headSpecies = headSpecies;
-				if (bodySpecies.exists) pokemon.m.bodySpecies = bodySpecies;
+				if (!pokemon.m.headSpecies || !pokemon.m.bodySpecies) {
+					const headSpecies = this.dex.species.get(pokemon.set.name);
+					const bodySpecies = this.dex.species.get(pokemon.set.species);
+					if (headSpecies.exists) pokemon.m.headSpecies = headSpecies;
+					if (bodySpecies.exists) pokemon.m.bodySpecies = bodySpecies;
+				}
 			}
 		},
 	},
