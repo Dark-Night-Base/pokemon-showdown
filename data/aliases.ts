@@ -109,6 +109,7 @@ export const Aliases: {[alias: string]: string} = {
 	"500bh": "[Gen 8] Balanced Hackmons 500 Cup",
 	bh500: "[Gen 8] Balanced Hackmons 500 Cup",
 	bc: "[Gen 9] Balanced Createmons",
+	if: "[Gen 9] ND Infinite Fusion",
 	fortebh: "[Gen 9] Fortemons BH",
 	fortbh: "[Gen 9] Fortemons BH",
 	bhdubs: "[Gen 8] Balanced Hackmons Doubles",
