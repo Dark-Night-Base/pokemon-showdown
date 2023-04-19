@@ -2741,7 +2741,10 @@ export const Rulesets: {[k: string]: FormatData} = {
 			this.add('clearpoke');
 			for (const side of this.sides) {
 				for (const pokemon of side.pokemon) {
-					const details = pokemon.details;
+					let details = pokemon.details;
+					if (this.ruleTable.has(`nicknamepreview`)) {
+						if (pokemon.name) details += `, headname:${pokemon.name}`;
+					}
 					this.add('poke', pokemon.side.id, details, '');
 				}
 			}
@@ -2866,6 +2869,12 @@ export const Rulesets: {[k: string]: FormatData} = {
 			buf += '<li style="clear:both"></li></ul></div>';
 			this.add(`${buf}</span>`);
 		},
+	},
+	nicknamepreview: {
+		effectType: 'Rule',
+		name: 'Nickname Preview',
+		desc: "Allows each player to see the Nickname of the Pok&eacute;mon on their opponent's team before they choose their lead Pok&eacute;mon",
+		// implemented in team species preview
 	},
 	voltturnmayhemmod: {
 		effectType: 'Rule',

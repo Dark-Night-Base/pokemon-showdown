@@ -460,7 +460,7 @@ export const Formats: FormatList = [
 		mod: 'infinitefusion',
 		// debug: true,
 		ruleset: [
-			'Obtainable', '+Past', '+Unobtainable', '+Unreleased', 'Team Species Preview', '!!EV Limit = 1020', 'Species Clause',
+			'Obtainable', '+Past', '+Unobtainable', '+Unreleased', 'Team Species Preview', 'Nickname Preview', '!!EV Limit = 1020', 'Species Clause',
 			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'Sketch Post-Gen 7 Moves', 'Dynamax Clause', 'Terastal Clause',
 			'OHKO Clause',
 		],
@@ -753,6 +753,20 @@ export const Formats: FormatList = [
 					if (headSpecies.exists) pokemon.m.headSpecies = headSpecies;
 					if (bodySpecies.exists) pokemon.m.bodySpecies = bodySpecies;
 				}
+				pokemon.getDetails = () => {
+					const health = pokemon.getHealth();
+					let details = pokemon.details;
+					if (pokemon.m.headSpecies) details += `, headname:${pokemon.m.headSpecies.name}`;
+					if (pokemon.illusion) {
+						const illusionDetails = pokemon.illusion.species.name + (pokemon.level === 100 ? '' : ', L' + pokemon.level) +
+							(pokemon.illusion.gender === '' ? '' : ', ' + pokemon.illusion.gender) + (pokemon.illusion.set.shiny ? ', shiny' : '');
+						if (pokemon.illusion.m.headSpecies) details += `, headname:${pokemon.illusion.m.headSpecies.name}`;
+						details = illusionDetails;
+					}
+					if (pokemon.terastallized) details += `, tera:${pokemon.terastallized}`;
+					this.debug(details);
+					return {side: health.side, secret: `${details}|${health.secret}`, shared: `${details}|${health.shared}`};
+				};
 			}
 		},
 	},
