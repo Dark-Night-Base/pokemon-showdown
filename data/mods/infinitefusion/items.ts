@@ -3,14 +3,14 @@ export const Items: {[k: string]: ModdedItemData} = {
 	adamantcrystal: {
 		inherit: true,
 		onBasePower(basePower, user, target, move) {
-			const nums = [user.m.haedSpecies?.num, user.m.bodySpecies?.num];
+			const nums = [user.m.headSpecies?.num, user.m.bodySpecies?.num];
 			if (nums.includes(483) && (move.type === 'Steel' || move.type === 'Dragon')) {
 				return this.chainModify([4915, 4096]);
 			}
 		},
 		onTakeItem(item, pokemon, source) {
-			const sourceNums = [source.m.haedSpecies?.num, source.m.bodySpecies?.num];
-			const pokemonNums = [pokemon.m.haedSpecies?.num, pokemon.m.bodySpecies?.num];
+			const sourceNums = [source.m.headSpecies?.num, source.m.bodySpecies?.num];
+			const pokemonNums = [pokemon.m.headSpecies?.num, pokemon.m.bodySpecies?.num];
 			if (sourceNums.includes(483) || pokemonNums.includes(483)) {
 				return false;
 			}
@@ -21,7 +21,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 	adamantorb: {
 		inherit: true,
 		onBasePower(basePower, user, target, move) {
-			const nums = [user.m.haedSpecies?.num, user.m.bodySpecies?.num];
+			const nums = [user.m.headSpecies?.num, user.m.bodySpecies?.num];
 			if (nums.includes(483) && (move.type === 'Steel' || move.type === 'Dragon')) {
 				return this.chainModify([4915, 4096]);
 			}
@@ -30,7 +30,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 	deepseascale: {
 		inherit: true,
 		onModifySpD(spd, pokemon) {
-			const nums = [pokemon.m.haedSpecies?.num, pokemon.m.bodySpecies?.num];
+			const nums = [pokemon.m.headSpecies?.num, pokemon.m.bodySpecies?.num];
 			if (nums.includes(366)) {
 				return this.chainModify(2);
 			}
@@ -39,7 +39,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 	deepseatooth: {
 		inherit: true,
 		onModifySpA(spa, pokemon) {
-			const nums = [pokemon.m.haedSpecies?.num, pokemon.m.bodySpecies?.num];
+			const nums = [pokemon.m.headSpecies?.num, pokemon.m.bodySpecies?.num];
 			if (nums.includes(366)) {
 				return this.chainModify(2);
 			}
@@ -48,14 +48,14 @@ export const Items: {[k: string]: ModdedItemData} = {
 	griseouscore: {
 		inherit: true,
 		onBasePower(basePower, user, target, move) {
-			const nums = [user.m.haedSpecies?.num, user.m.bodySpecies?.num];
+			const nums = [user.m.headSpecies?.num, user.m.bodySpecies?.num];
 			if (nums.includes(487) && (move.type === 'Ghost' || move.type === 'Dragon')) {
 				return this.chainModify([4915, 4096]);
 			}
 		},
 		onTakeItem(item, pokemon, source) {
-			const sourceNums = [source.m.haedSpecies?.num, source.m.bodySpecies?.num];
-			const pokemonNums = [pokemon.m.haedSpecies?.num, pokemon.m.bodySpecies?.num];
+			const sourceNums = [source.m.headSpecies?.num, source.m.bodySpecies?.num];
+			const pokemonNums = [pokemon.m.headSpecies?.num, pokemon.m.bodySpecies?.num];
 			if (sourceNums.includes(487) || pokemonNums.includes(487)) {
 				return false;
 			}
@@ -65,7 +65,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 	griseousorb: {
 		inherit: true,
 		onBasePower(basePower, user, target, move) {
-			const nums = [user.m.haedSpecies?.num, user.m.bodySpecies?.num];
+			const nums = [user.m.headSpecies?.num, user.m.bodySpecies?.num];
 			if (nums.includes(487) && (move.type === 'Ghost' || move.type === 'Dragon')) {
 				return this.chainModify([4915, 4096]);
 			}
@@ -74,7 +74,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 	leek: {
 		inherit: true,
 		onModifyCritRatio(critRatio, user) {
-			const nums = [user.m.haedSpecies?.num, user.m.bodySpecies?.num];
+			const nums = [user.m.headSpecies?.num, user.m.bodySpecies?.num];
 			if (nums.includes(83) || nums.includes(865)) {
 				return critRatio + 2;
 			}
@@ -83,14 +83,15 @@ export const Items: {[k: string]: ModdedItemData} = {
 	lightball: {
 		inherit: true,
 		onModifyAtk(atk, pokemon) {
-			const nums = [pokemon.m.haedSpecies?.num, pokemon.m.bodySpecies?.num];
+			const nums = [pokemon.m.headSpecies?.num, pokemon.m.bodySpecies?.num];
+			this.debug(nums.join(','));
 			// rule out cramorant-gorging
 			if (nums.includes(25)) {
 				return this.chainModify(2);
 			}
 		},
 		onModifySpA(spa, pokemon) {
-			const nums = [pokemon.m.haedSpecies?.num, pokemon.m.bodySpecies?.num];
+			const nums = [pokemon.m.headSpecies?.num, pokemon.m.bodySpecies?.num];
 			// rule out cramorant-gorging
 			if (nums.includes(25)) {
 				return this.chainModify(2);
@@ -100,7 +101,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 	luckypunch: {
 		inherit: true,
 		onModifyCritRatio(critRatio, user) {
-			const nums = [user.m.haedSpecies?.num, user.m.bodySpecies?.num];
+			const nums = [user.m.headSpecies?.num, user.m.bodySpecies?.num];
 			if (nums.includes(113)) {
 				return critRatio + 2;
 			}
@@ -109,14 +110,14 @@ export const Items: {[k: string]: ModdedItemData} = {
 	lustrousglobe: {
 		inherit: true,
 		onBasePower(basePower, user, target, move) {
-			const nums = [user.m.haedSpecies?.num, user.m.bodySpecies?.num];
+			const nums = [user.m.headSpecies?.num, user.m.bodySpecies?.num];
 			if (nums.includes(484) && (move.type === 'Water' || move.type === 'Dragon')) {
 				return this.chainModify([4915, 4096]);
 			}
 		},
 		onTakeItem(item, pokemon, source) {
-			const sourceNums = [source.m.haedSpecies?.num, source.m.bodySpecies?.num];
-			const pokemonNums = [pokemon.m.haedSpecies?.num, pokemon.m.bodySpecies?.num];
+			const sourceNums = [source.m.headSpecies?.num, source.m.bodySpecies?.num];
+			const pokemonNums = [pokemon.m.headSpecies?.num, pokemon.m.bodySpecies?.num];
 			if (sourceNums.includes(484) || pokemonNums.includes(484)) {
 				return false;
 			}
@@ -126,7 +127,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 	lustrousorb: {
 		inherit: true,
 		onBasePower(basePower, user, target, move) {
-			const nums = [user.m.haedSpecies?.num, user.m.bodySpecies?.num];
+			const nums = [user.m.headSpecies?.num, user.m.bodySpecies?.num];
 			if (nums.includes(484) && (move.type === 'Water' || move.type === 'Dragon')) {
 				return this.chainModify([4915, 4096]);
 			}
@@ -135,7 +136,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 	metalpowder: {
 		inherit: true,
 		onModifyDef(def, pokemon) {
-			const nums = [pokemon.m.haedSpecies?.num, pokemon.m.bodySpecies?.num];
+			const nums = [pokemon.m.headSpecies?.num, pokemon.m.bodySpecies?.num];
 			if (nums.includes(132) && !pokemon.transformed) {
 				return this.chainModify(2);
 			}
@@ -144,7 +145,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 	quickpowder: {
 		inherit: true,
 		onModifySpe(spe, pokemon) {
-			const nums = [pokemon.m.haedSpecies?.num, pokemon.m.bodySpecies?.num];
+			const nums = [pokemon.m.headSpecies?.num, pokemon.m.bodySpecies?.num];
 			if (nums.includes(132) && !pokemon.transformed) {
 				return this.chainModify(2);
 			}
@@ -153,7 +154,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 	thickclub: {
 		inherit: true,
 		onModifyAtk(atk, pokemon) {
-			const nums = [pokemon.m.haedSpecies?.num, pokemon.m.bodySpecies?.num];
+			const nums = [pokemon.m.headSpecies?.num, pokemon.m.bodySpecies?.num];
 			if (nums.includes(104) || nums.includes(105)) {
 				return this.chainModify(2);
 			}
@@ -162,7 +163,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 	souldew: {
 		inherit: true,
 		onBasePower(basePower, user, target, move) {
-			const nums = [user.m.haedSpecies?.num, user.m.bodySpecies?.num];
+			const nums = [user.m.headSpecies?.num, user.m.bodySpecies?.num];
 			if (
 				move && (nums.includes(380) || nums.includes(381)) &&
 				(move.type === 'Psychic' || move.type === 'Dragon')

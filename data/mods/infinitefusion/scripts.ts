@@ -6,8 +6,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			const item = this.data.Items[id];
 			if (item.onPlate) {
 				this.modData('Items', id).onTakeItem = function (item: Item, pokemon: Pokemon, source: Pokemon) {
-					const sourceNums = [source.m.haedSpecies?.num, source.m.bodySpecies?.num];
-					const pokemonNums = [pokemon.m.haedSpecies?.num, pokemon.m.bodySpecies?.num];
+					const sourceNums = [source.m.headSpecies?.num, source.m.bodySpecies?.num];
+					const pokemonNums = [pokemon.m.headSpecies?.num, pokemon.m.bodySpecies?.num];
 					if (sourceNums.includes(493) || pokemonNums.includes(493)) {
 						return false;
 					}
@@ -16,8 +16,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 			if (item.onDrive) {
 				this.modData('Items', id).onTakeItem = function (item: Item, pokemon: Pokemon, source: Pokemon) {
-					const sourceNums = [source.m.haedSpecies?.num, source.m.bodySpecies?.num];
-					const pokemonNums = [pokemon.m.haedSpecies?.num, pokemon.m.bodySpecies?.num];
+					const sourceNums = [source.m.headSpecies?.num, source.m.bodySpecies?.num];
+					const pokemonNums = [pokemon.m.headSpecies?.num, pokemon.m.bodySpecies?.num];
 					if (sourceNums.includes(649) || pokemonNums.includes(649)) {
 						return false;
 					}
@@ -26,8 +26,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 			if (item.onMemory) {
 				this.modData('Items', id).onTakeItem = function (item: Item, pokemon: Pokemon, source: Pokemon) {
-					const sourceNums = [source.m.haedSpecies?.num, source.m.bodySpecies?.num];
-					const pokemonNums = [pokemon.m.haedSpecies?.num, pokemon.m.bodySpecies?.num];
+					const sourceNums = [source.m.headSpecies?.num, source.m.bodySpecies?.num];
+					const pokemonNums = [pokemon.m.headSpecies?.num, pokemon.m.bodySpecies?.num];
 					if (sourceNums.includes(773) || pokemonNums.includes(773)) {
 						return false;
 					}
