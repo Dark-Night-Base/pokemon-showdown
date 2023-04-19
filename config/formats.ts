@@ -1326,6 +1326,10 @@ export const Formats: FormatList = [
 			// multi-hit moves banned by multihitmovesclause
 			'Covert Cloak',
 		],
+		unbanlist: [
+			'Miraidon',
+			'Gorilla Tactics', 'Orichalcum Pulse',
+		],
 		validateSet(set, teamHas) {
 			const item = set.item;
 			const move = this.dex.moves.get(item);
@@ -2421,9 +2425,6 @@ export const Formats: FormatList = [
 
 		mod: 'thecardgame',
 		ruleset: ['[Gen 9] Balanced Hackmons'],
-		banlist: [
-			'Miraidon',
-		],
 		unbanlist: [
 			'Calyrex-Shadow', 'Zacian-Crowned',
 		],
