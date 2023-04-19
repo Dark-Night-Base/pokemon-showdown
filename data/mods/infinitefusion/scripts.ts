@@ -61,7 +61,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					(this.gender === '' ? '' : ', ' + this.gender) + (this.set.shiny ? ', shiny' : '');
 				// Nihilslave: add headname
 				const headName = this.m.headSpecies ? this.m.headSpecies.name : this.name;
-				this.details += ', head:' + headName;
+				this.details += ', headname:' + headName;
 				let details = (this.illusion || this).details;
 				if (this.terastallized) details += `, tera:${this.terastallized}`;
 				this.battle.add('detailschange', this, details);
