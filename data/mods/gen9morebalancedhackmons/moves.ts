@@ -248,6 +248,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		category: "Special",
 		flags: {bullet: 1, protect: 1, mirror: 1},
 		zMove: {basePower: 160},
+		type: "Ground",
 	},
 	trickroom: {
 		// for room service
