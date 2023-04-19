@@ -730,9 +730,9 @@ export const Formats: FormatList = [
 					let details = pokemon.details;
 					if (pokemon.m.headSpecies) details += `, headname:${pokemon.m.headSpecies.name}`;
 					if (pokemon.illusion) {
-						const illusionDetails = pokemon.illusion.species.name + (pokemon.level === 100 ? '' : ', L' + pokemon.level) +
+						let illusionDetails = pokemon.illusion.species.name + (pokemon.level === 100 ? '' : ', L' + pokemon.level) +
 							(pokemon.illusion.gender === '' ? '' : ', ' + pokemon.illusion.gender) + (pokemon.illusion.set.shiny ? ', shiny' : '');
-						if (pokemon.illusion.m.headSpecies) details += `, headname:${pokemon.illusion.m.headSpecies.name}`;
+						if (pokemon.illusion.m.headSpecies) illusionDetails += `, headname:${pokemon.illusion.m.headSpecies.name}`;
 						details = illusionDetails;
 					}
 					if (pokemon.terastallized) details += `, tera:${pokemon.terastallized}`;
