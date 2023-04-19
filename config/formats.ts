@@ -725,6 +725,7 @@ export const Formats: FormatList = [
 					if (headSpecies.exists) pokemon.m.headSpecies = headSpecies;
 					if (bodySpecies.exists) pokemon.m.bodySpecies = bodySpecies;
 				}
+				// send headSpecies to client
 				pokemon.getDetails = () => {
 					const health = pokemon.getHealth();
 					let details = pokemon.details;
