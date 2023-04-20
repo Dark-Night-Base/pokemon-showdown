@@ -10,16 +10,30 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		inherit: true,
 		flags: {contact: 1, protect: 1, mirror: 1, slicing: 1, heal: 1},
 	},
+	blazingtorque: {
+		inherit: true,
+		basePower: 100,
+		flags: {
+			contact: 1, protect: 1, failencore: 1, failmefirst: 1, nosleeptalk: 1, noassist: 1, failcopycat: 1, failinstruct: 1, failmimic: 1,
+		},
+		secondary: {
+			chance: 10,
+			status: 'brn',
+		},
+		desc: "Has a 10% chance to burn the target.",
+		shortDesc: "10% chance to burn the target.",
+	},
 	bleakwindstorm: {
 		inherit: true,
 		accuracy: 100,
 	},
 	boltbeak: {
 		inherit: true,
-		basePower: 75,
+		basePower: 70,
 	},
 	ceaselessedge: {
 		inherit: true,
+		accuracy: 100,
 		self: undefined,
 		// make it secondary for covert cloak
 		secondary: {
@@ -46,7 +60,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	},
 	fishiousrend: {
 		inherit: true,
-		basePower: 75,
+		basePower: 70,
 	},
 	luminacrash: {
 		inherit: true,
@@ -61,7 +75,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	},
 	magicaltorque: {
 		inherit: true,
-		flags: {contact: 1, protect: 1},
+		flags: {
+			contact: 1, protect: 1, failencore: 1, failmefirst: 1, nosleeptalk: 1, noassist: 1, failcopycat: 1, failinstruct: 1, failmimic: 1,
+		},
 		secondary: {
 			chance: 10,
 			volatileStatus: 'confusion',
@@ -235,6 +251,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	},
 	stoneaxe: {
 		inherit: true,
+		accuracy: 100,
 		self: undefined,
 		// make it secondary for covert cloak
 		secondary: {
@@ -297,6 +314,22 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		zMove: {basePower: 190},
 		desc: "Lowers the user's Speed, Defense, and Special Defense by 1 stage. Damage is multiplied by 1.2 if this move is super effective against the target.",
 		shortDesc: "-1 Def, -1 SpD, -1 Spe. 1.2x damage when supereffective.",
+	},
+	wickedtorque: {
+		inherit: true,
+		basePower: 100,
+		flags: {
+			contact: 1, protect: 1, failencore: 1, failmefirst: 1, nosleeptalk: 1, noassist: 1, failcopycat: 1, failinstruct: 1, failmimic: 1,
+		},
+		secondary: {
+			chance: 100,
+			onHit(target, source, move) {
+				// see gmaxmeltdown
+				if (target.status || target.hasAbility('comatose')) target.addVolatile('taunt', target, move);
+			},
+		},
+		desc: "Taunt the target if it has a non-volatile status condition.",
+		shortDesc: "Taunt the target if it has a status ailment.",
 	},
 	wildboltstorm: {
 		inherit: true,

@@ -1,4 +1,14 @@
 export const Pokedex: {[k: string]: ModdedSpeciesData} = {
+	abomasnow: {
+		inherit: true,
+		baseStats: {hp: 90, atk: 90, def: 85, spa: 90, spd: 85, spe: 60},
+	},
+	abomasnowmega: {
+		inherit: true,
+		baseStats: {hp: 90, atk: 120, def: 120, spa: 120, spd: 120, spe: 30},
+		types: ["Grass", "Water"],
+		abilities: {0: "Drizzle"},
+	},
 	brutebonnet: {
 		inherit: true,
 		types: ["Poison", "Dark"],
@@ -41,6 +51,10 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		inherit: true,
 		baseStats: {hp: 120, atk: 70, def: 130, spa: 75, spd: 130, spe: 75},
 	},
+	darmanitangalarzen: {
+		inherit: true,
+		baseStats: {hp: 105, atk: 130, def: 55, spa: 30, spd: 55, spe: 135},
+	},
 	genesectdouse: {
 		inherit: true,
 		types: ["Water", "Steel"],
@@ -65,9 +79,17 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		inherit: true,
 		baseStats: {hp: 112, atk: 80, def: 100, spa: 133, spd: 91, spe: 84},
 	},
+	hooh: {
+		inherit: true,
+		baseStats: {hp: 106, atk: 140, def: 110, spa: 100, spd: 134, spe: 90},
+	},
 	irontreads: {
 		inherit: true,
 		baseStats: {hp: 130, atk: 110, def: 80, spa: 50, spd: 120, spe: 80},
+	},
+	lugia: {
+		inherit: true,
+		baseStats: {hp: 106, atk: 90, def: 140, spa: 110, spd: 134, spe: 100},
 	},
 	pincurchin: {
 		inherit: true,

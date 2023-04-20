@@ -84,6 +84,77 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		desc: "If this Pokemon is a Cramorant, it changes forme when it hits a target with Surf or uses the first turn of Dive successfully. It becomes Gulping Form with an Arrokuda in its mouth if it has more than 1/2 of its maximum HP remaining, or Gorging Form with a Pikachu in its mouth if it has 1/2 or less of its maximum HP remaining. If Cramorant gets hit in Gulping or Gorging Form, it spits the Arrokuda or Pikachu at its attacker, even if it has no HP remaining. The projectile deals damage equal to 1/4 of the target's maximum HP, rounded down; this damage is blocked by the Magic Guard Ability but not by a substitute. An Arrokuda also lowers the target's Defense and Special Defense by 1 stage, and a Pikachu lowers the target's Speed by 2 stage. Cramorant will return to normal if it spits out a projectile, switches out, or Dynamaxes.",
 		shortDesc: "When hit after Surf/Dive, attacker takes 1/4 max HP and -1 Defenses or -2 Speed.",
 	},
+	hadronengine: {
+		inherit: true,
+		onStart(pokemon) {
+			// why?
+			// if (!this.field.setTerrain('electricterrain') && this.field.isTerrain('electricterrain')) {
+			// 	this.add('-activate', pokemon, 'ability: Hadron Engine');
+			// }
+
+			// not quite sure but i think this should work
+			if (this.field.setTerrain('electricterrain')) {
+				// do nothing
+			} else if (this.field.isTerrain('electricterrain')) {
+				this.singleEvent('TerrainChange', this.effect, this.effectState, pokemon);
+			}
+		},
+		onTerrainChange(pokemon) {
+			if (pokemon.transformed) return;
+			if (this.field.isTerrain('electricterrain')) {
+				pokemon.addVolatile('hadronengine');
+			} else {
+				pokemon.removeVolatile('hadronengine');
+			}
+		},
+		onEnd(pokemon) {
+			delete pokemon.volatiles['hadronengine'];
+			this.add('-end', pokemon, 'Hadron Engine', '[silent]');
+		},
+		condition: {
+			noCopy: true,
+			onStart(pokemon, source, effect) {
+				this.add('-activate', pokemon, 'ability: Hadron Engine');
+				this.effectState.bestStat = pokemon.getBestStat(false, true);
+				this.add('-start', pokemon, 'hadronengine' + this.effectState.bestStat);
+			},
+			onModifyAtkPriority: 5,
+			onModifyAtk(atk, source, target, move) {
+				if (this.effectState.bestStat !== 'atk') return;
+				this.debug('Hadron Engine atk boost');
+				return this.chainModify([5325, 4096]);
+			},
+			onModifyDefPriority: 6,
+			onModifyDef(def, target, source, move) {
+				if (this.effectState.bestStat !== 'def') return;
+				this.debug('Hadron Engine def boost');
+				return this.chainModify([5325, 4096]);
+			},
+			onModifySpAPriority: 5,
+			onModifySpA(relayVar, source, target, move) {
+				if (this.effectState.bestStat !== 'spa') return;
+				this.debug('Hadron Engine spa boost');
+				return this.chainModify([5325, 4096]);
+			},
+			onModifySpDPriority: 6,
+			onModifySpD(relayVar, target, source, move) {
+				if (this.effectState.bestStat !== 'spd') return;
+				this.debug('Hadron Engine spd boost');
+				return this.chainModify([5325, 4096]);
+			},
+			onModifySpe(spe, pokemon) {
+				if (this.effectState.bestStat !== 'spe') return;
+				this.debug('Hadron Engine spe boost');
+				return this.chainModify(1.5);
+			},
+			onEnd(pokemon) {
+				this.add('-end', pokemon, 'Hadron Engine');
+			},
+		},
+		onModifySpAPriority: undefined,
+		onModifySpA(atk, attacker, defender, move) {},
+		shortDesc: "Summons Electric Terrain. Electric Terrain active: highest stat is 1.3x, 1.5x if Speed.",
+	},
 	magician: {
 		inherit: true,
 		onAfterMoveSecondarySelf(source, target, move) {},
@@ -138,6 +209,71 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		desc: "While this Pokemon is active, opposing Pokemon's moves and their effects ignore its own Ability. Does not affect the As One, Battle Bond, Comatose, Disguise, Gulp Missile, Ice Face, Multitype, Power Construct, RKS System, Schooling, Shields Down, Stance Change, or Zen Mode Abilities.",
 		shortDesc: "While this Pokemon is active, opposing Pokemon's Ability has no effect when it uses moves.",
 	},
+	orichalcumpulse: {
+		inherit: true,
+		onStart(pokemon) {
+			if (this.field.setWeather('sunnyday')) {
+				// do nothing
+			} else if (this.field.isWeather(['sunnyday', 'desolateland'])) {
+				this.singleEvent('WeatherChange', this.effect, this.effectState, pokemon);
+			}
+		},
+		onWeatherChange(pokemon) {
+			if (pokemon.transformed) return;
+			if (this.field.isWeather(['sunnyday', 'desolateland'])) {
+				pokemon.addVolatile('orichalcumpulse');
+			} else {
+				pokemon.removeVolatile('orichalcumpulse');
+			}
+		},
+		onEnd(pokemon) {
+			delete pokemon.volatiles['orichalcumpulse'];
+			this.add('-end', pokemon, 'Orichalcum Pulse', '[silent]');
+		},
+		onModifyAtkPriority: undefined,
+		onModifyAtk(atk, pokemon) {},
+		condition: {
+			noCopy: true,
+			onStart(pokemon, source, effect) {
+				this.add('-activate', pokemon, 'ability: Orichalcum Pulse');
+				this.effectState.bestStat = pokemon.getBestStat(false, true);
+				this.add('-start', pokemon, 'orichalcumpulse' + this.effectState.bestStat);
+			},
+			onModifyAtkPriority: 5,
+			onModifyAtk(atk, source, target, move) {
+				if (this.effectState.bestStat !== 'atk') return;
+				this.debug('Orichalcum Pulse atk boost');
+				return this.chainModify([5325, 4096]);
+			},
+			onModifyDefPriority: 6,
+			onModifyDef(def, target, source, move) {
+				if (this.effectState.bestStat !== 'def') return;
+				this.debug('Orichalcum Pulse def boost');
+				return this.chainModify([5325, 4096]);
+			},
+			onModifySpAPriority: 5,
+			onModifySpA(relayVar, source, target, move) {
+				if (this.effectState.bestStat !== 'spa') return;
+				this.debug('Orichalcum Pulse spa boost');
+				return this.chainModify([5325, 4096]);
+			},
+			onModifySpDPriority: 6,
+			onModifySpD(relayVar, target, source, move) {
+				if (this.effectState.bestStat !== 'spd') return;
+				this.debug('Orichalcum Pulse spd boost');
+				return this.chainModify([5325, 4096]);
+			},
+			onModifySpe(spe, pokemon) {
+				if (this.effectState.bestStat !== 'spe') return;
+				this.debug('Orichalcum Pulse spe boost');
+				return this.chainModify(1.5);
+			},
+			onEnd(pokemon) {
+				this.add('-end', pokemon, 'Orichalcum Pulse');
+			},
+		},
+		shortDesc: "Summons Sunny Day. Sunny Day active: highest stat is 1.3x, 1.5x if Speed.",
+	},
 	prankster: {
 		// for ngas
 		inherit: true,
@@ -153,6 +289,56 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				return priority + 1;
 			}
 		},
+	},
+	protosynthesis: {
+		inherit: true,
+		condition: {
+			noCopy: true,
+			onStart(pokemon, source, effect) {
+				if (effect?.id === 'boosterenergy') {
+					this.effectState.fromBooster = true;
+					this.add('-activate', pokemon, 'ability: Protosynthesis', '[fromitem]');
+				} else {
+					this.add('-activate', pokemon, 'ability: Protosynthesis');
+				}
+				this.effectState.bestStat = pokemon.getBestStat(false, true);
+				this.add('-start', pokemon, 'protosynthesis' + this.effectState.bestStat);
+			},
+			onModifyAtkPriority: 5,
+			onModifyAtk(atk, source, target, move) {
+				if (this.effectState.bestStat !== 'atk') return;
+				this.debug('Protosynthesis atk boost');
+				return this.chainModify(1.5);
+			},
+			onModifyDefPriority: 6,
+			onModifyDef(def, target, source, move) {
+				if (this.effectState.bestStat !== 'def') return;
+				this.debug('Protosynthesis def boost');
+				return this.chainModify(1.5);
+			},
+			onModifySpAPriority: 5,
+			onModifySpA(relayVar, source, target, move) {
+				if (this.effectState.bestStat !== 'spa') return;
+				this.debug('Protosynthesis spa boost');
+				return this.chainModify(1.5);
+			},
+			onModifySpDPriority: 6,
+			onModifySpD(relayVar, target, source, move) {
+				if (this.effectState.bestStat !== 'spd') return;
+				this.debug('Protosynthesis spd boost');
+				return this.chainModify(1.5);
+			},
+			onModifySpe(spe, pokemon) {
+				if (this.effectState.bestStat !== 'spe') return;
+				this.debug('Protosynthesis spe boost');
+				return this.chainModify(1.5);
+			},
+			onEnd(pokemon) {
+				this.add('-end', pokemon, 'Protosynthesis');
+			},
+		},
+		desc: "If Sunny Day is active or this Pokemon uses a held Booster Energy, this Pokemon's highest stat is multiplied by 1.5. Stat stage changes are considered at the time this Ability activates. If multiple stats are tied, Attack, Defense, Special Attack, Special Defense, and Speed are prioritized in that order. If this effect was started by Sunny Day, a held Booster Energy will not activate and the effect ends when Sunny Day is no longer active. If this effect was started by a held Booster Energy, it ends when this Pokemon is no longer active.",
+		shortDesc: "Sunny Day active or Booster Energy used: highest stat is 1.5x.",
 	},
 	purepower: {
 		inherit: true,
@@ -176,6 +362,56 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		shortDesc: "This Pokemon's attacks ignore its own stat drops and have no recoil.",
+	},
+	quarkdrive: {
+		inherit: true,
+		condition: {
+			noCopy: true,
+			onStart(pokemon, source, effect) {
+				if (effect?.id === 'boosterenergy') {
+					this.effectState.fromBooster = true;
+					this.add('-activate', pokemon, 'ability: Quark Drive', '[fromitem]');
+				} else {
+					this.add('-activate', pokemon, 'ability: Quark Drive');
+				}
+				this.effectState.bestStat = pokemon.getBestStat(false, true);
+				this.add('-start', pokemon, 'quarkdrive' + this.effectState.bestStat);
+			},
+			onModifyAtkPriority: 5,
+			onModifyAtk(atk, source, target, move) {
+				if (this.effectState.bestStat !== 'atk') return;
+				this.debug('Quark Drive atk boost');
+				return this.chainModify(1.5);
+			},
+			onModifyDefPriority: 6,
+			onModifyDef(def, target, source, move) {
+				if (this.effectState.bestStat !== 'def') return;
+				this.debug('Quark Drive def boost');
+				return this.chainModify(1.5);
+			},
+			onModifySpAPriority: 5,
+			onModifySpA(relayVar, source, target, move) {
+				if (this.effectState.bestStat !== 'spa') return;
+				this.debug('Quark Drive spa boost');
+				return this.chainModify(1.5);
+			},
+			onModifySpDPriority: 6,
+			onModifySpD(relayVar, target, source, move) {
+				if (this.effectState.bestStat !== 'spd') return;
+				this.debug('Quark Drive spd boost');
+				return this.chainModify(1.5);
+			},
+			onModifySpe(spe, pokemon) {
+				if (this.effectState.bestStat !== 'spe') return;
+				this.debug('Quark Drive spe boost');
+				return this.chainModify(1.5);
+			},
+			onEnd(pokemon) {
+				this.add('-end', pokemon, 'Quark Drive');
+			},
+		},
+		desc: "If Electric Terrain is active or this Pokemon uses a held Booster Energy, this Pokemon's highest stat is multiplied by 1.5. Stat stage changes are considered at the time this Ability activates. If multiple stats are tied, Attack, Defense, Special Attack, Special Defense, and Speed are prioritized in that order. If this effect was started by Electric Terrain, a held Booster Energy will not activate and the effect ends when Electric Terrain is no longer active. If this effect was started by a held Booster Energy, it ends when this Pokemon is no longer active.",
+		shortDesc: "Electric Terrain active or Booster Energy used: highest stat is 1.5x.",
 	},
 	shadowtag: {
 		inherit: true,
