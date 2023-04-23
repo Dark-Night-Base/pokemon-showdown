@@ -598,6 +598,8 @@ export const Formats: FormatList = [
 			set.ability = bodySpecies.abilities[0];
 			problems = this.validateSet(set, teamHas);
 			set.ability = ability.name;
+			// Nihilslave: if the pokemon is a special fusion, change it here
+			if (fusionSpecies.species) set.name = set.species = fusionSpecies.species.name;
 			return problems;
 		},
 		onModifySpecies(species, target, source, effect) {
@@ -613,63 +615,9 @@ export const Formats: FormatList = [
 			const bodyBaseSpeciesID = this.dex.species.get(bodySpecies.baseSpecies).id;
 			if (toModifySpeciesID === headBaseSpeciesID) target.m.headSpecies = headSpecies = species;
 			if (toModifySpeciesID === bodyBaseSpeciesID) target.m.bodySpecies = bodySpecies = species;
-			let fSpecies;
+			// special fusion
 			if (headSpecies.name === bodySpecies.name) {
-				const specialSelfFusions: {[key: string]: string} = {
-					deoxys: 'Deoxys-Attack',
-					rotom: 'Rotom-Heat',
-					shaymin: 'Shaymin-Sky',
-					// darmanitan: 'Darmanitan-Zen',
-					keldeo: 'Keldeo-Resolute',
-					meloetta: 'Meloetta-Pirouette',
-					greninja: 'Greninja-Ash',
-					floette: 'Floette-Eternal',
-					zygarde: 'Zygarde-Complete',
-					hoopa: 'Hoopa-Unbound',
-					lycanroc: 'Lycanroc-Dusk',
-					wishiwashi: 'Wishiwashi-School',
-					necrozma: 'Necrozma-Ultra',
-					// cramorant: 'Cramorant-Gorging',
-					eternatus: 'Eternatus-Eternamax',
-					palafin: 'Palafin-Hero',
-				};
-				if (headSpecies.id in specialSelfFusions) {
-					fSpecies = this.dex.species.get(specialSelfFusions[headSpecies.id])
-					target.m.headSpecies = this.dex.deepClone(fSpecies);
-					target.m.bodySpecies = this.dex.deepClone(fSpecies);
-					return fSpecies;
-				}
-				if (headSpecies.otherFormes) {
-					for (const forme of headSpecies.otherFormes) {
-						if (forme.endsWith('-Mega') || forme.endsWith('-Mega-Y') ||
-							forme.endsWith('-Primal') ||
-							forme.endsWith('-Origin') ||
-							forme.endsWith('-Therian') ||
-							forme.endsWith('-Starter') ||
-							forme.endsWith('-Crowned')
-						) {
-							fSpecies = this.dex.species.get(forme);
-							target.m.headSpecies = this.dex.deepClone(fSpecies);
-							target.m.bodySpecies = this.dex.deepClone(fSpecies);
-							return fSpecies;
-						}
-					}
-				}
-				return this.dex.deepClone(headSpecies);
-			}
-			const pair = [headSpecies.name, bodySpecies.name].sort();
-			if (pair[0] === 'Kyurem' && pair[1] === 'Reshiram') fSpecies = this.dex.species.get('Kyurem-White');
-			if (pair[0] === 'Kyurem' && pair[1] === 'Zekrom') fSpecies = this.dex.species.get('Kyurem-Black');
-			if (pair[0] === 'Necrozma' && pair[1] === 'Solgaleo') fSpecies = this.dex.species.get('Necrozma-Dusk-Mane');
-			if (pair[0] === 'Lunala' && pair[1] === 'Necrozma') fSpecies = this.dex.species.get('Necrozma-Dawn-Wings');
-			if (pair[0] === 'Calyrex' && pair[1] === 'Glastrier') fSpecies = this.dex.species.get('Calyrex-Ice');
-			if (pair[0] === 'Calyrex' && pair[1] === 'Spectrier') fSpecies = this.dex.species.get('Calyrex-Shadow');
-			if (pair[0] === 'Arrokuda' && pair[1] === 'Cramorant') fSpecies = this.dex.species.get('Cramorant-Gulping');
-			if (pair[0] === 'Cramorant' && pair[1] === 'Pikachu') fSpecies = this.dex.species.get('Cramorant-Gorging');
-			if (fSpecies) {
-				target.m.headSpecies = this.dex.deepClone(fSpecies);
-				target.m.bodySpecies = this.dex.deepClone(fSpecies);
-				return fSpecies;
+				return this.dex.species.get(headSpecies.name);
 			}
 
 			const fusionSpecies = this.dex.deepClone(species);

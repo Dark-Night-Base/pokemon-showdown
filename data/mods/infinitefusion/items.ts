@@ -84,15 +84,12 @@ export const Items: {[k: string]: ModdedItemData} = {
 		inherit: true,
 		onModifyAtk(atk, pokemon) {
 			const nums = [pokemon.m.headSpecies?.num, pokemon.m.bodySpecies?.num];
-			this.debug(nums.join(','));
-			// rule out cramorant-gorging
 			if (nums.includes(25)) {
 				return this.chainModify(2);
 			}
 		},
 		onModifySpA(spa, pokemon) {
 			const nums = [pokemon.m.headSpecies?.num, pokemon.m.bodySpecies?.num];
-			// rule out cramorant-gorging
 			if (nums.includes(25)) {
 				return this.chainModify(2);
 			}
