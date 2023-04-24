@@ -65,4 +65,7 @@ export const commands: Chat.ChatCommands = {
 		if (body > 890 || body < 1 || body === 848) return;
 		getter.push(args[0], args[1]);
 	},
+	ifinfo(target, room, user, connection) {
+		this.sendReplyBox(`spriteid in queue: ${getter.tasks.join('; ')}`);
+	},
 };
