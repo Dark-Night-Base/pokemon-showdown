@@ -34,29 +34,19 @@ class AWaitLock {
 class remoteSpriteGetter {
 	tasks: [string, string][] = [];
 	tasks_Lock: AWaitLock = new AWaitLock();
-	stopFlag: boolean = false;
-	constructor() {
-		this.start();
-	}
-	async start() {
-		this.stopFlag = false;
-		while (this.stopFlag === false) {
-			if (this.tasks[0]) {
-				await this.tasks_Lock.lock();
-				child_process.execSync(`python3 getRemoteIFSprite.py ${this.tasks[0][0]} ${this.tasks[0][1]}`,
-					{cwd: '/home/mc/pokemon-showdown-client/sprites'}
-				);
-				this.tasks = this.tasks.slice(1);
-				this.tasks_Lock.unlock();
-			}
+	constructor() {}
+	get() {
+		while (this.tasks.length > 0) {
+			child_process.execSync(`python3 getRemoteIFSprite.py ${this.tasks[0][0]} ${this.tasks[0][1]}`,
+				{cwd: '/home/mc/pokemon-showdown-client/sprites'}
+			);
+			this.tasks = this.tasks.slice(1);
 		}
-	}
-	stop() {
-		this.stopFlag = true;
 	}
 	async push(head: string, body: string) {
 		await this.tasks_Lock.lock();
 		this.tasks.push([head, body]);
+		if (this.tasks.length >= 6) this.get();
 		this.tasks_Lock.unlock();
 	}
 }
@@ -73,10 +63,6 @@ export const commands: Chat.ChatCommands = {
 		if (isNaN(head) || isNaN(body)) return;
 		if (head > 890 || head < 1 || head === 848) return;
 		if (body > 890 || body < 1 || body === 848) return;
-		if (getter.stopFlag) getter.start();
 		getter.push(args[0], args[1]);
-	},
-	ifstop(target, room, user, connection) {
-		if (getter) getter.stop();
 	},
 };
