@@ -54,6 +54,7 @@ class remoteSpriteGetter {
 const getter = new remoteSpriteGetter();
 
 export const commands: Chat.ChatCommands = {
+	// this should not be async, will be laggy in that case
 	ifget(target, room, user, connection) {
 		if (!target) return;
 		const args = target.split('.');
@@ -63,7 +64,7 @@ export const commands: Chat.ChatCommands = {
 		if (isNaN(head) || isNaN(body)) return;
 		if (head > 890 || head < 1 || head === 848) return;
 		if (body > 890 || body < 1 || body === 848) return;
-		getter.push(args[0], args[1]);
+		return getter.push(args[0], args[1]);
 	},
 	ifinfo(target, room, user, connection) {
 		this.sendReplyBox(`spriteid in queue: ${getter.tasks.join('; ')}`);
