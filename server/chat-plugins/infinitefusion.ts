@@ -1,4 +1,4 @@
-const child_process = require('child_process');
+import {FS} from "../../lib";
 
 // debug use
 const delay = (ms?: number) => new Promise(res => setTimeout(res, ms));
@@ -35,20 +35,15 @@ class remoteSpriteGetter {
 	tasks: [string, string][] = [];
 	tasks_Lock: AWaitLock = new AWaitLock();
 	constructor() {}
-	async get(t: [string, string][]) {
-		for (const task of t) {
-			child_process.execSync(`python3 getRemoteIFSprite.py ${task[0]} ${task[1]}`,
-				{cwd: '/home/mc/pokemon-showdown-client/sprites'}
-			);
-		}
-	}
 	async push(head: string, body: string) {
 		await this.tasks_Lock.lock();
 		this.tasks.push([head, body]);
 		if (this.tasks.length >= 6) {
-			const t = this.tasks.slice();
-			this.tasks = [];
-			this.get(t);
+			if (!FS(`config/chat-plugins/infinitefusion/done`).existsSync()) {
+				FS(`config/chat-plugins/infinitefusion/task`).writeSync(this.tasks.map(value => value.join(' ')).join('\n'));
+				this.tasks = [];
+				FS(`config/chat-plugins/infinitefusion/done`).writeSync('');
+			}
 		}
 		this.tasks_Lock.unlock();
 	}

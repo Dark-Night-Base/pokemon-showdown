@@ -4,6 +4,9 @@ superbindex.xslt
 
 /config/*
 !/config/formats.ts
+!/config/chat-plugins/
+/config/chat-plugins/*
+!/config/chat-plugins/infinitefusion
 /logs/*
 /test/modlogs
 /test/replays/*.html
