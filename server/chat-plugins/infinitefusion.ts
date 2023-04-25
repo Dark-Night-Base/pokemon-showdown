@@ -35,18 +35,21 @@ class remoteSpriteGetter {
 	tasks: [string, string][] = [];
 	tasks_Lock: AWaitLock = new AWaitLock();
 	constructor() {}
-	get() {
-		for (const task of this.tasks) {
+	async get(t: [string, string][]) {
+		for (const task of t) {
 			child_process.execSync(`python3 getRemoteIFSprite.py ${task[0]} ${task[1]}`,
 				{cwd: '/home/mc/pokemon-showdown-client/sprites'}
 			);
 		}
-		this.tasks = [];
 	}
 	async push(head: string, body: string) {
 		await this.tasks_Lock.lock();
 		this.tasks.push([head, body]);
-		if (this.tasks.length >= 6) this.get();
+		if (this.tasks.length >= 6) {
+			const t = this.tasks.slice();
+			this.tasks = [];
+			this.get(t);
+		}
 		this.tasks_Lock.unlock();
 	}
 }
