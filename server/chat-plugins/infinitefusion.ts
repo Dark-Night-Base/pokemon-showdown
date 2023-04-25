@@ -67,6 +67,6 @@ export const commands: Chat.ChatCommands = {
 		return getter.push(args[0], args[1]);
 	},
 	ifinfo(target, room, user, connection) {
-		this.sendReplyBox(`spriteid in queue: ${getter.tasks.join('; ')}`);
+		this.sendReplyBox(`${getter.tasks.length} spriteids in queue: ${getter.tasks.join('; ')}`);
 	},
 };
