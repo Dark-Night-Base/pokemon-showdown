@@ -657,10 +657,19 @@ export const Formats: FormatList = [
 			return fusionSpecies;
 		},
 		onSwitchIn(pokemon) {
-			const baseSpecies = [pokemon.m.headSpecies?.baseSpecies, pokemon.m.bodySpecies?.baseSpecies].sort();
+			const baseSpecies = [pokemon.m.headSpecies?.baseSpecies, pokemon.m.bodySpecies?.baseSpecies];
 			if (baseSpecies.includes('Arceus')) pokemon.addVolatile('arceus');
 			if (baseSpecies.includes('Silvally')) pokemon.addVolatile('silvally');
 		},
+		// todo: consider this
+		// onType(types, pokemon) {
+		// 	const headSpecies = pokemon.m.headSpecies?.baseSpecies;
+		// 	if (headSpecies === 'Arceus' && pokemon.ability === 'multitype') {
+		// 		let arcType = pokemon.getItem().onPlate;
+		// 		if (!arcType) arcType = 'Normal';
+
+		// 	}
+		// },
 		onBegin() {
 			for (const pokemon of this.getAllPokemon()) {
 				// prevent rayquaza from mega evolving

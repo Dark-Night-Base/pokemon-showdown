@@ -7,6 +7,8 @@ superbindex.xslt
 !/config/chat-plugins/
 /config/chat-plugins/*
 !/config/chat-plugins/infinitefusion
+/config/chat-plugins/infinitefusion/task
+/config/chat-plugins/infinitefusion/done
 /logs/*
 /test/modlogs
 /test/replays/*.html

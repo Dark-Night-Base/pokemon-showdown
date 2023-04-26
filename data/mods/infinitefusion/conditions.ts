@@ -14,7 +14,7 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			let otherSlot = 0;
 			if (pokemon.m.headSpecies && pokemon.m.headSpecies.baseSpecies !== 'Arceus') otherType = pokemon.m.headSpecies.types[0];
 			if (pokemon.m.bodySpecies && pokemon.m.bodySpecies.baseSpecies !== 'Arceus') {
-				otherType = pokemon.m.bodySpecies.types[1];
+				otherType = pokemon.m.bodySpecies.types[1] || pokemon.m.bodySpecies.types[0];
 				otherSlot = 1;
 			}
 			if (arcType === otherType) return [arcType];
@@ -37,7 +37,7 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			let otherSlot = 0;
 			if (pokemon.m.headSpecies && pokemon.m.headSpecies.baseSpecies !== 'Silvally') otherType = pokemon.m.headSpecies.types[0];
 			if (pokemon.m.bodySpecies && pokemon.m.bodySpecies.baseSpecies !== 'Silvally') {
-				otherType = pokemon.m.bodySpecies.types[1];
+				otherType = pokemon.m.bodySpecies.types[1] || pokemon.m.bodySpecies.types[0];
 				otherSlot = 1;
 			}
 			if (silType === otherType) return [silType];
