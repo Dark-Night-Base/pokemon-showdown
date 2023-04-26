@@ -10,7 +10,6 @@ class AWaitLock {
 		this.lockQueue = [];
 		this.locked = false;
 	}
- 
 	async lock() {
 		if (this.locked) {
 			let that = this;
@@ -21,7 +20,6 @@ class AWaitLock {
 		this.locked = true;
 		return true;
 	}
- 
 	unlock() {
 		this.locked = false;
 		let resolve = this.lockQueue.pop();
