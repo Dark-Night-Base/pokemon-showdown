@@ -39,7 +39,7 @@ class remoteSpriteGetter {
 		if (this.tasks.length >= 6) {
 			if (!FS(`config/chat-plugins/infinitefusion/done`).existsSync()) {
 				const currentTasks = new Set(this.tasks.map(value => value.join(' ')));
-				FS(`config/chat-plugins/infinitefusion/task`).writeSync(Array.from(currentTasks.values()).join('\n'));
+				FS(`config/chat-plugins/infinitefusion/task`).writeSync(Array.from(currentTasks).join('\n'));
 				this.tasks = [];
 				FS(`config/chat-plugins/infinitefusion/done`).writeSync('');
 			}
