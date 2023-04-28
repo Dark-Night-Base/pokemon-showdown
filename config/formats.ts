@@ -710,6 +710,7 @@ export const Formats: FormatList = [
 			'OHKO Clause', 'Max Level = 5'
 		],
 		banlist: [
+			'Scyther', 'Sneasel', 'Stantler', 'Type: Null',
 			'Revival Blessing',
 		],
 		onValidateTeam(team) {
