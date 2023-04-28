@@ -465,7 +465,7 @@ export const Formats: FormatList = [
 			'OHKO Clause',
 		],
 		banlist: [
-			'Shedinja',
+			'Cramorant', 'Shedinja',
 			'Revival Blessing',
 		],
 		restricted: [
