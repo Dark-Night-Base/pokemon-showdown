@@ -458,7 +458,6 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'infinitefusion',
-		// debug: true,
 		ruleset: [
 			'Obtainable', '+Past', '+Unobtainable', '+Unreleased', 'Team Species Preview', 'Nickname Preview', '!!EV Limit = 1020', 'Species Clause',
 			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'Sketch Post-Gen 7 Moves', 'Dynamax Clause', 'Terastal Clause',
@@ -505,7 +504,7 @@ export const Formats: FormatList = [
 			const bodySpecies = this.dex.species.get(set.species);
 			let problems = this.dex.formats.get('Obtainable Misc').onChangeSet?.call(this, set, this.format) || null;
 			if (Array.isArray(problems) && problems.length) return problems;
-			const nonstandard = ['CAP', 'LGPE', 'Custom', 'Gigantamax'];
+			const nonstandard = ['CAP', 'Custom'];
 			if (headSpecies.isNonstandard && nonstandard.includes(headSpecies.isNonstandard)) {
 				return [`${headSpecies.name} does not exist`];
 			}
@@ -683,6 +682,172 @@ export const Formats: FormatList = [
 					if (bodySpecies.exists) pokemon.m.bodySpecies = bodySpecies;
 				}
 				// send headSpecies to client
+				pokemon.getDetails = () => {
+					const health = pokemon.getHealth();
+					let details = pokemon.details;
+					if (pokemon.m.headSpecies) details += `, headname:${pokemon.m.headSpecies.name}`;
+					if (pokemon.illusion) {
+						let illusionDetails = pokemon.illusion.species.name + (pokemon.level === 100 ? '' : ', L' + pokemon.level) +
+							(pokemon.illusion.gender === '' ? '' : ', ' + pokemon.illusion.gender) + (pokemon.illusion.set.shiny ? ', shiny' : '');
+						if (pokemon.illusion.m.headSpecies) illusionDetails += `, headname:${pokemon.illusion.m.headSpecies.name}`;
+						details = illusionDetails;
+					}
+					if (pokemon.terastallized) details += `, tera:${pokemon.terastallized}`;
+					this.debug(details);
+					return {side: health.side, secret: `${details}|${health.secret}`, shared: `${details}|${health.shared}`};
+				};
+			}
+		},
+	},
+	{
+		name: "[Gen 9] ND Infinite Fusion LC",
+		desc: `Infinite Fusion + LC`,
+
+		mod: 'infinitefusion',
+		ruleset: [
+			'Obtainable', '+Past', '+Unobtainable', '+Unreleased', 'Team Species Preview', 'Nickname Preview', '!!EV Limit = 1020', 'Species Clause',
+			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'Sketch Post-Gen 7 Moves', 'Dynamax Clause', 'Terastal Clause',
+			'OHKO Clause', 'Max Level = 5'
+		],
+		banlist: [
+			'Revival Blessing',
+		],
+		onValidateTeam(team) {
+			const names = new Set<ID>();
+			for (const set of team) {
+				const name = set.name;
+				const species = this.dex.species.get(set.species).name;
+				if (names.has(this.dex.toID(name))) {
+					return [
+						`You have more than one ${name}`,
+					];
+				}
+				if (names.has(this.dex.toID(species))) {
+					return [
+						`You have more than one ${species}`,
+					];
+				}
+				names.add(this.dex.toID(name));
+				if (species !== name) names.add(this.dex.toID(species));
+			}
+		},
+		checkCanLearn(move, species, lsetData, set) {
+			// @ts-ignore
+			if (set.fusionSpecies) return this.checkCanLearn(move, set.fusionSpecies, undefined, set);
+			const headSpecies = this.dex.species.get(set.name);
+			if (!headSpecies.exists) return this.checkCanLearn(move, species, lsetData, set);
+			const problem = this.checkCanLearn(move, species, lsetData, set);
+			if (!problem) return null;
+			if (this.checkCanLearn(move, headSpecies, undefined, set)) return problem;
+			return null;
+		},
+		validateSet(set, teamHas) {
+			const headSpecies = this.dex.species.get(set.name);
+			const bodySpecies = this.dex.species.get(set.species);
+			let problems = this.dex.formats.get('Obtainable Misc').onChangeSet?.call(this, set, this.format) || null;
+			if (Array.isArray(problems) && problems.length) return problems;
+			const nonstandard = ['CAP', 'Custom'];
+			if (headSpecies.isNonstandard && nonstandard.includes(headSpecies.isNonstandard)) {
+				return [`${headSpecies.name} does not exist`];
+			}
+			if (this.ruleTable.isBannedSpecies(headSpecies)) {
+				return [`${headSpecies.name} is banned`];
+			}
+			if (!headSpecies.exists) return this.validateSet(set, teamHas);
+			const check = this.checkSpecies(set, bodySpecies, bodySpecies, {});
+			if (check) return [check];
+			if (headSpecies.baseSpecies !== headSpecies.name) {
+				return [`${headSpecies.name} is not in base forme`];
+			}
+			if (bodySpecies.baseSpecies !== bodySpecies.name) {
+				return [`${bodySpecies.name} is not in base forme`];
+			}
+			if (headSpecies.prevo) return [`${headSpecies.name} isn't the first in its evolution family.`];
+			if (bodySpecies.prevo) return [`${bodySpecies.name} isn't the first in its evolution family.`];
+			if (!headSpecies.nfe) return [`${headSpecies.name} doesn't have an evolution family.`];
+			if (!bodySpecies.nfe) return [`${bodySpecies.name} doesn't have an evolution family.`];
+			let fusionAbilities = [
+				headSpecies.abilities[0],
+				bodySpecies.abilities[1] || bodySpecies.abilities[0],
+				headSpecies.abilities['H'] || '',
+				headSpecies.abilities['S'] || '',
+			];
+			const ability = this.dex.abilities.get(set.ability);
+			if (!fusionAbilities.includes(ability.name)) {
+				return [`${bodySpecies.name} can't have ${ability.name}`];
+			}
+			const item = this.dex.items.get(set.item);
+			const NonexistentItems = ['blueorb', 'redorb', 'rustedshield', 'rustedsword'];
+			if (item.megaStone || item.zMove || NonexistentItems.includes(item.id)) {
+				return [`${bodySpecies.name}'s item ${item.name} doesn't exist in Infinite Fusion`];
+			}
+
+			set.ability = bodySpecies.abilities[0];
+			problems = this.validateSet(set, teamHas);
+			set.ability = ability.name;
+			// the only special fusion
+			if (headSpecies.name === bodySpecies.name && headSpecies.name === 'Eevee') {
+				set.name = set.species = 'Eevee-Starter';
+			}
+			return problems;
+		},
+		onModifySpecies(species, target, source, effect) {
+			if (!target) return;
+			if (effect && ['imposter', 'transform'].includes(effect.id)) return;
+			let headSpecies = target.m.headSpecies ? target.m.headSpecies : this.dex.species.get(target.set.name);
+			let bodySpecies = target.m.bodySpecies ? target.m.bodySpecies : this.dex.species.get(target.set.species);
+			if (!headSpecies?.exists || !bodySpecies?.exists) return;
+			const toModifySpeciesID = this.dex.species.get(species.baseSpecies).id;
+			const headBaseSpeciesID = this.dex.species.get(headSpecies.baseSpecies).id;
+			const bodyBaseSpeciesID = this.dex.species.get(bodySpecies.baseSpecies).id;
+			if (toModifySpeciesID === headBaseSpeciesID) target.m.headSpecies = headSpecies = species;
+			if (toModifySpeciesID === bodyBaseSpeciesID) target.m.bodySpecies = bodySpecies = species;
+			if (headSpecies.name === bodySpecies.name) {
+				return this.dex.species.get(headSpecies.name);
+			}
+
+			const fusionSpecies = this.dex.deepClone(species);
+			fusionSpecies.weightkg = Math.max(0.1, (headSpecies.weightkg + bodySpecies.weightkg) / 2).toFixed(1);
+			fusionSpecies.weighthg = Math.max(1, (headSpecies.weighthg + bodySpecies.weighthg) / 2).toFixed(1);
+			fusionSpecies.nfe = headSpecies.nfe || bodySpecies.nfe;
+			fusionSpecies.abilities = {
+				0: headSpecies.abilities[0],
+				1: bodySpecies.abilities[1] || bodySpecies.abilities[0],
+				H: headSpecies.abilities['H'],
+				S: headSpecies.abilities['S'],
+			};
+			if (fusionSpecies.abilities['H'] === fusionSpecies.abilities[1] ||
+				fusionSpecies.abilities['H'] === fusionSpecies.abilities[0]) delete fusionSpecies.abilities['H'];
+			if (fusionSpecies.abilities[1] === fusionSpecies.abilities[0]) delete fusionSpecies.abilities[1];
+			fusionSpecies.bst = 0;
+			if (this.dex.abilities.get(target.set.ability).id === 'wonderguard') fusionSpecies.maxHP = 1;
+			let i: StatID;
+			for (i in species.baseStats) {
+				let headStat, bodyStat;
+				if (['hp', 'spa', 'spd'].includes(i)) {
+					headStat = headSpecies.baseStats[i] * 2;
+					bodyStat = bodySpecies.baseStats[i];
+				} else {
+					headStat = headSpecies.baseStats[i];
+					bodyStat = bodySpecies.baseStats[i] * 2;
+				}
+				fusionSpecies.baseStats[i] = this.clampIntRange(Math.floor((headStat + bodyStat) / 3), 1, 255);
+				fusionSpecies.bst += fusionSpecies.baseStats[i];
+			}
+			fusionSpecies.types[0] = headSpecies.types[0];
+			fusionSpecies.types[1] = bodySpecies.types[1] || bodySpecies.types[0];
+			if (fusionSpecies.types[1] === fusionSpecies.types[0]) fusionSpecies.types = [fusionSpecies.types[0]];
+
+			return fusionSpecies;
+		},
+		onBegin() {
+			for (const pokemon of this.getAllPokemon()) {
+				if (!pokemon.m.headSpecies || !pokemon.m.bodySpecies) {
+					const headSpecies = this.dex.species.get(pokemon.set.name);
+					const bodySpecies = this.dex.species.get(pokemon.set.species);
+					if (headSpecies.exists) pokemon.m.headSpecies = headSpecies;
+					if (bodySpecies.exists) pokemon.m.bodySpecies = bodySpecies;
+				}
 				pokemon.getDetails = () => {
 					const health = pokemon.getHealth();
 					let details = pokemon.details;
