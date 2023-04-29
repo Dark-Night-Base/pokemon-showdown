@@ -487,6 +487,9 @@ export const Formats: FormatList = [
 				}
 				names.add(this.dex.toID(name));
 				if (species !== name) names.add(this.dex.toID(species));
+				// Nihilslave: if the pokemon is a special fusion, change it here
+				// @ts-ignore
+				if (set.fusionSpecies) set.name = set.species = set.fusionSpecies.name;
 			}
 		},
 		checkCanLearn(move, species, lsetData, set) {
@@ -597,8 +600,6 @@ export const Formats: FormatList = [
 			set.ability = bodySpecies.abilities[0];
 			problems = this.validateSet(set, teamHas);
 			set.ability = ability.name;
-			// Nihilslave: if the pokemon is a special fusion, change it here
-			if (fusionSpecies.species) set.name = set.species = fusionSpecies.species.name;
 			return problems;
 		},
 		onModifySpecies(species, target, source, effect) {
