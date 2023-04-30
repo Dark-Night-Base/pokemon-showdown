@@ -494,12 +494,12 @@ export const Formats: FormatList = [
 		},
 		checkCanLearn(move, species, lsetData, set) {
 			// @ts-ignore
-			if (set.fusionSpecies) return this.checkCanLearn(move, set.fusionSpecies, undefined, set);
+			if (set.fusionSpecies) return this.checkCanLearn(move, set.fusionSpecies, lsetData, set);
 			const headSpecies = this.dex.species.get(set.name);
 			if (!headSpecies.exists) return this.checkCanLearn(move, species, lsetData, set);
 			const problem = this.checkCanLearn(move, species, lsetData, set);
 			if (!problem) return null;
-			if (this.checkCanLearn(move, headSpecies, undefined, set)) return problem;
+			if (this.checkCanLearn(move, headSpecies, lsetData, set)) return problem;
 			return null;
 		},
 		validateSet(set, teamHas) {
