@@ -2,6 +2,9 @@ export const Scripts: ModdedBattleScriptsData = {
 	gen: 9,
 	inherit: 'gen9',
 	init() {
+		for (const id in this.data.Learnsets) {
+			this.modData('Learnsets', id).eventOnly = false;
+		}
 		for (const id in this.data.Items) {
 			const item = this.data.Items[id];
 			if (item.onPlate) {
