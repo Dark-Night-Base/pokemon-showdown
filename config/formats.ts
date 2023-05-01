@@ -578,6 +578,11 @@ export const Formats: FormatList = [
 			}
 			if (fusionSpecies.species) {
 				fusionSpecies.abilities = Object.values(fusionSpecies.species!.abilities);
+				for (const abil of fusionSpecies.abilities) {
+					if (this.ruleTable.isBanned(abil)) {
+						return [`${bodySpecies.name}'s ability ${abil} is banned`];
+					}
+				}
 				// @ts-ignore
 				set.fusionSpecies = fusionSpecies.species;
 			} else {
