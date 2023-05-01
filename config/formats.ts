@@ -461,7 +461,7 @@ export const Formats: FormatList = [
 		ruleset: [
 			'Obtainable', '+Past', '+Unobtainable', '+Unreleased', 'Team Species Preview', 'Nickname Preview', '!!EV Limit = 1020', 'Species Clause',
 			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'Sketch Post-Gen 7 Moves', 'Dynamax Clause', 'Terastal Clause',
-			'OHKO Clause',
+			'OHKO Clause', 'Setup Clause = 2'
 		],
 		banlist: [
 			'Cramorant', 'Shedinja',

@@ -2877,6 +2877,31 @@ export const Rulesets: {[k: string]: FormatData} = {
 		desc: "Allows each player to see the Nickname of the Pok&eacute;mon on their opponent's team before they choose their lead Pok&eacute;mon",
 		// implemented in team species preview
 	},
+	setupclause: {
+		effectType: 'ValidatorRule',
+		name: 'Setup Clause',
+		desc: "Prevents teams from having Pok&eacute;mon with more setup moves than allowed",
+		hasValue: 'positive-integer',
+		onBegin() {
+			const num = this.ruleTable.valueRules.get('setupclause');
+			this.add('rule', `${num} Setup Clause: Limit ${num} of setup moves`);
+		},
+		onValidateRule(value) {
+			const allowedSetupMoves = parseInt(value);
+			if (allowedSetupMoves < 0) throw new Error(`Must allow at least 0 of setup move`);
+		},
+		onValidateTeam(team) {
+			const num = parseInt(this.ruleTable.valueRules.get('setupclause')!);
+			let cnt = 0;
+			for (const set of team) {
+				for (const move of set.moves) {
+					const moveData = this.dex.moves.get(move);
+					if (moveData.boosts && moveData.target === 'self') ++cnt;
+					if (cnt > num) return [`You are limited to ${num} of setup moves by Setup Clause.`];
+				}
+			}
+		},
+	},
 	voltturnmayhemmod: {
 		effectType: 'Rule',
 		name: "VoltTurn Mayhem Mod",
