@@ -465,6 +465,7 @@ export const Formats: FormatList = [
 		],
 		banlist: [
 			'Cramorant', 'Shedinja',
+			'Shadow Tag',
 			'Revival Blessing',
 		],
 		restricted: [
