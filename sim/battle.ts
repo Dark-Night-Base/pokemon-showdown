@@ -344,62 +344,57 @@ export class Battle {
 	random(m?: number, n?: number) {
 		// we cannot use arguments.callee.caller under strict mode
 
-		// const reg = /([^(]+)@|at ([^(]+) \(/g;
-        // const RegexResult = reg.exec(new Error().stack || '') || [];
-        // const caller = RegexResult[2] || RegexResult[3];
-		// this.debug(caller);
-
 		// the commented code also works strangely, let's just print all the stack
 		// avoid potential lag
-		if (this.debugMode) {
-			const stack = new Error().stack || '';
-			const stackInfo = stack.split('at ').map((value, index, array) =>
-			// remove some unknown char after each line
-				index !== array.length - 1 ? value.substring(0, value.length - 5) : value);
-			if (stackInfo.length) {
-				this.debug('Called at ' + stackInfo[1]);
-				for (let i = 2; i < stackInfo.length; ++i) {
-					this.debug('at ' + stackInfo[i]);
-				}
-			}
-			this.debug(`PRNG.next(${(m === undefined) ? '' : ((n === undefined) ? m : `${m},${n}`)})`);
-			this.debug('');
-		}
+		// if (this.debugMode) {
+		// 	const stack = new Error().stack || '';
+		// 	const stackInfo = stack.split('at ').map((value, index, array) =>
+		// 	// remove some unknown char after each line
+		// 		index !== array.length - 1 ? value.substring(0, value.length - 5) : value);
+		// 	if (stackInfo.length) {
+		// 		this.debug('Called at ' + stackInfo[1]);
+		// 		for (let i = 2; i < stackInfo.length; ++i) {
+		// 			this.debug('at ' + stackInfo[i]);
+		// 		}
+		// 	}
+		// 	this.debug(`PRNG.next(${(m === undefined) ? '' : ((n === undefined) ? m : `${m},${n}`)})`);
+		// 	this.debug('');
+		// }
 		return this.prng.next(m, n);
 	}
 
 	randomChance(numerator: number, denominator: number) {
-		if (this.debugMode) {
-			const stack = new Error().stack || '';
-			const stackInfo = stack.split('at ').map((value, index, array) =>
-				index !== array.length - 1 ? value.substring(0, value.length - 5) : value);
-			if (stackInfo.length) {
-				this.debug('Called at ' + stackInfo[1]);
-				for (let i = 2; i < stackInfo.length; ++i) {
-					this.debug('at ' + stackInfo[i]);
-				}
-			}
-			this.debug(`PRNG.randomChance(${numerator},${denominator})`);
-			this.debug('');
-		}
+		// if (this.debugMode) {
+		// 	const stack = new Error().stack || '';
+		// 	const stackInfo = stack.split('at ').map((value, index, array) =>
+		// 		index !== array.length - 1 ? value.substring(0, value.length - 5) : value);
+		// 	if (stackInfo.length) {
+		// 		this.debug('Called at ' + stackInfo[1]);
+		// 		for (let i = 2; i < stackInfo.length; ++i) {
+		// 			this.debug('at ' + stackInfo[i]);
+		// 		}
+		// 	}
+		// 	this.debug(`PRNG.randomChance(${numerator},${denominator})`);
+		// 	this.debug('');
+		// }
 		if (this.forceRandomChance !== null) return this.forceRandomChance;
 		return this.prng.randomChance(numerator, denominator);
 	}
 
 	sample<T>(items: readonly T[]): T {
-		if (this.debugMode) {
-			const stack = new Error().stack || '';
-			const stackInfo = stack.split('at ').map((value, index, array) =>
-				index !== array.length - 1 ? value.substring(0, value.length - 5) : value);
-			if (stackInfo.length) {
-				this.debug('Called at ' + stackInfo[1]);
-				for (let i = 2; i < stackInfo.length; ++i) {
-					this.debug('at ' + stackInfo[i]);
-				}
-			}
-			this.debug(`PRNG.sample(0,${items.length})`);
-			this.debug('');
-		}
+		// if (this.debugMode) {
+		// 	const stack = new Error().stack || '';
+		// 	const stackInfo = stack.split('at ').map((value, index, array) =>
+		// 		index !== array.length - 1 ? value.substring(0, value.length - 5) : value);
+		// 	if (stackInfo.length) {
+		// 		this.debug('Called at ' + stackInfo[1]);
+		// 		for (let i = 2; i < stackInfo.length; ++i) {
+		// 			this.debug('at ' + stackInfo[i]);
+		// 		}
+		// 	}
+		// 	this.debug(`PRNG.sample(0,${items.length})`);
+		// 	this.debug('');
+		// }
 		return this.prng.sample(items);
 	}
 
@@ -498,19 +493,19 @@ export class Battle {
 			}
 			if (nextIndexes.length > 1) {
 				// Nihilslave: debug info for rngcontroller
-				if (this.debugMode) {
-					const stack = new Error().stack || '';
-					const stackInfo = stack.split('at ').map((value, index, array) =>
-						index !== array.length - 1 ? value.substring(0, value.length - 5) : value);
-					if (stackInfo.length) {
-						this.debug('Called at ' + stackInfo[1]);
-						for (let i = 2; i < stackInfo.length; ++i) {
-							this.debug('at ' + stackInfo[i]);
-						}
-					}
-					this.debug(`speedSort()->PRNG.shuffle(${sorted},${sorted + nextIndexes.length})`);
-					this.debug('');
-				}
+				// if (this.debugMode) {
+				// 	const stack = new Error().stack || '';
+				// 	const stackInfo = stack.split('at ').map((value, index, array) =>
+				// 		index !== array.length - 1 ? value.substring(0, value.length - 5) : value);
+				// 	if (stackInfo.length) {
+				// 		this.debug('Called at ' + stackInfo[1]);
+				// 		for (let i = 2; i < stackInfo.length; ++i) {
+				// 			this.debug('at ' + stackInfo[i]);
+				// 		}
+				// 	}
+				// 	this.debug(`speedSort()->PRNG.shuffle(${sorted},${sorted + nextIndexes.length})`);
+				// 	this.debug('');
+				// }
 				this.prng.shuffle(list, sorted, sorted + nextIndexes.length);
 			}
 			sorted += nextIndexes.length;
