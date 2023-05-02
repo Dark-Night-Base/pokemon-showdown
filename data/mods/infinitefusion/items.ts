@@ -1,5 +1,7 @@
 export const Items: {[k: string]: ModdedItemData} = {
 	// plates, drives, and memories implemented in scripts.ts
+	// well, this 3 orbs are actually non-existent in game
+	// but there's no harm to keep them
 	adamantcrystal: {
 		inherit: true,
 		onBasePower(basePower, user, target, move) {
