@@ -566,7 +566,7 @@ export const commands: Chat.ChatCommands = {
 		// Nihilslave: no need to consolize this command, cuz it's restricted to only myself, i think
 		// this.canUseConsole();
 
-		if (user.id !== 'asouchihiro') return this.errorReply('Access Denied!');
+		if (user.id !== 'asouchihiro') return this.errorReply('Access Denied by Nihilslave!');
 
 		if (Monitor.updateServerLock) {
 			return this.errorReply("Wait for /updateserver to finish before hotpatching.");
