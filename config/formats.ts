@@ -432,7 +432,7 @@ export const Formats: FormatList = [
 	{
 		name: "[Gen 9] ND Infinite Fusion",
 		desc: `将（几乎）任意两只精灵融合成新精灵！<br/>\
-			<details><summary>具体规则如下：</summary>\
+			<details><summary>具体规则（点击展开）</summary>\
 			&bullet; 正常选择精灵作为融合的<strong>身体</strong>部分，在昵称栏写上一只精灵的英文名，由它组成<strong>头部</strong><br/>\
 			&bullet; 融合后精灵的ＨＰ、特攻、特防种族 = 头部对应种族的 2 / 3 + 身体对应种族的 1 / 3<br/>\
 			&bullet; 融合后精灵的攻击、防御、速度种族 = 头部对应种族的 1 / 3 + 身体对应种族的 2 / 3<br/>\
@@ -443,7 +443,7 @@ export const Formats: FormatList = [
 			&bullet; 有部分精灵间存在特殊融合，如：酋雷姆 + 雷希拉姆 = 焰白酋雷姆<br/>\
 			</details><br/>\
 			Fusion (almost) any two Pok&eacute;mon together!<br/>\
-			<details><summary>Fusion Mechanism</summary>\
+			<details><summary>Fusion Mechanism (Click to Show)</summary>\
 			&bullet; Choose a Pok&eacute;mon as usual to be the <strong>Body Part</strong>, while giving it the name of a Pok&eacute;mon as nickname which is to be the <strong>Head Part</strong> of the fusioned Pok&eacute;mon<br/>\
 			&bullet; Fusioned Pok&eacute;mon's base stats of H P, SpA, SpD = That base stats of Head * 2 / 3 + That base stats of Body * 1 / 3<br/>\
 			&bullet; Fusioned Pok&eacute;mon's base stats of Atk, Def, Spe = That base stats of Head * 1 / 3 + That base stats of Body * 2 / 3<br/>\
