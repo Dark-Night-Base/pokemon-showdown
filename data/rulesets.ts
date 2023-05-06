@@ -2897,6 +2897,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 				for (const move of set.moves) {
 					const moveData = this.dex.moves.get(move);
 					if (moveData.boosts && moveData.target === 'self') ++cnt;
+					if (moveData.id === 'bellydrum') ++cnt;
 					if (cnt > num) return [`You are limited to ${num} of setup moves by Setup Clause.`];
 				}
 			}
