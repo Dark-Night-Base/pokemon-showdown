@@ -34,6 +34,7 @@ class remoteSpriteGetter {
 	tasks_Lock: AWaitLock = new AWaitLock();
 	constructor() {}
 	async push(head: string, body: string) {
+		if (this.tasks.length > 100) return;
 		await this.tasks_Lock.lock();
 		this.tasks.push([head, body]);
 		if (this.tasks.length >= 6) {
