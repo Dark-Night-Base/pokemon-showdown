@@ -1,8 +1,21 @@
 import os
 import time
+import psutil
 import subprocess
 while True:
     time.sleep(1)
+    vscode = False
+    for process in psutil.process_iter():
+        cwd = ''
+        try:
+            cwd = process.cwd()
+        except:
+            pass
+        finally:
+            if cwd.find('vscode') != -1:
+                vscode = True
+    if vscode:
+        continue
     files = os.listdir('.')
     if 'done' in files:
         with open('task') as t:
