@@ -461,15 +461,15 @@ export const Formats: FormatList = [
 		ruleset: [
 			'Obtainable', '+Past', '+Unobtainable', '+Unreleased', 'Team Species Preview', 'Nickname Preview', '!!EV Limit = 1020', 'Species Clause',
 			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'Sketch Post-Gen 7 Moves', 'Dynamax Clause', 'Terastal Clause',
-			'OHKO Clause', 'Evasion Moves Clause', 'Setup Clause = 2'
+			'OHKO Clause', 'Evasion Moves Clause',// 'Setup Clause = 2'
 		],
 		banlist: [
 			'Cramorant', 'Shedinja',
-			'Shadow Tag',
-			'Revival Blessing',
+			'Moody', 'Shadow Tag',
+			'Baton Pass', 'Geomancy', 'Revival Blessing',
 		],
 		restricted: [
-			'Eternatus',
+			'Eternatus', 'Groudon', 'Kyogre',
 		],
 		onValidateTeam(team) {
 			const names = new Set<ID>();
