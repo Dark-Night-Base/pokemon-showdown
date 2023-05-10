@@ -2009,6 +2009,13 @@ export const Formats: FormatList = [
 		ruleset: ['[Gen 9] Balanced Hackmons', 'Inverse Mod'],
 	},
 	{
+		name: "[Gen 9] Move-Item-Ability BH",
+		desc: `(WIP) Fortemons + Trademarked + Multibilities + Dual Wielding + BH`,
+
+		mod: 'gen9',
+		ruleset: ['[Gen 9] Balanced Hackmons'],
+	},
+	{
 		name: "[Gen 9] Mirror Move BH",
 		desc: `BH，但你与你的对手共享技能。（但一只精灵自己至多携带 2 个技能。）<br /> BH, but you and your opponent share the moves. (One pok&eacute;mon can only choose at most 2 moves in the teambuilder.)`,
 		threads: [
