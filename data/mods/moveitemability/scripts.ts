@@ -37,13 +37,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				this.battle.dex.moves.get(this.item).exists ||
 				this.battle.dex.abilities.get(this.item).exists
 			) return false;
-			return this.hasItem.call(this, item);
-			// if (Array.isArray(item)) {
-			// 	if (!item.map(toID).includes(this.item)) return false;
-			// } else {
-			// 	if (toID(item) !== this.item) return false;
-			// }
-			// return !this.ignoringItem();
+			return Object.getPrototypeOf(this).hasItem.call(this, item);
 		},
 		takeItem(source) {
 			if (!this.isActive) return false;
@@ -52,9 +46,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				this.battle.dex.moves.get(this.item).exists ||
 				this.battle.dex.abilities.get(this.item).exists
 			) return false;
-			// todo: test
-			return this.takeItem.call(this, source);
-			// return Object.getPrototypeOf(this).takeItem.call(this, source);
+			return Object.getPrototypeOf(this).takeItem.call(this, source);
 		},
 		getAbility() {
 			const ability = this.battle.dex.abilities.getByID(this.ability);

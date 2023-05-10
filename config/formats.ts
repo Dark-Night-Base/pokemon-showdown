@@ -2168,14 +2168,14 @@ export const Formats: FormatList = [
 		ruleset: ['[Gen 9] Balanced Hackmons', 'Same Type Clause'],
 	},
 	{
-		name: "[Gen 9] Move-Item-Abilities BH",
-		desc: `(WIP) Fortemons + Trademarked + Multibilities + Dual Wielding + BH`,
+		name: "[Gen 9] Move-Item-Ability BH",
+		desc: `(WIP) Fortemons + Trademarked + Multibility + Dual Wielding + BH`,
 
-		mod: 'gen9',
+		mod: 'moveitemability',
 		ruleset: ['[Gen 9] Balanced Hackmons', 'Fortemons Mod'],
 		banlist: [
 			'move:Metronome',
-		]
+		],
 	},
 	{
 		name: "[Gen 9] Multibility BH",
