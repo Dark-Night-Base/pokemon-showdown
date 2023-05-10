@@ -33,25 +33,28 @@ export const Scripts: ModdedBattleScriptsData = {
 			return item;
 		},
 		hasItem(item) {
-			const ownItem = this.item;
-			if (this.battle.dex.moves.get(ownItem).exists) return false;
-			if (this.ignoringItem()) return false;
-			if (!Array.isArray(item)) return ownItem === this.battle.toID(item);
-			return item.map(this.battle.toID).includes(ownItem);
+			if (
+				this.battle.dex.moves.get(this.item).exists ||
+				this.battle.dex.abilities.get(this.item).exists
+			) return false;
+			return this.hasItem.call(this, item);
+			// if (Array.isArray(item)) {
+			// 	if (!item.map(toID).includes(this.item)) return false;
+			// } else {
+			// 	if (toID(item) !== this.item) return false;
+			// }
+			// return !this.ignoringItem();
 		},
 		takeItem(source) {
 			if (!this.isActive) return false;
-			if (!this.item) return false;
-			if (this.battle.dex.moves.get(this.item).exists) return false;
-			if (!source) source = this;
-			const item = this.getItem();
-			if (this.battle.runEvent('TakeItem', this, source, null, item)) {
-				this.item = '';
-				this.itemState = {id: '', target: this};
-				this.pendingStaleness = undefined;
-				return item;
-			}
-			return false;
+			if (!this.item || this.itemState.knockedOff) return false;
+			if (
+				this.battle.dex.moves.get(this.item).exists ||
+				this.battle.dex.abilities.get(this.item).exists
+			) return false;
+			// todo: test
+			return this.takeItem.call(this, source);
+			// return Object.getPrototypeOf(this).takeItem.call(this, source);
 		},
 		getAbility() {
 			const ability = this.battle.dex.abilities.getByID(this.ability);
@@ -79,8 +82,11 @@ export const Scripts: ModdedBattleScriptsData = {
 			return ability;
 		},
 		hasAbility(ability) {
-			// todo:
-			return false;
+			if (
+				this.battle.dex.items.get(this.item).exists ||
+				this.battle.dex.moves.get(this.item).exists
+			) return false;
+			return this.hasAbility.call(this, ability);
 		},
 	},
 };
