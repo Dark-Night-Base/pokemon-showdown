@@ -2013,7 +2013,7 @@ export const Formats: FormatList = [
 		desc: `(WIP) Fortemons + Trademarked + Multibilities + Dual Wielding + BH`,
 
 		mod: 'gen9',
-		ruleset: ['[Gen 9] Balanced Hackmons'],
+		ruleset: ['[Gen 9] Balanced Hackmons', 'Fortemons Mod'],
 	},
 	{
 		name: "[Gen 9] Mirror Move BH",
