@@ -276,12 +276,6 @@ function setMoveCallbacksTrade(itemOrAbility: any, move: Move) {
 		this.actions.useMove({...move, accuracy: true}, target);
 	};
 }
-function setItemCallbacks(ability: any, item: Item) {
-	ability = {...ability, ...item};
-}
-function setAbilityCallbacks(item: any, ability: Ability) {
-	item = {...item, ...ability};
-}
 
 function resolveMoveforItem(move: Move): Item {
 	const result = new Item({
@@ -313,24 +307,11 @@ function resolveMoveforAbility(move: Move): Ability {
 	return result;
 }
 function resolveItemforAbility(item: Item): Ability {
-	const result = new Ability({
-		id: item.id,
-		name: item.name,
-		num: 0,
-		// isPermanent: true,
-	});
-	setItemCallbacks(result, item);
+	const result = new Ability(item);
 	return result;
 }
 function resolveAbilityforItem(ability: Ability): Item {
-	const result = new Item({
-		id: ability.id,
-		name: ability.name,
-		num: 137,
-		// ignoreKlutz: true,
-		// onTakeItem: false,
-	});
-	setAbilityCallbacks(result, ability);
+	const result = new Item(ability);
 	return result;
 }
 // todo: check if we need onSwitchOut and onFaint for Multibility
@@ -340,11 +321,11 @@ export const Scripts: ModdedBattleScriptsData = {
 	// core
 	pokemon: {
 		getItem() {
-			const item = this.battle.dex.items.getByID(this.ability);
+			const item = this.battle.dex.items.getByID(this.item);
 			if (item.exists) return item;
-			const move = this.battle.dex.moves.getByID(this.ability);
+			const move = this.battle.dex.moves.getByID(this.item);
 			if (move.exists) return resolveMoveforItem(move);
-			const ability = this.battle.dex.abilities.getByID(this.ability);
+			const ability = this.battle.dex.abilities.getByID(this.item);
 			if (ability.exists) return resolveAbilityforItem(ability);
 			return item;
 		},
