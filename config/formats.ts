@@ -2177,6 +2177,40 @@ export const Formats: FormatList = [
 		restricted: [
 			'move:Metronome',
 		],
+		validateSet(set, teamHas) {
+			const validatePlugin = function (this: TeamValidator, type: 'item' | 'ability') {
+				const plugin = set[type];
+				const move = this.dex.moves.get(plugin);
+				const item = this.dex.items.get(plugin);
+				const ability = this.dex.abilities.get(plugin);
+				if (type === 'item') {
+					if (item.exists) return;
+					if (ability.exists) {
+						if (this.ruleTable.isBanned(`ability:${ability.id}`)) return [`${ability.name} is banned`];
+						return;
+					}
+				}
+				if (type === 'ability') {
+					if (ability.exists) return;
+					if (item.exists) {
+						if (this.ruleTable.isBanned(`item:${item.id}`)) return [`${item.name} is banned`];
+						return;
+					}
+				}
+				if (set.moves.map(this.toID).includes(move.id)) return [`${set.name} cannot have move ${move.name} for more than once`];
+				if (this.ruleTable.isRestricted(`move:${move.id}`)) return [`${move.name} is banned as item or ability`];
+			};
+			let problems = [...(validatePlugin.call(this, 'item') || []), ...(validatePlugin.call(this, 'ability') || [])];
+			if (problems.length) return problems;
+			const item = set.item;
+			const ability = set.ability;
+			set.item = '';
+			set.ability = 'ballfetch';
+			problems = this.validateSet(set, teamHas) || [];
+			set.item = item;
+			set.ability = ability;
+			return problems.length ? problems : null;
+		},
 	},
 	{
 		name: "[Gen 9] Multibility BH",
