@@ -127,7 +127,7 @@ export const Formats: FormatList = [
 
 		mod: 'moveitemability',
 		debug: true,
-		ruleset: ['[Gen 9] National Dex BH', 'MIA Move Legality'], // , 'MIA Clause'],
+		ruleset: ['[Gen 9] National Dex BH', 'MIA Move Legality', 'MIA Clause'],
 		banlist: [
 			'Serene Grace',
 			'Endeavor', 'Nature\'s Madness', 'Ruination', 'Super Fang',
@@ -142,6 +142,7 @@ export const Formats: FormatList = [
 				const item = this.dex.items.get(plugin);
 				const ability = this.dex.abilities.get(plugin);
 				if (type === 'item') {
+					// let the real validator to check if the item is banned
 					if (item.exists) return;
 					if (ability.exists) {
 						if (this.ruleTable.isBanned(`ability:${ability.id}`)) return [`${ability.name} is banned`];
@@ -149,6 +150,7 @@ export const Formats: FormatList = [
 					}
 				}
 				if (type === 'ability') {
+					// let the real validator to check if the ability is banned
 					if (ability.exists) return;
 					if (item.exists) {
 						if (this.ruleTable.isBanned(`item:${item.id}`)) return [`${item.name} is banned`];
