@@ -2964,8 +2964,9 @@ export const Rulesets: {[k: string]: FormatData} = {
 			'Rollout', 'Shell Side Arm', 'Spirit Shackle', 'Stored Power', 'Terrain Pulse', 'Thousand Waves',
 			'Weather Ball', 'Zap Cannon',
 			'Baneful Bunker', 'Block', 'Copycat', 'Detect', 'Destiny Bond', 'Encore', 'Fairy Lock', 'Ingrain',
-			'Instruct', 'King\'s Shield', 'Mean Look', 'Obstruct', 'Protect', 'Revival Blessing', 'Roar', 'Silk Trap',
-			'Spiky Shield', 'Sleep Talk', 'Shed Tail', 'Shell Smash', 'Substitute', 'Trick Room', 'Whirlwind',
+			'Instruct', 'King\'s Shield', 'Mean Look', 'Obstruct', 'Protect', 'Revival Blessing', 'Roar', 'Skill Swap',
+			'Silk Trap', 'Spiky Shield', 'Sleep Talk', 'Shed Tail', 'Shell Smash', 'Substitute', 'Trick', 'Trick Room',
+			'Whirlwind',
 		],
 	},
 	miaclause: {
