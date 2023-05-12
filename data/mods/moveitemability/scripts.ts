@@ -153,14 +153,13 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 
 		// complexProperties - part 1
 		if (forte.basePowerCallback) {
-			if (move.basePowerCallback) {
+			const moveCallback = move.basePowerCallback;
+			if (moveCallback) {
 				move.basePowerCallback = function (pkm, tgt, mv) {
-					let baseMove = this.dex.getActiveMove(mv.id);
-					let basePower = this.dex.moves.get(move.id).basePowerCallback!.call(this, pkm, tgt, mv);
-					// const forteMove = this.dex.getActiveMove(forte.id);
-					baseMove.basePower = basePower || 1; // should this be 1 or something else?
-					// here we should use "forteMove" as the last param instead of mv
-					// ^ no, just use baseMove
+					let baseMove = this.dex.deepClone(mv);
+					let basePower = moveCallback.call(this, pkm, tgt, mv);
+					baseMove.basePower = basePower || 1;
+					// should use baseMove here, instead of mv
 					basePower = forte.basePowerCallback!.call(this, pkm, tgt, baseMove);
 					return basePower;
 				};
@@ -169,9 +168,10 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 			}
 		}
 		if (forte.onEffectiveness) {
-			if (move.onEffectiveness) {
+			const moveOnEffectiveness = move.onEffectiveness;
+			if (moveOnEffectiveness) {
 				move.onEffectiveness = function (typeMod, tgt, tp, mv) {
-					const moveEffectiveness = this.dex.moves.get(move.id).onEffectiveness!.call(this, typeMod, tgt, tp, mv);
+					const moveEffectiveness = moveOnEffectiveness!.call(this, typeMod, tgt, tp, mv);
 					const forteEffectiveness = forte.onEffectiveness!.call(this, moveEffectiveness || typeMod, tgt, tp, mv);
 					return forteEffectiveness || 0;
 				};
@@ -242,15 +242,24 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 		}
 		// Nihilslave: we should put as many as possible props in onModifyMove
 		// cuz in that case we don't need to write a lot of `if (move.category === 'Status')`s
-		const retValComplexProperties = [
-			'onPrepareHit', 'onHit', 'onTryHit', 'onTryImmunity', 'onTryMove'
+		const generalComplexProperties = [
+			// relevant return values
+			'onHit', 'onPrepareHit', 'onTryHit', 'onTryImmunity', 'onTryMove',
+			// irrelevant return values
+			'onAfterHit', 'onAfterMove', 'onAfterMoveSecondarySelf'
 		] as const;
-		for (const prop of retValComplexProperties) {
+		for (const prop of generalComplexProperties) {
 			move[prop] = mergeCallback(move, forte, prop);
 		}
 
 		forte.onModifyMove?.call(this, move, pokemon, target);
 	};
+	itemOrAbility.onAfterSubDamage = function (damage: number, target: Pokemon, source: Pokemon, move: ActiveMove) {
+		if (move.category === 'Status') return;
+		return forte.onAfterSubDamage?.call(this, damage, target, source, move);
+	};
+	// we no longer need this since we implement everything property, i think
+	// itemOrAbility.onModifySecondaries = function () {};
 }
 function setMoveCallbacksTrade(itemOrAbility: any, move: Move) {}
 function setItemCallbacks(ability: Ability, item: Item) {}
