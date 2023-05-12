@@ -349,11 +349,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			return item;
 		},
 		hasItem(item) {
-			if (
-				this.battle.dex.moves.get(this.item).exists ||
-				this.battle.dex.abilities.get(this.item).exists
-			) return false;
-			// todo: modify ignoringItem() and ignoringAbility()
 			return (
 				Object.getPrototypeOf(this).hasItem.call(this, item) ||
 				Object.getPrototypeOf(this).hasAbility.call(this, item)
@@ -379,10 +374,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			return ability;
 		},
 		hasAbility(ability) {
-			if (
-				this.battle.dex.items.get(this.item).exists ||
-				this.battle.dex.moves.get(this.item).exists
-			) return false;
 			return (
 				Object.getPrototypeOf(this).hasAbility.call(this, ability) ||
 				Object.getPrototypeOf(this).hasItem.call(this, ability)
