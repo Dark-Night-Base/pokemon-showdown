@@ -186,10 +186,11 @@ export const Formats: FormatList = [
 			if (plugins.includes('comatose' as ID) && set.moves.map(this.toID).includes('sleeptalk' as ID)) {
 				return [`The combination of Comatose + Sleep Talk is banned by [Gen 9] National Dex BH`];
 			}
-			if (
-				plugins.includes('imprison' as ID) &&
-				(plugins.includes('transform' as ID) || plugins.includes('imposter' as ID))
-			) return [`The combination of ${set.item} + ${set.ability} is banned by [Gen 9] National Dex BH`];
+			if (plugins.includes('imprison' as ID) && (
+				plugins.includes('transform' as ID) ||
+				plugins.includes('imposter' as ID) ||
+				set.moves.map(this.toID).includes('transform' as ID)
+			)) return [`The combination of ${set.item} + ${set.ability} is banned by [Gen 9] National Dex BH`];
 			// validation 2
 			const item = set.item;
 			const ability = set.ability;
