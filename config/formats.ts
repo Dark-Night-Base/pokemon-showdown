@@ -2173,10 +2173,7 @@ export const Formats: FormatList = [
 
 		mod: 'moveitemability',
 		debug: true,
-		ruleset: ['[Gen 9] Balanced Hackmons'],
-		restricted: [
-			'move:Metronome',
-		],
+		ruleset: ['[Gen 9] Balanced Hackmons', 'MIA Move Legality'],
 		validateSet(set, teamHas) {
 			const validatePlugin = function (this: TeamValidator, type: 'item' | 'ability') {
 				const plugin = set[type];
@@ -2200,6 +2197,7 @@ export const Formats: FormatList = [
 				if (set.moves.map(this.toID).includes(move.id)) return [`${set.name} cannot have move ${move.name} for more than once`];
 				if (this.ruleTable.isRestricted(`move:${move.id}`)) return [`${move.name} is banned as item or ability`];
 			};
+			if (set.item === set.ability) return [`${set.name}'s item and ability cannot be the same`];
 			let problems = [...(validatePlugin.call(this, 'item') || []), ...(validatePlugin.call(this, 'ability') || [])];
 			if (problems.length) return problems;
 			const item = set.item;
