@@ -174,7 +174,7 @@ export const Formats: FormatList = [
 				) return [`${move.name} is banned as item or ability`];
 			};
 			// validation 1
-			if (this.toID(set.item) === this.toID(set.ability)) return [`${set.name}'s item and ability cannot be the same`];
+			// if (this.toID(set.item) === this.toID(set.ability)) return [`${set.name}'s item and ability cannot be the same`];
 			let problems = [...(validatePlugin.call(this, 'item') || []), ...(validatePlugin.call(this, 'ability') || [])];
 			if (problems.length) return problems;
 			// complex bans
@@ -184,8 +184,12 @@ export const Formats: FormatList = [
 				(plugins.includes('wimpout' as ID) || plugins.includes('emergencyexit' as ID))
 			) return [`The combination of ${set.item} + ${set.ability} is banned`];
 			if (plugins.includes('comatose' as ID) && set.moves.map(this.toID).includes('sleeptalk' as ID)) {
-				problems.push(`The combination of Comatose + Sleep Talk is banned by [Gen 9] National Dex BH`);
+				return [`The combination of Comatose + Sleep Talk is banned by [Gen 9] National Dex BH`];
 			}
+			if (
+				plugins.includes('imprison' as ID) &&
+				(plugins.includes('transform' as ID) || plugins.includes('imposter' as ID))
+			) return [`The combination of ${set.item} + ${set.ability} is banned by [Gen 9] National Dex BH`];
 			// validation 2
 			const item = set.item;
 			const ability = set.ability;
