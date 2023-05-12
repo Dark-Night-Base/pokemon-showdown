@@ -161,9 +161,11 @@ export const Formats: FormatList = [
 				if (move.isNonstandard && ["CAP", "LGPE", "Custom", "Gigantamax"].includes(move.isNonstandard)) return [`${move.name} does not exist in the game`];
 				if (this.ruleTable.isRestricted(`move:${move.id}`)) return [`${move.name} is banned as item or ability`];
 				const accuracyLoweringMove = move.secondaries?.some(secondary => secondary.boosts?.accuracy && secondary.boosts?.accuracy < 0);
+				const sleepMove = (move.status && move.status === 'slp') || ['relicsong', 'yawn'].includes(move.id);
 				if (
 					move.ohko ||
 					accuracyLoweringMove ||
+					sleepMove ||
 					move.multihit ||
 					move.priority > 0 ||
 					move.volatileStatus === 'partiallytrapped' ||
