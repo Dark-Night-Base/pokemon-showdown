@@ -735,7 +735,11 @@ export const Scripts: ModdedBattleScriptsData = {
 					const itemCallback = this.battle.dex.moves.get(action.pokemon.item).priorityChargeCallback;
 					if (
 						!action.maxMove && !action.zmove &&
-						(action.move.priorityChargeCallback || abilityCallback || itemCallback)
+						(
+							action.move.priorityChargeCallback ||
+							action.move.category !== 'Status' &&
+							(abilityCallback || itemCallback)
+						)
 					) {
 						actions.unshift(...this.resolveAction({
 							choice: 'priorityChargeMove',
