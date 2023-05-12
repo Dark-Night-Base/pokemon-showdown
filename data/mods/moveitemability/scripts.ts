@@ -312,9 +312,13 @@ function resolveItemforAbility(item: Item): Ability {
 }
 function resolveAbilityforItem(ability: Ability): Item {
 	const result = new Item(ability);
+	// otherwise things like psea won't end
+	// @ts-ignore
+	result.onSwitchOut = result.onSwitchOut || ability.onEnd;
+	// @ts-ignore
+	result.onFaint = result.onFaint || ability.onEnd;
 	return result;
 }
-// todo: check if we need onSwitchOut and onFaint for Multibility
 export const Scripts: ModdedBattleScriptsData = {
 	gen: 9,
 	inherit: 'gen9',
