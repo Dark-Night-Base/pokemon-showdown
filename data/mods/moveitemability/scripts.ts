@@ -263,7 +263,12 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 	// we no longer need this since we implement everything property, i think
 	// itemOrAbility.onModifySecondaries = function () {};
 }
-function setMoveCallbacksTrade(itemOrAbility: any, move: Move) {}
+function setMoveCallbacksTrade(itemOrAbility: any, move: Move) {
+	itemOrAbility.onStart = function (target: Pokemon) {
+		// Nihilslave: not quite sure under which case infinite loop will happen, just go without check
+		this.actions.useMove({...move, accuracy: true}, target);
+	};
+}
 function setItemCallbacks(ability: Ability, item: Item) {}
 function setAbilityCallbacks(item: Item, ability: Ability) {}
 

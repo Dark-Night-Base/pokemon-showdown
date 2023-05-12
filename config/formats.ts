@@ -2173,7 +2173,7 @@ export const Formats: FormatList = [
 
 		mod: 'moveitemability',
 		ruleset: ['[Gen 9] Balanced Hackmons'],
-		banlist: [
+		restricted: [
 			'move:Metronome',
 		],
 	},
