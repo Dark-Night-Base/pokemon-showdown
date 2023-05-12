@@ -9,6 +9,13 @@ import { Item } from "../../../sim/dex-items";
  * so i think this should be the best way to code the mod
  */
 
+/**
+ * i think the logic of the format should be this:
+ * if anything is in the item slot, it's viewed as an item
+ * if anything is in the ability slot, it's viewed as an ability
+ * but they still should work like what they originally are
+ */
+
 function mergeFractions(r1?: [number, number], r2?: [number, number], lcm: number = 100): [number, number] | undefined {
 	if (!r1) return r2;
 	if (!r2) return r1;
@@ -265,20 +272,24 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 }
 function setMoveCallbacksTrade(itemOrAbility: any, move: Move) {
 	itemOrAbility.onStart = function (target: Pokemon) {
-		// Nihilslave: not quite sure under which case infinite loop will happen, just go without check
+		// Nihilslave: not quite sure under what case infinite loop will happen, just go without check first
 		this.actions.useMove({...move, accuracy: true}, target);
 	};
 }
-function setItemCallbacks(ability: Ability, item: Item) {}
-function setAbilityCallbacks(item: Item, ability: Ability) {}
+function setItemCallbacks(ability: any, item: Item) {
+	ability = {...ability, ...item};
+}
+function setAbilityCallbacks(item: any, ability: Ability) {
+	item = {...item, ...ability};
+}
 
 function resolveMoveforItem(move: Move): Item {
 	const result = new Item({
 		id: move.id,
 		name: move.name,
 		num: 137,
-		ignoreKlutz: true,
-		onTakeItem: false,
+		// ignoreKlutz: true,
+		// onTakeItem: false,
 	});
 	if (move.category === 'Status') {
 		setMoveCallbacksTrade(result, move)
@@ -292,7 +303,7 @@ function resolveMoveforAbility(move: Move): Ability {
 		id: move.id,
 		name: move.name,
 		num: 0,
-		isPermanent: true,
+		// isPermanent: true,
 	});
 	if (move.category === 'Status') {
 		setMoveCallbacksTrade(result, move)
@@ -306,7 +317,7 @@ function resolveItemforAbility(item: Item): Ability {
 		id: item.id,
 		name: item.name,
 		num: 0,
-		isPermanent: true,
+		// isPermanent: true,
 	});
 	setItemCallbacks(result, item);
 	return result;
@@ -316,12 +327,13 @@ function resolveAbilityforItem(ability: Ability): Item {
 		id: ability.id,
 		name: ability.name,
 		num: 137,
-		ignoreKlutz: true,
-		onTakeItem: false,
+		// ignoreKlutz: true,
+		// onTakeItem: false,
 	});
 	setAbilityCallbacks(result, ability);
 	return result;
 }
+// todo: check if we need onSwitchOut and onFaint for Multibility
 export const Scripts: ModdedBattleScriptsData = {
 	gen: 9,
 	inherit: 'gen9',
@@ -347,15 +359,16 @@ export const Scripts: ModdedBattleScriptsData = {
 				Object.getPrototypeOf(this).hasAbility.call(this, item)
 			);
 		},
-		takeItem(source) {
-			if (!this.isActive) return false;
-			if (!this.item || this.itemState.knockedOff) return false;
-			if (
-				this.battle.dex.moves.get(this.item).exists ||
-				this.battle.dex.abilities.get(this.item).exists
-			) return false;
-			return Object.getPrototypeOf(this).takeItem.call(this, source);
-		},
+		// Nihilslave: I determine to make items knockable
+		// takeItem(source) {
+		// 	if (!this.isActive) return false;
+		// 	if (!this.item || this.itemState.knockedOff) return false;
+		// 	if (
+		// 		this.battle.dex.moves.get(this.item).exists ||
+		// 		this.battle.dex.abilities.get(this.item).exists
+		// 	) return false;
+		// 	return Object.getPrototypeOf(this).takeItem.call(this, source);
+		// },
 		getAbility() {
 			const ability = this.battle.dex.abilities.getByID(this.ability);
 			if (ability.exists) return ability;
@@ -374,6 +387,35 @@ export const Scripts: ModdedBattleScriptsData = {
 				Object.getPrototypeOf(this).hasAbility.call(this, ability) ||
 				Object.getPrototypeOf(this).hasItem.call(this, ability)
 			);
+		},
+		ignoringItem() {
+			return !!(
+				this.itemState.knockedOff || // Gen 3-4
+				(this.battle.gen >= 5 && !this.isActive) ||
+				// Nihilslave: here
+				(!this.getItem().ignoreKlutz && Object.getPrototypeOf(this).hasAbility.call(this, 'klutz')) ||
+				this.volatiles['embargo'] || this.battle.field.pseudoWeather['magicroom']
+			);
+		},
+		ignoringAbility() {
+			if (this.battle.gen >= 5 && !this.isActive) return true;
+			if (this.getAbility().isPermanent) return false;
+			if (this.volatiles['gastroacid']) return true;
+
+			// Check if any active pokemon have the ability Neutralizing Gas // Nihilslave: here
+			if (
+				[this.ability, this.item].includes('abilityshield' as ID) ||
+				[this.ability, this.item].includes('neutralizinggas' as ID)
+			) return false;
+			for (const pokemon of this.battle.getAllActive()) {
+				// can't use hasAbility because it would lead to infinite recursion
+				if ([pokemon.ability, pokemon.item].includes('neutralizinggas' as ID) && !pokemon.volatiles['gastroacid'] &&
+					!pokemon.transformed && !pokemon.abilityState.ending) {
+					return true;
+				}
+			}
+
+			return false;
 		},
 		// for trademarked
 		transformInto(pokemon: Pokemon, effect: Effect | null) {
@@ -477,6 +519,22 @@ export const Scripts: ModdedBattleScriptsData = {
 	
 			return true;
 		},
+	},
+	// for multibility
+	field: {
+		suppressingWeather() {
+			for (const side of this.battle.sides) {
+				for (const pokemon of side.active) {
+					if (
+						pokemon && !pokemon.fainted && !pokemon.ignoringAbility() &&
+						(pokemon.getAbility().suppressWeather || (pokemon.getItem() as any).suppressWeather)
+					) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
 	},
 	// for volatileStatus stack
 	actions: {

@@ -2172,6 +2172,7 @@ export const Formats: FormatList = [
 		desc: `(WIP) Fortemons + Trademarked + Multibility + Dual Wielding + BH`,
 
 		mod: 'moveitemability',
+		debug: true,
 		ruleset: ['[Gen 9] Balanced Hackmons'],
 		restricted: [
 			'move:Metronome',
