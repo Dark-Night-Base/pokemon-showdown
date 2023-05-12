@@ -122,6 +122,80 @@ export const Formats: FormatList = [
 		},
 	},
 	{
+		name: "[Gen 9] ND Move-Item-Ability BH",
+		desc: `Fortemons + Trademarked + Multibility + Dual Wielding + BH`,
+
+		mod: 'moveitemability',
+		debug: true,
+		ruleset: ['[Gen 9] National Dex BH', 'MIA Move Legality'], // , 'MIA Clause'],
+		banlist: [
+			'Serene Grace',
+			'Endeavor', 'Nature\'s Madness', 'Ruination', 'Super Fang',
+		],
+		unbanlist: [
+			'Zygarde-Complete',
+		],
+		validateSet(set, teamHas) {
+			const validatePlugin = function (this: TeamValidator, type: 'item' | 'ability') {
+				const plugin = set[type];
+				const move = this.dex.moves.get(plugin);
+				const item = this.dex.items.get(plugin);
+				const ability = this.dex.abilities.get(plugin);
+				if (type === 'item') {
+					if (item.exists) return;
+					if (ability.exists) {
+						if (this.ruleTable.isBanned(`ability:${ability.id}`)) return [`${ability.name} is banned`];
+						return;
+					}
+				}
+				if (type === 'ability') {
+					if (ability.exists) return;
+					if (item.exists) {
+						if (this.ruleTable.isBanned(`item:${item.id}`)) return [`${item.name} is banned`];
+						return;
+					}
+				}
+				if (set.moves.map(this.toID).includes(move.id)) return [`${set.name} cannot have move ${move.name} for more than once`];
+				if (move.isNonstandard && ["CAP", "LGPE", "Custom", "Gigantamax"].includes(move.isNonstandard)) return [`${move.name} does not exist in the game`];
+				if (this.ruleTable.isRestricted(`move:${move.id}`)) return [`${move.name} is banned as item or ability`];
+				const accuracyLoweringMove = move.secondaries?.some(secondary => secondary.boosts?.accuracy && secondary.boosts?.accuracy < 0);
+				if (
+					move.ohko ||
+					accuracyLoweringMove ||
+					move.multihit ||
+					move.priority > 0 ||
+					move.volatileStatus === 'partiallytrapped' ||
+					move.damageCallback && move.id !== 'psywave' ||
+					move.flags['charge'] ||
+					move.willCrit ||
+					move.selfSwitch
+				) return [`${move.name} is banned as item or ability`];
+			};
+			// validation 1
+			if (toID(set.item) === toID(set.ability)) return [`${set.name}'s item and ability cannot be the same`];
+			let problems = [...(validatePlugin.call(this, 'item') || []), ...(validatePlugin.call(this, 'ability') || [])];
+			if (problems.length) return problems;
+			// complex bans
+			const plugins = [toID(set.item), toID(set.ability)];
+			if (
+				plugins.includes('regenerator' as ID) &&
+				(plugins.includes('wimpout' as ID) || plugins.includes('emergencyexit' as ID))
+			) return [`The combination of ${set.item} + ${set.ability} is banned`];
+			if (plugins.includes('comatose' as ID) && set.moves.map(this.toID).includes('sleeptalk' as ID)) {
+				problems.push(`The combination of Comatose + Sleep Talk is banned by [Gen 9] National Dex BH`);
+			}
+			// validation 2
+			const item = set.item;
+			const ability = set.ability;
+			set.item = '';
+			set.ability = 'ballfetch';
+			problems = this.validateSet(set, teamHas) || [];
+			set.item = item;
+			set.ability = ability;
+			return problems.length ? problems : null;
+		},
+	},
+	{
 		name: "[Gen 8] Johto Dex BH",
 		desc: `BH, but only things that are native to Kanto and Johto regions are usable.`,
 		threads: [
@@ -1523,6 +1597,7 @@ export const Formats: FormatList = [
 					return forte.onModifyPriority.call(this, priority, source, target, move) || priority;
 				}
 			}
+			// todo: i forgot to add forte.priority here
 		},
 		// set priority to 11 for sleepUsable and defrost
 		onBeforeMovePriority: 11,
@@ -2166,49 +2241,6 @@ export const Formats: FormatList = [
 
 		mod: 'gen9',
 		ruleset: ['[Gen 9] Balanced Hackmons', 'Same Type Clause'],
-	},
-	{
-		name: "[Gen 9] Move-Item-Ability BH",
-		desc: `(WIP) Fortemons + Trademarked + Multibility + Dual Wielding + BH`,
-
-		mod: 'moveitemability',
-		debug: true,
-		ruleset: ['[Gen 9] Balanced Hackmons', 'MIA Move Legality'],
-		validateSet(set, teamHas) {
-			const validatePlugin = function (this: TeamValidator, type: 'item' | 'ability') {
-				const plugin = set[type];
-				const move = this.dex.moves.get(plugin);
-				const item = this.dex.items.get(plugin);
-				const ability = this.dex.abilities.get(plugin);
-				if (type === 'item') {
-					if (item.exists) return;
-					if (ability.exists) {
-						if (this.ruleTable.isBanned(`ability:${ability.id}`)) return [`${ability.name} is banned`];
-						return;
-					}
-				}
-				if (type === 'ability') {
-					if (ability.exists) return;
-					if (item.exists) {
-						if (this.ruleTable.isBanned(`item:${item.id}`)) return [`${item.name} is banned`];
-						return;
-					}
-				}
-				if (set.moves.map(this.toID).includes(move.id)) return [`${set.name} cannot have move ${move.name} for more than once`];
-				if (this.ruleTable.isRestricted(`move:${move.id}`)) return [`${move.name} is banned as item or ability`];
-			};
-			if (set.item === set.ability) return [`${set.name}'s item and ability cannot be the same`];
-			let problems = [...(validatePlugin.call(this, 'item') || []), ...(validatePlugin.call(this, 'ability') || [])];
-			if (problems.length) return problems;
-			const item = set.item;
-			const ability = set.ability;
-			set.item = '';
-			set.ability = 'ballfetch';
-			problems = this.validateSet(set, teamHas) || [];
-			set.item = item;
-			set.ability = ability;
-			return problems.length ? problems : null;
-		},
 	},
 	{
 		name: "[Gen 9] Multibility BH",

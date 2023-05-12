@@ -2955,16 +2955,91 @@ export const Rulesets: {[k: string]: FormatData} = {
 		effectType: 'ValidatorRule',
 		name: 'MIA Move Legality',
 		desc: "Bans certain Moves in Item/Ability Slot",
+		ruleset: ['Multi-hit Moves Clause'],
 		restricted: [
 			'move:Metronome',
 			'Acid Spray', 'Anchor Shot', 'Beat Up', 'Bide', 'Bolt Beak', 'Ceaseless Edge', 'Dynamic Punch',
 			'Echoed Voice', 'Eerie Spell', 'Fishious Rend', 'Ice Ball', 'Inferno', 'Jaw Lock', 'Last Respects',
 			'Lumina Crash', 'Mortal Spin', 'Nuzzle', 'Power Trip', 'Pursuit', 'Rage Fist', 'Rising Voltage',
-			'Rollout', 'Spirit Shackle', 'Stored Power', 'Terrain Pulse', 'Thousand Waves', 'Weather Ball',
-			'Zap Cannon',
+			'Rollout', 'Shell Side Arm', 'Spirit Shackle', 'Stored Power', 'Terrain Pulse', 'Thousand Waves',
+			'Weather Ball', 'Zap Cannon',
 			'Baneful Bunker', 'Block', 'Copycat', 'Detect', 'Destiny Bond', 'Encore', 'Fairy Lock', 'Ingrain',
-			'Instruct', 'Mean Look', 'Protect', 'Revival Blessing', 'Roar', 'Silk Trap', 'Spiky Shield', 'Sleep Talk',
-			'Shed Tail', 'Shell Smash', 'Substitute', 'Trick Room', 'Whirlwind',
+			'Instruct', 'King\'s Shield', 'Mean Look', 'Obstruct', 'Protect', 'Revival Blessing', 'Roar', 'Silk Trap',
+			'Spiky Shield', 'Sleep Talk', 'Shed Tail', 'Shell Smash', 'Substitute', 'Trick Room', 'Whirlwind',
 		],
+	},
+	miaclause: {
+		effectType: 'ValidatorRule',
+		name: 'MIA Clause',
+		desc: "Prevents teams from having more than one Pokemon with the same Forte/Trademark/Item/Ability.",
+		onBegin() {
+			this.add('rule', 'Forte Clause: Limit one of each Forte/Trademark/Item/Ability.');
+		},
+		onValidateTeam(team, format, teamHas) {
+			const getPluginString = function (this: TeamValidator, plugin: string) {
+				const move = this.dex.moves.get(plugin);
+				const item = this.dex.items.get(plugin);
+				const ability = this.dex.abilities.get(plugin);
+				if (item.exists) return item.id;
+				if (ability.exists) {
+					const base: {[k: string]: string} = {
+						airlock: 'cloudnine',
+						armortail: 'queenlymajesty',
+						battlearmor: 'shellarmor',
+						clearbody: 'whitesmoke',
+						dazzling: 'queenlymajesty',
+						emergencyexit: 'wimpout',
+						filter: 'solidrock',
+						gooey: 'tanglinghair',
+						insomnia: 'vitalspirit',
+						ironbarbs: 'roughskin',
+						libero: 'protean',
+						minus: 'plus',
+						moxie: 'chillingneigh',
+						powerofalchemy: 'receiver',
+						propellertail: 'stalwart',
+						teravolt: 'moldbreaker',
+						turboblaze: 'moldbreaker',
+					};
+					if (ability.id in base) return base[ability.id];
+					return ability.id;
+				}
+				if (move.exists) {
+					if (move.category === 'Status') return move.id;
+					const forteMove = this.dex.deepClone(move);
+					const irrelevantProperties = [
+						'exists', 'desc', 'shortDesc', 'id', 'fullname', 'effectType', 'gen', 'isNonstandard', 'baseMoveType',
+						'num', 'accuracy', 'basePower', 'category', 'name', 'pp', 'target', 'type',
+						'contestType', 'zMove', 'maxMove', 'noPPBoosts', 'noSketch',
+						// won't affect leagal forte, just in case
+						'isZ', 'isMax', 'stallingMove',
+					];
+					const irrelevantFlags = [
+						'allyanim', 'nonsky',
+					];
+					for (const prop of irrelevantProperties) {
+						if (forteMove[prop]) delete forteMove[prop];
+					}
+					for (const flag of irrelevantFlags) {
+						if (forteMove.flags[flag]) delete forteMove.flags[flag];
+					}
+					return JSON.stringify(forteMove);
+				}
+				return '';
+			};
+			const miaTable: Set<string> = new Set();
+			for (const set of team) {
+				for (const plugin of [set.item, set.ability]) {
+					const pluginString = getPluginString.call(this, plugin);
+					if (miaTable.has(pluginString)) {
+						return [
+							`You are limited to one of each Forte/Trademark/Item/Ability by MIA Clause.`,
+							`(You have more than one ${plugin} variants)`,
+						];
+					}
+					miaTable.add(pluginString);
+				}
+			}
+		},
 	},
 };

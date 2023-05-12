@@ -61,7 +61,8 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 	itemOrAbility.onModifyPriority = function (priority: number, source: Pokemon, target: Pokemon, move: ActiveMove) {
 		if (move.category === 'Status') return;
 		move.flags['heal'] = move.flags['heal'] || forte.flags['heal'];
-		return forte.onModifyPriority?.call(this, priority, source, target, move);
+		if (forte.onModifyPriority) return forte.onModifyPriority.call(this, priority + forte.priority, source, target, move);
+		return priority + forte.priority;
 	};
 	itemOrAbility.onBeforeMovePriority = 11;
 	// everytime a move is used, the simulator will summon a temporary ActiveMove for it
