@@ -172,11 +172,11 @@ export const Formats: FormatList = [
 				) return [`${move.name} is banned as item or ability`];
 			};
 			// validation 1
-			if (toID(set.item) === toID(set.ability)) return [`${set.name}'s item and ability cannot be the same`];
+			if (this.toID(set.item) === this.toID(set.ability)) return [`${set.name}'s item and ability cannot be the same`];
 			let problems = [...(validatePlugin.call(this, 'item') || []), ...(validatePlugin.call(this, 'ability') || [])];
 			if (problems.length) return problems;
 			// complex bans
-			const plugins = [toID(set.item), toID(set.ability)];
+			const plugins = [this.toID(set.item), this.toID(set.ability)];
 			if (
 				plugins.includes('regenerator' as ID) &&
 				(plugins.includes('wimpout' as ID) || plugins.includes('emergencyexit' as ID))
