@@ -513,8 +513,29 @@ export const Scripts: ModdedBattleScriptsData = {
 			return false;
 		}
 	},
-	// for volatileStatus stack
 	actions: {
+		canMegaEvo(pokemon: Pokemon) {
+			const species = pokemon.baseSpecies;
+			const altForme = species.otherFormes && this.dex.species.get(species.otherFormes[0]);
+			const item = pokemon.getItem();
+			// Nihilslave: here
+			const ability = pokemon.getAbility() as unknown as Item;
+			// Mega Rayquaza
+			if ((this.battle.gen <= 7 || this.battle.ruleTable.has('+pokemontag:past')) &&
+				altForme?.isMega && altForme?.requiredMove &&
+				pokemon.baseMoves.includes(toID(altForme.requiredMove)) && !item.zMove && !ability.zMove) {
+				return altForme.name;
+			}
+			// a hacked-in Megazard X can mega evolve into Megazard Y, but not into Megazard X
+			if (item.megaEvolves === species.baseSpecies && item.megaStone !== species.name) {
+				return item.megaStone;
+			}
+			if (ability.megaEvolves === species.baseSpecies && ability.megaStone !== species.name) {
+				return ability.megaStone;
+			}
+			return null;
+		},
+		// for volatileStatus stack
 		runMoveEffects(
 			damage: SpreadMoveDamage, targets: SpreadMoveTargets, source: Pokemon,
 			move: ActiveMove, moveData: ActiveMove, isSecondary?: boolean, isSelf?: boolean
@@ -758,7 +779,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			return actions as any;
 		},
 	},
-	// for beakblast / focuspunch forte
+	// for beakblast / focuspunch forte & primal
 	runAction(action: Action) {
 		const pokemonOriginalHP = action.pokemon?.hp;
 		let residualPokemon: (readonly [Pokemon, number])[] = [];
@@ -934,6 +955,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		case 'runPrimal':
 			if (!action.pokemon.transformed) {
 				this.singleEvent('Primal', action.pokemon.getItem(), action.pokemon.itemState, action.pokemon);
+				// Nihilslave: here
 				this.singleEvent('Primal', action.pokemon.getAbility(), action.pokemon.itemState, action.pokemon);
 			}
 			break;
