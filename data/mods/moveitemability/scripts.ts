@@ -536,6 +536,17 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 			return null;
 		},
+		// for z crystals in ability slot
+		canTerastallize(pokemon: Pokemon) {
+			if (
+				pokemon.species.isMega || pokemon.species.isPrimal || pokemon.species.forme === "Ultra" ||
+				pokemon.getItem().zMove || (pokemon.getAbility() as any).zMove || pokemon.canMegaEvo ||
+				pokemon.side.canDynamaxNow() || this.dex.gen !== 9
+			) {
+				return null;
+			}
+			return pokemon.teraType;
+		},
 		// for volatileStatus stack
 		runMoveEffects(
 			damage: SpreadMoveDamage, targets: SpreadMoveTargets, source: Pokemon,
