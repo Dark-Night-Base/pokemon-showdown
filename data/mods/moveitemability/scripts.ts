@@ -269,6 +269,10 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 		if (move.category === 'Status') return;
 		return forte.onAfterSubDamage?.call(this, damage, target, source, move);
 	};
+	itemOrAbility.onBasePower = function (basePower: number, source: Pokemon, target: Pokemon, move: ActiveMove) {
+		if (move.category === 'Status') return;
+		return forte.onBasePower?.call(this, basePower, source, target, move);
+	};
 	// we no longer need this since we implement everything property, i think
 	// itemOrAbility.onModifySecondaries = function () {};
 }
