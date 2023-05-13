@@ -57,7 +57,9 @@ function mergeCallback(move: any, forte: any, property: string) {
 
 function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 	// complexProperties - part 0 - before onModifyMove
+
 	// don't set onModifyPriorityPriority to 1, cuz that will break triage
+	// generally we don't really need to set most priorities, since we're in an item or ability
 	itemOrAbility.onModifyPriority = function (priority: number, source: Pokemon, target: Pokemon, move: ActiveMove) {
 		if (move.category === 'Status') return;
 		move.flags['heal'] = move.flags['heal'] || forte.flags['heal'];
@@ -74,7 +76,7 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 		// yea we have to modify beforeMoveCallback here since such property of itemOrAbility won't be called
 		move.beforeMoveCallback = mergeCallback(move, forte, 'beforeMoveCallback');
 	};
-	itemOrAbility.onModifyTypePriority = 1;
+	// itemOrAbility.onModifyTypePriority = 1;
 	itemOrAbility.onModifyType = function (move: ActiveMove, pokemon: Pokemon, target: Pokemon) {
 		if (move.category === 'Status') return;
 		return forte.onModifyType?.call(this, move, pokemon, target);
