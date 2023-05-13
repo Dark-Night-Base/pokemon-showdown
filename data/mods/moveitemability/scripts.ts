@@ -934,6 +934,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		case 'runPrimal':
 			if (!action.pokemon.transformed) {
 				this.singleEvent('Primal', action.pokemon.getItem(), action.pokemon.itemState, action.pokemon);
+				this.singleEvent('Primal', action.pokemon.getAbility(), action.pokemon.itemState, action.pokemon);
 			}
 			break;
 		case 'shift':
