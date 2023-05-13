@@ -514,6 +514,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		}
 	},
 	actions: {
+		// for mega stones in ability slot
 		canMegaEvo(pokemon: Pokemon) {
 			const species = pokemon.baseSpecies;
 			const altForme = species.otherFormes && this.dex.species.get(species.otherFormes[0]);
@@ -948,6 +949,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			break;
 		case 'runUnnerve':
 			this.singleEvent('PreStart', action.pokemon.getAbility(), action.pokemon.abilityState, action.pokemon);
+			this.singleEvent('PreStart', action.pokemon.getItem(), action.pokemon.itemState, action.pokemon);
 			break;
 		case 'runSwitch':
 			this.actions.runSwitch(action.pokemon);
@@ -956,7 +958,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (!action.pokemon.transformed) {
 				this.singleEvent('Primal', action.pokemon.getItem(), action.pokemon.itemState, action.pokemon);
 				// Nihilslave: here
-				this.singleEvent('Primal', action.pokemon.getAbility(), action.pokemon.itemState, action.pokemon);
+				this.singleEvent('Primal', action.pokemon.getAbility(), action.pokemon.abilityState, action.pokemon);
 			}
 			break;
 		case 'shift':
