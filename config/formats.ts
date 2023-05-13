@@ -172,7 +172,9 @@ export const Formats: FormatList = [
 					move.damageCallback && move.id !== 'psywave' ||
 					move.flags['charge'] ||
 					move.willCrit ||
-					move.selfSwitch
+					move.selfSwitch ||
+					move.isZ ||
+					move.isMax
 				) return [`${move.name} is banned as item or ability`];
 			};
 			// validation 1
