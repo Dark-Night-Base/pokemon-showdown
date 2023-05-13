@@ -158,7 +158,7 @@ export const Formats: FormatList = [
 						return;
 					}
 				}
-				if (set.moves.map(this.toID).includes(move.id)) return [`${set.name} cannot have move ${move.name} for more than once`];
+				if (set.moves.map(this.toID).includes(move.id) && move.id !== '') return [`${set.name} cannot have move ${move.name} for more than once`];
 				if (move.isNonstandard && ["CAP", "LGPE", "Custom", "Gigantamax"].includes(move.isNonstandard)) return [`${move.name} does not exist in the game`];
 				if (this.ruleTable.isRestricted(`move:${move.id}`)) return [`${move.name} is banned as item or ability`];
 				const accuracyLoweringMove = move.secondaries?.some(secondary => secondary.boosts?.accuracy && secondary.boosts?.accuracy < 0);
