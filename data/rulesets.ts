@@ -2825,8 +2825,9 @@ export const Rulesets: {[k: string]: FormatData} = {
 			if (!isIF) {
 				buf += `<span class="col pokemonnamecol" style="white-space:nowrap"><a href="https://dex.pokemonshowdown.com/pokemon/${species.id}" target="_blank">${species.name}</a></span> `;
 			} else {
-				const finalName = (pokemon.m.headSpecies?.name === pokemon.m.bodySpecies?.name) ? species.name :
-					`${pokemon.m.headSpecies? `${pokemon.m.headSpecies?.name}&sect;`: ''}${pokemon.m.bodySpecies?.name}`; // §
+				const m = pokemon.illusion ? pokemon.illusion.m : pokemon.m;
+				const finalName = (m.headSpecies?.name === m.bodySpecies?.name) ? species.name :
+					`${m.headSpecies? `${m.headSpecies?.name}&sect;`: ''}${m.bodySpecies?.name}`; // §
 				buf += `<span class="col pokemonnamecol" style="white-space:nowrap"><a href="https://dex.pokemonshowdown.com/pokemon/${species.id}" target="_blank">${finalName}</a></span> `;
 			}
 			buf += '<span class="col typecol">';
