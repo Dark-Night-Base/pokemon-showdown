@@ -195,7 +195,7 @@ export const Formats: FormatList = [
 				plugins.includes('transform' as ID) ||
 				plugins.includes('imposter' as ID) ||
 				set.moves.map(this.toID).includes('transform' as ID)
-			)) return [`The combination of Imprison + Transform (or Imposter) is banned by [Gen 9] National Dex BH`];
+			)) return [`The combination of Imprison + Transform or Imposter is banned by [Gen 9] National Dex BH`];
 			// validation 2
 			const item = set.item;
 			const ability = set.ability;
