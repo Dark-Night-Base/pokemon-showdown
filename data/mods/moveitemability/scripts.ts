@@ -289,8 +289,8 @@ function resolveMoveforItem(move: Move): Item {
 		id: move.id,
 		name: move.name,
 		num: 137,
-		// ignoreKlutz: true,
-		// onTakeItem: false,
+		ignoreKlutz: true,
+		onTakeItem: false,
 	});
 	if (move.category === 'Status') {
 		setMoveCallbacksTrade(result, move)
@@ -318,7 +318,11 @@ function resolveItemforAbility(item: Item): Ability {
 	return result;
 }
 function resolveAbilityforItem(ability: Ability): Item {
-	const result = new Item(ability);
+	const result = new Item({
+		...ability,
+		ignoreKlutz: true,
+		onTakeItem: false,
+	});
 	// otherwise things like psea won't end
 	// @ts-ignore
 	result.onSwitchOut = result.onSwitchOut || ability.onEnd;
@@ -347,15 +351,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			);
 		},
 		// Nihilslave: I determine to make items knockable
-		// takeItem(source) {
-		// 	if (!this.isActive) return false;
-		// 	if (!this.item || this.itemState.knockedOff) return false;
-		// 	if (
-		// 		this.battle.dex.moves.get(this.item).exists ||
-		// 		this.battle.dex.abilities.get(this.item).exists
-		// 	) return false;
-		// 	return Object.getPrototypeOf(this).takeItem.call(this, source);
-		// },
+		// also Nihilslave: ^ dumb dicision
 		getAbility() {
 			const ability = this.battle.dex.abilities.getByID(this.ability);
 			if (ability.exists) return ability;
