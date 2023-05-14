@@ -58,13 +58,14 @@ function mergeCallback(move: any, forte: any, property: string) {
 
 function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 	// complexProperties - part 0 - before onModifyMove
-
-	// don't set onModifyPriorityPriority to 1, cuz that will break triage
-	// generally we don't really need to set most priorities, since we're in an item or ability
+	itemOrAbility.onModifyPriorityPriority = 1;
 	itemOrAbility.onModifyPriority = function (priority: number, source: Pokemon, target: Pokemon, move: ActiveMove) {
 		if (move.category === 'Status') return;
 		move.flags['heal'] = move.flags['heal'] || forte.flags['heal'];
-		return forte.onModifyPriority?.call(this, priority + forte.priority, source, target, move) || (priority + forte.priority);
+		const retVal = forte.onModifyPriority?.call(this, priority + forte.priority, source, target, move) || (priority + forte.priority);
+		// never return 0 here cuz otherwise it will stop the battle from checking other plugins' `onModifyPriority`
+		if (retVal) return retVal;
+		return undefined;
 	};
 	itemOrAbility.onBeforeMovePriority = 11;
 	// everytime a move is used, the simulator will summon a temporary ActiveMove for it
