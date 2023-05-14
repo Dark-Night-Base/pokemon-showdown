@@ -130,7 +130,7 @@ export const Formats: FormatList = [
 		ruleset: ['[Gen 9] National Dex BH', 'MIA Move Legality', 'MIA Clause'],
 		banlist: [
 			'Serene Grace',
-			'Endeavor', 'Nature\'s Madness', 'Ruination', 'Super Fang',
+			'Assist', 'Endeavor', 'Nature\'s Madness', 'Ruination', 'Super Fang',
 			'Red Orb',
 		],
 		unbanlist: [
