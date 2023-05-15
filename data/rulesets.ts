@@ -2976,7 +2976,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 		name: 'MIA Clause',
 		desc: "Prevents teams from having more than one Pokemon with the same Forte/Trademark/Item/Ability.",
 		onBegin() {
-			this.add('rule', 'Forte Clause: Limit one of each Forte/Trademark/Item/Ability.');
+			this.add('rule', 'MIA Clause: Limit one of each Forte/Trademark/Item/Ability.');
 		},
 		onValidateTeam(team, format, teamHas) {
 			const getPluginString = function (this: TeamValidator, plugin: string) {
