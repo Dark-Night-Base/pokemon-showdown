@@ -168,10 +168,11 @@ export const Formats: FormatList = [
 					accuracyLoweringMove ||
 					sleepMove ||
 					move.multihit ||
-					move.priority > 0 ||
+					(move.priority > 0 && move.category !== 'Status') ||
 					move.volatileStatus === 'partiallytrapped' ||
 					move.damageCallback && move.id !== 'psywave' ||
-					move.flags['charge'] ||
+					// todo: check why charge moves are banned and test geomancy
+					(move.flags['charge'] && move.category !== 'Status') ||
 					move.willCrit ||
 					move.selfSwitch ||
 					move.isZ ||
