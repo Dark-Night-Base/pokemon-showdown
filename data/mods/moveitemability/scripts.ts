@@ -64,13 +64,14 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 		move.flags['heal'] = move.flags['heal'] || forte.flags['heal'];
 		const retVal = forte.onModifyPriority?.call(this, priority + forte.priority, source, target, move) || (priority + forte.priority);
 		// never return 0 here cuz otherwise it will stop the battle from checking other plugins' `onModifyPriority`
+		// see sim/battle.ts::runEvent()
 		if (retVal) return retVal;
 		return undefined;
 	};
 	itemOrAbility.onBeforeMovePriority = 11;
 	// everytime a move is used, the simulator will summon a temporary ActiveMove for it
 	// so move will never get modified by the same itemOrAbility twice I guess
-	// by saying that, I mean the use of moveCallback is safe
+	// by saying that, I mean the use of mergeCallback is safe
 	itemOrAbility.onBeforeMove = function (source: Pokemon, target: Pokemon, move: ActiveMove) {
 		if (move.category === 'Status') return;
 		move.sleepUsable = move.sleepUsable || forte.sleepUsable;
@@ -82,7 +83,7 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 	itemOrAbility.onModifyType = function (move: ActiveMove, pokemon: Pokemon, target: Pokemon) {
 		if (move.category === 'Status') return;
 		return forte.onModifyType?.call(this, move, pokemon, target);
-	}
+	};
 
 	itemOrAbility.onModifyMovePriority = 1;
 	itemOrAbility.onModifyMove = function (move: ActiveMove, pokemon: Pokemon, target: Pokemon) {
