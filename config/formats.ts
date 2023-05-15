@@ -200,8 +200,8 @@ export const Formats: FormatList = [
 			// validation 2
 			const item = set.item;
 			const ability = set.ability;
-			if (!this.dex.items.get(set.item).exists) set.item = '';
-			if (!this.dex.abilities.get(set.ability).exists) set.ability = 'ballfetch';
+			if (!this.dex.items.get(item).exists) set.item = '';
+			if (!this.dex.abilities.get(ability).exists) set.ability = 'ballfetch';
 			problems = this.validateSet(set, teamHas) || [];
 			set.item = item;
 			set.ability = ability;
