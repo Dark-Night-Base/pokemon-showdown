@@ -3048,8 +3048,8 @@ export const Rulesets: {[k: string]: FormatData} = {
 	otherrestricted: {
 		effectType: 'ValidatorRule',
 		name: 'Other Restricted',
-		desc: "Bans Pokemon with greater BST than allowed.",
+		desc: "Does nothing but tells you a lot of things are restricted.",
 		hasValue: true,
-		// does nothing, this is just an agent to tell you something is restricted
+		// does nothing
 	},
 };
