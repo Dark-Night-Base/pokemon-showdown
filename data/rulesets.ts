@@ -3007,7 +3007,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 					return ability.id;
 				}
 				if (move.exists) {
-					if (move.category === 'Status') return move.id;
+					// if (move.category === 'Status') return move.id;
 					const forteMove = this.dex.deepClone(move);
 					const irrelevantProperties = [
 						'exists', 'desc', 'shortDesc', 'id', 'fullname', 'effectType', 'gen', 'isNonstandard', 'baseMoveType',
