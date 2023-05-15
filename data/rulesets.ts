@@ -2956,7 +2956,8 @@ export const Rulesets: {[k: string]: FormatData} = {
 		effectType: 'ValidatorRule',
 		name: 'MIA Move Legality',
 		desc: "Bans certain Moves in Item/Ability Slot",
-		ruleset: ['Multi-hit Moves Clause'],
+		ruleset: ['Multi-hit Moves Clause', 'Other Restricted = OHKO Moves, Lowering Accuracy Moves, Sleep Moves, Multi-hit Moves, Positive Priority Attacks, \
+		Partially Trapping Moves, Counter-like Moves, HP-related Moves, Charge Attacks, Always-crit Moves, Pivot Moves, Z Moves, Max Moves'],
 		restricted: [
 			'move:Metronome',
 			'Acid Spray', 'Anchor Shot', 'Beat Up', 'Bide', 'Bolt Beak', 'Ceaseless Edge', 'Dynamic Punch',
@@ -3043,5 +3044,12 @@ export const Rulesets: {[k: string]: FormatData} = {
 				}
 			}
 		},
+	},
+	otherrestricted: {
+		effectType: 'ValidatorRule',
+		name: 'Other Restricted',
+		desc: "Bans Pokemon with greater BST than allowed.",
+		hasValue: true,
+		// does nothing, this is just an agent to tell you something is restricted
 	},
 };
