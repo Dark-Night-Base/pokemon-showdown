@@ -1011,7 +1011,7 @@ export const Formats: FormatList = [
 			'Arceus > 1', 'Calyrex-Shadow', 'Cramorant-Gorging', 'Darmanitan-Galar-Zen', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 'Zygarde-Complete',
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Magnet Pull', 'Moody', 'Neutralizing Gas', 'Parental Bond',
 			'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Gengarite',
+			'Berserk Gene', 'Gengarite',
 			'Belly Drum', 'Bolt Beak', 'Chatter', 'Double Iron Bash', 'Electrify', 'Last Respects', 'Octolock', 'Rage Fist', 'Revival Blessing', 'Shed Tail',
 			'Shell Smash',
 			'Comatose + Sleep Talk', 'Imprison + Transform',
@@ -2752,11 +2752,11 @@ export const Formats: FormatList = [
 		mod: 'gen9',
 		ruleset: ['Standard OMs', '!Obtainable Abilities', 'Ability Clause = 1', 'Sleep Moves Clause', 'Terastal Clause', 'Min Source Gen = 9'],
 		banlist: [
-			'Annihilape', 'Baxcalibur', 'Dragapult', 'Dragonite', 'Flutter Mane', 'Great Tusk', 'Gholdengo', 'Houndstone', 'Iron Bundle',
-			'Iron Hands', 'Iron Valiant', 'Koraidon', 'Miraidon', 'Noivern', 'Slaking', 'Walking Wake', 'Arena Trap', 'Comatose', 'Contrary',
-			'Fur Coat', 'Good as Gold', 'Gorilla Tactics', 'Huge Power', 'Ice Scales', 'Illusion', 'Imposter', 'Innards Out', 'Magic Bounce',
-			'Magnet Pull', 'Moody', 'Neutralizing Gas', 'Orichalcum Pulse', 'Parental Bond', 'Poison Heal', 'Pure Power', 'Shadow Tag', 'Simple',
-			'Speed Boost', 'Stakeout', 'Unburden', 'Water Bubble', 'Wonder Guard', 'King\'s Rock', 'Baton Pass', 'Revival Blessing', 'Shed Tail',
+			'Annihilape', 'Baxcalibur', 'Dragapult', 'Dragonite', 'Flutter Mane', 'Gengar', 'Great Tusk', 'Gholdengo', 'Houndstone', 'Iron Bundle', 'Iron Hands',
+			'Iron Valiant', 'Koraidon', 'Miraidon', 'Noivern', 'Slaking', 'Walking Wake', 'Zoroark-Hisui', 'Arena Trap', 'Comatose', 'Contrary', 'Fur Coat',
+			'Good as Gold', 'Gorilla Tactics', 'Huge Power', 'Ice Scales', 'Illusion', 'Imposter', 'Innards Out', 'Magic Bounce', 'Magnet Pull', 'Moody',
+			'Neutralizing Gas', 'Orichalcum Pulse', 'Parental Bond', 'Poison Heal', 'Pure Power', 'Shadow Tag', 'Simple', 'Speed Boost', 'Stakeout', 'Unburden',
+			'Water Bubble', 'Wonder Guard', 'King\'s Rock', 'Baton Pass', 'Revival Blessing', 'Shed Tail',
 		],
 	},
 	{
@@ -4057,7 +4057,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen9',
-		ruleset: ['Standard OMs', 'Sleep Moves Clause', 'Min Source Gen = 9'],
+		ruleset: ['Standard OMs', 'Sleep Moves Clause', 'Revelationmons Mod', 'Min Source Gen = 9'],
 		banlist: ['Dragonite', 'Espathra', 'Flutter Mane', 'Koraidon', 'Iron Bundle', 'Miraidon', 'Noivern', 'Palafin', 'Arena Trap', 'Moody', 'Shadow Tag', 'King\'s Rock', 'Baton Pass'],
 		restricted: ['U-turn', 'Volt Switch'],
 	},
@@ -4198,8 +4198,8 @@ export const Formats: FormatList = [
 		mod: 'thecardgame',
 		ruleset: ['Standard OMs', 'Sleep Moves Clause', 'Evasion Abilities Clause', 'Evasion Items Clause', 'Terastal Clause', 'Min Source Gen = 9'],
 		banlist: [
-			'Annihilape', 'Baxcalibur', 'Chi-Yu', 'Cyclizar', 'Dragapult', 'Dragonite', 'Espathra', 'Houndstone', 'Hydreigon', 'Koraidon',
-			'Miraidon', 'Noivern', 'Palafin', 'Roaring Moon', 'Salamence', 'Walking Wake', 'Arena Trap', 'Moody', 'Shadow Tag', 'Baton Pass',
+			'Annihilape', 'Baxcalibur', 'Chi-Yu', 'Chien-Pao', 'Cyclizar', 'Dragapult', 'Dragonite', 'Espathra', 'Haxorus', 'Houndstone', 'Hydreigon', 'Iron Valiant',
+			'Koraidon', 'Miraidon', 'Noivern', 'Palafin', 'Roaring Moon', 'Salamence', 'Walking Wake', 'Arena Trap', 'Moody', 'Shadow Tag', 'Baton Pass',
 		],
 		onBegin() {
 			for (const pokemon of this.getAllPokemon()) {
@@ -4319,10 +4319,10 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen9',
-		ruleset: ['Standard OMs', 'Tier Shift Mod', 'Sleep Moves Clause', 'Min Source Gen = 9'],
+		ruleset: ['Standard OMs', 'Tier Shift Mod', 'Sleep Moves Clause', 'Terastal Clause', 'Min Source Gen = 9'],
 		banlist: [
-			'Chi-Yu', 'Cloyster', 'Espathra', 'Falinks', 'Flutter Mane', 'Houndstone', 'Iron Bundle', 'Koraidon', 'Miraidon',
-			'Moody', 'Arena Trap', 'Shadow Tag', 'Eviolite', 'Damp Rock', 'Heat Rock', 'Baton Pass', 'Shed Tail',
+			'Chi-Yu', 'Cloyster', 'Espathra', 'Falinks', 'Flutter Mane', 'Houndstone', 'Iron Bundle', 'Koraidon', 'Medicham', 'Miraidon', 'Oricorio-Pom-Pom',
+			'Polteageist', 'Arena Trap', 'Moody', 'Shadow Tag', 'Eviolite', 'Damp Rock', 'Heat Rock', 'Light Clay', 'Baton Pass', 'Shed Tail',
 		],
 	},
 	{
