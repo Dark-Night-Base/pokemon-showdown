@@ -129,7 +129,7 @@ export const Formats: FormatList = [
 		debug: true,
 		ruleset: ['[Gen 9] National Dex BH', 'MIA Move Legality', 'MIA Clause'],
 		banlist: [
-			'Serene Grace',
+			'Emergency Exit', 'Serene Grace', 'Wimp Out',
 			'Assist', 'Endeavor', 'Nature\'s Madness', 'Ruination', 'Super Fang',
 			'Red Orb',
 		],
@@ -184,10 +184,6 @@ export const Formats: FormatList = [
 			if (problems.length) return problems;
 			// complex bans
 			const plugins = [this.toID(set.item), this.toID(set.ability)];
-			if (
-				plugins.includes('regenerator' as ID) &&
-				(plugins.includes('wimpout' as ID) || plugins.includes('emergencyexit' as ID))
-			) return [`The combination of ${set.item} + ${set.ability} is banned`];
 			if (plugins.includes('comatose' as ID) &&
 				(plugins.includes('sleeptalk' as ID) || set.moves.map(this.toID).includes('sleeptalk' as ID))) {
 				return [`The combination of Comatose + Sleep Talk is banned by [Gen 9] National Dex BH`];
