@@ -188,7 +188,8 @@ export const Formats: FormatList = [
 				plugins.includes('regenerator' as ID) &&
 				(plugins.includes('wimpout' as ID) || plugins.includes('emergencyexit' as ID))
 			) return [`The combination of ${set.item} + ${set.ability} is banned`];
-			if (plugins.includes('comatose' as ID) && set.moves.map(this.toID).includes('sleeptalk' as ID)) {
+			if (plugins.includes('comatose' as ID) &&
+				(plugins.includes('sleeptalk' as ID) || set.moves.map(this.toID).includes('sleeptalk' as ID))) {
 				return [`The combination of Comatose + Sleep Talk is banned by [Gen 9] National Dex BH`];
 			}
 			if (plugins.includes('imprison' as ID) && (
