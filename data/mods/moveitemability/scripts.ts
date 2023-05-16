@@ -226,7 +226,7 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 		}
 		move.onTry = getFutureMoveOnTry(move, forte);
 
-		// part 3 - homographs
+		// part 2 - homographs
 		// these properties have different meanings on moves and on items/abilities
 		// so we cannot write them outside
 		const generalComplexProperties = [
