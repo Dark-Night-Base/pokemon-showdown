@@ -251,6 +251,7 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 
 		forte.onModifyMove?.call(this, move, pokemon, target);
 	};
+	// the following 2 can be written inside onModifyMove, but be done outside to potentially give future moves more effects
 	itemOrAbility.onAfterMove = function (source: Pokemon, target: Pokemon, move: ActiveMove) {
 		if (move.category === 'Status') return;
 		return forte.onAfterMove?.call(this, source, target, move);
