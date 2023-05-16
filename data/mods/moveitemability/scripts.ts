@@ -55,6 +55,11 @@ function mergeCallback(move: any, forte: any, property: string) {
 	// @ts-ignore - dynamic lookup
 	return mergeGeneralCallback(move[property], forte[property]);
 }
+/**
+ * note: see conditions.ts for future move mechanics
+ * when a future move hit, it calls trySpreadMoveHit()
+ * which will not trigger many things, such as onModifyMove
+ */
 function getFutureMoveOnTry(move: ActiveMove, forte: Move) {
 	if (!forte.flags['futuremove']) return mergeCallback(move, forte, 'onTry');
 	if (move.flags['futuremove']) return move.onTry;
@@ -221,23 +226,38 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 		}
 		move.onTry = getFutureMoveOnTry(move, forte);
 
-		// Nihilslave: we should put as many as possible props in onModifyMove
-		// cuz in that case we don't need to write a lot of `if (move.category === 'Status')`s
+		// part 3 - homographs
+		// these properties have different meanings on moves and on items/abilities
+		// so we cannot write them outside
 		const generalComplexProperties = [
-			// relevant return values
-			'onHit', 'onPrepareHit', 'onTryHit', 'onTryImmunity', 'onTryMove',
-			// irrelevant return values
-			'onAfterHit', 'onAfterMove', 'onAfterMoveSecondarySelf'
+			'onHit', 'onPrepareHit', 'onTryHit', 'onTryImmunity', 'onTryMove', 'onAfterHit'
 		] as const;
 		for (const prop of generalComplexProperties) {
 			move[prop] = mergeCallback(move, forte, prop);
 		}
+		// manually merge cuz of larger argc
+		if (forte.onAfterSubDamage) {
+			const moveOnAfterSubDamage = move.onAfterSubDamage;
+			if (moveOnAfterSubDamage) {
+				move.onAfterSubDamage = function (dmg, tgt, src, mv) {
+					const ret1 = moveOnAfterSubDamage.call(this, dmg, tgt, src, mv);
+					const ret2 = forte.onAfterSubDamage!.call(this, dmg, tgt, src, mv);
+					return this.actions.combineResults(ret1 as any, ret2 as any);
+				}
+			} else {
+				move.onAfterSubDamage = forte.onAfterSubDamage;
+			}
+		}
 
 		forte.onModifyMove?.call(this, move, pokemon, target);
 	};
-	itemOrAbility.onAfterSubDamage = function (damage: number, target: Pokemon, source: Pokemon, move: ActiveMove) {
+	itemOrAbility.onAfterMove = function (source: Pokemon, target: Pokemon, move: ActiveMove) {
 		if (move.category === 'Status') return;
-		return forte.onAfterSubDamage?.call(this, damage, target, source, move);
+		return forte.onAfterMove?.call(this, source, target, move);
+	};
+	itemOrAbility.onAfterMoveSecondarySelf = function (source: Pokemon, target: Pokemon, move: ActiveMove) {
+		if (move.category === 'Status') return;
+		return forte.onAfterMoveSecondarySelf?.call(this, source, target, move);
 	};
 	itemOrAbility.onBasePower = function (basePower: number, source: Pokemon, target: Pokemon, move: ActiveMove) {
 		if (move.category === 'Status') return;
