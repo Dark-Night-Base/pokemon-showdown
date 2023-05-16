@@ -55,6 +55,33 @@ function mergeCallback(move: any, forte: any, property: string) {
 	// @ts-ignore - dynamic lookup
 	return mergeGeneralCallback(move[property], forte[property]);
 }
+function getFutureMoveOnTry(move: ActiveMove, forte: Move) {
+	if (!forte.flags['futuremove']) return mergeCallback(move, forte, 'onTry');
+	if (move.flags['futuremove']) return move.onTry;
+	move.flags['futuremove'] = 1;
+	const forteFutureOnTry = function (this: Battle, src: Pokemon, tgt: Pokemon, mv: ActiveMove) {
+		if (!tgt.side.addSlotCondition(tgt, 'futuremove')) return false;
+		Object.assign(tgt.side.slotConditions[tgt.position]['futuremove'], {
+			duration: 3,
+			move: move.id,
+			source: src,
+			moveData: {
+				id: move.id,
+				name: move.name,
+				accuracy: move.accuracy,
+				basePower: move.basePower,
+				category: move.category,
+				priority: move.priority,
+				flags: move.flags,
+				effectType: 'Move',
+				type: move.baseMoveType,
+			},
+		});
+		this.add('-start', src, move.name);
+		return this.NOT_FAIL;
+	};
+	return mergeGeneralCallback(move.onTry as any, forteFutureOnTry);
+}
 
 function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 	// complexProperties - part 0 - before onModifyMove
@@ -90,7 +117,7 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 		if (move.category === 'Status') return;
 		// simple properties
 		// part 0 - flags
-		move.flags = {...move.flags, ...forte.flags};
+		move.flags = {...move.flags, ...forte.flags, futuremove: move.flags.futuremove}; // futuremove flag will be set later
 		const simpleProperties = ['breaksProtect', 'forceSwitch', 'hasCrashDamage', 'hasSheerForce',
 			'ignoreAbility', 'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity', 'mindBlownRecoil',
 			'ohko', 'overrideDefensiveStat', 'overrideOffensivePokemon', 'overrideOffensiveStat',
@@ -192,69 +219,8 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 				move.onEffectiveness = forte.onEffectiveness;
 			}
 		}
-		// i give up, just pretend it will work
-		if (forte.onTry) {
-			const moveonTry = move.onTry;
-			if (moveonTry) {
-				move.onTry = function (src, tgt, mv) {
-					const ret1 = (moveonTry as any).call(this, src, tgt, mv);
-					let ret2;
-					if (!forte.flags['futuremove']) {
-						ret2 = (forte.onTry as any).call(this, src, tgt, mv);
-					} else {
-						if (!tgt.side.addSlotCondition(tgt, 'futuremove')) {
-							ret2 = false;
-						} else {
-							Object.assign(tgt.side.slotConditions[tgt.position]['futuremove'], {
-								duration: 3,
-								move: move.id,
-								source: src,
-								moveData: {
-									id: move.id,
-									name: move.name,
-									accuracy: move.accuracy,
-									basePower: move.basePower,
-									category: move.category,
-									priority: move.priority,
-									flags: move.flags,
-									effectType: 'Move',
-									type: move.baseMoveType,
-								},
-							});
-							this.add('-start', src, forte.name);
-							ret2 = this.NOT_FAIL;
-						}
-					}
-					return this.actions.combineResults(ret1, ret2);
-				};
-			} else {
-				if (!forte.flags['futuremove']) {
-					move.onTry = forte.onTry;
-				} else {
-					move.onTry = function (src, tgt, mv) {
-						if (!tgt.side.addSlotCondition(tgt, 'futuremove')) return false;
-						Object.assign(tgt.side.slotConditions[tgt.position]['futuremove'], {
-							duration: 3,
-							move: move.id,
-							source: src,
-							moveData: {
-								id: move.id,
-								name: move.name,
-								accuracy: move.accuracy,
-								basePower: move.basePower,
-								category: move.category,
-								priority: move.priority,
-								flags: move.flags,
-								effectType: 'Move',
-								type: move.baseMoveType,
-							},
-						});
-						this.add('-start', src, forte.name);
-						return this.NOT_FAIL;
-					};
-				}
-			}
-		}
+		move.onTry = getFutureMoveOnTry(move, forte);
+
 		// Nihilslave: we should put as many as possible props in onModifyMove
 		// cuz in that case we don't need to write a lot of `if (move.category === 'Status')`s
 		const generalComplexProperties = [
