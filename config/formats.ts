@@ -662,11 +662,6 @@ export const Formats: FormatList = [
 			}
 			if (fusionSpecies.species) {
 				fusionSpecies.abilities = Object.values(fusionSpecies.species!.abilities);
-				for (const abil of fusionSpecies.abilities) {
-					if (this.ruleTable.isBanned(`ability:${this.toID(abil)}`)) {
-						return [`${bodySpecies.name}'s ability ${abil} is banned`];
-					}
-				}
 				// @ts-ignore
 				set.fusionSpecies = fusionSpecies.species;
 			} else {
@@ -680,6 +675,9 @@ export const Formats: FormatList = [
 			const ability = this.dex.abilities.get(set.ability);
 			if (!fusionSpecies.abilities.includes(ability.name)) {
 				return [`${bodySpecies.name} can't have ${ability.name}`];
+			}
+			if (this.ruleTable.isBanned(`ability:${ability.id}`)) {
+				return [`${bodySpecies.name}'s ability ${ability.name} is banned`];
 			}
 			const item = this.dex.items.get(set.item);
 			const NonexistentItems = ['blueorb', 'redorb', 'adamantcrystal', 'lustrousglobe', 'griseouscore', 'rustedshield', 'rustedsword'];
