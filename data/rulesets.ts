@@ -3034,6 +3034,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 			for (const set of team) {
 				for (const plugin of [set.item, set.ability]) {
 					const pluginString = getPluginString.call(this, plugin);
+					if (pluginString === '') continue;
 					if (miaTable.has(pluginString)) {
 						return [
 							`You are limited to one of each Forte/Trademark/Item/Ability by MIA Clause.`,
