@@ -111,7 +111,8 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 		// yea we have to modify beforeMoveCallback here since such property of itemOrAbility won't be called
 		move.beforeMoveCallback = mergeCallback(move, forte, 'beforeMoveCallback');
 	};
-	// itemOrAbility.onModifyTypePriority = 1;
+	// this should be -1 imo to be applied later than all moves
+	itemOrAbility.onModifyTypePriority = -1;
 	itemOrAbility.onModifyType = function (move: ActiveMove, pokemon: Pokemon, target: Pokemon) {
 		if (move.category === 'Status') return;
 		return forte.onModifyType?.call(this, move, pokemon, target);
