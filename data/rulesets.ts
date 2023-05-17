@@ -2956,7 +2956,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 		effectType: 'ValidatorRule',
 		name: 'MIA Move Legality',
 		desc: "Bans certain Moves in Item/Ability Slot",
-		ruleset: ['Multi-hit Moves Clause', 'Other Restricted = OHKO Moves, Lowering Accuracy Moves, Sleep Moves, Multi-hit Moves, Positive Priority Attacks, \
+		ruleset: ['Other Restricted = OHKO Moves, Lowering Accuracy Moves, Sleep Moves, Multi-hit Moves, Positive Priority Attacks, \
 		Partially Trapping Moves, Counter-like Moves, HP-related Moves, Charge Attacks, Always-crit Moves, Pivot Moves, Z Moves, Max Moves'],
 		restricted: [
 			'move:Metronome',
