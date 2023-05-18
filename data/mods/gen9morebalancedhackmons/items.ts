@@ -133,12 +133,12 @@ export const Items: {[k: string]: ModdedItemData} = {
 		inherit: true,
 		onNegateImmunity: undefined,
 		onModifyMove(move, pokemon, target) {
-			if (move.category !== 'Status') {
+			if (move.category !== 'Status' && pokemon.hasType(move.type)) {
 				move.ignoreImmunity = true;
 			}
 		},
 		onModifyDamage(damage, source, target, move) {
-			if (!target.runImmunity(move.type)) {
+			if (!target.runImmunity(move.type) && source.hasType(move.type)) {
 				this.debug('Ring Target unboost');
 				return this.chainModify(0.5);
 			}

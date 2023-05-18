@@ -37,7 +37,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			pokemon.draggedIn = null;
 			pokemon.timesAttacked = 0;
 			return true;
-		}
+		},
 	},
 	field: {
 		// for utility umbrella
