@@ -131,7 +131,7 @@ export const Formats: FormatList = [
 		banlist: [
 			'Emergency Exit', 'Serene Grace', 'Wimp Out',
 			'Assist', 'Endeavor', 'Entrainment', 'Nature\'s Madness', 'Ruination', 'Skill Swap', 'Super Fang',
-			'Red Orb',
+			'kangaskhanite', 'Red Orb',
 		],
 		unbanlist: [
 			'Zygarde-Complete',
