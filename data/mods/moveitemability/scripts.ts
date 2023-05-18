@@ -267,9 +267,10 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 	};
 }
 function setMoveCallbacksTrade(itemOrAbility: any, move: Move) {
-	itemOrAbility.onStart = function (target: Pokemon) {
+	itemOrAbility.onStart = function (pokemon: Pokemon) {
+		if (pokemon.ignoringItem()) return;
 		// Nihilslave: not quite sure under what case infinite loop will happen, just go without check first
-		this.actions.useMove({...move, accuracy: true}, target);
+		this.actions.useMove({...move, accuracy: true}, pokemon);
 	};
 }
 
