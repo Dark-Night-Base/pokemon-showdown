@@ -127,7 +127,7 @@ export const Formats: FormatList = [
 
 		mod: 'moveitemability',
 		debug: true,
-		ruleset: ['[Gen 9] National Dex BH', 'Multi-hit Moves Clause', 'MIA Move Legality', 'MIA Clause'],
+		ruleset: ['[Gen 9] National Dex BH', 'Multi-hit Moves Clause', 'MIA Move Legality', 'MIA Clause', '!Ability Clause'],
 		banlist: [
 			'Emergency Exit', 'Serene Grace', 'Wimp Out',
 			'Assist', 'Endeavor', 'Entrainment', 'Nature\'s Madness', 'Ruination', 'Skill Swap', 'Super Fang',
@@ -182,7 +182,6 @@ export const Formats: FormatList = [
 				) return [`${move.name} is banned as item or ability`];
 			};
 			// validation 1
-			// if (this.toID(set.item) === this.toID(set.ability)) return [`${set.name}'s item and ability cannot be the same`];
 			let problems = [...(validatePlugin.call(this, 'item') || []), ...(validatePlugin.call(this, 'ability') || [])];
 			if (problems.length) return problems;
 			// complex bans
@@ -4565,26 +4564,6 @@ export const Formats: FormatList = [
 		searchShow: false,
 		gameType: 'doubles',
 		ruleset: ['[Gen 9] Hackmons Cup'],
-	},
-	{
-		name: "[Gen 8] Hackmons Cup",
-		desc: `Randomized teams of level-balanced Pok&eacute;mon with absolutely any ability, moves, and item.`,
-
-		mod: 'gen8',
-		team: 'randomHC',
-		searchShow: false,
-		challengeShow: false,
-		ruleset: ['Obtainable Formes', 'HP Percentage Mod', 'Cancel Mod'],
-	},
-	{
-		name: "[Gen 8] Doubles Hackmons Cup",
-
-		mod: 'gen8',
-		gameType: 'doubles',
-		team: 'randomHC',
-		searchShow: false,
-		challengeShow: false,
-		ruleset: ['Obtainable', 'HP Percentage Mod', 'Cancel Mod'],
 	},
 	{
 		name: "[Gen 1] Hackmons Cup",
