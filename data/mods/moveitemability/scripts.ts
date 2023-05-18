@@ -24,8 +24,8 @@ function mergeFractions(r1?: [number, number], r2?: [number, number], lcm: numbe
 }
 function getDamageCallback(forte: Move | ActiveMove): ((this: Battle, pokemon: Pokemon, target: Pokemon) => number | false) | undefined {
 	if (forte.damageCallback) return forte.damageCallback;
-	if (typeof forte.damage === 'number') return (function (pkm: Pokemon, target: Pokemon) { return forte.damage as number; });
-	if (forte.damage === 'level') return (function (pkm: Pokemon, target: Pokemon) { return pkm.level; });
+	if (typeof forte.damage === 'number') return (function (pkm: Pokemon, tgt: Pokemon) { return forte.damage as number; });
+	if (forte.damage === 'level') return (function (pkm: Pokemon, tgt: Pokemon) { return pkm.level; });
 }
 function mergeDamageCallback(
 	dc1?: (this: Battle, pokemon: Pokemon, target: Pokemon) => number | false,
@@ -182,7 +182,6 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 
 		// part 2 - numberic properties
 		move.critRatio = (move.critRatio || 1) + (forte.critRatio || 1) - 1;
-		// ;-; we can't use mergeCallback() here
 		const moveDamageCallback = getDamageCallback(move);
 		const forteDamageCallback = getDamageCallback(forte);
 		move.damageCallback = mergeDamageCallback(moveDamageCallback, forteDamageCallback);
