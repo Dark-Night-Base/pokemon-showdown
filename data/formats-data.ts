@@ -3410,6 +3410,7 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	},
 	darmanitanzen: {
 		isNonstandard: "Past",
+		tier: "Illegal",
 	},
 	darmanitangalar: {
 		isNonstandard: "Past",
@@ -3418,6 +3419,7 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	},
 	darmanitangalarzen: {
 		isNonstandard: "Past",
+		tier: "Illegal",
 	},
 	maractus: {
 		isNonstandard: "Past",
