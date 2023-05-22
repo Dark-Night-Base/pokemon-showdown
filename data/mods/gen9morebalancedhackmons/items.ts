@@ -184,12 +184,21 @@ export const Items: {[k: string]: ModdedItemData} = {
 	},
 	utilityumbrella: {
 		inherit: true,
-		// implemented in scripts.ts
+		// see airlock
+		// weather suppression implemented in scripts.ts
+		onSwitchIn(pokemon) {
+			this.effectState.switchingIn = true;
+		},
 		onStart(target) {
-			if (!target.ignoringItem()) {
+			if (this.effectState.switchingIn && !target.ignoringItem()) {
 				this.debug('Utility Umbrella');
 				this.add('-item', target, 'Utility Umbrella');
+				this.effectState.switchingIn = false;
 			}
+			this.eachEvent('WeatherChange', this.effect);
+		},
+		onEnd(pokemon) {
+			this.eachEvent('WeatherChange', this.effect);
 		},
 		desc: "The effects of weather conditions are disabled.",
 		shortDesc: "The effects of weather conditions are disabled.",
