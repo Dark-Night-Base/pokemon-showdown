@@ -59,8 +59,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		inherit: true,
 		onModifyPriority(priority, pokemon, target, move) {
 			for (const poke of this.getAllActive()) {
-				if (poke.hasAbility('neutralizinggas') && poke.side.id !== pokemon.side.id &&
-					!poke.transformed && !poke.abilityState.ending) {
+				if (poke.hasAbility('neutralizinggas') && poke.side.id !== pokemon.side.id && !poke.abilityState.ending) {
 					return;
 				}
 			}
@@ -157,7 +156,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	},
 	magician: {
 		inherit: true,
-		onAfterMoveSecondarySelf(source, target, move) {},
 		onStart(pokemon) {
 			this.add('-ability', pokemon, 'Magician');
 		},
@@ -166,7 +164,13 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				target.addVolatile('magician');
 			}
 		},
-		// todo: i doubt the real effect of this, like would it nullify life orb which it shouldn't?
+		onAfterMoveSecondarySelf(source, target, move) {
+			if (!move || !target) return;
+			if (target !== source && move.category !== 'Status') {
+				if (target.volatiles['magician']) target.removeVolatile('magician');
+			}
+		},
+		// if somehow the volatile status doesn't end by onAfterMoveSecondarySelf, it ends before leftovers activates
 		condition: {
 			duration: 1,
 			onStart(pokemon) {
@@ -280,8 +284,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		inherit: true,
 		onModifyPriority(priority, pokemon, target, move) {
 			for (const poke of this.getAllActive()) {
-				if (poke.hasAbility('neutralizinggas') && poke.side.id !== pokemon.side.id &&
-					!poke.transformed && !poke.abilityState.ending) {
+				if (poke.hasAbility('neutralizinggas') && poke.side.id !== pokemon.side.id && !poke.abilityState.ending) {
 					return;
 				}
 			}
@@ -467,9 +470,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onModifyPriority(priority, pokemon, target, move) {
 			// for ngas
 			for (const poke of this.getAllActive()) {
-				// todo: do we really need to check transformed here?
-				if (poke.hasAbility('neutralizinggas') && poke.side.id !== pokemon.side.id &&
-					!poke.transformed && !poke.abilityState.ending) {
+				if (poke.hasAbility('neutralizinggas') && poke.side.id !== pokemon.side.id && !poke.abilityState.ending) {
 					return;
 				}
 			}
@@ -516,6 +517,12 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (move.type === 'Water') {
 				// ignoring items effect moved to magician
 				target.addVolatile('magician');
+			}
+		},
+		onAfterMoveSecondarySelf(source, target, move) {
+			if (!move || !target) return;
+			if (target !== source && move.type === 'Water') {
+				if (target.volatiles['magician']) target.removeVolatile('magician');
 			}
 		},
 		desc: "This Pokemon's Water-type moves ignore the effect of weather, abilities, target's stat changes, and target's items. This Pokemon cannot be burned. Gaining this Ability while burned cures it.",
