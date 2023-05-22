@@ -60,7 +60,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onModifyPriority(priority, pokemon, target, move) {
 			for (const poke of this.getAllActive()) {
 				if (poke.hasAbility('neutralizinggas') && poke.side.id !== pokemon.side.id &&
-					!poke.volatiles['gastroacid'] && !poke.transformed) {
+					!poke.transformed && !poke.abilityState.ending) {
 					return;
 				}
 			}
@@ -166,6 +166,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				target.addVolatile('magician');
 			}
 		},
+		// todo: i doubt the real effect of this, like would it nullify life orb which it shouldn't?
 		condition: {
 			duration: 1,
 			onStart(pokemon) {
@@ -280,7 +281,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onModifyPriority(priority, pokemon, target, move) {
 			for (const poke of this.getAllActive()) {
 				if (poke.hasAbility('neutralizinggas') && poke.side.id !== pokemon.side.id &&
-					!poke.volatiles['gastroacid'] && !poke.transformed) {
+					!poke.transformed && !poke.abilityState.ending) {
 					return;
 				}
 			}
@@ -466,8 +467,9 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onModifyPriority(priority, pokemon, target, move) {
 			// for ngas
 			for (const poke of this.getAllActive()) {
+				// todo: do we really need to check transformed here?
 				if (poke.hasAbility('neutralizinggas') && poke.side.id !== pokemon.side.id &&
-					!poke.volatiles['gastroacid'] && !poke.transformed) {
+					!poke.transformed && !poke.abilityState.ending) {
 					return;
 				}
 			}

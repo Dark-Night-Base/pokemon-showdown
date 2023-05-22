@@ -2814,7 +2814,6 @@ export const Rulesets: {[k: string]: FormatData} = {
 		onSwitchIn(pokemon) {
 			let buf = 'raw|';
 			if (!buf.endsWith('|')) buf += '/</span>&#8203;';
-			// todo: test this
 			const species = Utils.deepClone(pokemon.illusion ? pokemon.illusion.species : pokemon.species);
 			const isCreatemon = this.format.id.includes('createmons');
 			const isIF = this.format.id.includes('infinitefusion');

@@ -644,7 +644,6 @@ export class User extends Chat.MessageContext {
 		}
 
 		if (tokenDataSplit.length < 5) {
-			// todo: when using testclientkey on client the server returns this, do some research
 			Monitor.warn(`outdated assertion format: ${tokenData}`);
 			this.send(`|nametaken|${name}|The assertion you sent us is corrupt or incorrect. Please send the exact assertion given by the login server's JSON response.`);
 			return null;
