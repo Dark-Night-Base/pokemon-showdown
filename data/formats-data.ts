@@ -410,7 +410,7 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 		natDexTier: "RU",
 	},
 	diglett: {
-		tier: "LC",
+		tier: "NFE",
 	},
 	diglettalola: {
 		isNonstandard: "Unobtainable",
@@ -5280,7 +5280,7 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 		natDexTier: "RU",
 	},
 	indeedee: {
-		tier: "NU",
+		tier: "NUBL",
 		doublesTier: "DUU",
 		natDexTier: "RU",
 	},
