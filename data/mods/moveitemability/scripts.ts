@@ -592,8 +592,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			let ZMoves: ZMoveOptions = [];
 			for (const plugin of [pokemon.getItem(), pokemon.getAbility() as unknown as Item]) {
 				ZMoves = ZMoves.concat(getZMove.call(this, plugin) || []);
-				if (ZMoves.length) return ZMoves;
 			}
+			if (ZMoves.length) return ZMoves;
 		},
 		// for z crystals in ability slot
 		canTerastallize(pokemon: Pokemon) {
