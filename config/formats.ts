@@ -126,7 +126,7 @@ export const Formats: FormatList = [
 		desc: `Fortemons + Trademarked + Multibility + Dual Wielding + BH`,
 
 		mod: 'moveitemability',
-		debug: true,
+		// debug: true,
 		ruleset: ['[Gen 9] National Dex BH', 'Multi-hit Moves Clause', 'MIA Move Legality', 'MIA Clause', '!Ability Clause'],
 		banlist: [
 			'Emergency Exit', 'Serene Grace', 'Wimp Out',
