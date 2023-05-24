@@ -99,7 +99,6 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 		// never return 0 here cuz otherwise it will stop the battle from checking other plugins' `onModifyPriority`
 		// see sim/battle.ts::runEvent()
 		if (retVal) return retVal;
-		return undefined;
 	};
 	itemOrAbility.onBeforeMovePriority = 11;
 	// everytime a move is used, the simulator will summon a temporary ActiveMove for it
