@@ -129,7 +129,7 @@ export const Formats: FormatList = [
 		// debug: true,
 		ruleset: ['[Gen 9] National Dex BH', 'Multi-hit Moves Clause', 'MIA Move Legality', 'MIA Clause', '!Ability Clause'],
 		banlist: [
-			'Emergency Exit', 'Serene Grace', 'Wimp Out',
+			'Emergency Exit', 'Serene Grace', 'Sturdy', 'Wimp Out',
 			'Assist', 'Endeavor', 'Entrainment', 'Nature\'s Madness', 'Ruination', 'Skill Swap', 'Super Fang',
 			'kangaskhanite', 'Red Orb',
 		],
@@ -143,7 +143,7 @@ export const Formats: FormatList = [
 				const item = this.dex.items.get(plugin);
 				const ability = this.dex.abilities.get(plugin);
 				if (type === 'item') {
-					// let the real validator to check if the item is banned
+					// let the real validator check if the item is banned
 					if (item.exists) return;
 					if (ability.exists) {
 						if (this.ruleTable.isBanned(`ability:${ability.id}`)) return [`${ability.name} is banned`];
@@ -151,7 +151,7 @@ export const Formats: FormatList = [
 					}
 				}
 				if (type === 'ability') {
-					// let the real validator to check if the ability is banned
+					// let the real validator check if the ability is banned
 					if (ability.exists) return;
 					if (item.exists) {
 						if (this.ruleTable.isBanned(`item:${item.id}`)) return [`${item.name} is banned`];
