@@ -134,7 +134,7 @@ export const Formats: FormatList = [
 			'kangaskhanite', 'Red Orb',
 		],
 		unbanlist: [
-			'Zygarde-Complete',
+			'Cramorant-Gorging', 'Shedinja', 'Zygarde-Complete',
 		],
 		validateSet(set, teamHas) {
 			const validatePlugin = function (this: TeamValidator, type: 'item' | 'ability') {
