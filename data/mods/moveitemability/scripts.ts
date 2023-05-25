@@ -203,7 +203,7 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 				move.basePowerCallback = function (pkm, tgt, mv) {
 					let baseMove = this.dex.deepClone(mv);
 					let basePower = moveCallback.call(this, pkm, tgt, mv);
-					baseMove.basePower = basePower || 1;
+					baseMove.basePower = basePower || 0;
 					// should use baseMove here, instead of mv
 					basePower = forte.basePowerCallback!.call(this, pkm, tgt, baseMove);
 					return basePower;
