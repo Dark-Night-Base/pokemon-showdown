@@ -161,7 +161,8 @@ export const Formats: FormatList = [
 				if (plugin !== '' && !move.exists) return [`${plugin} is not a valid thing. (Check your spelling?)`];
 				if (set.moves.map(this.toID).includes(move.id) && move.id !== '') return [`${set.name} cannot have move ${move.name} for more than once`];
 				if (move.isNonstandard && ["CAP", "LGPE", "Custom", "Gigantamax"].includes(move.isNonstandard)) return [`${move.name} does not exist in the game`];
-				if (this.ruleTable.isRestricted(`move:${move.id}`)) return [`${move.name} is banned as item or ability`];
+				const bannedRestrictedMoves = ['assist', 'entrainment', 'skillswap'];
+				if (this.ruleTable.isRestricted(`move:${move.id}`) || bannedRestrictedMoves.includes(move.id)) return [`${move.name} is banned as item or ability`];
 				const accuracyLoweringMove = move.secondaries?.some(secondary => secondary.boosts?.accuracy && secondary.boosts?.accuracy < 0) ||
 					(move.boosts && move.boosts.accuracy && move.boosts.accuracy < 0);
 				const sleepMove = (move.status && move.status === 'slp') || ['relicsong', 'yawn'].includes(move.id);
