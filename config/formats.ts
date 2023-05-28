@@ -1272,6 +1272,9 @@ export const Formats: FormatList = [
 
 		mod: 'gen9',
 		ruleset: ['[Gen 9] Balanced Hackmons', '350 Cup Mod', 'Overflow Stat Mod'],
+		banlist: [
+			'Eviolite', 'Light Ball',
+		]
 	},
 	{
 		name: "[Gen 9] Balanced Hackmons LC",
