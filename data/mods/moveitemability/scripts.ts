@@ -547,22 +547,50 @@ export const Scripts: ModdedBattleScriptsData = {
 				return altForme.name;
 			}
 			// a hacked-in Megazard X can mega evolve into Megazard Y, but not into Megazard X
-			if (item.megaEvolves === species.baseSpecies && item.megaStone !== species.name) {
-				return item.megaStone;
-			}
 			if (ability.megaEvolves === species.baseSpecies && ability.megaStone !== species.name) {
 				return ability.megaStone;
+			}
+			if (item.megaEvolves === species.baseSpecies && item.megaStone !== species.name) {
+				return item.megaStone;
 			}
 			return null;
 		},
 		// for z crystals in ability slot
+		getZMove(move: Move, pokemon: Pokemon, skipChecks?: boolean): string | undefined {
+			const getPluginZMove = function (this: BattleActions, item: Item) {
+				if (!skipChecks) {
+					if (pokemon.side.zMoveUsed) return;
+					if (!item.zMove) return;
+					if (item.itemUser && !item.itemUser.includes(pokemon.species.name)) return;
+					const moveData = pokemon.getMoveData(move);
+					// Draining the PP of the base move prevents the corresponding Z-move from being used.
+					if (!moveData?.pp) return;
+				}
+
+				if (item.zMoveFrom) {
+					if (move.name === item.zMoveFrom) return item.zMove as string;
+				} else if (item.zMove === true) {
+					if (move.type === item.zMoveType) {
+						if (move.category === "Status") {
+							return move.name;
+						} else if (move.zMove?.basePower) {
+							return this.Z_MOVES[move.type];
+						}
+					}
+				}
+			};
+			for (const plugin of [pokemon.getAbility() as unknown as Item, pokemon.getItem()]) {
+				const ZMove = getPluginZMove.call(this, plugin);
+				if (ZMove) return ZMove;
+			}
+		},
 		canZMove(pokemon: Pokemon) {
 			if (pokemon.side.zMoveUsed ||
 				(pokemon.transformed &&
 					(pokemon.species.isMega || pokemon.species.isPrimal || pokemon.species.forme === "Ultra"))
 			) return;
 			// Nihilslave: here we changed a lot
-			const getZMove = function (this: BattleActions, item: Item) {
+			const getZMoves = function (this: BattleActions, item: Item) {
 				if (!item.zMove) return;
 				if (item.itemUser && !item.itemUser.includes(pokemon.species.name)) return;
 				let atLeastOne = false;
@@ -590,8 +618,8 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (atLeastOne && !mustStruggle) return zMoves;
 			}
 			let ZMoves: ZMoveOptions = [];
-			for (const plugin of [pokemon.getItem(), pokemon.getAbility() as unknown as Item]) {
-				ZMoves = ZMoves.concat(getZMove.call(this, plugin) || []);
+			for (const plugin of [pokemon.getAbility() as unknown as Item, pokemon.getItem()]) {
+				ZMoves = ZMoves.concat(getZMoves.call(this, plugin) || []);
 			}
 			if (ZMoves.length) return ZMoves;
 		},
