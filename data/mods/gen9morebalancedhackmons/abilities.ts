@@ -349,11 +349,13 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onModifyAtkPriority: undefined,
 		onModifyAtk(atk) {},
 		onModifyBoost(boosts, pokemon) {
+			// todo: really, test this, does it also ignore boosts when attacked?
 			boosts['atk'] = Math.max(0, boosts['atk']!);
 			boosts['def'] = Math.max(0, boosts['def']!);
 			boosts['spa'] = Math.max(0, boosts['spa']!);
 			boosts['spd'] = Math.max(0, boosts['spd']!);
 			// todo: test this and think if it should modify spe
+			// i don't think so tho
 		},
 		// according to designer (anaconja)
 		onModifyMove(move) {
