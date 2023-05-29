@@ -111,7 +111,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			this.add('-end', pokemon, 'Hadron Engine', '[silent]');
 		},
 		condition: {
-			noCopy: true,
+			// noCopy: true, // according to designer (anaconja)
 			onStart(pokemon, source, effect) {
 				this.add('-activate', pokemon, 'ability: Hadron Engine');
 				this.effectState.bestStat = pokemon.getBestStat(false, true);
@@ -238,7 +238,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onModifyAtkPriority: undefined,
 		onModifyAtk(atk, pokemon) {},
 		condition: {
-			noCopy: true,
+			// noCopy: true, // according to designer (anaconja)
 			onStart(pokemon, source, effect) {
 				this.add('-activate', pokemon, 'ability: Orichalcum Pulse');
 				this.effectState.bestStat = pokemon.getBestStat(false, true);
@@ -341,8 +341,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				this.add('-end', pokemon, 'Protosynthesis');
 			},
 		},
-		desc: "If Sunny Day is active or this Pokemon uses a held Booster Energy, this Pokemon's highest stat is multiplied by 1.5. Stat stage changes are considered at the time this Ability activates. If multiple stats are tied, Attack, Defense, Special Attack, Special Defense, and Speed are prioritized in that order. If this effect was started by Sunny Day, a held Booster Energy will not activate and the effect ends when Sunny Day is no longer active. If this effect was started by a held Booster Energy, it ends when this Pokemon is no longer active.",
-		shortDesc: "Sunny Day active or Booster Energy used: highest stat is 1.5x.",
+		desc: "If Sunny Day is active or this Pokemon holds a Booster Energy, this Pokemon's highest stat is multiplied by 1.5. Stat stage changes are considered at the time this Ability activates. If multiple stats are tied, Attack, Defense, Special Attack, Special Defense, and Speed are prioritized in that order. If this effect was started by Sunny Day, a held Booster Energy will not activate and the effect ends when Sunny Day is no longer active. If this effect was started by a held Booster Energy, it ends when this Pokemon is no longer active.",
+		shortDesc: "Sunny Day active or Booster Energy held: highest stat is 1.5x.",
 	},
 	purepower: {
 		inherit: true,
@@ -414,8 +414,8 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				this.add('-end', pokemon, 'Quark Drive');
 			},
 		},
-		desc: "If Electric Terrain is active or this Pokemon uses a held Booster Energy, this Pokemon's highest stat is multiplied by 1.5. Stat stage changes are considered at the time this Ability activates. If multiple stats are tied, Attack, Defense, Special Attack, Special Defense, and Speed are prioritized in that order. If this effect was started by Electric Terrain, a held Booster Energy will not activate and the effect ends when Electric Terrain is no longer active. If this effect was started by a held Booster Energy, it ends when this Pokemon is no longer active.",
-		shortDesc: "Electric Terrain active or Booster Energy used: highest stat is 1.5x.",
+		desc: "If Electric Terrain is active or this Pokemon holds a Booster Energy, this Pokemon's highest stat is multiplied by 1.5. Stat stage changes are considered at the time this Ability activates. If multiple stats are tied, Attack, Defense, Special Attack, Special Defense, and Speed are prioritized in that order. If this effect was started by Electric Terrain, a held Booster Energy will not activate and the effect ends when Electric Terrain is no longer active. If this effect was started by a held Booster Energy, it ends when this Pokemon is no longer active.",
+		shortDesc: "Electric Terrain active or Booster Energy held: highest stat is 1.5x.",
 	},
 	shadowtag: {
 		inherit: true,
