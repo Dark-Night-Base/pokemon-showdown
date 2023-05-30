@@ -2616,8 +2616,9 @@ export const Rulesets: {[k: string]: FormatData} = {
 		onValidateSet(set) {
 			let statName: StatID;
 			for (statName in set.evs) {
-				if (set.evs[statName] && set.evs[statName] > 252) {
-					return [`${set.species}'s ${statName} base stat exceeds the limit 252.`];
+				if (set.evs[statName]) {
+					if (set.evs[statName] > 252) return [`${set.species}'s ${statName} base stat exceeds the limit 252.`];
+					if (set.evs[statName] < 1) return [`${set.species}'s ${statName} base stat must be positive.`];
 				}
 			}
 		},
