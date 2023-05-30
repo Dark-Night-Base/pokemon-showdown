@@ -27,27 +27,15 @@ function getDamageCallback(forte: Move | ActiveMove): ((this: Battle, pokemon: P
 	if (typeof forte.damage === 'number') return (function (pkm: Pokemon, tgt: Pokemon) { return forte.damage as number; });
 	if (forte.damage === 'level') return (function (pkm: Pokemon, tgt: Pokemon) { return pkm.level; });
 }
-function mergeDamageCallback(
-	dc1?: (this: Battle, pokemon: Pokemon, target: Pokemon) => number | false,
-	dc2?: (this: Battle, pokemon: Pokemon, target: Pokemon) => number | false
-): ((this: Battle, pokemon: Pokemon, target: Pokemon) => number | false) | undefined {
-	if (!dc1) return dc2;
-	if (!dc2) return dc1;
-	return (function (pkm: Pokemon, tgt: Pokemon) {
-		const ret1 = dc1.call(this, pkm, tgt);
-		const ret2 = dc2.call(this, pkm, tgt);
-		return this.actions.combineResults(ret1, ret2);
-	});
-}
 function mergeGeneralCallback(
-	c1?: (this: Battle, arg1: any, arg2: any, arg3: any) => any,
-	c2?: (this: Battle, arg1: any, arg2: any, arg3: any) => any,
-): ((this: Battle, arg1: any, arg2: any, arg3: any) => any) | undefined {
+	c1?: (this: Battle, ...args: any[]) => any,
+	c2?: (this: Battle, ...args: any[]) => any,
+): ((this: Battle, ...args: any[]) => any) | undefined {
 	if (!c1) return c2;
 	if (!c2) return c1;
-	return (function (a1: any, a2: any, a3: any) {
-		const ret1 = c1.call(this, a1, a2, a3);
-		const ret2 = c2.call(this, a1, a2, a3);
+	return (function (...a) {
+		const ret1 = c1.call(this, ...a);
+		const ret2 = c2.call(this, ...a);
 		return this.actions.combineResults(ret1, ret2);
 	});
 }
@@ -184,7 +172,7 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 		move.critRatio = (move.critRatio || 1) + (forte.critRatio || 1) - 1;
 		const moveDamageCallback = getDamageCallback(move);
 		const forteDamageCallback = getDamageCallback(forte);
-		move.damageCallback = mergeDamageCallback(moveDamageCallback, forteDamageCallback);
+		move.damageCallback = mergeGeneralCallback(moveDamageCallback, forteDamageCallback);
 		move.drain = mergeFractions(move.drain, forte.drain, 4);
 		move.recoil = mergeFractions(move.recoil, forte.recoil);
 		if (forte.selfBoost?.boosts) {
@@ -230,23 +218,10 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 		// these properties have different meanings on moves and on items/abilities
 		// so we cannot write them outside
 		const generalComplexProperties = [
-			'onHit', 'onPrepareHit', 'onTryHit', 'onTryImmunity', 'onTryMove', 'onAfterHit'
+			'onHit', 'onPrepareHit', 'onTryHit', 'onTryImmunity', 'onTryMove', 'onAfterHit', 'onAfterSubDamage'
 		] as const;
 		for (const prop of generalComplexProperties) {
 			move[prop] = mergeCallback(move, forte, prop);
-		}
-		// manually merge cuz of larger argc
-		if (forte.onAfterSubDamage) {
-			const moveOnAfterSubDamage = move.onAfterSubDamage;
-			if (moveOnAfterSubDamage) {
-				move.onAfterSubDamage = function (dmg, tgt, src, mv) {
-					const ret1 = moveOnAfterSubDamage.call(this, dmg, tgt, src, mv);
-					const ret2 = forte.onAfterSubDamage!.call(this, dmg, tgt, src, mv);
-					return this.actions.combineResults(ret1 as any, ret2 as any);
-				}
-			} else {
-				move.onAfterSubDamage = forte.onAfterSubDamage;
-			}
 		}
 
 		forte.onModifyMove?.call(this, move, pokemon, target);
