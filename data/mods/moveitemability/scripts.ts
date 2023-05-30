@@ -17,39 +17,38 @@ import { Item } from "../../../sim/dex-items";
  * but they still should work like what they originally are
  */
 
-function mergeFractions(r1?: [number, number], r2?: [number, number], lcm: number = 100): [number, number] | undefined {
+function mergeFraction(r1?: [number, number], r2?: [number, number], lcm: number = 100): [number, number] | undefined {
 	if (!r1) return r2;
 	if (!r2) return r1;
 	return [r1[0] * lcm / r1[1] + r2[0] * lcm / r2[1], lcm];
 }
-function getDamageCallback(forte: Move | ActiveMove): ((this: Battle, pokemon: Pokemon, target: Pokemon) => number | false) | undefined {
-	if (forte.damageCallback) return forte.damageCallback;
-	if (typeof forte.damage === 'number') return (function (pkm: Pokemon, tgt: Pokemon) { return forte.damage as number; });
-	if (forte.damage === 'level') return (function (pkm: Pokemon, tgt: Pokemon) { return pkm.level; });
+function mergeBoosts(b1?: Partial<BoostsTable> | null, b2?: Partial<BoostsTable> | null): Partial<BoostsTable> | null | undefined {
+	if (!b1) return b2;
+	if (!b2) return b1;
+	const resultBoosts: Partial<BoostsTable> = {};
+	const boostidSet = new Set<BoostID>([...Object.keys(b1) as BoostID[], ...Object.keys(b2) as BoostID[]]);
+	let boostid: BoostID;
+	for (boostid of boostidSet) resultBoosts[boostid] = (b1[boostid] || 0) + (b2[boostid] || 0);
+	for (boostid in resultBoosts) {
+		if (!resultBoosts[boostid]) delete resultBoosts[boostid];
+	}
+	if (!Object.keys(resultBoosts).length) return null;
+	return resultBoosts;
 }
-function mergeGeneralCallback(
-	c1?: (this: Battle, ...args: any[]) => any,
-	c2?: (this: Battle, ...args: any[]) => any,
-): ((this: Battle, ...args: any[]) => any) | undefined {
-	if (!c1) return c2;
-	if (!c2) return c1;
-	return (function (...a) {
-		const ret1 = c1.call(this, ...a);
-		const ret2 = c2.call(this, ...a);
-		return this.actions.combineResults(ret1, ret2);
-	});
-}
-function mergeCallback(move: any, forte: any, property: string) {
-	// @ts-ignore - dynamic lookup
-	return mergeGeneralCallback(move[property], forte[property]);
+function mergeVolatileStatus(v1?: string, v2?: string): string | undefined {
+	if (!v1) return v2;
+	if (!v2) return v1;
+	// asymmetric, since v1 is from modified moves
+	if (!v1.split('+').includes(v2)) return `${v1}+${v2}`;
+	return v1;
 }
 /**
  * note: see conditions.ts for future move mechanics
  * when a future move hit, it calls trySpreadMoveHit()
  * which will not trigger many things, such as onModifyMove
  */
-function getFutureMoveOnTry(move: ActiveMove, forte: Move) {
-	if (!forte.flags['futuremove']) return mergeCallback(move, forte, 'onTry');
+function mergeOnTry(move: ActiveMove, forte: Move) {
+	if (!forte.flags['futuremove']) return mergeCallback(move.onTry as any, forte.onTry as any);
 	if (move.flags['futuremove']) return move.onTry;
 	move.flags['futuremove'] = 1;
 	const forteFutureOnTry = function (this: Battle, src: Pokemon, tgt: Pokemon, mv: ActiveMove) {
@@ -73,11 +72,54 @@ function getFutureMoveOnTry(move: ActiveMove, forte: Move) {
 		this.add('-start', src, move.name);
 		return this.NOT_FAIL;
 	};
-	return mergeGeneralCallback(move.onTry as any, forteFutureOnTry);
+	return mergeCallback(move.onTry as any, forteFutureOnTry);
+}
+function getDamageCallback(forte: Move | ActiveMove): ((this: Battle, pokemon: Pokemon, target: Pokemon) => number | false) | undefined {
+	if (forte.damageCallback) return forte.damageCallback;
+	if (typeof forte.damage === 'number') return (function (pkm: Pokemon, tgt: Pokemon) { return forte.damage as number; });
+	if (forte.damage === 'level') return (function (pkm: Pokemon, tgt: Pokemon) { return pkm.level; });
+}
+function mergeCallback(
+	c1?: (this: Battle, ...args: any[]) => any,
+	c2?: (this: Battle, ...args: any[]) => any,
+): ((this: Battle, ...args: any[]) => any) | undefined {
+	if (!c1) return c2;
+	if (!c2) return c1;
+	return (function (...a) {
+		const ret1 = c1.call(this, ...a);
+		const ret2 = c2.call(this, ...a);
+		return this.actions.combineResults(ret1, ret2);
+	});
+}
+/** 
+ * everytime a move is used, the simulator will summon a temporary ActiveMove for it
+ * so move will never get modified by the same itemOrAbility twice I guess
+ * by saying that, I mean the use of mergeProperty is safe
+ */
+function mergeProperty(move: any, forte: any, property: string): any {
+	let p1 = move[property];
+	let p2 = forte[property];
+	switch (property) {
+	case 'drain':
+	case 'recoil':
+		return mergeFraction(p1, p2);
+	case 'boosts':
+		return mergeBoosts(p1, p2);
+	case 'volatileStatus':
+		return mergeVolatileStatus(p1, p2);
+	case 'onTry':
+		return mergeOnTry(move, forte);
+	case 'damageCallback':
+		p1 = getDamageCallback(move);
+		p2 = getDamageCallback(forte);
+	default:
+		return mergeCallback(p1, p2);
+	}
 }
 
 function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
-	// complexProperties - part 0 - before onModifyMove
+	// complexProperties
+	// part 0 - before onModifyMove
 	itemOrAbility.onModifyPriorityPriority = 1;
 	itemOrAbility.onModifyPriority = function (priority: number, source: Pokemon, target: Pokemon, move: ActiveMove) {
 		if (move.category === 'Status') return;
@@ -89,15 +131,12 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 		if (retVal) return retVal;
 	};
 	itemOrAbility.onBeforeMovePriority = 11;
-	// everytime a move is used, the simulator will summon a temporary ActiveMove for it
-	// so move will never get modified by the same itemOrAbility twice I guess
-	// by saying that, I mean the use of mergeCallback is safe
 	itemOrAbility.onBeforeMove = function (source: Pokemon, target: Pokemon, move: ActiveMove) {
 		if (move.category === 'Status') return;
 		move.sleepUsable = move.sleepUsable || forte.sleepUsable;
 		move.flags['defrost'] = move.flags['defrost'] || forte.flags['defrost'];
 		// yea we have to modify beforeMoveCallback here since such property of itemOrAbility won't be called
-		move.beforeMoveCallback = mergeCallback(move, forte, 'beforeMoveCallback');
+		move.beforeMoveCallback = mergeProperty(move, forte, 'beforeMoveCallback');
 	};
 	// this should be -1 imo to be applied later than all moves
 	itemOrAbility.onModifyTypePriority = -1;
@@ -122,69 +161,37 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 			'onDamage', 'onMoveFail', 'onUseMoveMessage'
 		] as const;
 		for (const prop of simpleProperties) {
-			if (forte[prop]) {
-				move[prop] = forte[prop] as any;
-			}
+			if (forte[prop]) move[prop] = forte[prop] as any;
 		}
 		// otherwise the move still won't break protect
-		if (move.breaksProtect) {
-			delete move.flags['protect'];
-		}
+		if (move.breaksProtect) delete move.flags['protect'];
 
 		// part 1 - secondary&status&self
 		move.secondaries = (move.secondaries || []).concat(forte.secondaries || []);
 		if (!move.secondaries.length) move.secondaries = null;
-		if (forte.volatileStatus) {
-			if (move.volatileStatus && move.volatileStatus !== forte.volatileStatus) {
-				move.volatileStatus += '+' + forte.volatileStatus;
-			} else {
-				move.volatileStatus = forte.volatileStatus;
-			}
-		}
+		move.volatileStatus = mergeProperty(move, forte, 'volatileStatus');
+		// Nihilslave: diamond storm has a chance of 50 (won't fix)
 		if (forte.self) {
-			if (!move.self) {
-				move.self = {};
-			}
+			if (!move.self) move.self = {};
 			for (const i in forte.self) {
-				if (['onHit', 'boosts', 'volatileStatus'].includes(i)) continue;
+				if (['onHit', 'boosts', 'volatileStatus'].includes(i)) (move.self as any)[i] = mergeProperty(move.self, forte.self, i);
 				(move.self as any)[i] = (forte.self as any)[i];
-			}
-			move.self.onHit = mergeCallback(move.self, forte.self, 'onHit');
-			// todo: fix diamond storm, it has a chance of 50%
-			if (forte.self.boosts) {
-				if (!move.self.boosts) move.self.boosts = {};
-				let boostid: BoostID;
-				for (boostid in forte.self.boosts) {
-					if (!move.self.boosts[boostid]) move.self.boosts[boostid] = 0;
-					move.self.boosts[boostid]! += forte.self.boosts[boostid]!;
-				}
-			}
-			if (forte.self.volatileStatus) {
-				if (move.self.volatileStatus && move.self.volatileStatus !== forte.self.volatileStatus) {
-					move.self.volatileStatus += '+' + forte.self.volatileStatus;
-				} else {
-					move.self.volatileStatus = forte.self.volatileStatus;
-				}
 			}
 		}
 
 		// part 2 - numberic properties
 		move.critRatio = (move.critRatio || 1) + (forte.critRatio || 1) - 1;
-		const moveDamageCallback = getDamageCallback(move);
-		const forteDamageCallback = getDamageCallback(forte);
-		move.damageCallback = mergeGeneralCallback(moveDamageCallback, forteDamageCallback);
-		move.drain = mergeFractions(move.drain, forte.drain, 4);
-		move.recoil = mergeFractions(move.recoil, forte.recoil);
+		move.damageCallback = mergeProperty(move, forte, 'damageCallback');
+		move.drain = mergeProperty(move, forte, 'drain');
+		move.recoil = mergeProperty(move, forte, 'recoil');
 		if (forte.selfBoost?.boosts) {
 			if (!move.selfBoost?.boosts) move.selfBoost = {boosts: {}};
-			let boostid: BoostID;
-			for (boostid in forte.selfBoost.boosts) {
-				if (!move.selfBoost.boosts![boostid]) move.selfBoost.boosts![boostid] = 0;
-				move.selfBoost.boosts![boostid]! += forte.selfBoost.boosts[boostid]!;
-			}
+			move.selfBoost.boosts = mergeProperty(move.selfBoost, forte.selfBoost, 'boosts');
+			if (!move.selfBoost.boosts) delete move.selfBoost;
 		}
 
-		// complexProperties - part 1
+		// complexProperties
+		// part 1 - really complex ones
 		if (forte.basePowerCallback) {
 			const moveCallback = move.basePowerCallback;
 			if (moveCallback) {
@@ -205,28 +212,31 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 			if (moveOnEffectiveness) {
 				move.onEffectiveness = function (typeMod, tgt, tp, mv) {
 					const moveEffectiveness = moveOnEffectiveness!.call(this, typeMod, tgt, tp, mv);
-					const forteEffectiveness = forte.onEffectiveness!.call(this, moveEffectiveness || typeMod, tgt, tp, mv);
-					return forteEffectiveness || 0;
+					if (moveEffectiveness !== undefined) typeMod = moveEffectiveness; 
+					const forteEffectiveness = forte.onEffectiveness!.call(this, typeMod, tgt, tp, mv);
+					if (forteEffectiveness !== undefined) return forteEffectiveness;
+					return typeMod;
 				};
 			} else {
 				move.onEffectiveness = forte.onEffectiveness;
 			}
 		}
-		move.onTry = getFutureMoveOnTry(move, forte);
+		move.onTry = mergeProperty(move, forte, 'onTry');
 
 		// part 2 - homographs
 		// these properties have different meanings on moves and on items/abilities
 		// so we cannot write them outside
-		const generalComplexProperties = [
+		const complexProperties = [
 			'onHit', 'onPrepareHit', 'onTryHit', 'onTryImmunity', 'onTryMove', 'onAfterHit', 'onAfterSubDamage'
 		] as const;
-		for (const prop of generalComplexProperties) {
-			move[prop] = mergeCallback(move, forte, prop);
+		for (const prop of complexProperties) {
+			move[prop] = mergeProperty(move, forte, prop);
 		}
 
 		forte.onModifyMove?.call(this, move, pokemon, target);
 	};
-	// the following 2 can be written inside onModifyMove, but be done outside to potentially give future moves more effects
+	// part 3 - after onModifyMove
+	// the following 3 can be written inside onModifyMove, but be done outside to potentially give future moves more effects
 	itemOrAbility.onAfterMove = function (source: Pokemon, target: Pokemon, move: ActiveMove) {
 		if (move.category === 'Status') return;
 		return forte.onAfterMove?.call(this, source, target, move);
