@@ -32,7 +32,6 @@ type SparseStatsTable = Partial<StatsTable>;
 type BoostID = StatIDExceptHP | 'accuracy' | 'evasion';
 type BoostsTable = {[boost in BoostID]: number };
 type SparseBoostsTable = Partial<BoostsTable>;
-// Nihilslave: Digimon
 type Nonstandard = 'Past' | 'Future' | 'Unobtainable' | 'CAP' | 'LGPE' | 'Custom' | 'Gigantamax';
 
 type PokemonSet = import('./teams').PokemonSet;
