@@ -38,7 +38,6 @@ function mergeBoosts(b1?: Partial<BoostsTable> | null, b2?: Partial<BoostsTable>
 function mergeVolatileStatus(v1?: string, v2?: string): string | undefined {
 	if (!v1) return v2;
 	if (!v2) return v1;
-	// asymmetric, since v1 is from modified moves
 	if (!v1.split('+').includes(v2)) return `${v1}+${v2}`;
 	return v1;
 }
@@ -174,11 +173,8 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 		if (forte.self) {
 			if (!move.self) move.self = {};
 			for (const i in forte.self) {
-				if (['onHit', 'boosts', 'volatileStatus'].includes(i)) {
-					(move.self as any)[i] = mergeProperty(move.self, forte.self, i);
-				} else {
-					(move.self as any)[i] = (forte.self as any)[i];
-				}
+				if (['onHit', 'boosts', 'volatileStatus'].includes(i)) (move.self as any)[i] = mergeProperty(move.self, forte.self, i);
+				else (move.self as any)[i] = (forte.self as any)[i];
 			}
 		}
 
@@ -206,9 +202,7 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 					basePower = forte.basePowerCallback!.call(this, pkm, tgt, baseMove);
 					return basePower;
 				};
-			} else {
-				move.basePowerCallback = forte.basePowerCallback;
-			}
+			} else move.basePowerCallback = forte.basePowerCallback;
 		}
 		if (forte.onEffectiveness) {
 			const moveOnEffectiveness = move.onEffectiveness;
@@ -220,9 +214,7 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 					if (forteEffectiveness !== undefined) return forteEffectiveness;
 					return typeMod;
 				};
-			} else {
-				move.onEffectiveness = forte.onEffectiveness;
-			}
+			} else move.onEffectiveness = forte.onEffectiveness;
 		}
 		move.onTry = mergeProperty(move, forte, 'onTry');
 
@@ -232,9 +224,7 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 		const complexProperties = [
 			'onHit', 'onPrepareHit', 'onTryHit', 'onTryImmunity', 'onTryMove', 'onAfterHit', 'onAfterSubDamage'
 		] as const;
-		for (const prop of complexProperties) {
-			move[prop] = mergeProperty(move, forte, prop);
-		}
+		for (const prop of complexProperties) move[prop] = mergeProperty(move, forte, prop);
 
 		forte.onModifyMove?.call(this, move, pokemon, target);
 	};
