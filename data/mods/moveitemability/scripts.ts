@@ -174,8 +174,11 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 		if (forte.self) {
 			if (!move.self) move.self = {};
 			for (const i in forte.self) {
-				if (['onHit', 'boosts', 'volatileStatus'].includes(i)) (move.self as any)[i] = mergeProperty(move.self, forte.self, i);
-				(move.self as any)[i] = (forte.self as any)[i];
+				if (['onHit', 'boosts', 'volatileStatus'].includes(i)) {
+					(move.self as any)[i] = mergeProperty(move.self, forte.self, i);
+				} else {
+					(move.self as any)[i] = (forte.self as any)[i];
+				}
 			}
 		}
 
