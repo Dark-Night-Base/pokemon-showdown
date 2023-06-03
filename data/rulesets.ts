@@ -2345,6 +2345,32 @@ export const Rulesets: {[k: string]: FormatData} = {
 			}
 		},
 	},
+	forceofthefallenmod: {
+		effectType: 'Rule',
+		name: 'Force of the Fallen Mod',
+		desc: `On a Pok&eacute;mon's death, add its 4th move to its teammates's moveslot.`,
+		onBegin() {
+			this.add('rule', 'Force of the Fallen Mod: On a Pok&eacute;mon\'s death, add its 4th move to its teammates\'s moveslot');
+		},
+		onFaint(pokemon) {
+			const fallenForce = pokemon.moveSlots[3];
+			if (this.ruleTable.isRestricted(`move:${fallenForce.id}`)) return;
+			const livingAllies = pokemon.side.pokemon.filter(mon => mon && mon !== pokemon && !mon.fainted);
+			for (const ally of livingAllies) {
+				if (ally.hasMove(fallenForce.id)) continue;
+				ally.moveSlots.push({
+					move: fallenForce.move,
+					id: fallenForce.id,
+					pp: fallenForce.maxpp,
+					maxpp: fallenForce.maxpp,
+					target: fallenForce.target,
+					disabled: false,
+					disabledSource: '',
+					used: false,
+				});
+			}
+		},
+	},
 	arceusclause: {
 		effectType: 'ValidatorRule',
 		name: 'Arceus Clause',

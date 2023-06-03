@@ -3227,6 +3227,28 @@ export const Formats: FormatList = [
 		],
 	},
 	{
+		name: "[Gen 9] Force of the Fallen",
+		desc: `On a Pok&eacute;mon's death, add its 4th move to its teammates's moveslot.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3722355/">Force of the Fallen</a>`,
+		],
+
+		mod: 'gen9',
+		ruleset: ['Standard OMs', 'Force of the Fallen Mod', 'Sleep Clause Mod', 'Min Source Gen = 9'],
+		banlist: [
+			'Annihilape', 'Arceus', 'Calyrex-Ice', 'Calyrex-Shadow', 'Chi-Yu', 'Chien-Pao', 'Dialga', 'Dialga-Origin',
+			'Enamorus-Base', 'Espathra', 'Eternatus', 'Flutter Mane', 'Giratina', 'Giratina-Origin', 'Groudon',
+			'Iron Bundle', 'Komala', 'Koraidon', 'Kyogre', 'Landorus-Base', 'Magearna', 'Mewtwo', 'Miraidon', 'Palafin',
+			'Palkia', 'Palkia-Origin', 'Rayquaza', 'Regieleki', 'Spectrier', 'Zacian', 'Zacian-Crowned', 'Zamazenta-Crowned',
+			'Arena Trap', 'Moody', 'Shadow Tag',
+			'Baton Pass', 'Last Respects', 'Shed Tail',
+			'Booster Energy', 'King\'s Rock',
+		],
+		restricted: [
+			'Extreme Speed', 'Revival Blessing', 'Transform',
+		],
+	},
+	{
 		name: "[Gen 9] Fortemons",
 		desc: `Put an attacking move in the item slot to have all of a Pok&eacute;mon's attacks inherit its properties.`,
 		threads: [
