@@ -136,7 +136,8 @@ export const Rulesets: {[k: string]: FormatData} = {
 				item = this.dex.forGen(gen).items.get(item.id);
 				gen--;
 			}
-			if (requireObtainable && item.isNonstandard) {
+			// Nihilslave: don't check requireObtainable since u really can't get items not in game
+			if (item.isNonstandard) {
 				if (this.ruleTable.has(`+item:${item.id}`)) return;
 				return [`${set.name}'s item ${item.name} does not exist in Gen ${this.dex.gen}.`];
 			}
