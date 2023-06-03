@@ -1,7 +1,6 @@
 export const Rulesets: {[k: string]: ModdedFormatData} = {
 	standardnatdex: {
 		inherit: true,
-		banlist: ['Berserk Gene'],
 		unbanlist: ['All-Seeing Eye'],
 		onValidateSet(set) {
 			const species = this.dex.species.get(set.species);
