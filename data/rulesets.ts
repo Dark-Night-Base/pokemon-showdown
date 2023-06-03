@@ -2353,6 +2353,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 			this.add('rule', 'Force of the Fallen Mod: On a Pok&eacute;mon\'s death, add its 4th move to its teammates\'s moveslot');
 		},
 		onFaint(pokemon) {
+			if (pokemon.moveSlots.length < 4) return;
 			const fallenForce = pokemon.moveSlots[3];
 			if (this.ruleTable.isRestricted(`move:${fallenForce.id}`)) return;
 			const livingAllies = pokemon.side.pokemon.filter(mon => mon && mon !== pokemon && !mon.fainted);
