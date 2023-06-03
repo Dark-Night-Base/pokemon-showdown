@@ -110,8 +110,10 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			delete pokemon.volatiles['hadronengine'];
 			this.add('-end', pokemon, 'Hadron Engine', '[silent]');
 		},
+		// according to designer (anaconja) this should be copiable by imposter
+		// Nihilslave: ^ won't fix uwu
 		condition: {
-			// noCopy: true, // according to designer (anaconja)
+			noCopy: true,
 			onStart(pokemon, source, effect) {
 				this.add('-activate', pokemon, 'ability: Hadron Engine');
 				this.effectState.bestStat = pokemon.getBestStat(false, true);
@@ -237,8 +239,10 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		onModifyAtkPriority: undefined,
 		onModifyAtk(atk, pokemon) {},
+		// according to designer (anaconja) this should be copiable by imposter
+		// Nihilslave: ^ won't fix uwu
 		condition: {
-			// noCopy: true, // according to designer (anaconja)
+			noCopy: true,
 			onStart(pokemon, source, effect) {
 				this.add('-activate', pokemon, 'ability: Orichalcum Pulse');
 				this.effectState.bestStat = pokemon.getBestStat(false, true);
