@@ -3011,6 +3011,20 @@ export const Rulesets: {[k: string]: FormatData} = {
 			this.add('rule', 'MIA Clause: Limit one of each Forte/Trademark/Item/Ability.');
 		},
 		onValidateTeam(team, format, teamHas) {
+			const deepStringify = function (obj: Object) {
+				const sortedKeyList = Object.keys(obj).sort() as Array<keyof typeof obj>;
+				const newObj = {};
+				for (const prop of sortedKeyList) {
+					let propValue;
+					if (obj[prop] === null) propValue = null;
+					// remove the first line of the function just in case
+					else if (typeof obj[prop] === 'function') propValue = obj[prop].toString().split('{').slice(1).join('') as any;
+					else if (typeof obj[prop] === 'object') propValue = deepStringify(obj[prop]) as any;
+					else propValue = obj[prop];
+					newObj[prop] = propValue;
+				}
+				return JSON.stringify(newObj);
+			};
 			const getPluginString = function (this: TeamValidator, plugin: string) {
 				const move = this.dex.moves.get(plugin);
 				const item = this.dex.items.get(plugin);
@@ -3041,7 +3055,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 				}
 				if (move.exists) {
 					// if (move.category === 'Status') return move.id;
-					const forteMove = this.dex.deepClone(move);
+					const pluginMove = this.dex.deepClone(move);
 					const irrelevantProperties = [
 						'exists', 'desc', 'shortDesc', 'id', 'fullname', 'effectType', 'gen', 'isNonstandard', 'baseMoveType',
 						'num', 'accuracy', 'basePower', 'category', 'name', 'pp', 'target', 'type',
@@ -3053,12 +3067,12 @@ export const Rulesets: {[k: string]: FormatData} = {
 						'allyanim', 'nonsky',
 					];
 					for (const prop of irrelevantProperties) {
-						if (forteMove[prop]) delete forteMove[prop];
+						if (pluginMove[prop]) delete pluginMove[prop];
 					}
 					for (const flag of irrelevantFlags) {
-						if (forteMove.flags[flag]) delete forteMove.flags[flag];
+						if (pluginMove.flags[flag]) delete pluginMove.flags[flag];
 					}
-					return JSON.stringify(forteMove);
+					return deepStringify(pluginMove);
 				}
 				return '';
 			};
