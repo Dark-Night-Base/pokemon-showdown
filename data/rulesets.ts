@@ -3011,19 +3011,20 @@ export const Rulesets: {[k: string]: FormatData} = {
 			this.add('rule', 'MIA Clause: Limit one of each Forte/Trademark/Item/Ability.');
 		},
 		onValidateTeam(team, format, teamHas) {
-			const deepStringify = function (obj: Object) {
-				const sortedKeyList = Object.keys(obj).sort() as Array<keyof typeof obj>;
-				const newObj = {};
-				for (const prop of sortedKeyList) {
-					let propValue;
-					if (obj[prop] === null) propValue = null;
-					// remove the first line of the function just in case
-					else if (typeof obj[prop] === 'function') propValue = obj[prop].toString().split('{').slice(1).join('') as any;
-					else if (typeof obj[prop] === 'object') propValue = deepStringify(obj[prop]) as any;
-					else propValue = obj[prop];
-					newObj[prop] = propValue;
+			const deepStringify = function (obj: any): string {
+				if (obj === null) return 'null';
+				if (Array.isArray(obj)) return JSON.stringify(obj.map(value => deepStringify(value)));
+				switch (typeof obj) {
+				case 'function':
+					return obj.toString().split('{').slice(1).join('');
+				case 'object':
+					const sortedKeyList = Object.keys(obj).sort() as Array<keyof typeof obj>;
+					const newObj: any = {};
+					for (const prop of sortedKeyList) newObj[prop] = deepStringify(obj[prop]);
+					return JSON.stringify(newObj);
+				default:
+					return JSON.stringify(obj);
 				}
-				return JSON.stringify(newObj);
 			};
 			const getPluginString = function (this: TeamValidator, plugin: string) {
 				const move = this.dex.moves.get(plugin);
