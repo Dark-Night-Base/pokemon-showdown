@@ -121,13 +121,16 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 	// part 0 - before onModifyMove
 	itemOrAbility.onModifyPriorityPriority = 1;
 	itemOrAbility.onModifyPriority = function (priority: number, source: Pokemon, target: Pokemon, move: ActiveMove) {
+		// if you aren't really familiar with battle events, don't even touch this function
+		// it's more complex than you think, read sim/battle.ts::runEvent()
 		if (move.category === 'Status') return;
 		move.flags['heal'] = move.flags['heal'] || forte.flags['heal'];
-		let retVal: any = priority + forte.priority;
-		if (forte.onModifyPriority) retVal = forte.onModifyPriority.call(this, retVal, source, target, move);
-		// never return 0 here cuz otherwise it will stop the battle from checking other plugins' `onModifyPriority`
-		// see sim/battle.ts::runEvent()
-		if (retVal) return retVal;
+		const forteModifiedPriority = forte.onModifyPriority?.call(this, priority, source, target, move);
+		if (forteModifiedPriority === undefined) {
+			if (!forte.priority) return;
+			return priority + forte.priority;
+		}
+		return forteModifiedPriority + forte.priority;
 	};
 	itemOrAbility.onBeforeMovePriority = 11;
 	itemOrAbility.onBeforeMove = function (source: Pokemon, target: Pokemon, move: ActiveMove) {
