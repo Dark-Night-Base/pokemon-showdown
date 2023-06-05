@@ -10,13 +10,6 @@ import { Item } from "../../../sim/dex-items";
  * so i think this should be the best way to code the mod
  */
 
-/**
- * i think the logic of the format should be this:
- * if anything is in the item slot, it's viewed as an item
- * if anything is in the ability slot, it's viewed as an ability
- * but they still should work like what they originally are
- */
-
 function mergeFraction(r1?: [number, number], r2?: [number, number], lcm: number = 100): [number, number] | undefined {
 	if (!r1) return r2;
 	if (!r2) return r1;
@@ -140,7 +133,7 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 		// yea we have to modify beforeMoveCallback here since such property of itemOrAbility won't be called
 		move.beforeMoveCallback = mergeProperty(move, forte, 'beforeMoveCallback');
 	};
-	// this should be -1 imo to be applied later than all moves
+	// this should be -1 imo to be the same as -ate abilities
 	itemOrAbility.onModifyTypePriority = -1;
 	itemOrAbility.onModifyType = function (move: ActiveMove, pokemon: Pokemon, target: Pokemon) {
 		if (move.category === 'Status') return;
