@@ -67,54 +67,10 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-fail', source, 'move: All Delete');
 			return null;
 		},
-		volatileStatus: 'healblock',
-		condition: {
-			// still lasts 5 turns, don't know why
-			duration: 3,
-			// is this necessary?
-			durationCallback(target, source, effect) {
-				return 3;
-			},
-			onStart(pokemon, source) {
-				this.add('-start', pokemon, 'move: Heal Block');
-				source.moveThisTurnResult = true;
-			},
-			onDisableMove(pokemon) {
-				for (const moveSlot of pokemon.moveSlots) {
-					if (this.dex.moves.get(moveSlot.id).flags['heal']) {
-						pokemon.disableMove(moveSlot.id);
-					}
-				}
-			},
-			onBeforeMovePriority: 6,
-			onBeforeMove(pokemon, target, move) {
-				if (move.flags['heal'] && !move.isZ && !move.isMax) {
-					this.add('cant', pokemon, 'move: Heal Block', move);
-					return false;
-				}
-			},
-			onModifyMove(move, pokemon, target) {
-				if (move.flags['heal'] && !move.isZ && !move.isMax) {
-					this.add('cant', pokemon, 'move: Heal Block', move);
-					return false;
-				}
-			},
-			onResidualOrder: 20,
-			onEnd(pokemon) {
-				this.add('-end', pokemon, 'move: Heal Block');
-			},
-			onTryHeal(damage, target, source, effect) {
-				if ((effect?.id === 'zpower') || this.effectState.isZ) return damage;
-				return false;
-			},
-			onRestart(target, source) {
-				this.add('-fail', target, 'move: Heal Block'); // Succeeds to supress downstream messages
-				if (!source.moveThisTurnResult) {
-					source.moveThisTurnResult = false;
-				}
-			},
+		secondary: {
+			chance: 100,
+			volatileStatus: 'healblock', // todo: make it 3 turns
 		},
-		secondary: null,
 		target: "normal",
 		type: "Normal",
 	},
