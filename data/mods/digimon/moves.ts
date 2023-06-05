@@ -680,7 +680,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "allAdjacentFoes",
 		type: "Electric",
 	},
-	// todo: 40035 ʮ��ʿն
+	// todo: 40035 slash of warrier 10
 	enryugeki: {
 		num: 40036,
 		accuracy: 100,
@@ -843,11 +843,11 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		self: {
-			boosts: {
-				spa: -2,
-			},
-		},
+		// self: {
+		// 	boosts: {
+		// 		spa: -2,
+		// 	},
+		// },
 		secondary: null,
 		target: "allAdjacentFoes",
 		type: "Light",
@@ -921,7 +921,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		name: "Juuouken",
 		pp: 10,
 		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1},
+		flags: {contact: 1, protect: 1, mirror: 1, punch: 1},
 		ignoreEvasion: true,
 		ignoreDefensive: true,
 		secondary: null,
