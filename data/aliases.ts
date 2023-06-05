@@ -103,8 +103,8 @@ export const Aliases: {[alias: string]: string} = {
 	gen6ag: "[Gen 6] Anything Goes",
 	crossevo: "[Gen 9] Cross Evolution",
 	mayhem: "[Gen 9] Random Battle Mayhem",
-	omotm: "[Gen 9] Tier Shift",
-	lcotm: "[Gen 9] The Card Game",
+	omotm: "[Gen 9] Alphabet Cup",
+	lcotm: "[Gen 9] Trademarked",
 
 	"500bh": "[Gen 9] Balanced Hackmons 500 Cup",
 	bh500: "[Gen 9] Balanced Hackmons 500 Cup",
