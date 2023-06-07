@@ -3016,7 +3016,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 				if (Array.isArray(obj)) return JSON.stringify(obj.map(value => deepStringify(value)));
 				switch (typeof obj) {
 				case 'function':
-					return obj.toString().split('{').slice(1).join('');
+					return obj.toString(); // no need to omit the first line cuz the difference in params will still cause the difference in body
 				case 'object':
 					const sortedKeyList = Object.keys(obj).sort() as Array<keyof typeof obj>;
 					const newObj: any = {};
