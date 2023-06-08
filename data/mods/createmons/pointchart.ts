@@ -436,6 +436,7 @@ export const moveToPoint: {[k: string]: number} = {
 	shadowsneak: 1,
 	sharpen: 1,
 	shedtail: 1000000,
+	sheercode: 1000000,
 	shellsidearm: 1,
 	shellsmash: 2.5,
 	shelter: 1,
@@ -575,6 +576,30 @@ function calcBSPoint(stats: StatsTable) {
 	retVals.push(bs2);
 	return retVals;
 }
+function calcPnPoint(stat: number, version = 1, a = 9, b = 180, c = 100000): number {
+	switch (version) {
+	case 0:
+		if (stat <= 150) return 0;
+		return 5000;
+	case 1:
+		if (stat <= 150) return 0;
+		// (stat-150)^3/10.61
+		stat = (stat - 150) * (stat - 150) * (stat - 150) * 193 / 2048;
+		return Math.floor(stat);
+	case 2:
+		// sigmoid-like function
+		// c/(1+a*e^(-(x-b)/a))
+		stat = Math.floor(stat);
+		stat = - (stat - b) / a;
+		stat = 1 + a * Math.exp(stat);
+		stat = c / stat;
+		return Math.floor(stat);
+	case 2.5:
+		return calcPnPoint(stat, 2, 10, 120, 5000) + calcPnPoint(stat, 2, 10, 180, 95000);
+	default:
+		return 0;
+	}
+}
 export function getSetPoint(dex: ModdedDex, set: PokemonSet) {
 	// BS | BS1 | BS2 | T | T1 | T2 | A | M | M1 | M2 | M3 | M4 |  P | P1 | P2 | P3 | P4 | P5 | P6 |
 	//  0 |  1  |  2  | 3 |  4 |  5 | 6 | 7 |  8 |  9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 |
@@ -632,16 +657,9 @@ export function getSetPoint(dex: ModdedDex, set: PokemonSet) {
 	let statName: StatID;
 	for (statName in set.evs) {
 		const stat = set.evs[statName];
-		let penalty = 0;
-		if (stat > 150) {
-			// (stat-150)^3/10.61
-			penalty = (stat - 150) * (stat - 150) * (stat - 150) * 193 / 2048;
-			penalty = Math.floor(penalty);
-			details[12] += penalty
-			if (statName === 'hp') {
-				details[12] += penalty;
-			}
-		}
+		const penalty = calcPnPoint(stat);
+		details[12] += penalty;
+		if (statName === 'hp') details[12] += penalty;
 		details.push(penalty);
 	}
 
