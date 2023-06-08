@@ -2775,7 +2775,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 				for (const pokemon of side.pokemon) {
 					let details = pokemon.details;
 					if (this.ruleTable.has(`nicknamepreview`)) {
-						// pooooookemon should already have their headSpecies set at this point, i guess?
+						// pokemon should already have their headSpecies set at this point, i guess?
 						if (pokemon.m.headSpecies) details += `, headname:${pokemon.m.headSpecies.name}`;
 					}
 					this.add('poke', pokemon.side.id, details, '');

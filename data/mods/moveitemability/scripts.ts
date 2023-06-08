@@ -368,25 +368,25 @@ export const Scripts: ModdedBattleScriptsData = {
 				species.name === 'Eternatus-Eternamax') {
 				return false;
 			}
-	
+
 			if (this.battle.dex.currentMod === 'gen1stadium' && (
 				species.name === 'Ditto' ||
 				(this.species.name === 'Ditto' && pokemon.moves.includes('transform'))
 			)) {
 				return false;
 			}
-	
+
 			if (!this.setSpecies(species, effect, true)) return false;
-	
+
 			this.transformed = true;
 			this.weighthg = pokemon.weighthg;
-	
+
 			const types = pokemon.getTypes(true, true);
 			this.setType(pokemon.volatiles['roost'] ? pokemon.volatiles['roost'].typeWas : types, true);
 			this.addedType = pokemon.addedType;
 			this.knownType = this.isAlly(pokemon) && pokemon.knownType;
 			this.apparentType = pokemon.apparentType;
-	
+
 			let statName: StatIDExceptHP;
 			for (statName in this.storedStats) {
 				this.storedStats[statName] = pokemon.storedStats[statName];
@@ -438,7 +438,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 			// Nihilslave: here
 			if (this.battle.gen > 2) this.setAbility(pokemon.getAbility(), this, true, true);
-	
+
 			// Change formes based on held items (for Transform)
 			// Only ever relevant in Generation 4 since Generation 3 didn't have item-based forme changes
 			if (this.battle.gen === 4) {
@@ -459,7 +459,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 			}
-	
+
 			return true;
 		},
 	},
@@ -618,7 +618,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (target === false) continue;
 				let hitResult;
 				let didSomething: number | boolean | null | undefined = undefined;
-	
+
 				if (target) {
 					if (moveData.boosts && !target.fainted) {
 						hitResult = this.battle.boost(moveData.boosts, target, source, move, isSecondary, isSelf);
@@ -728,7 +728,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				damage[i] = this.combineResults(damage[i], didSomething === null ? false : didSomething);
 				didAnything = this.combineResults(didAnything, didSomething);
 			}
-	
+
 			if (!didAnything && didAnything !== 0 && !moveData.self && !moveData.selfdestruct) {
 				if (!isSelf && !isSecondary) {
 					if (didAnything === false) {
@@ -740,7 +740,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			} else if (move.selfSwitch && source.hp) {
 				source.switchFlag = move.id;
 			}
-	
+
 			return damage;
 		},
 	},
@@ -750,7 +750,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (!action) throw new Error(`Action not passed to resolveAction`);
 			if (action.choice === 'pass') return [];
 			const actions = [action];
-	
+
 			if (!action.side && action.pokemon) action.side = action.pokemon.side;
 			if (!action.move && action.moveid) action.move = this.battle.dex.getActiveMove(action.moveid);
 			if (!action.order) {
@@ -761,7 +761,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					beforeTurn: 4,
 					beforeTurnMove: 5,
 					revivalblessing: 6,
-	
+
 					runUnnerve: 100,
 					runSwitch: 101,
 					runPrimal: 102,
@@ -770,10 +770,10 @@ export const Scripts: ModdedBattleScriptsData = {
 					runDynamax: 105,
 					terastallize: 106,
 					priorityChargeMove: 107,
-	
+
 					shift: 200,
 					// default is 200 (for moves)
-	
+
 					residual: 300,
 				};
 				if (action.choice in orders) {
@@ -835,12 +835,12 @@ export const Scripts: ModdedBattleScriptsData = {
 					action.pokemon.switchFlag = false;
 				}
 			}
-	
+
 			const deferPriority = this.battle.gen === 7 && action.mega && action.mega !== 'done';
 			if (action.move) {
 				let target = null;
 				action.move = this.battle.dex.getActiveMove(action.move);
-	
+
 				if (!action.targetLoc) {
 					target = this.battle.getRandomTarget(action.pokemon, action.move);
 					// TODO: what actually happens here?
