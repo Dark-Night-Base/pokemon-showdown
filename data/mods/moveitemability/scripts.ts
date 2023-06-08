@@ -83,7 +83,7 @@ function mergeCallback(
 		return this.actions.combineResults(ret1, ret2);
 	});
 }
-/** 
+/**
  * everytime a move is used, the simulator will summon a temporary ActiveMove for it
  * so move will never get modified by the same itemOrAbility twice I guess
  * by saying that, I mean the use of mergeProperty is safe
@@ -146,14 +146,16 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 		// simple properties
 		// part 0 - flags
 		move.flags = {...move.flags, ...forte.flags, futuremove: move.flags.futuremove}; // futuremove flag will be set later
-		const simpleProperties = ['breaksProtect', 'forceSwitch', 'hasCrashDamage', 'hasSheerForce',
-			'ignoreAbility', 'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity', 'mindBlownRecoil',
-			'ohko', 'overrideDefensiveStat', 'overrideOffensivePokemon', 'overrideOffensiveStat',
-			// note: check pseudoWeather in further generations
-			'pseudoWeather', 'selfdestruct', 'selfSwitch', 'sleepUsable', 'smartTarget', 'stealsBoosts',
-			'struggleRecoil', 'thawsTarget', 'willCrit',
+		// selected from sim/dex-moves.ts:MoveData
+		const simpleProperties = ['ohko', 'thawsTarget', 'forceSwitch', 'selfSwitch', 'selfdestruct', 'breaksProtect',
+			'mindBlownRecoil', 'stealsBoosts', 'struggleRecoil', 'hasSheerForce',
+			'overrideDefensivePokemon', 'overrideDefensiveStat', 'overrideOffensivePokemon', 'overrideOffensiveStat',
+			'forceSTAB', 'ignoreAbility', 'ignoreAccuracy', 'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity',
+			'ignoreNegativeOffensive', 'ignoreOffensive', 'ignorePositiveDefensive', 'ignorePositiveEvasion',
+			'sleepUsable', 'smartTarget', 'tracksTarget', 'willCrit', 'hasCrashDamage', 'noSketch',
+			'pseudoWeather',
 			// function properties
-			'onDamage', 'onMoveFail', 'onUseMoveMessage'
+			'onDamagePriority', 'onDamage', 'onUseMoveMessage',
 		] as const;
 		for (const prop of simpleProperties) {
 			if (forte[prop]) move[prop] = forte[prop] as any;
@@ -218,7 +220,7 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 		// these properties have different meanings on moves and on items/abilities
 		// so we cannot write them outside
 		const complexProperties = [
-			'onHit', 'onPrepareHit', 'onTryHit', 'onTryImmunity', 'onTryMove', 'onAfterHit', 'onAfterSubDamage'
+			'onHit', 'onPrepareHit', 'onTryHit', 'onTryImmunity', 'onTryMove', 'onAfterHit', 'onAfterSubDamage', 'onMoveFail'
 		] as const;
 		for (const prop of complexProperties) move[prop] = mergeProperty(move, forte, prop);
 
@@ -239,6 +241,9 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 		if (move.category === 'Status') return;
 		return forte.onBasePower?.call(this, basePower, source, target, move);
 	};
+	// let omittedProperties = ['beforeTurnCallback', 'onDisableMove', 'onModifyTarget'];
+	// omitted cuz they are both unobtainable and complex
+	// there are other properties, not specified here since they are quite irrelevant
 }
 function setMoveCallbacksTrade(itemOrAbility: any, move: Move) {
 	itemOrAbility.onStart = function (pokemon: Pokemon) {
