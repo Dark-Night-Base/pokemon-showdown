@@ -264,7 +264,7 @@ function resolveMoveforItem(move: Move): Item {
 		onTakeItem: false,
 	});
 	if (move.category === 'Status') {
-		setMoveCallbacksTrade(result, move)
+		setMoveCallbacksTrade(result, move);
 	} else {
 		setMoveCallbacksForte(result, move);
 	}
@@ -278,7 +278,7 @@ function resolveMoveforAbility(move: Move): Ability {
 		// isPermanent: true,
 	});
 	if (move.category === 'Status') {
-		setMoveCallbacksTrade(result, move)
+		setMoveCallbacksTrade(result, move);
 	} else {
 		setMoveCallbacksForte(result, move);
 	}
