@@ -243,11 +243,13 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 	};
 	// let omittedProperties = ['beforeTurnCallback', 'onDisableMove', 'onModifyTarget'];
 	// omitted cuz they are both unobtainable and complex
-	// there are other properties, not specified here since they are quite irrelevant
+	// there are other omitted properties, not specified here since they are quite irrelevant
 }
 function setMoveCallbacksTrade(itemOrAbility: any, move: Move) {
+	const effectType = itemOrAbility.effectType;
 	itemOrAbility.onStart = function (pokemon: Pokemon) {
-		if (pokemon.ignoringItem()) return;
+		if (effectType === 'Item' && pokemon.ignoringItem()) return;
+		if (effectType === 'Ability' && this.suppressingAbility(pokemon)) return;
 		// Nihilslave: not quite sure under what case infinite loop will happen, just go without check first
 		this.actions.useMove({...move, accuracy: true}, pokemon);
 	};
