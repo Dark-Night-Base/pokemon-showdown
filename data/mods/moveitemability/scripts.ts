@@ -101,9 +101,9 @@ function mergeProperty(move: any, forte: any, property: string): any {
 		return mergeVolatileStatus(p1, p2);
 	case 'onTry':
 		return mergeOnTry(move, forte);
-	case 'damageCallback':
-		p1 = getDamageCallback(move);
-		p2 = getDamageCallback(forte);
+	// case 'damageCallback':
+	// 	p1 = getDamageCallback(move);
+	// 	p2 = getDamageCallback(forte);
 	default:
 		return mergeCallback(p1, p2);
 	}
@@ -154,6 +154,8 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 			'ignoreNegativeOffensive', 'ignoreOffensive', 'ignorePositiveDefensive', 'ignorePositiveEvasion',
 			'sleepUsable', 'smartTarget', 'tracksTarget', 'willCrit', 'hasCrashDamage', 'noSketch',
 			'pseudoWeather',
+			// Nihilslave: the final decision is to make these 2 unstackable like low kick
+			'damage', 'damageCallback',
 			// function properties
 			'onDamagePriority', 'onDamage', 'onUseMoveMessage',
 		] as const;
@@ -178,7 +180,7 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 
 		// part 2 - numberic properties
 		move.critRatio = (move.critRatio || 1) + (forte.critRatio || 1) - 1;
-		move.damageCallback = mergeProperty(move, forte, 'damageCallback');
+		// move.damageCallback = mergeProperty(move, forte, 'damageCallback');
 		move.drain = mergeProperty(move, forte, 'drain');
 		move.recoil = mergeProperty(move, forte, 'recoil');
 		if (forte.selfBoost?.boosts) {
