@@ -2121,13 +2121,14 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen9',
-		// we cannot use godly gift mod here
+		searchShow: false,
 		ruleset: ['[Gen 9] Balanced Hackmons'],
 		restricted: [
 			'Mewtwo', 'Slaking', 'Kyogre', 'Groudon', 'Rayquaza', 'Dialga', 'Dialga-Origin', 'Palkia', 'Palkia-Origin',
 			'Giratina', 'Giratina-Origin', 'Arceus', 'Hoopa-Unbound', 'Zacian', 'Zacian-Crowned', 'Zamazenta', 'Zamazenta-Crowned',
 			'Eternatus', 'Calyrex-Ice', 'Calyrex-Shadow', 'Palafin-Hero', 'Koraidon', 'Miraidon',
 		],
+		// we cannot use godly gift mod here
 		onValidateTeam(team) {
 			const gods = new Set<string>();
 			for (const set of team) {
