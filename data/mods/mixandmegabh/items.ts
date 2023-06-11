@@ -59,7 +59,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 	blueorb: {
 		inherit: true,
 		onSwitchIn(pokemon) {
-			if (pokemon.isActive && !pokemon.species.isPrimal) {
+			if (pokemon.isActive && pokemon.species.name !== 'Kyogre-Primal') {
 				this.queue.insertChoice({pokemon, choice: 'runPrimal'});
 			}
 		},
@@ -199,7 +199,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 	redorb: {
 		inherit: true,
 		onSwitchIn(pokemon) {
-			if (pokemon.isActive && !pokemon.species.isPrimal) {
+			if (pokemon.isActive && pokemon.species.name !== 'Groudon-Primal') {
 				this.queue.insertChoice({pokemon, choice: 'runPrimal'});
 			}
 		},

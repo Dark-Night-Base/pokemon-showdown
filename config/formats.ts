@@ -135,9 +135,11 @@ export const Formats: FormatList = [
 		banlist: [
 			'Beedrillite', 'Kangaskhanite', 'Mawilite', 'Medichamite',
 		],
-		restricted: [],
+		restricted: [
+			'Eternatus-Eternamax',
+		],
 		unbanlist: [
-			'Zygarde-Complete',
+			'Calyrex-Shadow', 'Cramorant-Gorging', 'Darmanitan-Galar-Zen', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Zygarde-Complete',
 		],
 		onValidateTeam(team) {
 			const itemTable = new Set<ID>();
