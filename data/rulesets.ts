@@ -2996,7 +2996,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 			'Inferno', 'Jaw Lock', 'Last Respects', 'Lumina Crash', 'Mortal Spin', 'Nuzzle', 'Power Trip',
 			'Pursuit', 'Rage Fist', 'Rising Voltage', 'Rollout', 'Shell Side Arm', 'Spirit Shackle', 'Stored Power',
 			'Terrain Pulse', 'Thousand Waves', 'Weather Ball', 'Zap Cannon',
-			'Assist', 'Baneful Bunker', 'Bestow', 'Block', 'Copycat', 'Detect', 'Destiny Bond', 'Electrify',
+			'Assist', 'Baneful Bunker', 'Bestow', 'Block', 'Copycat', 'Detect', 'Destiny Bond', 'Double Team', 'Electrify',
 			'Encore', 'Endure', 'Entrainment', 'Fairy Lock', 'Instruct', 'King\'s Shield', 'Magic Room',
 			'Mat Block', 'Me First', 'Mean Look', 'Mirror Move', 'Nature Power', 'Obstruct', 'Octolock', 'Pain Split',
 			'Protect', 'Revival Blessing', 'Roar', 'Skill Swap', 'Silk Trap', 'Spiky Shield', 'Sleep Talk', 'Shed Tail',
