@@ -165,10 +165,12 @@ export const Formats: FormatList = [
 				if (this.ruleTable.isRestricted(`move:${move.id}`) || bannedRestrictedMoves.includes(move.id)) return [`${move.name} is banned as item or ability`];
 				const accuracyLoweringMove = move.secondaries?.some(secondary => secondary.boosts?.accuracy && secondary.boosts?.accuracy < 0) ||
 					(move.boosts && move.boosts.accuracy && move.boosts.accuracy < 0);
+				const evasionRaisingMove = move.boosts && move.boosts.evasion && move.boosts.evasion > 0;
 				const sleepMove = (move.status && move.status === 'slp') || ['relicsong', 'yawn'].includes(move.id);
 				if (
 					move.ohko ||
 					accuracyLoweringMove ||
+					evasionRaisingMove ||
 					sleepMove ||
 					move.multihit ||
 					(move.priority > 0 && move.category !== 'Status') ||

@@ -2987,8 +2987,9 @@ export const Rulesets: {[k: string]: FormatData} = {
 		effectType: 'ValidatorRule',
 		name: 'MIA Move Legality',
 		desc: "Bans certain Moves in Item/Ability Slot",
-		ruleset: ['Other Restricted = OHKO Moves, Lowering Accuracy Moves, Sleep Moves, Multi-hit Moves, Positive Priority Attacks, \
-		Partially Trapping Moves, Counter-like Moves, HP-related Moves, Charge Attacks, Always-crit Moves, Pivot Moves, Z Moves, Max Moves'],
+		ruleset: ['Other Restricted = OHKO Moves, Lowering Accuracy Moves, Raising Evasion Moves, Sleep Moves, Multi-hit Moves, \
+		Positive Priority Attacks, Partially Trapping Moves, Counter-like Moves, HP-related Moves, Charge Attacks, Always-crit Moves, \
+		Pivot Moves, Z Moves, Max Moves'],
 		restricted: [
 			'move:Metronome',
 			'Acid Spray', 'Anchor Shot', 'Beat Up', 'Bide', 'Bolt Beak', 'Ceaseless Edge', 'Chatter',
@@ -2996,7 +2997,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 			'Inferno', 'Jaw Lock', 'Last Respects', 'Lumina Crash', 'Mortal Spin', 'Nuzzle', 'Power Trip',
 			'Pursuit', 'Rage Fist', 'Rising Voltage', 'Rollout', 'Shell Side Arm', 'Spirit Shackle', 'Stored Power',
 			'Terrain Pulse', 'Thousand Waves', 'Weather Ball', 'Zap Cannon',
-			'Assist', 'Baneful Bunker', 'Bestow', 'Block', 'Copycat', 'Detect', 'Destiny Bond', 'Double Team', 'Electrify',
+			'Assist', 'Baneful Bunker', 'Bestow', 'Block', 'Copycat', 'Detect', 'Destiny Bond', 'Electrify',
 			'Encore', 'Endure', 'Entrainment', 'Fairy Lock', 'Instruct', 'King\'s Shield', 'Magic Room',
 			'Mat Block', 'Me First', 'Mean Look', 'Mirror Move', 'Nature Power', 'Obstruct', 'Octolock', 'Pain Split',
 			'Protect', 'Revival Blessing', 'Roar', 'Skill Swap', 'Silk Trap', 'Spiky Shield', 'Sleep Talk', 'Shed Tail',
