@@ -122,7 +122,7 @@ export const Formats: FormatList = [
 		},
 	},
 	{
-		name: "[Gen 9] ND MnM BH",
+		name: "[Gen 9] ND Mix and Mega BH",
 		desc: `MnM + NDBH. Mega Pok&eacute;mon can mega evolve with non-native mega stones.`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3710921/">Mix and Mega</a>`,
@@ -130,10 +130,10 @@ export const Formats: FormatList = [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3711099/">National Dex BH</a>`,
 		],
 
-		mod: 'mixandmega',
+		mod: 'mixandmegabh',
 		ruleset: ['[Gen 9] National Dex BH', 'Overflow Stat Mod'],
 		banlist: [
-			'Beedrillite', 'Blazikenite', 'Kangaskhanite', 'Mawilite', 'Medichamite',
+			'Beedrillite', 'Kangaskhanite', 'Mawilite', 'Medichamite',
 		],
 		restricted: [],
 		unbanlist: [
@@ -2200,7 +2200,7 @@ export const Formats: FormatList = [
 			`&bullet; <a href="http://replay.sciroccogti.top/files/gen8mixandmegabh-997-asouchihiro-leon6.html">示例录像 Sample Replay</a>`,
 		],
 
-		mod: 'mixandmegabh',
+		mod: 'gen8mixandmegabh',
 		searchShow: false,
 		challengeShow: false,
 		ruleset: ['[Gen 8] Balanced Hackmons', 'Nickname Clause', 'Overflow Stat Mod'],
