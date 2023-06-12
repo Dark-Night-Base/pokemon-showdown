@@ -1020,7 +1020,7 @@ export const Formats: FormatList = [
 		desc: `活力鼠鼠杯。精灵只能使用活力特性 + 鼠数儿招式。<br/> One can only have Hustle + Population Bomb on their Pok&eacute;mon.`,
 
 		mod: 'gen9',
-		ruleset: ['Showdown', 'Dynamax Clause', 'Item Clause', 'Other Banned = Ghost/Rock/Steel Types'],
+		ruleset: ['Showdown', 'Dynamax Clause', 'Species Clause', 'Item Clause', 'Other Banned = Ghost/Rock/Steel Types'],
 		banlist: [
 			'all abilities', 'all moves',
 			'Adamant Crystal', 'Blue Orb', 'Griseous Core', 'Lustrous Globe', 'Red Orb', 'Rusted Shield', 'Rusted Sword', 'Ultranecrozium Z',
