@@ -2730,7 +2730,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 		banlist: [
 			'Adamant Crystal', 'Adamant Orb', 'Blue Orb', 'Deep Sea Scale', 'Deep Sea Tooth', 'Eviolite', 'Griseous Core', 'Griseous Orb',
 			'Leek', 'Light Ball', 'Lucky Punch', 'Lustrous Globe', 'Lustrous Orb', 'Metal Powder', 'Quick Powder', 'Red Orb', 'Rusted Shield',
-			'Rusted Sword', 'Thick Club', 'Soul Dew',
+			'Rusted Sword', 'Thick Club', 'Soul Dew', 'Ultranecrozium Z',
 		],
 		onBegin() {
 			this.add('rule', 'Signature Items Clause: Signature items are banned');

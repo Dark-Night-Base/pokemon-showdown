@@ -1016,6 +1016,27 @@ export const Formats: FormatList = [
 		},
 	},
 	{
+		name: "[Gen 9] PopBomb Cup",
+		desc: `活力鼠鼠杯。精灵只能使用活力特性 + 鼠数儿招式。<br/> One can only have Hustle + Population Bomb on their Pok&eacute;mon.`,
+
+		mod: 'gen9',
+		ruleset: ['Showdown', 'Item Clause'],
+		banlist: [
+			'all abilities', 'all moves',
+			'Adamant Crystal', 'Blue Orb', 'Griseous Core', 'Lustrous Globe', 'Red Orb', 'Rusted Shield', 'Rusted Sword', 'Ultranecrozium Z',
+			'Eternatus-Eternamax', 'Rocky Helmet',
+		],
+		unbanlist: [
+			'Hustle', 'Population Bomb',
+		],
+		onValidateSet(set, format, setHas, teamHas) {
+			const item = this.dex.items.get(set.item);
+			if (item.megaStone) return [`Mega Stones are banned in PopBomb Cup.`];
+			const species = this.dex.species.get(set.species);
+			if (species.types.includes('Ghost')) return [`You are not allowed to bring Ghost-Type Pokemon in PopBomb Cup.`];
+		},
+	},
+	{
 		name: "[Gen 8] Turn Tables",
 		desc: `Base stats below 100 get doubled, excluding HP.`,
 		threads: [
