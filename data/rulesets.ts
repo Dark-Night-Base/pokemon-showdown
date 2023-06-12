@@ -3117,6 +3117,13 @@ export const Rulesets: {[k: string]: FormatData} = {
 			}
 		},
 	},
+	otherbanned: {
+		effectType: 'ValidatorRule',
+		name: 'Other Banned',
+		desc: "Does nothing but tells you a lot of things are banned.",
+		hasValue: true,
+		// does nothing
+	},
 	otherrestricted: {
 		effectType: 'ValidatorRule',
 		name: 'Other Restricted',

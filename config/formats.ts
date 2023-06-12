@@ -1020,12 +1020,11 @@ export const Formats: FormatList = [
 		desc: `活力鼠鼠杯。精灵只能使用活力特性 + 鼠数儿招式。<br/> One can only have Hustle + Population Bomb on their Pok&eacute;mon.`,
 
 		mod: 'gen9',
-		ruleset: ['Showdown', 'Dynamax Clause', 'Item Clause'],
+		ruleset: ['Showdown', 'Dynamax Clause', 'Item Clause', 'Other Banned = Ghost/Rock/Steel Types'],
 		banlist: [
 			'all abilities', 'all moves',
 			'Adamant Crystal', 'Blue Orb', 'Griseous Core', 'Lustrous Globe', 'Red Orb', 'Rusted Shield', 'Rusted Sword', 'Ultranecrozium Z',
 			'Eternatus-Eternamax', 'Rocky Helmet',
-			'Aron', 'Lairon', 'Aggron', 'Shieldon', 'Bastiodon', 'Probopass', 'Stakataka',
 		],
 		unbanlist: [
 			'Hustle', 'Population Bomb',
@@ -1035,9 +1034,13 @@ export const Formats: FormatList = [
 			const item = this.dex.items.get(set.item);
 			if (item.megaStone) return [`Mega Stones are banned in PopBomb Cup.`];
 			const species = this.dex.species.get(set.species);
-			if (species.types.includes('Ghost')) return [`You are not allowed to bring Ghost-Type Pokemon in PopBomb Cup.`];
+			if (species.types.includes('Ghost') || species.types.includes('Rock') || species.types.includes('Steel')) {
+				return [`You are not allowed to bring Ghost/Rock/Steel Type Pokemon in PopBomb Cup.`];
+			}
 			const teraType = set.teraType || species.types[0];
-			if (teraType === 'Ghost') return [`You are not allowed to have Ghost Tera Type in PopBomb Cup.`];
+			if (['Ghost', 'Rock', 'Steel'].includes(teraType)) {
+				return [`You are not allowed to have Ghost/Rock/Steel Tera Type in PopBomb Cup.`];
+			}
 		},
 	},
 	{
