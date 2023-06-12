@@ -1031,6 +1031,7 @@ export const Formats: FormatList = [
 			'Hustle', 'Population Bomb',
 		],
 		onValidateSet(set, format, setHas, teamHas) {
+			if (set.moves.length > 1) return [`${set.species} is not allowed to bring more than one Population Bomb.`];
 			const item = this.dex.items.get(set.item);
 			if (item.megaStone) return [`Mega Stones are banned in PopBomb Cup.`];
 			const species = this.dex.species.get(set.species);
