@@ -3094,6 +3094,29 @@ export const Rulesets: {[k: string]: FormatData} = {
 			}
 		},
 	},
+	megastoneclause: {
+		effectType: 'ValidatorRule',
+		name: 'Mega Stone Clause',
+		desc: "Prevents teams from having more than one Pokemon with the same Mega Stone.",
+		onBegin() {
+			this.add('rule', 'Mega Stone Clause: Limit one of each Mega Stone.');
+		},
+		onValidateTeam(team, format, teamHas) {
+			const stoneTable: Set<string> = new Set();
+			for (const set of team) {
+				const item = this.dex.items.get(set.item);
+				const isMegaStone = item.megaStone || item.onPrimal || item.forcedForme?.endsWith('Origin') || item.name.startsWith('Rusted');
+				if (!isMegaStone) continue;
+				if (stoneTable.has(item.id)) {
+					return [
+						`You are limited to one of each Mega Stone.`,
+						`(You have more than one ${item.name})`,
+					];
+				}
+				stoneTable.add(item.id);
+			}
+		},
+	},
 	otherrestricted: {
 		effectType: 'ValidatorRule',
 		name: 'Other Restricted',

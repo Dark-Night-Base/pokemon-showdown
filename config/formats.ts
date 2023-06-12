@@ -131,42 +131,25 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'mixandmegabh',
-		ruleset: ['[Gen 9] National Dex BH', 'Overflow Stat Mod'],
+		ruleset: ['[Gen 9] National Dex BH', 'Overflow Stat Mod', 'Mega Stone Clause'],
 		banlist: [
 			'Beedrillite', 'Kangaskhanite', 'Mawilite', 'Medichamite',
-		],
-		restricted: [
-			'Eternatus-Eternamax',
 		],
 		unbanlist: [
 			'Calyrex-Shadow', 'Cramorant-Gorging', 'Darmanitan-Galar-Zen', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Zygarde-Complete',
 		],
-		onValidateTeam(team) {
-			const itemTable = new Set<ID>();
-			for (const set of team) {
-				const item = this.dex.items.get(set.item);
-				if (!item.megaStone && !item.onPrimal &&
-					!item.forcedForme?.endsWith('Origin') && !item.name.startsWith('Rusted')) continue;
-				const natdex = this.ruleTable.has('standardnatdex');
-				if (natdex && item.id !== 'ultranecroziumz') continue;
-				const species = this.dex.species.get(set.species);
-				if (species.isNonstandard && !this.ruleTable.has(`+pokemontag:${this.toID(species.isNonstandard)}`)) {
-					return [`${species.baseSpecies} does not exist in gen 9.`];
-				}
-				if ((item.itemUser?.includes(species.name) && !item.megaStone && !item.onPrimal) ||
-					(natdex && species.name.startsWith('Necrozma-') && item.id === 'ultranecroziumz')) {
-					continue;
-				}
-				if (this.ruleTable.isRestrictedSpecies(species) || this.toID(set.ability) === 'powerconstruct') {
-					return [`${species.name} is not allowed to hold ${item.name}.`];
-				}
-				if (itemTable.has(item.id)) {
-					return [
-						`You are limited to one of each mega stone/orb/rusted item/sinnoh item.`,
-						`(You have more than one ${item.name})`,
-					];
-				}
-				itemTable.add(item.id);
+		restricted: [
+			'Eternatus-Eternamax',
+		],
+		// Nihilslave: use different validation from vanilla mnm
+		onValidateSet(set, format, setHas, teamHas) {
+			const species = this.dex.species.get(set.species);
+			const item = this.dex.items.get(set.item);
+			const isMegaStone = item.megaStone || item.onPrimal || item.forcedForme?.endsWith('Origin') || item.name.startsWith('Rusted');
+			if (!isMegaStone) return;
+			const unbannedRestrictedSpecies = ['eternatuseternamax'];
+			if (this.ruleTable.isRestrictedSpecies(species) || unbannedRestrictedSpecies.includes(species.id)) {
+				return [`${species.name} is not allowed to hold ${item.name}.`];
 			}
 		},
 		onBegin() {
