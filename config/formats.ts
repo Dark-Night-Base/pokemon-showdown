@@ -97,7 +97,7 @@ export const Formats: FormatList = [
 			const gods = new Set<string>();
 			for (const set of team) {
 				const species = this.dex.species.get(set.species);
-				if (species.bst > 651) {
+				if (species.bst > 651 || this.ruleTable.isRestrictedSpecies(species)) {
 					gods.add(species.name);
 				}
 			}
@@ -110,7 +110,7 @@ export const Formats: FormatList = [
 			if (source || !target?.side) return;
 			const god = target.side.team.find(set => {
 				const godSpecies = this.dex.species.get(set.species);
-				return godSpecies.bst > 651;
+				return (godSpecies.bst > 651 || this.ruleTable.isRestrictedSpecies(godSpecies));
 			}) || target.side.team[0];
 			const stat = Dex.stats.ids()[target.side.team.indexOf(target.set)];
 			const newSpecies = this.dex.deepClone(species);
@@ -1025,6 +1025,7 @@ export const Formats: FormatList = [
 			'all abilities', 'all moves',
 			'Adamant Crystal', 'Blue Orb', 'Griseous Core', 'Lustrous Globe', 'Red Orb', 'Rusted Shield', 'Rusted Sword', 'Ultranecrozium Z',
 			'Eternatus-Eternamax', 'Rocky Helmet',
+			'Aron', 'Lairon', 'Aggron', 'Shieldon', 'Bastiodon', 'Probopass', 'Stakataka',
 		],
 		unbanlist: [
 			'Hustle', 'Population Bomb',
@@ -1035,7 +1036,7 @@ export const Formats: FormatList = [
 			const species = this.dex.species.get(set.species);
 			if (species.types.includes('Ghost')) return [`You are not allowed to bring Ghost-Type Pokemon in PopBomb Cup.`];
 			const teraType = set.teraType || species.types[0];
-			if (teraType === 'Ghost') return [`You are not allowed to have Ghost Tera-Type in PopBomb Cup.`];
+			if (teraType === 'Ghost') return [`You are not allowed to have Ghost Tera Type in PopBomb Cup.`];
 		},
 	},
 	{
