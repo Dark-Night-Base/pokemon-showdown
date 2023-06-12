@@ -136,10 +136,7 @@ export const Formats: FormatList = [
 			'Beedrillite', 'Kangaskhanite', 'Mawilite', 'Medichamite',
 		],
 		unbanlist: [
-			'Calyrex-Shadow', 'Cramorant-Gorging', 'Darmanitan-Galar-Zen', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Zygarde-Complete',
-		],
-		restricted: [
-			'Eternatus-Eternamax',
+			'Calyrex-Shadow', 'Cramorant-Gorging', 'Darmanitan-Galar-Zen', 'Groudon-Primal', 'Rayquaza-Mega', 'Zygarde-Complete',
 		],
 		// Nihilslave: use different validation from vanilla mnm
 		onValidateSet(set, format, setHas, teamHas) {
@@ -147,8 +144,7 @@ export const Formats: FormatList = [
 			const item = this.dex.items.get(set.item);
 			const isMegaStone = item.megaStone || item.onPrimal || item.forcedForme?.endsWith('Origin') || item.name.startsWith('Rusted');
 			if (!isMegaStone) return;
-			const unbannedRestrictedSpecies = ['eternatuseternamax'];
-			if (this.ruleTable.isRestrictedSpecies(species) || unbannedRestrictedSpecies.includes(species.id)) {
+			if (this.ruleTable.isRestrictedSpecies(species)) {
 				return [`${species.name} is not allowed to hold ${item.name}.`];
 			}
 		},
