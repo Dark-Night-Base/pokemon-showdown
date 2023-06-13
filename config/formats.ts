@@ -136,7 +136,10 @@ export const Formats: FormatList = [
 			'Beedrillite', 'Kangaskhanite', 'Mawilite', 'Medichamite',
 		],
 		unbanlist: [
-			'Calyrex-Shadow', 'Cramorant-Gorging', 'Darmanitan-Galar-Zen', 'Groudon-Primal', 'Rayquaza-Mega', 'Zygarde-Complete',
+			'Zygarde-Complete',
+		],
+		restricted: [
+			'Calyrex-Shadow', 'Cramorant-Gorging', 'Darmanitan-Galar-Zen', 'Groudon-Primal', 'Rayquaza-Mega',
 		],
 		// Nihilslave: use different validation from vanilla mnm
 		onValidateSet(set, format, setHas, teamHas) {
