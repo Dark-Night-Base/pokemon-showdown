@@ -3,6 +3,18 @@ import {FS} from "../../lib";
 type TypeName = 'Normal' | 'Fighting' | 'Flying' | 'Poison' | 'Ground' | 'Rock' | 'Bug' | 'Ghost' | 'Steel' | 'Fire' | 'Water' | 'Grass' | 'Electric' | 'Psychic' |
 	'Ice' | 'Dragon' | 'Dark' | 'Light';
 type StageName = 'Child' | 'Adult' | 'Perfect' | 'Ultimate';
+const stageToNumber: {[stage in StageName]: number[]} = {
+	Child: [0],
+	Adult: [0, 1],
+	Perfect: [1, 2],
+	Ultimate: [1, 2, 3],
+};
+const stageToTier: {[stage in StageName]: TierTypes.Singles} = {
+	Child: "LC",
+	Adult: "RU",
+	Perfect: "UU",
+	Ultimate: "OU",
+};
 const dex = Dex.mod('digimon');
 const gen = 1;
 const genToParsed = {
@@ -394,6 +406,18 @@ function getStage(species: Species): StageName {
 	if (bst <= 480) return "Perfect";
 	return "Ultimate";
 }
+function getLearnset(species: Species) {
+	const stageNumbers = stageToNumber[getStage(species)];
+	let learnset = {};
+	for (const n of stageNumbers) {
+		for (const type of species.types) {
+			if (!(type in typeLearnsetTable)) continue;
+			learnset = {...learnset, ...(typeLearnsetTable[type as TypeName][n] || {})};
+		}
+		learnset = {...learnset, ...(universalLearnset[n] || {})};
+	}
+	return learnset;
+}
 function isInNums(num: number, nums: (number | [number, number])[]) {
 	for (const n of nums) {
 		if (typeof n === 'number') {
@@ -404,23 +428,36 @@ function isInNums(num: number, nums: (number | [number, number])[]) {
 	}
 	return false;
 }
-function generateLearnsets(nums: (number | [number, number])[]) {}
+function generateLearnsets() {
+	for (const id in dex.data.Pokedex) {
+		const digimon = dex.species.get(id);
+		if (['X', 'Burst'].includes(digimon.forme)) continue;
+		const learnset = getLearnset(digimon);
+		if (!dex.data.Learnsets[id]) dex.data.Learnsets[id] = { learnset: {}, };
+		dex.data.Learnsets[id].learnset = {...dex.data.Learnsets[id].learnset, ...learnset};
+	}
+	let buf = `export const Learnsets: {[k: string]: ModdedLearnsetData} = {\n`;
+	for (const id in dex.data.Pokedex) {
+		if (!dex.data.Learnsets[id]) continue;
+		buf += `\t${id}: {\n`;
+		buf += `\t\tlearnset: {\n`
+		buf += `\t\t\t${Object.keys(dex.data.Learnsets[id].learnset!).join(`: ["9L1"],\n\t\t\t`)}: ["9L1"],\n`;
+		buf += `\t\t},\n`;
+		buf += `\t},\n`;
+	}
+	buf += `};\n`;
+	FS(`data/mods/digimon/learnsets.ts`).writeSync(buf);
+}
 function generateFormatsData(nums: (number | [number, number])[]) {
-	const stageToFormat: {[stage in StageName]: TierTypes.Singles} = {
-		Child: "LC",
-		Adult: "RU",
-		Perfect: "UU",
-		Ultimate: "OU",
-	};
 	const includeX = nums.findIndex(value => Array.isArray(value) && value[1] > 454 || typeof value === 'number' && value > 454) !== -1;
 	for (const id in dex.data.Pokedex) {
 		const digimon = dex.species.get(id);
 		if (!isInNums(digimon.num, nums)) continue;
 		if (!includeX && digimon.forme === 'X') continue;
-		const format = stageToFormat[getStage(digimon)];
+		const tier = stageToTier[getStage(digimon)];
 		if (!dex.data.FormatsData[id]) dex.data.FormatsData[id] = { tier: "Illegal" };
 		if (dex.data.FormatsData[id].tier && dex.data.FormatsData[id].tier !== 'Illegal') continue; // if it already has a tier, don't override
-		dex.data.FormatsData[id].tier = format;
+		dex.data.FormatsData[id].tier = tier;
 	}
 	let buf = `export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {\n`;
 	for (const id in dex.data.Pokedex) {
@@ -454,7 +491,7 @@ export const commands: Chat.ChatCommands = {
 			if (typeof i !== 'number') return this.errorReply('Please check input format.');
 			if (isNaN(i)) return this.errorReply('Please check input format.');
 		}
-		generateLearnsets(parsed as (number | [number, number])[]);
+		generateLearnsets();
 		generateFormatsData(parsed as (number | [number, number])[]);
 		this.sendReply('Done');
 	},

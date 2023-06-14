@@ -48,7 +48,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "OU",
 	},
 	blackwargreymon: {
-		tier: "Illegal",
+		tier: "OU",
 	},
 	wargreymonx: {
 		tier: "Illegal",
@@ -153,7 +153,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "OU",
 	},
 	rosemonburst: {
-		tier: "Illegal",
+		tier: "OU",
 	},
 	rosemonx: {
 		tier: "Illegal",
@@ -201,7 +201,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "OU",
 	},
 	blackseraphimon: {
-		tier: "Illegal",
+		tier: "OU",
 	},
 	goddramon: {
 		tier: "Uber",
@@ -240,7 +240,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "OU",
 	},
 	ofanimonfalldown: {
-		tier: "Illegal",
+		tier: "OU",
 	},
 	ofanimonx: {
 		tier: "Illegal",
@@ -471,7 +471,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "OU",
 	},
 	belialvamdemon: {
-		tier: "Illegal",
+		tier: "OU",
 	},
 	drimogemon: {
 		tier: "RU",
@@ -537,13 +537,13 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "OU",
 	},
 	chaosdramon: {
-		tier: "Illegal",
+		tier: "OU",
 	},
 	chaosdramonx: {
 		tier: "Illegal",
 	},
 	rusttyranomon: {
-		tier: "Illegal",
+		tier: "OU",
 	},
 	nanomon: {
 		tier: "UU",
