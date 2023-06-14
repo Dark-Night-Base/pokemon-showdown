@@ -4,6 +4,10 @@ type TypeName = 'Normal' | 'Fighting' | 'Flying' | 'Poison' | 'Ground' | 'Rock' 
 	'Ice' | 'Dragon' | 'Dark' | 'Light';
 type StageName = 'Child' | 'Adult' | 'Perfect' | 'Ultimate';
 const dex = Dex.mod('digimon');
+const gen = 1;
+const genToParsed = {
+	1: '[[1,141],[234,237]]',
+};
 /**
  * Child: 0
  * Adult: 0 + 1
@@ -396,11 +400,11 @@ function isInNums(num: number, nums: (number | [number, number])[]) {
 			if (num === n) return true;
 			continue;
 		}
-		if (n >= nums[0] && n <= nums[1]) return true;
+		if (num >= n[0] && num <= n[1]) return true;
 	}
 	return false;
 }
-function generateLearnsets(nums: number[]) {}
+function generateLearnsets(nums: (number | [number, number])[]) {}
 function generateFormatsData(nums: (number | [number, number])[]) {
 	const stageToFormat: {[stage in StageName]: TierTypes.Singles} = {
 		Child: "LC",
@@ -433,7 +437,7 @@ export const commands: Chat.ChatCommands = {
 	digimongenerate(target, room, user, connection, cmd) {
 		if (user.id !== 'asouchihiro') return this.errorReply('Access Denied by Nihilslave!');
 		if (room?.type === 'battle') return this.errorReply('Do not use this command in a battle room.');
-		if (!target) target = '[[1,559]]';
+		if (!target) target = genToParsed[gen];
 		let parsed = [];
 		try {
 			parsed = JSON.parse(target);
@@ -450,8 +454,8 @@ export const commands: Chat.ChatCommands = {
 			if (typeof i !== 'number') return this.errorReply('Please check input format.');
 			if (isNaN(i)) return this.errorReply('Please check input format.');
 		}
-		generateLearnsets(parsed);
-		generateFormatsData(parsed);
+		generateLearnsets(parsed as (number | [number, number])[]);
+		generateFormatsData(parsed as (number | [number, number])[]);
 		this.sendReply('Done');
 	},
 	digimongeneratehelp: [

@@ -16,7 +16,9 @@ export const Scripts: ModdedBattleScriptsData = {
 		}
 		// filter out all pokemon
 		for (const i in this.data.Pokedex) {
-			const digimonWithoutType = ['keramon', 'chrysalimon', 'infermon', 'diablomon', 'diablomonx', 'armagemon', 'culumon'];
+			const digimonWithoutType = [
+				'apocalymon', 'keramon', 'chrysalimon', 'infermon', 'diablomon', 'diablomonx', 'armagemon', 'culumon'
+			];
 			const digimon = this.data.Pokedex[i];
 			if (
 				digimon.types.findIndex(value => ['Data', 'Vaccine', 'Virus'].includes(value)) === -1 &&
