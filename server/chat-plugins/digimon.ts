@@ -498,6 +498,13 @@ export const commands: Chat.ChatCommands = {
 	digimongeneratehelp: [
 		`/dgg (number | [number, number])[]: generates learnsets and formats-data for certain Digimon.`,
 	],
+	dggl: 'digimongeneratelearnsets',
+	digimongeneratelearnsets(target, room, user, connection, cmd) {
+		if (user.id !== 'asouchihiro') return this.errorReply('Access Denied by Nihilslave!');
+		if (room?.type === 'battle') return this.errorReply('Do not use this command in a battle room.');
+		generateLearnsets();
+		this.sendReply('Done');
+	},
 	dg: 'digimon',
 	digi: 'digimon',
 	dm: 'digimon',
