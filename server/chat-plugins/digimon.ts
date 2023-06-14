@@ -414,14 +414,14 @@ function generateFormatsData(nums: (number | [number, number])[]) {
 		if (!isInNums(digimon.num, nums)) continue;
 		if (!includeX && digimon.forme === 'X') continue;
 		const format = stageToFormat[getStage(digimon)];
-		if (!dex.data.FormatsData[id]) dex.data.FormatsData[id] = {};
+		if (!dex.data.FormatsData[id]) dex.data.FormatsData[id] = { tier: "Illegal" };
 		if (dex.data.FormatsData[id].tier && dex.data.FormatsData[id].tier !== 'Illegal') continue; // if it already has a tier, don't override
 		dex.data.FormatsData[id].tier = format;
 	}
 	let buf = `export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {\n`;
 	for (const id in dex.data.Pokedex) {
 		buf += `\t${id}: {\n`;
-		buf += `\t\ttier: ${dex.data.FormatsData[id].tier},\n`;
+		buf += `\t\ttier: "${dex.data.FormatsData[id].tier}",\n`;
 		buf += `\t},\n`;
 	}
 	buf += `};\n`;
@@ -663,7 +663,7 @@ export const commands: Chat.ChatCommands = {
 			case 'pokemon':
 				const pokemon = dex.species.get(newTarget.name);
 				// if (pokemon.num <= 40000) return this.parse(`/dt ${pokemon.id}`);
-				buffer += `|raw|${Chat.getDataPokemonHTML(pokemon, dex.gen, String(pokemon.num))}\n`;
+				buffer += `|raw|${Chat.getDataPokemonHTML(pokemon, dex.gen, pokemon.tier)}\n`;
 
 				details = {
 					"Dex#": String(pokemon.num),

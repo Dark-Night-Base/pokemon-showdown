@@ -6,25 +6,25 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "Illegal",
 	},
 	agumon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	agumonblack: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	yukiagumon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	agumons: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	agumonx: {
 		tier: "Illegal",
 	},
 	greymon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	geogreymon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	greymonx: {
 		tier: "Illegal",
@@ -33,7 +33,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "UU",
 	},
 	metalgreymonblue: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	metalgreymonx: {
 		tier: "Illegal",
@@ -48,7 +48,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "OU",
 	},
 	blackwargreymon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	wargreymonx: {
 		tier: "Illegal",
@@ -57,25 +57,25 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "Illegal",
 	},
 	gabumon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	gabumonblack: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	psychemon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	gabumonx: {
 		tier: "Illegal",
 	},
 	garurumon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	garurumonblack: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	gururumon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	garurumonx: {
 		tier: "Illegal",
@@ -84,7 +84,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "UU",
 	},
 	weregarurumonblack: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	weregarurumonx: {
 		tier: "Illegal",
@@ -96,13 +96,13 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "Illegal",
 	},
 	piyomon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	birdramon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	saberdramon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	garudamon: {
 		tier: "UU",
@@ -114,10 +114,10 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "OU",
 	},
 	tentomon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	kabuterimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	atlurkabuterimon: {
 		tier: "UU",
@@ -129,16 +129,16 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "Illegal",
 	},
 	palmon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	alraumon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	palmonx: {
 		tier: "Illegal",
 	},
 	togemon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	togemonx: {
 		tier: "Illegal",
@@ -153,19 +153,19 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "OU",
 	},
 	rosemonburst: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	rosemonx: {
 		tier: "Illegal",
 	},
 	gomamon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	gomamonx: {
 		tier: "Illegal",
 	},
 	ikkakumon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	zudomon: {
 		tier: "UU",
@@ -180,19 +180,19 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "Illegal",
 	},
 	patamon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	tukaimon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	pegasmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	angemon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	pidmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	holyangemon: {
 		tier: "UU",
@@ -201,7 +201,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "OU",
 	},
 	blackseraphimon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	goddramon: {
 		tier: "Uber",
@@ -210,19 +210,19 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "Illegal",
 	},
 	plotmon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	plotmonx: {
 		tier: "Illegal",
 	},
 	tailmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	tailmonx: {
 		tier: "Illegal",
 	},
 	nefertimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	nefertimonx: {
 		tier: "Illegal",
@@ -240,7 +240,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "OU",
 	},
 	ofanimonfalldown: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	ofanimonx: {
 		tier: "Illegal",
@@ -249,19 +249,19 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "Illegal",
 	},
 	parrotmon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	crossmon: {
 		tier: "OU",
 	},
 	kuwagamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	kuwagamonx: {
 		tier: "Illegal",
 	},
 	okuwamon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	okuwamonx: {
 		tier: "Illegal",
@@ -270,34 +270,34 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "OU",
 	},
 	shakomon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	shakomonx: {
 		tier: "Illegal",
 	},
 	shellmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	anomalocarimon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	betamon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	modokibetamon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	betamonx: {
 		tier: "Illegal",
 	},
 	seadramon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	seadramonx: {
 		tier: "Illegal",
 	},
 	megaseadramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	megaseadramonx: {
 		tier: "Illegal",
@@ -306,70 +306,70 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "OU",
 	},
 	candmon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	meramon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	deathmeramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	bluemeramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	boltmon: {
 		tier: "OU",
 	},
 	hagurumon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	guardromon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	mechanorimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	andromon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	andromonfile: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	hiandromon: {
 		tier: "OU",
 	},
 	tyumon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	scumon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	numemon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	geremon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	karatukinumemon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	numemonx: {
 		tier: "Illegal",
 	},
 	gerbemon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	monzaemon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	warumonzaemon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	extyranomon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	etemon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	metaletemon: {
 		tier: "OU",
@@ -378,13 +378,13 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "OU",
 	},
 	unimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	shimaunimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	centalmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	elecmon: {
 		tier: "LC",
@@ -402,121 +402,121 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "OU",
 	},
 	goburimon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	snowgoburimon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	shamamon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	orgemon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	hyougamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	fugamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	orgemonx: {
 		tier: "Illegal",
 	},
 	digitamamon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	devitamamon: {
 		tier: "OU",
 	},
 	yukidarumon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	tuchidarumon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	mojyamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	bakemon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	soulmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	fantomon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	picodevimon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	devimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	icedevimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	vamdemon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	ladydevimon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	skullsatamon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	marindevimon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	venomvamdemon: {
 		tier: "OU",
 	},
 	belialvamdemon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	drimogemon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	whamonadult: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	whamon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	piccolomon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	gazimon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	gaomon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	gazimonx: {
 		tier: "Illegal",
 	},
 	raremon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	monochromon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	monochromonx: {
 		tier: "Illegal",
 	},
 	triceramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	triceramonx: {
 		tier: "Illegal",
 	},
 	cockatrimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	tyranomon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	darktyranomon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	tyranomonx: {
 		tier: "Illegal",
@@ -525,469 +525,472 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "Illegal",
 	},
 	metaltyranomon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	metaltyranomonx: {
 		tier: "Illegal",
 	},
 	mastertyranomon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	mugendramon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	chaosdramon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	chaosdramonx: {
 		tier: "Illegal",
 	},
 	rusttyranomon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	nanomon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	vegimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	zassoumon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	redvegimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	vademon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	vademonx: {
 		tier: "Illegal",
 	},
 	ebemon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	ebemonx: {
 		tier: "Illegal",
 	},
 	otamamon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	otamamonx: {
 		tier: "Illegal",
 	},
 	gekomon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	tonosamagekomon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	nanimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	devidramon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	dokugumon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	mammon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	mammonx: {
 		tier: "Illegal",
 	},
 	skullmammon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	skullmammonx: {
 		tier: "Illegal",
 	},
 	gesomon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	gesomonx: {
 		tier: "Illegal",
 	},
 	pumpmon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	gottsumon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	gottsumonx: {
 		tier: "Illegal",
 	},
 	wizarmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	sorcerimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	snimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	tuskmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	hangyomon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	kiwimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	blossomon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	delumon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	floramon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	mushmon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	woodmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	jyureimon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	pinochimon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	tankmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	megadramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	gigadramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	evilmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	deathmon: {
-		tier: "OU",
+		tier: "Illegal",
+	},
+	apocalymon: {
+		tier: "Uber",
 	},
 	imperialdramon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	imperialdramonblack: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	imperialdramonfighter: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	imperialdramonpaladin: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	vmon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	fladramon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	lightdramon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	magnamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	magnamonx: {
 		tier: "Illegal",
 	},
 	sethmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	xvmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	vdramon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	aerovdramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	ulforcevdramon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	ulforcevdramonx: {
 		tier: "Illegal",
 	},
 	wormmon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	shadramon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	searchmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	bullmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	coatlmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	stingmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	paildramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	dinobeemon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	hawkmon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	holsmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	shurimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	rinkmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	orcamon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	aquilamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	silphymon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	valkyrimon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	armadimon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	digmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	submarimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	frogmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	elephamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	ankylomon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	shakkomon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	slashangemon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	mantaraymon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	mantaraymonx: {
 		tier: "Illegal",
 	},
 	rhinomon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	rhinomonx: {
 		tier: "Illegal",
 	},
 	prairiemon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	bitmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	butterflamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	kabukimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	kunemon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	dokunemon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	gizamon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	ganimon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	ganimonx: {
 		tier: "Illegal",
 	},
 	penmon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	muchomon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	gokimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	deltamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	flymon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	airdramon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	revolmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	igamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	gorimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	tortamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	thunderballmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	thunderballmonx: {
 		tier: "Illegal",
 	},
 	golemon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	hanumon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	musyamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	cyclomon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	coelamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	ebidramon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	rukamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	octmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	flarelizamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	darklizamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	yanmamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	sandyanmamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	minotaurmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	knightmon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	jyagamon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	brachimon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	mamemon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	bigmamemon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	mamemonx: {
 		tier: "Illegal",
 	},
 	metalmamemon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	metalmamemonx: {
 		tier: "Illegal",
 	},
 	giromon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	pukumon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	lampmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	pharaohmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	dagomon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	archnemon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	mummymon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	chimairamon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	millenniummon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	zeedmillenniummon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	moonmillenniummon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	demon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	demonx: {
 		tier: "Illegal",
 	},
 	arkadimonchild: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	arkadimonadult: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	arkadimonperfect: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	arkadimonultimate: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	arkadimonsuperultimate: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	keramon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	chrysalimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	infermon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	diablomon: {
 		tier: "Uber",
@@ -996,124 +999,124 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "Illegal",
 	},
 	armagemon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	culumon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	guilmon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	guilmonx: {
 		tier: "Illegal",
 	},
 	growmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	growmonx: {
 		tier: "Illegal",
 	},
 	megalogrowmon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	megalogrowmonx: {
 		tier: "Illegal",
 	},
 	megidramon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	megidramonx: {
 		tier: "Illegal",
 	},
 	dukemon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	dukemoncrimson: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	dukemonx: {
 		tier: "Illegal",
 	},
 	terriermon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	galgomon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	rapidmon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	rapidmonarmor: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	rapidmonx: {
 		tier: "Illegal",
 	},
 	saintgalgomon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	renamon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	renamonx: {
 		tier: "Illegal",
 	},
 	kyubimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	taomon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	sakuyamon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	sakuyamonx: {
 		tier: "Illegal",
 	},
 	monodramon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	strikedramon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	cyberdramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	justimon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	impmon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	impmonx: {
 		tier: "Illegal",
 	},
 	beelzebumon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	beelzebumonblast: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	beelzebumonx: {
 		tier: "Illegal",
 	},
 	lopmon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	turuiemon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	wendimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	andiramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	cherubimon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	cherubimonvice: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	cherubimonx: {
 		tier: "Illegal",
@@ -1122,990 +1125,1008 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "Illegal",
 	},
 	marinangemon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	depthmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	gargomon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	kangarumon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	togemogumon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	owlmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	archelomon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	allomon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	allomonx: {
 		tier: "Illegal",
 	},
 	flybeemon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	harpymon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	boarmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	sheepmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	seahomon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	stegomon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	mothmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	manbomon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	lynxmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	maildramon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	opossummon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	fangmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	mikemon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	bastemon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	blimpmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	boogiemon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	phelesmon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	jewelbeemon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	scorpiomon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	gokumon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	dogmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	clockmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	orochimon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	neodevimon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	jijimon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	babamon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	dobermon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	dobermonx: {
 		tier: "Illegal",
 	},
 	cerberumon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	cerberumonwerewolf: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	cerberumonx: {
 		tier: "Illegal",
 	},
 	anubimon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	kumbhiramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	vajramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	mihiramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	andiramondeva: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	majiramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	sandiramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	indaramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	pajiramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	makuramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	sinduramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	caturamon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	vikaralamon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	xuanwumon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	zhuqiaomon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	qinglongmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	baihumon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	raijinmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	fujinmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	suijinmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	raidenmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	dreaper1: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	dreaper2: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	dreaper3: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	dreaper4: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	dreaper5: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	dreaper6: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	dreaper7: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	dreaper8: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	dreaper9: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	dreaperreaper: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	dreapermother: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	labramon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	siesamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	mephismon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	mephismonx: {
 		tier: "Illegal",
 	},
 	gulfmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	locomon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	grandlocomon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	parasimon: {
-		tier: "OU",
+		tier: "Illegal",
+	},
+	huanglongmon: {
+		tier: "Illegal",
 	},
 	susanoomon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	flamon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	agnimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	vritramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	aldamon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	kaisergreymon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	storabimon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	wolfmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	garummon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	beowolfmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	magnagarurumon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	fairimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	shutumon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	jetsilphymon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	chackmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	blizzarmon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	daipenmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	blitzmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	bolgmon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	rhinokabuterimon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	grottemon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	gigasmon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	arbormon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	petaldramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	ranamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	calamaramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	mercuremon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	sephirothmon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	duskmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	louwemon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	velgrmon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	kaiserleomon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	raihimon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	honeybeemon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	yaksamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	sagittarimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	nohemon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	kongoumon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	pucchiemon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	moosemon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	peacockmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	tocanmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	sepikmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	pteranomon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	pteranomonx: {
 		tier: "Illegal",
 	},
 	chamelemon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	baromon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	pipismon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	ponchomon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	swanmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	tylomon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	tylomonx: {
 		tier: "Illegal",
 	},
 	goatmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	flawizarmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	thunderbirmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	kenkimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	salamandamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	koemon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	hookmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	gladimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	witchmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	kyukimon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	assaultmon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	blackkingnumemon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	valvemon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	betsumon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	mistymon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	wisemon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	mermaimon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	cannondramon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	bokomon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	neamon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	starmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	starmonx: {
 		tier: "Illegal",
 	},
 	superstarmon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	zanbamon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	panjyamon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	panjyamonx: {
 		tier: "Illegal",
 	},
 	toyagumon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	toyagumonblack: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	clearagumon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	pandamon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	icemon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	insekimon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	karatenmon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	bakumon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	burgamon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	ebiburgamon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	asuramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	kokuwamon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	kokuwamonx: {
 		tier: "Illegal",
 	},
 	volcamon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	pievolcamon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	dynasmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	dynasmonx: {
 		tier: "Illegal",
 	},
 	lordknightmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	lordknightmonx: {
 		tier: "Illegal",
 	},
 	ancientgreymon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	ancientgarurumon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	ancientirismon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	ancientmegatheriummon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	ancientbeatmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	ancientvolcamon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	ancienttroiamon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	ancientmermaimon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	ancientwisemon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	ancientsphinxmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	kotemon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	dinohumon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	bearmon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	gryzmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	darcmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	hippogriffomon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	murmukusmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	griffomon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	ornismon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	marsmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	lilithmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	lilithmonx: {
 		tier: "Illegal",
 	},
 	lucemon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	lucemonfalldown: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	lucemonx: {
 		tier: "Illegal",
 	},
 	lucemonsatan: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	lucemonlarva: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	deathxmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	dorumon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	dorugamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	deathxdorugamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	raptordramon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	doruguremon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	deathxdoruguremon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	grademon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	dorugoramon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	deathxdorugoramon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	ryudamon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	ginryumon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	hisyaryumon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	ouryumon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	funbeemon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	waspmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	cannonbeemon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	tigervespamon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	dracumon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	sangloupmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	matadrmon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	granddracumon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	gaioumon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	grandiskuwagamon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	gigaseadramon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	dinotigermon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	metalfantomon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	mametyramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	metalpiranimon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	medivaldukemon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	tobucatmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	omekamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	skullbaluchimon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	volcdramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	ultimatebrakimon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	dinorexmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	clavisangemon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	kingetemon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	princemamemon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	princemamemonx: {
 		tier: "Illegal",
 	},
 	leviamon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	leviamonx: {
 		tier: "Illegal",
 	},
 	barbamon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	barbamonx: {
 		tier: "Illegal",
 	},
 	alphamon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	alphamonouryuken: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	rizegreymon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	shinegreymon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	shinegreymonburst: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	shinegreymonruin: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	gaogamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	machgaogamon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	miragegaogamon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	miragegaogamonburst: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	lalamon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	sunflowmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	lilamon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	falcomon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	falcomons: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	diatrymon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	peckmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	yatagaramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	yatagaramons: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	valdurmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	ravmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	ravmonburst: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	kudamon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	kudamons: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	reppamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	tyilinmon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	sleipmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	sleipmonx: {
 		tier: "Illegal",
 	},
 	kamemon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	gawappamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	shawujinmon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	jumbogamemon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	pawnchessmon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	pawnchessmonwhite: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	knightchessmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	knightchessmonwhite: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	rookchessmonblack: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	bishopchessmonwhite: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	queenchessmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	kingchessmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	kokabuterimon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	bladekuwagamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	metallifekuwagamon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	tyrantkabuterimon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	commandramon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	sealsdramon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	tankdramon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	darkdramon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	liollmon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	liamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	loaderliomon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	bancholeomon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	banchomamemon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	bancholilimon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	banchostingmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	banchogolemon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	chaosmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	chaosmonvaldurarm: {
-		tier: "OU",
+		tier: "Illegal",
+	},
+	ultimatechaosmon: {
+		tier: "Illegal",
 	},
 	spinomon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	lotusmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	swimmon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	eldoradimon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	goldnumemon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	platinumnumemon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	mercurymon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	minervamon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	minervamonx: {
 		tier: "Illegal",
 	},
 	neptonmon: {
-		tier: "OU",
+		tier: "Illegal",
+	},
+	protogizmon: {
+		tier: "Illegal",
+	},
+	gizmonat: {
+		tier: "Illegal",
+	},
+	gizmonxt: {
+		tier: "Illegal",
 	},
 	phascomon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	porcupamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	astamon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	belphemon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	belphemonsleep: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	belphemonx: {
 		tier: "Illegal",
 	},
 	duftmon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	duftmonleopard: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	duftmonx: {
 		tier: "Illegal",
 	},
 	craniummon: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	craniummonx: {
 		tier: "Illegal",
 	},
 	algomonperfect: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	algomonultimate: {
-		tier: "OU",
+		tier: "Illegal",
+	},
+	yggdrasill7d6: {
+		tier: "Illegal",
 	},
 };
