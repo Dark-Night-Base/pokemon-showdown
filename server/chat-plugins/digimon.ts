@@ -441,7 +441,7 @@ function generateLearnsets() {
 		if (!dex.data.Learnsets[id]) continue;
 		buf += `\t${id}: {\n`;
 		buf += `\t\tlearnset: {\n`
-		buf += `\t\t\t${Object.keys(dex.data.Learnsets[id].learnset!).join(`: ["9L1"],\n\t\t\t`)}: ["9L1"],\n`;
+		buf += `\t\t\t${Object.keys(dex.data.Learnsets[id].learnset!).sort().join(`: ["9L1"],\n\t\t\t`)}: ["9L1"],\n`;
 		buf += `\t\t},\n`;
 		buf += `\t},\n`;
 	}
