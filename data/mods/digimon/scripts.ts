@@ -14,18 +14,16 @@ export const Scripts: ModdedBattleScriptsData = {
 				this.modData('Moves', i).type = "Light";
 			}
 		}
+		// filter out all pokemon
 		for (const i in this.data.Pokedex) {
-			if (this.data.Pokedex[i].num > 40000) {
-				this.modData('Pokedex', i).isNonstandard = null;
-				if (this.data.Pokedex[i].types.includes("Fairy")) {
-					const index = this.data.Pokedex[i].types.findIndex(type => type === "Fairy");
-					if (index !== -1) {
-						this.modData('Pokedex', i).types[index] = "Light";
-					}
-				}
-			}
+			const digimonWithoutType = ['keramon', 'chrysalimon', 'infermon', 'diablomon', 'diablomonx', 'armagemon', 'culumon'];
+			const digimon = this.data.Pokedex[i];
+			if (
+				digimon.types.findIndex(value => ['Data', 'Vaccine', 'Virus'].includes(value)) === -1 &&
+				!digimonWithoutType.includes(i) &&
+				!i.startsWith('dreaper')
+			) delete this.data.Pokedex[i];
 		}
-		// todo: make all pokemon isNonstandard here
 	},
 	actions: {
 		canMegaEvo(pokemon) {

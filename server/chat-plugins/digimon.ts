@@ -1,5 +1,9 @@
+import {FS} from "../../lib";
+
 type TypeName = 'Normal' | 'Fighting' | 'Flying' | 'Poison' | 'Ground' | 'Rock' | 'Bug' | 'Ghost' | 'Steel' | 'Fire' | 'Water' | 'Grass' | 'Electric' | 'Psychic' |
 	'Ice' | 'Dragon' | 'Dark' | 'Light';
+type StageName = 'Child' | 'Adult' | 'Perfect' | 'Ultimate';
+const dex = Dex.mod('digimon');
 /**
  * Child: 0
  * Adult: 0 + 1
@@ -370,28 +374,98 @@ const universalLearnset: {[n: number]: {[k: string]: ["9L1"]}} = {
 		hyperbeam: ["9L1"],
 	},
 };
-function generateLearnsets() {
-	
+function getStage(species: Species): StageName {
+	const exceptAdult = [46, 59, 63, 64, 98, 116, 146, 192, 369, 370, 543, 550];
+	const exceptPerfect = [5, 60, 65, 96, 108, 130, 164, 215, 236, 248, 371, 372, 452, 459, 460, 464, 472];
+	const exceptUltimate = [120, 339, 544];
+	const exceptXevo = [146, 248, 452];
+	if (species.num === 451) return "Child";
+	if (exceptAdult.includes(species.num)) return "Adult";
+	if (exceptPerfect.includes(species.num)) return "Perfect";
+	if (exceptUltimate.includes(species.num)) return "Ultimate";
+	if (exceptXevo.includes(species.num) && species.forme === 'X') return "Ultimate";
+	const bst = species.forme === 'X' ? dex.species.get(species.baseSpecies).bst : species.bst;
+	if (bst <= 280) return "Child";
+	if (bst <= 380) return "Adult";
+	if (bst <= 480) return "Perfect";
+	return "Ultimate";
+}
+function isInNums(num: number, nums: (number | [number, number])[]) {
+	for (const n of nums) {
+		if (typeof n === 'number') {
+			if (num === n) return true;
+			continue;
+		}
+		if (n >= nums[0] && n <= nums[1]) return true;
+	}
+	return false;
+}
+function generateLearnsets(nums: number[]) {}
+function generateFormatsData(nums: (number | [number, number])[]) {
+	const stageToFormat: {[stage in StageName]: TierTypes.Singles} = {
+		Child: "LC",
+		Adult: "RU",
+		Perfect: "UU",
+		Ultimate: "OU",
+	};
+	const includeX = nums.findIndex(value => Array.isArray(value) && value[1] > 454 || typeof value === 'number' && value > 454) !== -1;
+	for (const id in dex.data.Pokedex) {
+		const digimon = dex.species.get(id);
+		if (!isInNums(digimon.num, nums)) continue;
+		if (!includeX && digimon.forme === 'X') continue;
+		const format = stageToFormat[getStage(digimon)];
+		if (!dex.data.FormatsData[id]) dex.data.FormatsData[id] = {};
+		if (dex.data.FormatsData[id].tier && dex.data.FormatsData[id].tier !== 'Illegal') continue; // if it already has a tier, don't override
+		dex.data.FormatsData[id].tier = format;
+	}
+	let buf = `export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {\n`;
+	for (const id in dex.data.Pokedex) {
+		buf += `\t${id}: {\n`;
+		buf += `\t\ttier: ${dex.data.FormatsData[id].tier},\n`;
+		buf += `\t},\n`;
+	}
+	buf += `};\n`;
+	FS(`data/mods/digimon/formats-data.ts`).writeSync(buf);
 }
 
 export const commands: Chat.ChatCommands = {
+	dgg: 'digimongenerate',
+	digimongenerate(target, room, user, connection, cmd) {
+		if (user.id !== 'asouchihiro') return this.errorReply('Access Denied by Nihilslave!');
+		if (room?.type === 'battle') return this.errorReply('Do not use this command in a battle room.');
+		if (!target) target = '[[1,559]]';
+		let parsed = [];
+		try {
+			parsed = JSON.parse(target);
+		} catch (e) {
+			return this.errorReply('JSON.Parse() failed! Please check the input format.');
+		}
+		for (const i of parsed) {
+			if (Array.isArray(i)) {
+				if (i.length !== 2) return this.errorReply('Please check input format.');
+				if (typeof i[0] !== 'number' || typeof i[1] !== 'number') return this.errorReply('Please check input format.');
+				if (isNaN(i[0]) || isNaN(i[1])) return this.errorReply('Please check input format.');
+				continue;
+			}
+			if (typeof i !== 'number') return this.errorReply('Please check input format.');
+			if (isNaN(i)) return this.errorReply('Please check input format.');
+		}
+		generateLearnsets(parsed);
+		generateFormatsData(parsed);
+		this.sendReply('Done');
+	},
+	digimongeneratehelp: [
+		`/dgg (number | [number, number])[]: generates learnsets and formats-data for certain Digimon.`,
+	],
 	dg: 'digimon',
 	digi: 'digimon',
 	dm: 'digimon',
 	digimon(target, room, user, connection, cmd) {
 		if (!this.runBroadcast()) return;
 
-		let {dex, format, targets} = this.splitFormat(target, true);
-		// Nihilslave: to pass the no-unused-vars check
-		if (format === null) {
-			dex = Dex.mod('digimon');
-		}
-
-		dex = Dex.mod('digimon');
-
 		let buffer = '';
-		target = targets.join(',');
 
+		const targets = target.split(',');
 		const targetId = toID(target);
 		if (!targetId) return this.parse('/help digimon');
 		const type1 = dex.types.get(targets[0]);
@@ -594,26 +668,7 @@ export const commands: Chat.ChatCommands = {
 				details = {
 					"Dex#": String(pokemon.num),
 				};
-				const bst = pokemon.forme === 'X' ? dex.species.get(pokemon.baseSpecies).bst : pokemon.bst;
-				if (bst <= 280) {
-					details["Stage"] = "Child";
-				} else if (bst <= 380) {
-					details["Stage"] = "Adult";
-				} else if (bst <= 480) {
-					details["Stage"] = "Perfect";
-				} else {
-					details["Stage"] = "Ultimate";
-				}
-				const exceptAdult = [46, 59, 63, 64, 98, 116, 146, 192, 369, 370, 543, 550];
-				const exceptPerfect = [5, 60, 65, 96, 108, 130, 164, 215, 236, 248, 371, 372,
-					452, 459, 460, 464, 472];
-				const exceptUltimate = [120, 339, 544];
-				const exceptXevo = [146, 248, 452];
-				if (pokemon.num === 451) details["Stage"] = "Child";
-				if (exceptAdult.includes(pokemon.num)) details["Stage"] = "Adult";
-				if (exceptPerfect.includes(pokemon.num)) details["Stage"] = "Perfect";
-				if (exceptUltimate.includes(pokemon.num)) details["Stage"] = "Ultimate";
-				if (exceptXevo.includes(pokemon.num) && pokemon.forme === 'X') details["Stage"] = "Ultimate";
+				details["Stage"] = getStage(pokemon);
 
 				const organizations = [];
 				const royalKnights = [1, 146, 151, 244, 428, 429, 493, 511, 555, 556];
