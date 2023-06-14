@@ -1,6 +1,11 @@
 type TypeName = 'Normal' | 'Fighting' | 'Flying' | 'Poison' | 'Ground' | 'Rock' | 'Bug' | 'Ghost' | 'Steel' | 'Fire' | 'Water' | 'Grass' | 'Electric' | 'Psychic' |
 	'Ice' | 'Dragon' | 'Dark' | 'Light';
-
+/**
+ * Child: 0
+ * Adult: 0 + 1
+ * Perfect: 1 + 2
+ * Ultimate: 1 + 2 + 3
+ */
 const typeLearnsetTable: {[type in TypeName]: {[n: number]: {[k: string]: ["9L1"]}}} = {
 	Bug: {
 		0: {
@@ -344,5 +349,24 @@ const typeLearnsetTable: {[type in TypeName]: {[n: number]: {[k: string]: ["9L1"
 		3: {
 			hydropump: ["9L1"],
 		},
+	},
+};
+const universalLearnset: {[n: number]: {[k: string]: ["9L1"]}} = {
+	0: {
+		protect: ["9L1"],
+		rest: ["9L1"],
+		sleeptalk: ["9L1"],
+		substitute: ["9L1"],
+	},
+	1: {
+		hiddenpower: ["9L1"],
+		protect: ["9L1"],
+		rest: ["9L1"],
+		sleeptalk: ["9L1"],
+		substitute: ["9L1"],
+	},
+	3: {
+		gigaimpact: ["9L1"],
+		hyperbeam: ["9L1"],
 	},
 };
