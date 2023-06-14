@@ -462,10 +462,10 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "UU",
 	},
 	skullsatamon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	marindevimon: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	venomvamdemon: {
 		tier: "OU",
