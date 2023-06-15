@@ -55,7 +55,6 @@ const typeLearnsetTable: {[type in TypeName]: {[n: number]: {[k: string]: ["9L1"
 		},
 		1: {
 			bite: ["9L1"],
-			thief: ["9L1"],
 			snarl: ["9L1"],
 			pursuit: ["9L1"],
 			beatup: ["9L1"],
@@ -312,13 +311,10 @@ const typeLearnsetTable: {[type in TypeName]: {[n: number]: {[k: string]: ["9L1"
 		0: {
 			sonicboom: ["9L1"],
 			quickattack: ["9L1"],
-			scratch: ["9L1"],
-			tackle: ["9L1"],
 		},
 		1: {
 			headbutt: ["9L1"],
 			slash: ["9L1"],
-			hiddenpower: ["9L1"],
 			swift: ["9L1"],
 		},
 		2: {
@@ -453,6 +449,8 @@ const typeLearnsetTable: {[type in TypeName]: {[n: number]: {[k: string]: ["9L1"
 };
 const universalLearnset: {[n: number]: {[k: string]: ["9L1"]}} = {
 	0: {
+		scratch: ["9L1"],
+		tackle: ["9L1"],
 		protect: ["9L1"],
 		rest: ["9L1"],
 		sleeptalk: ["9L1"],
@@ -464,6 +462,7 @@ const universalLearnset: {[n: number]: {[k: string]: ["9L1"]}} = {
 		rest: ["9L1"],
 		sleeptalk: ["9L1"],
 		substitute: ["9L1"],
+		workup: ["9L1"],
 	},
 	3: {
 		gigaimpact: ["9L1"],
