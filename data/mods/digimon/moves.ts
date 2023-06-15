@@ -13,6 +13,10 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		desc: "Causes the target to fall asleep.",
 		shortDesc: "Causes the foe(s) to fall asleep.",
 	},
+	dazzlinggleam: {
+		inherit: true,
+		basePower: 90,
+	},
 	flowershield: {
 		inherit: true,
 		type: "Grass",
@@ -304,6 +308,24 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		},
 		target: "allAdjacent",
 		type: "Water",
+	},
+	heavensknuckle: {
+		num: 40052,
+		accuracy: 95,
+		basePower: 95,
+		category: "Physical",
+		name: "Heaven's Knuckle",
+		pp: 10,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1, punch: 1},
+		secondary: {
+			chance: 10,
+			boosts: {
+				atk: -1,
+			},
+		},
+		target: "normal",
+		type: "Light",
 	},
 	sevenheavens: {
 		num: 40016,
