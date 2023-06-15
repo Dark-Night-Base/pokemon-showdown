@@ -1,14 +1,11 @@
-interface deltaLearnsets {
-	[k: string]: ["9L1"] | 1, // 1 for types
-}
 interface deltaLearnsetData {
-	adds?: deltaLearnsets,
-	deletes?: deltaLearnsets,
+	adds?: string[],
+	deletes?: string[],
 }
 
 export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	omegamon: {
-		adds: {},
-		deletes: {},
+		adds: ['greysword', 'dragonhammer', 'sacredsword'],
+		deletes: ['blizzard'],
 	},
 };
