@@ -237,7 +237,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		},
 	},
 	"Sharp": {
-		1: () => ['slash'],
+		1: () => ['nightslash', 'slash'],
 	},
 	"Sword": {
 		0: () => ['cut'],
