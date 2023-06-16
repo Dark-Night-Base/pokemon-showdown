@@ -42,10 +42,10 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 		3: ['zapcannon', 'thunder', 'wildcharge', 'risingvoltage'],
 	},
 	Fighting: {
-		0: ['machpunch'],
-		1: ['seismictoss', 'brickbreak', 'circlethrow', 'poweruppunch', 'vacuumwave', 'detect'],
-		2: ['hammerarm', 'aurasphere', 'bodypress', 'drainpunch', 'bulkup'],
-		3: ['focuspunch', 'highjumpkick', 'closecombat', 'focusblast', 'superpower', 'dynamicpunch'],
+		0: ['rocksmash'],
+		1: ['seismictoss', 'brickbreak', 'circlethrow', 'vacuumwave', 'detect'],
+		2: ['hammerarm', 'aurasphere', 'bodypress', 'bulkup'],
+		3: ['highjumpkick', 'closecombat', 'focusblast', 'superpower'],
 	},
 	Fire: {
 		0: ['ember', 'willowisp'],
@@ -66,10 +66,10 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 		3: ['grudge'],
 	},
 	Grass: {
-		0: ['vinewhip', 'leafage', 'absorb'],
-		1: ['magicalleaf', 'razorleaf', 'megadrain', 'bulletseed', 'leechseed', 'growth'],
-		2: ['energyball', 'leafblade', 'seedbomb', 'gigadrain', 'hornleech', 'grassyterrain', 'ingrain', 'worryseed'],
-		3: ['leafstorm', 'petaldance', 'powerwhip', 'solarbeam', 'woodhammer'],
+		0: ['absorb'],
+		1: ['megadrain', 'bulletseed', 'leechseed', 'growth'],
+		2: ['energyball', 'seedbomb', 'gigadrain', 'grassyterrain', 'worryseed'],
+		3: ['solarbeam'],
 	},
 	Ground: {
 		0: ['mudslap', 'mudsport'],
@@ -113,7 +113,7 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 		3: ['stoneedge'],
 	},
 	Steel: {
-		0: ['metalclaw', 'bulletpunch'],
+		0: ['metalclaw'],
 		1: ['mirrorshot', 'magnetbomb', 'autotomize', 'irondefense', 'metalsound'],
 		2: ['irontail', 'flashcannon', 'ironhead'],
 		3: ['meteormash'],
@@ -125,68 +125,113 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 		3: ['hydropump'],
 	},
 };
-export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: string[]}} = {
+export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species: Species) => string[]}} = {
 	"Cannon": {
-		1: ['lockon'],
-		2: ['flashcannon'],
+		1: () => ['lockon'],
+		2: () => ['flashcannon'],
 	},
 	"Claw": {
-		0: ['metalclaw', 'scratch'],
-		1: ['honeclaws'],
+		0: () => ['metalclaw', 'scratch'],
+		1: () => ['honeclaws'],
 	},
 	"Dragon Dinosaur": {
-		0: ['dragon rage'],
-		1: ['bite'],
-		2: ['outrage', 'earthquake', 'crunch'],
+		0: () => ['dragon rage'],
+		2: () => ['outrage', 'earthquake'],
 	},
 	"Dragon Eastern": {
-		0: ['dragon rage', 'ember', 'twister'],
-		1: ['firefang', 'icefang', 'thunderfang', 'dragondance'],
-		2: ['fireblast', 'earthquake', 'flamethrower'],
+		0: () => ['dragon rage', 'ember', 'twister'],
+		1: () => ['dragondance'],
+		2: () => ['fireblast', 'earthquake', 'flamethrower'],
 	},
 	"Dragon Western": {
-		0: ['dragon rage', 'ember'],
-		1: ['firefang', 'icefang', 'thunderfang'],
-		2: ['fireblast', 'flamethrower'],
-		3: ['dracometeor'],
+		0: () => ['dragon rage', 'ember'],
+		2: () => ['fireblast', 'flamethrower'],
+		3: () => ['dracometeor'],
 	},
 	"Fang": {
-		1: ['bite', 'firefang', 'icefang', 'thunderfang'],
-		2: ['crunch'],
+		1: (s) => {
+			const ret = ['bite'];
+			if (s.types.findIndex(value => ['Dragon', 'Fire'].includes(value)) !== -1) ret.push('firefang');
+			if (s.types.findIndex(value => ['Dragon', 'Ice', 'Water'].includes(value)) !== -1) ret.push('icefang');
+			if (s.types.findIndex(value => ['Dragon', 'Electric', 'Steel'].includes(value)) !== -1) ret.push('thunderfang');
+			return ret;
+		},
+		2: () => ['crunch'],
 	},
 	"Gear": {
-		1: ['gearup', 'shiftgear'],
+		0: () => ['gearup'],
+		1: () => ['geargrind', 'gearup', 'shiftgear'],
 	},
-	"Grass Flower": {},
-	"Grass Grass": {},
+	"Grass Flower": {
+		0: () => ['poisonpowder', 'stunspore'],
+		1: () => ['ragepowder', 'sleeppowder'],
+		2: () => ['petalblizzard'],
+		3: () => ['petaldance'],
+	},
+	"Grass Grass": {
+		0: () => ['vinewhip'],
+		1: () => ['grasswhistle', 'synthesis'],
+		3: () => ['powerwhip'],
+	},
 	"Grass Mushroom": {
-		1: ['spore'],
+		0: () => ['poisonpowder', 'stunspore'],
+		1: () => ['ragepowder', 'sleeppowder'],
+		2: () => ['spore'],
 	},
-	"Grass Wood": {},
+	"Grass Wood": {
+		0: () => ['vinewhip', 'leafage'],
+		1: () => ['magicalleaf', 'razorleaf', 'synthesis'],
+		2: () => ['leafblade', 'hornleech', 'ingrain'],
+		3: () => ['leafstorm', 'powerwhip', 'woodhammer'],
+	},
 	"Human-Like": {
-		1: ['facade', 'knockoff', 'pursuit'],
+		1: () => ['facade', 'knockoff', 'pursuit'],
 	},
 	"Legendary": {
-		2: ['punishment', 'extrasensory'],
+		2: () => ['punishment', 'extrasensory'],
 	},
 	"Monster": {
-		2: ['earthquake', 'flamethrower', 'icebeam', 'thunderbolt'],
+		2: () => ['earthquake', 'flamethrower', 'icebeam', 'thunderbolt'],
 	},
 	"Punch": {
-		1: ['firepunch', 'icepunch', 'thunderpunch'],
-		3: ['focuspunch'],
+		0: (s) => {
+			const ret = [];
+			if (s.types.includes('Fighting')) ret.push('machpunch');
+			if (s.types.includes('Steel')) ret.push('bulletpunch');
+			return ret;
+		},
+		1: (s) => {
+			const ret = [];
+			if (s.types.includes('Fighting')) ret.push('machpunch', 'poweruppunch');
+			if (s.types.includes('Steel')) ret.push('bulletpunch');
+
+			if (s.types.findIndex(value => ['Dragon', 'Fighting', 'Fire'].includes(value)) !== -1) ret.push('firepunch');
+			if (s.types.findIndex(value => ['Dragon', 'Fighting', 'Ice', 'Water'].includes(value)) !== -1) ret.push('icepunch');
+			if (s.types.findIndex(value => ['Dragon', 'Electric', 'Fighting', 'Steel'].includes(value)) !== -1) ret.push('thunderpunch');
+			return ret;
+		},
+		2: (s) => {
+			const ret = [];
+			if (s.types.includes('Fighting')) ret.push('drainpunch');
+			return ret;
+		},
+		3: (s) => {
+			const ret = ['focuspunch'];
+			if (s.types.includes('Fighting')) ret.push('dynamicpunch');
+			return ret;
+		},
 	},
 	"Sword": {
-		0: ['cut'],
-		1: ['nightslash', 'slash', 'aerialace', 'swordsdance'],
-		2: ['sacredsword'],
+		0: () => ['cut'],
+		1: () => ['nightslash', 'slash', 'aerialace', 'swordsdance'],
+		2: () => ['sacredsword'],
 	},
 	"Tail": {
-		0: ['tailwhip'],
-		2: ['irontail'],
+		0: () => ['tailwhip'],
+		2: () => ['irontail'],
 	},
 	"Wing": {
-		1: ['featherdance', 'roost'],
+		1: () => ['featherdance', 'roost'],
 	},
 };
 export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {

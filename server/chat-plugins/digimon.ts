@@ -48,7 +48,7 @@ function getLearnset(species: Species) {
 		}
 		for (const eggGroup of species.eggGroups) {
 			if (!(eggGroup in eggGroupLearnsetTable)) continue;
-			learnset = learnset.concat(eggGroupLearnsetTable[eggGroup][n] || []);
+			learnset = learnset.concat(eggGroupLearnsetTable[eggGroup][n](species) || []);
 		}
 		learnset = learnset.concat(universalLearnset[n] || []);
 	}
