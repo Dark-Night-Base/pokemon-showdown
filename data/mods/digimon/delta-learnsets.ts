@@ -107,7 +107,7 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 		3: ['expandingforce', 'futuresight'],
 	},
 	Rock: {
-		0: ['accelerock'],
+		0: ['rockthrow', 'accelerock'],
 		1: ['ancientpower', 'rocktomb', 'smackdown', 'rockblast', 'rockpolish'],
 		2: ['powergem', 'rockslide', 'sandstorm', 'stealthrock'],
 		3: ['stoneedge'],
