@@ -7,7 +7,7 @@ interface deltaLearnsetData {
 }
 
 export const universalLearnset: {[n: number]: string[]} = {
-	0: ['scratch', 'tackle', 'protect', 'rest', 'sleeptalk', 'substitute'],
+	0: ['tackle', 'protect', 'rest', 'sleeptalk', 'substitute'],
 	1: ['hiddenpower', 'protect', 'rest', 'sleeptalk', 'substitute', 'workup'],
 	3: ['gigaimpact', 'hyperbeam'],
 };
@@ -26,13 +26,14 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 	},
 	Dark: {
 		0: ['faketears'],
-		1: ['bite', 'snarl', 'pursuit', 'beatup', 'honeclaws'],
+		1: ['bite', 'snarl', 'pursuit', 'beatup'],
 		2: ['foulplay', 'crunch', 'darkpulse', 'nightslash', 'suckerpunch', 'knockoff', 'powertrip', 'nastyplot', 'taunt'],
 	},
 	Dragon: {
 		0: ['dragonrage'],
 		1: ['dragonbreath', 'dragontail'],
 		2: ['dragonpulse', 'dragonclaw'],
+		3: ['dragonrush'],
 	},
 	Electric: {
 		0: ['thundershock', 'thunderwave'],
@@ -126,32 +127,71 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 };
 export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: string[]}} = {
 	"Cannon": {
+		1: ['lockon'],
 		2: ['flashcannon'],
 	},
+	"Claw": {
+		0: ['metalclaw', 'scratch'],
+		1: ['honeclaws'],
+	},
 	"Dragon Dinosaur": {
+		0: ['dragon rage'],
 		1: ['bite'],
 		2: ['outrage', 'earthquake', 'crunch'],
 	},
 	"Dragon Eastern": {
+		0: ['dragon rage', 'ember', 'twister'],
 		1: ['firefang', 'icefang', 'thunderfang', 'dragondance'],
 		2: ['fireblast', 'earthquake', 'flamethrower'],
 	},
 	"Dragon Western": {
+		0: ['dragon rage', 'ember'],
 		1: ['firefang', 'icefang', 'thunderfang'],
 		2: ['fireblast', 'flamethrower'],
 		3: ['dracometeor'],
 	},
+	"Fang": {
+		1: ['bite', 'firefang', 'icefang', 'thunderfang'],
+		2: ['crunch'],
+	},
+	"Gear": {
+		1: ['gearup', 'shiftgear'],
+	},
+	"Grass Flower": {},
+	"Grass Grass": {},
+	"Grass Mushroom": {
+		1: ['spore'],
+	},
+	"Grass Wood": {},
+	"Human-Like": {
+		1: ['facade', 'knockoff', 'pursuit'],
+	},
+	"Legendary": {
+		2: ['punishment', 'extrasensory'],
+	},
 	"Monster": {
-		2: ['flamethrower', 'icebeam', 'thunderbolt'],
+		2: ['earthquake', 'flamethrower', 'icebeam', 'thunderbolt'],
+	},
+	"Punch": {
+		1: ['firepunch', 'icepunch', 'thunderpunch'],
+		3: ['focuspunch'],
 	},
 	"Sword": {
-		1: ['swordsdance'],
+		0: ['cut'],
+		1: ['nightslash', 'slash', 'aerialace', 'swordsdance'],
 		2: ['sacredsword'],
+	},
+	"Tail": {
+		0: ['tailwhip'],
+		2: ['irontail'],
+	},
+	"Wing": {
+		1: ['featherdance', 'roost'],
 	},
 };
 export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	omegamon: {
-		adds: ['sword', 'greysword', 'garurucannon', 'dragonhammer'],
+		adds: ['greysword', 'garurucannon', 'dragonhammer'],
 		deletes: ['blizzard'],
 	},
 };
