@@ -126,8 +126,8 @@ function generateFormatsData(nums: (number | [number, number])[]) {
 }
 
 export const commands: Chat.ChatCommands = {
-	dgg: 'digimongenerate',
-	digimongenerate(target, room, user, connection, cmd) {
+	dggf: 'digimongenerateformats',
+	digimongenerateformats(target, room, user, connection, cmd) {
 		if (user.id !== 'asouchihiro') return this.errorReply('Access Denied by Nihilslave!');
 		if (room?.type === 'battle') return this.errorReply('Do not use this command in a battle room.');
 		if (!target) target = genToParsed[gen];
@@ -147,12 +147,11 @@ export const commands: Chat.ChatCommands = {
 			if (typeof i !== 'number') return this.errorReply('Please check input format.');
 			if (isNaN(i)) return this.errorReply('Please check input format.');
 		}
-		generateLearnsets();
 		generateFormatsData(parsed as (number | [number, number])[]);
 		this.sendReply('Done');
 	},
-	digimongeneratehelp: [
-		`/dgg (number | [number, number])[]: generates learnsets and formats-data for certain Digimon.`,
+	digimongenerateformatshelp: [
+		`/dggf (number | [number, number])[]: generates formats-data for certain Digimon.`,
 	],
 	dggl: 'digimongeneratelearnsets',
 	digimongeneratelearnsets(target, room, user, connection, cmd) {
