@@ -2125,6 +2125,17 @@ export const Formats: FormatList = [
 		// beak blast / focus punch forte implemented in data/mods/fortemons/scripts.ts
 	},
 	{
+		name: "[Gen 9] Full Potential BH",
+		desc: `Full Potential + BH. Pok&eacute;mon's moves hit off of their highest stat.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3711127/">Full Potential</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3710859/">Balanced Hackmons</a>`,
+		],
+
+		mod: 'fullpotential',
+		ruleset: ['[Gen 9] Balanced Hackmons'],
+	},
+	{
 		name: "[Gen 9] Godly Gift BH",
 		desc: `Godly Gift + BH. Pok&eacute;mon with BST greater than or equal to 650 are Gods.`,
 		threads: [
