@@ -1,5 +1,5 @@
 import {FS} from "../../lib";
-import {universalLearnset, typeLearnsetTable, categoryLearnsetTable, deltaLearnsetTable} from '../../data/mods/digimon/delta-learnsets';
+import {universalLearnset, typeLearnsetTable, eggGroupLearnsetTable, deltaLearnsetTable} from '../../data/mods/digimon/delta-learnsets';
 
 type TypeName = 'Normal' | 'Fighting' | 'Flying' | 'Poison' | 'Ground' | 'Rock' | 'Bug' | 'Ghost' | 'Steel' | 'Fire' | 'Water' | 'Grass' | 'Electric' | 'Psychic' |
 	'Ice' | 'Dragon' | 'Dark' | 'Light';
@@ -46,20 +46,20 @@ function getLearnset(species: Species) {
 			if (!(type in typeLearnsetTable)) continue;
 			learnset = learnset.concat(typeLearnsetTable[type as TypeName][n] || []);
 		}
+		for (const eggGroup of species.eggGroups) {
+			if (!(eggGroup in eggGroupLearnsetTable)) continue;
+			learnset = learnset.concat(eggGroupLearnsetTable[eggGroup][n] || []);
+		}
 		learnset = learnset.concat(universalLearnset[n] || []);
 	}
 	const delta = deltaLearnsetTable[species.id] || {};
 	const adds = delta.adds || [];
 	for (const add of adds) {
-		if (add in typeLearnsetTable) {
-			for (const n of stageNumbers) learnset = learnset.concat(typeLearnsetTable[add as TypeName][n] || []);
+		if (!(add in typeLearnsetTable)) {
+			learnset.push(add);
 			continue;
 		}
-		if (add in categoryLearnsetTable) {
-			for (const n of stageNumbers) learnset = learnset.concat(categoryLearnsetTable[add][n] || []);
-			continue;
-		}
-		learnset.push(add);
+		for (const n of stageNumbers) learnset = learnset.concat(typeLearnsetTable[add as TypeName][n] || []);
 	}
 	const learnsetSet = new Set(learnset);
 	const deletes = delta.deletes || [];
@@ -68,7 +68,6 @@ function getLearnset(species: Species) {
 			learnsetSet.delete(del);
 			continue;
 		}
-		// never write categories in deletes
 		for (const n of stageNumbers) {
 			const moves = typeLearnsetTable[del as TypeName][n] || [];
 			for (const move in moves) learnsetSet.delete(move);

@@ -124,27 +124,27 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 		3: ['hydropump'],
 	},
 };
-export const categoryLearnsetTable: {[category: string]: {[n: number]: string[]}} = {
-	cannon: {
+export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: string[]}} = {
+	"Cannon": {
 		2: ['flashcannon'],
 	},
-	dragon_dinosaur: {
+	"Dragon Dinosaur": {
 		1: ['bite'],
 		2: ['outrage', 'earthquake', 'crunch'],
 	},
-	dragon_eastern: {
+	"Dragon Eastern": {
 		1: ['firefang', 'icefang', 'thunderfang', 'dragondance'],
-		2: ['fireblast', 'flamethrower'],
+		2: ['fireblast', 'earthquake', 'flamethrower'],
 	},
-	dragon_western: {
+	"Dragon Western": {
 		1: ['firefang', 'icefang', 'thunderfang'],
 		2: ['fireblast', 'flamethrower'],
 		3: ['dracometeor'],
 	},
-	monster: {
+	"Monster": {
 		2: ['flamethrower', 'icebeam', 'thunderbolt'],
 	},
-	sword: {
+	"Sword": {
 		1: ['swordsdance'],
 		2: ['sacredsword'],
 	},
