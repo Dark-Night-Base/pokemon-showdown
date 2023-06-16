@@ -26,8 +26,8 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 	},
 	Dark: {
 		0: ['faketears'],
-		1: ['bite', 'snarl', 'pursuit', 'beatup'],
-		2: ['foulplay', 'crunch', 'darkpulse', 'nightslash', 'suckerpunch', 'knockoff', 'powertrip', 'nastyplot', 'taunt'],
+		1: ['snarl', 'pursuit', 'beatup'],
+		2: ['foulplay', 'darkpulse', 'suckerpunch', 'knockoff', 'powertrip', 'nastyplot', 'taunt'],
 	},
 	Dragon: {
 		0: ['dragonrage'],
@@ -90,7 +90,7 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 	},
 	Normal: {
 		0: ['sonicboom', 'quickattack'],
-		1: ['headbutt', 'slash', 'swift'],
+		1: ['swift'],
 		2: ['hypervoice', 'bodyslam', 'facade'],
 		3: ['gigaimpact', 'hyperbeam', 'doubleedge', 'thrash'],
 	},
@@ -103,7 +103,7 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 	Psychic: {
 		0: ['confusion'],
 		1: ['psywave', 'psybeam', 'hypnosis'],
-		2: ['psychic', 'psyshock', 'psychicfangs', 'zenheadbutt', 'storedpower', 'calmmind', 'lightscreen', 'magiccoat', 'psychicterrain', 'reflect'],
+		2: ['psychic', 'psyshock', 'storedpower', 'calmmind', 'lightscreen', 'magiccoat', 'psychicterrain', 'reflect'],
 		3: ['expandingforce', 'futuresight'],
 	},
 	Rock: {
@@ -126,6 +126,17 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 	},
 };
 export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species: Species) => string[]}} = {
+	"Body Arms": {},
+	"Body Body": {},
+	"Body Head": {
+		1: () => ['headbutt'],
+		2: (s) => {
+			const ret = ['ironhead'];
+			if (s.types.includes('Psychic')) ret.push('zenheadbutt');
+			return ret;
+		}
+	},
+	"Body Legs": {},
 	"Cannon": {
 		1: () => ['lockon'],
 		2: () => ['flashcannon'],
@@ -156,7 +167,11 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 			if (s.types.findIndex(value => ['Dragon', 'Electric', 'Steel'].includes(value)) !== -1) ret.push('thunderfang');
 			return ret;
 		},
-		2: () => ['crunch'],
+		2: (s) => {
+			const ret = ['crunch'];
+			if (s.types.includes('Psychic')) ret.push('psychicfangs');
+			return ret;
+		},
 	},
 	"Gear": {
 		0: () => ['gearup'],
@@ -220,6 +235,9 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 			if (s.types.includes('Fighting')) ret.push('dynamicpunch');
 			return ret;
 		},
+	},
+	"Sharp": {
+		1: () => ['slash'],
 	},
 	"Sword": {
 		0: () => ['cut'],

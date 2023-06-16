@@ -8,7 +8,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Mold Breaker"},
 		weightkg: 1,
 		evos: ["War Greymon", "Metal Garurumon"],
-		eggGroups: ["Cannon", "Human-Like", "Sword"],
+		eggGroups: ["Cannon", "Human-Like", 'Legendary', "Sword"],
 		otherFormes: ["Omegamon-X"],
 		formeOrder: ["Omegamon", "Omegamon-X"],
 	},
