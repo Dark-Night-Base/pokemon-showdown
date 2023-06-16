@@ -32,8 +32,7 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 	Dragon: {
 		0: ['dragonrage'],
 		1: ['dragonbreath', 'dragontail'],
-		2: ['dragonpulse', 'dragonclaw', 'dragondance'],
-		3: ['outrage'],
+		2: ['dragonpulse', 'dragonclaw'],
 	},
 	Electric: {
 		0: ['thundershock', 'thunderwave'],
@@ -125,9 +124,34 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 		3: ['hydropump'],
 	},
 };
+export const categoryLearnsetTable: {[category: string]: {[n: number]: string[]}} = {
+	cannon: {
+		2: ['flashcannon'],
+	},
+	dragon_dinosaur: {
+		1: ['bite'],
+		2: ['outrage', 'earthquake', 'crunch'],
+	},
+	dragon_eastern: {
+		1: ['firefang', 'icefang', 'thunderfang', 'dragondance'],
+		2: ['fireblast', 'flamethrower'],
+	},
+	dragon_western: {
+		1: ['firefang', 'icefang', 'thunderfang'],
+		2: ['fireblast', 'flamethrower'],
+		3: ['dracometeor'],
+	},
+	monster: {
+		2: ['flamethrower', 'icebeam', 'thunderbolt'],
+	},
+	sword: {
+		1: ['swordsdance'],
+		2: ['sacredsword'],
+	},
+};
 export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	omegamon: {
-		adds: ['greysword', 'dragonhammer', 'sacredsword'],
+		adds: ['sword', 'greysword', 'garurucannon', 'dragonhammer'],
 		deletes: ['blizzard'],
 	},
 };

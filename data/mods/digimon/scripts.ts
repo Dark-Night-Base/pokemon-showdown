@@ -14,6 +14,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				this.modData('Moves', i).type = "Light";
 			}
 		}
+		delete this.data.TypeChart['fairy'];
 		// filter out all pokemon
 		for (const i in this.data.Pokedex) {
 			const digimonWithoutType = [
