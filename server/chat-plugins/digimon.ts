@@ -40,15 +40,40 @@ function getStage(species: Species): StageName {
 }
 function getLearnset(species: Species) {
 	const stageNumbers = stageToNumber[getStage(species)];
-	let learnset = {};
+	let learnset: string[] = [];
 	for (const n of stageNumbers) {
 		for (const type of species.types) {
 			if (!(type in typeLearnsetTable)) continue;
-			learnset = {...learnset, ...(typeLearnsetTable[type as TypeName][n] || {})};
+			learnset = learnset.concat(typeLearnsetTable[type as TypeName][n] || []);
 		}
-		learnset = {...learnset, ...(universalLearnset[n] || {})};
+		learnset = learnset.concat(universalLearnset[n] || []);
 	}
-	return learnset;
+	const delta = deltaLearnsetTable[species.id] || {};
+	const adds = delta.adds || [];
+	for (const add of adds) {
+		if (!(add in typeLearnsetTable)) {
+			learnset.push(add);
+			continue;
+		}
+		for (const n of stageNumbers) learnset = learnset.concat(typeLearnsetTable[add as TypeName][n] || []);
+	}
+	const learnsetSet = new Set(learnset);
+	const deletes = delta.deletes || [];
+	for (const del of deletes) {
+		if (!(del in typeLearnsetTable)) {
+			learnsetSet.delete(del);
+			continue;
+		}
+		for (const n of stageNumbers) {
+			const moves = typeLearnsetTable[del as TypeName][n] || [];
+			for (const move in moves) learnsetSet.delete(move);
+		}
+	}
+	learnset = Array.from(learnsetSet);
+	return learnset.reduce((prevValue, currValue) => {
+		prevValue[currValue] = ["9L1"];
+		return prevValue;
+	}, {} as {[k: string]: any});
 }
 function isInNums(num: number, nums: (number | [number, number])[]) {
 	for (const n of nums) {
@@ -64,9 +89,8 @@ function generateLearnsets() {
 	for (const id in dex.data.Pokedex) {
 		const digimon = dex.species.get(id);
 		if (['X', 'Burst'].includes(digimon.forme)) continue;
-		const learnset = getLearnset(digimon);
 		if (!dex.data.Learnsets[id]) dex.data.Learnsets[id] = { learnset: {}, };
-		dex.data.Learnsets[id].learnset = {...dex.data.Learnsets[id].learnset, ...learnset};
+		dex.data.Learnsets[id].learnset = getLearnset(digimon);
 	}
 	let buf = `export const Learnsets: {[k: string]: ModdedLearnsetData} = {\n`;
 	for (const id in dex.data.Pokedex) {
