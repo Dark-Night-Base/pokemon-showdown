@@ -146,16 +146,16 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		1: () => ['honeclaws'],
 	},
 	"Dragon Dinosaur": {
-		0: () => ['dragon rage'],
+		0: () => ['dragonrage'],
 		2: () => ['outrage', 'earthquake'],
 	},
 	"Dragon Eastern": {
-		0: () => ['dragon rage', 'ember', 'twister'],
+		0: () => ['dragonrage', 'ember', 'twister'],
 		1: () => ['dragondance'],
 		2: () => ['fireblast', 'earthquake', 'flamethrower'],
 	},
 	"Dragon Western": {
-		0: () => ['dragon rage', 'ember'],
+		0: () => ['dragonrage', 'ember'],
 		2: () => ['fireblast', 'flamethrower'],
 		3: () => ['dracometeor'],
 	},
@@ -237,11 +237,18 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		},
 	},
 	"Sharp": {
+		0: () => ['cut', 'furycutter'],
 		1: () => ['nightslash', 'slash'],
 	},
 	"Sword": {
-		0: () => ['cut'],
-		1: () => ['nightslash', 'slash', 'aerialace', 'swordsdance'],
+		0: () => ['cut', 'furycutter'],
+		1: (s) => {
+			const ret = ['nightslash', 'slash', 'aerialace', 'swordsdance'];
+			if (s.types.includes('Psychic')) ret.push('psychocut');
+
+			if (s.eggGroups.includes('Legendary')) ret.push('psychocut');
+			return ret;
+		},
 		2: () => ['sacredsword'],
 	},
 	"Tail": {
