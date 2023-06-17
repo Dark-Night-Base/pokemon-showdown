@@ -33,7 +33,6 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 		0: ['dragonrage'],
 		1: ['dragonbreath', 'dragontail'],
 		2: ['dragonpulse', 'dragonclaw'],
-		3: ['dragonrush'],
 	},
 	Electric: {
 		0: ['thundershock', 'thunderwave'],
@@ -79,8 +78,8 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 	},
 	Ice: {
 		0: ['iceshard', 'powdersnow'],
-		1: ['aurorabeam', 'icefang', 'icywind', 'iciclespear'],
-		2: ['icebeam', 'iciclecrash', 'icepunch', 'freezedry', 'avalanche', 'hail'],
+		1: ['aurorabeam', 'icywind', 'iciclespear'],
+		2: ['icebeam', 'iciclecrash', 'freezedry', 'hail'],
 		3: ['blizzard'],
 	},
 	Light: {
@@ -147,9 +146,11 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 	"Body Body": {
 		1: (s) => [].addMoveByType(s, 'Fire', 'flamecharge'),
 		2: (s) => ['bodyslam', 'bodypress'],
-		3: (s) => ['doubleedge'].addMoveByType(s, 'Electric', 'wildcharge')
+		3: (s) => ['doubleedge'].addMoveByType(s, 'Dragon', 'dragonrush')
+			.addMoveByType(s, 'Electric', 'wildcharge')
 			.addMoveByType(s, 'Fire', 'flareblitz')
-			.addMoveByType(s, 'Flyging', 'bravebird'),
+			.addMoveByType(s, 'Flyging', 'bravebird')
+			.addMoveByType(s, 'Ice', 'avalanche'),
 	},
 	"Body Foot": {
 		2: (s) => [].addMoveByType(s, 'Fire', 'blazekick'),
@@ -231,7 +232,8 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		1: (s) => ['facade', 'knockoff', 'pursuit'],
 	},
 	"Legendary": {
-		2: (s) => ['punishment', 'extrasensory'],
+		1: (s) => ['swift'],
+		2: (s) => ['punishment', 'extrasensory', 'calmmind'],
 	},
 	"Monster": {
 		2: (s) => ['earthquake', 'flamethrower', 'icebeam', 'thunderbolt'],

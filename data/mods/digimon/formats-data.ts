@@ -1364,6 +1364,9 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	parasimon: {
 		tier: "Illegal",
 	},
+	huanglongmon: {
+		tier: "Illegal",
+	},
 	susanoomon: {
 		tier: "Illegal",
 	},
@@ -2109,6 +2112,9 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "Illegal",
 	},
 	algomonultimate: {
+		tier: "Illegal",
+	},
+	yggdrasill7d6: {
 		tier: "Illegal",
 	},
 };

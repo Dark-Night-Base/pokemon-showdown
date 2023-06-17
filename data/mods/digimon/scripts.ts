@@ -20,7 +20,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			const digimonWithoutType = [
 				'apocalymon',
 				'keramon', 'chrysalimon', 'infermon', 'diablomon', 'diablomonx', 'armagemon',
-				'culumon',
+				'culumon', 'huanglongmon',
 				'yggdrasill7d6',
 			];
 			const digimon = this.data.Pokedex[i];
