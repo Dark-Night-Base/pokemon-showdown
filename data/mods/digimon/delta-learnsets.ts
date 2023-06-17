@@ -37,21 +37,21 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 	},
 	Electric: {
 		0: ['thundershock', 'thunderwave'],
-		1: ['thunderfang', 'shockwave', 'chargebeam', 'charge', 'thunderwave'],
-		2: ['thunderbolt', 'discharge', 'thunderpunch', 'voltswitch', 'electricterrain'],
-		3: ['zapcannon', 'thunder', 'wildcharge', 'risingvoltage'],
+		1: ['shockwave', 'chargebeam', 'charge', 'thunderwave'],
+		2: ['thunderbolt', 'voltswitch', 'electricterrain'],
+		3: ['thunder', 'risingvoltage'],
 	},
 	Fighting: {
 		0: ['rocksmash'],
-		1: ['seismictoss', 'brickbreak', 'circlethrow', 'vacuumwave', 'detect'],
-		2: ['hammerarm', 'aurasphere', 'bodypress', 'bulkup'],
-		3: ['highjumpkick', 'closecombat', 'focusblast', 'superpower'],
+		1: ['seismictoss', 'vacuumwave', 'detect'],
+		2: ['aurasphere', 'bulkup'],
+		3: ['focusblast', 'superpower'],
 	},
 	Fire: {
 		0: ['ember', 'willowisp'],
-		1: ['firefang', 'flamecharge', 'firespin', 'willowisp'],
-		2: ['heatwave', 'flamethrower', 'lavaplume', 'firepunch', 'sunnyday'],
-		3: ['overheat', 'flareblitz', 'fireblast', 'inferno'],
+		1: ['firespin', 'willowisp'],
+		2: ['heatwave', 'flamethrower', 'sunnyday'],
+		3: ['overheat', 'fireblast'],
 	},
 	Flying: {
 		0: ['gust', 'peck'],
@@ -91,12 +91,12 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 	Normal: {
 		0: ['sonicboom', 'quickattack'],
 		1: ['swift'],
-		2: ['hypervoice', 'bodyslam', 'facade'],
-		3: ['gigaimpact', 'hyperbeam', 'doubleedge', 'thrash'],
+		2: ['hypervoice', 'facade'],
+		3: ['thrash'],
 	},
 	Poison: {
 		0: ['acid', 'smog', 'poisongas'],
-		1: ['sludge', 'clearsmog', 'poisonfang', 'acidspray', 'toxic'],
+		1: ['sludge', 'clearsmog', 'acidspray', 'toxic'],
 		2: ['sludgebomb', 'poisonjab', 'venoshock', 'corrosivegas', 'gastroacid', 'toxicspikes'],
 		3: ['gunkshot'],
 	},
@@ -125,9 +125,60 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 		3: ['hydropump'],
 	},
 };
+function addMoveByType(ret: string[], species: Species, type: string, ...moves: string[]) {
+	if (species.types.includes(type)) ret.push(...moves);
+}
+function addMoveByEggGroup(ret: string[], species: Species, eggGroup: string, ...moves: string[]) {
+	if (species.eggGroups.includes(eggGroup)) ret.push(...moves);
+}
 export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species: Species) => string[]}} = {
-	"Body Arms": {},
-	"Body Body": {},
+	"Template": {
+		0: () => [],
+		1: (s) => {
+			const ret = [];
+			if (s) ret.push('');
+			return ret;
+		},
+	},
+	"Body Arms": {
+		1: (s) => {
+			const ret = [];
+			if (s.types.includes('Fighting')) ret.push('brickbreak', 'circlethrow');
+			return ret;
+		},
+		2: (s) => {
+			const ret = [];
+			if (s.types.includes('Fighting')) ret.push('hammerarm');
+			return ret;
+		},
+		3: (s) => {
+			const ret = [];
+			if (s.types.includes('Fighting')) ret.push('closecombat');
+			return ret;
+		},
+	},
+	"Body Body": {
+		1: (s) => {
+			const ret = [];
+			if (s.types.includes('Fire')) ret.push('flamecharge');
+			return ret;
+		},
+		2: () => ['bodyslam', 'bodypress'],
+		3: (s) => {
+			const ret = ['doubleedge'];
+			if (s.types.includes('Electric')) ret.push('wildcharge');
+			if (s.types.includes('Fire')) ret.push('flareblitz');
+			return ret;
+		},
+	},
+	"Body Foot": {
+		2: (s) => {
+			const ret = [];
+			if (s.types.includes('Fire')) ret.push('blazekick');
+			return ret;
+		},
+		3: () => ['megakick'],
+	},
 	"Body Head": {
 		1: () => ['headbutt'],
 		2: (s) => {
@@ -136,7 +187,9 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 			return ret;
 		}
 	},
-	"Body Legs": {},
+	"Body Knee": {
+		3: (s) => ['highjumpkick'],
+	},
 	"Cannon": {
 		1: () => ['lockon'],
 		2: () => ['flashcannon'],
@@ -159,17 +212,35 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		2: () => ['fireblast', 'flamethrower'],
 		3: () => ['dracometeor'],
 	},
+	"Extreme": {
+		2: (s) => {
+			const ret = [];
+			if (s.types.includes('Electric')) ret.push('discharge');
+			if (s.types.includes('Fire')) ret.push('lavaplume');
+			return ret;
+		},
+		3: (s) => {
+			const ret = [];
+			if (s.types.includes('Electric')) ret.push('zapcannon');
+			if (s.types.includes('Fire')) ret.push('inferno');
+			return ret;
+		},
+	},
 	"Fang": {
 		1: (s) => {
 			const ret = ['bite'];
-			if (s.types.findIndex(value => ['Dragon', 'Fire'].includes(value)) !== -1) ret.push('firefang');
-			if (s.types.findIndex(value => ['Dragon', 'Ice', 'Water'].includes(value)) !== -1) ret.push('icefang');
-			if (s.types.findIndex(value => ['Dragon', 'Electric', 'Steel'].includes(value)) !== -1) ret.push('thunderfang');
+			if (s.types.includes('Electric')) ret.push('thunderfang');
+			if (s.types.includes('Fire')) ret.push('firefang');
+			if (s.types.includes('Ice')) ret.push('icefang');
+			if (s.types.includes('Poison')) ret.push('poisonfang');
 			return ret;
 		},
 		2: (s) => {
 			const ret = ['crunch'];
+			if (s.types.includes('Dragon')) ret.push('firefang', 'icefang', 'thunderfang');
 			if (s.types.includes('Psychic')) ret.push('psychicfangs');
+			if (s.types.includes('Steel')) ret.push('thunderfang');
+			if (s.types.includes('Water')) ret.push('icefang');
 			return ret;
 		},
 	},
@@ -217,17 +288,19 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		},
 		1: (s) => {
 			const ret = [];
+			if (s.types.includes('Electric')) ret.push('thunderpunch');
 			if (s.types.includes('Fighting')) ret.push('machpunch', 'poweruppunch');
+			if (s.types.includes('Fire')) ret.push('firepunch');
+			if (s.types.includes('Ice')) ret.push('icepunch');
 			if (s.types.includes('Steel')) ret.push('bulletpunch');
-
-			if (s.types.findIndex(value => ['Dragon', 'Fighting', 'Fire'].includes(value)) !== -1) ret.push('firepunch');
-			if (s.types.findIndex(value => ['Dragon', 'Fighting', 'Ice', 'Water'].includes(value)) !== -1) ret.push('icepunch');
-			if (s.types.findIndex(value => ['Dragon', 'Electric', 'Fighting', 'Steel'].includes(value)) !== -1) ret.push('thunderpunch');
 			return ret;
 		},
 		2: (s) => {
-			const ret = [];
-			if (s.types.includes('Fighting')) ret.push('drainpunch');
+			const ret = ['megapunch'];
+			if (s.types.includes('Dragon')) ret.push('firepunch', 'icepunch', 'thunderpunch');
+			if (s.types.includes('Fighting')) ret.push('drainpunch', 'firepunch', 'icepunch', 'thunderpunch');
+			if (s.types.includes('Steel')) ret.push('thunderpunch');
+			if (s.types.includes('Water')) ret.push('icepunch');
 			return ret;
 		},
 		3: (s) => {
@@ -253,7 +326,13 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 	},
 	"Tail": {
 		0: () => ['tailwhip'],
-		2: () => ['irontail'],
+		2: (s) => {
+			const ret = ['irontail'];
+			if (s.types.includes('Dragon')) ret.push('aquatail', 'dragontail');
+			if (s.types.includes('Poison')) ret.push('poisontail');
+			if (s.types.includes('Water')) ret.push('aquatail');
+			return ret;
+		},
 	},
 	"Wing": {
 		1: () => ['featherdance', 'roost'],
