@@ -54,10 +54,10 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 		3: ['overheat', 'fireblast'],
 	},
 	Flying: {
-		0: ['gust', 'peck'],
-		1: ['fly', 'aerialace', 'aircutter', 'pluck', 'wingattack', 'defog', 'whirlwind'],
-		2: ['drillpeck', 'airslash', 'acrobatics', 'dualwingbeat', 'tailwind'],
-		3: ['skyattack', 'bravebird', 'hurricane'],
+		0: ['gust'],
+		1: ['fly', 'aerialace', 'aircutter', 'defog', 'whirlwind'],
+		2: ['airslash', 'acrobatics', 'tailwind'],
+		3: ['hurricane'],
 	},
 	Ghost: {
 		0: ['shadowsneak', 'astonish', 'lick'],
@@ -115,8 +115,7 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 	Steel: {
 		0: ['metalclaw'],
 		1: ['mirrorshot', 'magnetbomb', 'autotomize', 'irondefense', 'metalsound'],
-		2: ['irontail', 'flashcannon', 'ironhead'],
-		3: ['meteormash'],
+		2: ['flashcannon'],
 	},
 	Water: {
 		0: ['aquajet', 'bubble', 'watergun', 'watersport'],
@@ -125,217 +124,157 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 		3: ['hydropump'],
 	},
 };
-function addMoveByType(ret: string[], species: Species, type: string, ...moves: string[]) {
-	if (species.types.includes(type)) ret.push(...moves);
+declare global {
+	interface Array<T> {
+		addMoveByType(species: Species, type: string, ...moves: string[]): Array<T>;
+		addMoveByEggGroup(species: Species, eggGroup: string, ...moves: string[]): Array<T>;
+	}
 }
-function addMoveByEggGroup(ret: string[], species: Species, eggGroup: string, ...moves: string[]) {
-	if (species.eggGroups.includes(eggGroup)) ret.push(...moves);
-}
+Array.prototype.addMoveByType = function (species: Species, type: string, ...moves: string[]) {
+	if (species.types.includes(type)) this.push(...moves);
+	return this;
+};
+Array.prototype.addMoveByEggGroup = function (species: Species, eggGroup: string, ...moves: string[]) {
+	if (species.eggGroups.includes(eggGroup)) this.push(...moves);
+	return this;
+};
 export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species: Species) => string[]}} = {
-	"Template": {
-		0: () => [],
-		1: (s) => {
-			const ret: string[] = [];
-			addMoveByType(ret, s, '', '');
-			return ret;
-		},
-	},
 	"Body Arms": {
-		1: (s) => {
-			const ret: string[] = [];
-			addMoveByType(ret, s, 'Fighting', 'brickbreak', 'circlethrow');
-			return ret;
-		},
-		2: (s) => {
-			const ret: string[] = [];
-			addMoveByType(ret, s, 'Fighting', 'hammerarm');
-			return ret;
-		},
-		3: (s) => {
-			const ret: string[] = [];
-			addMoveByType(ret, s, 'Fighting', 'closecombat');
-			return ret;
-		},
+		1: (s) => [].addMoveByType(s, 'Fighting', 'brickbreak', 'circlethrow'),
+		2: (s) => [].addMoveByType(s, 'Fighting', 'hammerarm'),
+		3: (s) => [].addMoveByType(s, 'Fighting', 'closecombat'),
 	},
 	"Body Body": {
-		1: (s) => {
-			const ret: string[] = [];
-			addMoveByType(ret, s, 'Fire', 'flamecharge');
-			return ret;
-		},
-		2: () => ['bodyslam', 'bodypress'],
-		3: (s) => {
-			const ret: string[] = ['doubleedge'];
-			addMoveByType(ret, s, 'Electric', 'wildcharge');
-			addMoveByType(ret, s, 'Fire', 'flareblitz');
-			return ret;
-		},
+		1: (s) => [].addMoveByType(s, 'Fire', 'flamecharge'),
+		2: (s) => ['bodyslam', 'bodypress'],
+		3: (s) => ['doubleedge'].addMoveByType(s, 'Electric', 'wildcharge')
+			.addMoveByType(s, 'Fire', 'flareblitz')
+			.addMoveByType(s, 'Flyging', 'bravebird'),
 	},
 	"Body Foot": {
-		2: (s) => {
-			const ret: string[] = [];
-			addMoveByType(ret, s, 'Fire', 'blazekick');
-			return ret;
-		},
-		3: () => ['megakick'],
+		2: (s) => [].addMoveByType(s, 'Fire', 'blazekick'),
+		3: (s) => ['megakick'],
 	},
 	"Body Head": {
-		1: () => ['headbutt'],
-		2: (s) => {
-			const ret: string[] = ['ironhead'];
-			addMoveByType(ret, s, 'Psychic', 'zenheadbutt');
-			return ret;
-		}
+		1: (s) => ['headbutt'],
+		2: (s) => ['ironhead'].addMoveByType(s, 'Psychic', 'zenheadbutt'),
 	},
 	"Body Knee": {
 		3: (s) => ['highjumpkick'],
 	},
 	"Cannon": {
-		1: () => ['lockon'],
-		2: () => ['flashcannon'],
+		1: (s) => ['lockon'],
+		2: (s) => ['flashcannon'],
 	},
 	"Claw": {
-		0: () => ['metalclaw', 'scratch'],
-		1: () => ['honeclaws'],
+		0: (s) => ['metalclaw', 'scratch'],
+		1: (s) => ['honeclaws'],
 	},
 	"Dragon Dinosaur": {
-		0: () => ['dragonrage'],
-		2: () => ['outrage', 'earthquake'],
+		0: (s) => ['dragonrage'],
+		2: (s) => ['outrage', 'earthquake'],
 	},
 	"Dragon Eastern": {
-		0: () => ['dragonrage', 'ember', 'twister'],
-		1: () => ['dragondance'],
-		2: () => ['fireblast', 'earthquake', 'flamethrower'],
+		0: (s) => ['dragonrage', 'ember', 'twister'],
+		1: (s) => ['dragondance'],
+		2: (s) => ['fireblast', 'earthquake', 'flamethrower'],
 	},
 	"Dragon Western": {
-		0: () => ['dragonrage', 'ember'],
-		2: () => ['fireblast', 'flamethrower'],
-		3: () => ['dracometeor'],
+		0: (s) => ['dragonrage', 'ember'],
+		2: (s) => ['fireblast', 'flamethrower'],
+		3: (s) => ['dracometeor'],
 	},
 	"Extreme": {
-		2: (s) => {
-			const ret: string[] = [];
-			addMoveByType(ret, s, 'Electric', 'discharge');
-			addMoveByType(ret, s, 'Fire', 'lavaplume');
-			return ret;
-		},
-		3: (s) => {
-			const ret: string[] = [];
-			addMoveByType(ret, s, 'Electric', 'zapcannon');
-			addMoveByType(ret, s, 'Fire', 'inferno');
-			return ret;
-		},
+		2: (s) => [].addMoveByType(s, 'Electric', 'discharge')
+			.addMoveByType(s, 'Fire', 'lavaplume'),
+		3: (s) => [].addMoveByType(s, 'Electric', 'zapcannon')
+			.addMoveByType(s, 'Fire', 'inferno')
+			.addMoveByType(s, 'Flyging', 'skyattack'),
 	},
 	"Fang": {
-		1: (s) => {
-			const ret: string[] = ['bite'];
-			addMoveByType(ret, s, 'Electric', 'thunderfang');
-			addMoveByType(ret, s, 'Fire', 'firefang');
-			addMoveByType(ret, s, 'Ice', 'icefang');
-			addMoveByType(ret, s, 'Poison', 'poisonfang');
-			return ret;
-		},
-		2: (s) => {
-			const ret: string[] = ['crunch'];
-			addMoveByType(ret, s, 'Dragon', 'firefang', 'icefang', 'thunderfang');
-			addMoveByType(ret, s, 'Psychic', 'psychicfangs');
-			addMoveByType(ret, s, 'Steel', 'thunderfang');
-			addMoveByType(ret, s, 'Water', 'icefang');
-			return ret;
-		},
+		1: (s) => ['bite'].addMoveByType(s, 'Electric', 'thunderfang')
+			.addMoveByType(s, 'Fire', 'firefang')
+			.addMoveByType(s, 'Ice', 'icefang')
+			.addMoveByType(s, 'Poison', 'poisonfang'),
+		2: (s) => ['crunch'].addMoveByType(s, 'Dragon', 'firefang', 'icefang', 'thunderfang')
+			.addMoveByType(s, 'Psychic', 'psychicfangs')
+			.addMoveByType(s, 'Steel', 'thunderfang')
+			.addMoveByType(s, 'Water', 'icefang'),
 	},
 	"Gear": {
-		0: () => ['gearup'],
-		1: () => ['geargrind', 'gearup', 'shiftgear'],
+		0: (s) => ['gearup'],
+		1: (s) => ['geargrind', 'gearup', 'shiftgear'],
 	},
 	"Grass Flower": {
-		0: () => ['poisonpowder', 'stunspore'],
-		1: () => ['ragepowder', 'sleeppowder'],
-		2: () => ['petalblizzard'],
-		3: () => ['petaldance'],
+		0: (s) => ['poisonpowder', 'stunspore'],
+		1: (s) => ['ragepowder', 'sleeppowder'],
+		2: (s) => ['petalblizzard'],
+		3: (s) => ['petaldance'],
 	},
 	"Grass Grass": {
-		0: () => ['vinewhip'],
-		1: () => ['grasswhistle', 'synthesis'],
-		3: () => ['powerwhip'],
+		0: (s) => ['vinewhip'],
+		1: (s) => ['grasswhistle', 'synthesis'],
+		3: (s) => ['powerwhip'],
 	},
 	"Grass Mushroom": {
-		0: () => ['poisonpowder', 'stunspore'],
-		1: () => ['ragepowder', 'sleeppowder'],
-		2: () => ['spore'],
+		0: (s) => ['poisonpowder', 'stunspore'],
+		1: (s) => ['ragepowder', 'sleeppowder'],
+		2: (s) => ['spore'],
 	},
 	"Grass Wood": {
-		0: () => ['vinewhip', 'leafage'],
-		1: () => ['magicalleaf', 'razorleaf', 'synthesis'],
-		2: () => ['leafblade', 'hornleech', 'ingrain'],
-		3: () => ['leafstorm', 'powerwhip', 'woodhammer'],
+		0: (s) => ['vinewhip', 'leafage'],
+		1: (s) => ['magicalleaf', 'razorleaf', 'synthesis'],
+		2: (s) => ['leafblade', 'hornleech', 'ingrain'],
+		3: (s) => ['leafstorm', 'powerwhip', 'woodhammer'],
 	},
 	"Human-Like": {
-		1: () => ['facade', 'knockoff', 'pursuit'],
+		1: (s) => ['facade', 'knockoff', 'pursuit'],
 	},
 	"Legendary": {
-		2: () => ['punishment', 'extrasensory'],
+		2: (s) => ['punishment', 'extrasensory'],
 	},
 	"Monster": {
-		2: () => ['earthquake', 'flamethrower', 'icebeam', 'thunderbolt'],
+		2: (s) => ['earthquake', 'flamethrower', 'icebeam', 'thunderbolt'],
+	},
+	"Peck": {
+		0: (s) => ['peck'],
+		1: (s) => ['pluck'],
+		2: (s) => ['drillpeck'],
 	},
 	"Punch": {
-		0: (s) => {
-			const ret: string[] = [];
-			addMoveByType(ret, s, 'Fighting', 'machpunch');
-			addMoveByType(ret, s, 'Steel', 'bulletpunch');
-			return ret;
-		},
-		1: (s) => {
-			const ret: string[] = [];
-			addMoveByType(ret, s, 'Electric', 'thunderpunch');
-			addMoveByType(ret, s, 'Fighting', 'machpunch', 'poweruppunch');
-			addMoveByType(ret, s, 'Fire', 'firepunch');
-			addMoveByType(ret, s, 'Ice', 'icepunch');
-			addMoveByType(ret, s, 'Steel', 'bulletpunch');
-			return ret;
-		},
-		2: (s) => {
-			const ret: string[] = ['megapunch'];
-			addMoveByType(ret, s, 'Dragon', 'firepunch', 'icepunch', 'thunderpunch');
-			addMoveByType(ret, s, 'Fighting', 'drainpunch', 'firepunch', 'icepunch', 'thunderpunch');
-			addMoveByType(ret, s, 'Steel', 'thunderpunch');
-			addMoveByType(ret, s, 'Water', 'icepunch');
-			return ret;
-		},
-		3: (s) => {
-			const ret: string[] = ['focuspunch'];
-			addMoveByType(ret, s, 'Fighting', 'dynamicpunch');
-			return ret;
-		},
+		0: (s) => [].addMoveByType(s, 'Fighting', 'machpunch')
+			.addMoveByType(s, 'Steel', 'bulletpunch'),
+		1: (s) => [].addMoveByType(s, 'Electric', 'thunderpunch')
+			.addMoveByType(s, 'Fighting', 'machpunch', 'poweruppunch')
+			.addMoveByType(s, 'Fire', 'firepunch')
+			.addMoveByType(s, 'Ice', 'icepunch')
+			.addMoveByType(s, 'Steel', 'bulletpunch'),
+		2: (s) => ['megapunch'].addMoveByType(s, 'Dragon', 'firepunch', 'icepunch', 'thunderpunch')
+			.addMoveByType(s, 'Fighting', 'drainpunch', 'firepunch', 'icepunch', 'thunderpunch')
+			.addMoveByType(s, 'Steel', 'thunderpunch')
+			.addMoveByType(s, 'Water', 'icepunch'),
+		3: (s) => ['focuspunch'].addMoveByType(s, 'Fighting', 'dynamicpunch')
+			.addMoveByType(s, 'Steel', 'meteormash'),
 	},
 	"Sharp": {
-		0: () => ['cut', 'furycutter'],
-		1: () => ['nightslash', 'slash'],
+		0: (s) => ['cut', 'furycutter'],
+		1: (s) => ['nightslash', 'slash'],
 	},
 	"Sword": {
-		0: () => ['cut', 'furycutter'],
-		1: (s) => {
-			const ret: string[] = ['nightslash', 'slash', 'aerialace', 'swordsdance'];
-			addMoveByType(ret, s, 'Psychic', 'psychocut');
-
-			addMoveByEggGroup(ret, s, 'Legendary', 'psychocut');
-			return ret;
-		},
-		2: () => ['sacredsword'],
+		0: (s) => ['cut', 'furycutter'],
+		1: (s) => ['nightslash', 'slash', 'aerialace', 'swordsdance'].addMoveByType(s, 'Psychic', 'psychocut')
+			.addMoveByEggGroup(s, 'Legendary', 'psychocut'),
+		2: (s) => ['sacredsword'],
 	},
 	"Tail": {
-		0: () => ['tailwhip'],
-		2: (s) => {
-			const ret: string[] = ['irontail'];
-			addMoveByType(ret, s, 'Dragon', 'aquatail', 'dragontail');
-			addMoveByType(ret, s, 'Poison', 'poisontail');
-			addMoveByType(ret, s, 'Water', 'aquatail');
-			return ret;
-		},
+		0: (s) => ['tailwhip'],
+		2: (s) => ['irontail'].addMoveByType(s, 'Dragon', 'aquatail', 'dragontail')
+			.addMoveByType(s, 'Poison', 'poisontail')
+			.addMoveByType(s, 'Water', 'aquatail'),
 	},
 	"Wing": {
-		1: () => ['featherdance', 'roost'],
+		1: (s) => ['wingattack', 'featherdance', 'roost'],
+		2: (s) => ['dualwingbeat', 'steelwing'],
 	},
 };
 export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
