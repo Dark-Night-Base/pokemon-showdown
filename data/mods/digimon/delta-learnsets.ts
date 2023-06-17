@@ -135,46 +135,46 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 	"Template": {
 		0: () => [],
 		1: (s) => {
-			const ret = [];
-			if (s) ret.push('');
+			const ret: string[] = [];
+			addMoveByType(ret, s, '', '');
 			return ret;
 		},
 	},
 	"Body Arms": {
 		1: (s) => {
-			const ret = [];
-			if (s.types.includes('Fighting')) ret.push('brickbreak', 'circlethrow');
+			const ret: string[] = [];
+			addMoveByType(ret, s, 'Fighting', 'brickbreak', 'circlethrow');
 			return ret;
 		},
 		2: (s) => {
-			const ret = [];
-			if (s.types.includes('Fighting')) ret.push('hammerarm');
+			const ret: string[] = [];
+			addMoveByType(ret, s, 'Fighting', 'hammerarm');
 			return ret;
 		},
 		3: (s) => {
-			const ret = [];
-			if (s.types.includes('Fighting')) ret.push('closecombat');
+			const ret: string[] = [];
+			addMoveByType(ret, s, 'Fighting', 'closecombat');
 			return ret;
 		},
 	},
 	"Body Body": {
 		1: (s) => {
-			const ret = [];
-			if (s.types.includes('Fire')) ret.push('flamecharge');
+			const ret: string[] = [];
+			addMoveByType(ret, s, 'Fire', 'flamecharge');
 			return ret;
 		},
 		2: () => ['bodyslam', 'bodypress'],
 		3: (s) => {
-			const ret = ['doubleedge'];
-			if (s.types.includes('Electric')) ret.push('wildcharge');
-			if (s.types.includes('Fire')) ret.push('flareblitz');
+			const ret: string[] = ['doubleedge'];
+			addMoveByType(ret, s, 'Electric', 'wildcharge');
+			addMoveByType(ret, s, 'Fire', 'flareblitz');
 			return ret;
 		},
 	},
 	"Body Foot": {
 		2: (s) => {
-			const ret = [];
-			if (s.types.includes('Fire')) ret.push('blazekick');
+			const ret: string[] = [];
+			addMoveByType(ret, s, 'Fire', 'blazekick');
 			return ret;
 		},
 		3: () => ['megakick'],
@@ -182,8 +182,8 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 	"Body Head": {
 		1: () => ['headbutt'],
 		2: (s) => {
-			const ret = ['ironhead'];
-			if (s.types.includes('Psychic')) ret.push('zenheadbutt');
+			const ret: string[] = ['ironhead'];
+			addMoveByType(ret, s, 'Psychic', 'zenheadbutt');
 			return ret;
 		}
 	},
@@ -214,33 +214,33 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 	},
 	"Extreme": {
 		2: (s) => {
-			const ret = [];
-			if (s.types.includes('Electric')) ret.push('discharge');
-			if (s.types.includes('Fire')) ret.push('lavaplume');
+			const ret: string[] = [];
+			addMoveByType(ret, s, 'Electric', 'discharge');
+			addMoveByType(ret, s, 'Fire', 'lavaplume');
 			return ret;
 		},
 		3: (s) => {
-			const ret = [];
-			if (s.types.includes('Electric')) ret.push('zapcannon');
-			if (s.types.includes('Fire')) ret.push('inferno');
+			const ret: string[] = [];
+			addMoveByType(ret, s, 'Electric', 'zapcannon');
+			addMoveByType(ret, s, 'Fire', 'inferno');
 			return ret;
 		},
 	},
 	"Fang": {
 		1: (s) => {
-			const ret = ['bite'];
-			if (s.types.includes('Electric')) ret.push('thunderfang');
-			if (s.types.includes('Fire')) ret.push('firefang');
-			if (s.types.includes('Ice')) ret.push('icefang');
-			if (s.types.includes('Poison')) ret.push('poisonfang');
+			const ret: string[] = ['bite'];
+			addMoveByType(ret, s, 'Electric', 'thunderfang');
+			addMoveByType(ret, s, 'Fire', 'firefang');
+			addMoveByType(ret, s, 'Ice', 'icefang');
+			addMoveByType(ret, s, 'Poison', 'poisonfang');
 			return ret;
 		},
 		2: (s) => {
-			const ret = ['crunch'];
-			if (s.types.includes('Dragon')) ret.push('firefang', 'icefang', 'thunderfang');
-			if (s.types.includes('Psychic')) ret.push('psychicfangs');
-			if (s.types.includes('Steel')) ret.push('thunderfang');
-			if (s.types.includes('Water')) ret.push('icefang');
+			const ret: string[] = ['crunch'];
+			addMoveByType(ret, s, 'Dragon', 'firefang', 'icefang', 'thunderfang');
+			addMoveByType(ret, s, 'Psychic', 'psychicfangs');
+			addMoveByType(ret, s, 'Steel', 'thunderfang');
+			addMoveByType(ret, s, 'Water', 'icefang');
 			return ret;
 		},
 	},
@@ -281,31 +281,31 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 	},
 	"Punch": {
 		0: (s) => {
-			const ret = [];
-			if (s.types.includes('Fighting')) ret.push('machpunch');
-			if (s.types.includes('Steel')) ret.push('bulletpunch');
+			const ret: string[] = [];
+			addMoveByType(ret, s, 'Fighting', 'machpunch');
+			addMoveByType(ret, s, 'Steel', 'bulletpunch');
 			return ret;
 		},
 		1: (s) => {
-			const ret = [];
-			if (s.types.includes('Electric')) ret.push('thunderpunch');
-			if (s.types.includes('Fighting')) ret.push('machpunch', 'poweruppunch');
-			if (s.types.includes('Fire')) ret.push('firepunch');
-			if (s.types.includes('Ice')) ret.push('icepunch');
-			if (s.types.includes('Steel')) ret.push('bulletpunch');
+			const ret: string[] = [];
+			addMoveByType(ret, s, 'Electric', 'thunderpunch');
+			addMoveByType(ret, s, 'Fighting', 'machpunch', 'poweruppunch');
+			addMoveByType(ret, s, 'Fire', 'firepunch');
+			addMoveByType(ret, s, 'Ice', 'icepunch');
+			addMoveByType(ret, s, 'Steel', 'bulletpunch');
 			return ret;
 		},
 		2: (s) => {
-			const ret = ['megapunch'];
-			if (s.types.includes('Dragon')) ret.push('firepunch', 'icepunch', 'thunderpunch');
-			if (s.types.includes('Fighting')) ret.push('drainpunch', 'firepunch', 'icepunch', 'thunderpunch');
-			if (s.types.includes('Steel')) ret.push('thunderpunch');
-			if (s.types.includes('Water')) ret.push('icepunch');
+			const ret: string[] = ['megapunch'];
+			addMoveByType(ret, s, 'Dragon', 'firepunch', 'icepunch', 'thunderpunch');
+			addMoveByType(ret, s, 'Fighting', 'drainpunch', 'firepunch', 'icepunch', 'thunderpunch');
+			addMoveByType(ret, s, 'Steel', 'thunderpunch');
+			addMoveByType(ret, s, 'Water', 'icepunch');
 			return ret;
 		},
 		3: (s) => {
-			const ret = ['focuspunch'];
-			if (s.types.includes('Fighting')) ret.push('dynamicpunch');
+			const ret: string[] = ['focuspunch'];
+			addMoveByType(ret, s, 'Fighting', 'dynamicpunch');
 			return ret;
 		},
 	},
@@ -316,10 +316,10 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 	"Sword": {
 		0: () => ['cut', 'furycutter'],
 		1: (s) => {
-			const ret = ['nightslash', 'slash', 'aerialace', 'swordsdance'];
-			if (s.types.includes('Psychic')) ret.push('psychocut');
+			const ret: string[] = ['nightslash', 'slash', 'aerialace', 'swordsdance'];
+			addMoveByType(ret, s, 'Psychic', 'psychocut');
 
-			if (s.eggGroups.includes('Legendary')) ret.push('psychocut');
+			addMoveByEggGroup(ret, s, 'Legendary', 'psychocut');
 			return ret;
 		},
 		2: () => ['sacredsword'],
@@ -327,10 +327,10 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 	"Tail": {
 		0: () => ['tailwhip'],
 		2: (s) => {
-			const ret = ['irontail'];
-			if (s.types.includes('Dragon')) ret.push('aquatail', 'dragontail');
-			if (s.types.includes('Poison')) ret.push('poisontail');
-			if (s.types.includes('Water')) ret.push('aquatail');
+			const ret: string[] = ['irontail'];
+			addMoveByType(ret, s, 'Dragon', 'aquatail', 'dragontail');
+			addMoveByType(ret, s, 'Poison', 'poisontail');
+			addMoveByType(ret, s, 'Water', 'aquatail');
 			return ret;
 		},
 	},
