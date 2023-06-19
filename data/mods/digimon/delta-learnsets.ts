@@ -77,14 +77,14 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 		3: ['earthquake', 'earthpower'],
 	},
 	Ice: {
-		0: ['iceshard', 'powdersnow'],
-		1: ['aurorabeam', 'icywind', 'iciclespear'],
+		0: ['iceshard', 'powdersnow', 'haze'],
+		1: ['aurorabeam', 'icywind', 'iciclespear', 'haze'],
 		2: ['icebeam', 'iciclecrash', 'freezedry', 'hail'],
 		3: ['blizzard'],
 	},
 	Light: {
 		0: ['drainingkiss'],
-		1: ['heavensknuckle', 'dazzlinggleam'],
+		1: ['dazzlinggleam'],
 		2: ['mistyterrain'],
 	},
 	Normal: {
@@ -144,7 +144,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 	},
 	"Body Body": {
 		1: (s) => [].addMoveByType(s, 'Fire', 'flamecharge'),
-		2: (s) => ['bodyslam', 'bodypress'],
+		2: (s) => ['bodyslam', 'bodypress', 'bulkup'],
 		3: (s) => ['doubleedge'].addMoveByType(s, 'Dragon', 'dragonrush')
 			.addMoveByType(s, 'Electric', 'wildcharge')
 			.addMoveByType(s, 'Fire', 'flareblitz')
@@ -157,11 +157,12 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 	},
 	"Body Hand": {
 		0: (s) => ['helpinghand'],
-		1: (s) => ['brickbreak', 'fakeout', 'helpinghand'],
+		1: (s) => ['brickbreak', 'helpinghand'],
 	},
 	"Body Head": {
 		1: (s) => ['headbutt'],
-		2: (s) => ['ironhead'].addMoveByType(s, 'Psychic', 'zenheadbutt'),
+		2: (s) => ['ironhead'].addMoveByType(s, 'Psychic', 'zenheadbutt')
+			.addMoveByEggGroup(s, 'Legendary', 'zenheadbutt'),
 		3: (s) => [].addMoveByType(s, 'Rock', 'headsmash'),
 	},
 	"Body Knee": {
@@ -253,6 +254,12 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		1: (s) => ['shockwave', 'chargebeam', 'charge', 'thunderwave'],
 		2: (s) => ['thunderbolt', 'voltswitch'],
 	},
+	"Magic": {
+		0: (s) => ['confusion', 'ember', 'thundershock'],
+		1: (s) => ['mysticalfire'],
+		2: (s) => ['dazzlinggleam', 'psychic', 'darkpulse', 'shadowball', 'calmmind', 'lightscreen', 'magiccoat', 'reflect'],
+		3: (s) => ['futuresight'],
+	},
 	"Monster": {
 		2: (s) => ['earthquake', 'flamethrower', 'icebeam', 'thunderbolt'],
 	},
@@ -268,6 +275,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 			.addMoveByType(s, 'Fighting', 'machpunch', 'poweruppunch')
 			.addMoveByType(s, 'Fire', 'firepunch')
 			.addMoveByType(s, 'Ice', 'icepunch')
+			.addMoveByType(s, 'Light', 'heavensknuckle')
 			.addMoveByType(s, 'Steel', 'bulletpunch'),
 		2: (s) => ['megapunch'].addMoveByType(s, 'Dragon', 'firepunch', 'icepunch', 'thunderpunch')
 			.addMoveByType(s, 'Fighting', 'drainpunch', 'firepunch', 'icepunch', 'thunderpunch')
@@ -282,6 +290,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		2: (s) => ['swordsdance'], // todo: somehow add uturn here?
 	},
 	"Swift": {
+		1: (s) => [].addMoveByEggGroup(s, 'Body Hand', 'fakeout'),
 		2: (s) => ['uturn'],
 	},
 	"Sword": {
@@ -307,7 +316,6 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	omegamon: {
 		adds: ['greysword', 'garurucannon', 'dragonhammer'],
-		deletes: ['blizzard'],
 	},
 	metalgreymon: {
 		deletes: ['icebeam', 'featherdance', 'roost', 'dualwingbeat'],
@@ -321,5 +329,14 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	wargreymon: {
 		adds: ['braveshield', 'uturn', 'steelwing'],
 		deletes: ['icebeam', 'thunderbolt'],
+	},
+	weregarurumon: {
+		deletes: ['hammerarm'],
+	},
+	metalgarurumon: {
+		adds: ['steelwing'],
+	},
+	garudamon: {
+		adds: ['uturn'],
 	},
 };

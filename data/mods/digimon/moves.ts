@@ -21,6 +21,11 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		inherit: true,
 		type: "Grass",
 	},
+	mysticalfire: {
+		inherit: true,
+		basePower: 50,
+		pp: 15,
+	},
 	greysword: {
 		num: 40001,
 		accuracy: 100,
