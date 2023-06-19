@@ -204,7 +204,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 			.addMoveByType(s, 'Fire', 'lavaplume'),
 		3: (s) => [].addMoveByType(s, 'Electric', 'zapcannon')
 			.addMoveByType(s, 'Fire', 'inferno')
-			.addMoveByType(s, 'Flyging', 'skyattack'),
+			.addMoveByType(s, 'Flying', 'skyattack'),
 	},
 	"Fang": {
 		1: (s) => ['bite'].addMoveByType(s, 'Electric', 'thunderfang')
@@ -327,16 +327,19 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 		deletes: ['icebeam', 'thunderbolt'],
 	},
 	wargreymon: {
-		adds: ['braveshield', 'uturn', 'steelwing'],
+		adds: ['braveshield', 'gaiaforce', 'bravetornado', 'dramonkiller', 'uturn', 'steelwing'],
 		deletes: ['icebeam', 'thunderbolt'],
 	},
 	weregarurumon: {
 		deletes: ['hammerarm'],
 	},
 	metalgarurumon: {
-		adds: ['steelwing'],
+		adds: ['cocytusbreath', 'garurutomahawk', 'gracecrossfreezer', 'steelwing'],
 	},
 	garudamon: {
 		adds: ['uturn'],
+	},
+	hououmon: {
+		adds: ['Fire', 'starlightexplosion'],
 	},
 };

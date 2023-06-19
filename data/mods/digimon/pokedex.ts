@@ -462,8 +462,8 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		weightkg: 1,
 		evos: ["Birdramon"],
 		eggGroups: [
-			"Body Arms", "Body Body", "Body Foot", "Body Hand", "Body Head", "Body Knee", "Claw", "Extreme",
-			"Human-Like", "Legendary", "Magic", "Punch", "Wing",
+			"Body Arms", "Body Body", "Body Foot", "Body Hand", "Body Head", "Body Knee", "Claw", "Human-Like",
+			"Legendary", "Magic", "Punch", "Wing",
 		],
 		otherFormes: ["Garudamon-X"],
 		formeOrder: ["Garudamon", "Garudamon-X"],
