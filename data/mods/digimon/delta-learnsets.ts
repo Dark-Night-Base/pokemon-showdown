@@ -279,9 +279,9 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 	"Sharp": {
 		0: (s) => ['cut', 'furycutter'],
 		1: (s) => ['nightslash', 'slash'],
+		2: (s) => ['swordsdance'], // todo: somehow add uturn here?
 	},
 	"Swift": {
-		1: (s) => ['fakeout'],
 		2: (s) => ['uturn'],
 	},
 	"Sword": {
@@ -314,5 +314,12 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	},
 	metalgreymonblue: {
 		deletes: ['icebeam', 'featherdance', 'roost', 'dualwingbeat'],
+	},
+	skullgreymon: {
+		deletes: ['icebeam', 'thunderbolt'],
+	},
+	wargreymon: {
+		adds: ['braveshield', 'uturn', 'steelwing'],
+		deletes: ['icebeam', 'thunderbolt'],
 	},
 };

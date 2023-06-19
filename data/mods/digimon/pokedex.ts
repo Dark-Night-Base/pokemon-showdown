@@ -192,7 +192,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Cursed Body", 1: "Weak Armor"},
 		weightkg: 1,
 		evos: ["Greymon"],
-		eggGroups: ["Undiscovered"],
+		eggGroups: ["Body Head", "Claw", "Dragon Dinosaur", "Fang", "Monster", "Sharp", "Tail"],
 	},
 	wargreymon: {
 		num: 6,
@@ -203,7 +203,10 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Justified"},
 		weightkg: 1,
 		evos: ["Metal Greymon"],
-		eggGroups: ["Undiscovered"],
+		eggGroups: [
+			"Body Arms", "Body Foot", "Body Head", "Body Knee", "Claw", "Dragon Dinosaur", "Human-Like",
+			"Sharp",
+		],
 		otherFormes: ["Black War Greymon", "War Greymon-X", "Black War Greymon-X"],
 		formeOrder: ["War Greymon", "Black War Greymon", "War Greymon-X", "Black War Greymon-X"],
 	},
