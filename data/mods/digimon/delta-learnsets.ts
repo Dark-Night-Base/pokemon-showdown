@@ -308,6 +308,11 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 			.addMoveByEggGroup(s, 'Dragon Western', 'dragontail'),
 		2: (s) => ['irontail'].addMoveByType(s, 'Water', 'aquatail'),
 	},
+	"Tentacle": {
+		0: (s) => ['wrap'].addMoveByType(s, 'Grass', 'vinewhip'),
+		1: (s) => ['wrap'],
+		3: (s) => [].addMoveByType(s, 'Grass', 'powerwhip'),
+	},
 	"Wing": {
 		1: (s) => ['wingattack', 'featherdance', 'roost'],
 		2: (s) => ['dualwingbeat', 'steelwing'],
@@ -341,5 +346,17 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	},
 	hououmon: {
 		adds: ['Fire', 'starlightexplosion'],
+	},
+	tentomon: {
+		deletes: ['featherdance'],
+	},
+	kabuterimon: {
+		deletes: ['featherdance'],
+	},
+	atlurkabuterimon: {
+		deletes: ['featherdance'],
+	},
+	heraklekabuterimonx: {
+		deletes: ['featherdance', 'bravebird', 'hurricane'],
 	},
 };

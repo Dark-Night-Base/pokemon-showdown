@@ -9,10 +9,10 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "LC",
 	},
 	agumonblack: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	yukiagumon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	agumons: {
 		tier: "Illegal",
@@ -60,10 +60,10 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "LC",
 	},
 	gabumonblack: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	psychemon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	gabumonx: {
 		tier: "Illegal",
@@ -72,10 +72,10 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "RU",
 	},
 	garurumonblack: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	gururumon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	garurumonx: {
 		tier: "Illegal",
@@ -84,7 +84,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "UU",
 	},
 	weregarurumonblack: {
-		tier: "UU",
+		tier: "Illegal",
 	},
 	weregarurumonx: {
 		tier: "Illegal",
@@ -102,7 +102,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "RU",
 	},
 	saberdramon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	garudamon: {
 		tier: "UU",
@@ -132,7 +132,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "LC",
 	},
 	alraumon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	palmonx: {
 		tier: "Illegal",
@@ -183,16 +183,16 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "LC",
 	},
 	tukaimon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	pegasmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	angemon: {
 		tier: "RU",
 	},
 	pidmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	holyangemon: {
 		tier: "UU",
@@ -222,7 +222,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "Illegal",
 	},
 	nefertimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	nefertimonx: {
 		tier: "Illegal",
@@ -285,7 +285,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "LC",
 	},
 	modokibetamon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	betamonx: {
 		tier: "Illegal",
@@ -348,10 +348,10 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "RU",
 	},
 	geremon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	karatukinumemon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	numemonx: {
 		tier: "Illegal",
@@ -381,7 +381,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "RU",
 	},
 	shimaunimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	centalmon: {
 		tier: "RU",
@@ -405,19 +405,19 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "LC",
 	},
 	snowgoburimon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	shamamon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	orgemon: {
 		tier: "RU",
 	},
 	hyougamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	fugamon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	orgemonx: {
 		tier: "Illegal",
@@ -432,7 +432,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "RU",
 	},
 	tuchidarumon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	mojyamon: {
 		tier: "RU",
@@ -441,7 +441,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "RU",
 	},
 	soulmon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	fantomon: {
 		tier: "UU",
@@ -453,7 +453,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "RU",
 	},
 	icedevimon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	vamdemon: {
 		tier: "UU",
@@ -489,7 +489,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "LC",
 	},
 	gaomon: {
-		tier: "LC",
+		tier: "Illegal",
 	},
 	gazimonx: {
 		tier: "Illegal",
@@ -552,7 +552,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "RU",
 	},
 	zassoumon: {
-		tier: "RU",
+		tier: "Illegal",
 	},
 	redvegimon: {
 		tier: "RU",
