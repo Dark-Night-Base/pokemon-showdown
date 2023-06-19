@@ -31,8 +31,8 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 	},
 	Dragon: {
 		0: ['dragonrage'],
-		1: ['dragonbreath', 'dragontail'],
-		2: ['dragonpulse', 'dragonclaw'],
+		1: ['dragonbreath'],
+		2: ['dragonpulse'],
 	},
 	Electric: {
 		0: ['thundershock', 'thunderwave'],
@@ -112,7 +112,6 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 		3: ['stoneedge'],
 	},
 	Steel: {
-		0: ['metalclaw'],
 		1: ['mirrorshot', 'magnetbomb', 'autotomize', 'irondefense', 'metalsound'],
 		2: ['flashcannon'],
 	},
@@ -139,7 +138,7 @@ Array.prototype.addMoveByEggGroup = function (species: Species, eggGroup: string
 };
 export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species: Species) => string[]}} = {
 	"Body Arms": {
-		1: (s) => [].addMoveByType(s, 'Fighting', 'brickbreak', 'circlethrow'),
+		1: (s) => [].addMoveByType(s, 'Fighting', 'circlethrow'),
 		2: (s) => [].addMoveByType(s, 'Fighting', 'hammerarm'),
 		3: (s) => [].addMoveByType(s, 'Fighting', 'closecombat'),
 	},
@@ -156,11 +155,17 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		2: (s) => [].addMoveByType(s, 'Fire', 'blazekick'),
 		3: (s) => ['megakick'],
 	},
+	"Body Hand": {
+		0: (s) => ['helpinghand'],
+		1: (s) => ['brickbreak', 'fakeout', 'helpinghand'],
+	},
 	"Body Head": {
 		1: (s) => ['headbutt'],
 		2: (s) => ['ironhead'].addMoveByType(s, 'Psychic', 'zenheadbutt'),
+		3: (s) => [].addMoveByType(s, 'Rock', 'headsmash'),
 	},
 	"Body Knee": {
+		2: (s) => ['jumpkick'],
 		3: (s) => ['highjumpkick'],
 	},
 	"Cannon": {
@@ -170,19 +175,27 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 	"Claw": {
 		0: (s) => ['metalclaw', 'scratch'],
 		1: (s) => ['honeclaws'],
+		2: (s) => [].addMoveByType(s, 'Dragon', 'dragonclaw')
+			.addMoveByEggGroup(s, 'Dragon Dinosaur', 'dragonclaw')
+			.addMoveByEggGroup(s, 'Dragon Eastern', 'dragonclaw')
+			.addMoveByEggGroup(s, 'Dragon Western', 'dragonclaw'),
 	},
 	"Dragon Dinosaur": {
 		0: (s) => ['dragonrage'],
-		2: (s) => ['outrage', 'earthquake'],
+		1: (s) => ['dragonbreath'],
+		2: (s) => ['dragonrush', 'earthquake', 'dragonpulse'],
+		3: (s) => ['outrage'],
 	},
 	"Dragon Eastern": {
 		0: (s) => ['dragonrage', 'ember', 'twister'],
-		1: (s) => ['dragondance'],
-		2: (s) => ['fireblast', 'earthquake', 'flamethrower'],
+		1: (s) => ['dragonbreath', 'dragondance'],
+		2: (s) => ['fireblast', 'earthquake', 'flamethrower', 'dragonpulse'],
+		3: (s) => ['outrage'],
 	},
 	"Dragon Western": {
 		0: (s) => ['dragonrage', 'ember'],
-		2: (s) => ['fireblast', 'flamethrower'],
+		1: (s) => ['dragonbreath'],
+		2: (s) => ['fireblast', 'flamethrower', 'dragonpulse'],
 		3: (s) => ['dracometeor'],
 	},
 	"Extreme": {
@@ -235,6 +248,11 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		1: (s) => ['swift'],
 		2: (s) => ['punishment', 'extrasensory', 'calmmind'],
 	},
+	"Machine": {
+		0: (s) => ['thundershock', 'thunderwave'],
+		1: (s) => ['shockwave', 'chargebeam', 'charge', 'thunderwave'],
+		2: (s) => ['thunderbolt', 'voltswitch'],
+	},
 	"Monster": {
 		2: (s) => ['earthquake', 'flamethrower', 'icebeam', 'thunderbolt'],
 	},
@@ -262,6 +280,10 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		0: (s) => ['cut', 'furycutter'],
 		1: (s) => ['nightslash', 'slash'],
 	},
+	"Swift": {
+		1: (s) => ['fakeout'],
+		2: (s) => ['uturn'],
+	},
 	"Sword": {
 		0: (s) => ['cut', 'furycutter'],
 		1: (s) => ['nightslash', 'slash', 'aerialace', 'swordsdance'].addMoveByType(s, 'Psychic', 'psychocut')
@@ -270,9 +292,12 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 	},
 	"Tail": {
 		0: (s) => ['tailwhip'],
-		2: (s) => ['irontail'].addMoveByType(s, 'Dragon', 'aquatail', 'dragontail')
+		1: (s) => [].addMoveByType(s, 'Dragon', 'aquatail', 'dragontail')
 			.addMoveByType(s, 'Poison', 'poisontail')
-			.addMoveByType(s, 'Water', 'aquatail'),
+			.addMoveByEggGroup(s, 'Dragon Dinosaur', 'dragontail')
+			.addMoveByEggGroup(s, 'Dragon Eastern', 'dragontail')
+			.addMoveByEggGroup(s, 'Dragon Western', 'dragontail'),
+		2: (s) => ['irontail'].addMoveByType(s, 'Water', 'aquatail'),
 	},
 	"Wing": {
 		1: (s) => ['wingattack', 'featherdance', 'roost'],
@@ -283,5 +308,11 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	omegamon: {
 		adds: ['greysword', 'garurucannon', 'dragonhammer'],
 		deletes: ['blizzard'],
+	},
+	metalgreymon: {
+		deletes: ['icebeam', 'featherdance', 'roost', 'dualwingbeat'],
+	},
+	metalgreymonblue: {
+		deletes: ['icebeam', 'featherdance', 'roost', 'dualwingbeat'],
 	},
 };
