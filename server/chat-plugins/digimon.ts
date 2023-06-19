@@ -12,7 +12,7 @@ const stageToNumber: {[stage in StageName]: number[]} = {
 };
 const stageToTier: {[stage in StageName]: TierTypes.Singles} = {
 	Child: "LC",
-	Adult: "RU",
+	Adult: "NFE",
 	Perfect: "UU",
 	Ultimate: "OU",
 };
