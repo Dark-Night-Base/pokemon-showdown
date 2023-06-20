@@ -26,9 +26,6 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	metalgreymonblue: {
 		tier: "UU",
 	},
-	metalgreymonbluex: {
-		tier: "Unreleased",
-	},
 	skullgreymon: {
 		tier: "UU",
 	},
