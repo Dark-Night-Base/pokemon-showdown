@@ -19,7 +19,7 @@ const stageToTier: {[stage in StageName]: TierTypes.Singles} = {
 const dex = Dex.mod('digimon');
 const gen = 1;
 const genToParsed = {
-	1: '[[1,141],[234,237]]',
+	1: '[[1,141],[234,237],-29,-36,-89,-90,-92,-106,-107]',
 };
 
 function getStage(species: Species): StageName {
@@ -115,10 +115,10 @@ function generateFormatsData(nums: (number | [number, number])[]) {
 	for (const id in dex.data.Pokedex) {
 		const digimon = dex.species.get(id);
 		if (!isInNums(digimon.num, nums)) continue;
-		if (digimon.forme === 'Color') continue; // manually release color formes
 		if (!includeX && digimon.forme === 'X') continue;
 		const tier = stageToTier[getStage(digimon)];
 		if (!dex.data.FormatsData[id]) dex.data.FormatsData[id] = { tier: "Illegal" };
+		if (['Color', 'Sub', 'Burst']) dex.data.FormatsData[id].tier = "Unreleased"; // manually release these formes
 		// if it already has a tier, don't override
 		// mark digimon as unreleased when it's already in formats-data.ts and u don't want it
 		if (dex.data.FormatsData[id].tier !== 'Illegal') continue;

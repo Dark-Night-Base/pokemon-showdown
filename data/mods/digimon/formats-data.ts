@@ -131,9 +131,6 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	tukaimon: {
 		tier: "Unreleased",
 	},
-	pegasmon: {
-		tier: "Unreleased",
-	},
 	angemon: {
 		tier: "NFE",
 	},
@@ -158,9 +155,6 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	tailmon: {
 		tier: "NFE",
 	},
-	nefertimon: {
-		tier: "Unreleased",
-	},
 	angewomon: {
 		tier: "UU",
 	},
@@ -171,9 +165,6 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "OU",
 	},
 	ofanimonfalldown: {
-		tier: "Unreleased",
-	},
-	ofanimonfalldownx: {
 		tier: "Unreleased",
 	},
 	parrotmon: {
@@ -362,17 +353,8 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	ladydevimon: {
 		tier: "UU",
 	},
-	skullsatamon: {
-		tier: "Unreleased",
-	},
-	marindevimon: {
-		tier: "Unreleased",
-	},
 	venomvamdemon: {
 		tier: "OU",
-	},
-	belialvamdemon: {
-		tier: "Unreleased",
 	},
 	drimogemon: {
 		tier: "NFE",
