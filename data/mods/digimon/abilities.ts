@@ -10,6 +10,38 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 	},
+	protean: {
+		inherit: true,
+		onPrepareHit() {},
+		onSwitchIn(pokemon) {
+			this.effectState.switchingIn = true;
+		},
+		onStart(pokemon) {
+			// does not activate when Skill Swapped or when Neutralizing Gas leaves the field
+			if (!this.effectState.switchingIn) return;
+			// copies across in doubles/triples
+			// (also copies across in multibattle and diagonally in free-for-all,
+			// but side.foe already takes care of those)
+			const target = pokemon.side.foe.active[pokemon.side.foe.active.length - 1 - pokemon.position];
+			if (target) {
+				const pokemonDigimonTypeIndex = pokemon.types.findIndex(value => ['Data', 'Vaccine', 'Virus'].includes(value));
+				const targetDigimonType = target.types.find(value => ['Data', 'Vaccine', 'Virus'].includes(value));
+				const digimonTypeChart: {[k: string]: string} = {
+					Data: 'Virus',
+					Vaccine: 'Data',
+					Virus: 'Vaccine',
+				};
+				if (targetDigimonType && pokemon.types[pokemonDigimonTypeIndex] !== digimonTypeChart[targetDigimonType]) {
+					const newType = digimonTypeChart[targetDigimonType];
+					const newTypes = pokemon.types.map((value, index) => value = (index === pokemonDigimonTypeIndex) ? newType : value);
+					if (pokemon.setType(newTypes)) {
+						this.add('-start', pokemon, 'typechange', newTypes.join('/'), '[from] ability: Protean');
+					}
+				}
+			}
+			this.effectState.switchingIn = false;
+		},
+	},
 	omegainforce: {
 		onSourceModifyDamage(damage, source, target, move) {
 			if (target.newlySwitched || this.queue.willMove(target)) {
@@ -72,32 +104,13 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onStart(pokemon) {
 			if (this.suppressingAbility(pokemon)) return;
 			this.add('-ability', pokemon, 'Digital Hazard');
-			// for (const side of this.sides) {
-			// 	if (side.id !== pokemon.side.id) side.addSideCondition('digitalhazard');
-			// }
 		},
-		// better to implement this with field effect or condition
-		// onFoeSwitchIn(this, pokemon) {
-		// 	this.damage(pokemon.baseMaxhp / 8);
-		// },
 		onAnySwitchIn(pokemon) {
-			// todo: use this, this should be the right way
 			const abilityHolder = this.effectState.target;
 			if (pokemon.hasAbility('Digital Hazard')) return;
-			// looks like we need to add something here like the ruin abilities, but maybe not?
-			this.add('-activate', pokemon, 'ability: Digital Hazard');
+			this.add('-activate', abilityHolder, 'ability: Digital Hazard');
 			this.damage(pokemon.maxhp / 8);
 		},
-		// condition: {
-		// 	noCopy: true,
-		// 	onEntryHazard(pokemon) {
-		// 		this.add('-activate', pokemon, 'ability: Digital Hazard');
-		// 		this.damage(pokemon.maxhp / 8);
-		// 	},
-		// },
-		// onAllySwitchIn(this, pokemon) {
-		// 	this.damage(pokemon.baseMaxhp / 8);
-		// },
 		name: "Digital Hazard",
 		rating: 3,
 		num: 40005,
@@ -184,7 +197,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	alphainforce: {
 		onFractionalPriorityPriority: -1,
 		onFractionalPriority(priority, source, target, move) {
-			if (move.category !== 'Status') return 0.1;
+			if (source.hasType(move.type) && move.category !== 'Status') return 0.1;
 		},
 		name: "Alpha inForce",
 		rating: 4.5,

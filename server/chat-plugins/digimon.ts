@@ -83,6 +83,7 @@ function getLearnset(species: Species) {
 function isInNums(num: number, nums: (number | [number, number])[]) {
 	for (const n of nums) {
 		if (typeof n === 'number') {
+			if (num === -n) return false;
 			if (num === n) return true;
 			continue;
 		}
@@ -114,14 +115,18 @@ function generateFormatsData(nums: (number | [number, number])[]) {
 	for (const id in dex.data.Pokedex) {
 		const digimon = dex.species.get(id);
 		if (!isInNums(digimon.num, nums)) continue;
+		if (digimon.forme === 'Color') continue; // manually release color formes
 		if (!includeX && digimon.forme === 'X') continue;
 		const tier = stageToTier[getStage(digimon)];
 		if (!dex.data.FormatsData[id]) dex.data.FormatsData[id] = { tier: "Illegal" };
-		if (dex.data.FormatsData[id].tier && dex.data.FormatsData[id].tier !== 'Illegal') continue; // if it already has a tier, don't override
+		// if it already has a tier, don't override
+		// mark digimon as unreleased when it's already in formats-data.ts and u don't want it
+		if (dex.data.FormatsData[id].tier !== 'Illegal') continue;
 		dex.data.FormatsData[id].tier = tier;
 	}
 	let buf = `export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {\n`;
 	for (const id in dex.data.Pokedex) {
+		if (!dex.data.FormatsData[id]) continue;
 		buf += `\t${id}: {\n`;
 		buf += `\t\ttier: "${dex.data.FormatsData[id].tier}",\n`;
 		buf += `\t},\n`;
@@ -136,7 +141,7 @@ export const commands: Chat.ChatCommands = {
 		if (user.id !== 'asouchihiro') return this.errorReply('Access Denied by Nihilslave!');
 		if (room?.type === 'battle') return this.errorReply('Do not use this command in a battle room.');
 		if (!target) target = genToParsed[gen];
-		let parsed = [];
+		let parsed: any[] = [];
 		try {
 			parsed = JSON.parse(target);
 		} catch (e) {
@@ -152,7 +157,16 @@ export const commands: Chat.ChatCommands = {
 			if (typeof i !== 'number') return this.errorReply('Please check input format.');
 			if (isNaN(i)) return this.errorReply('Please check input format.');
 		}
-		generateFormatsData(parsed as (number | [number, number])[]);
+		// [...negative numbers, ...positive numbers, ...number arrays]
+		parsed = parsed.sort((a, b) => {
+			if (typeof a === 'number') {
+				if (typeof b === 'number') return (a - b);
+				return -1;
+			}
+			if (typeof b === 'number') return 1;
+			return 0;
+		});
+		generateFormatsData(parsed);
 		this.sendReply('Done');
 	},
 	digimongenerateformatshelp: [

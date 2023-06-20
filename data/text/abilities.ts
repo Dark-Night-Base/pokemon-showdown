@@ -2224,7 +2224,7 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 	undeadbody: {
 		name: "Undead Body",
 		desc: "This Digimon restores its maximum HP at the end of each turn.",
-		shortDesc: "This Digimon is healed to full HP each turn.",
+		shortDesc: "This Digimon is healed to full HP at the end of each turn.",
 	},
 	knightsuppressor: {
 		name: "Knight Suppressor",
@@ -2235,6 +2235,6 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 	},
 	alphainforce: {
 		name: "Alpha inForce",
-		shortDesc: "This Digimon always moves first in its priority bracket with attacking moves.",
+		shortDesc: "This Digimon always moves first in its priority bracket with STAB attacking moves.",
 	},
 };

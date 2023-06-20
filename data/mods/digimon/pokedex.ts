@@ -2607,7 +2607,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		types: ["Normal", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 40, atk: 45, def: 40, spa: 35, spd: 40, spe: 40},
-		abilities: {0: "", 1: ""},
+		abilities: {0: "Protean"},
 		weightkg: 1,
 		eggGroups: ["Undiscovered"],
 	},
