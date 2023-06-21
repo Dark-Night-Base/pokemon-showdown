@@ -79,6 +79,8 @@ export const commands: Chat.ChatCommands = {
 		}
 		buf += `}\n`;
 		FS(`config/chat-plugins/nihilslave/weaktable.json`).writeSync(buf);
+		// todo: extend type number from 3 to n
+		// todo: make covertable too
 		this.sendReply('Done');
 	},
 };

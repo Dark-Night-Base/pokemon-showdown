@@ -2688,7 +2688,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen9',
-		ruleset: ['[Gen 9] Balanced Hackmons'],
+		ruleset: ['[Gen 9] Balanced Hackmons', 'Tera Type Preview'],
 		banlist: [],
 		onSwitchIn(pokemon) {
 			if (this.turn === 0) {
