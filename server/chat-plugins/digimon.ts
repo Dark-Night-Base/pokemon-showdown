@@ -126,7 +126,7 @@ function generateFormatsData(nums: (number | [number, number])[]) {
 	}
 	let buf = `export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {\n`;
 	for (const id in dex.data.Pokedex) {
-		if (!dex.data.FormatsData[id]) continue;
+		if (!dex.data.FormatsData[id]) dex.data.FormatsData[id] = { tier: "Illegal" };
 		buf += `\t${id}: {\n`;
 		buf += `\t\ttier: "${dex.data.FormatsData[id].tier}",\n`;
 		buf += `\t},\n`;
