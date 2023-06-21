@@ -113,12 +113,12 @@ function generateLearnsets() {
 function generateFormatsData(nums: (number | [number, number])[]) {
 	const includeX = nums.findIndex(value => Array.isArray(value) && value[1] > 454 || typeof value === 'number' && value > 454) !== -1;
 	for (const id in dex.data.Pokedex) {
+		if (!dex.data.FormatsData[id]) dex.data.FormatsData[id] = { tier: "Illegal" };
 		const digimon = dex.species.get(id);
 		if (!isInNums(digimon.num, nums)) continue;
 		if (!includeX && digimon.forme === 'X') continue;
 		const tier = stageToTier[getStage(digimon)];
-		if (!dex.data.FormatsData[id]) dex.data.FormatsData[id] = { tier: "Illegal" };
-		if (['Color', 'Sub', 'Burst']) dex.data.FormatsData[id].tier = "Unreleased"; // manually release these formes
+		if (['Color', 'Sub', 'Burst'].includes(digimon.forme)) dex.data.FormatsData[id].tier = "Unreleased"; // manually release these formes
 		// if it already has a tier, don't override
 		// mark digimon as unreleased when it's already in formats-data.ts and u don't want it
 		if (dex.data.FormatsData[id].tier !== 'Illegal') continue;
@@ -126,7 +126,6 @@ function generateFormatsData(nums: (number | [number, number])[]) {
 	}
 	let buf = `export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {\n`;
 	for (const id in dex.data.Pokedex) {
-		if (!dex.data.FormatsData[id]) dex.data.FormatsData[id] = { tier: "Illegal" };
 		buf += `\t${id}: {\n`;
 		buf += `\t\ttier: "${dex.data.FormatsData[id].tier}",\n`;
 		buf += `\t},\n`;
