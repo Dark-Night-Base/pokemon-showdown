@@ -27,7 +27,7 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 	Dark: {
 		0: ['faketears'],
 		1: ['snarl', 'pursuit', 'beatup'],
-		2: ['foulplay', 'darkpulse', 'suckerpunch', 'knockoff', 'powertrip', 'nastyplot', 'taunt'],
+		2: ['foulplay', 'darkpulse', 'knockoff', 'powertrip', 'nastyplot', 'taunt'],
 	},
 	Dragon: {
 		0: ['dragonrage'],
@@ -291,7 +291,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 	},
 	"Swift": {
 		1: (s) => [].addMoveByEggGroup(s, 'Body Hand', 'fakeout'),
-		2: (s) => ['uturn'],
+		2: (s) => ['uturn'].addMoveByType(s, 'Dark', 'suckerpunch'),
 	},
 	"Sword": {
 		0: (s) => ['cut', 'furycutter'],

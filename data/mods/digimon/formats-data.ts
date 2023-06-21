@@ -201,7 +201,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "OU",
 	},
 	blackseraphimon: {
-		tier: "Unreleased",
+		tier: "Illegal",
 	},
 	goddramon: {
 		tier: "Uber",
@@ -240,7 +240,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "OU",
 	},
 	ofanimonfalldown: {
-		tier: "Unreleased",
+		tier: "Illegal",
 	},
 	ofanimonx: {
 		tier: "Illegal",
