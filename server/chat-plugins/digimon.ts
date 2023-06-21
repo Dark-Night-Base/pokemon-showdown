@@ -120,7 +120,6 @@ function generateFormatsData(nums: (number | [number, number])[]) {
 		const tier = stageToTier[getStage(digimon)];
 		if (['Color', 'Sub', 'Burst'].includes(digimon.forme)) dex.data.FormatsData[id].tier = "Unreleased"; // manually release these formes
 		// if it already has a tier, don't override
-		// mark digimon as unreleased when it's already in formats-data.ts and u don't want it
 		if (dex.data.FormatsData[id].tier !== 'Illegal') continue;
 		dex.data.FormatsData[id].tier = tier;
 	}

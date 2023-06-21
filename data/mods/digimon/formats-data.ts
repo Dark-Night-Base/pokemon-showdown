@@ -516,7 +516,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "NFE",
 	},
 	darktyranomon: {
-		tier: "Unreleased",
+		tier: "NFE",
 	},
 	tyranomonx: {
 		tier: "Illegal",
@@ -537,13 +537,13 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "OU",
 	},
 	chaosdramon: {
-		tier: "Unreleased",
+		tier: "Illegal",
 	},
 	chaosdramonx: {
 		tier: "Illegal",
 	},
 	rusttyranomon: {
-		tier: "Unreleased",
+		tier: "Illegal",
 	},
 	nanomon: {
 		tier: "UU",
