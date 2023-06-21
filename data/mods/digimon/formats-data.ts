@@ -15,7 +15,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "Unreleased",
 	},
 	agumons: {
-		tier: "Unreleased",
+		tier: "Illegal",
 	},
 	agumonx: {
 		tier: "Illegal",
@@ -24,7 +24,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "NFE",
 	},
 	geogreymon: {
-		tier: "Unreleased",
+		tier: "Illegal",
 	},
 	greymonx: {
 		tier: "Illegal",
@@ -153,7 +153,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 		tier: "OU",
 	},
 	rosemonburst: {
-		tier: "Unreleased",
+		tier: "Illegal",
 	},
 	rosemonx: {
 		tier: "Illegal",
