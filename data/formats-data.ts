@@ -1199,7 +1199,7 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	aerodactylmega: {
 		isNonstandard: "Past",
 		tier: "Illegal",
-		natDexTier: "RU",
+		natDexTier: "RUBL",
 	},
 	munchlax: {
 		isNonstandard: "Past",
@@ -2585,7 +2585,7 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	deoxysdefense: {
 		isNonstandard: "Past",
 		tier: "Illegal",
-		natDexTier: "RU",
+		natDexTier: "RUBL",
 	},
 	deoxysspeed: {
 		isNonstandard: "Past",
@@ -3728,7 +3728,7 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	bisharp: {
 		tier: "UU",
 		doublesTier: "DUU",
-		natDexTier: "NFE",
+		natDexTier: "RUBL",
 	},
 	bouffalant: {
 		isNonstandard: "Past",
@@ -3845,7 +3845,7 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	kyurem: {
 		isNonstandard: "Past",
 		tier: "Illegal",
-		natDexTier: "UU",
+		natDexTier: "UUBL",
 	},
 	kyuremblack: {
 		isNonstandard: "Past",
@@ -5485,7 +5485,7 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	dondozo: {
 		tier: "OU",
 		doublesTier: "(DUU)",
-		natDexTier: "UU",
+		natDexTier: "UUBL",
 	},
 	veluza: {
 		tier: "NU",
@@ -5836,7 +5836,7 @@ export const FormatsData: {[k: string]: SpeciesFormatsData} = {
 	ironleaves: {
 		tier: "UUBL",
 		doublesTier: "DUU",
-		natDexTier: "RU",
+		natDexTier: "RUBL",
 	},
 	missingno: {
 		isNonstandard: "Custom",
