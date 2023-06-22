@@ -6,7 +6,8 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 				this.debug('Sunny Day Hydro Steam boost');
 				return this.chainModify(1.5);
 			}
-			if (attacker.hasItem('hydrosteam')) {
+			// cannot use hasItem() here, see scripts.ts and u'll know why
+			if (attacker.getItem().id === 'hydrosteam') {
 				this.debug('Sunny Day Hydro Steam boost');
 				if (move.type === 'Fire' && !defender.hasItem('utilityumbrella')) {
 					this.debug('Sunny Day fire boost');

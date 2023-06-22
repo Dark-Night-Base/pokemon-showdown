@@ -2410,6 +2410,21 @@ export const Rulesets: {[k: string]: FormatData} = {
 			this.add('rule', 'Forte Clause: Limit one of each Forte.');
 		},
 		onValidateTeam(team, format, teamHas) {
+			const deepStringify = function (obj: any): string {
+				if (obj === null) return 'null';
+				if (Array.isArray(obj)) return JSON.stringify(obj.map(value => deepStringify(value)));
+				switch (typeof obj) {
+				case 'function':
+					return obj.toString(); // no need to omit the first line cuz the difference in params will still cause the difference in body
+				case 'object':
+					const sortedKeyList = Object.keys(obj).sort() as Array<keyof typeof obj>;
+					const newObj: any = {};
+					for (const prop of sortedKeyList) newObj[prop] = deepStringify(obj[prop]);
+					return JSON.stringify(newObj);
+				default:
+					return JSON.stringify(obj);
+				}
+			};
 			const forteTable = new Map<string, number>();
 			for (const set of team) {
 				if (this.dex.items.get(set.item).exists) continue;
@@ -2433,7 +2448,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 				for (const flag of irrelevantFlags) {
 					if (forteMove.flags[flag]) delete forteMove.flags[flag];
 				}
-				const forteMoveString = JSON.stringify(forteMove);
+				const forteMoveString = deepStringify(forteMove);
 				if ((forteTable.get(forteMoveString) || 0) >= 1) {
 					return [
 						`You are limited to one of each Forte by Forte Clause.`,

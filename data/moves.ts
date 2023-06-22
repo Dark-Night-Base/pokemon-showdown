@@ -14932,7 +14932,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},
 		onAfterHit(target, pokemon, move) {
-			if (!move.hasSheerForce) {
+			if (!move?.hasSheerForce) {
 				if (pokemon.hp && pokemon.removeVolatile('leechseed')) {
 					this.add('-end', pokemon, 'Leech Seed', '[from] move: Rapid Spin', '[of] ' + pokemon);
 				}
@@ -14948,7 +14948,10 @@ export const Moves: {[moveid: string]: MoveData} = {
 			}
 		},
 		onAfterSubDamage(damage, target, pokemon, move) {
-			if (!move.hasSheerForce) {
+			// todo: move sometimes becomes undefined for fortemons, figure out why
+			// i think i know why, the argv of fortemons is just not correct
+			// just make it the subset of mia as the perfect solution
+			if (!move?.hasSheerForce) {
 				if (pokemon.hp && pokemon.removeVolatile('leechseed')) {
 					this.add('-end', pokemon, 'Leech Seed', '[from] move: Rapid Spin', '[of] ' + pokemon);
 				}
