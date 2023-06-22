@@ -356,7 +356,11 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	atlurkabuterimon: {
 		deletes: ['featherdance'],
 	},
-	heraklekabuterimonx: {
+	heraklekabuterimon: {
+		adds: ['gigablaster'],
 		deletes: ['featherdance', 'bravebird', 'hurricane'],
+	},
+	rosemon: {
+		adds: ['forbiddentemptation', 'thornwhip'],
 	},
 };
