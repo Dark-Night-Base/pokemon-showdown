@@ -365,7 +365,7 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 		adds: ['uturn'],
 	},
 	hououmon: {
-		adds: ['Fire', 'starlightexplosion'],
+		adds: ['Fire'],
 	},
 	tentomon: {
 		deletes: ['featherdance'],
@@ -377,19 +377,26 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 		deletes: ['featherdance'],
 	},
 	heraklekabuterimon: {
-		adds: ['gigablaster'],
 		deletes: ['featherdance', 'bravebird', 'hurricane'],
-	},
-	rosemon: {
-		adds: ['forbiddentemptation', 'thornwhip'],
 	},
 	holyangemon: {
 		deletes: ['darkpulse'],
 	},
 	seraphimon: {
+		adds: ['sevenheavens', 'testament'],
 		deletes: ['darkpulse'],
 	},
+	goddramon: {
+		adds: ['godflame'],
+	},
 	angewomon: {
+		deletes: ['darkpulse'],
+	},
+	holydramon: {
+		adds: ['holyflame'],
+	},
+	ofanimon: {
+		adds: ['edensjavelin', 'sefirotcrystal'],
 		deletes: ['darkpulse'],
 	},
 };
