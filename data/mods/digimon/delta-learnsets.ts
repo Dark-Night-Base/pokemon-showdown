@@ -142,6 +142,9 @@ Array.prototype.addMoveByAny = function (species: Species, filter: string, ...mo
 	return this;
 };
 export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species: Species) => string[]}} = {
+	"Armor": {
+		1: (s) => ['autotomize', 'irondefense', 'metalsound'],
+	},
 	"Body Arms": {
 		1: (s) => [].addMoveByType(s, 'Fighting', 'circlethrow'),
 		2: (s) => [].addMoveByType(s, 'Fighting', 'hammerarm'),
@@ -252,6 +255,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 	"Legendary": {
 		1: (s) => ['swift'],
 		2: (s) => ['punishment', 'extrasensory', 'calmmind'],
+		3: (s) => ['imprison'],
 	},
 	"Machine": {
 		0: (s) => ['thundershock', 'thunderwave'],
@@ -378,5 +382,14 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	},
 	rosemon: {
 		adds: ['forbiddentemptation', 'thornwhip'],
+	},
+	holyangemon: {
+		deletes: ['darkpulse'],
+	},
+	seraphimon: {
+		deletes: ['darkpulse'],
+	},
+	angewomon: {
+		deletes: ['darkpulse'],
 	},
 };
