@@ -2,6 +2,7 @@ type TypeName = 'Normal' | 'Fighting' | 'Flying' | 'Poison' | 'Ground' | 'Rock' 
 	'Ice' | 'Dragon' | 'Dark' | 'Light';
 
 interface deltaLearnsetData {
+	addStages?: number[],
 	adds?: string[],
 	deletes?: string[],
 }

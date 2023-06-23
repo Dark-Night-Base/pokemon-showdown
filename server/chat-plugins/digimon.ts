@@ -40,6 +40,8 @@ function getStage(species: Species): StageName {
 }
 function getLearnset(species: Species) {
 	const stageNumbers = stageToNumber[getStage(species)];
+	const delta = deltaLearnsetTable[species.id] || {};
+	if (delta.addStages) stageNumbers.push(...delta.addStages);
 	let learnset: string[] = [];
 	for (const n of stageNumbers) {
 		for (const type of species.types) {
@@ -53,7 +55,6 @@ function getLearnset(species: Species) {
 		}
 		learnset = learnset.concat(universalLearnset[n] || []);
 	}
-	const delta = deltaLearnsetTable[species.id] || {};
 	const adds = delta.adds || [];
 	for (const add of adds) {
 		if (!(add in typeLearnsetTable)) {
