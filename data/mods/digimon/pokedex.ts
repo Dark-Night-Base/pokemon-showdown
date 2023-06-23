@@ -685,7 +685,10 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 36, atk: 40, def: 32, spa: 40, spd: 30, spe: 42},
 		abilities: {0: "Swift Swim", 1: ""},
 		weightkg: 1,
-		eggGroups: ["Undiscovered"],
+		eggGroups: [
+			"Body Body", "Body Hand", "Body Head", "Claw", "Fang", "Sharp",
+			"Water Ocean",
+		],
 		otherFormes: ["Gomamon-X"],
 		formeOrder: ["Gomamon", "Gomamon-X"],
 	},
@@ -709,7 +712,10 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Swift Swim", 1: "Thick Fat"},
 		weightkg: 1,
 		evos: ["Gomamon"],
-		eggGroups: ["Undiscovered"],
+		eggGroups: [
+			"Body Body", "Body Hand", "Body Head", "Claw", "Fang", "Sharp",
+			"Water Ocean",
+		],
 	},
 	zudomon: {
 		num: 25,
@@ -719,7 +725,10 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Shell Armor", 1: ""},
 		weightkg: 1,
 		evos: ["Ikkakumon"],
-		eggGroups: ["Undiscovered"],
+		eggGroups: [
+			"Body Arms", "Body Body", "Body Hand", "Body Head", "Claw",
+			"Fang", "Human-Like", "Punch", "Sharp", "Shell", "Water Ocean",
+		],
 	},
 	vikemon: {
 		num: 26,
@@ -729,7 +738,10 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Thick Fat", 1: ""},
 		weightkg: 1,
 		evos: ["Zudomon"],
-		eggGroups: ["Undiscovered"],
+		eggGroups: [
+			"Body Arms", "Body Body", "Body Hand", "Body Head", "Claw",
+			"Fang", "Human-Like", "Punch", "Sharp", "Water Ocean",
+		],
 	},
 	plesiomon: {
 		num: 27,
@@ -739,7 +751,10 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Water Veil", 1: "Swift Swim"},
 		weightkg: 1,
 		evos: ["Zudomon"],
-		eggGroups: ["Undiscovered"],
+		eggGroups: [
+			"Body Body", "Dragon Dinosaur", "Fang", "Monster", "Tail",
+			"Tentacle", "Water Ocean",
+		],
 		otherFormes: ["Plesiomon-X"],
 		formeOrder: ["Plesiomon", "Plesiomon-X"],
 	},
