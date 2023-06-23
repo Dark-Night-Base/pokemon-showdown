@@ -309,7 +309,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		3: (s) => ['skullbash'],
 	},
 	"Swift": {
-		1: (s) => [].addMoveByEggGroup(s, 'Body Hand', 'fakeout'),
+		1: (s) => ['agility'].addMoveByEggGroup(s, 'Body Hand', 'fakeout'),
 		2: (s) => ['uturn'].addMoveByType(s, 'Dark', 'suckerpunch'),
 	},
 	"Sword": {
