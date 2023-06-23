@@ -430,7 +430,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 30, atk: 40, def: 30, spa: 40, spd: 40, spe: 40},
 		abilities: {0: "Big Peck", 1: "Keen Eye"},
 		weightkg: 1,
-		eggGroups: ["Magic", "Peck", "Wing"],
+		eggGroups: ["Flying Bird", "Magic", "Peck", "Wing"],
 	},
 	birdramon: {
 		num: 12,
@@ -441,7 +441,9 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Flame Body", 1: "Flash Fire"},
 		weightkg: 1,
 		evos: ["Piyomon"],
-		eggGroups: ["Dragon Dinosaur", "Fang", "Magic", "Wing"],
+		eggGroups: [
+			"Dragon Dinosaur", "Fang", "Flying Bird", "Magic", "Wing",
+		],
 		otherFormes: ["Saberdramon"],
 		formeOrder: ["Birdramon", "Saberdramon"],
 	},
@@ -455,7 +457,9 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 55, atk: 50, def: 40, spa: 60, spd: 55, spe: 60},
 		abilities: {0: "", 1: ""},
 		weightkg: 1,
-		eggGroups: ["Dragon Dinosaur", "Fang", "Magic", "Wing"],
+		eggGroups: [
+			"Dragon Dinosaur", "Fang", "Flying Bird", "Magic", "Wing",
+		],
 	},
 	garudamon: {
 		num: 13,
@@ -467,7 +471,8 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		weightkg: 1,
 		evos: ["Birdramon"],
 		eggGroups: [
-			"Body Arms", "Body Body", "Body Foot", "Body Hand", "Body Head", "Body Knee", "Claw", "Human-Like",
+			"Body Arms", "Body Body", "Body Foot", "Body Hand",
+			"Body Head", "Body Knee", "Claw", "Flying Bird", "Human-Like",
 			"Legendary", "Magic", "Punch", "Wing",
 		],
 		otherFormes: ["Garudamon-X"],
@@ -495,7 +500,10 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Natural Cure"},
 		weightkg: 1,
 		evos: ["Garudamon"],
-		eggGroups: ["Body Body", "Body Head", "Extreme", "Legendary", "Magic", "Peck", "Wing"],
+		eggGroups: [
+			"Body Body", "Body Head", "Extreme", "Flying Bird",
+			"Legendary", "Magic", "Peck", "Wing",
+		],
 	},
 	tentomon: {
 		num: 15,

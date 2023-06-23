@@ -157,8 +157,8 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		3: (s) => ['doubleedge', 'earthquake', 'rockslide'].addMoveByType(s, 'Dragon', 'dragonrush')
 			.addMoveByType(s, 'Electric', 'wildcharge')
 			.addMoveByType(s, 'Fire', 'flareblitz')
-			.addMoveByType(s, 'Flyging', 'bravebird')
-			.addMoveByType(s, 'Ice', 'avalanche'),
+			.addMoveByType(s, 'Ice', 'avalanche')
+			.addMoveByEggGroup(s, 'Flying Bird', 'bravebird'),
 	},
 	"Body Foot": {
 		2: (s) => [].addMoveByType(s, 'Fire', 'blazekick'),
@@ -223,6 +223,9 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 			.addMoveByType(s, 'Psychic', 'psychicfangs')
 			.addMoveByType(s, 'Steel', 'thunderfang')
 			.addMoveByType(s, 'Water', 'icefang'),
+	},
+	"Flying Bird": {
+		1: (s) => ['featherdance', 'roost'],
 	},
 	"Gear": {
 		0: (s) => ['gearup'],
@@ -335,7 +338,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		2: (s) => ['aquaring'],
 	},
 	"Wing": {
-		1: (s) => ['wingattack', 'featherdance', 'roost'],
+		1: (s) => ['wingattack'],
 		2: (s) => ['dualwingbeat', 'steelwing'],
 	},
 };
@@ -353,17 +356,16 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 		adds: ['greysword', 'garurucannon', 'dragonhammer'],
 	},
 	metalgreymon: {
-		deletes: ['icebeam', 'featherdance', 'roost', 'dualwingbeat'],
+		deletes: ['icebeam', 'dualwingbeat'],
 	},
 	metalgreymonblue: {
-		deletes: ['icebeam', 'featherdance', 'roost', 'dualwingbeat'],
+		deletes: ['icebeam', 'dualwingbeat'],
 	},
 	skullgreymon: {
 		deletes: ['icebeam', 'thunderbolt'],
 	},
 	wargreymon: {
 		adds: ['braveshield', 'gaiaforce', 'bravetornado', 'dramonkiller', 'uturn', 'steelwing'],
-		deletes: ['icebeam', 'thunderbolt'],
 	},
 	weregarurumon: {
 		deletes: ['hammerarm'],
@@ -377,17 +379,8 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	hououmon: {
 		adds: ['Fire'],
 	},
-	tentomon: {
-		deletes: ['featherdance'],
-	},
-	kabuterimon: {
-		deletes: ['featherdance'],
-	},
-	atlurkabuterimon: {
-		deletes: ['featherdance'],
-	},
 	heraklekabuterimon: {
-		deletes: ['featherdance', 'bravebird', 'hurricane'],
+		deletes: ['hurricane'],
 	},
 	holyangemon: {
 		deletes: ['darkpulse'],
@@ -407,7 +400,7 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 		adds: ['Flying', 'holyflame', 'extremespeed'],
 	},
 	ofanimon: {
-		adds: ['edensjavelin', 'sefirotcrystal', 'healbell', 'lunardance'],
-		deletes: ['darkpulse'],
+		adds: ['edensjavelin', 'sefirotcrystal', 'healbell', 'lunardance', 'recover'],
+		deletes: ['darkpulse', 'earthquake'],
 	},
 };
