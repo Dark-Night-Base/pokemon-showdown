@@ -339,6 +339,15 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		2: (s) => ['dualwingbeat', 'steelwing'],
 	},
 };
+/**
+ * manually apply moves: 
+ * extremespeed
+ * healbell
+ * rapidspin
+ * recover
+ * spikes
+ * stealthrock
+ */
 export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	omegamon: {
 		adds: ['greysword', 'garurucannon', 'dragonhammer'],
@@ -388,16 +397,17 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 		deletes: ['darkpulse'],
 	},
 	goddramon: {
-		adds: ['Flying', 'godflame'],
+		adds: ['Flying', 'godflame', 'extremespeed', 'recover'],
 	},
 	angewomon: {
+		adds: ['healbell'],
 		deletes: ['darkpulse'],
 	},
 	holydramon: {
-		adds: ['Flying', 'holyflame'],
+		adds: ['Flying', 'holyflame', 'extremespeed'],
 	},
 	ofanimon: {
-		adds: ['edensjavelin', 'sefirotcrystal'],
+		adds: ['edensjavelin', 'sefirotcrystal', 'healbell', 'lunardance'],
 		deletes: ['darkpulse'],
 	},
 };
