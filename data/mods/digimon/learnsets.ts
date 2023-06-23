@@ -2,6 +2,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	omegamon: {
 		learnset: {
 			aerialace: ["9L1"],
+			aurasphere: ["9L1"],
 			aurorabeam: ["9L1"],
 			blazekick: ["9L1"],
 			blizzard: ["9L1"],
@@ -277,7 +278,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	wargreymon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			autotomize: ["9L1"],
 			braveshield: ["9L1"],
 			bravetornado: ["9L1"],
@@ -326,7 +326,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	blackwargreymon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			bulkup: ["9L1"],
 			detect: ["9L1"],
 			dragonbreath: ["9L1"],
@@ -480,7 +479,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	weregarurumon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			aurorabeam: ["9L1"],
 			bite: ["9L1"],
 			brickbreak: ["9L1"],
@@ -529,7 +527,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	weregarurumonblack: {
 		learnset: {
-			aurasphere: ["9L1"],
 			aurorabeam: ["9L1"],
 			bite: ["9L1"],
 			brickbreak: ["9L1"],
@@ -708,6 +705,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			aerialace: ["9L1"],
 			aircutter: ["9L1"],
 			airslash: ["9L1"],
+			aurasphere: ["9L1"],
 			blazekick: ["9L1"],
 			bodypress: ["9L1"],
 			bodyslam: ["9L1"],
@@ -766,6 +764,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			aerialace: ["9L1"],
 			aircutter: ["9L1"],
 			airslash: ["9L1"],
+			aurasphere: ["9L1"],
 			bodypress: ["9L1"],
 			bodyslam: ["9L1"],
 			bulkup: ["9L1"],
@@ -1405,6 +1404,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			aerialace: ["9L1"],
 			aircutter: ["9L1"],
 			airslash: ["9L1"],
+			aurasphere: ["9L1"],
 			brickbreak: ["9L1"],
 			calmmind: ["9L1"],
 			dazzlinggleam: ["9L1"],
@@ -1449,6 +1449,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	seraphimon: {
 		learnset: {
 			aerialace: ["9L1"],
+			aurasphere: ["9L1"],
 			autotomize: ["9L1"],
 			brickbreak: ["9L1"],
 			calmmind: ["9L1"],
@@ -1542,6 +1543,10 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	goddramon: {
 		learnset: {
+			acrobatics: ["9L1"],
+			aerialace: ["9L1"],
+			aircutter: ["9L1"],
+			airslash: ["9L1"],
 			aquatail: ["9L1"],
 			aurasphere: ["9L1"],
 			bodypress: ["9L1"],
@@ -1553,6 +1558,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			closecombat: ["9L1"],
 			darkpulse: ["9L1"],
 			dazzlinggleam: ["9L1"],
+			defog: ["9L1"],
 			detect: ["9L1"],
 			doubleedge: ["9L1"],
 			dragonbreath: ["9L1"],
@@ -1571,6 +1577,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			fireblast: ["9L1"],
 			firepunch: ["9L1"],
 			flamethrower: ["9L1"],
+			fly: ["9L1"],
 			focusblast: ["9L1"],
 			focuspunch: ["9L1"],
 			futuresight: ["9L1"],
@@ -1581,6 +1588,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			helpinghand: ["9L1"],
 			hiddenpower: ["9L1"],
 			honeclaws: ["9L1"],
+			hurricane: ["9L1"],
 			hyperbeam: ["9L1"],
 			icebeam: ["9L1"],
 			icepunch: ["9L1"],
@@ -1608,10 +1616,12 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			substitute: ["9L1"],
 			superpower: ["9L1"],
 			swift: ["9L1"],
+			tailwind: ["9L1"],
 			thunderbolt: ["9L1"],
 			thunderpunch: ["9L1"],
 			uturn: ["9L1"],
 			vacuumwave: ["9L1"],
+			whirlwind: ["9L1"],
 			wingattack: ["9L1"],
 			workup: ["9L1"],
 			wrap: ["9L1"],
@@ -1685,6 +1695,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			aerialace: ["9L1"],
 			aircutter: ["9L1"],
 			airslash: ["9L1"],
+			aurasphere: ["9L1"],
 			brickbreak: ["9L1"],
 			calmmind: ["9L1"],
 			dazzlinggleam: ["9L1"],
@@ -1725,13 +1736,19 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	holydramon: {
 		learnset: {
+			acrobatics: ["9L1"],
+			aerialace: ["9L1"],
+			aircutter: ["9L1"],
+			airslash: ["9L1"],
 			aquatail: ["9L1"],
+			aurasphere: ["9L1"],
 			bite: ["9L1"],
 			brickbreak: ["9L1"],
 			calmmind: ["9L1"],
 			crunch: ["9L1"],
 			darkpulse: ["9L1"],
 			dazzlinggleam: ["9L1"],
+			defog: ["9L1"],
 			dracometeor: ["9L1"],
 			dragonbreath: ["9L1"],
 			dragonclaw: ["9L1"],
@@ -1745,6 +1762,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			fireblast: ["9L1"],
 			firefang: ["9L1"],
 			flamethrower: ["9L1"],
+			fly: ["9L1"],
 			futuresight: ["9L1"],
 			gigaimpact: ["9L1"],
 			headbutt: ["9L1"],
@@ -1752,6 +1770,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			hiddenpower: ["9L1"],
 			holyflame: ["9L1"],
 			honeclaws: ["9L1"],
+			hurricane: ["9L1"],
 			hyperbeam: ["9L1"],
 			icebeam: ["9L1"],
 			icefang: ["9L1"],
@@ -1776,9 +1795,11 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			substitute: ["9L1"],
 			swift: ["9L1"],
 			swordsdance: ["9L1"],
+			tailwind: ["9L1"],
 			thunderbolt: ["9L1"],
 			thunderfang: ["9L1"],
 			uturn: ["9L1"],
+			whirlwind: ["9L1"],
 			wingattack: ["9L1"],
 			workup: ["9L1"],
 			wrap: ["9L1"],
@@ -1788,6 +1809,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	ofanimon: {
 		learnset: {
 			ancientpower: ["9L1"],
+			aurasphere: ["9L1"],
 			autotomize: ["9L1"],
 			brickbreak: ["9L1"],
 			calmmind: ["9L1"],
@@ -2652,7 +2674,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	grappuleomon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			autotomize: ["9L1"],
 			bulkup: ["9L1"],
 			detect: ["9L1"],
@@ -2673,7 +2694,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	saberleomon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			bulkup: ["9L1"],
 			detect: ["9L1"],
 			facade: ["9L1"],
@@ -4720,7 +4740,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			aerialace: ["9L1"],
 			aircutter: ["9L1"],
 			airslash: ["9L1"],
-			aurasphere: ["9L1"],
 			bulkup: ["9L1"],
 			defog: ["9L1"],
 			detect: ["9L1"],
@@ -4743,7 +4762,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			aerialace: ["9L1"],
 			aircutter: ["9L1"],
 			airslash: ["9L1"],
-			aurasphere: ["9L1"],
 			bulkup: ["9L1"],
 			defog: ["9L1"],
 			detect: ["9L1"],
@@ -5549,7 +5567,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	knightmon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			autotomize: ["9L1"],
 			bulkup: ["9L1"],
 			detect: ["9L1"],
@@ -6295,7 +6312,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	saintgalgomon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			autotomize: ["9L1"],
 			bulkup: ["9L1"],
 			detect: ["9L1"],
@@ -6443,7 +6459,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	justimon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			autotomize: ["9L1"],
 			bulkup: ["9L1"],
 			detect: ["9L1"],
@@ -7434,7 +7449,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	vajramon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			bulkup: ["9L1"],
 			detect: ["9L1"],
 			facade: ["9L1"],
@@ -7733,7 +7747,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	baihumon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			autotomize: ["9L1"],
 			bulkup: ["9L1"],
 			detect: ["9L1"],
@@ -7985,7 +7998,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	dreaper6: {
 		learnset: {
-			aurasphere: ["9L1"],
 			bulkup: ["9L1"],
 			calmmind: ["9L1"],
 			detect: ["9L1"],
@@ -8487,7 +8499,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	beowolfmon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			bulkup: ["9L1"],
 			dazzlinggleam: ["9L1"],
 			detect: ["9L1"],
@@ -9795,7 +9806,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	zanbamon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			bulkup: ["9L1"],
 			detect: ["9L1"],
 			focusblast: ["9L1"],
@@ -9814,7 +9824,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	panjyamon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			aurorabeam: ["9L1"],
 			bulkup: ["9L1"],
 			detect: ["9L1"],
@@ -9996,7 +10005,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	asuramon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			bulkup: ["9L1"],
 			detect: ["9L1"],
 			firespin: ["9L1"],
@@ -10054,7 +10062,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	pievolcamon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			bulkup: ["9L1"],
 			bulldoze: ["9L1"],
 			detect: ["9L1"],
@@ -10109,7 +10116,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	lordknightmon: {
 		learnset: {
 			ancientpower: ["9L1"],
-			aurasphere: ["9L1"],
 			bulkup: ["9L1"],
 			detect: ["9L1"],
 			earthquake: ["9L1"],
@@ -10589,7 +10595,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	marsmon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			bulkup: ["9L1"],
 			detect: ["9L1"],
 			fireblast: ["9L1"],
@@ -10843,7 +10848,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	grademon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			bulkup: ["9L1"],
 			detect: ["9L1"],
 			dragonbreath: ["9L1"],
@@ -10929,7 +10933,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	hisyaryumon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			bulkup: ["9L1"],
 			detect: ["9L1"],
 			dragonbreath: ["9L1"],
@@ -11026,7 +11029,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	tigervespamon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			bugbite: ["9L1"],
 			bugbuzz: ["9L1"],
 			bulkup: ["9L1"],
@@ -11139,7 +11141,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	gaioumon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			bulkup: ["9L1"],
 			detect: ["9L1"],
 			dragonbreath: ["9L1"],
@@ -11160,7 +11161,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	grandiskuwagamon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			bugbite: ["9L1"],
 			bugbuzz: ["9L1"],
 			bulkup: ["9L1"],
@@ -11674,7 +11674,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	machgaogamon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			autotomize: ["9L1"],
 			bulkup: ["9L1"],
 			detect: ["9L1"],
@@ -12486,7 +12485,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	bancholeomon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			bulkup: ["9L1"],
 			detect: ["9L1"],
 			facade: ["9L1"],
@@ -12509,7 +12507,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	banchomamemon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			autotomize: ["9L1"],
 			bulkup: ["9L1"],
 			detect: ["9L1"],
@@ -12534,7 +12531,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	bancholilimon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			bulkup: ["9L1"],
 			bulletseed: ["9L1"],
 			detect: ["9L1"],
@@ -12563,7 +12559,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	banchostingmon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			bugbite: ["9L1"],
 			bugbuzz: ["9L1"],
 			bulkup: ["9L1"],
@@ -12592,7 +12587,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	banchogolemon: {
 		learnset: {
 			ancientpower: ["9L1"],
-			aurasphere: ["9L1"],
 			bulkup: ["9L1"],
 			detect: ["9L1"],
 			earthquake: ["9L1"],
@@ -12621,7 +12615,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	chaosmon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			beatup: ["9L1"],
 			bulkup: ["9L1"],
 			darkpulse: ["9L1"],
@@ -12649,7 +12642,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	chaosmonvaldurarm: {
 		learnset: {
-			aurasphere: ["9L1"],
 			bulkup: ["9L1"],
 			dazzlinggleam: ["9L1"],
 			detect: ["9L1"],
@@ -12818,7 +12810,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	mercurymon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			bulkup: ["9L1"],
 			bulletseed: ["9L1"],
 			detect: ["9L1"],
@@ -12847,7 +12838,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	minervamon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			bulkup: ["9L1"],
 			detect: ["9L1"],
 			focusblast: ["9L1"],
@@ -12934,7 +12924,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	belphemon: {
 		learnset: {
-			aurasphere: ["9L1"],
 			beatup: ["9L1"],
 			bulkup: ["9L1"],
 			darkpulse: ["9L1"],
@@ -12962,7 +12951,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 	},
 	belphemonsleep: {
 		learnset: {
-			aurasphere: ["9L1"],
 			beatup: ["9L1"],
 			bulkup: ["9L1"],
 			darkpulse: ["9L1"],
@@ -12994,7 +12982,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			aerialace: ["9L1"],
 			aircutter: ["9L1"],
 			airslash: ["9L1"],
-			aurasphere: ["9L1"],
 			bulkup: ["9L1"],
 			defog: ["9L1"],
 			detect: ["9L1"],

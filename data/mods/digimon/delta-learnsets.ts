@@ -43,7 +43,7 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 	Fighting: {
 		0: ['rocksmash'],
 		1: ['seismictoss', 'vacuumwave', 'detect'],
-		2: ['aurasphere', 'bulkup'],
+		2: ['bulkup'],
 		3: ['focusblast', 'superpower'],
 	},
 	Fire: {
@@ -254,7 +254,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 	},
 	"Legendary": {
 		1: (s) => ['swift'],
-		2: (s) => ['punishment', 'extrasensory', 'calmmind'],
+		2: (s) => ['punishment', 'aurasphere', 'extrasensory', 'calmmind'],
 		3: (s) => ['imprison'],
 	},
 	"Machine": {
@@ -387,13 +387,13 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 		deletes: ['darkpulse'],
 	},
 	goddramon: {
-		adds: ['godflame'],
+		adds: ['Flying', 'godflame'],
 	},
 	angewomon: {
 		deletes: ['darkpulse'],
 	},
 	holydramon: {
-		adds: ['holyflame'],
+		adds: ['Flying', 'holyflame'],
 	},
 	ofanimon: {
 		adds: ['edensjavelin', 'sefirotcrystal'],
