@@ -11396,7 +11396,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			workup: ["9L1"],
 		},
 	},
-	ultimatebrakimon: {
+	ultimatebrachimon: {
 		learnset: {
 			autotomize: ["9L1"],
 			dragonbreath: ["9L1"],

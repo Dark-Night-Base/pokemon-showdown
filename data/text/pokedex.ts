@@ -5609,8 +5609,8 @@ export const PokedexText: {[k: string]: PokedexText} = {
 	volcdramon: {
 		name: "Volcdramon",
 	},
-	ultimatebrakimon: {
-		name: "Ultimate Brakimon",
+	ultimatebrachimon: {
+		name: "Ultimate Brachimon",
 	},
 	dinorexmon: {
 		name: "Dinorexmon",

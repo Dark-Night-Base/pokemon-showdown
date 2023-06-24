@@ -1841,7 +1841,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	volcdramon: {
 		tier: "Illegal",
 	},
-	ultimatebrakimon: {
+	ultimatebrachimon: {
 		tier: "Illegal",
 	},
 	dinorexmon: {

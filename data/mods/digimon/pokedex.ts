@@ -7168,9 +7168,9 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		otherFormes: [""],
 		formeOrder: ["Volcdramon", ""],
 	},
-	ultimatebrakimon: {
+	ultimatebrachimon: {
 		num: 486,
-		name: "Ultimate Brakimon",
+		name: "Ultimate Brachimon",
 		types: ["Dragon", "Steel", "Data"],
 		gender: "N",
 		baseStats: {hp: 150, atk: 120, def: 125, spa: 100, spd: 75, spe: 30},
@@ -7178,7 +7178,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		weightkg: 1,
 		eggGroups: ["Undiscovered"],
 		otherFormes: [""],
-		formeOrder: ["Ultimate Brakimon", ""],
+		formeOrder: ["Ultimate Brachimon", ""],
 	},
 	dinorexmon: {
 		num: 487,
