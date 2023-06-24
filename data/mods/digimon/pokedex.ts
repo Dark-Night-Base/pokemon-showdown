@@ -7888,9 +7888,9 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		otherFormes: [""],
 		formeOrder: ["Liamon", ""],
 	},
-	loaderliomon: {
+	loaderleomon: {
 		num: 532,
-		name: "Loader Liomon",
+		name: "Loader Leomon",
 		types: ["Normal", "Steel", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 70, atk: 90, def: 80, spa: 52, spd: 63, spe: 65},
@@ -7898,7 +7898,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		weightkg: 1,
 		eggGroups: ["Undiscovered"],
 		otherFormes: [""],
-		formeOrder: ["Loader Liomon", ""],
+		formeOrder: ["Loader Leomon", ""],
 	},
 	bancholeomon: {
 		num: 533,

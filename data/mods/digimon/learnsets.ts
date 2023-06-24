@@ -12454,7 +12454,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			workup: ["9L1"],
 		},
 	},
-	loaderliomon: {
+	loaderleomon: {
 		learnset: {
 			autotomize: ["9L1"],
 			facade: ["9L1"],

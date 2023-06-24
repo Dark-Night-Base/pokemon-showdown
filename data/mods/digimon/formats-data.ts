@@ -2021,7 +2021,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	liamon: {
 		tier: "Illegal",
 	},
-	loaderliomon: {
+	loaderleomon: {
 		tier: "Illegal",
 	},
 	bancholeomon: {

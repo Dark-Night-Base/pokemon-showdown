@@ -5789,8 +5789,8 @@ export const PokedexText: {[k: string]: PokedexText} = {
 	liamon: {
 		name: "Liamon",
 	},
-	loaderliomon: {
-		name: "Loader Liomon",
+	loaderleomon: {
+		name: "Loader Leomon",
 	},
 	bancholeomon: {
 		name: "Bancho Leomon",
