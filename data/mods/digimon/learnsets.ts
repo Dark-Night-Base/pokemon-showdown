@@ -12844,7 +12844,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			workup: ["9L1"],
 		},
 	},
-	neptonmon: {
+	neptunemon: {
 		learnset: {
 			bubblebeam: ["9L1"],
 			gigaimpact: ["9L1"],

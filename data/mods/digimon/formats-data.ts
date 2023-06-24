@@ -2072,7 +2072,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	minervamonx: {
 		tier: "Illegal",
 	},
-	neptonmon: {
+	neptunemon: {
 		tier: "Illegal",
 	},
 	phascomon: {

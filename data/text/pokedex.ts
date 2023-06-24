@@ -5843,8 +5843,8 @@ export const PokedexText: {[k: string]: PokedexText} = {
 	minervamonx: {
 		name: "Minervamon-X",
 	},
-	neptonmon: {
-		name: "Neptonmon",
+	neptunemon: {
+		name: "Neptunemon",
 	},
 	protogizmon: {
 		name: "Proto Gizmon",

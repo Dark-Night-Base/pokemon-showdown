@@ -8105,9 +8105,9 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		eggGroups: ["Undiscovered"],
 		requiredItem: "X-Antibody",
 	},
-	neptonmon: {
+	neptunemon: {
 		num: 547,
-		name: "Neptonmon",
+		name: "Neptunemon",
 		types: ["Water", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 110, atk: 120, def: 110, spa: 120, spd: 90, spe: 100},
@@ -8115,7 +8115,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		weightkg: 1,
 		eggGroups: ["Undiscovered"],
 		otherFormes: [""],
-		formeOrder: ["Neptonmon", ""],
+		formeOrder: ["Neptunemon", ""],
 	},
 	protogizmon: {
 		num: 548,
