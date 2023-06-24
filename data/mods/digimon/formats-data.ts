@@ -1826,7 +1826,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	metalpiranimon: {
 		tier: "Illegal",
 	},
-	medivaldukemon: {
+	medievaldukemon: {
 		tier: "Illegal",
 	},
 	tobucatmon: {

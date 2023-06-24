@@ -5594,8 +5594,8 @@ export const PokedexText: {[k: string]: PokedexText} = {
 	metalpiranimon: {
 		name: "Metal Piranimon",
 	},
-	medivaldukemon: {
-		name: "Medival Dukemon",
+	medievaldukemon: {
+		name: "Medieval Dukemon",
 	},
 	tobucatmon: {
 		name: "Tobucatmon",

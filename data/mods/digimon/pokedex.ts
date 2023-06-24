@@ -7108,9 +7108,9 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		otherFormes: [""],
 		formeOrder: ["Metal Piranimon", ""],
 	},
-	medivaldukemon: {
+	medievaldukemon: {
 		num: 481,
-		name: "Medival Dukemon",
+		name: "Medieval Dukemon",
 		types: ["Dragon", "Flying", "Data"],
 		gender: "N",
 		baseStats: {hp: 100, atk: 120, def: 105, spa: 115, spd: 110, spe: 130},
@@ -7118,7 +7118,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		weightkg: 1,
 		eggGroups: ["Undiscovered"],
 		otherFormes: [""],
-		formeOrder: ["Medival Dukemon", ""],
+		formeOrder: ["Medieval Dukemon", ""],
 	},
 	tobucatmon: {
 		num: 482,

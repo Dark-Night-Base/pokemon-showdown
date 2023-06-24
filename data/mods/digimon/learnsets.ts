@@ -11295,7 +11295,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			workup: ["9L1"],
 		},
 	},
-	medivaldukemon: {
+	medievaldukemon: {
 		learnset: {
 			acrobatics: ["9L1"],
 			aerialace: ["9L1"],
