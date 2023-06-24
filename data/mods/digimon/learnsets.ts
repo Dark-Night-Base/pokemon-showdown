@@ -4899,7 +4899,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			workup: ["9L1"],
 		},
 	},
-	shakkomon: {
+	shakkoumon: {
 		learnset: {
 			autotomize: ["9L1"],
 			dazzlinggleam: ["9L1"],

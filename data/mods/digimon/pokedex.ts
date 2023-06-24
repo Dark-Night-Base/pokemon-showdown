@@ -3048,9 +3048,9 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		otherFormes: [""],
 		formeOrder: ["Ankylomon", ""],
 	},
-	shakkomon: {
+	shakkoumon: {
 		num: 180,
-		name: "Shakkomon",
+		name: "Shakkoumon",
 		types: ["Light", "Steel", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 70, atk: 80, def: 95, spa: 80, spd: 95, spe: 30},

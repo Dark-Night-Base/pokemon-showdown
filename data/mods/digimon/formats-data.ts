@@ -785,7 +785,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	ankylomon: {
 		tier: "Illegal",
 	},
-	shakkomon: {
+	shakkoumon: {
 		tier: "Illegal",
 	},
 	slashangemon: {
