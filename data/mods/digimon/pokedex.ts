@@ -3058,7 +3058,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		weightkg: 1,
 		eggGroups: ["Undiscovered"],
 		otherFormes: [""],
-		formeOrder: ["Shakkomon", ""],
+		formeOrder: ["Shakkoumon", ""],
 	},
 	slashangemon: {
 		num: 181,
@@ -6403,9 +6403,9 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		otherFormes: [""],
 		formeOrder: ["Volcamon", ""],
 	},
-	pievolcamon: {
+	pilevolcamon: {
 		num: 427,
-		name: "Pie Volcamon",
+		name: "Pile Volcamon",
 		types: ["Ground", "Fighting", "Data"],
 		gender: "N",
 		baseStats: {hp: 105, atk: 115, def: 90, spa: 80, spd: 55, spe: 75},
@@ -6413,7 +6413,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		weightkg: 1,
 		eggGroups: ["Undiscovered"],
 		otherFormes: [""],
-		formeOrder: ["Pie Volcamon", ""],
+		formeOrder: ["Pile Volcamon", ""],
 	},
 	dynasmon: {
 		num: 428,

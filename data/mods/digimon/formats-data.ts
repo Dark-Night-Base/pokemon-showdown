@@ -1643,7 +1643,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	volcamon: {
 		tier: "Illegal",
 	},
-	pievolcamon: {
+	pilevolcamon: {
 		tier: "Illegal",
 	},
 	dynasmon: {

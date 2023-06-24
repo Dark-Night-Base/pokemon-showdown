@@ -10050,7 +10050,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			workup: ["9L1"],
 		},
 	},
-	pievolcamon: {
+	pilevolcamon: {
 		learnset: {
 			bulkup: ["9L1"],
 			bulldoze: ["9L1"],
