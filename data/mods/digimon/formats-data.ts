@@ -692,7 +692,7 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	fladramon: {
 		tier: "Illegal",
 	},
-	lightdramon: {
+	lighdramon: {
 		tier: "Illegal",
 	},
 	magnamon: {

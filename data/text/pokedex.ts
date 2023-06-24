@@ -4463,8 +4463,8 @@ export const PokedexText: {[k: string]: PokedexText} = {
 	fladramon: {
 		name: "Fladramon",
 	},
-	lightdramon: {
-		name: "Lightdramon",
+	lighdramon: {
+		name: "Lighdramon",
 	},
 	magnamon: {
 		name: "Magnamon",

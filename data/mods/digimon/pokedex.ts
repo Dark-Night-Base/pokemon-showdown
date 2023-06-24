@@ -2680,9 +2680,9 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		otherFormes: [""],
 		formeOrder: ["Fladramon", ""],
 	},
-	lightdramon: {
+	lighdramon: {
 		num: 145,
-		name: "Lightdramon",
+		name: "Lighdramon",
 		types: ["Dragon", "Electric", "Data"],
 		gender: "N",
 		baseStats: {hp: 40, atk: 60, def: 50, spa: 55, spd: 55, spe: 70},
@@ -2690,7 +2690,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		weightkg: 1,
 		eggGroups: ["Undiscovered"],
 		otherFormes: [""],
-		formeOrder: ["Lightdramon", ""],
+		formeOrder: ["Lighdramon", ""],
 	},
 	magnamon: {
 		num: 146,

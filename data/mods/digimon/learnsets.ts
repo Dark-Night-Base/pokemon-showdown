@@ -4328,7 +4328,7 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			workup: ["9L1"],
 		},
 	},
-	lightdramon: {
+	lighdramon: {
 		learnset: {
 			charge: ["9L1"],
 			chargebeam: ["9L1"],
