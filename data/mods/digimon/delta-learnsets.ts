@@ -23,7 +23,6 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 		0: ['strugglebug', 'furycutter', 'stringshot'],
 		1: ['bugbite', 'silverwind', 'pinmissile', 'infestation'],
 		2: ['bugbuzz', 'leechlife', 'xscissor', 'uturn'],
-		3: ['megahorn'],
 	},
 	Dark: {
 		0: ['faketears'],
@@ -61,7 +60,7 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 	},
 	Ghost: {
 		0: ['shadowsneak', 'astonish', 'lick'],
-		1: ['nightshade', 'ominouswind', 'curse'],
+		1: ['nightshade', 'ominouswind', 'curse', 'willowisp'],
 		2: ['phantomforce', 'shadowball', 'hex', 'destinybond', 'spite'],
 		3: ['grudge'],
 	},
@@ -253,6 +252,10 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		2: (s) => ['leafblade', 'hornleech', 'ingrain'],
 		3: (s) => ['leafstorm', 'powerwhip', 'woodhammer'],
 	},
+	"Horn": {
+		1: (s) => ['smartstrike', 'hornattack'],
+		3: (s) => ['megahorn'],
+	},
 	"Human-Like": {
 		1: (s) => ['facade', 'knockoff', 'pursuit'],
 	},
@@ -267,8 +270,8 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		2: (s) => ['thunderbolt', 'voltswitch'],
 	},
 	"Magic": {
-		0: (s) => ['confusion', 'ember', 'thundershock'],
-		1: (s) => ['mysticalfire'],
+		0: (s) => ['confusion', 'ember', 'thundershock', 'thunderwave'],
+		1: (s) => ['mysticalfire', 'thunderwave'],
 		2: (s) => ['dazzlinggleam', 'psychic', 'darkpulse', 'shadowball', 'calmmind', 'lightscreen', 'magiccoat', 'reflect'],
 		3: (s) => ['futuresight'],
 	},
@@ -380,6 +383,7 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 		adds: ['Fire'],
 	},
 	heraklekabuterimon: {
+		adds: ['Fighting'],
 		deletes: ['hurricane'],
 	},
 	holyangemon: {
@@ -402,5 +406,11 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	ofanimon: {
 		adds: ['edensjavelin', 'sefirotcrystal', 'healbell', 'lunardance', 'recover'],
 		deletes: ['darkpulse', 'earthquake'],
+	},
+	crossmon: {
+		adds: ['dazzlinggleam'],
+	},
+	grankuwagamon: {
+		adds: ['Dark'],
 	},
 };
