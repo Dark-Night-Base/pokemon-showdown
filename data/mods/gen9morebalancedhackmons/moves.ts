@@ -34,7 +34,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	ceaselessedge: {
 		inherit: true,
 		accuracy: 100,
-		self: undefined,
+		onAfterHit: undefined,
+		onAfterSubDamage: undefined,
 		// make it secondary for covert cloak
 		secondary: {
 			chance: 100,
@@ -252,7 +253,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	stoneaxe: {
 		inherit: true,
 		accuracy: 100,
-		self: undefined,
+		onAfterHit: undefined,
+		onAfterSubDamage: undefined,
 		// make it secondary for covert cloak
 		secondary: {
 			chance: 100,
