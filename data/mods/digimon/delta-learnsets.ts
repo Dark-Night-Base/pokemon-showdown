@@ -117,7 +117,7 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 	Water: {
 		0: ['aquajet', 'bubble', 'watergun', 'watersport'],
 		1: ['bubblebeam', 'waterpulse', 'whirlpool'],
-		2: ['surf', 'scald', 'raindance'],
+		2: ['surf', 'scald', 'raindance', 'icebeam'],
 		3: ['hydropump'],
 	},
 };
@@ -218,7 +218,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 			.addMoveByType(s, 'Fire', 'firefang')
 			.addMoveByType(s, 'Ice', 'icefang')
 			.addMoveByType(s, 'Poison', 'poisonfang'),
-		2: (s) => ['crunch'].addMoveByType(s, 'Dragon', 'firefang', 'icefang', 'thunderfang')
+		2: (s) => ['crunch'].addMoveByAny(s, 'Dragon', 'firefang', 'icefang', 'thunderfang')
 			.addMoveByType(s, 'Psychic', 'psychicfangs')
 			.addMoveByType(s, 'Steel', 'thunderfang')
 			.addMoveByType(s, 'Water', 'icefang'),
@@ -353,6 +353,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
  * recover
  * spikes
  * stealthrock
+ * uturn
  */
 export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	omegamon: {
@@ -368,7 +369,7 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 		deletes: ['icebeam', 'thunderbolt'],
 	},
 	wargreymon: {
-		adds: ['braveshield', 'gaiaforce', 'bravetornado', 'dramonkiller', 'uturn', 'steelwing'],
+		adds: ['braveshield', 'gaiaforce', 'bravetornado', 'dramonkiller', 'uturn', 'steelwing', 'stealthrock'],
 	},
 	weregarurumon: {
 		deletes: ['hammerarm'],
