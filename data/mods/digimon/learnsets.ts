@@ -2560,22 +2560,6 @@ export const Learnsets: {[k: string]: ModdedLearnsetData} = {
 			workup: ["9L1"],
 		},
 	},
-	andromonfile: {
-		learnset: {
-			autotomize: ["9L1"],
-			flashcannon: ["9L1"],
-			hiddenpower: ["9L1"],
-			irondefense: ["9L1"],
-			magnetbomb: ["9L1"],
-			metalsound: ["9L1"],
-			mirrorshot: ["9L1"],
-			protect: ["9L1"],
-			rest: ["9L1"],
-			sleeptalk: ["9L1"],
-			substitute: ["9L1"],
-			workup: ["9L1"],
-		},
-	},
 	hiandromon: {
 		learnset: {
 			autotomize: ["9L1"],

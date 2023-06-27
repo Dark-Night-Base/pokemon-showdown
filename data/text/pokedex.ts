@@ -4103,9 +4103,6 @@ export const PokedexText: {[k: string]: PokedexText} = {
 	andromon: {
 		name: "Andromon",
 	},
-	andromonfile: {
-		name: "Andromon-File",
-	},
 	hiandromon: {
 		name: "Hi Andromon",
 	},

@@ -332,9 +332,6 @@ export const FormatsData: {[k: string]: ModdedSpeciesFormatsData} = {
 	andromon: {
 		tier: "UU",
 	},
-	andromonfile: {
-		tier: "Unreleased",
-	},
 	hiandromon: {
 		tier: "OU",
 	},

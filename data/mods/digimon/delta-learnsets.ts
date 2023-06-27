@@ -106,7 +106,7 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 	},
 	Rock: {
 		0: ['rockthrow', 'accelerock'],
-		1: ['ancientpower', 'rocktomb', 'smackdown', 'rockblast', 'rockpolish'],
+		1: ['rocktomb', 'smackdown', 'rockblast', 'rockpolish'],
 		2: ['powergem', 'rockslide', 'sandstorm', 'stealthrock'],
 		3: ['earthquake', 'stoneedge'],
 	},
@@ -228,7 +228,8 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 	},
 	"Gear": {
 		0: (s) => ['gearup'],
-		1: (s) => ['geargrind', 'gearup', 'shiftgear'],
+		1: (s) => ['gearup', 'shiftgear'],
+		2: (s) => ['geargrind'],
 	},
 	"Grass Flower": {
 		0: (s) => ['poisonpowder', 'stunspore'],
@@ -260,7 +261,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		1: (s) => ['facade', 'knockoff', 'pursuit'],
 	},
 	"Legendary": {
-		1: (s) => ['swift'],
+		1: (s) => ['ancientpower', 'swift'],
 		2: (s) => ['punishment', 'aurasphere', 'extrasensory', 'calmmind'],
 		3: (s) => ['imprison'],
 	},
@@ -347,6 +348,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 };
 /**
  * manually apply moves: 
+ * counter-like moves
  * extremespeed
  * healbell
  * rapidspin
@@ -413,5 +415,33 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	},
 	grankuwagamon: {
 		adds: ['Dark'],
+	},
+	candmon: {
+		adds: ['Ghost'],
+		deletes: ['thundershock'],
+	},
+	boltmon: {
+		adds: ['Fighting', 'spikes', 'stealthrock'],
+	},
+	hagurumon: {
+		adds: ['rapidspin'],
+	},
+	guardromon: {
+		adds: ['stealthrock'],
+	},
+	mechanorimon: {
+		adds: ['metalburst'],
+	},
+	andromon: {
+		adds: ['rapidspin', 'spikes', 'stealthrock'],
+	},
+	hiandromon: {
+		adds: ['rapidspin'],
+	},
+	tyumon: {
+		deletes: ['metalclaw'],
+	},
+	scumon: {
+		deletes: ['brickbreak'],
 	},
 };
