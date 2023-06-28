@@ -46,7 +46,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 	},
-	protean: {
+	libero: {
 		inherit: true,
 		onPrepareHit: undefined,
 		onSwitchIn(pokemon) {
@@ -71,12 +71,25 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 					const newType = digimonTypeChart[targetDigimonType];
 					const newTypes = pokemon.types.map((value, index) => value = (index === pokemonDigimonTypeIndex) ? newType : value);
 					if (pokemon.setType(newTypes)) {
-						this.add('-start', pokemon, 'typechange', newTypes.join('/'), '[from] ability: Protean');
+						this.add('-start', pokemon, 'typechange', newTypes.join('/'), '[from] ability: Libero');
 					}
 				}
 			}
 			this.effectState.switchingIn = false;
 		},
+	},
+	protean: {
+		inherit: true,
+		onPrepareHit(source, target, move) {
+			if (move.hasBounced || move.flags['futuremove'] || move.sourceEffect === 'snatch') return;
+			const type = move.type;
+			if (type && type !== '???' && source.getTypes().join() !== type) {
+				if (!source.setType(type)) return;
+				this.add('-start', source, 'typechange', type, '[from] ability: Protean');
+			}
+		},
+		onSwitchIn: undefined,
+		rating: 4.5,
 	},
 	omegainforce: {
 		onSourceModifyDamage(damage, source, target, move) {
