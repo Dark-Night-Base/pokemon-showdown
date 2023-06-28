@@ -60,7 +60,7 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 	},
 	Ghost: {
 		0: ['shadowsneak', 'astonish', 'lick'],
-		1: ['nightshade', 'ominouswind', 'curse', 'willowisp'],
+		1: ['nightshade', 'ominouswind', 'curse', 'meanlook', 'willowisp'],
 		2: ['phantomforce', 'shadowball', 'hex', 'destinybond', 'spite'],
 		3: ['grudge'],
 	},
@@ -161,7 +161,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 	},
 	"Body Foot": {
 		2: (s) => [].addMoveByType(s, 'Fire', 'blazekick'),
-		3: (s) => ['megakick'],
+		3: (s) => ['lowkick', 'megakick'],
 	},
 	"Body Hand": {
 		0: (s) => ['helpinghand'],
@@ -240,7 +240,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 	"Grass Grass": {
 		0: (s) => ['vinewhip'],
 		1: (s) => ['grasswhistle', 'synthesis'],
-		3: (s) => ['powerwhip'],
+		3: (s) => ['grassknot', 'powerwhip'],
 	},
 	"Grass Mushroom": {
 		0: (s) => ['poisonpowder', 'stunspore'],
@@ -315,6 +315,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 	"Swift": {
 		1: (s) => ['agility'].addMoveByEggGroup(s, 'Body Hand', 'fakeout'),
 		2: (s) => ['uturn'].addMoveByType(s, 'Dark', 'suckerpunch'),
+		3: (s) => [].addMoveByEggGroup(s, 'Body Hand', 'grassknot'),
 	},
 	"Sword": {
 		0: (s) => ['cut', 'furycutter'],
@@ -349,12 +350,15 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 /**
  * manually apply moves: 
  * counter-like moves
+ * priority moves
  * extremespeed
  * healbell
+ * quiverdance
  * rapidspin
  * recover
  * spikes
  * stealthrock
+ * tailglow
  * uturn
  */
 export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {

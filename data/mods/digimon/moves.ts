@@ -3,6 +3,10 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		inherit: true,
 		type: "Grass",
 	},
+	autotomize: {
+		inherit: true,
+		onHit: undefined,
+	},
 	darkvoid: {
 		inherit: true,
 		accuracy: 80,
@@ -20,6 +24,64 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	flowershield: {
 		inherit: true,
 		type: "Grass",
+	},
+	// power of weight moves are now determined by target's base hp stat
+	grassknot: {
+		inherit: true,
+		basePowerCallback(pokemon, target) {
+			return target.species.baseStats.hp;
+		},
+	},
+	lowkick: {
+		inherit: true,
+		basePowerCallback(pokemon, target) {
+			return target.species.baseStats.hp;
+		},
+	},
+	mistyterrain: {
+		inherit: true,
+		condition: {
+			duration: 5,
+			durationCallback(source, effect) {
+				if (source?.hasItem('terrainextender')) {
+					return 8;
+				}
+				return 5;
+			},
+			onSetStatus(status, target, source, effect) {
+				if (!target.isGrounded() || target.isSemiInvulnerable()) return;
+				if (effect && ((effect as Move).status || effect.id === 'yawn')) {
+					this.add('-activate', target, 'move: Misty Terrain');
+				}
+				return false;
+			},
+			onTryAddVolatile(status, target, source, effect) {
+				if (!target.isGrounded() || target.isSemiInvulnerable()) return;
+				if (status.id === 'confusion') {
+					if (effect.effectType === 'Move' && !effect.secondaries) this.add('-activate', target, 'move: Misty Terrain');
+					return null;
+				}
+			},
+			onBasePowerPriority: 6,
+			onBasePower(basePower, attacker, defender, move) {
+				if (move.type === 'Dark' && defender.isGrounded() && !defender.isSemiInvulnerable()) {
+					this.debug('misty terrain weaken');
+					return this.chainModify(0.5);
+				}
+			},
+			onFieldStart(field, source, effect) {
+				if (effect?.effectType === 'Ability') {
+					this.add('-fieldstart', 'move: Misty Terrain', '[from] ability: ' + effect.name, '[of] ' + source);
+				} else {
+					this.add('-fieldstart', 'move: Misty Terrain');
+				}
+			},
+			onFieldResidualOrder: 27,
+			onFieldResidualSubOrder: 7,
+			onFieldEnd() {
+				this.add('-fieldend', 'Misty Terrain');
+			},
+		},
 	},
 	mysticalfire: {
 		inherit: true,

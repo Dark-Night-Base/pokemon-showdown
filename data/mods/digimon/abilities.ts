@@ -10,9 +10,45 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 	},
+	disguise: {
+		inherit: true,
+		onDamage(damage, target, source, effect) {
+			if (effect && effect.effectType === 'Move' && !target.transformed) {
+				this.add('-activate', target, 'ability: Disguise');
+				this.effectState.busted = true;
+				return 0;
+			}
+		},
+		onCriticalHit(target, source, move) {
+			if (!target) return;
+			// i'm not sure about using this.effectState.busted here
+			if (this.effectState.busted || target.transformed) return;
+			const hitSub = target.volatiles['substitute'] && !move.flags['bypasssub'] && !(move.infiltrates && this.gen >= 6);
+			if (hitSub) return;
+
+			if (!target.runImmunity(move.type)) return;
+			return false;
+		},
+		onEffectiveness(typeMod, target, type, move) {
+			if (!target || move.category === 'Status') return;
+			if (this.effectState.busted || target.transformed) return;
+
+			const hitSub = target.volatiles['substitute'] && !move.flags['bypasssub'] && !(move.infiltrates && this.gen >= 6);
+			if (hitSub) return;
+
+			if (!target.runImmunity(move.type)) return;
+			return 0;
+		},
+		onUpdate(pokemon) {
+			if (this.effectState.busted && !this.effectState.busteded) {
+				this.damage(pokemon.baseMaxhp / 8, pokemon, pokemon, this.dex.species.get(pokemon.baseSpecies.id));
+				this.effectState.busteded = true;
+			}
+		},
+	},
 	protean: {
 		inherit: true,
-		onPrepareHit() {},
+		onPrepareHit: undefined,
 		onSwitchIn(pokemon) {
 			this.effectState.switchingIn = true;
 		},
@@ -169,8 +205,10 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onResidualOrder: 28,
 		onResidualSubOrder: 2,
 		onResidual(pokemon) {
-			this.add('-ability', pokemon, 'Undead Body');
-			this.heal(pokemon.baseMaxhp);
+			if (pokemon.species.id === 'lucemonsatan' && !pokemon.transformed) {
+				this.add('-ability', pokemon, 'Undead Body');
+				this.heal(pokemon.baseMaxhp);
+			}
 		},
 		name: "Undead Body",
 		rating: 5,
