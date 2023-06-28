@@ -778,7 +778,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	plesiomon: {
 		num: 27,
 		name: "Plesiomon",
-		types: ["Water", "Ice", "Data"],
+		types: ["Water", "Data"],
 		baseStats: {hp: 90, atk: 70, def: 70, spa: 105, spd: 100, spe: 85},
 		abilities: {0: "Water Veil", 1: "Swift Swim"},
 		weightkg: 1,
@@ -795,7 +795,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		name: "Plesiomon-X",
 		baseSpecies: "Plesiomon",
 		forme: "X",
-		types: ["Water", "Ice", "Data"],
+		types: ["Water", "Data"],
 		baseStats: {hp: 90, atk: 90, def: 60, spa: 140, spd: 140, spe: 100},
 		abilities: {0: "Liquid Voice"},
 		weightkg: 1,

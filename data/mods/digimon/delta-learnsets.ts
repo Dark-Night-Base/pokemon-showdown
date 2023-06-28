@@ -393,6 +393,9 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 		adds: ['Fighting'],
 		deletes: ['hurricane'],
 	},
+	plesiomon: {
+		adds: ['Ice'],
+	},
 	holyangemon: {
 		deletes: ['darkpulse'],
 	},
