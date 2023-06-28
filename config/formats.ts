@@ -808,8 +808,8 @@ export const Formats: FormatList = [
 			if (!target) return; // chat
 			if (effect && ['imposter', 'transform'].includes(effect.id)) return;
 			// onModifySpecies can be called before onBegin, which is quite stupid
-			let headSpecies = target.m.headSpecies ? target.m.headSpecies : this.dex.species.get(target.set.name);
-			let bodySpecies = target.m.bodySpecies ? target.m.bodySpecies : this.dex.species.get(target.set.species);
+			let headSpecies = target.m.headSpecies || this.dex.species.get(target.set.name);
+			let bodySpecies = target.m.bodySpecies || this.dex.species.get(target.set.species);
 			if (!headSpecies?.exists || !bodySpecies?.exists) return;
 			// Nihilslave: should let non-base formes to merge, don't check it here
 			const toModifySpeciesID = this.dex.species.get(species.baseSpecies).id;
@@ -823,8 +823,9 @@ export const Formats: FormatList = [
 			}
 
 			const fusionSpecies = this.dex.deepClone(species);
-			fusionSpecies.weightkg = Math.max(0.1, (headSpecies.weightkg + bodySpecies.weightkg) / 2).toFixed(1);
-			fusionSpecies.weighthg = Math.max(1, (headSpecies.weighthg + bodySpecies.weighthg) / 2).toFixed(1);
+			// actually without Number() this also works, but just in case
+			fusionSpecies.weightkg = Number(Math.max(0.1, (headSpecies.weightkg + bodySpecies.weightkg) / 2).toFixed(1));
+			fusionSpecies.weighthg = Number(Math.max(1, (headSpecies.weighthg + bodySpecies.weighthg) / 2).toFixed(1));
 			fusionSpecies.nfe = headSpecies.nfe || bodySpecies.nfe;
 			// fusionSpecies.evos
 			// fusionSpecies.eggGroups
