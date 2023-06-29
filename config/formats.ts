@@ -650,10 +650,10 @@ export const Formats: FormatList = [
 			&bullet; Fusioned Pok&eacute;mon's Moves includes: ALL moves learnt by Head and Body<br/>\
 			&bullet; Pok&eacute;mon in Formes cannot be used in fusion. E.g. Hoopa-Unbound<br/>\
 			&bullet; There are several special Fusions. E.g. Kyurem + Reshiram = Kyurem-White</details>`,
-		threads: [
-			`&bullet; <a href="https://infinitefusion.fandom.com/wiki/Pok%C3%A9mon_Infinite_Fusion_Wiki">Infinite Fusion Wiki</a>`,
-			`&bullet; <a href="https://aegide.github.io/">Infinite Fusion Calculator</a>`,
-		],
+		// threads: [
+		// 	`&bullet; <a href="https://infinitefusion.fandom.com/wiki/Pok%C3%A9mon_Infinite_Fusion_Wiki">Infinite Fusion Wiki</a>`,
+		// 	`&bullet; <a href="https://aegide.github.io/">Infinite Fusion Calculator</a>`,
+		// ],
 
 		mod: 'infinitefusion',
 		ruleset: [
