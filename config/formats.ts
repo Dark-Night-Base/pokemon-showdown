@@ -635,10 +635,11 @@ export const Formats: FormatList = [
 			&bullet; 融合后精灵的ＨＰ、特攻、特防种族 = 头部对应种族的 2 / 3 + 身体对应种族的 1 / 3<br/>\
 			&bullet; 融合后精灵的攻击、防御、速度种族 = 头部对应种族的 1 / 3 + 身体对应种族的 2 / 3<br/>\
 			&bullet; 融合后精灵的属性为头部精灵的第一属性 + 身体精灵的第二属性（如没有则为第一属性）<br/>\
-			&bullet; 融合后精灵的特性池包含头部精灵的第一特性、身体精灵的第二特性，以及头部精灵的隐藏特性<br/>\
+			&bullet; 融合后精灵的特性<strong>池</strong>包含头部精灵的第一特性、身体精灵的第二特性，以及头部精灵的隐藏特性<br/>\
 			&bullet; 融合后精灵的技能池为头身精灵技能池之和<br/>\
 			&bullet; 禁止选择任何特殊形态作为融合组件，如：胡帕-解放形态<br/>\
 			&bullet; 有部分精灵间存在特殊融合，如：酋雷姆 + 雷希拉姆 = 焰白酋雷姆<br/>\
+			&bullet; 精灵的努力值总和的上限为正常的两倍，即 1020<br/>\
 			</details><br/>\
 			Fusion (almost) any two Pok&eacute;mon together!<br/>\
 			<details><summary>Fusion Mechanism (Click to Show)</summary>\
@@ -646,10 +647,11 @@ export const Formats: FormatList = [
 			&bullet; Fusioned Pok&eacute;mon's base stats of H P, SpA, SpD = That base stats of Head * 2 / 3 + That base stats of Body * 1 / 3<br/>\
 			&bullet; Fusioned Pok&eacute;mon's base stats of Atk, Def, Spe = That base stats of Head * 1 / 3 + That base stats of Body * 2 / 3<br/>\
 			&bullet; Fusioned Pok&eacute;mon's Types includes: First Type of Head + Second (or First if no Second) Type of Body<br/>\
-			&bullet; Fusioned Pok&eacute;mon's Abilities includes: First Ability of Head, Second Ability of Body, and Hidden Ability of Head<br/>\
+			&bullet; Fusioned Pok&eacute;mon's available Abilities includes: First Ability of Head, Second Ability of Body, and Hidden Ability of Head<br/>\
 			&bullet; Fusioned Pok&eacute;mon's Moves includes: ALL moves learnt by Head and Body<br/>\
 			&bullet; Pok&eacute;mon in Formes cannot be used in fusion. E.g. Hoopa-Unbound<br/>\
-			&bullet; There are several special Fusions. E.g. Kyurem + Reshiram = Kyurem-White</details>`,
+			&bullet; There are several special Fusions. E.g. Kyurem + Reshiram = Kyurem-White<br/>\
+			&bullet; Pok&eacute;mon's Total EV limit is doubled, i.e. 1020</details>`,
 		// threads: [
 		// 	`&bullet; <a href="https://infinitefusion.fandom.com/wiki/Pok%C3%A9mon_Infinite_Fusion_Wiki">Infinite Fusion Wiki</a>`,
 		// 	`&bullet; <a href="https://aegide.github.io/">Infinite Fusion Calculator</a>`,
