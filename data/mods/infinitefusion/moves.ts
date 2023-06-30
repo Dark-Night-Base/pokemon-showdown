@@ -91,7 +91,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		inherit: true,
 		basePowerCallback(pokemon, target, move) {
 			const names = [pokemon.m.headSpecies?.name, pokemon.m.bodySpecies?.name];
-			if (names.includes('Greninja-Bond') && pokemon.hasAbility('battlebond') &&
+			if (names.includes('Greninja-Ash') && pokemon.hasAbility('battlebond') &&
 				!pokemon.transformed) {
 				return move.basePower + 5;
 			}
