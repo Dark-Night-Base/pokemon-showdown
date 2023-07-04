@@ -101,7 +101,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		evos: ["Agumon"],
 		eggGroups: [
 			"Body Body", "Body Head", "Claw", "Dragon Dinosaur", "Horn",
-			"Fang", "Monster", "Tail",
+			"Fang", "Monster", "Roars", "Tail",
 		],
 		otherFormes: ["Geo Greymon", "Greymon-X"],
 		formeOrder: ["Greymon", "Geo Greymon", "Greymon-X"],
@@ -143,8 +143,8 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		evos: ["Greymon"],
 		eggGroups: [
 			"Armor", "Body Body", "Body Head", "Cannon", "Claw",
-			"Dragon Dinosaur", "Fang", "Horn", "Monster", "Sharp",
-			"Tail", "Wing",
+			"Dragon Dinosaur", "Fang", "Horn", "Monster", "Roars",
+			"Sharp", "Tail", "Wing",
 		],
 		otherFormes: ["Metal Greymon-Blue", "Metal Greymon-X", "Metal Greymon-Blue-X"],
 		formeOrder: ["Metal Greymon", "Metal Greymon-Blue", "Metal Greymon-X", "Metal Greymon-Blue-X"],
@@ -317,7 +317,10 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Snow Cloak"},
 		weightkg: 1,
 		evos: ["Gabumon"],
-		eggGroups: ["Body Body", "Body Head", "Claw", "Fang", "Sharp", "Tail"],
+		eggGroups: [
+			"Body Body", "Body Head", "Claw", "Fang", "Roars",
+			"Sharp", "Tail",
+		],
 		otherFormes: ["Garurumon-Black", "Gururumon", "Garurumon-X"],
 		formeOrder: ["Garurumon", "Garurumon-Black", "Gururumon", "Garurumon-X"],
 	},
@@ -368,8 +371,9 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		weightkg: 1,
 		evos: ["Garurumon"],
 		eggGroups: [
-			"Body Arms", "Body Foot", "Body Hand", "Body Head", "Body Knee", "Claw", "Fang", "Human-Like",
-			"Punch", "Sharp", "Swift", "Tail",
+			"Body Arms", "Body Foot", "Body Hand", "Body Head", "Body Knee",
+			"Claw", "Fang", "Human-Like", "Punch", "Roars",
+			"Sharp", "Swift", "Tail",
 		],
 		otherFormes: ["Were Garurumon-Black", "Were Garurumon-X"],
 		formeOrder: ["Were Garurumon", "Were Garurumon-Black", "Were Garurumon-X"],
@@ -412,8 +416,8 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		weightkg: 1,
 		evos: ["Were Garurumon"],
 		eggGroups: [
-			"Armor", "Body Head", "Cannon", "Fang", "Machine", "Sharp",
-			"Tail",
+			"Armor", "Body Head", "Cannon", "Fang", "Machine",
+			"Roars", "Sharp", "Tail",
 		],
 		otherFormes: ["Metal Garurumon-X"],
 		formeOrder: ["Metal Garurumon", "Metal Garurumon-X"],
@@ -1010,7 +1014,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		weightkg: 1,
 		evos: ["Tailmon"],
 		eggGroups: [
-			"Body Hand", "Human-Like", "Legendary", "Magic", "Punch",
+			"Body Hand", "Human-Like", "Legendary", "Magic", "Sings",
 			"Swift", "Wing",
 		],
 	},
@@ -1055,7 +1059,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		evos: ["Angewomon"],
 		eggGroups: [
 			"Armor", "Body Hand", "Extreme", "Human-Like", "Legendary",
-			"Magic", "Sharp", "Swift", "Wing",
+			"Magic", "Sharp", "Sings", "Swift", "Wing",
 		],
 		otherFormes: ["Ofanimon-Falldown", "Ofanimon-X", "Ofanimon-Falldown-X"],
 		formeOrder: ["Ofanimon", "Ofanimon-Falldown", "Ofanimon-X", "Ofanimon-Falldown-X"],
@@ -1217,8 +1221,8 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		weightkg: 1,
 		evos: ["Shakomon"],
 		eggGroups: [
-			"Body Body", "Body Head", "Fang", "Punch", "Shell",
-			"Water Ocean",
+			"Body Body", "Body Head", "Fang", "Punch", "Roars",
+			"Shell", "Water Ocean",
 		],
 	},
 	anomalocarimon: {
@@ -1552,7 +1556,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Stench", 1: ""},
 		weightkg: 1,
 		evos: ["Scumon", "Numemon"],
-		eggGroups: ["Undiscovered"],
+		eggGroups: ["Armor", "Body Arms", "Body Head", "Cannon"],
 	},
 	monzaemon: {
 		num: 66,
@@ -1563,7 +1567,10 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		abilities: {0: "Disguise", 1: ""},
 		weightkg: 1,
 		evos: ["Numemon"],
-		eggGroups: ["Undiscovered"],
+		eggGroups: [
+			"Body Arms", "Body Body", "Body Foot", "Body Head", "Claw",
+			"Human-Like", "Punch", "Sharp",
+		],
 		otherFormes: ["Waru Monzaemon"],
 		formeOrder: ["Monzaemon", "Waru Monzaemon"],
 	},
@@ -1585,9 +1592,13 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		types: ["Normal", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 50, atk: 85, def: 85, spa: 80, spd: 80, spe: 60},
-		abilities: {0: "", 1: ""},
+		abilities: {0: "Disguise", 1: ""},
 		weightkg: 1,
-		eggGroups: ["Undiscovered"],
+		evos: ["Numemon"],
+		eggGroups: [
+			"Body Body", "Body Head", "Claw", "Dragon Dinosaur", "Fang",
+			"Monster", "Sharp", "Tail",
+		],
 	},
 	etemon: {
 		num: 68,
@@ -1597,7 +1608,12 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 60, atk: 70, def: 50, spa: 80, spd: 75, spe: 105},
 		abilities: {0: "Soundproof", 1: ""},
 		weightkg: 1,
-		eggGroups: ["Undiscovered"],
+		evos: ["Scumon", "Numemon"],
+		eggGroups: [
+			"Body Arms", "Body Foot", "Body Hand", "Body Head", "Body Knee",
+			"Claw", "Human-Like", "Punch", "Sings", "Swift",
+			"Tail",
+		],
 	},
 	metaletemon: {
 		num: 69,
@@ -1607,7 +1623,12 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 60, atk: 80, def: 90, spa: 80, spd: 75, spe: 115},
 		abilities: {0: "Weak Armor", 1: "Soundproof"},
 		weightkg: 1,
-		eggGroups: ["Undiscovered"],
+		evos: ["Etemon"],
+		eggGroups: [
+			"Armor", "Body Arms", "Body Body", "Body Foot", "Body Hand",
+			"Body Head", "Body Knee", "Claw", "Human-Like", "Punch",
+			"Sings", "Swift", "Tail",
+		],
 	},
 	piemon: {
 		num: 70,
@@ -1617,7 +1638,11 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 70, atk: 100, def: 80, spa: 100, spd: 100, spe: 130},
 		abilities: {0: "Prankster", 1: ""},
 		weightkg: 1,
-		eggGroups: ["Undiscovered"],
+		evos: ["Etemon"],
+		eggGroups: [
+			"Body Foot", "Body Hand", "Body Head", "Body Knee", "Human-Like",
+			"Magic", "Swift", "Sword",
+		],
 	},
 	unimon: {
 		num: 71,

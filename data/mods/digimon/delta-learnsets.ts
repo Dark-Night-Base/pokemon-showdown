@@ -27,7 +27,7 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 	Dark: {
 		0: ['faketears'],
 		1: ['snarl', 'pursuit', 'beatup'],
-		2: ['foulplay', 'darkpulse', 'knockoff', 'powertrip', 'nastyplot', 'taunt'],
+		2: ['foulplay', 'darkpulse', 'shadowball', 'knockoff', 'powertrip', 'nastyplot', 'taunt'],
 	},
 	Dragon: {
 		0: ['dragonrage'],
@@ -219,6 +219,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 			.addMoveByType(s, 'Ice', 'icefang')
 			.addMoveByType(s, 'Poison', 'poisonfang'),
 		2: (s) => ['crunch'].addMoveByAny(s, 'Dragon', 'firefang', 'icefang', 'thunderfang')
+			.addMoveByAny(s, 'Normal', 'firefang', 'icefang', 'thunderfang')
 			.addMoveByType(s, 'Psychic', 'psychicfangs')
 			.addMoveByType(s, 'Steel', 'thunderfang')
 			.addMoveByType(s, 'Water', 'icefang'),
@@ -296,6 +297,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 			.addMoveByType(s, 'Steel', 'bulletpunch'),
 		2: (s) => ['megapunch'].addMoveByType(s, 'Dragon', 'firepunch', 'icepunch', 'thunderpunch')
 			.addMoveByType(s, 'Fighting', 'drainpunch', 'firepunch', 'icepunch', 'thunderpunch')
+			.addMoveByType(s, 'Normal', 'firepunch', 'icepunch', 'thunderpunch')
 			.addMoveByType(s, 'Steel', 'thunderpunch')
 			.addMoveByType(s, 'Water', 'icepunch'),
 		3: (s) => ['focuspunch'].addMoveByType(s, 'Fighting', 'dynamicpunch')
@@ -312,6 +314,11 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		2: (s) => ['shellsmash'],
 		3: (s) => ['skullbash'],
 	},
+	"Sings": {
+		0: (s) => ['echoedvoice', 'supersonic', 'sing'],
+		1: (s) => ['round', 'echoedvoice', 'screech', 'sing'],
+		2: (s) => ['hypervoice', 'perishsong'],
+	},
 	"Swift": {
 		1: (s) => ['agility'].addMoveByEggGroup(s, 'Body Hand', 'fakeout'),
 		2: (s) => ['uturn'].addMoveByType(s, 'Dark', 'suckerpunch'),
@@ -322,6 +329,11 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		1: (s) => ['nightslash', 'slash', 'aerialace', 'swordsdance'].addMoveByType(s, 'Psychic', 'psychocut')
 			.addMoveByEggGroup(s, 'Legendary', 'psychocut'),
 		2: (s) => ['sacredsword'],
+	},
+	"Roars": {
+		0: (s) => ['growl'],
+		1: (s) => ['snarl', 'howl', 'nobleroar', 'roar', 'screech'],
+		2: (s) => ['uproar'].addMoveByEggGroup(s, "Human-Like", 'partingshot'),
 	},
 	"Tail": {
 		0: (s) => ['tailwhip'],
@@ -358,6 +370,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
  * recover
  * spikes
  * stealthrock
+ * strengthsap
  * tailglow
  * uturn
  */
@@ -450,5 +463,14 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	},
 	scumon: {
 		deletes: ['brickbreak'],
+	},
+	etemon: {
+		adds: ['Dark'],
+	},
+	metaletemon: {
+		adds: ['Dark'],
+	},
+	piemon: {
+		adds: ['partingshot'],
 	},
 };
