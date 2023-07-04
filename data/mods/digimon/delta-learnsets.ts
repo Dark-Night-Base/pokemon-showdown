@@ -90,7 +90,7 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 	Normal: {
 		0: ['sonicboom', 'quickattack'],
 		1: ['swift'],
-		2: ['hypervoice', 'facade'],
+		2: ['facade'],
 		3: ['thrash'],
 	},
 	Poison: {
@@ -185,7 +185,8 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		0: (s) => ['metalclaw', 'scratch'],
 		1: (s) => ['honeclaws'],
 		2: (s) => [].addMoveByAny(s, 'Dragon', 'dragonclaw')
-			.addMoveByType(s, 'Ghost', 'shadowclaw'),
+			.addMoveByType(s, 'Ghost', 'shadowclaw')
+			.addMoveByType(s, 'Normal', 'shadowclaw'),
 	},
 	"Dragon Dinosaur": {
 		0: (s) => ['dragonrage'],
@@ -463,9 +464,6 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	},
 	scumon: {
 		deletes: ['brickbreak'],
-	},
-	etemon: {
-		adds: ['Dark'],
 	},
 	metaletemon: {
 		adds: ['Dark'],

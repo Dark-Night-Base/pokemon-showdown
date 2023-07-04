@@ -88,6 +88,13 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		basePower: 50,
 		pp: 15,
 	},
+	scald: {
+		inherit: true,
+		secondary: {
+			chance: 10,
+			status: 'brn',
+		},
+	},
 	greysword: {
 		num: 40001,
 		accuracy: 100,

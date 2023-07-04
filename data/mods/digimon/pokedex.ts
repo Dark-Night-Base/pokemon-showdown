@@ -1638,7 +1638,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 70, atk: 100, def: 80, spa: 100, spd: 100, spe: 130},
 		abilities: {0: "Prankster", 1: ""},
 		weightkg: 1,
-		evos: ["Etemon"],
+		evos: ["Monzaemon", "Ex-Tyranomon", "Etemon"],
 		eggGroups: [
 			"Body Foot", "Body Hand", "Body Head", "Body Knee", "Human-Like",
 			"Magic", "Swift", "Sword",
