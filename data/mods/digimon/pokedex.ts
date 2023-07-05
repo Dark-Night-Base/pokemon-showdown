@@ -6586,7 +6586,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		types: ["Light", "Ice", "Data"],
 		gender: "N",
 		baseStats: {hp: 90, atk: 121, def: 89, spa: 100, spd: 80, spe: 100},
-		abilities: {0: "Misty Surge", 1: ""},
+		abilities: {0: "Radiant Surge", 1: ""},
 		weightkg: 1,
 		eggGroups: ["Undiscovered"],
 	},

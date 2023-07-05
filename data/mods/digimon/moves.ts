@@ -38,8 +38,21 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			return target.species.baseStats.hp;
 		},
 	},
-	mistyterrain: {
+	mysticalfire: {
 		inherit: true,
+		basePower: 50,
+		pp: 15,
+	},
+	radiantterrain: {
+		num: 581,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Radiant Terrain",
+		pp: 10,
+		priority: 0,
+		flags: {nonsky: 1},
+		terrain: 'radiantterrain',
 		condition: {
 			duration: 5,
 			durationCallback(source, effect) {
@@ -51,42 +64,40 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			onSetStatus(status, target, source, effect) {
 				if (!target.isGrounded() || target.isSemiInvulnerable()) return;
 				if (effect && ((effect as Move).status || effect.id === 'yawn')) {
-					this.add('-activate', target, 'move: Misty Terrain');
+					this.add('-activate', target, 'move: Radiant Terrain');
 				}
 				return false;
 			},
 			onTryAddVolatile(status, target, source, effect) {
 				if (!target.isGrounded() || target.isSemiInvulnerable()) return;
 				if (status.id === 'confusion') {
-					if (effect.effectType === 'Move' && !effect.secondaries) this.add('-activate', target, 'move: Misty Terrain');
+					if (effect.effectType === 'Move' && !effect.secondaries) this.add('-activate', target, 'move: Radiant Terrain');
 					return null;
 				}
 			},
 			onBasePowerPriority: 6,
 			onBasePower(basePower, attacker, defender, move) {
 				if (move.type === 'Dark' && defender.isGrounded() && !defender.isSemiInvulnerable()) {
-					this.debug('misty terrain weaken');
+					this.debug('radiant terrain weaken');
 					return this.chainModify(0.5);
 				}
 			},
 			onFieldStart(field, source, effect) {
 				if (effect?.effectType === 'Ability') {
-					this.add('-fieldstart', 'move: Misty Terrain', '[from] ability: ' + effect.name, '[of] ' + source);
+					this.add('-fieldstart', 'move: Radiant Terrain', '[from] ability: ' + effect.name, '[of] ' + source);
 				} else {
-					this.add('-fieldstart', 'move: Misty Terrain');
+					this.add('-fieldstart', 'move: Radiant Terrain');
 				}
 			},
 			onFieldResidualOrder: 27,
 			onFieldResidualSubOrder: 7,
 			onFieldEnd() {
-				this.add('-fieldend', 'Misty Terrain');
+				this.add('-fieldend', 'Radiant Terrain');
 			},
 		},
-	},
-	mysticalfire: {
-		inherit: true,
-		basePower: 50,
-		pp: 15,
+		secondary: null,
+		target: "all",
+		type: "Light",
 	},
 	scald: {
 		inherit: true,

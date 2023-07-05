@@ -91,6 +91,14 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onSwitchIn: undefined,
 		rating: 4.5,
 	},
+	radiantsurge: {
+		onStart(source) {
+			this.field.setTerrain('radiantterrain');
+		},
+		name: "Radiant Surge",
+		rating: 3.5,
+		num: 228,
+	},
 	omegainforce: {
 		onSourceModifyDamage(damage, source, target, move) {
 			if (target.newlySwitched || this.queue.willMove(target)) {
