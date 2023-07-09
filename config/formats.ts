@@ -693,17 +693,6 @@ export const Formats: FormatList = [
 				if (set.fusionSpecies) set.name = set.species = set.fusionSpecies.name;
 			}
 		},
-		// todo: upgrade this
-		checkCanLearn(move, species, lsetData, set) {
-			// @ts-ignore
-			if (set.fusionSpecies) return this.checkCanLearn(move, set.fusionSpecies, lsetData, set);
-			const headSpecies = this.dex.species.get(set.name);
-			if (!headSpecies.exists) return this.checkCanLearn(move, species, lsetData, set);
-			const problem = this.checkCanLearn(move, species, lsetData, set);
-			if (!problem) return null;
-			if (this.checkCanLearn(move, headSpecies, lsetData, set)) return problem;
-			return null;
-		},
 		validateSet(set, teamHas) {
 			const headSpecies = this.dex.species.get(set.name);
 			const bodySpecies = this.dex.species.get(set.species);
@@ -802,10 +791,52 @@ export const Formats: FormatList = [
 				return [`${bodySpecies.name}'s item ${item.name} doesn't exist in Infinite Fusion`];
 			}
 
-			set.ability = bodySpecies.abilities[0];
-			problems = this.validateSet(set, teamHas);
-			set.ability = ability.name;
-			return problems;
+			// check moveset legality
+			const moves = set.moves.slice();
+			const flips = 1 << moves.length;
+			const moveSplits: [string[], string[]][] = [];
+			for (let i = 0; i < flips; ++i) {
+				const left = [];
+				const right = [];
+				let j = 1;
+				for (const move of moves) {
+					if (i & j) left.push(move);
+					else right.push(move);
+					j <<= 1;
+				}
+				moveSplits.push([left, right]);
+			}
+			let abilityIndex: '0' | '1' | 'H' | 'S';
+			for (const split of moveSplits) {
+				const headSet = {...set, species: headSpecies.name, moves: split[0]};
+				const bodySet = {...set, moves: split[1]};
+				problems = null;
+				if (headSet.moves.length) {
+					for (abilityIndex in headSpecies.abilities) {
+						headSet.ability = headSpecies.abilities[abilityIndex] || headSpecies.abilities[0];
+						headSet.shiny = false;
+						problems = this.validateSet(headSet, teamHas);
+						if (problems === null) break;
+						headSet.shiny = true;
+						problems = this.validateSet(headSet, teamHas);
+						if (problems === null) break;
+					}
+				}
+				if (problems !== null) continue;
+				if (bodySet.moves.length) {
+					for (abilityIndex in bodySpecies.abilities) {
+						bodySet.ability = bodySpecies.abilities[abilityIndex] || bodySpecies.abilities[0];
+						bodySet.shiny = false;
+						problems = this.validateSet(bodySet, teamHas);
+						if (problems === null) break;
+						bodySet.shiny = true;
+						problems = this.validateSet(bodySet, teamHas);
+						if (problems === null) break;
+					}
+				}
+				if (problems === null) return problems;
+			}
+			return [`${headSpecies.name} (${bodySpecies.name}) doesn't have a valid moveset`];
 		},
 		onModifySpecies(species, target, source, effect) {
 			if (!target) return; // chat
