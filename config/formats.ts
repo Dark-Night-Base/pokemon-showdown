@@ -695,10 +695,12 @@ export const Formats: FormatList = [
 		},
 		// keep special fusion movepool
 		checkCanLearn(move, species, lsetData, set) {
-			let problem = null;
 			// @ts-ignore
-			if (set.fusionSpecies) problem = this.checkCanLearn(move, set.fusionSpecies);
-			if (!problem) return null;
+			if (set.fusionSpecies) {
+				// @ts-ignore
+				const problem = this.checkCanLearn(move, set.fusionSpecies);
+				if (!problem) return null;
+			}
 			return this.checkCanLearn(move, species, lsetData, set);
 		},
 		validateSet(set, teamHas) {
