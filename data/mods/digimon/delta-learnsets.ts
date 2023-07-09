@@ -389,7 +389,7 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 		deletes: ['icebeam', 'thunderbolt'],
 	},
 	wargreymon: {
-		adds: ['braveshield', 'gaiaforce', 'bravetornado', 'dramonkiller', 'uturn', 'steelwing', 'stealthrock'],
+		adds: ['Ground', 'braveshield', 'gaiaforce', 'bravetornado', 'dramonkiller', 'uturn', 'steelwing', 'stealthrock'],
 	},
 	weregarurumon: {
 		deletes: ['hammerarm'],
@@ -465,10 +465,28 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	scumon: {
 		deletes: ['brickbreak'],
 	},
+	etemon: {
+		adds: ['spikes'],
+	},
 	metaletemon: {
-		adds: ['Dark'],
+		adds: ['Dark', 'spikes', 'stealthrock'],
 	},
 	piemon: {
 		adds: ['partingshot'],
+	},
+	unimon: {
+		adds: ['roost'],
+	},
+	centalmon: {
+		adds: ['stealthrock'],
+	},
+	leomon: {
+		adds: ['stealthrock'],
+	},
+	grappuleomon: {
+		adds: ['stealthrock'],
+	},
+	saberleomon: {
+		adds: ['Ground', 'stealthrock'],
 	},
 };

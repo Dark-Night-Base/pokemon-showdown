@@ -693,6 +693,7 @@ export const Formats: FormatList = [
 				if (set.fusionSpecies) set.name = set.species = set.fusionSpecies.name;
 			}
 		},
+		// todo: upgrade this
 		checkCanLearn(move, species, lsetData, set) {
 			// @ts-ignore
 			if (set.fusionSpecies) return this.checkCanLearn(move, set.fusionSpecies, lsetData, set);
