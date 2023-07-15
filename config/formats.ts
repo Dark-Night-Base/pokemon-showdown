@@ -661,12 +661,12 @@ export const Formats: FormatList = [
 		ruleset: [
 			'Obtainable', '+Past', '+Unobtainable', '+Unreleased', 'Team Species Preview', 'Nickname Preview', '!!EV Limit = 1020', 'Species Clause',
 			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'Sketch Post-Gen 7 Moves', 'Dynamax Clause', 'Terastal Clause',
-			'OHKO Clause', 'Evasion Moves Clause',// 'Setup Clause = 2'
+			'OHKO Clause', 'Evasion Moves Clause', 'Sleep Clause Mod'
 		],
 		banlist: [
 			'Cramorant', 'Shedinja',
 			'Moody', 'Shadow Tag',
-			'Baton Pass', 'Geomancy', 'Revival Blessing',
+			'Baton Pass', 'Geomancy', 'Last Respects', 'Revival Blessing',
 		],
 		restricted: [
 			'Eternatus', 'Groudon', 'Kyogre',
