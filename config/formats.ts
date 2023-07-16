@@ -1283,7 +1283,7 @@ export const Formats: FormatList = [
 		ruleset: ['[Gen 9] Free-For-All BH', 'BST Limit = 600'],
 	},
 	{
-		name: "[Gen 9] 350 Cup BH",
+		name: "[Gen 9] Balanced Hackmons 350 Cup",
 		desc: `BH，但所有种族和在350及以下的宝可梦种族值翻倍。<br />BH, but Pok&eacute;mon with BST <= 350 has their base stats doubled.`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3656554/">350 Cup</a>`,
