@@ -628,7 +628,7 @@ export const Formats: FormatList = [
 		},
 	},
 	{
-		name: "[Gen 9] ND Infinite Fusion",
+		name: "[Gen 9] Infinite Fusion",
 		desc: `将（几乎）任意两只精灵融合成新精灵！<br/>\
 			<details><summary>具体规则（点击展开）</summary>\
 			&bullet; 正常选择精灵作为融合的<strong>身体</strong>部分，在昵称栏写上一只精灵的英文名，由它组成<strong>头部</strong><br/>\
