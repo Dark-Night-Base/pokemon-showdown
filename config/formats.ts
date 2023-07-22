@@ -376,7 +376,31 @@ export const Formats: FormatList = [
 			'Comatose + Sleep Talk',
 			'Double Iron Bash', 'Rage Fist', 'Revival Blessing', 'Shed Tail',
 		],
-		// todo: merge this with Createmons Mod
+		onBegin() {
+			for (const pokemon of this.getAllPokemon()) {
+				// send base stats and types to client
+				// createmons:hp,atk,def,spa,spd,spe,type1,type2
+				pokemon.getDetails = () => {
+					const health = pokemon.getHealth();
+					let details = pokemon.details;
+					details += `, createmons:`;
+					details += `${Object.values(pokemon.set.evs || [0, 0, 0, 0, 0, 0]).join(',')},`;
+					details += `${pokemon.hpType},${pokemon.teraType}`;
+					if (pokemon.illusion) {
+						let displayedSpeciesName = pokemon.illusion.species.name;
+						if (displayedSpeciesName === 'Greninja-Bond') displayedSpeciesName = 'Greninja';
+						let illusionDetails = displayedSpeciesName + (pokemon.level === 100 ? '' : ', L' + pokemon.level) +
+							(pokemon.illusion.gender === '' ? '' : ', ' + pokemon.illusion.gender) + (pokemon.illusion.set.shiny ? ', shiny' : '');
+						details += `, createmons:`;
+						details += `${Object.values(pokemon.illusion.set.evs || [0, 0, 0, 0, 0, 0]).join(',')},`;
+						details += `${pokemon.illusion.hpType},${pokemon.illusion.teraType}`;
+						details = illusionDetails;
+					}
+					if (pokemon.terastallized) details += `, tera:${pokemon.terastallized}`;
+					return {side: health.side, secret: `${details}|${health.secret}`, shared: `${details}|${health.shared}`};
+				};
+			}
+		},
 		battle: {
 			spreadModify(baseStats: StatsTable, set: PokemonSet): StatsTable {
 				const modStats: SparseStatsTable = {atk: 10, def: 10, spa: 10, spd: 10, spe: 10};

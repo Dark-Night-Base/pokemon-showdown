@@ -2765,6 +2765,8 @@ export const Rulesets: {[k: string]: FormatData} = {
 		// todo: pokemon icon doesn't show in replay, try to fix client//replay-embed.js
 		onTeamPreview() {
 			this.add('clearpoke');
+			const isCreatemon = this.format.id.includes('createmons');
+			const isIF = this.format.id.includes('infinitefusion');
 			for (const side of this.sides) {
 				for (const pokemon of side.pokemon) {
 					let details = pokemon.details;
@@ -2772,12 +2774,15 @@ export const Rulesets: {[k: string]: FormatData} = {
 						// pokemon should already have their headSpecies set at this point, i guess?
 						if (pokemon.m.headSpecies) details += `, headname:${pokemon.m.headSpecies.name}`;
 					}
+					if (isCreatemon) {
+						details += `, createmons:`;
+						details += `${Object.values(pokemon.set.evs || [0, 0, 0, 0, 0, 0]).join(',')},`;
+						details += `${pokemon.hpType},${pokemon.teraType}`;
+					}
 					this.add('poke', pokemon.side.id, details, '');
 				}
 			}
 			this.makeRequest('teampreview');
-			const isCreatemon = this.format.id.includes('createmons');
-			const isIF = this.format.id.includes('infinitefusion');
 			for (const side of this.sides) {
 				let buf = `raw|<strong>${side.name}'s team details:</strong><br/>`;
 				for (const pokemon of side.pokemon) {
