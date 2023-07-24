@@ -166,6 +166,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 	"Body Hand": {
 		0: (s) => ['helpinghand'],
 		1: (s) => ['brickbreak', 'helpinghand'],
+		2: (s) => ['encore'],
 	},
 	"Body Head": {
 		1: (s) => ['headbutt'],
@@ -279,7 +280,8 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		3: (s) => ['futuresight'],
 	},
 	"Monster": {
-		2: (s) => ['earthquake', 'flamethrower', 'icebeam', 'thunderbolt'],
+		2: (s) => ['earthquake', 'flamethrower', 'icebeam', 'surf', 'thunderbolt'],
+		3: (s) => ['blizzard', 'fireblast', 'thunder'],
 	},
 	"Peck": {
 		0: (s) => ['peck'],
