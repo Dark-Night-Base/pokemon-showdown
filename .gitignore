@@ -2,12 +2,6 @@
 /replays-back
 superbindex.xslt
 
-# temp
-/data/mods/tpdp/abilities.ts
-/data/mods/tpdp/conditions.ts
-/data/mods/tpdp/items.ts
-/data/mods/tpdp/moves.ts
-
 /config/*
 !/config/formats.ts
 !/config/chat-plugins/
