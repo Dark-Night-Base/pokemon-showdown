@@ -1,81 +1,71 @@
 export const Scripts: ModdedBattleScriptsData = {
-	teambuilderConfig: {
-		// for micrometas to only show custom tiers
-		excludeStandardTiers: true,
-		// only to specify the order of custom tiers
-		customTiers: ['TPDP OU', 'TPDP LC'],
-	},
-	battle: {
-		findPokemonEventHandlers(pokemon: Pokemon, callbackName: string, getKey?: 'duration') {
-			const handlers: EventListener[] = [];
+	gen: 6,
+	inherit: 'gen6',
+	findPokemonEventHandlers(pokemon: Pokemon, callbackName: string, getKey?: 'duration') {
+		const handlers: EventListener[] = [];
 
-			let callback;
-			for (const id in pokemon.status) {
-				const statusState = pokemon.status[id];
-				const status = this.dex.conditions.getByID(id as ID);
-				// @ts-ignore - dynamic lookup
-				callback = status[callbackName];
-				if (callback !== undefined || (getKey && statusState[getKey])) {
-					handlers.push(this.resolvePriority({
-						effect: status, callback, state: statusState, end: pokemon.clearStatus, effectHolder: pokemon,
-					}, callbackName));
-				}
-			}
-			for (const id in pokemon.volatiles) {
-				const volatileState = pokemon.volatiles[id];
-				const volatile = this.dex.conditions.getByID(id as ID);
-				// @ts-ignore - dynamic lookup
-				callback = volatile[callbackName];
-				if (callback !== undefined || (getKey && volatileState[getKey])) {
-					handlers.push(this.resolvePriority({
-						effect: volatile, callback, state: volatileState, end: pokemon.removeVolatile, effectHolder: pokemon,
-					}, callbackName));
-				}
-			}
-			const ability = pokemon.getAbility();
-			// @ts-ignore - dynamic lookup
-			callback = ability[callbackName];
-			if (callback !== undefined || (getKey && pokemon.abilityState[getKey])) {
-				handlers.push(this.resolvePriority({
-					effect: ability, callback, state: pokemon.abilityState, end: pokemon.clearAbility, effectHolder: pokemon,
-				}, callbackName));
-			}
-			const item = pokemon.getItem();
-			// @ts-ignore - dynamic lookup
-			callback = item[callbackName];
-			if (callback !== undefined || (getKey && pokemon.itemState[getKey])) {
-				handlers.push(this.resolvePriority({
-					effect: item, callback, state: pokemon.itemState, end: pokemon.clearItem, effectHolder: pokemon,
-				}, callbackName));
-			}
-			const species = pokemon.baseSpecies;
-			// @ts-ignore - dynamic lookup
-			callback = species[callbackName];
-			if (callback !== undefined) {
-				handlers.push(this.resolvePriority({
-					effect: species, callback, state: pokemon.speciesState, end() {}, effectHolder: pokemon,
-				}, callbackName));
-			}
-			const side = pokemon.side;
-			for (const conditionid in side.slotConditions[pokemon.position]) {
-				const slotConditionState = side.slotConditions[pokemon.position][conditionid];
-				const slotCondition = this.dex.conditions.getByID(conditionid as ID);
-				// @ts-ignore - dynamic lookup
-				callback = slotCondition[callbackName];
-				if (callback !== undefined || (getKey && slotConditionState[getKey])) {
-					handlers.push(this.resolvePriority({
-						effect: slotCondition,
-						callback,
-						state: slotConditionState,
-						end: side.removeSlotCondition,
-						endCallArgs: [side, pokemon, slotCondition.id],
-						effectHolder: side,
-					}, callbackName));
-				}
-			}
-
-			return handlers;
+		const status = pokemon.getStatus();
+		// @ts-ignore - dynamic lookup
+		let callback = status[callbackName]; // todo: deal with multiple status here
+		if (callback !== undefined || (getKey && pokemon.statusState[getKey])) {
+			handlers.push(this.resolvePriority({
+				effect: status, callback, state: pokemon.statusState, end: pokemon.clearStatus, effectHolder: pokemon,
+			}, callbackName));
 		}
+		for (const id in pokemon.volatiles) {
+			const volatileState = pokemon.volatiles[id];
+			const volatile = this.dex.conditions.getByID(id as ID);
+			// @ts-ignore - dynamic lookup
+			callback = volatile[callbackName];
+			if (callback !== undefined || (getKey && volatileState[getKey])) {
+				handlers.push(this.resolvePriority({
+					effect: volatile, callback, state: volatileState, end: pokemon.removeVolatile, effectHolder: pokemon,
+				}, callbackName));
+			}
+		}
+		const ability = pokemon.getAbility();
+		// @ts-ignore - dynamic lookup
+		callback = ability[callbackName];
+		if (callback !== undefined || (getKey && pokemon.abilityState[getKey])) {
+			handlers.push(this.resolvePriority({
+				effect: ability, callback, state: pokemon.abilityState, end: pokemon.clearAbility, effectHolder: pokemon,
+			}, callbackName));
+		}
+		const item = pokemon.getItem();
+		// @ts-ignore - dynamic lookup
+		callback = item[callbackName];
+		if (callback !== undefined || (getKey && pokemon.itemState[getKey])) {
+			handlers.push(this.resolvePriority({
+				effect: item, callback, state: pokemon.itemState, end: pokemon.clearItem, effectHolder: pokemon,
+			}, callbackName));
+		}
+		const species = pokemon.baseSpecies;
+		// @ts-ignore - dynamic lookup
+		callback = species[callbackName];
+		if (callback !== undefined) {
+			handlers.push(this.resolvePriority({
+				effect: species, callback, state: pokemon.speciesState, end() {}, effectHolder: pokemon,
+			}, callbackName));
+		}
+		const side = pokemon.side;
+		for (const conditionid in side.slotConditions[pokemon.position]) {
+			const slotConditionState = side.slotConditions[pokemon.position][conditionid];
+			const slotCondition = this.dex.conditions.getByID(conditionid as ID);
+			// @ts-ignore - dynamic lookup
+			callback = slotCondition[callbackName];
+			if (callback !== undefined || (getKey && slotConditionState[getKey])) {
+				handlers.push(this.resolvePriority({
+					effect: slotCondition,
+					callback,
+					state: slotConditionState,
+					end: side.removeSlotCondition,
+					endCallArgs: [side, pokemon, slotCondition.id],
+					effectHolder: side,
+				}, callbackName));
+			}
+		}
+
+		return handlers;
 	},
 	pokemon: {
 		getStatusSlots(): number {
