@@ -121,7 +121,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 		shortDesc: "When held, it can recover from Poison.",
 		isBerry: true,
 		onUpdate(pokemon) {
-			if (ppokemon.status === 'psn' || pokemon.status === 'tox') {
+			if (pokemon.status === 'psn' || pokemon.status === 'tox') {
 				pokemon.eatItem();
 			}
 		},
@@ -454,7 +454,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 				}
 			}
 			if (!statsRaised) return;
-			const pokemon: Pokemon = this.effectData.target;
+			const pokemon: Pokemon = this.effectState.target;
 			pokemon.useItem();
 			this.boost(boostPlus, pokemon);
 		},
@@ -475,7 +475,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 			this.add('-message', `${pokemon.name} has set the sealing thread!`);
 		},
 		onFoeModifyMove(move, pokemon, target) {
-			if(!pokemon.ability.includes('shadowstich', 'poisonlabryinth', 'battlemania', 'adversewind')) move.selfSwitch = false;
+			if(!['shadowstich', 'poisonlabryinth', 'battlemania', 'adversewind'].includes(pokemon.ability)) move.selfSwitch = false;
 		},
 	},
 	championsmedal: {
@@ -1289,8 +1289,8 @@ export const Items: {[k: string]: ModdedItemData} = {
 		},
 		condition: {
 			onStart(pokemon) {
-				this.effectData.lastMove = '';
-				this.effectData.numConsecutive = 0;
+				this.effectState.lastMove = '';
+				this.effectState.numConsecutive = 0;
 			},
 			onTryMovePriority: -2,
 			onTryMove(pokemon, target, move) {
@@ -1298,21 +1298,21 @@ export const Items: {[k: string]: ModdedItemData} = {
 					pokemon.removeVolatile('repetitivearts');
 					return;
 				}
-				if (this.effectData.lastMove === move.id && pokemon.moveLastTurnResult) {
-					this.effectData.numConsecutive++;
+				if (this.effectState.lastMove === move.id && pokemon.moveLastTurnResult) {
+					this.effectState.numConsecutive++;
 				} else if (pokemon.volatiles['twoturnmove']) {
-					if (this.effectData.lastMove !== move.id) {
-						this.effectData.numConsecutive = 1;
+					if (this.effectState.lastMove !== move.id) {
+						this.effectState.numConsecutive = 1;
 					} else {
-						this.effectData.numConsecutive++;
+						this.effectState.numConsecutive++;
 					}
 				} else {
-					this.effectData.numConsecutive = 0;
+					this.effectState.numConsecutive = 0;
 				}
-				this.effectData.lastMove = move.id;
+				this.effectState.lastMove = move.id;
 			},
 			onModifyDamage(damage, source, target, move) {
-				return this.chainModify(this.effectData.numConsecutive ? 1.2 : 1);
+				return this.chainModify(this.effectState.numConsecutive ? 1.2 : 1);
 			},
 		},
 	},
@@ -1321,7 +1321,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 		shortDesc: "The defender will switch places with another Puppet in their party after the holder has been attacked.",
 		onAfterMoveSecondaryPriority: 2,
 		onAfterMoveSecondary(target, source, move) {
-			if (source && source !== target && target.hp && move && move.category !== 'Status' && !move.isFutureMove) {
+			if (source && source !== target && target.hp && move && move.category !== 'Status' && !move.flags.futuremove) {
 				if (!this.canSwitch(target.side) || target.forceSwitchFlag || target.beingCalledBack || target.isSkyDropped()) return;
 				if (target.volatiles['commanding'] || target.volatiles['commanded']) return;
 				for (const pokemon of this.getAllActive()) {
@@ -1486,7 +1486,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 		},
 		onAfterMoveSecondarySelf(source, target, move) {
 			if (source && source !== target && move && move.category !== 'Status') {
-				this.damage(source.baseMaxhp / 10, source, source, this.dex.getItem('strawdoll'));
+				this.damage(source.baseMaxhp / 10, source, source, this.dex.items.get('strawdoll'));
 			}
 		},
 	},
@@ -1594,7 +1594,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 		onBasePowerPriority: 15,
 		onBasePower(basePower, user, target, move) {
 			for (const moveSlot of user.moveSlots) {
-				var moveData = this.dex.getMove(moveSlot.move);
+				var moveData = this.dex.moves.get(moveSlot.move);
 				if (moveData.category !== 'Status' && user.hasType(moveData.type)) {
 					return;
 				}
