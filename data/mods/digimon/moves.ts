@@ -11,9 +11,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		inherit: true,
 		accuracy: 80,
 		isNonstandard: null,
-		onTry(source, target, move) {
-			return null;
-		},
+		onTry: undefined,
 		desc: "Causes the target to fall asleep.",
 		shortDesc: "Causes the foe(s) to fall asleep.",
 	},
@@ -114,7 +112,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		name: "Grey Sword",
 		pp: 5,
 		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1},
+		flags: {contact: 1, protect: 1, mirror: 1, slicing: 1},
 		ignoreEvasion: true,
 		ignoreDefensive: true,
 		secondary: null,
@@ -141,7 +139,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		name: "All Delete",
 		pp: 5,
 		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1},
+		flags: {contact: 1, protect: 1, mirror: 1, slicing: 1},
 		onTry(source) {
 			if (source.species.name === 'Omegamon-X') {
 				return;
@@ -221,7 +219,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	},
 	gaiaforce: {
 		num: 40005,
-		accuracy: 90,
+		accuracy: 80,
 		basePower: 110,
 		category: "Special",
 		name: "Gaia Force",
@@ -239,7 +237,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		name: "Brave Tornado",
 		pp: 10,
 		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1},
+		flags: {contact: 1, protect: 1, mirror: 1, wind: 1},
 		critRatio: 2,
 		secondary: null,
 		target: "normal",
@@ -396,8 +394,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	},
 	heavensknuckle: {
 		num: 40052,
-		accuracy: 95,
-		basePower: 95,
+		accuracy: 90,
+		basePower: 90,
 		category: "Physical",
 		name: "Heaven's Knuckle",
 		pp: 10,
@@ -713,7 +711,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		name: "Ama no Habakiri",
 		pp: 5,
 		priority: 0,
-		flags: {mirror: 1},
+		flags: {mirror: 1, slicing: 1},
 		breaksProtect: true,
 		onEffectiveness(typeMod, target, type, move) {
 			return typeMod + this.dex.getEffectiveness('Light', type);
@@ -857,8 +855,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			onStart(pokemon) {
 				this.add('-singleturn', pokemon, 'move: Breath of Wyvern');
 			},
-			onHit(pokemon, source, move) {
-				if (move.category === 'Physical') {
+			onHit(target, source, move) {
+				if (this.checkMoveMakesContact(move, source, target)) {
 					this.effectState.lostFocus = true;
 				}
 			},
@@ -891,7 +889,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		name: "Spiral Masquerade",
 		pp: 5,
 		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1},
+		flags: {contact: 1, protect: 1, mirror: 1, slicing: 1},
 		multihit: [2, 5],
 		secondary: null,
 		target: "normal",
@@ -899,7 +897,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	},
 	grandcross: {
 		num: 40044,
-		accuracy: 90,
+		accuracy: 95,
 		basePower: 150,
 		category: "Special",
 		name: "Grand Cross",
@@ -915,6 +913,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "allAdjacentFoes",
 		type: "Light",
 	},
+	// todo: make this a 2-turn move
 	paradiselost: {
 		num: 40045,
 		accuracy: 100,
@@ -960,6 +959,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "allAdjacent",
 		type: "Fire",
 	},
+	// todo: make this punishment-like
 	divineatonement: {
 		num: 40048,
 		accuracy: 90,

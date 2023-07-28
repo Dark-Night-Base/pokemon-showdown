@@ -2774,7 +2774,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		name: "Imperialdramon-Paladin",
 		baseSpecies: "Imperialdramon-Fighter",
 		forme: "Burst",
-		types: ["Light", "Vaccine"],
+		types: ["Light", "Normal", "Vaccine"],
 		gender: "N",
 		baseStats: {hp: 110, atk: 130, def: 100, spa: 140, spd: 115, spe: 105},
 		abilities: {0: "", 1: ""},
