@@ -1,4 +1,4 @@
-export const Conditions: {[k: string]: ModdedConditionData} = {
+export const Conditions: {[k: string]: ModdedConditionData & {statusSlots: 1 | 2, stackCondition: string}} = {
 	brn: {
 		name: 'brn',
 		effectType: 'Status',

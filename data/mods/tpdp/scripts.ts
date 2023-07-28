@@ -1,10 +1,39 @@
+function mergeCallback(
+	c1?: (this: Battle, ...args: any[]) => any,
+	c2?: (this: Battle, ...args: any[]) => any,
+): ((this: Battle, ...args: any[]) => any) | undefined {
+	if (!c1) return c2;
+	if (!c2) return c1;
+	return (function (...a) {
+		const ret1 = c1.call(this, ...a);
+		const ret2 = c2.call(this, ...a);
+		return this.actions.combineResults(ret1, ret2);
+	});
+}
+
 export const Scripts: ModdedBattleScriptsData = {
 	gen: 6,
 	inherit: 'gen6',
 	pokemon: {
 		// todo: deal with multiple statuses in the following two functions
+		// protocol: use `000` to connect statuses, e.g. `brn000psn`
 		getStatus() {
-			return this.battle.dex.conditions.getByID(this.status);
+			if (!this.status.includes('000')) return this.battle.dex.conditions.getByID(this.status);
+			const statuses = (this.status.split('000') as ID[]).map(this.battle.dex.conditions.getByID);
+			if (statuses[0].id === statuses[1].id && (statuses[0] as any).stackCondition) {
+				return this.battle.dex.conditions.getByID((statuses[0] as any).stackCondition)
+			}
+			// this is all we need
+			const properties = [
+				'onStart', 'onResidual', 'onSwitchIn', 'onEnd',
+				'onModifyAtk', 'onModifyDef', 'onModifySpA', 'onModifySpD', 'onModifySpe',
+				'onAccuracy', 'onBeforeMove', 'onDeductPP', 'onDisableMove', 'onTryHeal',
+			];
+			let resultStatus = this.battle.dex.deepClone(statuses[0]);
+			for (const prop of properties) {
+				resultStatus[prop] = mergeCallback((statuses[0] as any)[prop], (statuses[1] as any)[prop])
+			}
+			return resultStatus;
 		},
 		setStatus(
 			status: string | Condition,
