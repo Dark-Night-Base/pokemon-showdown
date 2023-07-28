@@ -48,17 +48,27 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (!sourceEffect) sourceEffect = this.battle.effect;
 			}
 			if (!source) source = this;
-	
-			if (this.status === status.id) {
-				if ((sourceEffect as Move)?.status === this.status) {
-					this.battle.add('-fail', this, this.status);
-				} else if ((sourceEffect as Move)?.status) {
-					this.battle.add('-fail', source);
-					this.battle.attrLastMove('[still]');
-				}
+
+			// Nihilslave: here
+			const slotsInUse = (this.status.split('000') as ID[])
+				.map(this.battle.dex.conditions.getByID)
+				.map(value => (value as any).statusSlots as number)
+				.reduce((prevValue, currValue) => prevValue + currValue, 0);
+			if (slotsInUse >= 2) {
+				this.battle.add('-fail', source);
+				this.battle.attrLastMove('[still]');
 				return false;
 			}
-	
+			// if (this.status === status.id) {
+			// 	if ((sourceEffect as Move)?.status === this.status) {
+			// 		this.battle.add('-fail', this, this.status);
+			// 	} else if ((sourceEffect as Move)?.status) {
+			// 		this.battle.add('-fail', source);
+			// 		this.battle.attrLastMove('[still]');
+			// 	}
+			// 	return false;
+			// }
+
 			if (!ignoreImmunities && status.id &&
 					!(source?.hasAbility('corrosion') && ['tox', 'psn'].includes(status.id))) {
 				// the game currently never ignores immunities
@@ -79,7 +89,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					return result;
 				}
 			}
-	
+
 			this.status = status.id;
 			this.statusState = {id: status.id, target: this};
 			if (source) this.statusState.source = source;
@@ -87,7 +97,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (status.durationCallback) {
 				this.statusState.duration = status.durationCallback.call(this.battle, this, source, sourceEffect);
 			}
-	
+
 			if (status.id && !this.battle.singleEvent('Start', status, this.statusState, this, source, sourceEffect)) {
 				this.battle.debug('status start [' + status.id + '] interrupted');
 				// cancel the setstatus
@@ -102,18 +112,8 @@ export const Scripts: ModdedBattleScriptsData = {
 		},
 		runImmunity(type: string, message?: string | boolean) {
 			if (!type || type === '???') return true;
-			if (!(type in this.battle.dex.data.TypeChart)) {
-				if (
-					type === 'Void'|| 
-					type === 'Nature' || 
-					type === 'Earth' ||
-					type === 'Wind' ||
-					type === 'Light' ||
-					type === 'Nether' ||
-					type === 'Illusion' ||
-					type === 'Sound' ||
-					type === 'Warped' ||
-					type === 'Dream') return true;
+			// Nihilslave: i think tpdp types can be recognized by this?
+			if (!this.battle.dex.types.isName(type)) {
 				throw new Error("Use runStatusImmunity for " + type);
 			}
 			if (this.fainted) return false;
@@ -125,6 +125,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (notImmune) return true;
 			if (!message) return false;
 			if (notImmune === null) {
+				// Nihilslave: here
 				this.battle.add('-immune', this, '[from] ability: Air Cushion');
 			} else {
 				this.battle.add('-immune', this);
