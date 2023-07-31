@@ -1395,7 +1395,7 @@ export const commands: Chat.ChatCommands = {
 	],
 
 	async rebuild() {
-		// this.canUseConsole();
+		this.canUseConsole();
 		const [, , stderr] = await bash('node ./build', this);
 		if (stderr) {
 			throw new Chat.ErrorMessage(`Crash while rebuilding: ${stderr}`);
