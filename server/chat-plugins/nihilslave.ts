@@ -1,11 +1,12 @@
 import {FS} from "../../lib";
+import * as child_process from 'child_process';
 // https://mathjs.org/index.html
 const math = require('mathjs');
 
 export const commands: Chat.ChatCommands = {
 	invmod(target, room, user, connection, cmd) {
 		if (!target) return;
-		if (!user.isStaff) return; // remove this line after bug fixed
+		if (user.id !== 'asouchihiro') return this.errorReply('Access Denied by Nihilslave!');
 		const numbers = target.split(',');
 		if (numbers.length !== 2) return;
 		try {
@@ -18,7 +19,7 @@ export const commands: Chat.ChatCommands = {
 		}
 	},
 	weaktable(target, room, user) {
-		if (!user.isStaff) return;
+		if (user.id !== 'asouchihiro') return this.errorReply('Access Denied by Nihilslave!');
 		if (!this.runBroadcast()) return;
 		const dex = Dex;
 		const types = dex.types.all();
@@ -113,4 +114,7 @@ export const commands: Chat.ChatCommands = {
 		// todo: make covertable too
 		this.sendReply('Done');
 	},
+	clientbuild(target, room, user) {
+		if (user.id !== 'asouchihiro') return this.errorReply('Access Denied by Nihilslave!');
+	}
 };

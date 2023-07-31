@@ -5,7 +5,7 @@
   "main": "dist/sim/index.js",
   "dependencies": {
     "esbuild": "^0.16.10",
-    "mathjs": "^11.7.0",
+    "mathjs": "^11.9.1",
     "preact": "^10.5.15",
     "preact-render-to-string": "^5.1.19",
     "probe-image-size": "^7.2.3",
