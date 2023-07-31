@@ -49,7 +49,7 @@ export const Items: {[k:string]:ModdedItemData} = {
         isNonstandard: null
     },
 
-    dragomgem: {
+    dragongem: {
         inherit: true,
         isNonstandard: null
     },
@@ -75,6 +75,11 @@ export const Items: {[k:string]:ModdedItemData} = {
     },
 
     flyinggem: {
+        inherit: true,
+        isNonstandard: null
+    },
+
+    fightinggem: {
         inherit: true,
         isNonstandard: null
     },
