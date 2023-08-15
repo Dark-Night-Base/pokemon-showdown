@@ -1269,7 +1269,7 @@ export const Formats: FormatList = [
 
 		mod: 'gen9',
 		gameType: 'doubles',
-		ruleset: ['Species Clause', 'OHKO Clause', 'Nickname Clause', 'Hackmons Forme Legality', 'Species Reveal Clause', 'Showdown'],
+		ruleset: ['Species Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Nickname Clause', 'Hackmons Forme Legality', 'Species Reveal Clause', 'Showdown'],
 		banlist: [
 			'Arena Trap', 'Comatose', 'Huge Power', 'Illusion', 'Innards Out', 'Neutralizing Gas', 'Parental Bond', 'Pure Power',
 			'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
