@@ -1308,6 +1308,7 @@ export const Formats: FormatList = [
 		unbanlist: [
 			// TBA
 			'Parental Bond',
+			'Justified', 'Anger Point', 'Steam Engine', 'Stamina', 'Rattled', 'Wandering Spirit',
 		],
 	},
 	{
