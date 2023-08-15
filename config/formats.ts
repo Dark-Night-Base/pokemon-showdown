@@ -1269,14 +1269,13 @@ export const Formats: FormatList = [
 
 		mod: 'gen9',
 		gameType: 'doubles',
-		ruleset: ['Standard Doubles', '!Gravity Sleep Clause', '!Obtainable', '-Nonexistent'],
+		ruleset: ['Species Clause', 'OHKO Clause', 'Nickname Clause', 'Hackmons Forme Legality', 'Species Reveal Clause', 'Showdown'],
 		banlist: [
-			'Arena Trap', 'Huge Power', 'Illusion', 'Innards Out', 'Neutralizing Gas', 'Parental Bond', 'Pure Power', 'Shadow Tag',
-			'Stakeout', 'Water Bubble', 'Wonder Guard',
+			'Arena Trap', 'Comatose', 'Huge Power', 'Illusion', 'Innards Out', 'Neutralizing Gas', 'Parental Bond', 'Pure Power',
+			'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
 			'Last Respects', 'Rage Fist', 'Revival Blessing', 'Shed Tail',
 			// rest abilities and moves TBA
 			'Justified', 'Anger Point', 'Steam Engine', 'Stamina', 'Rattled', 'Wandering Spirit', 'Soul-Heart',
-			'Comatose + Sleep Talk',
 		],
 	},
 	{
