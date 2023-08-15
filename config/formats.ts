@@ -1729,9 +1729,6 @@ export const Formats: FormatList = [
 		mod: 'mirrormove',
 		debug: true,
 		ruleset: ['[Gen 9] Balanced Hackmons'],
-		banlist: [
-			'Imprison',
-		],
 		onValidateSet(set) {
 			if (set.moves.length > 2) {
 				return [`${set.species} has more than 2 moves`];
