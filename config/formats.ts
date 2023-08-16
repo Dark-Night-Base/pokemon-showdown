@@ -2199,12 +2199,8 @@ export const Formats: FormatList = [
 		],
 		mod: 'pokebilities',
 		ruleset: ['[Gen 9] Balanced Hackmons'],
-		unbanlist: [
-			// 'Arena Trap', 'Comatose', 'Magnet Pull', 'Moody', 'Shadow Tag',
-			'Contrary', 'Gorilla Tactics', 'Hadron Engine', 'Huge Power', 'Illusion', 'Innards Out',
-			'Neutralizing Gas', 'Orichalcum Pulse', 'Parental Bond', 'Poison Heal', 'Pure Power', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-		],
 		restricted: [
+			// 'Arena Trap', 'Comatose', 'Magnet Pull', 'Moody', 'Shadow Tag',
 			'Contrary', 'Gorilla Tactics', 'Hadron Engine', 'Huge Power', 'Illusion', 'Innards Out',
 			'Neutralizing Gas', 'Orichalcum Pulse', 'Parental Bond', 'Poison Heal', 'Pure Power', 'Stakeout', 'Water Bubble', 'Wonder Guard',
 		],
