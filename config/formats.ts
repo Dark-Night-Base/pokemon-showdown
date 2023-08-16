@@ -2131,65 +2131,6 @@ export const Formats: FormatList = [
 			}
 		},
 	},
-	{
-		name: "[Gen 8] Re-Evolution BH",
-		desc: `BH but Pok&eacute;mon gain base stats equal to the difference with their previous stage.`,
-		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3703643/">Re-Evolution</a>`,
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3656408/">Balanced Hackmons</a>`,
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
-		],
-
-		mod: 'gen8',
-		searchShow: false,
-		challengeShow: false,
-		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod', 'Endless Battle Clause', 'Overflow Stat Mod'],
-		banlist: [
-			'Cramorant-Gorging', 'Eternatus-Eternamax', 'Shedinja',
-			'Lunala', 'Solgaleo',
-			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
-			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Comatose + Sleep Talk', 'Court Change', 'Double Iron Bash', 'Octolock', 'Shell Smash',
-		],
-		onChangeSet(set) {
-			const item = this.dex.toID(set.item);
-			if (set.species === 'Zacian' && item === 'rustedsword') {
-				set.species = 'Zacian-Crowned';
-				set.ability = 'Intrepid Sword';
-				const ironHead = set.moves.indexOf('ironhead');
-				if (ironHead >= 0) {
-					set.moves[ironHead] = 'behemothblade';
-				}
-			}
-			if (set.species === 'Zamazenta' && item === 'rustedshield') {
-				set.species = 'Zamazenta-Crowned';
-				set.ability = 'Dauntless Shield';
-				const ironHead = set.moves.indexOf('ironhead');
-				if (ironHead >= 0) {
-					set.moves[ironHead] = 'behemothbash';
-				}
-			}
-		},
-		// works differently to Re-Evolution Mod
-		onModifySpeciesPriority: 2,
-		onModifySpecies(species) {
-			if (!species) return;
-			if (!species.baseStats) return;
-			const baseSpecies = this.dex.species.get(species.baseSpecies);
-			if (!baseSpecies.baseStats) return;
-			if (!baseSpecies.prevo) return;
-			const newSpecies = this.dex.deepClone(species);
-			newSpecies.bst = 0;
-			const prevoSpecies = this.dex.species.get(baseSpecies.prevo);
-			let statName: StatID;
-			for (statName in newSpecies.baseStats as StatsTable) {
-				newSpecies.baseStats[statName] = this.clampIntRange(newSpecies.baseStats[statName] +
-					baseSpecies.baseStats[statName] - prevoSpecies.baseStats[statName], 1, 255);
-				newSpecies.bst += newSpecies.baseStats[statName];
-			}
-			return newSpecies;
-		},
-	},
 	// suggested by lysio4
 	{
 		name: "[Gen 9] Pokebilities BH",
@@ -2274,6 +2215,65 @@ export const Formats: FormatList = [
 		},
 	},
 	{
+		name: "[Gen 8] Re-Evolution BH",
+		desc: `BH but Pok&eacute;mon gain base stats equal to the difference with their previous stage.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3703643/">Re-Evolution</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3656408/">Balanced Hackmons</a>`,
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3659817/">BH Resources</a>`,
+		],
+
+		mod: 'gen8',
+		searchShow: false,
+		challengeShow: false,
+		ruleset: ['-Nonexistent', 'OHKO Clause', 'Evasion Moves Clause', 'Forme Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Dynamax Clause', 'Sleep Clause Mod', 'Endless Battle Clause', 'Overflow Stat Mod'],
+		banlist: [
+			'Cramorant-Gorging', 'Eternatus-Eternamax', 'Shedinja',
+			'Lunala', 'Solgaleo',
+			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Intrepid Sword', 'Libero', 'Magnet Pull', 'Moody',
+			'Neutralizing Gas', 'Parental Bond', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
+			'Comatose + Sleep Talk', 'Court Change', 'Double Iron Bash', 'Octolock', 'Shell Smash',
+		],
+		onChangeSet(set) {
+			const item = this.dex.toID(set.item);
+			if (set.species === 'Zacian' && item === 'rustedsword') {
+				set.species = 'Zacian-Crowned';
+				set.ability = 'Intrepid Sword';
+				const ironHead = set.moves.indexOf('ironhead');
+				if (ironHead >= 0) {
+					set.moves[ironHead] = 'behemothblade';
+				}
+			}
+			if (set.species === 'Zamazenta' && item === 'rustedshield') {
+				set.species = 'Zamazenta-Crowned';
+				set.ability = 'Dauntless Shield';
+				const ironHead = set.moves.indexOf('ironhead');
+				if (ironHead >= 0) {
+					set.moves[ironHead] = 'behemothbash';
+				}
+			}
+		},
+		// works differently to Re-Evolution Mod
+		onModifySpeciesPriority: 2,
+		onModifySpecies(species) {
+			if (!species) return;
+			if (!species.baseStats) return;
+			const baseSpecies = this.dex.species.get(species.baseSpecies);
+			if (!baseSpecies.baseStats) return;
+			if (!baseSpecies.prevo) return;
+			const newSpecies = this.dex.deepClone(species);
+			newSpecies.bst = 0;
+			const prevoSpecies = this.dex.species.get(baseSpecies.prevo);
+			let statName: StatID;
+			for (statName in newSpecies.baseStats as StatsTable) {
+				newSpecies.baseStats[statName] = this.clampIntRange(newSpecies.baseStats[statName] +
+					baseSpecies.baseStats[statName] - prevoSpecies.baseStats[statName], 1, 255);
+				newSpecies.bst += newSpecies.baseStats[statName];
+			}
+			return newSpecies;
+		},
+	},
+	{
 		name: "[Gen 9] Scalemons BH",
 		desc: `BH + Scalemons.`,
 		threads: [
@@ -2284,6 +2284,53 @@ export const Formats: FormatList = [
 		banlist: [
 			// TBA
 		],
+	},
+	{
+		name: "[Gen 9] Shared Power BH",
+		desc: `BH but once a Pok&eacute;mon switches in, its ability is shared with the rest of the team.`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3711011/">Shared Power</a>`,
+		],
+
+		mod: 'sharedpower',
+		ruleset: ['[Gen 9] Balanced Hackmons'],
+		getSharedPower(pokemon) {
+			const sharedPower = new Set<string>();
+			for (const ally of pokemon.side.pokemon) {
+				if (ally.previouslySwitchedIn > 0) {
+					if (pokemon.battle.dex.currentMod !== 'sharedpower' && ['trace', 'mirrorarmor'].includes(ally.baseAbility)) {
+						sharedPower.add('noability');
+						continue;
+					}
+					sharedPower.add(ally.baseAbility);
+				}
+			}
+			sharedPower.delete(pokemon.baseAbility);
+			return sharedPower;
+		},
+		onBeforeSwitchIn(pokemon) {
+			let format = this.format;
+			if (!format.getSharedPower) format = this.dex.formats.get('gen9sharedpower');
+			for (const ability of format.getSharedPower!(pokemon)) {
+				const effect = 'ability:' + ability;
+				pokemon.volatiles[effect] = {id: this.toID(effect), target: pokemon};
+				if (!pokemon.m.abils) pokemon.m.abils = [];
+				if (!pokemon.m.abils.includes(effect)) pokemon.m.abils.push(effect);
+			}
+		},
+		onSwitchInPriority: 2,
+		onSwitchIn(pokemon) {
+			let format = this.format;
+			if (!format.getSharedPower) format = this.dex.formats.get('gen9sharedpower');
+			for (const ability of format.getSharedPower!(pokemon)) {
+				if (ability === 'noability') {
+					this.hint(`Mirror Armor and Trace break in Shared Power formats that don't use Shared Power as a base, so they get removed from non-base users.`);
+				}
+				const effect = 'ability:' + ability;
+				delete pokemon.volatiles[effect];
+				pokemon.addVolatile(effect);
+			}
+		},
 	},
 	{
 		name: "[Gen 9] Tera Donation BH",
