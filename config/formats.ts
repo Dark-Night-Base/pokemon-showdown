@@ -2139,11 +2139,17 @@ export const Formats: FormatList = [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3712725/">Pok&eacute;bilities</a>`,
 		],
 		mod: 'pokebilities',
-		ruleset: ['[Gen 9] Balanced Hackmons'],
+		ruleset: ['[Gen 9] Balanced Hackmons', '!Species Clause', 'Forme Clause'],
+		banlist: [
+			'Koraidon', 'Kyogre-Primal', 'Miraidon',
+		],
 		restricted: [
 			// 'Arena Trap', 'Comatose', 'Magnet Pull', 'Moody', 'Shadow Tag',
 			'Contrary', 'Gorilla Tactics', 'Hadron Engine', 'Huge Power', 'Illusion', 'Innards Out',
 			'Neutralizing Gas', 'Orichalcum Pulse', 'Parental Bond', 'Poison Heal', 'Pure Power', 'Stakeout', 'Water Bubble', 'Wonder Guard',
+		],
+		unbanlist: [
+			'Regigigas', 'Slaking',
 		],
 		// Nihilslave: here, tweaked
 		onValidateSet(set) {
