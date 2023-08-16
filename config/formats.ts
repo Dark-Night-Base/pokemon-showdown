@@ -1303,7 +1303,7 @@ export const Formats: FormatList = [
 		banlist: [
 			'Poison Heal',
 			'Acupressure', 'Aromatic Mist', 'Coaching', 'Court Change', 'Decorate', 'Final Gambit', 'Floral Healing', 'Follow Me',
-			'Heal Pulse', 'Rage Powder',
+			'Heal Pulse', 'Quash', 'Rage Powder',
 		],
 		unbanlist: [
 			// TBA
@@ -2188,6 +2188,93 @@ export const Formats: FormatList = [
 				newSpecies.bst += newSpecies.baseStats[statName];
 			}
 			return newSpecies;
+		},
+	},
+	// suggested by lysio4
+	{
+		name: "[Gen 9] Pokebilities BH",
+		desc: `BH but Pok&eacute;mon have all of their abilities simultaneously (no longer needed to be released).`,
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3712725/">Pok&eacute;bilities</a>`,
+		],
+		mod: 'pokebilities',
+		ruleset: ['[Gen 9] Balanced Hackmons'],
+		unbanlist: [
+			// 'Arena Trap', 'Comatose', 'Magnet Pull', 'Moody', 'Shadow Tag',
+			'Contrary', 'Gorilla Tactics', 'Hadron Engine', 'Huge Power', 'Illusion', 'Innards Out',
+			'Neutralizing Gas', 'Orichalcum Pulse', 'Parental Bond', 'Poison Heal', 'Pure Power', 'Stakeout', 'Water Bubble', 'Wonder Guard',
+		],
+		restricted: [
+			'Contrary', 'Gorilla Tactics', 'Hadron Engine', 'Huge Power', 'Illusion', 'Innards Out',
+			'Neutralizing Gas', 'Orichalcum Pulse', 'Parental Bond', 'Poison Heal', 'Pure Power', 'Stakeout', 'Water Bubble', 'Wonder Guard',
+		],
+		// Nihilslave: here, tweaked
+		onValidateSet(set) {
+			const species = this.dex.species.get(set.species);
+			const SpeciesAbilities = Object.keys(species.abilities)
+				.filter(key => key !== 'S')
+				.map(key => species.abilities[key as "0" | "1" | "H" | "S"]);
+			if (this.toID(set.ability) === this.toID(species.abilities['S'])) return;
+			for (const abilityName of SpeciesAbilities) {
+				const banReason = this.ruleTable.check('ability:' + this.toID(abilityName));
+				if (banReason) return [`${set.name}'s ability ${abilityName} is ${banReason}.`];
+			}
+			if (SpeciesAbilities.includes(set.ability)) return;
+			if (this.ruleTable.isRestricted(`ability:${this.toID(set.ability)}`)) {
+				return [`${set.name}'s ability ${set.ability} is restricted to native ability owners.`]
+			}
+		},
+		onBegin() {
+			for (const pokemon of this.getAllPokemon()) {
+				if (pokemon.ability === this.toID(pokemon.species.abilities['S'])) {
+					continue;
+				}
+				pokemon.m.innates = Object.keys(pokemon.species.abilities)
+					.filter(key => key !== 'S')
+					.map(key => this.toID(pokemon.species.abilities[key as "0" | "1" | "H" | "S"]))
+					.filter(ability => ability !== pokemon.ability);
+			}
+		},
+		onBeforeSwitchIn(pokemon) {
+			// Abilities that must be applied before both sides trigger onSwitchIn to correctly
+			// handle switch-in ability-to-ability interactions, e.g. Intimidate counters
+			const neededBeforeSwitchInIDs = [
+				'clearbody', 'competitive', 'contrary', 'defiant', 'fullmetalbody', 'hypercutter', 'innerfocus',
+				'mirrorarmor', 'oblivious', 'owntempo', 'rattled', 'scrappy', 'simple', 'whitesmoke',
+			];
+			if (pokemon.m.innates) {
+				for (const innate of pokemon.m.innates) {
+					if (!neededBeforeSwitchInIDs.includes(innate)) continue;
+					if (pokemon.hasAbility(innate)) continue;
+					pokemon.addVolatile("ability:" + innate, pokemon);
+				}
+			}
+		},
+		onSwitchInPriority: 2,
+		onSwitchIn(pokemon) {
+			if (pokemon.m.innates) {
+				for (const innate of pokemon.m.innates) {
+					if (pokemon.hasAbility(innate)) continue;
+					pokemon.addVolatile("ability:" + innate, pokemon);
+				}
+			}
+		},
+		onSwitchOut(pokemon) {
+			for (const innate of Object.keys(pokemon.volatiles).filter(i => i.startsWith('ability:'))) {
+				pokemon.removeVolatile(innate);
+			}
+		},
+		onFaint(pokemon) {
+			for (const innate of Object.keys(pokemon.volatiles).filter(i => i.startsWith('ability:'))) {
+				const innateEffect = this.dex.conditions.get(innate) as Effect;
+				this.singleEvent('End', innateEffect, null, pokemon);
+			}
+		},
+		onAfterMega(pokemon) {
+			for (const innate of Object.keys(pokemon.volatiles).filter(i => i.startsWith('ability:'))) {
+				pokemon.removeVolatile(innate);
+			}
+			pokemon.m.innates = undefined;
 		},
 	},
 	{
