@@ -9,11 +9,12 @@ while True:
         cwd = ''
         try:
             cwd = process.cwd()
-        except:
+        except Exception:
             pass
         finally:
             if cwd.find('vscode') != -1:
                 vscode = True
+                break
     if vscode:
         continue
     files = os.listdir('.')
