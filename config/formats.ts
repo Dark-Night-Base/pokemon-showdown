@@ -1299,9 +1299,8 @@ export const Formats: FormatList = [
 		gameType: 'freeforall',
 		rated: false,
 		tournamentShow: false,
-		ruleset: ['[Gen 9] Balanced Hackmons Doubles', 'Sleep Clause Mod'],
+		ruleset: ['[Gen 9] Balanced Hackmons Doubles', 'Sleep Clause Mod', 'Ability Clause = 1', 'Item Clause'],
 		banlist: [
-			'Poison Heal',
 			'Acupressure', 'Aromatic Mist', 'Coaching', 'Court Change', 'Decorate', 'Final Gambit', 'Floral Healing', 'Follow Me',
 			'Heal Pulse', 'Quash', 'Rage Powder',
 		],
