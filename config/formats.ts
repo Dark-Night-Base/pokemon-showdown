@@ -4580,6 +4580,15 @@ export const Formats: FormatList = [
 		ruleset: ['-Nonexistent', 'Showdown', 'EV limit = 510'],
 	},
 	{
+		name: "[Gen 8] National Dex AG",
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3656779/">National Dex AG</a>`,
+		],
+
+		mod: 'gen8',
+		ruleset: ['Standard NatDex'],
+	},
+	{
 		name: "[Gen 8] Free-For-All",
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3681641/">SS Free-For-All</a>`,
