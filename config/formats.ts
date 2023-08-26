@@ -1303,7 +1303,7 @@ export const Formats: FormatList = [
 		banlist: [
 			'Shedinja',
 			'Acupressure', 'Aromatic Mist', 'Coaching', 'Court Change', 'Decorate', 'Final Gambit', 'Floral Healing', 'Follow Me',
-			'Heal Pulse', 'Quash', 'Rage Powder',
+			'Heal Pulse', 'Helping Hand', 'Quash', 'Rage Powder',
 		],
 		unbanlist: [
 			// TBA
