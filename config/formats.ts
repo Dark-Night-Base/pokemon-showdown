@@ -1302,11 +1302,14 @@ export const Formats: FormatList = [
 		ruleset: ['[Gen 9] Balanced Hackmons Doubles', 'Sleep Clause Mod', 'Ability Clause = 1', 'Item Clause'],
 		banlist: [
 			'Shedinja',
-			'Acupressure', 'Aromatic Mist', 'Coaching', 'Court Change', 'Decorate', 'Final Gambit', 'Floral Healing', 'Follow Me',
+			'Aromatic Mist', 'Coaching', 'Court Change', 'Final Gambit', 'Follow Me',
 			'Heal Pulse', 'Helping Hand', 'Quash', 'Rage Powder',
+			// waiting for bugfix
+			// 'Acupressure',
+			// shadow realm
+			// 'Decorate', 'Floral Healing',
 		],
 		unbanlist: [
-			// TBA
 			'Parental Bond',
 			'Justified', 'Anger Point', 'Steam Engine', 'Stamina', 'Rattled', 'Wandering Spirit',
 		],
