@@ -1303,10 +1303,8 @@ export const Formats: FormatList = [
 		banlist: [
 			'Shedinja',
 			'Baton Pass',
-			'Aromatic Mist', 'Coaching', 'Court Change', 'Final Gambit', 'Follow Me', 'Heal Pulse', 'Helping Hand',
-			'Quash', 'Rage Powder',
-			// waiting for bugfix
-			// 'Acupressure',
+			'Acupressure', 'Aromatic Mist', 'Coaching', 'Court Change', 'Final Gambit', 'Follow Me', 'Heal Pulse',
+			'Helping Hand', 'Quash', 'Rage Powder',
 			// shadow realm
 			// 'Decorate', 'Floral Healing',
 		],
