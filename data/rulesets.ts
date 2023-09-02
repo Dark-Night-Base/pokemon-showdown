@@ -1303,6 +1303,20 @@ export const Rulesets: {[k: string]: FormatData} = {
 			this.add('rule', 'Dynamax Clause: You cannot dynamax');
 		},
 	},
+	dynamaxmod: {
+		effectType: 'Rule',
+		name: 'Dynamax Mod',
+		desc: "Allows Pok&eacute;mon to Dynamax",
+		onBegin() {
+		  for (const side of this.sides) {
+			side.dynamaxUsed = false;
+			side.canDynamaxNow = function () {
+			return !this.dynamaxUsed;
+			};
+		  }
+		  this.add('rule', 'Dynamax Mod: You can dynamax');
+		},
+	  },	  
 	terastalclause: {
 		effectType: 'Rule',
 		name: 'Terastal Clause',

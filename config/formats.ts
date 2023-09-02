@@ -2946,6 +2946,15 @@ export const Formats: FormatList = [
 		ruleset: ['Standard NatDex'],
 	},
 	{
+		name: "[Gen 9] National Dynamax AG",
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/3672423/">National Dynamax AG</a>`,
+		],
+
+		mod: 'gen9nationaldexag',
+		ruleset: ['Standard NatDex', 'Terastal Clause', 'Dynamax Mod'],
+	},
+	{
 		name: "[Gen 9] Free-For-All",
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3711724/">Free-For-All</a>`,
