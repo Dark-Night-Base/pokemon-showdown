@@ -82,46 +82,6 @@ export const Formats: FormatList = [
 		ruleset: ['[Gen 9] National Dex BH', 'Category Swap Mod'],
 	},
 	{
-		name: "[Gen 9] ND Godly Gift BH",
-		desc: `Godly Gift + NDBH, Pok&eacute;mon with BST > 651 are Gods.`,
-		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3710734/">Godly Gift</a>`,
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3711099/">National Dex BH</a>`,
-		],
-
-		mod: 'gen9',
-		// we cannot use godly gift mod here
-		ruleset: ['[Gen 9] National Dex BH'],
-		restricted: [],
-		onValidateTeam(team) {
-			const gods = new Set<string>();
-			for (const set of team) {
-				const species = this.dex.species.get(set.species);
-				if (species.bst > 651 || this.ruleTable.isRestrictedSpecies(species)) {
-					gods.add(species.name);
-				}
-			}
-			if (gods.size > 1) {
-				return [`You have too many Gods.`, `(${Array.from(gods).join(', ')} are Gods.)`];
-			}
-		},
-		onModifySpeciesPriority: 3,
-		onModifySpecies(species, target, source) {
-			if (source || !target?.side) return;
-			const god = target.side.team.find(set => {
-				const godSpecies = this.dex.species.get(set.species);
-				return (godSpecies.bst > 651 || this.ruleTable.isRestrictedSpecies(godSpecies));
-			}) || target.side.team[0];
-			const stat = Dex.stats.ids()[target.side.team.indexOf(target.set)];
-			const newSpecies = this.dex.deepClone(species);
-			const godSpecies = this.dex.species.get(god.species);
-			newSpecies.bst -= newSpecies.baseStats[stat];
-			newSpecies.baseStats[stat] = godSpecies.baseStats[stat];
-			newSpecies.bst += newSpecies.baseStats[stat];
-			return newSpecies;
-		},
-	},
-	{
 		name: "[Gen 9] ND Mix and Mega BH",
 		desc: `MnM + NDBH. Mega Pok&eacute;mon can mega evolve with non-native mega stones.`,
 		threads: [
@@ -1664,29 +1624,21 @@ export const Formats: FormatList = [
 	},
 	{
 		name: "[Gen 9] Godly Gift BH",
-		desc: `Godly Gift + BH. Pok&eacute;mon with BST greater than or equal to 650 are Gods.`,
+		desc: `Godly Gift + BH, Pok&eacute;mon with BST > 651 are Gods.`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3710734/">Godly Gift</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3710859/">Balanced Hackmons</a>`,
 		],
 
 		mod: 'gen9',
-		searchShow: false,
-		ruleset: ['[Gen 9] Balanced Hackmons'],
-		restricted: [
-			'Mewtwo', 'Slaking', 'Kyogre', 'Groudon', 'Rayquaza', 'Dialga', 'Dialga-Origin', 'Palkia', 'Palkia-Origin',
-			'Giratina', 'Giratina-Origin', 'Arceus', 'Hoopa-Unbound', 'Zacian', 'Zacian-Crowned', 'Zamazenta', 'Zamazenta-Crowned',
-			'Eternatus', 'Calyrex-Ice', 'Calyrex-Shadow', 'Palafin-Hero', 'Koraidon', 'Miraidon',
-		],
 		// we cannot use godly gift mod here
+		ruleset: ['[Gen 9] Balanced Hackmons'],
+		restricted: [],
 		onValidateTeam(team) {
 			const gods = new Set<string>();
 			for (const set of team) {
 				const species = this.dex.species.get(set.species);
-				if (species.baseSpecies === 'Arceus') {
-					gods.add(species.name);
-				}
-				if (this.ruleTable.isRestrictedSpecies(species)) {
+				if (species.bst > 651 || this.ruleTable.isRestrictedSpecies(species)) {
 					gods.add(species.name);
 				}
 			}
@@ -1699,8 +1651,7 @@ export const Formats: FormatList = [
 			if (source || !target?.side) return;
 			const god = target.side.team.find(set => {
 				const godSpecies = this.dex.species.get(set.species);
-				if (godSpecies.baseSpecies === 'Arceus') return true;
-				return this.ruleTable.isRestrictedSpecies(godSpecies);
+				return (godSpecies.bst > 651 || this.ruleTable.isRestrictedSpecies(godSpecies));
 			}) || target.side.team[0];
 			const stat = Dex.stats.ids()[target.side.team.indexOf(target.set)];
 			const newSpecies = this.dex.deepClone(species);
