@@ -34,7 +34,7 @@ export const Formats: FormatList = [
 		mod: 'gen9',
 		ruleset: ['[Gen 9] Balanced Hackmons', 'BST Limit = 500'],
 		banlist: [
-			'Chansey',
+			'Beedrill-Mega', 'Chansey',
 		],
 	},
 	{
