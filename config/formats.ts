@@ -1266,6 +1266,7 @@ export const Formats: FormatList = [
 		mod: 'gen9',
 		gameType: 'freeforall',
 		rated: false,
+		searchShow: false,
 		tournamentShow: false,
 		ruleset: ['[Gen 9] Free-For-All BH', 'BST Limit = 600'],
 	},
