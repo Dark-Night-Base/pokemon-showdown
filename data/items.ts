@@ -1100,12 +1100,21 @@ export const Items: {[itemid: string]: ItemData} = {
 	cornerstonemask: {
 		name: "Cornerstone Mask",
 		spritenum: 758,
-		forcedForme: "Ogerpon-Cornerstone",
-		itemUser: ["Ogerpon-Cornerstone"],
+		fling: {
+			basePower: 60,
+		},
+		onBasePowerPriority: 15,
+		onBasePower(basePower, user, target, move) {
+			if (user.baseSpecies.name.startsWith('Ogerpon-Cornerstone')) {
+				return this.chainModify([4915, 4096]);
+			}
+		},
 		onTakeItem(item, source) {
 			if (source.baseSpecies.baseSpecies === 'Ogerpon') return false;
 			return true;
 		},
+		forcedForme: "Ogerpon-Cornerstone",
+		itemUser: ["Ogerpon-Cornerstone"],
 		num: 2406,
 		gen: 9,
 	},
@@ -2503,12 +2512,21 @@ export const Items: {[itemid: string]: ItemData} = {
 	hearthflamemask: {
 		name: "Hearthflame Mask",
 		spritenum: 760,
-		forcedForme: "Ogerpon-Hearthflame",
-		itemUser: ["Ogerpon-Hearthflame"],
+		fling: {
+			basePower: 60,
+		},
+		onBasePowerPriority: 15,
+		onBasePower(basePower, user, target, move) {
+			if (user.baseSpecies.name.startsWith('Ogerpon-Hearthflame')) {
+				return this.chainModify([4915, 4096]);
+			}
+		},
 		onTakeItem(item, source) {
 			if (source.baseSpecies.baseSpecies === 'Ogerpon') return false;
 			return true;
 		},
+		forcedForme: "Ogerpon-Hearthflame",
+		itemUser: ["Ogerpon-Hearthflame"],
 		num: 2408,
 		gen: 9,
 	},
@@ -7099,12 +7117,21 @@ export const Items: {[itemid: string]: ItemData} = {
 	wellspringmask: {
 		name: "Wellspring Mask",
 		spritenum: 759,
-		forcedForme: "Ogerpon-Wellspring",
-		itemUser: ["Ogerpon-Wellspring"],
+		fling: {
+			basePower: 60,
+		},
+		onBasePowerPriority: 15,
+		onBasePower(basePower, user, target, move) {
+			if (user.baseSpecies.name.startsWith('Ogerpon-Wellspring')) {
+				return this.chainModify([4915, 4096]);
+			}
+		},
 		onTakeItem(item, source) {
 			if (source.baseSpecies.baseSpecies === 'Ogerpon') return false;
 			return true;
 		},
+		forcedForme: "Ogerpon-Wellspring",
+		itemUser: ["Ogerpon-Wellspring"],
 		num: 2407,
 		gen: 9,
 	},
