@@ -1252,6 +1252,7 @@ export const Formats: FormatList = [
 			// 'Decorate', 'Floral Healing',
 		],
 		unbanlist: [
+			'Illusion', 'Neutralizing Gas',
 			'Parental Bond',
 			'Justified', 'Anger Point', 'Steam Engine', 'Stamina', 'Rattled', 'Wandering Spirit',
 		],
