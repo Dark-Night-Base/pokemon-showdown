@@ -945,7 +945,8 @@ export const Formats: FormatList = [
 		ruleset: ['Showdown', 'Dynamax Clause', 'Species Clause', 'Item Clause', 'Other Banned = Ghost/Rock/Steel Types'],
 		banlist: [
 			'all abilities', 'all moves',
-			'Adamant Crystal', 'Blue Orb', 'Griseous Core', 'Lustrous Globe', 'Red Orb', 'Rusted Shield', 'Rusted Sword', 'Ultranecrozium Z',
+			'Adamant Crystal', 'Blue Orb', 'Cornerstone Mask', 'Griseous Core', 'Hearthflame Mask', 'Lustrous Globe', 'Red Orb', 'Rusted Shield',
+			'Rusted Sword', 'Ultranecrozium Z', 'Wellspring Mask',
 			'Eternatus-Eternamax', 'Rocky Helmet',
 		],
 		unbanlist: [
