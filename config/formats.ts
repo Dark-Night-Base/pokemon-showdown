@@ -645,7 +645,7 @@ export const Formats: FormatList = [
 		ruleset: [
 			'Obtainable', '+Past', '+Unobtainable', '+Unreleased', 'Team Species Preview', 'Nickname Preview', '!!EV Limit = 1020', 'Species Clause',
 			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'Sketch Post-Gen 7 Moves', 'Dynamax Clause', 'Terastal Clause',
-			'OHKO Clause', 'Evasion Moves Clause', 'Sleep Clause Mod'
+			'OHKO Clause', 'Evasion Moves Clause', 'Sleep Clause Mod',
 		],
 		banlist: [
 			'Cramorant', 'Shedinja',
@@ -733,6 +733,7 @@ export const Formats: FormatList = [
 					// cramorant: 'Cramorant-Gorging',
 					eternatus: 'Eternatus-Eternamax',
 					palafin: 'Palafin-Hero',
+					ogerpon: 'Ogerpon-Wellspring',
 				};
 				if (headSpecies.id in specialSelfFusions) {
 					fusionSpecies.species = this.dex.species.get(specialSelfFusions[headSpecies.id]);
@@ -780,7 +781,10 @@ export const Formats: FormatList = [
 				return [`${headSpecies.name} (${bodySpecies.name})'s ability ${ability.name} is banned`];
 			}
 			const item = this.dex.items.get(set.item);
-			const NonexistentItems = ['blueorb', 'redorb', 'adamantcrystal', 'lustrousglobe', 'griseouscore', 'rustedshield', 'rustedsword'];
+			const NonexistentItems = [
+				'blueorb', 'redorb', 'adamantcrystal', 'lustrousglobe', 'griseouscore', 'rustedshield', 'rustedsword',
+				'cornerstonemask', 'hearthflamemask', 'wellspringmask',
+			];
 			if (item.megaStone || item.zMove || NonexistentItems.includes(item.id)) {
 				return [`${headSpecies.name} (${bodySpecies.name})'s item ${item.name} doesn't exist in Infinite Fusion`];
 			}

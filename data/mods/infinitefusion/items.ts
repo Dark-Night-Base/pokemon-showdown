@@ -29,6 +29,29 @@ export const Items: {[k: string]: ModdedItemData} = {
 			}
 		},
 	},
+	boosterenergy: {
+		inherit: true,
+		onTakeItem(item, source) {
+			const tags = [source.m.headSpecies?.tags, source.m.bodySpecies?.tags];
+			if (tags.flat().includes("Paradox")) return false;
+			return true;
+		},
+	},
+	// shaky implementation, nonexistent anyway
+	cornerstonemask: {
+		inherit: true,
+		onBasePower(basePower, user, target, move) {
+			const nums = [user.m.headSpecies?.num, user.m.bodySpecies?.num];
+			if (nums.includes(1017)) {
+				return this.chainModify([4915, 4096]);
+			}
+		},
+		onTakeItem(item, source) {
+			const nums = [source.m.headSpecies?.num, source.m.bodySpecies?.num];
+			if (nums.includes(1017)) return false;
+			return true;
+		},
+	},
 	deepseascale: {
 		inherit: true,
 		onModifySpD(spd, pokemon) {
@@ -84,6 +107,20 @@ export const Items: {[k: string]: ModdedItemData} = {
 			if (nums.includes(487) && (move.type === 'Ghost' || move.type === 'Dragon')) {
 				return this.chainModify([4915, 4096]);
 			}
+		},
+	},
+	hearthflamemask: {
+		inherit: true,
+		onBasePower(basePower, user, target, move) {
+			const nums = [user.m.headSpecies?.num, user.m.bodySpecies?.num];
+			if (nums.includes(1017)) {
+				return this.chainModify([4915, 4096]);
+			}
+		},
+		onTakeItem(item, source) {
+			const nums = [source.m.headSpecies?.num, source.m.bodySpecies?.num];
+			if (nums.includes(1017)) return false;
+			return true;
 		},
 	},
 	leek: {
@@ -182,6 +219,20 @@ export const Items: {[k: string]: ModdedItemData} = {
 			) {
 				return this.chainModify([4915, 4096]);
 			}
+		},
+	},
+	wellspringmask: {
+		inherit: true,
+		onBasePower(basePower, user, target, move) {
+			const nums = [user.m.headSpecies?.num, user.m.bodySpecies?.num];
+			if (nums.includes(1017)) {
+				return this.chainModify([4915, 4096]);
+			}
+		},
+		onTakeItem(item, source) {
+			const nums = [source.m.headSpecies?.num, source.m.bodySpecies?.num];
+			if (nums.includes(1017)) return false;
+			return true;
 		},
 	},
 };
