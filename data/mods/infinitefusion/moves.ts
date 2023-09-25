@@ -98,4 +98,5 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			return move.basePower;
 		},
 	},
+	// TBA: ivycudgel, no need to do currently + waiting for official to polish code
 };
