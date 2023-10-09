@@ -6,7 +6,7 @@ superbindex.xslt
 !/config/formats.ts
 !/config/chat-plugins/
 /config/chat-plugins/*
-!/config/chat-plugins/infinitefusion
+!/config/chat-plugins/infinitefusion/getter.py
 /config/chat-plugins/infinitefusion/task
 /config/chat-plugins/infinitefusion/done
 /logs/*
