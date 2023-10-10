@@ -138,7 +138,11 @@ export const Formats: FormatList = [
 	},
 	{
 		name: "[Gen 9] ND Move-Item-Ability BH",
-		desc: `Fortemons + Trademarked + Multibility + Dual Wielding + NDBH`,
+		desc: `Fortemons + Trademarked + Multibility + Dual Wielding + NDBH. You can put almost any Move/Item/Ability in Pok&eacute;mon's Item/Ability slots. <br />` +
+			`If it's an attacking Move, all attacks of that Pok&eacute;mon will inherit its properties. <br />` +
+			`If it's an status Move, it will activate on switch-in. <br />` +
+			`If it's an Item or an Ability, it will work as usual. <br/ >` +
+			`P.S. There is no difference between Item slot and Ability slot, except that things in Ability slot will usually activate earlier than those in Item slot.`,
 
 		mod: 'moveitemability',
 		// debug: true,
