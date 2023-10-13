@@ -3082,7 +3082,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 			'Encore', 'Endure', 'Entrainment', 'Fairy Lock', 'Instruct', 'King\'s Shield', 'Magic Room',
 			'Mat Block', 'Me First', 'Mean Look', 'Mirror Move', 'Nature Power', 'Obstruct', 'Octolock', 'Pain Split',
 			'Protect', 'Revival Blessing', 'Roar', 'Skill Swap', 'Silk Trap', 'Spiky Shield', 'Sleep Talk', 'Shed Tail',
-			'Shell Smash', 'Spider Web', 'Substitute', 'Switcheroo', 'Trick', 'Trick Room', 'Whirlwind',
+			'Shell Smash', 'Spider Web', 'Substitute', 'Switcheroo', 'Trick', 'Whirlwind',
 		],
 	},
 	miaclause: {
