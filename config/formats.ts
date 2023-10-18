@@ -2227,7 +2227,7 @@ export const Formats: FormatList = [
 		},
 	},
 	{
-		name: "[Gen 9] Scalemons BH 720 Cup",
+		name: "[Gen 9] Scalemons Balanced Hackmons 720 Cup",
 		desc: `BH + Scalemons. BST is scaled to 720 here instead of 600.`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3710859/">Balanced Hackmons</a>`,
