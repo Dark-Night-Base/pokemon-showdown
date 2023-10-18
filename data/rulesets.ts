@@ -1668,14 +1668,17 @@ export const Rulesets: {[k: string]: FormatData} = {
 		effectType: 'Rule',
 		name: 'Scalemons Mod',
 		desc: "Every Pok&eacute;mon's stats, barring HP, are scaled to give them a BST as close to 600 as possible",
+		hasValue: 'positive-integer',
 		onBegin() {
-			this.add('rule', 'Scalemons Mod: Every Pokemon\'s stats, barring HP, are scaled to come as close to a BST of 600 as possible');
+			const num = this.ruleTable.valueRules.get('scalemonsmod');
+			this.add('rule', `${num}-Scalemons Mod: Every Pokemon\'s stats, barring HP, are scaled to come as close to a BST of ${num} as possible`);
 		},
 		onModifySpeciesPriority: 1,
 		onModifySpecies(species) {
+			const num = parseInt(this.ruleTable.valueRules.get('scalemonsmod')!);
 			const newSpecies = this.dex.deepClone(species);
 			const bstWithoutHp: number = newSpecies.bst - newSpecies.baseStats['hp'];
-			const scale = 600 - newSpecies.baseStats['hp'];
+			const scale = num - newSpecies.baseStats['hp'];
 			newSpecies.bst = newSpecies.baseStats['hp'];
 			for (const stat in newSpecies.baseStats) {
 				if (stat === 'hp') continue;

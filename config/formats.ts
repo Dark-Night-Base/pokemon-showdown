@@ -2227,15 +2227,15 @@ export const Formats: FormatList = [
 		},
 	},
 	{
-		name: "[Gen 9] Scalemons BH",
-		desc: `BH + Scalemons.`,
+		name: "[Gen 9] 720-Scalemons BH",
+		desc: `BH + Scalemons. BST is scaled to 720 here instead of 600.`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3710859/">Balanced Hackmons</a>`,
 		],
 		mod: 'gen9',
-		ruleset: ['[Gen 9] Balanced Hackmons', 'Scalemons Mod'],
-		banlist: [
-			// TBA
+		ruleset: ['[Gen 9] Balanced Hackmons', 'Scalemons Mod = 720'],
+		unbanlist: [
+			'Calyrex-Shadow', 'Gengar-Mega', 'Groudon-Primal', 'Mewtwo-Mega-Y', 'Rayquaza-Mega', 'Regigigas', 'Slaking',
 		],
 	},
 	{
