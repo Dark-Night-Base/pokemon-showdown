@@ -2235,7 +2235,7 @@ export const Formats: FormatList = [
 		mod: 'gen9',
 		ruleset: ['[Gen 9] Balanced Hackmons', 'Scalemons Mod = 720', 'Overflow Stat Mod'],
 		banlist: [
-			'Eviolite', 'Light Ball', 'Metal Powder', 'Quick Powder', 'Thick Club',
+			'Deep Sea Scale', 'Deep Sea Tooth', 'Eviolite', 'Light Ball', 'Metal Powder', 'Quick Powder', 'Thick Club',
 		],
 		unbanlist: [
 			'Calyrex-Shadow', 'Gengar-Mega', 'Groudon-Primal', 'Mewtwo-Mega-Y', 'Rayquaza-Mega', 'Regigigas', 'Slaking',
