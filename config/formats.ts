@@ -2233,7 +2233,7 @@ export const Formats: FormatList = [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3710859/">Balanced Hackmons</a>`,
 		],
 		mod: 'gen9',
-		ruleset: ['[Gen 9] Balanced Hackmons', 'Scalemons Mod = 720'],
+		ruleset: ['[Gen 9] Balanced Hackmons', 'Scalemons Mod = 720', 'Overflow Stat Mod'],
 		unbanlist: [
 			'Calyrex-Shadow', 'Gengar-Mega', 'Groudon-Primal', 'Mewtwo-Mega-Y', 'Rayquaza-Mega', 'Regigigas', 'Slaking',
 		],
