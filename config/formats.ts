@@ -571,7 +571,7 @@ export const Formats: FormatList = [
 		],
 
 		mod: 'gen9',
-		ruleset: ['Standard OMs', 'Sleep Moves Clause', 'Evasion Items Clause', 'Little Cup'],
+		ruleset: ['Standard OMs', 'Sleep Moves Clause', 'Evasion Items Clause', 'Little Cup', 'Godly Gift Mod'],
 		banlist: [
 			'Basculin', 'Scyther', 'Swirlix',
 			'Arena Trap', 'Huge Power',
@@ -583,37 +583,6 @@ export const Formats: FormatList = [
 			'Murkrow', 'Meditite', 'Gothita', 'Gastly', 'Misdreavus', 'Dunsparce', 'Girafarig', 'Basculin',
 			'Tandemaus',
 		],
-		onValidateTeam(team) {
-			const gods = new Set<string>();
-			for (const set of team) {
-				let species = this.dex.species.get(set.species);
-				if (typeof species.battleOnly === 'string') species = this.dex.species.get(species.battleOnly);
-				if (this.ruleTable.isRestrictedSpecies(species)) {
-					gods.add(species.name);
-				}
-			}
-			if (gods.size > 1) {
-				return [`You have too many Gods.`, `(${Array.from(gods).join(', ')} are Gods.)`];
-			}
-		},
-		onModifySpeciesPriority: 3,
-		onModifySpecies(species, target, source) {
-			if (source || !target?.side) return;
-			const god = target.side.team.find(set => {
-				const godSpecies = this.dex.species.get(set.species);
-				return this.ruleTable.isRestrictedSpecies(godSpecies);
-			}) || target.side.team[0];
-			const stat = Dex.stats.ids()[target.side.team.indexOf(target.set)];
-			const newSpecies = this.dex.deepClone(species);
-			let godSpecies = this.dex.species.get(god.species);
-			if (typeof godSpecies.battleOnly === 'string') {
-				godSpecies = this.dex.species.get(godSpecies.battleOnly);
-			}
-			newSpecies.bst -= newSpecies.baseStats[stat];
-			newSpecies.baseStats[stat] = godSpecies.baseStats[stat];
-			newSpecies.bst += newSpecies.baseStats[stat];
-			return newSpecies;
-		},
 	},
 	{
 		name: "[Gen 9] Infinite Fusion",
@@ -1008,8 +977,8 @@ export const Formats: FormatList = [
 			'Calyrex-Shadow', 'Gengar-Mega', 'Groudon-Primal', 'Mewtwo-Mega-Y', 'Rayquaza-Mega', 'Regigigas', 'Shedinja', 'Slaking',
 			'Arena Trap', 'Comatose', 'Contrary', 'Gorilla Tactics', 'Hadron Engine', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Magnet Pull', 'Moody', 'Neutralizing Gas',
 			'Orichalcum Pulse', 'Parental Bond', 'Poison Heal', 'Protean', 'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-			'Baton Pass', 'Belly Drum', 'Ceaseless Edge', 'Dire Claw', 'Imprison', 'Last Respects', 'Quiver Dance', 'Rage Fist', 'Revival Blessing', 'Shed Tail', 'Substitute',
-			'Shell Smash', 'Tail Glow',
+			'Baton Pass', 'Belly Drum', 'Ceaseless Edge', 'Dire Claw', 'Fillet Away', 'Imprison', 'Last Respects', 'Quiver Dance', 'Rage Fist', 'Revival Blessing', 'Shed Tail',
+			'Substitute', 'Shell Smash', 'Tail Glow',
 		],
 	},
 	{
@@ -1618,43 +1587,26 @@ export const Formats: FormatList = [
 	},
 	{
 		name: "[Gen 9] Godly Gift BH",
-		desc: `Godly Gift + BH, Pok&eacute;mon with BST > 651 are Gods.`,
+		desc: `Godly Gift + BH, basically Pok&eacute;mon with BST > 651 are Gods.`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3710734/">Godly Gift</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3710859/">Balanced Hackmons</a>`,
 		],
 
 		mod: 'gen9',
-		// we cannot use godly gift mod here
-		ruleset: ['[Gen 9] Balanced Hackmons'],
-		restricted: [],
-		onValidateTeam(team) {
-			const gods = new Set<string>();
-			for (const set of team) {
-				const species = this.dex.species.get(set.species);
-				if (species.bst > 651 || this.ruleTable.isRestrictedSpecies(species)) {
-					gods.add(species.name);
-				}
-			}
-			if (gods.size > 1) {
-				return [`You have too many Gods.`, `(${Array.from(gods).join(', ')} are Gods.)`];
-			}
-		},
-		onModifySpeciesPriority: 3,
-		onModifySpecies(species, target, source) {
-			if (source || !target?.side) return;
-			const god = target.side.team.find(set => {
-				const godSpecies = this.dex.species.get(set.species);
-				return (godSpecies.bst > 651 || this.ruleTable.isRestrictedSpecies(godSpecies));
-			}) || target.side.team[0];
-			const stat = Dex.stats.ids()[target.side.team.indexOf(target.set)];
-			const newSpecies = this.dex.deepClone(species);
-			const godSpecies = this.dex.species.get(god.species);
-			newSpecies.bst -= newSpecies.baseStats[stat];
-			newSpecies.baseStats[stat] = godSpecies.baseStats[stat];
-			newSpecies.bst += newSpecies.baseStats[stat];
-			return newSpecies;
-		},
+		ruleset: ['[Gen 9] Balanced Hackmons', 'Godly Gift Mod'],
+		banlist: [
+			'Blissey', 'Chansey',
+		],
+		restricted: [
+			// 'Xerneas',
+			'Regigigas', 'Slaking',
+			'Mewtwo-Mega-X', 'Kyogre-Primal', 'Necrozma-Ultra', 'Arceus', 'Diancie-Mega', 'Kyurem-Black', 'Kyurem-White', 'Garchomp-Mega',
+			'Latias-Mega', 'Latios-Mega', 'Metagross-Mega', 'Salamence-Mega', 'Tyranitar-Mega', 'Eternatus', 'Hoopa-Unbound', 'Calyrex-Ice',
+			'Dialga', 'Dialga-Origin', 'Giratina', 'Giratina-Origin', 'Ho-Oh', 'Lugia', 'Lunala', 'Mewtwo', 'Necrozma-Dawn-Wings',
+			'Necrozma-Dusk-Mane', 'Palkia', 'Palkia-Origin', 'Rayquaza', 'Reshiram', 'Solgaleo', 'Yveltal', 'Zekrom', 'Groudon', 'Koraidon',
+			'Kyogre', 'Miraidon', 'Kyurem', 'Zacian', 'Zamazenta',
+		],
 	},
 	{
 		name: "[Gen 9] Inverse BH",
@@ -2545,7 +2497,7 @@ export const Formats: FormatList = [
 	},
 	{
 		name: "[Gen 9] Godly Gift",
-		desc: `Each Pok&eacute;mon receives one base stat from a God (AG/Uber Pok&eacute;mon) depending on its position in the team. If there is no Uber Pok&eacute;mon, it uses the Pok&eacute;mon in the first slot.`,
+		desc: `Each Pok&eacute;mon receives one base stat from a God (Restricted Pok&eacute;mon) depending on its position in the team. If there is no restricted Pok&eacute;mon, it uses the Pok&eacute;mon in the first slot.`,
 		threads: [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3710734/">Godly Gift</a>`,
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3718065/">Godly Gift Resources</a>`,
@@ -2554,8 +2506,13 @@ export const Formats: FormatList = [
 		mod: 'gen9',
 		ruleset: ['Standard OMs', 'Sleep Moves Clause', 'Godly Gift Mod', 'Min Source Gen = 9'],
 		banlist: [
-			'Blissey', 'Calyrex-Shadow', 'Chansey', 'Kingambit', 'Ursaluna-Base', 'Arena Trap', 'Huge Power', 'Moody', 'Pure Power', 'Shadow Tag',
-			'Swift Swim', 'Bright Powder', 'Focus Band', 'King\'s Rock', 'Quick Claw', 'Razor Fang', 'Baton Pass', 'Last Respects', 'Shed Tail',
+			'Blissey', 'Calyrex-Shadow', 'Chansey', 'Miraidon', 'Arena Trap', 'Huge Power', 'Moody', 'Pure Power', 'Shadow Tag', 'Swift Swim',
+			'Bright Powder', 'Focus Band', 'King\'s Rock', 'Quick Claw', 'Razor Fang', 'Baton Pass', 'Last Respects', 'Shed Tail',
+		],
+		restricted: [
+			'Annihilape', 'Arceus', 'Calyrex-Ice', 'Dialga', 'Dialga-Origin', 'Eternatus', 'Giratina', 'Giratina-Origin', 'Groudon', 'Iron Bundle', 'Kingambit', 'Koraidon',
+			'Kyogre', 'Magearna', 'Mewtwo', 'Ogerpon-Hearthflame', 'Palafin', 'Palkia', 'Palkia-Origin', 'Rayquaza', 'Regieleki', 'Shaymin-Sky', 'Toxapex', 'Ursaluna',
+			'Ursaluna-Bloodmoon', 'Zacian', 'Zacian-Crowned', 'Zamazenta-Crowned',
 		],
 	},
 	{
