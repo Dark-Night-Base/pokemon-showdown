@@ -1596,7 +1596,7 @@ export const Formats: FormatList = [
 		mod: 'gen9',
 		ruleset: ['[Gen 9] Balanced Hackmons', 'Godly Gift Mod'],
 		banlist: [
-			// 'Blissey', 'Chansey',
+			'Blissey', 'Chansey',
 		],
 		restricted: [
 			// 'Xerneas',
