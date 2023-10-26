@@ -105,7 +105,11 @@ export const Formats: FormatList = [
 		onValidateSet(set, format, setHas, teamHas) {
 			const species = this.dex.species.get(set.species);
 			const item = this.dex.items.get(set.item);
-			const isMegaStone = item.megaStone || item.onPrimal || item.forcedForme?.endsWith('Origin') || item.name.startsWith('Rusted');
+			const isMegaStone = item.megaStone ||
+				item.onPrimal ||
+				item.forcedForme?.endsWith('Origin') ||
+				item.name.startsWith('Rusted') ||
+				item.name.endsWith('Mask');
 			if (!isMegaStone) return;
 			if (this.ruleTable.isRestrictedSpecies(species)) {
 				return [`${species.name} is not allowed to hold ${item.name}.`];

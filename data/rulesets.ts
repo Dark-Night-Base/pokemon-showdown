@@ -3185,7 +3185,11 @@ export const Rulesets: {[k: string]: FormatData} = {
 			const stoneTable: Set<string> = new Set();
 			for (const set of team) {
 				const item = this.dex.items.get(set.item);
-				const isMegaStone = item.megaStone || item.onPrimal || item.forcedForme?.endsWith('Origin') || item.name.startsWith('Rusted');
+				const isMegaStone = item.megaStone ||
+					item.onPrimal ||
+					item.forcedForme?.endsWith('Origin') ||
+					item.name.startsWith('Rusted') ||
+					item.name.endsWith('Mask');
 				if (!isMegaStone) continue;
 				if (stoneTable.has(item.id)) {
 					return [
