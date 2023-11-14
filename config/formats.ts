@@ -2042,17 +2042,16 @@ export const Formats: FormatList = [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3712725/">Pok&eacute;bilities</a>`,
 		],
 		mod: 'pokebilities',
-		ruleset: ['[Gen 9] Balanced Hackmons', '!Species Clause', 'Forme Clause'],
+		ruleset: ['OHKO Clause', 'Evasion Clause', 'Forme Clause', 'Sleep Moves Clause', 'Hackmons Forme Legality', 'Species Reveal Clause', 'Terastal Clause', 'Showdown'],
 		banlist: [
-			'Koraidon', 'Kyogre-Primal', 'Miraidon',
+			'Calyrex-Shadow', 'Gengar-Mega', 'Groudon-Primal', 'Koraidon', 'Kyogre-Primal', 'Miraidon', 'Rayquaza-Mega', 'Shedinja',
+			'Arena Trap', 'Comatose', 'Magnet Pull', 'Moody', 'Shadow Tag',
+			'Baton Pass', 'Belly Drum', 'Ceaseless Edge', 'Dire Claw', 'Fillet Away', 'Imprison', 'Last Respects', 'Lumina Crash', 'Quiver Dance', 'Rage Fist', 'Revival Blessing',
+			'Shed Tail', 'Substitute', 'Shell Smash', 'Tail Glow',
 		],
 		restricted: [
-			// 'Arena Trap', 'Comatose', 'Magnet Pull', 'Moody', 'Shadow Tag',
-			'Contrary', 'Gorilla Tactics', 'Hadron Engine', 'Huge Power', 'Illusion', 'Innards Out',
-			'Neutralizing Gas', 'Orichalcum Pulse', 'Parental Bond', 'Poison Heal', 'Pure Power', 'Stakeout', 'Water Bubble', 'Wonder Guard',
-		],
-		unbanlist: [
-			'Regigigas', 'Slaking',
+			'Contrary', 'Gorilla Tactics', 'Hadron Engine', 'Huge Power', 'Illusion', 'Innards Out', 'Libero',
+			'Neutralizing Gas', 'Orichalcum Pulse', 'Parental Bond', 'Poison Heal', 'Protean', 'Pure Power', 'Stakeout', 'Water Bubble', 'Wonder Guard',
 		],
 		// Nihilslave: here, tweaked
 		onValidateSet(set) {
