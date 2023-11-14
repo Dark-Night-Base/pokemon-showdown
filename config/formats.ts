@@ -2050,8 +2050,8 @@ export const Formats: FormatList = [
 			'Shed Tail', 'Substitute', 'Shell Smash', 'Tail Glow',
 		],
 		restricted: [
-			'Contrary', 'Gorilla Tactics', 'Hadron Engine', 'Huge Power', 'Illusion', 'Innards Out', 'Libero',
-			'Neutralizing Gas', 'Orichalcum Pulse', 'Parental Bond', 'Poison Heal', 'Protean', 'Pure Power', 'Stakeout', 'Water Bubble', 'Wonder Guard',
+			'Contrary', 'Gorilla Tactics', 'Hadron Engine', 'Huge Power', 'Illusion', 'Innards Out', 'Libero', 'Neutralizing Gas',
+			'Orichalcum Pulse', 'Parental Bond', 'Poison Heal', 'Protean', 'Pure Power', 'Stakeout', 'Water Bubble', 'Wonder Guard',
 		],
 		// Nihilslave: here, tweaked
 		onValidateSet(set) {
