@@ -106,6 +106,7 @@ export const Aliases: {[alias: string]: string} = {
 	omotm: "[Gen 9] Convergence",
 	lcotm: "[Gen 9] Godly Gift",
 
+	// server formats
 	"500bh": "[Gen 9] Balanced Hackmons 500 Cup",
 	bh500: "[Gen 9] Balanced Hackmons 500 Cup",
 	mbhv4: "[Gen 9] More Balanced Hackmons v4",
@@ -129,6 +130,7 @@ export const Aliases: {[alias: string]: string} = {
 	cebh: "[Gen 9] Cross Evolution BH",
 	fortebh: "[Gen 9] Fortemons BH",
 	monobh: "[Gen 9] Monotype BH",
+	pbbh: "[Gen 9] Pokebilities BH",
 	tcgbh: "[Gen 9] The Card Game BH",
 	tradebh: "[Gen 9] Trademarked BH",
 
