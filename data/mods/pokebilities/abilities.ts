@@ -69,12 +69,12 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 				if (strongWeathers.includes(target.getAbility().id)) {
 					this.singleEvent('End', this.dex.abilities.get(target.getAbility().id), target.abilityState, target, pokemon, 'neutralizinggas');
 				}
-				if (target.m.innates) {
-					for (const innate of target.m.innates) {
-						if (this.dex.abilities.get(innate).isPermanent) continue;
-						target.removeVolatile('ability:' + innate);
-					}
-				}
+				// if (target.m.innates) {
+				// 	for (const innate of target.m.innates) {
+				// 		if (this.dex.abilities.get(innate).isPermanent) continue;
+				// 		target.removeVolatile('ability:' + innate);
+				// 	}
+				// }
 			}
 		},
 		onEnd(source) {
