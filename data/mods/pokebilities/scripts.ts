@@ -20,10 +20,12 @@ export const Scripts: ModdedBattleScriptsData = {
 
 			// Check if any active pokemon have the ability Neutralizing Gas
 			if (this.hasItem('Ability Shield') ||
+				// Nihilslave: here
 				this.ability === ('neutralizinggas' as ID) ||
 				this.m.innates?.includes('neutralizinggas')) return false;
 			for (const pokemon of this.battle.getAllActive()) {
 				// can't use hasAbility because it would lead to infinite recursion
+				// Nihilslave: here
 				if ((pokemon.ability === ('neutralizinggas' as ID) || pokemon.m.innates?.includes('neutralizinggas')) &&
 					!pokemon.volatiles['gastroacid'] &&
 					!pokemon.transformed &&

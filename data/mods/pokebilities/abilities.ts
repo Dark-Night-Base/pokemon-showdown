@@ -39,6 +39,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		inherit: true,
 		// Ability suppression implemented in sim/pokemon.ts:Pokemon#ignoringAbility
 		onPreStart(pokemon) {
+			if (pokemon.transformed) return;
 			this.add('-ability', pokemon, 'Neutralizing Gas');
 			pokemon.abilityState.ending = false;
 			// Remove setter's innates before the ability starts
@@ -48,13 +49,25 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 					pokemon.removeVolatile('ability:' + innate);
 				}
 			}
+			const strongWeathers = ['desolateland', 'primordialsea', 'deltastream'];
 			for (const target of this.getAllActive()) {
+				if (target.hasItem('Ability Shield')) {
+					this.add('-block', target, 'item: Ability Shield');
+					continue;
+				}
+				// Can't suppress a Tatsugiri inside of Dondozo already
+				if (target.volatiles['commanding']) {
+					continue;
+				}
 				if (target.illusion) {
 					this.singleEvent('End', this.dex.abilities.get('Illusion'), target.abilityState, target, pokemon, 'neutralizinggas');
 				}
 				if (target.volatiles['slowstart']) {
 					delete target.volatiles['slowstart'];
 					this.add('-end', target, 'Slow Start', '[silent]');
+				}
+				if (strongWeathers.includes(target.getAbility().id)) {
+					this.singleEvent('End', this.dex.abilities.get(target.getAbility().id), target.abilityState, target, pokemon, 'neutralizinggas');
 				}
 				if (target.m.innates) {
 					for (const innate of target.m.innates) {
@@ -65,6 +78,12 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 		onEnd(source) {
+			if (source.transformed) return;
+			for (const pokemon of this.getAllActive()) {
+				if (pokemon !== source && pokemon.hasAbility('Neutralizing Gas')) {
+					return;
+				}
+			}
 			this.add('-end', source, 'ability: Neutralizing Gas');
 
 			// FIXME this happens before the pokemon switches out, should be the opposite order.
@@ -79,12 +98,20 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			this.speedSort(sortedActive);
 			for (const pokemon of sortedActive) {
 				if (pokemon !== source) {
-					// Will be suppressed by Pokemon#ignoringAbility if needed
-					this.singleEvent('Start', pokemon.getAbility(), pokemon.abilityState, pokemon);
+					if (!pokemon.getAbility().isPermanent) {
+						// Will be suppressed by Pokemon#ignoringAbility if needed
+						this.singleEvent('Start', pokemon.getAbility(), pokemon.abilityState, pokemon);
+						if (pokemon.ability === "gluttony") {
+							pokemon.abilityState.gluttony = false;
+						}
+					}
 					if (pokemon.m.innates) {
 						for (const innate of pokemon.m.innates) {
-							// permanent abilities
-							if (pokemon.volatiles['ability:' + innate]) continue;
+							if (innate.isPermanent) continue; // does not interact with e.g Ice Face, Zen Mode
+
+							// Will be suppressed by Pokemon#ignoringAbility if needed
+							this.singleEvent('Start', innate, pokemon.abilityState, pokemon);
+							if (innate === "gluttony") pokemon.abilityState.gluttony = false;
 							pokemon.addVolatile('ability:' + innate, pokemon);
 						}
 					}

@@ -2042,6 +2042,7 @@ export const Formats: FormatList = [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3712725/">Pok&eacute;bilities</a>`,
 		],
 		mod: 'pokebilities',
+		debug: true,
 		ruleset: ['OHKO Clause', 'Evasion Clause', 'Forme Clause', 'Sleep Moves Clause', 'Hackmons Forme Legality', 'Species Reveal Clause', 'Terastal Clause', 'Showdown'],
 		banlist: [
 			'Calyrex-Shadow', 'Gengar-Mega', 'Groudon-Primal', 'Koraidon', 'Kyogre-Primal', 'Miraidon', 'Rayquaza-Mega', 'Shedinja',
