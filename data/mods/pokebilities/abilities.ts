@@ -112,7 +112,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 							// Will be suppressed by Pokemon#ignoringAbility if needed
 							this.singleEvent('Start', innate, pokemon.abilityState, pokemon);
 							if (innate === "gluttony") pokemon.abilityState.gluttony = false;
-							pokemon.addVolatile('ability:' + innate, pokemon);
+							// pokemon.addVolatile('ability:' + innate, pokemon);
 						}
 					}
 				}
