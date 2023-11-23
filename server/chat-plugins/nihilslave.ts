@@ -114,7 +114,101 @@ export const commands: Chat.ChatCommands = {
 		// todo: make covertable too
 		this.sendReply('Done');
 	},
+	// temporary function, remove when weaktable() upgraded
+	weaktable4(target, room, user) {
+		if (user.id !== 'asouchihiro') return this.errorReply('Access Denied by Nihilslave!');
+		if (!this.runBroadcast()) return;
+		const dex = Dex;
+		const types = dex.types.all();
+		const statuses: {[k: string]: string} = {
+			brn: "Burn",
+			frz: "Frozen",
+			hail: "Hail damage",
+			par: "Paralysis",
+			powder: "Powder moves",
+			prankster: "Prankster",
+			sandstorm: "Sandstorm damage",
+			tox: "Toxic",
+			trapped: "Trapping",
+		};
+		const weaktable4: {[k: string]: {[k: string]: any[]}} = {};
+		const typeset2: Set<string> = new Set();
+		for (const type1 of types) {
+			for (const type2 of types) {
+				const typeCombination = Array.from(new Set([type1.name, type2.name])).sort();
+				typeset2.add(typeCombination.join('+'));
+				for (const type3 of types) {
+					for (const type4 of types) {
+						const typeArray = Array.from(new Set([type1.name, type2.name, type3.name, type4.name])).sort();
+						if (typeArray.length === 3) continue;
+						const typeString = typeArray.join('+');
+						if (weaktable4[typeString]) continue;
+						weaktable4[typeString] = {
+							weaknesses: [],
+							resistances: [],
+							immunities: [],
+						};
+						if (typeArray.length > 2) continue;
+						const species = {types: typeArray};
+						for (const type of types) {
+							const notImmune = dex.getImmunity(type.name, species);
+							if (!notImmune) {
+								weaktable4[typeString].immunities.push(type.name);
+								continue;
+							}
+							const typeMod = dex.getEffectiveness(type.name, species);
+							if (typeMod > 0) weaktable4[typeString].weaknesses.push(type.name);
+							else if (typeMod < 0) weaktable4[typeString].resistances.push(type.name);
+						}
+						weaktable4[typeString].weaknessCnt = [weaktable4[typeString].weaknesses.length];
+						weaktable4[typeString].resistanceCnt = [
+							weaktable4[typeString].resistances.length +
+							weaktable4[typeString].immunities.length
+						];
+						for (const status in statuses) {
+							if (!dex.getImmunity(status, species)) weaktable4[typeString].immunities.push(statuses[status]);
+						}
+					}
+				}
+			}
+		}
+		const typetable2 = Array.from(typeset2);
+		for (const offenseTypeString in weaktable4) {
+			const offenseTypes = offenseTypeString.split('+');
+			const coverage2: number[] = [0, 0, 0, 0];
+			for (const DefenseTypeString of typetable2) {
+				const coverageIndex = (() => {
+					if (offenseTypes.findIndex(
+						value => weaktable4[DefenseTypeString].weaknesses.includes(value)
+					) !== -1) return 0;
+					if (offenseTypes.findIndex(
+						value => !weaktable4[DefenseTypeString].resistances.includes(value) &&
+							!weaktable4[DefenseTypeString].immunities.includes(value)
+					) !== -1) return 1;
+					if (offenseTypes.findIndex(
+						value => !weaktable4[DefenseTypeString].immunities.includes(value)
+					) !== -1) return 2;
+					return 3;
+				})();
+				coverage2[coverageIndex]++;
+			}
+			weaktable4[offenseTypeString].coverage2 = coverage2;
+		}
+		let buf = `{\n`;
+		for (const r in weaktable4) {
+			buf += `\t"${r}": {\n`;
+			buf += `\t\t"coverage2": [${weaktable4[r].coverage2.join(', ')}],\n`;
+			buf += `\t\t"offensiveDelta2": ${weaktable4[r].coverage2[0] - weaktable4[r].coverage2[2] - weaktable4[r].coverage2[3]},\n`;
+			buf += `\t\t"weaknesses": [${(weaktable4[r].weaknesses || []).map(value => `"${value}"`).join(', ')}],\n`;
+			buf += `\t\t"resistances": [${(weaktable4[r].resistances || []).map(value => `"${value}"`).join(', ')}],\n`;
+			buf += `\t\t"immunities": [${(weaktable4[r].immunities || []).map(value => `"${value}"`).join(', ')}]\n`;
+			buf += `\t},\n`;
+		}
+		buf += `}\n`;
+		FS(`config/chat-plugins/nihilslave/weaktable4.json`).writeSync(buf);
+		this.sendReply('Done');
+	},
 	clientbuild(target, room, user) {
 		if (user.id !== 'asouchihiro') return this.errorReply('Access Denied by Nihilslave!');
-	}
+	},
 };
