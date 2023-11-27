@@ -85,7 +85,7 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 	Light: {
 		0: ['drainingkiss'],
 		1: ['dazzlinggleam'],
-		2: ['mistyterrain'],
+		2: ['radiantterrain'],
 	},
 	Normal: {
 		0: ['sonicboom', 'quickattack'],
@@ -97,6 +97,7 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 		0: ['acid', 'smog', 'poisongas'],
 		1: ['sludge', 'clearsmog', 'acidspray', 'toxic'],
 		2: ['sludgebomb', 'poisonjab', 'venoshock', 'corrosivegas', 'gastroacid', 'toxicspikes'],
+		3: ['sludgewave'],
 	},
 	Psychic: {
 		0: ['confusion'],

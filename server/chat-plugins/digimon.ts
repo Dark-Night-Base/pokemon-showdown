@@ -27,11 +27,11 @@ function getStage(species: Species): StageName {
 	const exceptPerfect = [5, 60, 65, 96, 108, 130, 164, 215, 236, 248, 371, 372, 452, 459, 460, 464, 472];
 	const exceptUltimate = [120, 339, 544];
 	const exceptXevo = [146, 248, 452];
+	if (exceptXevo.includes(species.num) && species.forme === 'X') return "Ultimate";
 	if (species.num === 451) return "Child";
 	if (exceptAdult.includes(species.num)) return "Adult";
 	if (exceptPerfect.includes(species.num)) return "Perfect";
 	if (exceptUltimate.includes(species.num)) return "Ultimate";
-	if (exceptXevo.includes(species.num) && species.forme === 'X') return "Ultimate";
 	const bst = species.forme === 'X' ? dex.species.get(species.baseSpecies).bst : species.bst;
 	if (bst <= 280) return "Child";
 	if (bst <= 380) return "Adult";
@@ -401,9 +401,9 @@ export const commands: Chat.ChatCommands = {
 				if (archangels.includes(pokemon.num)) organizations.push("3 Archangels");
 				if (demonLords.includes(pokemon.num)) organizations.push("7 Great Demon Lords");
 				if (olympos.includes(pokemon.num)) organizations.push("Olympos XII");
-				if (pokemon.num >= 40302 && pokemon.num <= 40313) organizations.push("Deva");
-				if (pokemon.num >= 40314 && pokemon.num <= 40317) organizations.push("4 Holy Beasts");
-				if (pokemon.num >= 40430 && pokemon.num <= 40439) organizations.push("10 Warriors");
+				if (pokemon.num >= 302 && pokemon.num <= 313) organizations.push("Deva");
+				if (pokemon.num >= 314 && pokemon.num <= 317) organizations.push("4 Holy Beasts");
+				if (pokemon.num >= 430 && pokemon.num <= 439) organizations.push("10 Warriors");
 				if (greatDragons.includes(pokemon.num)) organizations.push("4 Great Dragons");
 				if (organizations.length) {
 					details["Organization"] = organizations.join(", ");
