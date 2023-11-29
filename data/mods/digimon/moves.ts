@@ -18,6 +18,13 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	dazzlinggleam: {
 		inherit: true,
 		basePower: 90,
+		// for client
+		type: "Light",
+	},
+	drainingkiss: {
+		inherit: true,
+		// for client
+		type: "Light",
 	},
 	flowershield: {
 		inherit: true,
@@ -622,18 +629,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		// onModifyMove(move, pokemon, target) {
-		// 	switch (target?.effectiveWeather()) {
-		// 	case 'raindance':
-		// 	case 'primordialsea':
-		// 		move.accuracy = true;
-		// 		break;
-		// 	case 'sunnyday':
-		// 	case 'desolateland':
-		// 		move.accuracy = 50;
-		// 		break;
-		// 	}
-		// },
 		secondary: {
 			chance: 30,
 			status: 'par',
@@ -788,7 +783,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	machinegundestroy: {
 		num: 40038,
 		accuracy: true,
-		basePower: 110,
+		basePower: 100,
 		category: "Special",
 		name: "Machine-Gun Destroy",
 		pp: 5,
@@ -807,7 +802,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	starlightvelocity: {
 		num: 40039,
 		accuracy: 100,
-		basePower: 80,
+		basePower: 70,
 		category: "Physical",
 		name: "Starlight Velocity",
 		pp: 5,
@@ -904,11 +899,11 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		pp: 5,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		// self: {
-		// 	boosts: {
-		// 		spa: -2,
-		// 	},
-		// },
+		self: {
+			boosts: {
+				spa: -2,
+			},
+		},
 		secondary: null,
 		target: "allAdjacentFoes",
 		type: "Light",
