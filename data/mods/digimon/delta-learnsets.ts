@@ -362,8 +362,8 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		2: (s) => ['aquaring'],
 	},
 	"Wing": {
-		1: (s) => ['wingattack'],
-		2: (s) => ['dualwingbeat', 'steelwing'],
+		1: (s) => ['fly', 'wingattack'],
+		2: (s) => ['steelwing', 'dualwingbeat'],
 	},
 };
 /**
@@ -494,5 +494,11 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	},
 	saberleomon: {
 		adds: ['Ground', 'stealthrock'],
+	},
+	digitamamon: {
+		deletes: ['clamp'],
+	},
+	devitamamon: {
+		deletes: ['clamp'],
 	},
 };
