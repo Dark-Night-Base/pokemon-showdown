@@ -318,6 +318,9 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		2: (s) => ['shellsmash'],
 		3: (s) => ['skullbash'],
 	},
+	"Snake": {
+		1: (s) => ['coil', 'glare'],
+	},
 	"Sings": {
 		0: (s) => ['echoedvoice', 'supersonic', 'sing'],
 		1: (s) => ['round', 'echoedvoice', 'screech', 'sing'],
