@@ -303,7 +303,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		3: (s) => ['futuresight'],
 	},
 	"Monster": {
-		2: (s) => ['earthquake', 'flamethrower', 'icebeam', 'surf', 'thunderbolt'],
+		2: (s) => ['flamethrower', 'icebeam', 'thunderbolt'].addMoveByEggGroup(s, 'Body Body', 'earthquake', 'surf'),
 		3: (s) => ['blizzard', 'fireblast', 'thunder'],
 	},
 	"Peck": {
@@ -332,6 +332,11 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		3: (s) => ['focuspunch']
 			.addMoveByType(s, 'Fighting', 'dynamicpunch')
 			.addMoveByType(s, 'Steel', 'meteormash'),
+	},
+	"Roars": {
+		0: (s) => ['growl'],
+		1: (s) => ['snarl', 'howl', 'nobleroar', 'roar', 'screech'],
+		2: (s) => ['uproar'].addMoveByEggGroup(s, "Human-Like", 'partingshot'),
 	},
 	"Sharp": {
 		0: (s) => ['cut', 'furycutter'],
@@ -363,11 +368,6 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 			.addMoveByType(s, 'Psychic', 'psychocut')
 			.addMoveByEggGroup(s, 'Legendary', 'psychocut'),
 		2: (s) => ['sacredsword'],
-	},
-	"Roars": {
-		0: (s) => ['growl'],
-		1: (s) => ['snarl', 'howl', 'nobleroar', 'roar', 'screech'],
-		2: (s) => ['uproar'].addMoveByEggGroup(s, "Human-Like", 'partingshot'),
 	},
 	"Tail": {
 		0: (s) => ['tailwhip'],
@@ -535,9 +535,41 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 		deletes: ['clamp'],
 	},
 	devitamamon: {
+		adds: ['scaryface'], // todo: make this a more universal move
 		deletes: ['clamp', 'dazzlinggleam'],
 	},
 	vamdemon: {
 		deletes: ['dazzlinggleam'],
+	},
+	drimogemon: {
+		adds: ['rapidspin'],
+	},
+	whamon: {
+		adds: ['waterspout'],
+	},
+	piccolomon: {
+		adds: ['nastyplot'],
+	},
+	cockatrimon: {
+		adds: ['disable'],
+	},
+	megadramon: {
+		adds: ['stealthrock'],
+	},
+	gigadramon: {
+		adds: ['stealthrock'],
+	},
+	apocalymon: {
+		adds: ['darkvoid'],
+	},
+	chrysalimon: {
+		adds: ['Bug', 'Electric'],
+		deletes: ['bugbite'],
+	},
+	infermon: {
+		adds: ['Bug', 'Dark', 'rapidspin'],
+	},
+	diablomon: {
+		adds: ['Dark', 'extremespeed', 'rapidspin'],
 	},
 };
