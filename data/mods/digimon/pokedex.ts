@@ -1916,7 +1916,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 40, atk: 50, def: 35, spa: 55, spd: 55, spe: 65},
 		abilities: {0: "Levitate", 1: ""},
 		weightkg: 1,
-		eggGroups: ["Undiscovered"],
+		eggGroups: ["Body Hand", "Claw", "Fang", "Punch", "Swift"],
 		otherFormes: ["Soulmon"],
 		formeOrder: ["Bakemon", "Soulmon"],
 	},
@@ -1938,7 +1938,8 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 50, atk: 75, def: 40, spa: 65, spd: 75, spe: 95},
 		abilities: {0: "Levitate", 1: ""},
 		weightkg: 1,
-		eggGroups: ["Undiscovered"],
+		evos: ["Bakemon"],
+		eggGroups: ["Human-Like", "Magic", "Sharp", "Swift"],
 	},
 	picodevimon: {
 		num: 85,
@@ -1947,7 +1948,10 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 30, atk: 35, def: 30, spa: 35, spd: 40, spe: 40},
 		abilities: {0: "Prankster", 1: ""},
 		weightkg: 1,
-		eggGroups: ["Undiscovered"],
+		eggGroups: [
+			"Body Foot", "Body Head", "Claw", "Fang", "Swift",
+			"Wing",
+		],
 	},
 	devimon: {
 		num: 86,
@@ -1956,7 +1960,11 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 50, atk: 85, def: 40, spa: 75, spd: 40, spe: 60},
 		abilities: {0: "", 1: ""},
 		weightkg: 1,
-		eggGroups: ["Undiscovered"],
+		evos: ["Pico Devimon"],
+		eggGroups: [
+			"Body Hand", "Claw", "Fang", "Horn", "Human-Like",
+			"Sharp", "Wing",
+		],
 		otherFormes: ["Ice Devimon"],
 		formeOrder: ["Devimon", "Ice Devimon"],
 	},
@@ -1978,7 +1986,8 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 60, atk: 70, def: 70, spa: 90, spd: 70, spe: 90},
 		abilities: {0: "", 1: ""},
 		weightkg: 1,
-		eggGroups: ["Undiscovered"],
+		evos: ["Devimon"],
+		eggGroups: ["Body Hand", "Fang", "Human-Like", "Magic"],
 	},
 	ladydevimon: {
 		num: 88,
@@ -1987,7 +1996,11 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 60, atk: 85, def: 60, spa: 85, spd: 80, spe: 80},
 		abilities: {0: "", 1: ""},
 		weightkg: 1,
-		eggGroups: ["Undiscovered"],
+		evos: ["Devimon"],
+		eggGroups: [
+			"Body Hand", "Body Knee", "Claw", "Human-Like", "Sharp",
+			"Wing",
+		],
 	},
 	skullsatamon: {
 		num: 89,
@@ -2016,7 +2029,12 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		baseStats: {hp: 120, atk: 120, def: 105, spa: 85, spd: 50, spe: 60},
 		abilities: {0: "Pressure", 1: "Poison Touch"},
 		weightkg: 1,
-		eggGroups: ["Undiscovered"],
+		evos: ["Vamdemon"],
+		eggGroups: [
+			"Body Arms", "Body Body", "Body Foot", "Body Head", "Claw",
+			"Extreme", "Fang", "Horn", "Monster", "Sharp",
+			"Roars", "Wing",
+		],
 	},
 	belialvamdemon: {
 		num: 92,

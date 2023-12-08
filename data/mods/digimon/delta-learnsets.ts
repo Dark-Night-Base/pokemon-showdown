@@ -72,7 +72,7 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 	},
 	Ground: {
 		0: ['mudslap', 'mudsport'],
-		1: ['dig', 'mudbomb', 'rocktomb', 'sandtomb', 'sandattack'],
+		1: ['dig', 'mudbomb', 'rocktomb', 'sandtomb', 'sandattack', 'stealthrock'],
 		2: ['highhorsepower', 'rockslide', 'stompingtantrum', 'bulldoze'],
 		3: ['earthquake', 'stoneedge', 'earthpower'],
 	},
@@ -107,8 +107,8 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 	},
 	Rock: {
 		0: ['rockthrow', 'accelerock'],
-		1: ['rocktomb', 'smackdown', 'rockblast', 'rockpolish'],
-		2: ['powergem', 'rockslide', 'sandstorm', 'stealthrock'],
+		1: ['rocktomb', 'smackdown', 'rockblast', 'rockpolish', 'stealthrock'],
+		2: ['powergem', 'rockslide', 'sandstorm'],
 		3: ['earthquake', 'stoneedge'],
 	},
 	Steel: {
@@ -395,7 +395,7 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 		deletes: ['icebeam', 'thunderbolt'],
 	},
 	wargreymon: {
-		adds: ['Ground', 'braveshield', 'gaiaforce', 'bravetornado', 'dramonkiller', 'uturn', 'steelwing', 'stealthrock'],
+		adds: ['Ground', 'braveshield', 'gaiaforce', 'bravetornado', 'dramonkiller', 'uturn', 'steelwing'],
 	},
 	weregarurumon: {
 		deletes: ['hammerarm'],
@@ -493,9 +493,13 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 		adds: ['stealthrock'],
 	},
 	saberleomon: {
-		adds: ['Ground', 'stealthrock'],
+		adds: ['Ground'],
+	},
+	orgemon: {
+		adds: ['stealthrock'],
 	},
 	digitamamon: {
+		adds: ['rapidspin'],
 		deletes: ['clamp'],
 	},
 	devitamamon: {
