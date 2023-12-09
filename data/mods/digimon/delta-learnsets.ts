@@ -466,7 +466,10 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 		adds: ['Flying', 'holyflame', 'extremespeed'],
 	},
 	ofanimon: {
-		adds: ['edensjavelin', 'sefirotcrystal', 'healbell', 'lunardance', 'recover'],
+		adds: [
+			'edensjavelin', 'sefirotcrystal', 'storedpower', 'healbell', 'lunardance',
+			'recover',
+		],
 		deletes: ['darkpulse', 'earthquake'],
 	},
 	crossmon: {
