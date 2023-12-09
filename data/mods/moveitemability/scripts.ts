@@ -331,7 +331,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			const ability = this.battle.dex.abilities.getByID(this.ability);
 			if (ability.exists) return ability;
 			const move = this.battle.dex.moves.getByID(this.ability);
-			if (move.exists) return resolveMoveforAbility(move);
+			if (move.exists && move.id !== 'metronome') return resolveMoveforAbility(move);
 			const item = this.battle.dex.items.getByID(this.ability);
 			if (item.exists) return resolveItemforAbility(item);
 			return ability;
