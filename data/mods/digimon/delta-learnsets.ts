@@ -349,13 +349,17 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		2: (s) => ['shellsmash'],
 		3: (s) => ['skullbash'],
 	},
-	"Snake": {
-		1: (s) => ['coil', 'glare'],
-	},
 	"Sings": {
 		0: (s) => ['echoedvoice', 'supersonic', 'sing'],
 		1: (s) => ['round', 'echoedvoice', 'screech', 'sing'],
 		2: (s) => ['hypervoice', 'perishsong'],
+	},
+	"Snake": {
+		1: (s) => ['coil', 'glare'],
+	},
+	"Spiky": {
+		0: (s) => ['twineedle'],
+		1: (s) => ['spikecannon', 'twineedle', 'spikes', 'spikyshield'].addMoveByEggGroup(s, 'Body Arms', 'needlearm'),
 	},
 	"Swift": {
 		1: (s) => ['agility'].addMoveByEggGroup(s, 'Body Hand', 'fakeout'),
@@ -551,10 +555,20 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 		adds: ['waterspout'],
 	},
 	piccolomon: {
-		adds: ['nastyplot'],
+		adds: ['nastyplot', 'spikes'],
+	},
+	raremon: {
+		adds: ['spikes'],
 	},
 	cockatrimon: {
 		adds: ['disable'],
+		deletes: ['coil'],
+	},
+	mastertyranomon: {
+		adds: ['Fighting', 'firepunch', 'hammerarm', 'machpunch', 'poweruppunch'],
+	},
+	vademon: {
+		adds: ['futuresight'],
 	},
 	megadramon: {
 		adds: ['stealthrock'],
