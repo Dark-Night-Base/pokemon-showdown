@@ -142,16 +142,31 @@ declare global {
 	}
 }
 Array.prototype.addMoveByType = function (species: Species, type: string, ...moves: string[]) {
-	if (species.types.includes(type)) this.push(...moves);
+	if (type.startsWith('!') && !species.types.includes(type.slice(1))) {
+		this.push(...moves);
+	} else if (species.types.includes(type)) {
+		this.push(...moves);
+	}
 	return this;
 };
 Array.prototype.addMoveByEggGroup = function (species: Species, eggGroup: string, ...moves: string[]) {
-	if (species.eggGroups.includes(eggGroup)) this.push(...moves);
+	if (eggGroup.startsWith('!') && !species.eggGroups.includes(eggGroup.slice(1))) {
+		this.push(...moves);
+	} else if (species.eggGroups.includes(eggGroup)) {
+		this.push(...moves);
+	}
 	return this;
 };
 Array.prototype.addMoveByAny = function (species: Species, filter: string, ...moves: string[]) {
-	if (species.types.findIndex(value => value.includes(filter)) !== -1) this.push(...moves);
-	if (species.eggGroups.findIndex(value => value.includes(filter)) !== -1) this.push(...moves);
+	let reverse = false;
+	let found = false;
+	if (filter.startsWith('!')) {
+		reverse = true;
+		filter = filter.slice(1);
+	}
+	if (species.types.findIndex(value => value.includes(filter)) !== -1) found = true;
+	if (species.eggGroups.findIndex(value => value.includes(filter)) !== -1) found = true;
+	if (found !== reverse) this.push(...moves);
 	return this;
 };
 export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species: Species) => string[]}} = {
@@ -303,8 +318,15 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		3: (s) => ['futuresight'],
 	},
 	"Monster": {
-		2: (s) => ['flamethrower', 'icebeam', 'thunderbolt'].addMoveByEggGroup(s, 'Body Body', 'earthquake', 'surf'),
-		3: (s) => ['blizzard', 'fireblast', 'thunder'],
+		2: (s) => []
+			.addMoveByType(s, '!Ice', 'flamethrower')
+			.addMoveByType(s, '!Dragon', 'icebeam')
+			.addMoveByType(s, '!Ground', 'thunderbolt')
+			.addMoveByEggGroup(s, 'Body Body', 'earthquake', 'surf'),
+		3: (s) => []
+			.addMoveByType(s, '!Dragon', 'blizzard')
+			.addMoveByType(s, '!Ice', 'fireblast')
+			.addMoveByType(s, '!Ground', 'thunder'),
 	},
 	"Peck": {
 		0: (s) => ['peck'],
@@ -324,7 +346,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 			.addMoveByType(s, 'Light', 'heavensknuckle')
 			.addMoveByType(s, 'Steel', 'bulletpunch'),
 		2: (s) => ['megapunch']
-			.addMoveByType(s, 'Dragon', 'firepunch', 'icepunch', 'thunderpunch')
+			.addMoveByType(s, 'Dragon', 'firepunch', 'thunderpunch')
 			.addMoveByType(s, 'Fighting', 'drainpunch', 'firepunch', 'icepunch', 'thunderpunch')
 			.addMoveByType(s, 'Normal', 'firepunch', 'icepunch', 'thunderpunch')
 			.addMoveByType(s, 'Steel', 'thunderpunch')
@@ -419,13 +441,13 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 		adds: ['greysword', 'garurucannon', 'dragonhammer'],
 	},
 	metalgreymon: {
-		deletes: ['icebeam', 'dualwingbeat'],
+		deletes: ['dualwingbeat'],
 	},
 	metalgreymonblue: {
-		deletes: ['icebeam', 'dualwingbeat'],
+		deletes: ['dualwingbeat'],
 	},
 	skullgreymon: {
-		deletes: ['icebeam', 'thunderbolt'],
+		deletes: ['thunderbolt'],
 	},
 	wargreymon: {
 		adds: [
