@@ -312,9 +312,10 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 		0: (s) => ['confusion', 'ember', 'thundershock', 'thunderwave'],
 		1: (s) => ['mysticalfire', 'thunderwave'],
 		2: (s) => [
-			'dazzlinggleam', 'psychic', 'darkpulse', 'shadowball', 'calmmind',
-			'hypnosis', 'lightscreen', 'magiccoat', 'reflect',
-		],
+			'psychic', 'shadowball', 'calmmind', 'hypnosis', 'lightscreen',
+			'magiccoat', 'reflect',
+		].addMoveByType(s, '!Dark', 'dazzlinggleam')
+		.addMoveByType(s, '!Light', 'darkpulse'),
 		3: (s) => ['futuresight'],
 	},
 	"Monster": {
@@ -474,19 +475,14 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	plesiomon: {
 		adds: ['Ice'],
 	},
-	holyangemon: {
-		deletes: ['darkpulse'],
-	},
 	seraphimon: {
 		adds: ['sevenheavens', 'testament'],
-		deletes: ['darkpulse'],
 	},
 	goddramon: {
 		adds: ['Flying', 'godflame', 'extremespeed', 'recover'],
 	},
 	angewomon: {
 		adds: ['healbell'],
-		deletes: ['darkpulse'],
 	},
 	holydramon: {
 		adds: ['Flying', 'holyflame', 'extremespeed'],
@@ -496,7 +492,7 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 			'edensjavelin', 'sefirotcrystal', 'storedpower', 'healbell', 'lunardance',
 			'recover',
 		],
-		deletes: ['darkpulse', 'earthquake'],
+		deletes: ['earthquake'],
 	},
 	crossmon: {
 		adds: ['dazzlinggleam'],
@@ -592,11 +588,15 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	vademon: {
 		adds: ['futuresight'],
 	},
+
 	megadramon: {
 		adds: ['stealthrock'],
 	},
 	gigadramon: {
 		adds: ['stealthrock'],
+	},
+	deathmon: {
+		adds: ['dazzlinggleam'],
 	},
 	apocalymon: {
 		adds: ['darkvoid'],
@@ -610,5 +610,29 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	},
 	diablomon: {
 		adds: ['Dark', 'extremespeed', 'rapidspin'],
+	},
+
+	susanoomon: {
+		adds: [
+			'Flying', 'Ice', 'Electric', 'Ground', 'Grass',
+			'Water', 'Steel', 'Dark',
+		],
+	},
+
+	lucemon: {
+		addStages: [1, 2, 3],
+		adds: [
+			'Bug', 'Dark', 'Dragon', 'Electric', 'Fighting',
+			'Fire', 'Flying', 'Ghost', 'Grass', 'Ground',
+			'Ice', 'Normal', 'Poison', 'Psychic', 'Rock',
+			'Steel', 'Water',
+		],
+	},
+	lucemonfalldown: {
+		addStages: [3],
+		adds: [
+			'Bug', 'Dragon', 'Fighting', 'Ghost', 'Normal',
+			'Poison', 'Psychic', 'Rock',
+		],
 	},
 };
