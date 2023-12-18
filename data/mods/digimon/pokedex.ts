@@ -628,7 +628,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		evos: ["Palmon"],
 		eggGroups: [
 			"Body Arms", "Body Body", "Body Hand", "Grass Grass", "Human-Like",
-			"Punch",
+			"Punch", "Spiky",
 		],
 		otherFormes: ["Togemon-X"],
 		formeOrder: ["Togemon", "Togemon-X"],
@@ -683,7 +683,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		evos: ["Lilimon"],
 		eggGroups: [
 			"Body Hand", "Grass Flower", "Grass Grass", "Human-Like", "Sharp",
-			"Swift",
+			"Spiky", "Swift",
 		],
 		otherFormes: ["Rosemon-Burst", "Rosemon-X"],
 		formeOrder: ["Rosemon", "Rosemon-Burst", "Rosemon-X"],
