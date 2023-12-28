@@ -323,6 +323,8 @@ export const TeamsHandler = new class {
 	}
 	validateAccess(conn: Connection, popup = false) {
 		const user = conn.user;
+		// if there's no user, they've disconnected, so it's safe to just interrupt here
+		if (!user) throw new Chat.Interruption();
 		const err = (message: string): never => {
 			if (popup) {
 				conn.popup(message);
@@ -402,6 +404,7 @@ export const commands: Chat.ChatCommands = {
 
 			const page = isEdit ? 'edit' : 'upload';
 			if (id) {
+				connection.send(`|queryresponse|teamupload|` + JSON.stringify({teamid: id, teamName}));
 				connection.send(`>view-teams-${page}\n|deinit`);
 				this.parse(`/join view-teams-view-${id}-${id}`);
 			} else {
