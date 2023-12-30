@@ -80,7 +80,7 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 			'stealthrock',
 		],
 		2: ['highhorsepower', 'rockslide', 'stompingtantrum', 'bulldoze'],
-		3: ['earthquake', 'stoneedge', 'earthpower'],
+		3: ['earthquake', 'stoneedge', 'earthpower', 'sandstorm'],
 	},
 	Ice: {
 		0: ['iceshard', 'powdersnow', 'haze'],
@@ -588,7 +588,15 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	vademon: {
 		adds: ['futuresight'],
 	},
-
+	mammon: {
+		adds: ['ancientpower'],
+	},
+	jyureimon: {
+		deletes: ['mysticalfire'],
+	},
+	pinochimon: {
+		deletes: ['megahorn'],
+	},
 	megadramon: {
 		adds: ['stealthrock'],
 	},
