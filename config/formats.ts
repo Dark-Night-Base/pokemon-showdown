@@ -239,7 +239,103 @@ export const Formats: FormatList = [
 		mod: 'moveitemability',
 		debug: true,
 		ruleset: ['[Gen 9] ND Move-Item-Ability BH'],
-		onValidateSet(set) {/** put all extra validations here i think. including extra mia clause check */},
+		validateSet(set, teamHas) {
+			const validateIA = function (this: TeamValidator, type: 'item' | 'ability') {
+				const plugin = set[type];
+				const move = this.dex.moves.get(plugin);
+				const item = this.dex.items.get(plugin);
+				const ability = this.dex.abilities.get(plugin);
+				if (type === 'item') {
+					// let the real validator check if the item is banned
+					if (item.exists) return;
+					if (ability.exists) {
+						if (this.ruleTable.isBanned(`ability:${ability.id}`)) return [`${ability.name} is banned`];
+						return;
+					}
+				}
+				if (type === 'ability') {
+					// let the real validator check if the ability is banned
+					if (ability.exists) return;
+					if (item.exists) {
+						if (this.ruleTable.isBanned(`item:${item.id}`)) return [`${item.name} is banned`];
+						return;
+					}
+				}
+				if (plugin !== '' && !move.exists) return [`${plugin} is not a valid thing. (Check your spelling?)`];
+				if (set.moves.map(this.toID).includes(move.id) && move.id !== '') return [`${set.name} cannot have move ${move.name} for more than once`];
+				if (move.isNonstandard && ["CAP", "LGPE", "Custom", "Gigantamax"].includes(move.isNonstandard)) return [`${move.name} does not exist in the game`];
+				const bannedRestrictedMoves = ['assist', 'entrainment', 'skillswap'];
+				if (this.ruleTable.isRestricted(`move:${move.id}`) || bannedRestrictedMoves.includes(move.id)) return [`${move.name} is banned as item or ability`];
+				const accuracyLoweringMove = move.secondaries?.some(secondary => secondary.boosts?.accuracy && secondary.boosts?.accuracy < 0) ||
+					(move.boosts && move.boosts.accuracy && move.boosts.accuracy < 0);
+				const evasionRaisingMove = move.boosts && move.boosts.evasion && move.boosts.evasion > 0;
+				const sleepMove = (move.status && move.status === 'slp') || ['relicsong', 'yawn'].includes(move.id);
+				if (
+					move.ohko ||
+					accuracyLoweringMove ||
+					evasionRaisingMove ||
+					sleepMove ||
+					move.multihit ||
+					(move.priority > 0 && move.category !== 'Status') ||
+					move.volatileStatus === 'partiallytrapped' ||
+					move.damageCallback && move.id !== 'psywave' ||
+					// todo: check why charge moves are banned and test geomancy
+					(move.flags['charge'] && move.category !== 'Status') ||
+					move.willCrit ||
+					move.selfSwitch ||
+					move.isZ ||
+					move.isMax
+				) return [`${move.name} is banned as item or ability`];
+			};
+			const validateM = function (this: TeamValidator) {
+				const problems: string[] = [];
+				for (const move in set.moves) {
+					const item = this.dex.items.get(this.toID(move));
+					const ability = this.dex.abilities.get(this.toID(move));
+					if (item.exists && this.ruleTable.isBanned(`item:${item.id}`)) {
+						problems.push(`${item.name} is banned`);
+					}
+					if (ability.exists && this.ruleTable.isBanned(`ability:${ability.id}`)) {
+						problems.push(`${ability.name} is banned`);
+					}
+					const moveExists = this.dex.moves.get(this.toID(move)).exists
+					if (!item.exists && !ability.exists && !moveExists) {
+						problems.push(`${move} is not a valid thing. (Check your spelling?)`);
+					}
+				}
+				return problems.length ? problems : null;
+			}
+			// validation 1
+			let problems = [
+				...(validateM.call(this) || []),
+				...(validateIA.call(this, 'item') || []),
+				...(validateIA.call(this, 'ability') || []),
+			];
+			if (problems.length) return problems;
+			// complex bans
+			const plugins = [this.toID(set.item), this.toID(set.ability)];
+			if (plugins.includes('comatose' as ID) &&
+				(plugins.includes('sleeptalk' as ID) || set.moves.map(this.toID).includes('sleeptalk' as ID))) {
+				return [`The combination of Comatose + Sleep Talk is banned by [Gen 9] National Dex BH`];
+			}
+			if (plugins.includes('imprison' as ID) && (
+				plugins.includes('transform' as ID) ||
+				plugins.includes('imposter' as ID) ||
+				set.moves.map(this.toID).includes('transform' as ID)
+			)) return [`The combination of Imprison + Transform (or Imposter) is banned by [Gen 9] National Dex BH`];
+			// validation 2
+			const moves = set.moves.slice();
+			const item = set.item;
+			const ability = set.ability;
+			set.moves = set.moves.filter(move => this.dex.moves.get(this.toID(move)).exists && this.toID(move) !== 'metronome' as ID);
+			if (!this.dex.items.get(item).exists) set.item = '';
+			if (!this.dex.abilities.get(ability).exists) set.ability = 'ballfetch';
+			problems = this.validateSet(set, teamHas) || [];
+			set.moves = moves.slice();
+			set.item = item;
+			set.ability = ability;
+			return problems.length ? problems : null;
+		},
 		onBegin() {
 			for (const pokemon of this.getAllPokemon()) {
 				const innates = [];
@@ -289,6 +385,7 @@ export const Formats: FormatList = [
 		// these two hopefully should override moveitemability's transformInto, test if they really do
 		field: {
 			suppressingWeather() {
+				this.battle.debug('suppressingWeather() in formats.ts');
 				for (const side of this.battle.sides) {
 					for (const pokemon of side.active) {
 						if (
@@ -307,6 +404,7 @@ export const Formats: FormatList = [
 		},
 		pokemon: {
 			transformInto(pokemon, effect) {
+				this.battle.debug('transformInto() in formats.ts');
 				const species = pokemon.species;
 				if (pokemon.fainted || this.illusion || pokemon.illusion || (pokemon.volatiles['substitute'] && this.battle.gen >= 5) ||
 					(pokemon.transformed && this.battle.gen >= 2) || (this.transformed && this.battle.gen >= 5) ||
