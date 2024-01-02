@@ -1285,8 +1285,8 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		weightkg: 1,
 		evos: ["Betamon"],
 		eggGroups: [
-			"Body Head", "Dragon Eastern", "Fang", "Swift", "Tail",
-			"Tentacle", "Water Ocean",
+			"Body Head", "Dragon Eastern", "Fang", "Tail", "Tentacle",
+			"Water Ocean",
 		],
 		otherFormes: ["Seadramon-X"],
 		formeOrder: ["Seadramon", "Seadramon-X"],
@@ -1315,7 +1315,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		evos: ["Seadramon"],
 		eggGroups: [
 			"Body Head", "Dragon Eastern", "Fang", "Horn", "Sharp",
-			"Swift", "Tail", "Tentacle", "Water Ocean",
+			"Tail", "Tentacle", "Water Ocean",
 		],
 		otherFormes: ["Mega Seadramon-X"],
 		formeOrder: ["Mega Seadramon", "Mega Seadramon-X"],
@@ -1344,8 +1344,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		evos: ["Mega Seadramon"],
 		eggGroups: [
 			"Body Body", "Body Head", "Cannon", "Dragon Eastern", "Fang",
-			"Horn", "Sharp", "Swift", "Tail", "Tentacle",
-			"Water Ocean",
+			"Horn", "Sharp", "Tail", "Tentacle", "Water Ocean",
 		],
 	},
 	candmon: {

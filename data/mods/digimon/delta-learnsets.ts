@@ -561,10 +561,7 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 	},
 	devitamamon: {
 		adds: ['scaryface'], // todo: make this a more universal move
-		deletes: ['clamp', 'dazzlinggleam'],
-	},
-	vamdemon: {
-		deletes: ['dazzlinggleam'],
+		deletes: ['clamp'],
 	},
 	drimogemon: {
 		adds: ['rapidspin'],
@@ -595,7 +592,7 @@ export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
 		deletes: ['mysticalfire'],
 	},
 	pinochimon: {
-		deletes: ['megahorn'],
+		deletes: ['megahorn', 'powerwhip', 'solarbeam'],
 	},
 	megadramon: {
 		adds: ['stealthrock'],
