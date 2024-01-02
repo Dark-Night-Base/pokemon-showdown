@@ -233,7 +233,7 @@ export const Formats: FormatList = [
 		},
 	},
 	{
-		name: "[Gen 9] ND MIA-Spam BH",
+		name: "[Gen 9] ND Move-Item-Ability-Spam BH",
 		desc: `MIABH, but you can also put (multiple) Item/Ability into moveslots.`,
 
 		mod: 'moveitemability',
