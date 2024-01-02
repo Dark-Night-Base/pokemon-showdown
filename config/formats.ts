@@ -238,7 +238,7 @@ export const Formats: FormatList = [
 
 		mod: 'moveitemability',
 		debug: true,
-		ruleset: ['[Gen 9] ND Move-Item-Ability BH'],
+		ruleset: ['[Gen 9] ND Move-Item-Ability BH', '!!MIA Clause = Spam'],
 		validateSet(set, teamHas) {
 			const validateIA = function (this: TeamValidator, type: 'item' | 'ability') {
 				const plugin = set[type];
@@ -289,6 +289,7 @@ export const Formats: FormatList = [
 			};
 			const validateM = function (this: TeamValidator) {
 				const problems: string[] = [];
+				// todo: to formalize the code, add check for same ability in both item/ability and move slots
 				for (const move of set.moves) {
 					const item = this.dex.items.get(this.toID(move));
 					const ability = this.dex.abilities.get(this.toID(move));

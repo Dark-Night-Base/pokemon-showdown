@@ -3142,6 +3142,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 		effectType: 'ValidatorRule',
 		name: 'MIA Clause',
 		desc: "Prevents teams from having more than one Pokemon with the same Forte/Trademark/Item/Ability.",
+		hasValue: true,
 		onBegin() {
 			this.add('rule', 'MIA Clause: Limit one of each Forte/Trademark/Item/Ability.');
 		},
@@ -3213,8 +3214,17 @@ export const Rulesets: {[k: string]: FormatData} = {
 				}
 				return '';
 			};
+			const isSpam = this.ruleTable.valueRules.get('setupclause') === "Spam";
 			const miaTable: Set<string> = new Set();
 			for (const set of team) {
+				const plugins = [set.item, set.ability];
+				if (isSpam) {
+					for (const move in set.moves) {
+						if (!this.dex.moves.get(this.toID(move)).exists || this.toID(move) === 'metronome' as ID) {
+							plugins.push(this.toID(move));
+						}
+					}
+				}
 				for (const plugin of [set.item, set.ability]) {
 					const pluginString = getPluginString.call(this, plugin);
 					if (pluginString === '') continue;
