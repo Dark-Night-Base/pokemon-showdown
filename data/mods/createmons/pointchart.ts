@@ -16,6 +16,7 @@ export const typeToPoint: {[k: string]: number} = {
 	psychic: 1.2,
 	rock: 1.2,
 	steel: 2,
+	stellar: 1,
 	water: 1.8,
 };
 export const abilityToPoint: {[k: string]: number} = {
