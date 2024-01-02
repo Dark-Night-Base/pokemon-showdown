@@ -3219,7 +3219,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 			for (const set of team) {
 				const plugins = [set.item, set.ability];
 				if (isSpam) {
-					for (const move in set.moves) {
+					for (const move of set.moves) {
 						if (!this.dex.moves.get(this.toID(move)).exists || this.toID(move) === 'metronome' as ID) {
 							plugins.push(this.toID(move));
 						}
