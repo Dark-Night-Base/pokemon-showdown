@@ -289,7 +289,7 @@ export const Formats: FormatList = [
 			};
 			const validateM = function (this: TeamValidator) {
 				const problems: string[] = [];
-				for (const move in set.moves) {
+				for (const move of set.moves) {
 					const item = this.dex.items.get(this.toID(move));
 					const ability = this.dex.abilities.get(this.toID(move));
 					if (item.exists && this.ruleTable.isBanned(`item:${item.id}`)) {
