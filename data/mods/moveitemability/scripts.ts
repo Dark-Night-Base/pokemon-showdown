@@ -376,7 +376,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			const species = pokemon.species;
 			if (pokemon.fainted || this.illusion || pokemon.illusion || (pokemon.volatiles['substitute'] && this.battle.gen >= 5) ||
 				(pokemon.transformed && this.battle.gen >= 2) || (this.transformed && this.battle.gen >= 5) ||
-				species.name === 'Eternatus-Eternamax') {
+				species.name === 'Eternatus-Eternamax' || (['Ogerpon', 'Terapagos'].includes(species.baseSpecies) &&
+				(this.terastallized || pokemon.terastallized))) {
 				return false;
 			}
 
@@ -428,7 +429,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				this.boosts[boostName] = pokemon.boosts[boostName];
 			}
 			if (this.battle.gen >= 6) {
-				const volatilesToCopy = ['focusenergy', 'gmaxchistrike', 'laserfocus'];
+				const volatilesToCopy = ['dragoncheer', 'focusenergy', 'gmaxchistrike', 'laserfocus'];
 				for (const volatile of volatilesToCopy) {
 					if (pokemon.volatiles[volatile]) {
 						this.addVolatile(volatile);
@@ -470,6 +471,11 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 			}
+
+			// Pokemon transformed into Ogerpon cannot Terastallize
+			// restoring their ability to tera after they untransform is handled ELSEWHERE
+			if (this.species.baseSpecies === 'Ogerpon' && this.canTerastallize) this.canTerastallize = false;
+			if (this.species.baseSpecies === 'Terapagos' && this.canTerastallize) this.canTerastallize = false;
 
 			return true;
 		},
@@ -553,19 +559,37 @@ export const Scripts: ModdedBattleScriptsData = {
 			baseDamage = this.battle.randomizer(baseDamage);
 
 			// STAB
+			const isTeraStellarBoosted = pokemon.terastallized === 'Stellar' && !pokemon.stellarBoostedTypes.includes(type);
 			if (move.forceSTAB || (type !== '???' &&
-				(pokemon.hasType(type) || (pokemon.terastallized && pokemon.getTypes(false, true).includes(type))))) {
+				(pokemon.hasType(type) || (pokemon.terastallized && pokemon.getTypes(false, true).includes(type)) ||
+					isTeraStellarBoosted))) {
 				// The "???" type never gets STAB
 				// Not even if you Roost in Gen 4 and somehow manage to use
 				// Struggle in the same turn.
 				// (On second thought, it might be easier to get a MissingNo.)
 
-				let stab = move.stab || 1.5;
-				if (type === pokemon.terastallized && pokemon.getTypes(false, true).includes(type)) {
-					// In my defense, the game hardcodes the Adaptability check like this, too.
-					stab = stab === 2 ? 2.25 : 2;
-				} else if (pokemon.terastallized && type !== pokemon.terastallized) {
-					stab = 1.5;
+				// The Stellar tera type makes this incredibly confusing
+				// If the move's type does not match one of the user's base types,
+				// the Stellar tera type applies a one-time 1.2x damage boost for that type.
+				//
+				// If the move's type does match one of the user's base types,
+				// then the Stellar tera type applies a one-time 2x STAB boost for that type,
+				// and then goes back to using the regular 1.5x STAB boost for those types.
+
+				let stab: number | [number, number];
+				if (isTeraStellarBoosted) {
+					stab = pokemon.getTypes(false, true).includes(type) ? 2 : [4915, 4096];
+					if (pokemon.species.name !== 'Terapagos-Stellar') {
+						pokemon.stellarBoostedTypes.push(type);
+					}
+				} else {
+					stab = move.stab || 1.5;
+					if (type === pokemon.terastallized && pokemon.getTypes(false, true).includes(type)) {
+						// In my defense, the game hardcodes the Adaptability check like this, too.
+						stab = stab === 2 ? 2.25 : 2;
+					} else if (pokemon.terastallized && type !== pokemon.terastallized) {
+						stab = 1.5;
+					}
 				}
 				baseDamage = this.battle.modify(baseDamage, stab);
 			}

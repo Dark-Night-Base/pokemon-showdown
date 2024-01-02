@@ -233,6 +233,202 @@ export const Formats: FormatList = [
 		},
 	},
 	{
+		name: "[Gen 9] ND MIA-Spam BH",
+		desc: `MIABH, but you can also put (multiple) Item/Ability into moveslots.`,
+
+		mod: 'moveitemability',
+		debug: true,
+		ruleset: ['[Gen 9] ND Move-Item-Ability BH'],
+		onValidateSet(set) {/** put all extra validations here i think. including extra mia clause check */},
+		onBegin() {
+			for (const pokemon of this.getAllPokemon()) {
+				const innates = [];
+				for (const move of pokemon.moves) {
+					if (this.dex.items.get(move).exists) innates.push(move);
+					if (this.dex.abilities.get(move).exists) innates.push(move);
+				}
+				pokemon.m.innates = innates;
+			}
+		},
+		onBeforeSwitchIn(pokemon) {
+			// Abilities that must be applied before both sides trigger onSwitchIn to correctly
+			// handle switch-in ability-to-ability interactions, e.g. Intimidate counters
+			// todo: test if items also need be in
+			const neededBeforeSwitchInIDs = [
+				'clearbody', 'competitive', 'contrary', 'defiant', 'fullmetalbody', 'hypercutter', 'innerfocus',
+				'mirrorarmor', 'oblivious', 'owntempo', 'rattled', 'scrappy', 'simple', 'whitesmoke',
+			];
+			if (pokemon.m.innates) {
+				for (const innate of pokemon.m.innates) {
+					if (!neededBeforeSwitchInIDs.includes(innate)) continue;
+					if (this.dex.items.get(innate).exists) pokemon.addVolatile("item:" + innate, pokemon);
+					if (this.dex.abilities.get(innate).exists) pokemon.addVolatile("ability:" + innate, pokemon);
+				}
+			}
+		},
+		onSwitchInPriority: 2,
+		onSwitchIn(pokemon) {
+			if (pokemon.m.innates) {
+				for (const innate of pokemon.m.innates) {
+					if (this.dex.items.get(innate).exists) pokemon.addVolatile("item:" + innate, pokemon);
+					if (this.dex.abilities.get(innate).exists) pokemon.addVolatile("ability:" + innate, pokemon);
+				}
+			}
+		},
+		onSwitchOut(pokemon) {
+			for (const innate of Object.keys(pokemon.volatiles).filter(i => i.startsWith('ability:') || i.startsWith('item:'))) {
+				pokemon.removeVolatile(innate);
+			}
+		},
+		onFaint(pokemon) {
+			for (const innate of Object.keys(pokemon.volatiles).filter(i => i.startsWith('ability:') || i.startsWith('item:'))) {
+				const innateEffect = this.dex.conditions.get(innate) as Effect;
+				this.singleEvent('End', innateEffect, null, pokemon);
+			}
+		},
+		// these two hopefully should override moveitemability's transformInto, test if they really do
+		field: {
+			suppressingWeather() {
+				for (const side of this.battle.sides) {
+					for (const pokemon of side.active) {
+						if (
+							pokemon && !pokemon.fainted && !pokemon.ignoringAbility() &&
+							(
+								pokemon.getAbility().suppressWeather ||
+								(pokemon.getItem() as any).suppressWeather ||
+								pokemon.m.innates?.some((k: string) => this.battle.dex.abilities.get(k).suppressWeather)
+						)) {
+							return true;
+						}
+					}
+				}
+				return false;
+			}
+		},
+		pokemon: {
+			transformInto(pokemon, effect) {
+				const species = pokemon.species;
+				if (pokemon.fainted || this.illusion || pokemon.illusion || (pokemon.volatiles['substitute'] && this.battle.gen >= 5) ||
+					(pokemon.transformed && this.battle.gen >= 2) || (this.transformed && this.battle.gen >= 5) ||
+					species.name === 'Eternatus-Eternamax' || (['Ogerpon', 'Terapagos'].includes(species.baseSpecies) &&
+					(this.terastallized || pokemon.terastallized))) {
+					return false;
+				}
+		
+				if (this.battle.dex.currentMod === 'gen1stadium' && (
+					species.name === 'Ditto' ||
+					(this.species.name === 'Ditto' && pokemon.moves.includes('transform'))
+				)) {
+					return false;
+				}
+		
+				if (!this.setSpecies(species, effect, true)) return false;
+		
+				this.transformed = true;
+				this.weighthg = pokemon.weighthg;
+		
+				const types = pokemon.getTypes(true, true);
+				this.setType(pokemon.volatiles['roost'] ? pokemon.volatiles['roost'].typeWas : types, true);
+				this.addedType = pokemon.addedType;
+				this.knownType = this.isAlly(pokemon) && pokemon.knownType;
+				this.apparentType = pokemon.apparentType;
+		
+				let statName: StatIDExceptHP;
+				for (statName in this.storedStats) {
+					this.storedStats[statName] = pokemon.storedStats[statName];
+					if (this.modifiedStats) this.modifiedStats[statName] = pokemon.modifiedStats![statName]; // Gen 1: Copy modified stats.
+				}
+				this.moveSlots = [];
+				this.hpType = (this.battle.gen >= 5 ? this.hpType : pokemon.hpType);
+				this.hpPower = (this.battle.gen >= 5 ? this.hpPower : pokemon.hpPower);
+				this.timesAttacked = pokemon.timesAttacked;
+				for (const moveSlot of pokemon.moveSlots) {
+					let moveName = moveSlot.move;
+					if (moveSlot.id === 'hiddenpower') {
+						moveName = 'Hidden Power ' + this.hpType;
+					}
+					this.moveSlots.push({
+						move: moveName,
+						id: moveSlot.id,
+						pp: moveSlot.maxpp === 1 ? 1 : 5,
+						maxpp: this.battle.gen >= 5 ? (moveSlot.maxpp === 1 ? 1 : 5) : moveSlot.maxpp,
+						target: moveSlot.target,
+						disabled: false,
+						used: false,
+						virtual: true,
+					});
+				}
+				let boostName: BoostID;
+				for (boostName in pokemon.boosts) {
+					this.boosts[boostName] = pokemon.boosts[boostName];
+				}
+				if (this.battle.gen >= 6) {
+					const volatilesToCopy = ['dragoncheer', 'focusenergy', 'gmaxchistrike', 'laserfocus'];
+					for (const volatile of volatilesToCopy) {
+						if (pokemon.volatiles[volatile]) {
+							this.addVolatile(volatile);
+							if (volatile === 'gmaxchistrike') this.volatiles[volatile].layers = pokemon.volatiles[volatile].layers;
+						} else {
+							this.removeVolatile(volatile);
+						}
+					}
+				}
+				if (effect) {
+					this.battle.add('-transform', this, pokemon, '[from] ' + effect.fullname);
+				} else {
+					this.battle.add('-transform', this, pokemon);
+				}
+				if (this.terastallized) {
+					this.knownType = true;
+					this.apparentType = this.terastallized;
+				}
+				if (this.battle.gen > 2) {
+					this.setAbility(pokemon.getAbility(), this, true, true);
+					if (this.m.innates) {
+						for (const innate of this.m.innates) {
+							if (this.battle.dex.items.get(innate).exists) this.removeVolatile('item:' + innate);
+							if (this.battle.dex.abilities.get(innate).exists) this.removeVolatile('ability:' + innate);
+						}
+					}
+					if (pokemon.m.innates) {
+						for (const innate of pokemon.m.innates) {
+							if (this.battle.dex.items.get(innate).exists) this.addVolatile('item:' + innate, this);
+							if (this.battle.dex.abilities.get(innate).exists) this.addVolatile('ability:' + innate, this);
+						}
+					}
+				}
+		
+				// Change formes based on held items (for Transform)
+				// Only ever relevant in Generation 4 since Generation 3 didn't have item-based forme changes
+				if (this.battle.gen === 4) {
+					if (this.species.num === 487) {
+						// Giratina formes
+						if (this.species.name === 'Giratina' && this.item === 'griseousorb') {
+							this.formeChange('Giratina-Origin');
+						} else if (this.species.name === 'Giratina-Origin' && this.item !== 'griseousorb') {
+							this.formeChange('Giratina');
+						}
+					}
+					if (this.species.num === 493) {
+						// Arceus formes
+						const item = this.getItem();
+						const targetForme = (item?.onPlate ? 'Arceus-' + item.onPlate : 'Arceus');
+						if (this.species.name !== targetForme) {
+							this.formeChange(targetForme);
+						}
+					}
+				}
+		
+				// Pokemon transformed into Ogerpon cannot Terastallize
+				// restoring their ability to tera after they untransform is handled ELSEWHERE
+				if (this.species.baseSpecies === 'Ogerpon' && this.canTerastallize) this.canTerastallize = false;
+				if (this.species.baseSpecies === 'Terapagos' && this.canTerastallize) this.canTerastallize = false;
+		
+				return true;
+			},
+		},
+	},
+	{
 		name: "[Gen 9] ND Tera Donation BH",
 		desc: `The first Pok&eacute;mon sent out immediately terastallizes. The other Pok&eacute;mon in the party inherit that Tera Type as an additional type.`,
 		threads: [
