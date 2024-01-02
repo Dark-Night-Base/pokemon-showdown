@@ -3214,7 +3214,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 				}
 				return '';
 			};
-			const isSpam = this.ruleTable.valueRules.get('setupclause') === "Spam";
+			const isSpam = this.ruleTable.valueRules.get('miaclause') === "Spam";
 			const miaTable: Set<string> = new Set();
 			for (const set of team) {
 				const plugins = [set.item, set.ability];
