@@ -3225,7 +3225,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 						}
 					}
 				}
-				for (const plugin of [set.item, set.ability]) {
+				for (const plugin of plugins) {
 					const pluginString = getPluginString.call(this, plugin);
 					if (pluginString === '') continue;
 					if (miaTable.has(pluginString)) {
