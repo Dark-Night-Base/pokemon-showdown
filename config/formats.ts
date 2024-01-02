@@ -384,25 +384,25 @@ export const Formats: FormatList = [
 			}
 		},
 		// override mod/moveitemability/scripts.ts
-		field: {
-			suppressingWeather() {
-				this.battle.debug('suppressingWeather() in formats.ts');
-				for (const side of this.battle.sides) {
-					for (const pokemon of side.active) {
-						if (
-							pokemon && !pokemon.fainted && !pokemon.ignoringAbility() &&
-							(
-								pokemon.getAbility().suppressWeather ||
-								(pokemon.getItem() as any).suppressWeather ||
-								pokemon.m.innates?.some((k: string) => this.battle.dex.abilities.get(k).suppressWeather)
-						)) {
-							return true;
-						}
-					}
-				}
-				return false;
-			}
-		},
+		// field: {
+		// 	suppressingWeather() {
+		// 		this.battle.debug('suppressingWeather() in formats.ts');
+		// 		for (const side of this.battle.sides) {
+		// 			for (const pokemon of side.active) {
+		// 				if (
+		// 					pokemon && !pokemon.fainted && !pokemon.ignoringAbility() &&
+		// 					(
+		// 						pokemon.getAbility().suppressWeather ||
+		// 						(pokemon.getItem() as any).suppressWeather ||
+		// 						pokemon.m.innates?.some((k: string) => this.battle.dex.abilities.get(k).suppressWeather)
+		// 				)) {
+		// 					return true;
+		// 				}
+		// 			}
+		// 		}
+		// 		return false;
+		// 	}
+		// },
 		// pokemon: {
 		// 	transformInto(pokemon, effect) {
 		// 		this.battle.debug('transformInto() in formats.ts');

@@ -450,7 +450,6 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 			// Nihilslave: here
 			if (this.battle.gen > 2) {
-				this.setAbility(pokemon.getAbility(), this, true, true);
 				if (this.m.innates) {
 					for (const innate of this.m.innates) {
 						if (this.battle.dex.items.get(innate).exists) this.removeVolatile('item:' + innate);
@@ -463,6 +462,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (this.battle.dex.abilities.get(innate).exists) this.addVolatile('ability:' + innate, this);
 					}
 				}
+				this.setAbility(pokemon.getAbility(), this, true, true);
 			}
 
 			// Change formes based on held items (for Transform)
@@ -501,8 +501,11 @@ export const Scripts: ModdedBattleScriptsData = {
 				for (const pokemon of side.active) {
 					if (
 						pokemon && !pokemon.fainted && !pokemon.ignoringAbility() &&
-						(pokemon.getAbility().suppressWeather || (pokemon.getItem() as any).suppressWeather)
-					) {
+						(
+							pokemon.getAbility().suppressWeather ||
+							(pokemon.getItem() as any).suppressWeather ||
+							pokemon.m.innates?.some((k: string) => this.battle.dex.abilities.get(k).suppressWeather)
+					)) {
 						return true;
 					}
 				}
