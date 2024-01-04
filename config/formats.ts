@@ -632,7 +632,7 @@ export const Formats: FormatList = [
 			'Species Clause', 'Signature Items Clause', 'Z-Move Clause', 'CFZ Clause', 'Max Moves Clause', 'Terastal Clause',
 			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Nickname Clause',
 			'-CAP',
-			'Sleep Clause',
+			'Sleep Clause Mod',
 		],
 		banlist: [
 			'Shedinja',
