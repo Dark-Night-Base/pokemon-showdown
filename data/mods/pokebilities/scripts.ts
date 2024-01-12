@@ -15,7 +15,7 @@ export const Scripts: ModdedBattleScriptsData = {
 	pokemon: {
 		ignoringAbility() {
 			if (this.battle.gen >= 5 && !this.isActive) return true;
-			if (this.getAbility().isPermanent) return false;
+			if (this.getAbility().flags['cantsuppress']) return false;
 			if (this.volatiles['gastroacid']) return true;
 
 			// Check if any active pokemon have the ability Neutralizing Gas
