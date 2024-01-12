@@ -613,10 +613,10 @@ export function getSetPoint(dex: ModdedDex, set: PokemonSet) {
 		types.push(dex.types.get(species.types[1]).id);
 	}
 	if (types.length < 2 || types[1] === types[0]) {
-		details[3] *= 1.5;
+		details[4] *= 1.5;
 		details.push(-1);
 	} else {
-		details[3] += typeToPoint[types[1]];
+		details[4] += typeToPoint[types[1]];
 		details.push(typeToPoint[types[1]]);
 	}
 
@@ -630,11 +630,11 @@ export function getSetPoint(dex: ModdedDex, set: PokemonSet) {
 	for (const move of set.moves) {
 		const point = moveToPoint[dex.moves.get(move).id] || 0.5;
 		details.push(point);
-		details[7] += point;
+		details[8] += point;
 	}
 	for (let i = set.moves.length; i < 4; ++i) {
 		details.push(0.5);
-		details[7] += 0.5;
+		details[8] += 0.5;
 	}
 
 	// penalty
