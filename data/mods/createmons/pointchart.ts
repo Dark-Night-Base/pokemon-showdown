@@ -561,7 +561,7 @@ function calcBSPoint(stats: StatsTable) {
 	const g_B_w = g(B_w);
 	const k_E = k(E);
 	const bs = Math.floor(f_A_w * g_B_w * k_E * 10);
-	return [f_A_w, g_B_w, k_E, bs];
+	return [bs, f_A_w, g_B_w, k_E];
 }
 function calcPnPoint(stat: number, version = 1, a = 9, b = 180, c = 100000): number {
 	switch (version) {
