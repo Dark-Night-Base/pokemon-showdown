@@ -2874,6 +2874,16 @@ export const Rulesets: {[k: string]: FormatData} = {
 			}
 		},
 	},
+	signatureabilitiesclause: {
+		effectType: 'ValidatorRule',
+		name: 'Signature Abilities Clause',
+		desc: "Bans signature abilities",
+		banlist: [
+			'Battle Bond', 'Disguise', 'Embody Aspect (Cornerstone)', 'Embody Aspect (Hearthflame)', 'Embody Aspect (Teal)', 'Embody Aspect (Wellspring)',
+			'Flower Gift', 'Forecase', 'Gulp Missile', 'Hunger Switch', 'Ice Face', 'Power Construct', 'Schooling', 'Shields Down', 'Stance Change', 'Teraform Zero',
+			'Tera Shell', 'Tera Shift', 'Zen Mode', 'Zero to Hero',
+		],
+	},
 	maxmovesclause: {
 		effectType: 'ValidatorRule',
 		name: 'Max Moves Clause',
