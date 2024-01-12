@@ -72,6 +72,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 						target.removeVolatile('ability:' + innate);
 					}
 				}
+				// Nihilslave: idk what happens here
 				// if (target.m.innates) {
 				// 	for (const innate of target.m.innates) {
 				// 		if (this.dex.abilities.get(innate).isPermanent) continue;

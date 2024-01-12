@@ -503,8 +503,8 @@ export const commands: Chat.ChatCommands = {
 				const ability = dex.abilities.get(newTarget.name);
 				buffer += `|raw|${Chat.getDataAbilityHTML(ability)}\n`;
 				details = {};
-				if (ability.isPermanent) details["&#10003; Not affected by Gastro Acid"] = "";
-				if (ability.isBreakable) details["&#10003; Ignored by Mold Breaker"] = "";
+				if (ability.flags['cantsuppress']) details["&#10003; Not affected by Gastro Acid"] = "";
+				if (ability.flags['breakable']) details["&#10003; Ignored by Mold Breaker"] = "";
 
 				details["Full Description"] = ability.desc;
 				break;

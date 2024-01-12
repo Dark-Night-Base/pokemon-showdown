@@ -509,7 +509,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		onSourceModifySpA(atk, attacker, defender, move) {},
 		onModifyAtk(atk, attacker, defender, move) {},
 		onModifySpA(atk, attacker, defender, move) {},
-		isBreakable: false, // accoding to designer (akira)
+		flags: {}, // no longer breakable accoding to designer (akira)
 		// ignoring weather implemented in conditions.ts
 		onModifyMove(move) {
 			if (move.type === 'Water') {
