@@ -73,7 +73,7 @@ export const abilityToPoint: {[k: string]: number} = {
 	iceface: 1000000,
 	icescales: 4,
 	illusion: 5,
-	imposter: 2,
+	imposter: 5,
 	innardsout: 1000000,
 	intimidate: 2.5,
 	intrepidsword: 1.5,
