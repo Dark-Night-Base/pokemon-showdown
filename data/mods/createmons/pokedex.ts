@@ -1,4 +1,8 @@
 export const Pokedex: {[k: string]: ModdedSpeciesData} = {
+	shedinja: {
+		inherit: true,
+		maxHP: undefined,
+	},
 	ogerpon: {
 		inherit: true,
 		forceTeraType: undefined,
