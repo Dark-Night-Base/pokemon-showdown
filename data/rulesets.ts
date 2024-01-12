@@ -2786,8 +2786,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 			let finalPoints = 0;
 			const pointDetails = team.map(set => getSetPoint(this.dex, set));
 			for (const details of pointDetails) {
-				// Nihilslave: add penalty
-				const Total = Math.floor(details[0] * details[3] * details[6] * details[7]) + details[12];
+				const Total = Math.floor(details[0] * details[4] * details[7] * details[8]);
 				finalPoints += Total;
 				details.push(Total);
 			}
@@ -2796,12 +2795,11 @@ export const Rulesets: {[k: string]: FormatData} = {
 				problems.push(`Your team's total Point exceeds the limit ${pointLimit}:`);
 				for (let i = 0; i < pointDetails.length; ++i) {
 					problems.push(`${team[i].species}'s Point details:`);
-					problems.push(`- S: ${pointDetails[i][0]} = ${pointDetails[i][1].toFixed(1)} * ${pointDetails[i][2]} / 800`);
-					problems.push(`- T: ${pointDetails[i][3].toFixed(1)} = ${pointDetails[i][5] === -1 ? `${pointDetails[i][4]} * 1.5` : `${pointDetails[i][4]} + ${pointDetails[i][5]}`}`);
-					problems.push(`- A: ${pointDetails[i][6]}`);
-					problems.push(`- M: ${pointDetails[i][7]} = ${pointDetails[i][8]} + ${pointDetails[i][9]} + ${pointDetails[i][10]} + ${pointDetails[i][11]}`);
-					if (pointDetails[i][12]) problems.push(`- P: ${pointDetails[i][12]} = 2 * ${pointDetails[i][13]} + ${pointDetails[i][14]} + ${pointDetails[i][15]} + ${pointDetails[i][16]} + ${pointDetails[i][17]} + ${pointDetails[i][18]}`);
-					problems.push(`- Total: ${pointDetails[i][19]}`);
+					problems.push(`- S: ${pointDetails[i][0]} = ${pointDetails[i][1].toFixed(2)} * ${pointDetails[i][2].toFixed(2)} * ${pointDetails[i][3].toFixed(2)} * 10`);
+					problems.push(`- T: ${pointDetails[i][4].toFixed(1)} = ${pointDetails[i][6] === -1 ? `${pointDetails[i][5]} * 1.5` : `${pointDetails[i][5]} + ${pointDetails[i][6]}`}`);
+					problems.push(`- A: ${pointDetails[i][7]}`);
+					problems.push(`- M: ${pointDetails[i][8]} = ${pointDetails[i][9]} + ${pointDetails[i][10]} + ${pointDetails[i][11]} + ${pointDetails[i][12]}`);
+					problems.push(`- Total: ${pointDetails[i][13]}`);
 				}
 				problems.push(`Total Point of Team: ${finalPoints}.`);
 				return problems;

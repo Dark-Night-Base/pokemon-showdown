@@ -65,7 +65,7 @@ export const abilityToPoint: {[k: string]: number} = {
 	iceface: 2,
 	icescales: 4,
 	illusion: 5,
-	imposter: 1,
+	imposter: 2,
 	innardsout: 1000000,
 	intimidate: 2.5,
 	intrepidsword: 1.5,
@@ -540,8 +540,6 @@ export const moveToPoint: {[k: string]: number} = {
 	zippyzap: 1000000,
 };
 function calcBSPoint(stats: StatsTable) {
-	const retVals: number[] = [];
-	const statDetails: StatsTable = {hp: 1, atk: 1, def: 1, spa: 1, spd: 1, spe: 1};
 	let statName: StatID;
 	for (statName in stats) stats[statName] = stats[statName] || 1;
 	const h = stats['hp'];
@@ -550,42 +548,20 @@ function calcBSPoint(stats: StatsTable) {
 	const c = stats['spa'];
 	const d = stats['spd'];
 	const s = stats['spe'];
-	for (statName in stats) {
-		switch (statName) {
-		case 'atk':
-		case 'spa':
-			// 100(2a + 100)
-			statDetails[statName] = 200 * stats[statName] + 10000;
-			break;
-		case 'def':
-		case 'spd':
-			// (2h + 200)(2b + 100)
-			statDetails[statName] = 4 * h * stats[statName] + 400 * stats[statName] + 200 * h + 20000;
-			break;
-		case 'spe':
-			// [(2s + 100) - 300] ^ 2
-			const speTmp = 2 * stats[statName] - 200;
-			statDetails[statName] = speTmp * speTmp;
-			break;
-		default:
-			break;
-		}
-	}
-	// show these 2 to players
-	const bs1 = Math.sqrt(statDetails['atk'] + statDetails['spa'] +
-		statDetails['def'] + statDetails['spd'] + statDetails['spe']);
-	const bs2 = 2 * Math.max(h, a, b, c, d, s) + 100;
-	// the following is how we actually calculate the point
-	// hb + hd + s ^ 2 + 50(2h + a + 2b + c + 2d - 4s) + 25000
-	const actualBs1 = h * b + h * d + s * s + 50 * (2 * h + a + 2 * b + c + 2 * d - 4 * s) + 25000;
-	const sqrtActualBs1 = Math.sqrt(actualBs1);
-	const actualBs2 = Math.max(h, a, b, c, d, s) + 50;
-	const bs = Math.floor(Math.floor(sqrtActualBs1 * actualBs2) * 5 / 1024);
-
-	retVals.push(bs);
-	retVals.push(bs1);
-	retVals.push(bs2);
-	return retVals;
+	const A = (a: number) => 2 * a + 100;
+	const B = (h: number, b: number) => (2 * h + 200) * (2 * b + 100);
+	const S = A;
+	const f = (x: number) => x * x * x * 3 - x * x * 6 + x * 5;
+	const g = (x: number) => x * x * x * 3 - x + 3;
+	const k = (x: number) => - x * x * x * x * 3 + x * x * x * 13 - x * x * 14 + x * 4 + 2;
+	const A_w = (4 * Math.max(A(a), A(c)) + 1 * Math.min(A(a), A(c))) / 15e2;
+	const B_w = (2 * Math.max(B(h, b), B(h, d)) + 1 * Math.min(B(h, b), B(h, d))) / 36e4;
+	const E = S(s) / 300;
+	const f_A_w = f(A_w);
+	const g_B_w = g(B_w);
+	const k_E = k(E);
+	const bs = Math.floor(f_A_w * g_B_w * k_E * 10);
+	return [f_A_w, g_B_w, k_E, bs];
 }
 function calcPnPoint(stat: number, version = 1, a = 9, b = 180, c = 100000): number {
 	switch (version) {
@@ -612,17 +588,15 @@ function calcPnPoint(stat: number, version = 1, a = 9, b = 180, c = 100000): num
 	}
 }
 export function getSetPoint(dex: ModdedDex, set: PokemonSet) {
-	// BS | BS1 | BS2 | T | T1 | T2 | A | M | M1 | M2 | M3 | M4 |  P | P1 | P2 | P3 | P4 | P5 | P6 |
-	//  0 |  1  |  2  | 3 |  4 |  5 | 6 | 7 |  8 |  9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 |
+	// BS | BSA | BSB | BSE | T | T1 | T2 | A | M | M1 | M2 | M3 | M4
+	//  0 |  1  |  2  |  3  | 4 |  5 |  6 | 7 | 8 |  9 | 10 | 11 | 12
 	const details: number[] = [];
 	const species = dex.species.get(set.species);
 
 	// stats points
 	if (!set.evs) set.evs = JSON.parse(JSON.stringify(species.baseStats));
 	const bsDetails = calcBSPoint(set.evs);
-	details.push(bsDetails[0]);
-	details.push(bsDetails[1]);
-	details.push(bsDetails[2]);
+	details.push(...bsDetails);
 
 	// type points
 	const types: string[] = [];
@@ -664,15 +638,15 @@ export function getSetPoint(dex: ModdedDex, set: PokemonSet) {
 	}
 
 	// penalty
-	details.push(0);
-	let statName: StatID;
-	for (statName in set.evs) {
-		const stat = set.evs[statName];
-		const penalty = calcPnPoint(stat);
-		details[12] += penalty;
-		if (statName === 'hp') details[12] += penalty;
-		details.push(penalty);
-	}
+	// details.push(0);
+	// let statName: StatID;
+	// for (statName in set.evs) {
+	// 	const stat = set.evs[statName];
+	// 	const penalty = calcPnPoint(stat);
+	// 	details[12] += penalty;
+	// 	if (statName === 'hp') details[12] += penalty;
+	// 	details.push(penalty);
+	// }
 
 	return details;
 }
