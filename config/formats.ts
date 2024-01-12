@@ -626,7 +626,7 @@ export const Formats: FormatList = [
 			`&bullet; Use the command /crtm [type/ability/move] to see the Point of that type/ability/move. E.g. use /crtm fairy to see the Point of fairy type, which is 2. <br />` +
 			`&bullet; Type /help crtm to see more usages of /crtm command. <br />`,
 
-		mod: 'gen9',
+		mod: 'createmons',
 		// debug: true,
 		ruleset: ['Createmons Mod = 100000', 'Team Species Preview', 'Adjust Level = 100', 'Overflow Stat Mod',
 			'Species Clause', 'Signature Items Clause', 'Z-Move Clause', 'CFZ Clause', 'Max Moves Clause', 'Terastal Clause',
