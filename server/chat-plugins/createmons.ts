@@ -62,19 +62,25 @@ export const commands: Chat.ChatCommands = {
 				`&bullet; T: 属性分. 等于各属性分数之和; 如果是单属性则为属性分数乘以 1.5. <br />` +
 				`&bullet; A: 特性分. <br />` +
 				`&bullet; M: 招式分. 等于各招式分数之和; 空白招式计 0.5 分. <br />` +
-				`&bullet; P: 惩罚分. 每项超过 150 的种族值会根据超过的多少受到惩罚, HP 受双倍惩罚. <br />` +
-				`总分 = S * T * A * M + P. <br />` +
+				`总分 = S * T * A * M <br />` +
 				`<details><summary><em>种族分计算方式</em></summary>` +
 				`h, a, b, c, d, s 分别代表 HP, 攻击, 防御, 特攻, 特防, 速度种族值. <br />` +
-				`&bullet; H = 2 * h + 200 <br />` +
-				`&bullet; A = 2 * a + 100. (B, C, D, S 的计算与之相同.) <br />` +
-				`&bullet; S1 = 100 * (A + C) + H * (B + D) + (S - 300) ^ 2 <br />` +
-				`&bullet; S2 = 2 * max(h, a, b, c, d, s) + 100 <br />` +
-				`&bullet; S = sqrt(S1) * S2 / 800 <br />` +
-				`<b>太长不看</b>: 双攻越高、耐久越高、速度越极端、最高种族越高, S 越大. </details>` +
-				`<details><summary><em>惩罚分计算方式</em></summary>` +
-				`&bullet; 单项种族 P = (单项种族 - 150)^3 / 10.61<br />` +
-				`&bullet; P = 2 * HP 种族 P + 其它种族 P 之和` +
+				`&bullet; <em> 第 0 步 </em><br />` +
+				`&bullet; 计算物理输出 A = 2 * a + 100, 特殊输出 C 同理 <br />` +
+				`&bullet; 计算物理耐久 B = (2 * h + 200) * (2 * b + 100), 特殊耐久 D 同理 <br />` +
+				`&bullet; <em> 第 1 步 </em><br />` +
+				`&bullet; 计算平均输出 Aw = max(A, C) * 4 / 5 + min(A, C) * 1 / 5 <br />` +
+				`&bullet; 计算平均耐久 Bw = max(B, D) * 2 / 3 + min(B, D) * 1 / 3 <br />` +
+				`&bullet; <em> 第 2 步 </em><br />` +
+				`&bullet; 计算输出与梦幻输出的比值 Pa = Aw / 300 <br />` +
+				`&bullet; 计算耐久与梦幻耐久的比值 Pb = Bw / (400 * 300) <br />` +
+				`&bullet; 计算速度与梦幻速度的比值 Ps = (2 * s + 100) / 300 <br />` +
+				`&bullet; <em> 第 3 步 </em><br />` +
+				`&bullet; 输出核函数 f(x) = 3x^3 - 6x^2 + 5x <br />` +
+				`&bullet; 耐久核函数 g(x) = 3x^3 - x + 3 <br />` +
+				`&bullet; 速度核函数 k(x) = -3x^4 + 13x^3 - 14x^2 + 4x + 2 <br />` +
+				`&bullet; 种族分 S = f(Pa) * g(Pb) * k(Ps) * 10 <br />` +
+				`<b>太长不看</b>: 双攻越高、耐久越高、速度越极端, S 越大.` +
 				`</details><br />` +
 
 				`<br />` +
@@ -85,19 +91,25 @@ export const commands: Chat.ChatCommands = {
 				`&bullet; T: Type Point. Equals to the sum of the Points of Types. Times 1.5 if single Type. <br />` +
 				`&bullet; A: Ability Point. <br />` +
 				`&bullet; M: Move Point. Equals to the sum of the Points of Moves. Blank Move counts as 0.5 Point. <br />` +
-				`&bullet; P: Penalty Point. Each base stats higher than 150 gets the penalty depending on how much it's greater than 150. HP base stat receives double penalty. <br />` +
-				`Total = S * T * A * M + P. <br />` +
+				`Total = S * T * A * M <br />` +
 				`<details><summary><em>How Stats Point is Calculated</em></summary>` +
 				`h, a, b, c, d, s represent base stats of HP, Atk, Def, SpA, SpD, Spe respectively. <br />` +
-				`&bullet; H = 2 * h + 200 <br />` +
-				`&bullet; A = 2 * a + 100. (B, C, D, S calculated in the same way) <br />` +
-				`&bullet; S1 = 100 * (A + C) + H * (B + D) + (S - 300) ^ 2 <br />` +
-				`&bullet; S2 = 2 * max(h, a, b, c, d, s) + 100 <br />` +
-				`&bullet; S = sqrt(S1) * S2 / 800 <br />` +
-				`<b>TL;DR</b>: The higher the attacks / The more the bulk / The more extreme the speed / The higher the highest base stats, the greater the Stats Point.</details>` +
-				`<details><summary><em>How Penalty Point is Calculated</em></summary>` +
-				`&bullet; P for each base stats = (base stats - 150)^3 / 10.61<br />` +
-				`&bullet; P = 2 * (P for HP) + the sum of (P for other base stats)` +
+				`&bullet; <em>Step 0</em><br />` +
+				`&bullet; Physical Offense A = 2 * a + 100, Special Offense C is calculated in the same way <br />` +
+				`&bullet; Physical Bulk B = (2 * h + 200) * (2 * b + 100), Special Bulk D is calculated in the same way <br />` +
+				`&bullet; <em>Step 1</em><br />` +
+				`&bullet; Weighed Average of Offense Aw = max(A, C) * 4 / 5 + min(A, C) * 1 / 5 <br />` +
+				`&bullet; Weighed Average of Bulk Bw = max(B, D) * 2 / 3 + min(B, D) * 1 / 3 <br />` +
+				`&bullet; <em>Step 2</em><br />` +
+				`&bullet; Offense Proportion (to that of Mew) Pa = Aw / 300 <br />` +
+				`&bullet; Bulk Proportion (to that of Mew) Pb = Bw / (400 * 300) <br />` +
+				`&bullet; Speed Proportion (to that of Mew) Ps = (2 * s + 100) / 300 <br />` +
+				`&bullet; <em>Step 3</em><br />` +
+				`&bullet; Core Function for Offense f(x) = 3x^3 - 6x^2 + 5x <br />` +
+				`&bullet; Core Function for Bulk g(x) = 3x^3 - x + 3 <br />` +
+				`&bullet; Core Function for Speed k(x) = -3x^4 + 13x^3 - 14x^2 + 4x + 2 <br />` +
+				`&bullet; Stats Point S = f(Pa) * g(Pb) * k(Ps) * 10 <br />` +
+				`<b>TL;DR</b>: Basically, the higher the attacks / the more the bulk / the more extreme the speed, the greater the Stats Point.` +
 				`</details>`
 			);
 			return;
