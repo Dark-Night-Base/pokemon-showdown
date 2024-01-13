@@ -2880,9 +2880,12 @@ export const Rulesets: {[k: string]: FormatData} = {
 		desc: "Bans signature abilities",
 		banlist: [
 			'Battle Bond', 'Disguise', 'Embody Aspect (Cornerstone)', 'Embody Aspect (Hearthflame)', 'Embody Aspect (Teal)', 'Embody Aspect (Wellspring)',
-			'Flower Gift', 'Forecast', 'Gulp Missile', 'Hunger Switch', 'Ice Face', 'Power Construct', 'Schooling', 'Shields Down', 'Stance Change', 'Teraform Zero',
-			'Tera Shell', 'Tera Shift', 'Zen Mode', 'Zero to Hero',
+			'Flower Gift', 'Forecast', 'Gulp Missile', 'Hunger Switch', 'Ice Face', 'Multitype', 'Poison Puppeteer', 'Power Construct', 'RKS System', 'Schooling',
+			'Shields Down', 'Stance Change', 'Teraform Zero', 'Tera Shell', 'Tera Shift', 'Zen Mode', 'Zero to Hero',
 		],
+		onBegin() {
+			this.add('rule', 'Signature Abilities Clause: Signature abilities are banned');
+		},
 	},
 	maxmovesclause: {
 		effectType: 'ValidatorRule',
