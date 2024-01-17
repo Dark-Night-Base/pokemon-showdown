@@ -637,7 +637,7 @@ export const Formats: FormatList = [
 		banlist: [
 			'Arena Trap', 'Huge Power', 'Innards Out', 'Neutralizing Gas', 'Parental Bond', 'Pure Power', 'Shadow Tag', 'Wonder Guard',
 			'Comatose + Sleep Talk',
-			'Double Iron Bash', 'Rage Fist', 'Revival Blessing', 'Shed Tail',
+			'Double Iron Bash', 'Final Gambit', 'Rage Fist', 'Revival Blessing', 'Shed Tail',
 			'Bright Powder', 'King\'s Rock', 'Lax Incense', 'Razor Fang',
 		],
 		onBegin() {
