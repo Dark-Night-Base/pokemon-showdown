@@ -635,7 +635,7 @@ export const Formats: FormatList = [
 			'Sleep Clause Mod',
 		],
 		banlist: [
-			'Arena Trap', 'Huge Power', 'Innards Out', 'Neutralizing Gas', 'Parental Bond', 'Pure Power', 'Shadow Tag', 'Wonder Guard',
+			'Arena Trap', 'Huge Power', 'Innards Out', 'Neutralizing Gas', 'Parental Bond', 'Pure Power', 'Shadow Tag', 'Water Bubble', 'Wonder Guard',
 			'Comatose + Sleep Talk',
 			'Double Iron Bash', 'Final Gambit', 'Rage Fist', 'Revival Blessing', 'Shed Tail',
 			'Bright Powder', 'King\'s Rock', 'Lax Incense', 'Razor Fang',
