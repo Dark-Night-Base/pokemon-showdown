@@ -533,7 +533,7 @@ export class TeamValidator {
 		let species = dex.species.get(set.species);
 		set.species = species.name;
 		// Backwards compatability with old Gmax format
-		if (set.species.toLowerCase().endsWith('-gmax') && this.format.id !== 'gen8megamax') {
+		if (set.species.toLowerCase().endsWith('-gmax') && this.format.id !== 'gen8megamax' && !ruleTable.has('createmonsmod')) {
 			set.species = set.species.slice(0, -5);
 			species = dex.species.get(set.species);
 			if (set.name && set.name.endsWith('-Gmax')) set.name = species.baseSpecies;
