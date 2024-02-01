@@ -2122,6 +2122,28 @@ export class RandomGen8Teams {
 		return 80;
 	}
 
+	getForme(species: Species): string {
+		if (typeof species.battleOnly === 'string') {
+			// Only change the forme. The species has custom moves, and may have different typing and requirements.
+			return species.battleOnly;
+		}
+		if (species.cosmeticFormes) return this.sample([species.name].concat(species.cosmeticFormes));
+		if (species.name.endsWith('-Gmax')) return species.name.slice(0, -5);
+
+		// Consolidate mostly-cosmetic formes, at least for the purposes of Random Battles
+		if (['Magearna', 'Polteageist', 'Zarude'].includes(species.baseSpecies)) {
+			return this.sample([species.name].concat(species.otherFormes!));
+		}
+		if (species.baseSpecies === 'Basculin') return 'Basculin' + this.sample(['', '-Blue-Striped']);
+		if (species.baseSpecies === 'Keldeo' && this.gen <= 7) return 'Keldeo' + this.sample(['', '-Resolute']);
+		if (species.baseSpecies === 'Pikachu' && this.dex.currentMod === 'gen8') {
+			return 'Pikachu' + this.sample(
+				['', '-Original', '-Hoenn', '-Sinnoh', '-Unova', '-Kalos', '-Alola', '-Partner', '-World']
+			);
+		}
+		return species.name;
+	}
+
 	randomSet(
 		species: string | Species,
 		teamDetails: RandomTeamsTypes.TeamDetails = {},
@@ -2130,20 +2152,8 @@ export class RandomGen8Teams {
 		isNoDynamax = false
 	): RandomTeamsTypes.RandomSet {
 		species = this.dex.species.get(species);
-		let forme = species.name;
-		let gmax = false;
-
-		if (typeof species.battleOnly === 'string') {
-			// Only change the forme. The species has custom moves, and may have different typing and requirements.
-			forme = species.battleOnly;
-		}
-		if (species.cosmeticFormes) {
-			forme = this.sample([species.name].concat(species.cosmeticFormes));
-		}
-		if (species.name.endsWith('-Gmax')) {
-			forme = species.name.slice(0, -5);
-			gmax = true;
-		}
+		const forme = this.getForme(species);
+		const gmax = species.name.endsWith('-Gmax');
 
 		const data = this.randomData[species.id];
 
@@ -2340,9 +2350,6 @@ export class RandomGen8Teams {
 		if (item === 'Leftovers' && types.has('Poison')) {
 			item = 'Black Sludge';
 		}
-		if (species.baseSpecies === 'Pikachu' && !gmax && this.dex.currentMod !== 'gen8bdsp') {
-			forme = 'Pikachu' + this.sample(['', '-Original', '-Hoenn', '-Sinnoh', '-Unova', '-Kalos', '-Alola', '-Partner', '-World']);
-		}
 
 		const level: number = this.getLevel(species, isDoubles, isNoDynamax);
 
@@ -2413,11 +2420,10 @@ export class RandomGen8Teams {
 		pokemonToExclude: RandomTeamsTypes.RandomSet[] = [],
 		isMonotype = false,
 		pokemonList: string[]
-	) {
+	): [{[k: string]: string[]}, string[]] {
 		const exclude = pokemonToExclude.map(p => toID(p.species));
-		const pokemonPool = [];
+		const pokemonPool: {[k: string]: string[]} = {};
 		const baseSpeciesPool = [];
-		const baseSpeciesCount: {[k: string]: number} = {};
 		for (const pokemon of pokemonList) {
 			let species = this.dex.species.get(pokemon);
 			if (exclude.includes(species.id)) continue;
@@ -2428,14 +2434,18 @@ export class RandomGen8Teams {
 					if (!species.types.includes(type)) continue;
 				}
 			}
-			pokemonPool.push(pokemon);
-			baseSpeciesCount[species.baseSpecies] = (baseSpeciesCount[species.baseSpecies] || 0) + 1;
+
+			if (species.baseSpecies in pokemonPool) {
+				pokemonPool[species.baseSpecies].push(pokemon);
+			} else {
+				pokemonPool[species.baseSpecies] = [pokemon];
+			}
 		}
 		// Include base species 1x if 1-3 formes, 2x if 4-6 formes, 3x if 7+ formes
-		for (const baseSpecies of Object.keys(baseSpeciesCount)) {
-			for (let i = 0; i < Math.min(Math.ceil(baseSpeciesCount[baseSpecies] / 3), 3); i++) {
-				baseSpeciesPool.push(baseSpecies);
-			}
+		for (const baseSpecies of Object.keys(pokemonPool)) {
+			// Squawkabilly has 4 formes, but only 2 functionally different formes, so only include it 1x
+			const weight = (baseSpecies === 'Squawkabilly') ? 1 : Math.min(Math.ceil(pokemonPool[baseSpecies].length / 3), 3);
+			for (let i = 0; i < weight; i++) baseSpeciesPool.push(baseSpecies);
 		}
 		return [pokemonPool, baseSpeciesPool];
 	}
@@ -2463,6 +2473,7 @@ export class RandomGen8Teams {
 		const typeComboCount: {[k: string]: number} = {};
 		const typeWeaknesses: {[k: string]: number} = {};
 		const teamDetails: RandomTeamsTypes.TeamDetails = {};
+		let numMaxLevelPokemon = 0;
 
 		const pokemonList = [];
 		for (const poke of Object.keys(this.randomData)) {
@@ -2473,12 +2484,7 @@ export class RandomGen8Teams {
 		const [pokemonPool, baseSpeciesPool] = this.getPokemonPool(type, pokemon, isMonotype, pokemonList);
 		while (baseSpeciesPool.length && pokemon.length < this.maxTeamSize) {
 			const baseSpecies = this.sampleNoReplace(baseSpeciesPool);
-			const currentSpeciesPool: Species[] = [];
-			for (const poke of pokemonPool) {
-				const species = this.dex.species.get(poke);
-				if (species.baseSpecies === baseSpecies) currentSpeciesPool.push(species);
-			}
-			let species = this.sample(currentSpeciesPool);
+			let species = this.dex.species.get(this.sample(pokemonPool[baseSpecies]));
 			if (!species.exists) continue;
 
 			// Limit to one of each species (Species Clause)
@@ -2535,6 +2541,12 @@ export class RandomGen8Teams {
 					if (!typeWeaknesses['Freeze-Dry']) typeWeaknesses['Freeze-Dry'] = 0;
 					if (typeWeaknesses['Freeze-Dry'] >= 4 * limitFactor) continue;
 				}
+
+				// Limit one level 100 Pokemon
+				if (
+					!this.adjustLevel && numMaxLevelPokemon >= limitFactor &&
+					(this.getLevel(species, isDoubles, this.dex.formats.getRuleTable(this.format).has('dynamaxclause')) === 100)
+				) continue;
 			}
 
 			// Limit three of any type combination in Monotype
@@ -2576,6 +2588,9 @@ export class RandomGen8Teams {
 				}
 			}
 			if (weakToFreezeDry) typeWeaknesses['Freeze-Dry']++;
+
+			// Increment level 100 counter
+			if (set.level === 100) numMaxLevelPokemon++;
 
 			// Track what the team has
 			if (set.ability === 'Drizzle' || set.moves.includes('raindance')) teamDetails.rain = 1;
@@ -2662,16 +2677,30 @@ export class RandomGen8Teams {
 
 		// Build a pool of eligible sets, given the team partners
 		// Also keep track of sets with moves the team requires
-		let effectivePool: {set: AnyObject, moveVariants?: number[]}[] = [];
+		let effectivePool: {set: AnyObject, moveVariants?: number[], item?: string, ability?: string}[] = [];
 		const priorityPool = [];
 		for (const curSet of setList) {
 			// if (this.forceMonotype && !species.types.includes(this.forceMonotype)) continue;
 
-			const item = this.dex.items.get(curSet.item);
-			if (itemsMax[item.id] && teamData.has[item.id] >= itemsMax[item.id]) continue;
+			// reject disallowed items, specifically a second of any given choice item
+			const allowedItems: string[] = [];
+			for (const itemString of curSet.item) {
+				const item = this.dex.items.get(itemString);
+				if (itemsMax[item.id] && teamData.has[item.id] >= itemsMax[item.id]) continue;
+				allowedItems.push(itemString);
+			}
+			if (allowedItems.length === 0) continue;
+			const curSetItem = this.sample(allowedItems);
 
-			const ability = this.dex.abilities.get(curSet.ability);
-			if (teamData.weather && weatherAbilities.includes(ability.id)) continue; // reject 2+ weather setters
+			// reject 2+ weather setters
+			const allowedAbilities: string[] = [];
+			for (const abilityString of curSet.ability) {
+				const ability = this.dex.abilities.get(abilityString);
+				if (teamData.weather && weatherAbilities.includes(ability.id)) continue;
+				allowedAbilities.push(abilityString);
+			}
+			if (allowedAbilities.length === 0) continue;
+			const curSetAbility = this.sample(allowedAbilities);
 
 			let reject = false;
 			let hasRequiredMove = false;
@@ -2689,8 +2718,10 @@ export class RandomGen8Teams {
 				curSetVariants.push(variantIndex);
 			}
 			if (reject) continue;
-			effectivePool.push({set: curSet, moveVariants: curSetVariants});
-			if (hasRequiredMove) priorityPool.push({set: curSet, moveVariants: curSetVariants});
+
+			const fullSetSpec = {set: curSet, moveVariants: curSetVariants, item: curSetItem, ability: curSetAbility};
+			effectivePool.push(fullSetSpec);
+			if (hasRequiredMove) priorityPool.push(fullSetSpec);
 		}
 		if (priorityPool.length) effectivePool = priorityPool;
 
@@ -2708,8 +2739,8 @@ export class RandomGen8Teams {
 		}
 
 
-		const item = this.sampleIfArray(setData.set.item);
-		const ability = this.sampleIfArray(setData.set.ability);
+		const item = setData.item || this.sampleIfArray(setData.set.item);
+		const ability = setData.ability || this.sampleIfArray(setData.set.ability);
 		const nature = this.sampleIfArray(setData.set.nature);
 		const level = this.adjustLevel || setData.set.level || (tier === "LC" ? 5 : 100);
 

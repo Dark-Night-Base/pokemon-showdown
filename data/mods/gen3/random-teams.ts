@@ -407,7 +407,7 @@ export class RandomGen3Teams extends RandomGen4Teams {
 			return (
 				// Relicanth always wants Swift Swim if it doesn't have Double-Edge
 				!moves.has('raindance') && !teamDetails.rain && !(species.id === 'relicanth' && !counter.get('recoil')) ||
-				!moves.has('raindance') && ['Rock Head', 'Water Absorb'].some(abil => abilities.has(abil))
+				!moves.has('raindance') && abilities.has('Water Absorb')
 			);
 		case 'Thick Fat':
 			return (species.id === 'snorlax' || (species.id === 'hariyama' && moves.has('sleeptalk')));
@@ -505,7 +505,10 @@ export class RandomGen3Teams extends RandomGen4Teams {
 			return 'Choice Band';
 		}
 
-		if (moves.has('dragondance') && ability !== 'Natural Cure' && !moves.has('healbell')) return 'Lum Berry';
+		if (
+			moves.has('dragondance') && ability !== 'Natural Cure' &&
+			!moves.has('healbell') && !moves.has('substitute')
+		) return 'Lum Berry';
 		if (moves.has('bellydrum')) return moves.has('substitute') ? 'Salac Berry' : 'Lum Berry';
 
 		if (moves.has('raindance') && counter.get('Special') >= 3) return 'Petaya Berry';
@@ -545,15 +548,7 @@ export class RandomGen3Teams extends RandomGen4Teams {
 		isLead = false
 	): RandomTeamsTypes.RandomSet {
 		species = this.dex.species.get(species);
-		let forme = species.name;
-
-		if (typeof species.battleOnly === 'string') {
-			// Only change the forme. The species has custom moves, and may have different typing and requirements.
-			forme = species.battleOnly;
-		}
-		if (species.cosmeticFormes) {
-			forme = this.sample([species.name].concat(species.cosmeticFormes));
-		}
+		const forme = this.getForme(species);
 		const sets = this.randomSets[species.id]["sets"];
 
 		const set = this.sampleIfArray(sets);
@@ -584,7 +579,7 @@ export class RandomGen3Teams extends RandomGen4Teams {
 		// Get items
 		item = this.getItem(ability, types, moves, counter, teamDetails, species, isLead, preferredType, role);
 
-		const level = this.adjustLevel || this.randomSets[species.id]["level"] || (species.nfe ? 90 : 80);
+		const level = this.getLevel(species);
 
 		// We use a special variable to track Hidden Power
 		// so that we can check for all Hidden Powers at once
@@ -678,17 +673,13 @@ export class RandomGen3Teams extends RandomGen4Teams {
 		const typeCount: {[k: string]: number} = {};
 		const typeWeaknesses: {[k: string]: number} = {};
 		const teamDetails: RandomTeamsTypes.TeamDetails = {};
+		let numMaxLevelPokemon = 0;
 
 		const pokemonList = (this.gen === 3) ? Object.keys(this.randomSets) : Object.keys(this.randomData);
 		const [pokemonPool, baseSpeciesPool] = this.getPokemonPool(type, pokemon, isMonotype, pokemonList);
 		while (baseSpeciesPool.length && pokemon.length < this.maxTeamSize) {
 			const baseSpecies = this.sampleNoReplace(baseSpeciesPool);
-			const currentSpeciesPool: Species[] = [];
-			for (const poke of pokemonPool) {
-				const species = this.dex.species.get(poke);
-				if (species.baseSpecies === baseSpecies) currentSpeciesPool.push(species);
-			}
-			const species = this.sample(currentSpeciesPool);
+			const species = this.dex.species.get(this.sample(pokemonPool[baseSpecies]));
 			if (!species.exists) continue;
 
 			// Limit to one of each species (Species Clause)
@@ -727,6 +718,11 @@ export class RandomGen3Teams extends RandomGen4Teams {
 					}
 				}
 				if (skip) continue;
+
+				// Limit one level 100 Pokemon
+				if (!this.adjustLevel && (this.getLevel(species) === 100) && numMaxLevelPokemon >= limitFactor) {
+					continue;
+				}
 			}
 
 			// Okay, the set passes, add it to our team
@@ -755,6 +751,9 @@ export class RandomGen3Teams extends RandomGen4Teams {
 					typeWeaknesses[typeName]++;
 				}
 			}
+
+			// Increment level 100 counter
+			if (set.level === 100) numMaxLevelPokemon++;
 
 			// Update team details
 			if (set.ability === 'Drizzle' || set.moves.includes('raindance')) teamDetails.rain = 1;

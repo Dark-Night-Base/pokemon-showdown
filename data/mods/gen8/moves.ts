@@ -138,6 +138,10 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		inherit: true,
 		isNonstandard: null,
 	},
+	dragonhammer: {
+		inherit: true,
+		flags: {contact: 1, protect: 1, mirror: 1},
+	},
 	dualchop: {
 		inherit: true,
 		isNonstandard: null,
@@ -186,7 +190,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	},
 	futuresight: {
 		inherit: true,
-		flags: {futuremove: 1},
+		flags: {metronome: 1, futuremove: 1},
 	},
 	geargrind: {
 		inherit: true,
@@ -524,6 +528,19 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 	spectralthief: {
 		inherit: true,
 		isNonstandard: null,
+	},
+	stickyweb: {
+		inherit: true,
+		condition: {
+			onSideStart(side) {
+				this.add('-sidestart', side, 'move: Sticky Web');
+			},
+			onEntryHazard(pokemon) {
+				if (!pokemon.isGrounded() || pokemon.hasItem('heavydutyboots')) return;
+				this.add('-activate', pokemon, 'move: Sticky Web');
+				this.boost({spe: -1}, pokemon, this.effectState.source, this.dex.getActiveMove('stickyweb'));
+			},
+		},
 	},
 	stormthrow: {
 		inherit: true,

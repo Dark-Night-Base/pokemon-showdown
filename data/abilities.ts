@@ -41,8 +41,13 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		num: 0,
 	},
 	adaptability: {
-		onModifyMove(move) {
-			move.stab = 2;
+		onModifySTAB(stab, source, target, move) {
+			if (move.forceSTAB || source.hasType(move.type)) {
+				if (stab === 2) {
+					return 2.25;
+				}
+				return 2;
+			}
 		},
 		flags: {},
 		name: "Adaptability",
@@ -621,9 +626,6 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 	competitive: {
 		onAfterEachBoost(boost, target, source, effect) {
 			if (!source || target.isAlly(source)) {
-				if (effect.id === 'stickyweb') {
-					this.hint("Court Change Sticky Web counts as lowering your own Speed, and Competitive only affects stats lowered by foes.", true, source.side);
-				}
 				return;
 			}
 			let statsLowered = false;
@@ -882,9 +884,6 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 	defiant: {
 		onAfterEachBoost(boost, target, source, effect) {
 			if (!source || target.isAlly(source)) {
-				if (effect.id === 'stickyweb') {
-					this.hint("Court Change Sticky Web counts as lowering your own Speed, and Defiant only affects stats lowered by foes.", true, source.side);
-				}
 				return;
 			}
 			let statsLowered = false;
