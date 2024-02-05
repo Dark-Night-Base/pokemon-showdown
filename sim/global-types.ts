@@ -351,6 +351,7 @@ interface ModdedBattlePokemon {
 	recalculateStats?: (this: Pokemon) => void;
 	runEffectiveness?: (this: Pokemon, move: ActiveMove) => number;
 	runImmunity?: (this: Pokemon, type: string, message?: string | boolean) => boolean;
+	setType?: (this: Pokemon, newType: string | string[], enforce?: boolean) => boolean;
 	setAbility?: (
 		this: Pokemon, ability: string | Ability, source: Pokemon | null, isFromFormeChange: boolean
 	) => string | false;

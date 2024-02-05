@@ -1,5 +1,16 @@
 export const Scripts: ModdedBattleScriptsData = {
 	gen: 9,
+	init() {
+		for (const i in this.data.Items) {
+			if (
+				this.data.Items[i].onPlate ||
+				this.data.Items[i].onMemory ||
+				this.data.Items[i].id === 'boosterenergy'
+			) {
+				this.modData('Items', i).onTakeItem = undefined;
+			}
+		}
+	},
 	spreadModify(baseStats: StatsTable, set: PokemonSet): StatsTable {
 		const modStats: SparseStatsTable = {atk: 10, def: 10, spa: 10, spd: 10, spe: 10};
 		const tr = this.trunc;
@@ -119,6 +130,27 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (this.species.baseSpecies === 'Terapagos' && this.canTerastallize) this.canTerastallize = false;
 
 			return true;
-		}
+		},
+		setType(newType: string | string[], enforce = false) {
+			if (!enforce) {
+				// No Pokemon should be able to have Stellar as a base type
+				if (typeof newType === 'string' ? newType === 'Stellar' : newType.includes('Stellar')) return false;
+				// First type of Arceus, Silvally cannot be normally changed
+				// if ((this.battle.gen >= 5 && (this.species.num === 493 || this.species.num === 773)) ||
+				// 	(this.battle.gen === 4 && this.hasAbility('multitype'))) {
+				// 	return false;
+				// }
+				// Terastallized Pokemon cannot have their base type changed except via forme change
+				if (this.terastallized) return false;
+			}
+	
+			if (!newType) throw new Error("Must pass type to setType");
+			this.types = (typeof newType === 'string' ? [newType] : newType);
+			this.addedType = '';
+			this.knownType = true;
+			this.apparentType = this.types.join('/');
+	
+			return true;
+		},
 	},
 };
