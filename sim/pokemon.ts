@@ -1118,6 +1118,11 @@ export class Pokemon {
 			entry.teraType = this.teraType;
 			entry.terastallized = this.terastallized || '';
 		}
+		if (this.battle.format.id.includes('createmons')) {
+			entry.details += `, createmons:`;
+			entry.details += `${Object.values(this.set.evs || [0, 0, 0, 0, 0, 0]).join(',')},`;
+			entry.details += `${this.hpType},${this.teraType}`;
+		}
 		return entry;
 	}
 
