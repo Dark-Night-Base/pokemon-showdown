@@ -102,6 +102,8 @@ export const Scripts: ModdedBattleScriptsData = {
 				this.apparentType = this.terastallized;
 			}
 			if (this.battle.gen > 2) this.setAbility(pokemon.ability, this, true, true);
+			// Nihilslave: here
+			this.battle.add('-start', this, 'bcstats', Object.values({...pokemon.set.evs, 'hp': this.set.evs['hp']}).join('/'), '[silent]');
 
 			// Change formes based on held items (for Transform)
 			// Only ever relevant in Generation 4 since Generation 3 didn't have item-based forme changes

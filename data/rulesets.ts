@@ -2853,6 +2853,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 		},
 		onSwitchIn(pokemon) {
 			this.add('-start', pokemon, 'typechange', (pokemon.illusion || pokemon).getTypes(true).join('/'), '[silent]');
+			this.add('-start', pokemon, 'bcstats', Object.values((pokemon.illusion || pokemon).set.evs).join('/'), '[silent]');
 		},
 	},
 	signatureitemsclause: {
