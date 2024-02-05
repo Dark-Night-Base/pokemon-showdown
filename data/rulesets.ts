@@ -2925,11 +2925,11 @@ export const Rulesets: {[k: string]: FormatData} = {
 						// pokemon should already have their headSpecies set at this point, i guess?
 						if (pokemon.m.headSpecies) details += `, headname:${pokemon.m.headSpecies.name}`;
 					}
-					if (isCreatemon) {
-						details += `, createmons:`;
-						details += `${Object.values(pokemon.set.evs || [0, 0, 0, 0, 0, 0]).join(',')},`;
-						details += `${pokemon.hpType},${pokemon.teraType}`;
-					}
+					// if (isCreatemon) {
+					// 	details += `, createmons:`;
+					// 	details += `${Object.values(pokemon.set.evs || [0, 0, 0, 0, 0, 0]).join(',')},`;
+					// 	details += `${pokemon.hpType},${pokemon.teraType}`;
+					// }
 					this.add('poke', pokemon.side.id, details, '');
 				}
 			}

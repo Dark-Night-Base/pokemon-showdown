@@ -640,31 +640,31 @@ export const Formats: FormatList = [
 			'Double Iron Bash', 'Final Gambit', 'Rage Fist', 'Revival Blessing', 'Shed Tail',
 			'Bright Powder', 'King\'s Rock', 'Lax Incense', 'Razor Fang',
 		],
-		onBegin() {
-			for (const pokemon of this.getAllPokemon()) {
-				// send base stats and types to client
-				// createmons:hp,atk,def,spa,spd,spe,type1,type2
-				pokemon.getDetails = () => {
-					const health = pokemon.getHealth();
-					let details = pokemon.details;
-					details += `, createmons:`;
-					details += `${Object.values(pokemon.set.evs || [0, 0, 0, 0, 0, 0]).join(',')},`;
-					details += `${pokemon.hpType},${pokemon.teraType}`;
-					if (pokemon.illusion) {
-						let displayedSpeciesName = pokemon.illusion.species.name;
-						if (displayedSpeciesName === 'Greninja-Bond') displayedSpeciesName = 'Greninja';
-						let illusionDetails = displayedSpeciesName + (pokemon.level === 100 ? '' : ', L' + pokemon.level) +
-							(pokemon.illusion.gender === '' ? '' : ', ' + pokemon.illusion.gender) + (pokemon.illusion.set.shiny ? ', shiny' : '');
-						details += `, createmons:`;
-						details += `${Object.values(pokemon.illusion.set.evs || [0, 0, 0, 0, 0, 0]).join(',')},`;
-						details += `${pokemon.illusion.hpType},${pokemon.illusion.teraType}`;
-						details = illusionDetails;
-					}
-					if (pokemon.terastallized) details += `, tera:${pokemon.terastallized}`;
-					return {side: health.side, secret: `${details}|${health.secret}`, shared: `${details}|${health.shared}`};
-				};
-			}
-		},
+		// onBegin() {
+		// 	for (const pokemon of this.getAllPokemon()) {
+		// 		// send base stats and types to client
+		// 		// createmons:hp,atk,def,spa,spd,spe,type1,type2
+		// 		pokemon.getDetails = () => {
+		// 			const health = pokemon.getHealth();
+		// 			let details = pokemon.details;
+		// 			details += `, createmons:`;
+		// 			details += `${Object.values(pokemon.set.evs || [0, 0, 0, 0, 0, 0]).join(',')},`;
+		// 			details += `${pokemon.hpType},${pokemon.teraType}`;
+		// 			if (pokemon.illusion) {
+		// 				let displayedSpeciesName = pokemon.illusion.species.name;
+		// 				if (displayedSpeciesName === 'Greninja-Bond') displayedSpeciesName = 'Greninja';
+		// 				let illusionDetails = displayedSpeciesName + (pokemon.level === 100 ? '' : ', L' + pokemon.level) +
+		// 					(pokemon.illusion.gender === '' ? '' : ', ' + pokemon.illusion.gender) + (pokemon.illusion.set.shiny ? ', shiny' : '');
+		// 				illusionDetails += `, createmons:`;
+		// 				illusionDetails += `${Object.values(pokemon.illusion.set.evs || [0, 0, 0, 0, 0, 0]).join(',')},`;
+		// 				illusionDetails += `${pokemon.illusion.hpType},${pokemon.illusion.teraType}`;
+		// 				details = illusionDetails;
+		// 			}
+		// 			if (pokemon.terastallized) details += `, tera:${pokemon.terastallized}`;
+		// 			return {side: health.side, secret: `${details}|${health.secret}`, shared: `${details}|${health.shared}`};
+		// 		};
+		// 	}
+		// },
 	},
 	{
 		name: "[Gen 9] Cross Evolution Convergence",

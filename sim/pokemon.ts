@@ -354,6 +354,7 @@ export class Pokemon {
 		if (displayedSpeciesName === 'Greninja-Bond') displayedSpeciesName = 'Greninja';
 		this.details = displayedSpeciesName + (this.level === 100 ? '' : ', L' + this.level) +
 			(this.gender === '' ? '' : ', ' + this.gender) + (this.set.shiny ? ', shiny' : '');
+		// bc modifies details later
 
 		this.status = '';
 		this.statusState = {};
@@ -476,6 +477,12 @@ export class Pokemon {
 		// Only declared if gen 1 to avoid declaring an object we aren't going to need.
 		if (this.battle.gen === 1) this.modifiedStats = {atk: 0, def: 0, spa: 0, spd: 0, spe: 0};
 
+		if (this.battle.ruleTable.has('createmonsmod')) {
+			this.details += `, createmons:`;
+			this.details += `${Object.values(this.set.evs).join(',')},`;
+			this.details += `${this.hpType},${this.teraType}`;
+		}
+
 		this.maxhp = 0;
 		this.baseMaxhp = 0;
 		this.hp = 0;
@@ -513,8 +520,13 @@ export class Pokemon {
 			const level = this.battle.ruleTable.has('illusionlevelmod') ? this.illusion.level : this.level;
 			let displayedSpeciesName = this.illusion.species.name;
 			if (displayedSpeciesName === 'Greninja-Bond') displayedSpeciesName = 'Greninja';
-			const illusionDetails = displayedSpeciesName + (level === 100 ? '' : ', L' + level) +
+			let illusionDetails = displayedSpeciesName + (level === 100 ? '' : ', L' + level) +
 				(this.illusion.gender === '' ? '' : ', ' + this.illusion.gender) + (this.illusion.set.shiny ? ', shiny' : '');
+			if (this.battle.ruleTable.has('createmonsmod')) {
+				illusionDetails += `, createmons:`;
+				illusionDetails += `${Object.values(this.illusion.set.evs || [0, 0, 0, 0, 0, 0]).join(',')},`;
+				illusionDetails += `${this.illusion.hpType},${this.illusion.teraType}`;
+			}
 			details = illusionDetails;
 		}
 		if (this.terastallized) details += `, tera:${this.terastallized}`;
@@ -1118,7 +1130,7 @@ export class Pokemon {
 			entry.teraType = this.teraType;
 			entry.terastallized = this.terastallized || '';
 		}
-		if (this.battle.format.id.includes('createmons')) {
+		if (this.battle.ruleTable.has('createmonsmod')) {
 			entry.details += `, createmons:`;
 			entry.details += `${Object.values(this.set.evs || [0, 0, 0, 0, 0, 0]).join(',')},`;
 			entry.details += `${this.hpType},${this.teraType}`;
@@ -1374,6 +1386,11 @@ export class Pokemon {
 			this.baseSpecies = rawSpecies;
 			this.details = species.name + (this.level === 100 ? '' : ', L' + this.level) +
 				(this.gender === '' ? '' : ', ' + this.gender) + (this.set.shiny ? ', shiny' : '');
+			if (this.battle.ruleTable.has('createmonsmod')) {
+				this.details += `, createmons:`;
+				this.details += `${Object.values(this.set.evs || [0, 0, 0, 0, 0, 0]).join(',')},`;
+				this.details += `${this.hpType},${this.teraType}`;
+			}
 			let details = (this.illusion || this).details;
 			if (this.terastallized) details += `, tera:${this.terastallized}`;
 			this.battle.add('detailschange', this, details);
