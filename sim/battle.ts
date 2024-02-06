@@ -2557,11 +2557,6 @@ export class Battle {
 				pokemon.baseSpecies = rawSpecies;
 				pokemon.details = species.name + (pokemon.level === 100 ? '' : ', L' + pokemon.level) +
 					(pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
-				if (this.ruleTable.has('createmonsmod')) {
-					pokemon.details += `, createmons:`;
-					pokemon.details += `${Object.values(pokemon.set.evs || [0, 0, 0, 0, 0, 0]).join(',')},`;
-					pokemon.details += `${pokemon.hpType},${pokemon.teraType}`;
-				}
 				pokemon.setAbility(species.abilities['0'], null, true);
 				pokemon.baseAbility = pokemon.ability;
 

@@ -1386,11 +1386,6 @@ export class Pokemon {
 			this.baseSpecies = rawSpecies;
 			this.details = species.name + (this.level === 100 ? '' : ', L' + this.level) +
 				(this.gender === '' ? '' : ', ' + this.gender) + (this.set.shiny ? ', shiny' : '');
-			if (this.battle.ruleTable.has('createmonsmod')) {
-				this.details += `, createmons:`;
-				this.details += `${Object.values(this.set.evs || [0, 0, 0, 0, 0, 0]).join(',')},`;
-				this.details += `${this.hpType},${this.teraType}`;
-			}
 			let details = (this.illusion || this).details;
 			if (this.terastallized) details += `, tera:${this.terastallized}`;
 			this.battle.add('detailschange', this, details);
