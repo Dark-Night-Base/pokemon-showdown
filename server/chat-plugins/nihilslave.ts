@@ -208,6 +208,66 @@ export const commands: Chat.ChatCommands = {
 		FS(`config/chat-plugins/nihilslave/weaktable4.json`).writeSync(buf);
 		this.sendReply('Done');
 	},
+	movepointchart(target, room, user) {
+		if (user.id !== 'asouchihiro') return this.errorReply('Access Denied by Nihilslave!');
+		if (!this.runBroadcast()) return;
+		const moves = Dex.moves.all();
+		const points: {[k: string]: number} = {};
+		for (const move of moves) {
+			if (move.category === 'Status') continue;
+			if (move.isZ || move.isMax) continue;
+			if (move.isNonstandard === 'CAP') continue;
+			let power = move.basePower;
+			if (move.multihit) {
+				if (move.id in ['tripleaxel', 'triplekick']) power *= 6; // doesn't work
+				else if (typeof move.multihit === 'number') power *= move.multihit;
+				else power *= 3.1;
+			}
+			if (move.willCrit) power *= 1.5;
+			if (power < 80) points[move.id] = 0.5;
+			else if (power <= 100) points[move.id] = 1;
+			else if (power <= 120) points[move.id] = 1.5;
+			else if (power <= 150) points[move.id] = 2;
+			else points[move.id] = 2.5;
+			if (move.priority > 0) points[move.id] += 0.5;
+			if (move.flags.heal) points[move.id] += 0.5;
+			const secondary = move.secondary;
+			if (secondary && secondary.chance && secondary.chance >= 30) {
+				const isUsefulSecondary = secondary.boosts || secondary.self || secondary.status || secondary.volatileStatus;
+				const isVeryUsefulSecondary = (move.id in ['acidspray', 'direclaw', 'luminacrash', 'relicsong']); // doesn't work
+				if (isVeryUsefulSecondary) points[move.id] += 0.5;
+				if (isUsefulSecondary && power >= 80) points[move.id] += 0.5;
+			}
+			const self = move.self;
+			if (self) {
+				const isHarmfulSelf = (self.volatileStatus === 'mustrecharge');
+				const isUsefulSelf = self.boosts && Object.values(self.boosts).some(value => value > 0) || self.sideCondition;
+				const isVeryUsefulSelf = self.sideCondition;
+				if (isVeryUsefulSelf) points[move.id] += 0.5;
+				if (isUsefulSelf && power >= 80) points[move.id] += 0.5;
+				if (isHarmfulSelf) points[move.id] -= 0.5;
+			}
+			const otherUseful = [];
+			const otherVeryUseful = [];
+		}
+
+		let buf = 'const MovePointsDraft: {[k: string]: number} = {\n';
+		for (const move in points) buf += `\t${move}: ${points[move]},\n`;
+		buf += '};\n';
+		const splitedPoints: {[p: number]: string[]} = {
+			0.5: [],
+			1: [],
+			1.5: [],
+			2: [],
+			2.5: [],
+		};
+		buf += 'const SplitedMovePointsDraft: {[p: number]: string[]} = {\n';
+		for (const move in points) splitedPoints[points[move]].push(move);
+		for (const point of Object.keys(splitedPoints).sort()) buf += `\t${point}: ['${splitedPoints[Number.parseFloat(point)].join("', '")}'],\n`;
+		buf += '};\n';
+		FS(`config/chat-plugins/nihilslave/movepointchart.ts`).writeSync(buf);
+		this.sendReply('Done');
+	},
 	clientbuild(target, room, user) {
 		if (user.id !== 'asouchihiro') return this.errorReply('Access Denied by Nihilslave!');
 	},

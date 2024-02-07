@@ -1,10 +1,10 @@
 export const typeToPoint: {[k: string]: number} = {
-	bug: 1,
+	bug: 1, // 0.8
 	dark: 1.4,
-	dragon: 1.6,
+	dragon: 1.6, // 1.4
 	electric: 1.6,
-	fairy: 2,
-	fighting: 1.4,
+	fairy: 2, // 1.8
+	fighting: 1.4, // 1.2
 	fire: 1.6,
 	flying: 1.6,
 	ghost: 1.8,
@@ -13,10 +13,10 @@ export const typeToPoint: {[k: string]: number} = {
 	ice: 1.4,
 	normal: 1.6,
 	poison: 1.2,
-	psychic: 1.2,
+	psychic: 1.2, // 1
 	rock: 1.2,
 	steel: 2,
-	stellar: 1,
+	stellar: 1, // 1.2
 	water: 1.8,
 };
 export const abilityToPoint: {[k: string]: number} = {
@@ -359,7 +359,7 @@ export const moveToPoint: {[k: string]: number} = {
 	knockoff: 1.5,
 	lastresort: 2,
 	lastrespects: 2.5,
-	lavaplume: 1.5,
+	lavaplume: 1.5, // 1
 	leafstorm: 2,
 	leechseed: 1.5,
 	lightofruin: 2,
@@ -458,7 +458,7 @@ export const moveToPoint: {[k: string]: number} = {
 	sappyseed: 2,
 	scald: 1.5,
 	scorchingsands: 1.5,
-	searingshot: 0.5,
+	searingshot: 0.5, // 1.5
 	secretsword: 1.5,
 	seedflare: 2,
 	selfdestruct: 2.5,
