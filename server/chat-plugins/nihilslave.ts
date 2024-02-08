@@ -216,6 +216,7 @@ export const commands: Chat.ChatCommands = {
 				grassknot: 80,
 				heatcrash: 80,
 				heavyslam: 80,
+				knockoff: power * 1.5,
 				lastrespects: power * 3,
 				lowkick: 80,
 				multiattack: 100,
@@ -241,7 +242,12 @@ export const commands: Chat.ChatCommands = {
 				else power *= 3.1;
 			}
 			if (move.willCrit) power *= 1.5;
-			if (power < 80) points[move.id] = 0.5;
+			/**
+			 * ,60] | (60, 80) | [80, 100] | (100, 120) | [120, 150] | (150,
+			 *  0   |   0.5    |     1     |    1.5     |     2      |  2.5
+			 */
+			if (power <= 60 && power > 0) points[move.id] = 0;
+			else if (power < 80) points[move.id] = 0.5;
 			else if (power <= 100) points[move.id] = 1;
 			else if (power < 120) points[move.id] = 1.5;
 			else if (power <= 150) points[move.id] = 2;
@@ -252,6 +258,7 @@ export const commands: Chat.ChatCommands = {
 			if (move.ignoreAbility) points[move.id] += 0.5;
 			if (move.selfSwitch) points[move.id] += 0.5;
 			if (move.volatileStatus === 'partiallytrapped') points[move.id] += 0.5;
+			if (move.id === 'triplearrows') points[move.id] += 0.5;
 			const secondary = move.secondary;
 			if (secondary && secondary.chance && (secondary.chance >= 30 || secondary.status === 'slp')) {
 				const isVeryUsefulSecondary = ['acidspray', 'direclaw', 'luminacrash'].includes(move.id) || secondary.status === 'slp';
@@ -267,16 +274,18 @@ export const commands: Chat.ChatCommands = {
 				if (isUsefulSelf && (power >= 80 || isVeryUsefulSelf)) points[move.id] += 0.5;
 			}
 			const otherVeryUseful = [
-				'ceaselessedge', 'endeavor', 'stoneaxe', 'lastrespects', 'powertrip', 'ragefist', 'storedpower',
+				'ceaselessedge', 'endeavor', 'stoneaxe', 'lastrespects', 'naturesmadness', 'powertrip', 'ragefist', 'ruination',
+				'storedpower', 'superfang',
 			];
 			const otherUseful = otherVeryUseful.concat([
-				'barbbarrage', 'bodypress', 'collisioncourse', 'coreenforcer', 'counter', 'electrodrift', 'electroshot', 'infernalparade',
-				'hex', 'knockoff', 'metalburst', 'mirrorcoat', 'mortalspin', 'naturesmadness', 'psychicnoise', 'rapidspin',
-				'ruination', 'saltcure', 'sparklyswirl', 'spectralthief', 'superfang', 'thousandarrows', 'venoshock',
+				'barbbarrage', 'bodypress', 'buzzybuzz', 'collisioncourse', 'comeuppance', 'coreenforcer', 'counter', 'electrodrift',
+				'electroshot', 'infernalparade', 'hex', 'knockoff', 'metalburst', 'mirrorcoat', 'mortalspin', 
+				'psychicnoise', 'rapidspin', 'saltcure', 'sparklyswirl', 'spectralthief', 'thousandarrows',
+				'venoshock',
 			]);
 			const otherUseless = [
-				'belch', 'burnup', 'doubleshock', 'dreameater', 'freezeshock', 'iceburn', 'lastresort', 'shelltrap',
-				'skullbash', 'skyattack', 'steelroller', 'synchronoise',
+				'belch', 'burnup', 'doubleshock', 'dreameater', 'flail', 'focuspunch', 'freezeshock', 'iceburn',
+				'lastresort', 'reversal', 'shelltrap', 'skullbash', 'skyattack', 'steelroller', 'synchronoise',
 			];
 			if (otherVeryUseful.includes(move.id)) points[move.id] += 0.5;
 			if (otherUseful.includes(move.id)) points[move.id] += 0.5;
@@ -285,7 +294,7 @@ export const commands: Chat.ChatCommands = {
 			points[move.id] = Math.min(2.5, points[move.id]);
 		}
 
-		let buf = 'const MovePointsDraft: {[k: string]: number} = {\n';
+		let buf = 'export const MovePointsDraft: {[k: string]: number} = {\n';
 		for (const move in points) buf += `\t${move}: ${points[move]},\n`;
 		buf += '};\n';
 		const splitedPoints: {[p: number]: string[]} = {
@@ -295,7 +304,7 @@ export const commands: Chat.ChatCommands = {
 			2: [],
 			2.5: [],
 		};
-		buf += 'const SplitedMovePointsDraft: {[p: number]: string[]} = {\n';
+		buf += 'export const SplitedMovePointsDraft: {[p: number]: string[]} = {\n';
 		for (const move in points) splitedPoints[points[move]].push(move);
 		for (const point of Object.keys(splitedPoints).sort()) buf += `\t${point}: ['${splitedPoints[Number.parseFloat(point)].join("', '")}'],\n`;
 		buf += '};\n';
