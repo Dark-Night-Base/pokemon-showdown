@@ -219,7 +219,7 @@ export const commands: Chat.ChatCommands = {
 			if (move.isNonstandard === 'CAP') continue;
 			let power = move.basePower;
 			if (move.multihit) {
-				if (move.id in ['tripleaxel', 'triplekick']) power *= 6; // doesn't work
+				if (['tripleaxel', 'triplekick'].includes(move.id)) power *= 6; // doesn't work
 				else if (typeof move.multihit === 'number') power *= move.multihit;
 				else power *= 3.1;
 			}
@@ -234,7 +234,7 @@ export const commands: Chat.ChatCommands = {
 			const secondary = move.secondary;
 			if (secondary && secondary.chance && secondary.chance >= 30) {
 				const isUsefulSecondary = secondary.boosts || secondary.self || secondary.status || secondary.volatileStatus;
-				const isVeryUsefulSecondary = (move.id in ['acidspray', 'direclaw', 'luminacrash', 'relicsong']); // doesn't work
+				const isVeryUsefulSecondary = ['acidspray', 'direclaw', 'luminacrash', 'relicsong'].includes(move.id);
 				if (isVeryUsefulSecondary) points[move.id] += 0.5;
 				if (isUsefulSecondary && power >= 80) points[move.id] += 0.5;
 			}
