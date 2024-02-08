@@ -1,23 +1,7 @@
 import {FS} from "../../lib";
-import * as child_process from 'child_process';
 // https://mathjs.org/index.html
-const math = require('mathjs');
 
 export const commands: Chat.ChatCommands = {
-	invmod(target, room, user, connection, cmd) {
-		if (!target) return;
-		if (user.id !== 'asouchihiro') return this.errorReply('Access Denied by Nihilslave!');
-		const numbers = target.split(',');
-		if (numbers.length !== 2) return;
-		try {
-			const a = math.bignumber(numbers[0]);
-			const b = math.bignumber(numbers[1]);
-			const result = math.invmod(a, b);
-			this.sendReplyBox(`invmod: ${result.toHex().toUpperCase()}`);
-		} catch (e) {
-			this.errorReply('invmod error!');
-		}
-	},
 	weaktable(target, room, user) {
 		if (user.id !== 'asouchihiro') return this.errorReply('Access Denied by Nihilslave!');
 		if (!this.runBroadcast()) return;
@@ -218,6 +202,39 @@ export const commands: Chat.ChatCommands = {
 			if (move.isZ || move.isMax) continue;
 			if (move.isNonstandard === 'CAP') continue;
 			let power = move.basePower;
+			const powerx2 = power * 2;
+			const powerMapper: {[k: string]: number} = {
+				acrobatics: powerx2,
+				boltbeak: powerx2,
+				expandingforce: power * 1.5,
+				facade: powerx2,
+				ficklebeam: power * 1.3,
+				finalgambit: 250,
+				fishiousrend: powerx2,
+				flail: 200,
+				frustration: 102,
+				grassknot: 80,
+				heatcrash: 80,
+				heavyslam: 80,
+				lastrespects: power * 3,
+				lowkick: 80,
+				multiattack: 100,
+				pikapapow: 102,
+				powertrip: 80,
+				psyblade: power * 1.5,
+				pursuit: powerx2,
+				ragefist: power * 3,
+				return: 102,
+				reversal: 200,
+				risingvoltage: powerx2,
+				storedpower: 80,
+				technoblast: 100,
+				terrainpulse: powerx2,
+				veeveevolley: 102,
+				weatherball: powerx2,
+			}
+			if (move.id in powerMapper) power = powerMapper[move.id];
+			if (move.ohko) power = 250;
 			if (move.multihit) {
 				if (['tripleaxel', 'triplekick'].includes(move.id)) power *= 6; // doesn't work
 				else if (typeof move.multihit === 'number') power *= move.multihit;
@@ -226,29 +243,46 @@ export const commands: Chat.ChatCommands = {
 			if (move.willCrit) power *= 1.5;
 			if (power < 80) points[move.id] = 0.5;
 			else if (power <= 100) points[move.id] = 1;
-			else if (power <= 120) points[move.id] = 1.5;
+			else if (power < 120) points[move.id] = 1.5;
 			else if (power <= 150) points[move.id] = 2;
 			else points[move.id] = 2.5;
-			if (move.priority > 0) points[move.id] += 0.5;
+			if ((move.priority > 0 && move.id !== 'bide') || move.id === 'grassyglide') points[move.id] += 0.5;
 			if (move.flags.heal) points[move.id] += 0.5;
+			if (move.flags.recharge) points[move.id] -= 0.5;
+			if (move.ignoreAbility) points[move.id] += 0.5;
+			if (move.selfSwitch) points[move.id] += 0.5;
+			if (move.volatileStatus === 'partiallytrapped') points[move.id] += 0.5;
 			const secondary = move.secondary;
-			if (secondary && secondary.chance && secondary.chance >= 30) {
-				const isUsefulSecondary = secondary.boosts || secondary.self || secondary.status || secondary.volatileStatus;
-				const isVeryUsefulSecondary = ['acidspray', 'direclaw', 'luminacrash', 'relicsong'].includes(move.id);
+			if (secondary && secondary.chance && (secondary.chance >= 30 || secondary.status === 'slp')) {
+				const isVeryUsefulSecondary = ['acidspray', 'direclaw', 'luminacrash'].includes(move.id) || secondary.status === 'slp';
+				const isUsefulSecondary = isVeryUsefulSecondary || secondary.boosts || secondary.self || secondary.status || secondary.volatileStatus;
 				if (isVeryUsefulSecondary) points[move.id] += 0.5;
-				if (isUsefulSecondary && power >= 80) points[move.id] += 0.5;
+				if (isUsefulSecondary && (power >= 80 && power < 120 || secondary.chance >= 50 || isVeryUsefulSecondary)) points[move.id] += 0.5;
 			}
 			const self = move.self;
 			if (self) {
-				const isHarmfulSelf = (self.volatileStatus === 'mustrecharge');
-				const isUsefulSelf = self.boosts && Object.values(self.boosts).some(value => value > 0) || self.sideCondition;
 				const isVeryUsefulSelf = self.sideCondition;
+				const isUsefulSelf = isVeryUsefulSelf || self.boosts && Object.values(self.boosts).some(value => value > 0);
 				if (isVeryUsefulSelf) points[move.id] += 0.5;
-				if (isUsefulSelf && power >= 80) points[move.id] += 0.5;
-				if (isHarmfulSelf) points[move.id] -= 0.5;
+				if (isUsefulSelf && (power >= 80 || isVeryUsefulSelf)) points[move.id] += 0.5;
 			}
-			const otherUseful = [];
-			const otherVeryUseful = [];
+			const otherVeryUseful = [
+				'ceaselessedge', 'endeavor', 'stoneaxe', 'lastrespects', 'powertrip', 'ragefist', 'storedpower',
+			];
+			const otherUseful = otherVeryUseful.concat([
+				'barbbarrage', 'bodypress', 'collisioncourse', 'coreenforcer', 'counter', 'electrodrift', 'electroshot', 'infernalparade',
+				'hex', 'knockoff', 'metalburst', 'mirrorcoat', 'mortalspin', 'naturesmadness', 'psychicnoise', 'rapidspin',
+				'ruination', 'saltcure', 'sparklyswirl', 'spectralthief', 'superfang', 'thousandarrows', 'venoshock',
+			]);
+			const otherUseless = [
+				'belch', 'burnup', 'doubleshock', 'dreameater', 'freezeshock', 'iceburn', 'lastresort', 'shelltrap',
+				'skullbash', 'skyattack', 'steelroller', 'synchronoise'
+			];
+			if (otherVeryUseful.includes(move.id)) points[move.id] += 0.5;
+			if (otherUseful.includes(move.id)) points[move.id] += 0.5;
+			if (otherUseless.includes(move.id)) points[move.id] -= 0.5;
+			points[move.id] = Math.max(0.5, points[move.id]);
+			// points[move.id] = Math.min(2.5, points[move.id]);
 		}
 
 		let buf = 'const MovePointsDraft: {[k: string]: number} = {\n';
