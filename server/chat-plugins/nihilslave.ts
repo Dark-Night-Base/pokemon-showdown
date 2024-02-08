@@ -282,7 +282,7 @@ export const commands: Chat.ChatCommands = {
 			if (otherUseful.includes(move.id)) points[move.id] += 0.5;
 			if (otherUseless.includes(move.id)) points[move.id] -= 0.5;
 			points[move.id] = Math.max(0.5, points[move.id]);
-			// points[move.id] = Math.min(2.5, points[move.id]);
+			points[move.id] = Math.min(2.5, points[move.id]);
 		}
 
 		let buf = 'const MovePointsDraft: {[k: string]: number} = {\n';
