@@ -276,7 +276,7 @@ export const commands: Chat.ChatCommands = {
 			]);
 			const otherUseless = [
 				'belch', 'burnup', 'doubleshock', 'dreameater', 'freezeshock', 'iceburn', 'lastresort', 'shelltrap',
-				'skullbash', 'skyattack', 'steelroller', 'synchronoise'
+				'skullbash', 'skyattack', 'steelroller', 'synchronoise',
 			];
 			if (otherVeryUseful.includes(move.id)) points[move.id] += 0.5;
 			if (otherUseful.includes(move.id)) points[move.id] += 0.5;
