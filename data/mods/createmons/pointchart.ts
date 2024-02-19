@@ -345,7 +345,7 @@ export const moveToPoint: {[k: string]: number} = {
 	iceburn: 1.5,
 	icehammer: 1,
 	iceshard: 1,
-	imprison: 1.5,
+	imprison: 1000000,
 	infernalparade: 1,
 	inferno: 1.5,
 	infestation: 1.5,
