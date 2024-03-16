@@ -1,10 +1,10 @@
 export const typeToPoint: {[k: string]: number} = {
-	bug: 1, // 0.8
-	dark: 1.4,
-	dragon: 1.6, // 1.4
+	bug: 0.8,
+	dark: 1.6,
+	dragon: 1.4,
 	electric: 1.6,
-	fairy: 2, // 1.8
-	fighting: 1.4, // 1.2
+	fairy: 1.8,
+	fighting: 1.2,
 	fire: 1.6,
 	flying: 1.6,
 	ghost: 1.8,
@@ -13,10 +13,10 @@ export const typeToPoint: {[k: string]: number} = {
 	ice: 1.4,
 	normal: 1.6,
 	poison: 1.2,
-	psychic: 1.2, // 1
+	psychic: 1,
 	rock: 1.2,
 	steel: 2,
-	stellar: 1, // 1.2
+	stellar: 1,
 	water: 1.8,
 };
 export const abilityToPoint: {[k: string]: number} = {
@@ -87,7 +87,7 @@ export const abilityToPoint: {[k: string]: number} = {
 	mindseye: 1.5,
 	mistysurge: 2,
 	moldbreaker: 3,
-	moody: 5,
+	moody: 1000000,
 	motordrive: 2,
 	moxie: 1.5,
 	multiscale: 2,
@@ -122,6 +122,7 @@ export const abilityToPoint: {[k: string]: number} = {
 	rockypayload: 2,
 	sandrush: 1.5,
 	sandstream: 2.5,
+	sandveil: 1000000,
 	sapsipper: 2,
 	schooling: 1000000,
 	scrappy: 1.5,
@@ -137,6 +138,7 @@ export const abilityToPoint: {[k: string]: number} = {
 	slowstart: 1,
 	slushrush: 1.5,
 	sniper: 2.5,
+	snowcloak: 1000000,
 	snowwarning: 2,
 	solarpower: 1.5,
 	solidrock: 1.5,
@@ -164,12 +166,12 @@ export const abilityToPoint: {[k: string]: number} = {
 	tintedlens: 3,
 	toughclaws: 3,
 	toxicboost: 1.5,
-	transistor: 2.5,
+	transistor: 2,
 	triage: 3.5,
 	truant: 0.5,
 	turboblaze: 3,
 	unaware: 3,
-	unburden: 2.5,
+	unburden: 3,
 	unseenfist: 1.5,
 	vesselofruin: 2,
 	voltabsorb: 2,
@@ -404,7 +406,7 @@ export const moveToPoint: {[k: string]: number} = {
 	nuzzle: 1.5,
 	oblivionwing: 1.5,
 	obstruct: 1,
-	octolock: 2.5,
+	octolock: 1000000,
 	originpulse: 1.5,
 	outrage: 1.5,
 	overheat: 2,
@@ -417,7 +419,7 @@ export const moveToPoint: {[k: string]: number} = {
 	poltergeist: 1.5,
 	populationbomb: 2,
 	powertrick: 1,
-	powertrip: 1.5,
+	powertrip: 1000000,
 	poweruppunch: 1,
 	powerwhip: 2,
 	precipiceblades: 2,
@@ -574,10 +576,10 @@ function calcBSPoint(stats: StatsTable) {
 	const A = (a: number) => 2 * a + 100;
 	const B = (h: number, b: number) => (2 * h + 200) * (2 * b + 100);
 	const S = A;
-	const f = (x: number) => x * x * x * 3 - x * x * 6 + x * 5;
+	const f = (x: number) => x * x * x * 6 - x * x * 12 + x * 10;
 	const g = (x: number) => x * x * x * 3 - x + 3;
-	const k = (x: number) => - x * x * x * x * 3 + x * x * x * 13 - x * x * 14 + x * 4 + 2;
-	const A_w = (4 * Math.max(A(a), A(c)) + 1 * Math.min(A(a), A(c))) / 15e2;
+	const k = (x: number) => - x * x * x * x + x * x * x * 8 - x * x * 10 + x * 3 + 1;
+	const A_w = (8 * Math.max(A(a), A(c)) + 1 * Math.min(A(a), A(c))) / 27e2;
 	const B_w = (2 * Math.max(B(h, b), B(h, d)) + 1 * Math.min(B(h, b), B(h, d))) / 36e4;
 	const E = S(s) / 300;
 	const f_A_w = f(A_w);
