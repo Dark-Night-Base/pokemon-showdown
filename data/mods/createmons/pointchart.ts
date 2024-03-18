@@ -576,10 +576,10 @@ function calcBSPoint(stats: StatsTable) {
 	const A = (a: number) => 2 * a + 100;
 	const B = (h: number, b: number) => (2 * h + 200) * (2 * b + 100);
 	const S = A;
-	const f = (x: number) => x * x * x * 6 - x * x * 12 + x * 10;
-	const g = (x: number) => x * x * x * 3 - x + 3;
+	const f = (x: number) => x * x * x * 11 - x * x * 25 + x * 19 - 0.75;
+	const g = (x: number) => x * x * x * 10 - x * x * 18 + x * 10 + 2;
 	const k = (x: number) => - x * x * x * x + x * x * x * 8 - x * x * 10 + x * 3 + 1;
-	const A_w = (8 * Math.max(A(a), A(c)) + 1 * Math.min(A(a), A(c))) / 27e2;
+	const A_w = (4 * Math.max(A(a), A(c)) + 1 * Math.min(A(a), A(c))) / 15e2;
 	const B_w = (2 * Math.max(B(h, b), B(h, d)) + 1 * Math.min(B(h, b), B(h, d))) / 36e4;
 	const E = S(s) / 300;
 	const f_A_w = f(A_w);

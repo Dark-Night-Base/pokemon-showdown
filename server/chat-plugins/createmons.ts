@@ -69,15 +69,15 @@ export const commands: Chat.ChatCommands = {
 				`&bullet; 计算物理输出 A = 2 * a + 100, 特殊输出 C 同理 <br />` +
 				`&bullet; 计算物理耐久 B = (2 * h + 200) * (2 * b + 100), 特殊耐久 D 同理 <br />` +
 				`&bullet; <em> 第 1 步 </em><br />` +
-				`&bullet; 计算平均输出 Aw = max(A, C) * 8 / 9 + min(A, C) * 1 / 9 <br />` +
+				`&bullet; 计算平均输出 Aw = max(A, C) * 4 / 5 + min(A, C) * 1 / 5 <br />` +
 				`&bullet; 计算平均耐久 Bw = max(B, D) * 2 / 3 + min(B, D) * 1 / 3 <br />` +
 				`&bullet; <em> 第 2 步 </em><br />` +
 				`&bullet; 计算输出与梦幻输出的比值 Pa = Aw / 300 <br />` +
 				`&bullet; 计算耐久与梦幻耐久的比值 Pb = Bw / (400 * 300) <br />` +
 				`&bullet; 计算速度与梦幻速度的比值 Ps = (2 * s + 100) / 300 <br />` +
 				`&bullet; <em> 第 3 步 </em><br />` +
-				`&bullet; 输出核函数 f(x) = 6x^3 - 12x^2 + 10x <br />` +
-				`&bullet; 耐久核函数 g(x) = 3x^3 - x + 3 <br />` +
+				`&bullet; 输出核函数 f(x) = 11x^3 - 25x^2 + 19x - 0.75 <br />` +
+				`&bullet; 耐久核函数 g(x) = 10x^3 - 18x^2 + 10x + 2 <br />` +
 				`&bullet; 速度核函数 k(x) = -x^4 + 8x^3 - 10x^2 + 3x + 1 <br />` +
 				`&bullet; 种族分 S = f(Pa) * g(Pb) * k(Ps) * 10 <br />` +
 				`<b>太长不看</b>: 双攻越高、耐久越高、速度越极端, S 越大.` +
@@ -98,16 +98,16 @@ export const commands: Chat.ChatCommands = {
 				`&bullet; Physical Offense A = 2 * a + 100, Special Offense C is calculated in the same way <br />` +
 				`&bullet; Physical Bulk B = (2 * h + 200) * (2 * b + 100), Special Bulk D is calculated in the same way <br />` +
 				`&bullet; <em>Step 1</em><br />` +
-				`&bullet; Weighed Average of Offense Aw = max(A, C) * 8 / 9 + min(A, C) * 1 / 9 <br />` +
+				`&bullet; Weighed Average of Offense Aw = max(A, C) * 4 / 5 + min(A, C) * 1 / 5 <br />` +
 				`&bullet; Weighed Average of Bulk Bw = max(B, D) * 2 / 3 + min(B, D) * 1 / 3 <br />` +
 				`&bullet; <em>Step 2</em><br />` +
 				`&bullet; Offense Proportion (to that of Mew) Pa = Aw / 300 <br />` +
 				`&bullet; Bulk Proportion (to that of Mew) Pb = Bw / (400 * 300) <br />` +
 				`&bullet; Speed Proportion (to that of Mew) Ps = (2 * s + 100) / 300 <br />` +
 				`&bullet; <em>Step 3</em><br />` +
-				`&bullet; Core Function for Offense f(x) = 6x^3 - 12x^2 + 10x <br />` +
-				`&bullet; Core Function for Bulk g(x) = 3x^3 - x + 3 <br />` +
-				`&bullet; Core Function for Speed k(x) = -x^4 + 8x^3 - 10x^2 + 3x + 1 <br />` +
+				`&bullet; Kernal Function for Offense f(x) = 11x^3 - 25x^2 + 19x - 0.75 <br />` +
+				`&bullet; Kernal Function for Bulk g(x) = 10x^3 - 18x^2 + 10x + 2 <br />` +
+				`&bullet; Kernal Function for Speed k(x) = -x^4 + 8x^3 - 10x^2 + 3x + 1 <br />` +
 				`&bullet; Stats Point S = f(Pa) * g(Pb) * k(Ps) * 10 <br />` +
 				`<b>TL;DR</b>: Basically, the higher the attacks / the more the bulk / the more extreme the speed, the greater the Stats Point.` +
 				`</details>`
