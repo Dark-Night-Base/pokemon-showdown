@@ -2843,7 +2843,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 			}
 
 			// set weight
-			let weight = 999;
+			let weight = 10;
 			if (typeof set.dynamaxLevel === 'number') {
 				if (set.dynamaxLevel < 999) weight = set.dynamaxLevel;
 				if (set.dynamaxLevel < 1) weight = 1;
