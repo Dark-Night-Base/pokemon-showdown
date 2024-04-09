@@ -275,12 +275,12 @@ export const commands: Chat.ChatCommands = {
 			}
 			const otherVeryUseful = [
 				'ceaselessedge', 'endeavor', 'stoneaxe', 'lastrespects', 'naturesmadness', 'powertrip', 'ragefist', 'ruination',
-				'storedpower', 'superfang',
+				'sappyseed', 'storedpower', 'superfang',
 			];
 			const otherUseful = otherVeryUseful.concat([
 				'barbbarrage', 'bodypress', 'buzzybuzz', 'collisioncourse', 'comeuppance', 'coreenforcer', 'counter', 'electrodrift',
 				'electroshot', 'infernalparade', 'hex', 'knockoff', 'metalburst', 'mirrorcoat', 'mortalspin',  'psychicnoise',
-				'rapidspin', 'saltcure', 'sappyseed', 'sparklyswirl', 'spectralthief', 'thousandarrows', 'venoshock',
+				'rapidspin', 'saltcure', 'sparklyswirl', 'spectralthief', 'thousandarrows', 'venoshock',
 			]);
 			const otherUseless = [
 				'belch', 'burnup', 'doubleshock', 'dreameater', 'flail', 'focuspunch', 'freezeshock', 'iceburn',
