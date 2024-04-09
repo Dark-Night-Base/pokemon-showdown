@@ -237,7 +237,7 @@ export const commands: Chat.ChatCommands = {
 			if (move.id in powerMapper) power = powerMapper[move.id];
 			if (move.ohko) power = 250;
 			if (move.multihit) {
-				if (['tripleaxel', 'triplekick'].includes(move.id)) power *= 6; // doesn't work
+				if (['tripleaxel', 'triplekick'].includes(move.id)) power *= 6;
 				else if (typeof move.multihit === 'number') power *= move.multihit;
 				else power *= 3.1;
 			}
