@@ -30,6 +30,10 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		inherit: true,
 		onModifyType: undefined,
 	},
+	ragingbull: {
+		inherit: true,
+		onModifyType: undefined,
+	},
 	relicsong: {
 		inherit: true,
 		onHit: undefined,

@@ -1,6 +1,22 @@
 import {FS} from "../../lib";
 // https://mathjs.org/index.html
 
+const deepStringify = function (obj: any): string {
+	if (obj === null) return 'null';
+	if (Array.isArray(obj)) return JSON.stringify(obj.map(value => deepStringify(value)));
+	switch (typeof obj) {
+	case 'function':
+		return obj.toString();
+	case 'object':
+		const sortedKeyList = Object.keys(obj).sort() as Array<keyof typeof obj>;
+		const newObj: any = {};
+		for (const prop of sortedKeyList) newObj[prop] = deepStringify(obj[prop]);
+		return JSON.stringify(newObj);
+	default:
+		return JSON.stringify(obj);
+	}
+};
+
 export const commands: Chat.ChatCommands = {
 	weaktable(target, room, user) {
 		if (user.id !== 'asouchihiro') return this.errorReply('Access Denied by Nihilslave!');
@@ -309,6 +325,18 @@ export const commands: Chat.ChatCommands = {
 		buf += '};\n';
 		FS(`config/chat-plugins/nihilslave/movepointchart.ts`).writeSync(buf);
 		this.sendReply('Done');
+	},
+	abilitypointchart(target, room, user) {
+		if (user.id !== 'asouchihiro') return this.errorReply('Access Denied by Nihilslave!');
+		if (!this.runBroadcast()) return;
+		const abilities = Dex.abilities.all();
+		const points: {[k: string]: number} = {};
+		for (const ability of abilities) {
+			if (ability.isNonstandard === "CAP") continue;
+			let point = 1;
+			if (ability.id === 'truant') point = 0.5;
+			points[ability.id] = point;
+		}
 	},
 	clientbuild(target, room, user) {
 		if (user.id !== 'asouchihiro') return this.errorReply('Access Denied by Nihilslave!');
