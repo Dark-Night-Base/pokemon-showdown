@@ -331,9 +331,37 @@ export const commands: Chat.ChatCommands = {
 		if (!this.runBroadcast()) return;
 		const abilities = Dex.abilities.all();
 		const points: {[k: string]: number} = {};
+		const OffensiveAbilities = [];
+		const DefensiveAbilities = [];
+		const UtilityAbilities = [];
+		const ImportantProperties = [
+			'condition', 'flags',
+			'onCriticalHit',
+			'onFractionalPriority',
+			'suppressWeather', 'weather',
+		];
+		const ImportantPropertiesF = [
+			'onAfterBoost', 'onAfterEachBoost', 'onAfterMove', 'onAfterMoveSecondary', 'onAfterMoveSecondarySelf', 'onAfterSetStatus', 'onAfterTerastallization', 'onAfterUseItem',
+			'onAllyAfterUseItem', 'onAllyBasePower', 'onAllyFaint', 'onAllyModifyAtk', 'onAllyModifySpD', 'onAllySetStatus', 'onAllySideConditionStart', 'onAllySwitchIn',
+			'onAllyTryAddVolatile', 'onAllyTryBoost', 'onAllyTryHitSide', 'onAnyAccuracy', 'onAnyAfterMove', 'onAnyAfterSetStatus', 'onAnyBasePower', 'onAnyDamage',
+			'onAnyFaint', 'onAnyInvulnerability', 'onAnyModifyAccuracy', 'onAnyModifyAtk', 'onAnyModifyBoost', 'onAnyModifyDamage', 'onAnyModifyDef', 'onAnyModifySpA',
+			'onAnyModifySpD', 'onAnyRedirectTarget', 'onAnySetWeather', 'onAnyTryMove', 'onAnyTryPrimaryHit', 'onBasePower', 'onBeforeMove', 'onBeforeSwitchIn',
+			'onChangeBoost', 'onCheckShow', 'onCriticalHit', 'onDamage', 'onDamagingHit', 'onDeductPP', 'onDisableMove', 'onDragOut',
+			'onEatItem', 'onEffectiveness', 'onEmergencyExit', 'onEnd', 'onFaint', 'onFlinch', 'onFoeAfterBoost', 'onFoeMaybeTrapPokemon',
+			'onFoeTrapPokemon', 'onFoeTryEatItem', 'onFoeTryMove', 'onFractionalPriority', 'onHit', 'onImmunity', 'onModifyAccuracy', 'onModifyAtk',
+			'onModifyCritRatio', 'onModifyDamage', 'onModifyDef', 'onModifyMove', 'onModifyPriority', 'onModifySTAB', 'onModifySecondaries', 'onModifySpA',
+			'onModifySpe', 'onModifyType', 'onModifyWeight', 'onPreStart', 'onPrepareHit', 'onResidual', 'onSetStatus', 'onSourceAfterFaint',
+			'onSourceBasePower', 'onSourceDamagingHit', 'onSourceModifyAccuracy', 'onSourceModifyAtk', 'onSourceModifyDamage', 'onSourceModifySecondaries', 'onSourceModifySpA', 'onSourceTryHeal',
+			'onSourceTryPrimaryHit', 'onStart', 'onSwitchIn', 'onSwitchOut', 'onTakeItem', 'onTerrainChange', 'onTryAddVolatile', 'onTryBoost',
+			'onTryEatItem', 'onTryHeal', 'onTryHit', 'onUpdate', 'onWeather', 'onWeatherChange',
+		];
+		const res = new Set<string>();
 		for (const ability of abilities) {
 			if (ability.isNonstandard === "CAP") continue;
 			let point = 1;
+			for (const prop in ability) {
+				if (typeof (ability as any)[prop] === 'function') continue;
+			}
 			if (ability.id === 'truant') point = 0.5;
 			points[ability.id] = point;
 		}
