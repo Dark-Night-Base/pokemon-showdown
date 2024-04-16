@@ -16,6 +16,9 @@ const deepStringify = function (obj: any): string {
 		return JSON.stringify(obj);
 	}
 };
+const deepStringifyObjProp = function (obj: Object, prop: string) {
+	return deepStringify((obj as any)[prop]);
+}
 
 export const commands: Chat.ChatCommands = {
 	weaktable(target, room, user) {
@@ -331,15 +334,9 @@ export const commands: Chat.ChatCommands = {
 		if (!this.runBroadcast()) return;
 		const abilities = Dex.abilities.all();
 		const points: {[k: string]: number} = {};
-		const OffensiveAbilities = [];
-		const DefensiveAbilities = [];
-		const UtilityAbilities = [];
-		const ImportantProperties = [
-			'condition', 'flags',
-			'onCriticalHit',
-			'onFractionalPriority',
-			'suppressWeather', 'weather',
-		];
+		const OffensiveAbilities = new Set<string>();
+		const DefensiveAbilities = new Set<string>();
+		const UtilityAbilities = new Set<string>();
 		const ImportantPropertiesF = [
 			'onAfterBoost', 'onAfterEachBoost', 'onAfterMove', 'onAfterMoveSecondary', 'onAfterMoveSecondarySelf', 'onAfterSetStatus', 'onAfterTerastallization', 'onAfterUseItem',
 			'onAllyAfterUseItem', 'onAllyBasePower', 'onAllyFaint', 'onAllyModifyAtk', 'onAllyModifySpD', 'onAllySetStatus', 'onAllySideConditionStart', 'onAllySwitchIn',
@@ -355,13 +352,32 @@ export const commands: Chat.ChatCommands = {
 			'onSourceTryPrimaryHit', 'onStart', 'onSwitchIn', 'onSwitchOut', 'onTakeItem', 'onTerrainChange', 'onTryAddVolatile', 'onTryBoost',
 			'onTryEatItem', 'onTryHeal', 'onTryHit', 'onUpdate', 'onWeather', 'onWeatherChange',
 		];
-		const res = new Set<string>();
+		const OF = [];
+		const DF = [];
+		const UF = [];
+		// firstly go through to divide abilities into 3 categories
+		for (const ability of abilities) {
+			// todo: consider how to deal with the condition prop
+			if (ability.isNonstandard === "CAP") continue;
+			const abilityID = ability.id;
+			if (ability.flags.breakable) DefensiveAbilities.add(abilityID);
+			if (ability.suppressWeather) UtilityAbilities.add(abilityID);
+			const abilityString = deepStringify(ability);
+			let propString = '';
+			if (abilityString.includes("this.chainModify(")) {
+				// split these into Offensive and Defensive using props
+			}
+			propString = deepStringifyObjProp(ability, 'onCriticalHit');
+			if (propString) DefensiveAbilities.add(abilityID);
+			propString = deepStringifyObjProp(ability, 'onFractionalPriority');
+			if (propString) {
+				if (propString.includes("-0")) UtilityAbilities.add(abilityID);
+				else OffensiveAbilities.add(abilityID);
+			}
+		}
 		for (const ability of abilities) {
 			if (ability.isNonstandard === "CAP") continue;
 			let point = 1;
-			for (const prop in ability) {
-				if (typeof (ability as any)[prop] === 'function') continue;
-			}
 			if (ability.id === 'truant') point = 0.5;
 			points[ability.id] = point;
 		}
