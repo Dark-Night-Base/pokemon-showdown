@@ -252,7 +252,7 @@ export const commands: Chat.ChatCommands = {
 				terrainpulse: powerx2,
 				veeveevolley: 102,
 				weatherball: powerx2,
-			}
+			};
 			if (move.id in powerMapper) power = powerMapper[move.id];
 			if (move.ohko) power = 250;
 			if (move.multihit) {
