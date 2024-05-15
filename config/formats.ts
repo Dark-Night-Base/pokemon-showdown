@@ -150,7 +150,7 @@ export const Formats: FormatList = [
 
 		mod: 'moveitemability',
 		// debug: true,
-		ruleset: ['[Gen 9] National Dex BH', 'Multi-hit Moves Clause', 'MIA Move Legality', 'MIA Clause = Normal', '!Ability Clause'],
+		ruleset: ['[Gen 9] National Dex BH', 'Multi-hit Moves Clause', 'MIA Move Legality', 'MIA Clause = Normal', '!Ability Clause', '!Terastal Clause'],
 		banlist: [
 			'Emergency Exit', 'Serene Grace', 'Sturdy', 'Wimp Out',
 			'Assist', 'Endeavor', 'Entrainment', 'Nature\'s Madness', 'Ruination', 'Skill Swap', 'Super Fang',
@@ -1247,9 +1247,9 @@ export const Formats: FormatList = [
 			`&bullet; <a href="https://www.smogon.com/forums/threads/3711099/">National Dex BH</a>`,
 		],
 		mod: 'gen9',
-		ruleset: ['-Nonexistent', 'Standard NatDex', 'Forme Clause', 'Sleep Moves Clause', 'Ability Clause = 2', 'OHKO Clause', 'Evasion Moves Clause', 'Dynamax Clause', 'CFZ Clause', '!Obtainable'],
+		ruleset: ['-Nonexistent', 'Standard NatDex', 'Forme Clause', 'Sleep Moves Clause', 'Ability Clause = 2', 'OHKO Clause', 'Evasion Moves Clause', 'Dynamax Clause', 'CFZ Clause', 'Terastal Clause', '!Obtainable'],
 		banlist: [
-			'Arceus > 1', 'Calyrex-Shadow', 'Cramorant-Gorging', 'Darmanitan-Galar-Zen', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja', 'Zygarde-Complete',
+			'Arceus > 1', 'Calyrex-Shadow', 'Cramorant-Gorging', 'Darmanitan-Galar-Zen', 'Eternatus-Eternamax', 'Groudon-Primal', 'Rayquaza-Mega', 'Shedinja',
 			'Arena Trap', 'Contrary', 'Gorilla Tactics', 'Huge Power', 'Illusion', 'Innards Out', 'Magnet Pull', 'Moody', 'Neutralizing Gas', 'Parental Bond',
 			'Pure Power', 'Shadow Tag', 'Stakeout', 'Water Bubble', 'Wonder Guard',
 			'Gengarite',
