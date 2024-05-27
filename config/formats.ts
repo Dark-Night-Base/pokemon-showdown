@@ -637,7 +637,7 @@ export const Formats: FormatList = [
 		banlist: [
 			'Arena Trap', 'Huge Power', 'Innards Out', 'Moody', 'Neutralizing Gas', 'Parental Bond', 'Pure Power', 'Shadow Tag', 'Water Bubble', 'Wonder Guard',
 			'Comatose + Sleep Talk',
-			'Double Iron Bash', 'Final Gambit', 'Imprison', 'Octolock', 'Power Trip', 'Rage Fist', 'Revival Blessing', 'Shed Tail',
+			'Double Iron Bash', 'Final Gambit', 'Imprison', 'Last Respects', 'Octolock', 'Power Trip', 'Rage Fist', 'Revival Blessing', 'Shed Tail',
 			'Berserk Gene', 'Bright Powder', 'King\'s Rock', 'Lax Incense', 'Razor Fang',
 		],
 	},
