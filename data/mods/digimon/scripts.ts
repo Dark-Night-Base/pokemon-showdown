@@ -81,20 +81,40 @@ export const Scripts: ModdedBattleScriptsData = {
 			baseDamage = this.battle.randomizer(baseDamage);
 
 			// STAB
-			if (move.forceSTAB || (type !== '???' &&
-				(pokemon.hasType(type) || (pokemon.terastallized && pokemon.getTypes(false, true).includes(type))))) {
-				// The "???" type never gets STAB
-				// Not even if you Roost in Gen 4 and somehow manage to use
-				// Struggle in the same turn.
-				// (On second thought, it might be easier to get a MissingNo.)
+			// The "???" type never gets STAB
+			// Not even if you Roost in Gen 4 and somehow manage to use
+			// Struggle in the same turn.
+			// (On second thought, it might be easier to get a MissingNo.)
+			if (type !== '???') {
+				let stab: number | [number, number] = 1;
 
-				let stab = move.stab || 1.5;
-				if (type === pokemon.terastallized && pokemon.getTypes(false, true).includes(type)) {
-					// In my defense, the game hardcodes the Adaptability check like this, too.
-					stab = stab === 2 ? 2.25 : 2;
-				} else if (pokemon.terastallized && type !== pokemon.terastallized) {
+				const isSTAB = move.forceSTAB || pokemon.hasType(type) || pokemon.getTypes(false, true).includes(type);
+				if (isSTAB) {
 					stab = 1.5;
 				}
+
+				// The Stellar tera type makes this incredibly confusing
+				// If the move's type does not match one of the user's base types,
+				// the Stellar tera type applies a one-time 1.2x damage boost for that type.
+				//
+				// If the move's type does match one of the user's base types,
+				// then the Stellar tera type applies a one-time 2x STAB boost for that type,
+				// and then goes back to using the regular 1.5x STAB boost for those types.
+				if (pokemon.terastallized === 'Stellar') {
+					if (!pokemon.stellarBoostedTypes.includes(type) || move.stellarBoosted) {
+						stab = isSTAB ? 2 : [4915, 4096];
+						move.stellarBoosted = true;
+						if (pokemon.species.name !== 'Terapagos-Stellar') {
+							pokemon.stellarBoostedTypes.push(type);
+						}
+					}
+				} else {
+					if (pokemon.terastallized === type && pokemon.getTypes(false, true).includes(type)) {
+						stab = 2;
+					}
+					stab = this.battle.runEvent('ModifySTAB', pokemon, target, move, stab);
+				}
+
 				baseDamage = this.battle.modify(baseDamage, stab);
 			}
 
@@ -182,9 +202,9 @@ export const Scripts: ModdedBattleScriptsData = {
 			targetHits = Math.floor(targetHits);
 			let nullDamage = true;
 			let moveDamage: (number | boolean | undefined)[] = [];
-			// There is no need to recursively check the ?sleepUsable? flag as Sleep Talk can only be used while asleep.
+			// There is no need to recursively check the ´sleepUsable´ flag as Sleep Talk can only be used while asleep.
 			const isSleepUsable = move.sleepUsable || this.dex.moves.get(move.sourceEffect).sleepUsable;
-
+	
 			let targetsCopy: (Pokemon | false | null)[] = targets.slice(0);
 			let hit: number;
 			for (hit = 1; hit <= targetHits; hit++) {
@@ -206,7 +226,7 @@ export const Scripts: ModdedBattleScriptsData = {
 						this.battle.retargetLastMove(target);
 					}
 				}
-
+	
 				// like this (Triple Kick)
 				if (target && move.multiaccuracy && hit > 1) {
 					let accuracy = move.accuracy;
@@ -237,19 +257,27 @@ export const Scripts: ModdedBattleScriptsData = {
 						if (accuracy !== true && !this.battle.randomChance(accuracy, 100)) break;
 					}
 				}
-				// we change code here
-				// Nihilslave: hardCode for dragon's roar & dead or alive
+				// Nihilslave: here, hardCode for dragon's roar & dead or alive
 				if (target && ['dragonsroar', 'deadoralive'].includes(move.id) && hit === 2) move.type = 'Light';
 				const moveData = move;
 				if (!moveData.flags) moveData.flags = {};
-
+	
+				let moveDamageThisHit;
 				// Modifies targetsCopy (which is why it's a copy)
-				[moveDamage, targetsCopy] = this.spreadMoveHit(targetsCopy, pokemon, move, moveData);
-
+				[moveDamageThisHit, targetsCopy] = this.spreadMoveHit(targetsCopy, pokemon, move, moveData);
+				// When Dragon Darts targets two different pokemon, targetsCopy is a length 1 array each hit
+				// so spreadMoveHit returns a length 1 damage array
+				if (move.smartTarget) {
+					moveDamage.push(...moveDamageThisHit);
+				} else {
+					moveDamage = moveDamageThisHit;
+				}
+	
 				if (!moveDamage.some(val => val !== false)) break;
 				nullDamage = false;
-
+	
 				for (const [i, md] of moveDamage.entries()) {
+					if (move.smartTarget && i !== hit - 1) continue;
 					// Damage from each hit is individually counted for the
 					// purposes of Counter, Metal Burst, and Mirror Coat.
 					damage[i] = md === true || !md ? 0 : md;
@@ -277,15 +305,15 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (move.multihit && typeof move.smartTarget !== 'boolean') {
 				this.battle.add('-hitcount', targets[0], hit - 1);
 			}
-
-			if (move.recoil && move.totalDamage) {
+	
+			if ((move.recoil || move.id === 'chloroblast') && move.totalDamage) {
 				const hpBeforeRecoil = pokemon.hp;
-				this.battle.damage(this.calcRecoilDamage(move.totalDamage, move), pokemon, pokemon, 'recoil');
+				this.battle.damage(this.calcRecoilDamage(move.totalDamage, move, pokemon), pokemon, pokemon, 'recoil');
 				if (pokemon.hp <= pokemon.maxhp / 2 && hpBeforeRecoil > pokemon.maxhp / 2) {
 					this.battle.runEvent('EmergencyExit', pokemon, pokemon);
 				}
 			}
-
+	
 			if (move.struggleRecoil) {
 				const hpBeforeRecoil = pokemon.hp;
 				let recoilDamage;
@@ -299,33 +327,29 @@ export const Scripts: ModdedBattleScriptsData = {
 					this.battle.runEvent('EmergencyExit', pokemon, pokemon);
 				}
 			}
-
+	
 			// smartTarget messes up targetsCopy, but smartTarget should in theory ensure that targets will never fail, anyway
 			if (move.smartTarget) {
-				if (move.smartTarget && targets.length > 1) {
-					targetsCopy = [targets[hit - 1]];
-				} else {
-					targetsCopy = targets.slice(0);
-				}
+				targetsCopy = targets.slice(0);
 			}
-
+	
 			for (const [i, target] of targetsCopy.entries()) {
 				if (target && pokemon !== target) {
 					target.gotAttacked(move, moveDamage[i] as number | false | undefined, pokemon);
 					if (typeof moveDamage[i] === 'number') {
-						target.timesAttacked += hit - 1;
+						target.timesAttacked += move.smartTarget ? 1 : hit - 1;
 					}
 				}
 			}
-
+	
 			if (move.ohko && !targets[0].hp) this.battle.add('-ohko');
 	
 			if (!damage.some(val => !!val || val === 0)) return damage;
-
+	
 			this.battle.eachEvent('Update');
-
+	
 			this.afterMoveSecondaryEvent(targetsCopy.filter(val => !!val) as Pokemon[], pokemon, move);
-
+	
 			if (!move.negateSecondary && !(move.hasSheerForce && pokemon.hasAbility('sheerforce'))) {
 				for (const [i, d] of damage.entries()) {
 					// There are no multihit spread moves, so it's safe to use move.totalDamage for multihit moves
@@ -339,8 +363,8 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 			}
-
+	
 			return damage;
-		}
+		},
 	},
 };
