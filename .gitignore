@@ -9,7 +9,7 @@ superbindex.xslt
 !/config/chat-plugins/infinitefusion/getter.py
 /config/chat-plugins/infinitefusion/task
 /config/chat-plugins/infinitefusion/done
-/logs/*
+/logs/**/*
 /test/modlogs
 /test/replays/*.html
 /node_modules

@@ -131,6 +131,19 @@ export const crqHandlers: {[k: string]: Chat.CRQHandler} = {
 		}
 		return roominfo;
 	},
+	fullformat(target, user, trustable) {
+		if (!trustable) return false;
+
+		if (target.length > 225) {
+			return null;
+		}
+		const targetRoom = Rooms.get(target);
+		if (!targetRoom?.battle?.playerTable[user.id]) {
+			return null;
+		}
+
+		return targetRoom.battle.format;
+	},
 };
 
 export const commands: Chat.ChatCommands = {
@@ -279,7 +292,7 @@ export const commands: Chat.ChatCommands = {
 				}
 				user.lastCommand = 'pm';
 				return this.errorReply(
-					this.tr`User ${targetUsername} is offline. If you still want to PM them, send the message again, or use /offlinemsg.`
+					this.tr`User ${targetUsername} is offline. Send the message again to confirm. If you are using /msg, use /offlinemsg instead.`
 				);
 			}
 			let error = this.tr`User ${targetUsername} not found. Did you misspell their name?`;
@@ -299,7 +312,7 @@ export const commands: Chat.ChatCommands = {
 				}
 				user.lastCommand = 'pm';
 				return this.errorReply(
-					this.tr`User ${targetUsername} is offline. If you still want to PM them, send the message again, or use /offlinemsg.`
+					this.tr`User ${targetUsername} is offline. Send the message again to confirm. If you are using /msg, use /offlinemsg instead.`
 				);
 			}
 			return this.errorReply(`${targetUsername} is offline.`);

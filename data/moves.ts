@@ -321,20 +321,48 @@ export const Moves: {[moveid: string]: MoveData} = {
 		pp: 15,
 		priority: 2,
 		flags: {metronome: 1},
-		stallingMove: true,
 		onPrepareHit(pokemon) {
-			return !!this.queue.willAct() && this.runEvent('StallMove', pokemon);
-		},
-		onTryHit(source) {
-			if (source.side.active.length === 1) return false;
-			if (source.side.active.length === 3 && source.position === 1) return false;
+			return pokemon.addVolatile('allyswitch');
 		},
 		onHit(pokemon) {
-			pokemon.addVolatile('stall');
+			let success = true;
+			// Fail in formats where you don't control allies
+			if (this.format.gameType !== 'doubles' && this.format.gameType !== 'triples') success = false;
+
+			// Fail in triples if the Pokemon is in the middle
+			if (pokemon.side.active.length === 3 && pokemon.position === 1) success = false;
+
 			const newPosition = (pokemon.position === 0 ? pokemon.side.active.length - 1 : 0);
-			if (!pokemon.side.active[newPosition]) return false;
-			if (pokemon.side.active[newPosition].fainted) return false;
+			if (!pokemon.side.active[newPosition]) success = false;
+			if (pokemon.side.active[newPosition].fainted) success = false;
+			if (!success) {
+				this.add('-fail', pokemon, 'move: Ally Switch');
+				this.attrLastMove('[still]');
+				return this.NOT_FAIL;
+			}
 			this.swapPosition(pokemon, newPosition, '[from] move: Ally Switch');
+		},
+		condition: {
+			duration: 2,
+			counterMax: 729,
+			onStart() {
+				this.effectState.counter = 3;
+			},
+			onRestart(pokemon) {
+				// this.effectState.counter should never be undefined here.
+				// However, just in case, use 1 if it is undefined.
+				const counter = this.effectState.counter || 1;
+				this.debug("Ally Switch success chance: " + Math.round(100 / counter) + "%");
+				const success = this.randomChance(1, counter);
+				if (!success) {
+					delete pokemon.volatiles['allyswitch'];
+					return false;
+				}
+				if (this.effectState.counter < (this.effect as Condition).counterMax!) {
+					this.effectState.counter *= 3;
+				}
+				this.effectState.duration = 2;
+			},
 		},
 		secondary: null,
 		target: "self",
@@ -3755,7 +3783,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 					}
 				}
 				if (effect.effectType === 'Ability') {
-					this.add('-start', pokemon, 'Disable', pokemon.lastMove.name, '[from] ability: Cursed Body', '[of] ' + source);
+					this.add('-start', pokemon, 'Disable', pokemon.lastMove.name, '[from] ability: ' + effect.name, '[of] ' + source);
 				} else {
 					this.add('-start', pokemon, 'Disable', pokemon.lastMove.name);
 				}
@@ -5695,7 +5723,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		num: 175,
 		accuracy: 100,
 		basePower: 0,
-		basePowerCallback(pokemon, target) {
+		basePowerCallback(pokemon) {
 			const ratio = Math.max(Math.floor(pokemon.hp * 48 / pokemon.maxhp), 1);
 			let bp;
 			if (ratio < 2) {
@@ -8576,7 +8604,9 @@ export const Moves: {[moveid: string]: MoveData} = {
 				if ((effect?.id === 'zpower') || this.effectState.isZ) return damage;
 				return false;
 			},
-			onRestart(target, source) {
+			onRestart(target, source, effect) {
+				if (effect?.name === 'Psychic Noise') return;
+
 				this.add('-fail', target, 'move: Heal Block'); // Succeeds to supress downstream messages
 				if (!source.moveThisTurnResult) {
 					source.moveThisTurnResult = false;
@@ -15593,7 +15623,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		num: 179,
 		accuracy: 100,
 		basePower: 0,
-		basePowerCallback(pokemon, target) {
+		basePowerCallback(pokemon) {
 			const ratio = Math.max(Math.floor(pokemon.hp * 48 / pokemon.maxhp), 1);
 			let bp;
 			if (ratio < 2) {
@@ -17220,6 +17250,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 			target.ability = sourceAbility.id;
 			source.abilityState = {id: this.toID(source.ability), target: source};
 			target.abilityState = {id: this.toID(target.ability), target: target};
+			source.volatileStaleness = undefined;
 			if (!target.isAlly(source)) target.volatileStaleness = 'external';
 			this.singleEvent('Start', targetAbility, source.abilityState, source);
 			this.singleEvent('Start', sourceAbility, target.abilityState, target);
@@ -19476,9 +19507,14 @@ export const Moves: {[moveid: string]: MoveData} = {
 			onStart(pokemon) {
 				this.add('-start', pokemon, 'Syrup Bomb');
 			},
+			onUpdate(pokemon) {
+				if (this.effectState.source && !this.effectState.source.isActive) {
+					pokemon.removeVolatile('syrupbomb');
+				}
+			},
 			onResidualOrder: 14,
-			onResidual() {
-				this.boost({spe: -1});
+			onResidual(pokemon) {
+				this.boost({spe: -1}, pokemon, this.effectState.source);
 			},
 			onEnd(pokemon) {
 				this.add('-end', pokemon, 'Syrup Bomb', '[silent]');
@@ -19966,6 +20002,9 @@ export const Moves: {[moveid: string]: MoveData} = {
 		onModifyType(move, pokemon) {
 			if (pokemon.species.name === 'Terapagos-Stellar') {
 				move.type = 'Stellar';
+				if (pokemon.terastallized && pokemon.getStat('atk', false, true) > pokemon.getStat('spa', false, true)) {
+					move.category = 'Physical';
+				}
 			}
 		},
 		onModifyMove(move, pokemon) {
@@ -20963,7 +21002,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		pp: 15,
 		priority: 3,
 		flags: {contact: 1, protect: 1, mirror: 1, metronome: 1},
-		onTryHit(target, pokemon) {
+		onTry(source, target) {
 			const action = this.queue.willMove(target);
 			const move = action?.choice === 'move' ? action.move : null;
 			if (!move || move.priority <= 0.1 || move.category === 'Status') {
