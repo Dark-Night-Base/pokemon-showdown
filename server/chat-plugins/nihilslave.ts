@@ -238,7 +238,7 @@ export const commands: Chat.ChatCommands = {
 				knockoff: power * 1.5,
 				lastrespects: power * 3,
 				lowkick: 80,
-				multiattack: 100,
+				// multiattack: 100,
 				pikapapow: 102,
 				powertrip: 80,
 				psyblade: power * 1.5,

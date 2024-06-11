@@ -16,7 +16,7 @@ export const typeToPoint: {[k: string]: number} = {
 	psychic: 1,
 	rock: 1.2,
 	steel: 2,
-	stellar: 1,
+	stellar: 1000000,
 	water: 1.8,
 };
 export const abilityToPoint: {[k: string]: number} = {
@@ -467,7 +467,7 @@ export const moveToPoint: {[k: string]: number} = {
 	mortalspin: 1,
 	mountaingale: 1.5,
 	muddywater: 1.5,
-	multiattack: 1,
+	multiattack: 1.5,
 	mysticalfire: 1,
 	mysticalpower: 1,
 	nastyplot: 1.5,
