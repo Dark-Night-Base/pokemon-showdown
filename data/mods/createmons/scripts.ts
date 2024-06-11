@@ -3,7 +3,7 @@ export const Scripts: ModdedBattleScriptsData = {
 	init() {
 		for (const i in this.data.Items) {
 			if (
-				this.data.Items[i].onPlate ||
+				this.data.Items[i].onPlate && !this.data.Items[i].zMove ||
 				this.data.Items[i].onMemory ||
 				this.data.Items[i].id === 'boosterenergy'
 			) {
