@@ -273,7 +273,7 @@ export const commands: Chat.ChatCommands = {
 			else points[move.id] = 2.5;
 			if ((move.priority > 0 && move.id !== 'bide') || move.id === 'grassyglide') points[move.id] += 0.5;
 			if (move.flags.heal) points[move.id] += 0.5;
-			if (move.flags.recharge) points[move.id] -= 0.5;
+			if (move.flags.recharge) points[move.id] -= 1;
 			if (move.ignoreAbility) points[move.id] += 0.5;
 			if (move.selfSwitch) points[move.id] += 0.5;
 			if (move.volatileStatus === 'partiallytrapped') points[move.id] += 0.5;
