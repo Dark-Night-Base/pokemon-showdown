@@ -341,7 +341,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				// Draining the PP of the base move prevents the corresponding Z-move from being used.
 				if (!moveData?.pp) return;
 			}
-	
+
 			if (item.zMoveFrom) {
 				if (move.name === item.zMoveFrom) return item.zMove as string;
 			} else if (item.zMove === true) {
