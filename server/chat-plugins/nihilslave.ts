@@ -248,7 +248,7 @@ export const commands: Chat.ChatCommands = {
 				reversal: 200,
 				risingvoltage: powerx2,
 				storedpower: 80,
-				technoblast: 100,
+				// technoblast: 100,
 				terrainpulse: powerx2,
 				veeveevolley: 102,
 				weatherball: powerx2,
