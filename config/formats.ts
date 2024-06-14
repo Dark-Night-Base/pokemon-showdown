@@ -627,7 +627,6 @@ export const Formats: FormatList = [
 			`&bullet; Type /help crtm to see more usages of /crtm command. <br />`,
 
 		mod: 'createmons',
-		// debug: true,
 		ruleset: ['Createmons Mod = 100000', 'Team Species Preview', 'Adjust Level = 100', 'Overflow Stat Mod',
 			'Forme Clause', 'Signature Items Clause', 'Signature Abilities Clause', 'CFZ Clause', 'Max Moves Clause', 'Terastal Clause',
 			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'OHKO Clause', 'Evasion Abilities Clause', 'Evasion Moves Clause', 'Nickname Clause',
@@ -639,6 +638,17 @@ export const Formats: FormatList = [
 			'Comatose + Sleep Talk',
 			'Double Iron Bash', 'Final Gambit', 'Imprison', 'Last Respects', 'Octolock', 'Power Trip', 'Rage Fist', 'Revival Blessing', 'Shed Tail',
 			'Berserk Gene', 'Bright Powder', 'King\'s Rock', 'Lax Incense', 'Razor Fang',
+		],
+	},
+	{
+		name: "[Gen 9] Pure Createmons",
+		desc: `同 Balanced Createmons，但无任何限制。<br /> Same as Balanced Createmons, but without any limit.`,
+
+		mod: 'createmons',
+		ruleset: ['Createmons Mod = Infinity', 'Team Species Preview', 'Adjust Level = 100', 'Overflow Stat Mod',
+			'Terastal Clause',
+			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause',
+			'-CAP',
 		],
 	},
 	{

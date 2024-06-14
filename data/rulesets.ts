@@ -2822,7 +2822,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 	createmonsmod: {
 		effectType: 'Rule',
 		name: "Createmons Mod",
-		hasValue: 'positive-integer',
+		hasValue: true, // actually 'positive-integer', changed to true to allow unlimited pointLimit
 		onValidateSet(set) {
 			let statName: StatID;
 			for (statName in set.evs) {
@@ -2833,7 +2833,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 			}
 		},
 		onValidateTeam(team) {
-			const pointLimit = parseInt(this.ruleTable.valueRules.get('createmonsmod')!);
+			const pointLimit = parseInt(this.ruleTable.valueRules.get('createmonsmod')!); // this can be NaN, which means unlimited
 			let finalPoints = 0;
 			const pointDetails = team.map(set => getSetPoint(this.dex, set));
 			for (const details of pointDetails) {
