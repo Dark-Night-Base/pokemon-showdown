@@ -646,7 +646,6 @@ export const Formats: FormatList = [
 
 		mod: 'createmons',
 		ruleset: ['Createmons Mod = Infinity', 'Team Species Preview', 'Adjust Level = 100', 'Overflow Stat Mod',
-			'Terastal Clause',
 			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause',
 			'-CAP',
 		],
