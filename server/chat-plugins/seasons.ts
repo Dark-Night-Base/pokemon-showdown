@@ -245,7 +245,7 @@ export function destroy() {
 	}
 }
 
-rollTimer();
+// rollTimer(); // Nihilslave: NO
 
 export const commands: Chat.ChatCommands = {
 	seasonschedule: 'seasons',
