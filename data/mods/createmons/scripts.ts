@@ -391,7 +391,7 @@ export const Scripts: ModdedBattleScriptsData = {
 	pokemon: {
 		transformInto(pokemon: Pokemon, effect: Effect | null) {
 			const species = pokemon.species;
-			// Nihilslave: here
+			// Nihilslave: here, for emax
 			if (pokemon.fainted || this.illusion || pokemon.illusion || (pokemon.volatiles['substitute'] && this.battle.gen >= 5) ||
 				(pokemon.transformed && this.battle.gen >= 2) || (this.transformed && this.battle.gen >= 5)) {
 				return false;
@@ -465,7 +465,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				this.apparentType = this.terastallized;
 			}
 			if (this.battle.gen > 2) this.setAbility(pokemon.ability, this, true, true);
-			// Nihilslave: here
+			// Nihilslave: here, for transform
 			this.battle.add('-start', this, 'bcstats', Object.values({...pokemon.set.evs, 'hp': this.set.evs['hp']}).join('/'), '[silent]');
 
 			// Change formes based on held items (for Transform)
@@ -500,6 +500,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (!enforce) {
 				// No Pokemon should be able to have Stellar as a base type
 				if (typeof newType === 'string' ? newType === 'Stellar' : newType.includes('Stellar')) return false;
+				// Nihilslave: here, for arceus and silvally
 				// First type of Arceus, Silvally cannot be normally changed
 				// if ((this.battle.gen >= 5 && (this.species.num === 493 || this.species.num === 773)) ||
 				// 	(this.battle.gen === 4 && this.hasAbility('multitype'))) {

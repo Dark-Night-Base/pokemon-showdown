@@ -5,7 +5,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onModifyType: undefined,
 		desc: "Has a 100% chance to raise the user's Speed by 1 stage.",
 		shortDesc: "100% chance to raise user Speed by 1.",
-
 	},
 	darkvoid: {
 		inherit: true,
@@ -57,11 +56,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		condition: {
 			duration: 3,
 			onStart(target) {
-				if (['Diglett', 'Dugtrio', 'Palossand', 'Sandygast'].includes(target.baseSpecies.baseSpecies) ||
-						target.baseSpecies.name === 'Gengar-Mega') {
-					this.add('-immune', target);
-					return null;
-				}
 				if (target.volatiles['smackdown'] || target.volatiles['ingrain']) return false;
 				this.add('-start', target, 'Telekinesis');
 			},
@@ -77,11 +71,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				this.add('-end', target, 'Telekinesis');
 			},
 		},
-		secondary: null,
-		target: "normal",
-		type: "Psychic",
-		zMove: {boost: {spa: 1}},
-		contestType: "Clever",
 	},
 	terastarstorm: {
 		inherit: true,
