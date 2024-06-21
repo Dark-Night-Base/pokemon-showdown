@@ -117,6 +117,7 @@ export const abilityToPoint: {[k: string]: number} = {
 	quarkdrive: 2,
 	queenlymajesty: 2.5,
 	quickdraw: 1.5,
+	quickfeet: 1.5,
 	refrigerate: 2.5,
 	regenerator: 4,
 	rkssystem: 1000000,
