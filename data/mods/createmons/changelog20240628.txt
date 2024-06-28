@@ -1,0 +1,34 @@
+[[NERFS]]
+analytic: 1.5 -> 2
+competitive: 1 -> 1.5
+compound eyes: 1 -> 1.5
+dark aura: 1.5 -> 2
+defiant: 1 -> 1.5
+dragon's maw: 3 -> 3.5
+fairy aura: 1.5 -> 2
+flower veil: 1 -> 1.5
+guts: 2 -> 3
+liquid voice: 1 -> 1.5
+merciless: 1 -> 1.5
+mindseye: 1.5 -> 2
+opportunist: 1 -> 1.5
+quick feet: 1.5 -> 2
+reckless: 1 -> 1.5
+scrappy: 1.5 -> 2
+serene grace: 1.5 -> 2
+sheer force: 3 -> 3.5
+simple: 2.5 -> 3
+solar power: 1.5 -> 2
+steelworker: 2.5 -> 3
+steely spirit: 2.5 -> 3
+super luck: 1 -> 1.5
+supreme overlord: 2 -> 2.5
+toxic chain: 1 -> 1.5
+triage: 3.5 -> 4
+weak armor: 1 -> 1.5
+
+[[BUFFS]]
+poison heal: 4 -> 3.5
+protosynthesis: 2 -> 1.5
+quark drive: 2 -> 1.5
+unseen fist: 1.5 -> 1
