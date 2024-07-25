@@ -631,11 +631,10 @@ export const Formats: FormatList = [
 			'Forme Clause', 'Signature Items Clause', 'Signature Abilities Clause', 'CFZ Clause', 'Max Moves Clause', 'Terastal Clause',
 			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'OHKO Clause', 'Evasion Abilities Clause', 'Evasion Moves Clause', 'Nickname Clause',
 			'-CAP',
-			'Sleep Clause Mod',
+			'Sleep Moves Clause',
 		],
 		banlist: [
-			'Arena Trap', 'Huge Power', 'Innards Out', 'Moody', 'Neutralizing Gas', 'Parental Bond', 'Pure Power', 'Shadow Tag', 'Water Bubble', 'Wonder Guard',
-			'Comatose + Sleep Talk',
+			'Arena Trap', 'Comatose', 'Huge Power', 'Innards Out', 'Moody', 'Neutralizing Gas', 'Parental Bond', 'Pure Power', 'Shadow Tag', 'Water Bubble', 'Wonder Guard',
 			'Double Iron Bash', 'Final Gambit', 'Imprison', 'Last Respects', 'Octolock', 'Power Trip', 'Rage Fist', 'Revival Blessing', 'Shed Tail',
 			'Berserk Gene', 'Bright Powder', 'King\'s Rock', 'Lax Incense', 'Razor Fang',
 		],
