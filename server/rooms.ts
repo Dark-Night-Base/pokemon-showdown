@@ -1636,6 +1636,9 @@ export class GlobalRoomState {
 				Config.reportbattles = ['lobby'];
 			}
 			for (const roomid of Config.reportbattles) {
+				if (players.map(p => p.getIdentity()).some(value => value === ' HackmonsHero' || value === ' HackmonsHeroine')) {
+					break;
+				}
 				const reportRoom = Rooms.get(roomid);
 				if (reportRoom) {
 					const reportPlayers = players.map(p => p.getIdentity()).join('|');
