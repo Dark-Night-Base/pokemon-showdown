@@ -4589,6 +4589,15 @@ export const Formats: FormatList = [
 		],
 	},
 	{
+		name: "[Gen 9] Regi Cup",
+		desc: `Pok&eacute;mon have their stats tweaked to 50, 100, or 200.`,
+		mod: 'gen9',
+		ruleset: ['Standard OMs', 'Regi Cup Mod', 'Sleep Moves Clause'],
+		banlist: [
+			'AG', 'Arena Trap', 'Moody', 'Sand Veil', 'Shadow Tag', 'Snow Cloak', 'King\'s Rock', 'Razor Fang', 'Baton Pass', 'Last Respects', 'Shed Tail'
+		],
+	},
+	{
 		name: "[Gen 9] Revelationmons",
 		desc: `The moves in the first slot(s) of a Pok&eacute;mon's set have their types changed to match the Pok&eacute;mon's type(s).`,
 		threads: [

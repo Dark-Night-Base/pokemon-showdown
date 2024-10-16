@@ -3578,4 +3578,25 @@ export const Rulesets: {[k: string]: FormatData} = {
 			pokemon.setAbility(newAbility, null, true);
 		},
 	},
+	'regicupmod': {
+		effectType: 'Rule',
+		name: 'Regi Cup Mod',
+		desc: "Pok&eacute;mon have their stats tweaked to 50, 100, or 200.",
+		onBegin() {
+			this.add('rule', 'Regi Cup Mod: Pok&eacute;mon have their stats tweaked to 50, 100, or 200.');
+		},
+		onModifySpeciesPriority: 2,
+		onModifySpecies(species) {
+			const newSpecies = this.dex.deepClone(species);
+			newSpecies.bst = 0;
+			for (const stat in newSpecies.baseStats) {
+				const oldStat = newSpecies.baseStats[stat];
+				if (oldStat < 75) newSpecies.baseStats[stat] = 50;
+				else if (oldStat < 150) newSpecies.baseStats[stat] = 100;
+				else newSpecies.baseStats[stat] = 200;
+				newSpecies.bst += newSpecies.baseStats[stat];
+			}
+			return newSpecies;
+		},
+	},
 };
