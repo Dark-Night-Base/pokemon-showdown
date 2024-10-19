@@ -168,6 +168,7 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 		// part 1 - secondary&status&self
 		move.secondaries = (move.secondaries || []).concat(forte.secondaries || []);
 		if (!move.secondaries.length) move.secondaries = null;
+		move.secondaries = this.dex.deepClone(move.secondaries); // otherwise secondary will be not extensible, idk why
 		move.volatileStatus = mergeProperty(move, forte, 'volatileStatus');
 		// Nihilslave: diamond storm has a chance of 50 (won't fix)
 		if (forte.self) {

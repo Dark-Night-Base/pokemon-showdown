@@ -3589,13 +3589,21 @@ export const Rulesets: {[k: string]: FormatData} = {
 		onModifySpecies(species) {
 			const newSpecies = this.dex.deepClone(species);
 			newSpecies.bst = 0;
+			let bestStatName = 'hp';
+			let bestStat = 0;
 			for (const stat in newSpecies.baseStats) {
 				const oldStat = newSpecies.baseStats[stat];
+				if (oldStat > bestStat) {
+					bestStatName = stat;
+					bestStat = oldStat;
+				}
 				if (oldStat < 75) newSpecies.baseStats[stat] = 50;
 				else if (oldStat < 150) newSpecies.baseStats[stat] = 100;
 				else newSpecies.baseStats[stat] = 200;
 				newSpecies.bst += newSpecies.baseStats[stat];
 			}
+			newSpecies.bst -= newSpecies.baseStats[bestStatName] - 200;
+			newSpecies.baseStats[bestStatName] = 200;
 			return newSpecies;
 		},
 	},
