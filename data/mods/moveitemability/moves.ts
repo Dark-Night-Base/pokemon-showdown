@@ -26,41 +26,4 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			}
 		},
 	},
-	secretpower: {
-		inherit: true,
-		onModifyMove(move, pokemon) {
-			if (move.secondaries === null || move.secondaries === undefined) move.secondaries = [];
-			if (this.field.isTerrain('electricterrain')) {
-				move.secondaries.push({
-					chance: 30,
-					status: 'par',
-				});
-			} else if (this.field.isTerrain('grassyterrain')) {
-				move.secondaries.push({
-					chance: 30,
-					status: 'slp',
-				});
-			} else if (this.field.isTerrain('mistyterrain')) {
-				move.secondaries.push({
-					chance: 30,
-					boosts: {
-						spa: -1,
-					},
-				});
-			} else if (this.field.isTerrain('psychicterrain')) {
-				move.secondaries.push({
-					chance: 30,
-					boosts: {
-						spe: -1,
-					},
-				});
-			} else {
-				move.secondaries.push({
-					chance: 30,
-					status: 'par',
-				});
-			}
-		},
-		secondary: {},
-	},
 };
