@@ -150,7 +150,7 @@ export const Formats: FormatList = [
 
 		mod: 'moveitemability',
 		// debug: true,
-		ruleset: ['[Gen 9] National Dex BH', 'Multi-hit Moves Clause', 'MIA Move Legality', 'MIA Clause = Normal', '!Ability Clause', '!Terastal Clause'],
+		ruleset: ['[Gen 9] National Dex BH', 'Multi-hit Moves Clause', 'MIA Move Legality', 'MIA Clause = Normal', 'Sleep Clause Mod', '!Ability Clause', '!Terastal Clause'],
 		banlist: [
 			'Emergency Exit', 'Serene Grace', 'Sturdy', 'Wimp Out',
 			'Assist', 'Endeavor', 'Entrainment', 'Nature\'s Madness', 'Ruination', 'Skill Swap', 'Super Fang',
