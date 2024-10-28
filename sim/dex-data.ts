@@ -145,6 +145,19 @@ export class Nature extends BasicEffect implements Readonly<BasicEffect & Nature
 	}
 }
 
+const EMPTY_NATURE = Utils.deepFreeze(new Nature({name: '', exists: false}));
+
+export interface NatureData {
+	name: string;
+	plus?: StatIDExceptHP;
+	minus?: StatIDExceptHP;
+}
+
+export type ModdedNatureData = NatureData | Partial<Omit<NatureData, 'name'>> & {inherit: true};
+
+export interface NatureDataTable {[natureid: IDEntry]: NatureData}
+
+
 export class DexNatures {
 	readonly dex: ModdedDex;
 	readonly natureCache = new Map<ID, Nature>();
@@ -156,10 +169,10 @@ export class DexNatures {
 
 	get(name: string | Nature): Nature {
 		if (name && typeof name !== 'string') return name;
-
 		return this.getByID(toID(name));
 	}
 	getByID(id: ID): Nature {
+		if (id === '') return EMPTY_NATURE;
 		let nature = this.natureCache.get(id);
 		if (nature) return nature;
 
@@ -192,6 +205,17 @@ export class DexNatures {
 		return this.allCache;
 	}
 }
+
+export interface TypeData {
+	damageTaken: {[attackingTypeNameOrEffectid: string]: number};
+	HPdvs?: SparseStatsTable;
+	HPivs?: SparseStatsTable;
+	isNonstandard?: Nonstandard | null;
+}
+
+export type ModdedTypeData = TypeData | Partial<Omit<TypeData, 'name'>> & {inherit: true};
+export interface TypeDataTable {[typeid: IDEntry]: TypeData}
+export interface ModdedTypeDataTable {[typeid: IDEntry]: ModdedTypeData}
 
 type TypeInfoEffectType = 'Type' | 'EffectType';
 
@@ -252,6 +276,8 @@ export class TypeInfo implements Readonly<TypeData> {
 	}
 }
 
+const EMPTY_TYPE_INFO = Utils.deepFreeze(new TypeInfo({name: '', id: '', exists: false, effectType: 'EffectType'}));
+
 export class DexTypes {
 	readonly dex: ModdedDex;
 	readonly typeCache = new Map<ID, TypeInfo>();
@@ -268,6 +294,7 @@ export class DexTypes {
 	}
 
 	getByID(id: ID): TypeInfo {
+		if (id === '') return EMPTY_TYPE_INFO;
 		let type = this.typeCache.get(id);
 		if (type) return type;
 
@@ -308,7 +335,7 @@ export class DexTypes {
 }
 
 const idsCache: readonly StatID[] = ['hp', 'atk', 'def', 'spa', 'spd', 'spe'];
-const reverseCache: {readonly [k: string]: StatID} = {
+const reverseCache: {readonly [k: IDEntry]: StatID} = {
 	__proto: null as any,
 	"hitpoints": 'hp',
 	"attack": 'atk',

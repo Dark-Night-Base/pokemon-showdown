@@ -1,3 +1,4 @@
+import {Utils} from '../lib';
 import {BasicEffect, toID} from './dex-data';
 import type {SecondaryEffect, MoveEventMethods} from './dex-moves';
 
@@ -607,6 +608,8 @@ export interface FieldConditionData extends
 export type ConditionData = PokemonConditionData | SideConditionData | FieldConditionData;
 
 export type ModdedConditionData = ConditionData & {inherit?: true};
+export interface ConditionDataTable {[id: IDEntry]: ConditionData}
+export interface ModdedConditionDataTable {[id: IDEntry]: ModdedConditionData}
 
 export class Condition extends BasicEffect implements
 	Readonly<BasicEffect & SideConditionData & FieldConditionData & PokemonConditionData> {
@@ -631,7 +634,7 @@ export class Condition extends BasicEffect implements
 	}
 }
 
-const EMPTY_CONDITION: Condition = new Condition({name: '', exists: false});
+const EMPTY_CONDITION: Condition = Utils.deepFreeze(new Condition({name: '', exists: false}));
 
 export class DexConditions {
 	readonly dex: ModdedDex;
@@ -649,7 +652,7 @@ export class DexConditions {
 	}
 
 	getByID(id: ID): Condition {
-		if (!id) return EMPTY_CONDITION;
+		if (id === '') return EMPTY_CONDITION;
 
 		let condition = this.conditionCache.get(id);
 		if (condition) return condition;

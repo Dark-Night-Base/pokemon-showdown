@@ -1,4 +1,4 @@
-export const Pokedex: {[speciesid: string]: SpeciesData} = {
+export const Pokedex: import('../sim/dex-species').SpeciesDataTable = {
 	bulbasaur: {
 		num: 1,
 		name: "Bulbasaur",
@@ -937,6 +937,7 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		color: "Purple",
 		evos: ["Nidorino"],
 		eggGroups: ["Monster", "Field"],
+		mother: 'nidoranf',
 	},
 	nidorino: {
 		num: 33,
@@ -5823,6 +5824,7 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		weightkg: 17.7,
 		color: "Gray",
 		eggGroups: ["Bug", "Human-Like"],
+		mother: 'illumise',
 	},
 	illumise: {
 		num: 314,
@@ -13325,7 +13327,7 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		color: "Brown",
 		prevo: "Rockruff",
 		evoLevel: 25,
-		evoCondition: "from a special Rockruff",
+		evoCondition: "from a special Rockruff during the evening",
 		eggGroups: ["Field"],
 	},
 	wishiwashi: {
@@ -15904,6 +15906,7 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		eggGroups: ["Fairy"],
 		otherFormes: ["Indeedee-F"],
 		formeOrder: ["Indeedee", "Indeedee-F"],
+		mother: 'indeedeef',
 	},
 	indeedeef: {
 		num: 876,
@@ -18641,8 +18644,8 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		num: -14,
 		name: "Kitsunoh",
 		types: ["Ghost", "Steel"],
-		baseStats: {hp: 80, atk: 103, def: 85, spa: 55, spd: 80, spe: 110},
-		abilities: {0: "Frisk", 1: "Limber", H: "Iron Fist"},
+		baseStats: {hp: 80, atk: 117, def: 85, spa: 55, spd: 80, spe: 128},
+		abilities: {0: "Frisk", 1: "Limber", H: "Trace"},
 		heightm: 1.1,
 		weightkg: 51,
 		color: "Gray",
@@ -19503,12 +19506,12 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		num: -75,
 		name: "Chuggalong",
 		types: ["Dragon", "Poison"],
-		baseStats: {hp: 45, atk: 43, def: 117, spa: 120, spd: 110, spe: 115},
-		abilities: {0: "Armor Tail"},
+		baseStats: {hp: 45, atk: 43, def: 117, spa: 120, spd: 110, spe: 108},
+		abilities: {0: "Armor Tail", 1: "White Smoke", H: "Slow Start"},
 		heightm: 6.2,
 		weightkg: 201.6,
 		color: "Black",
-		eggGroups: ["Undiscovered"],
+		eggGroups: ["Dragon", "Mineral"],
 		gen: 9,
 	},
 	// NOTE: PokeStar "formes" are not actually formes and thus do not have a formeOrder

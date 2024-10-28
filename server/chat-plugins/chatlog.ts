@@ -87,9 +87,10 @@ export class LogReaderRoom {
 
 	async getLog(day: string) {
 		if (roomlogTable) {
+			const [dayStart, dayEnd] = LogReader.dayToRange(day);
 			const logs = await roomlogTable.selectAll(
 				['log', 'time']
-			)`WHERE roomid = ${this.roomid} AND time::DATE = ${day}`;
+			)`WHERE roomid = ${this.roomid} AND time BETWEEN ${dayStart}::int::timestamp AND ${dayEnd}::int::timestamp`;
 			return new Streams.ObjectReadStream<string>({
 				read(this: Streams.ObjectReadStream<string>) {
 					for (const {log, time} of logs) {
@@ -175,6 +176,23 @@ export const LogReader = new class {
 
 		if (!atLeastOne) return null;
 		return {official, normal, hidden, secret, deleted, personal, deletedPersonal};
+	}
+
+	/** @returns [dayStart, dayEnd] as seconds (NOT milliseconds) since Unix epoch */
+	dayToRange(day: string): [number, number] {
+		const nextDay = LogReader.nextDay(day);
+		return [
+			Math.trunc(new Date(day).getTime() / 1000),
+			Math.trunc(new Date(nextDay).getTime() / 1000),
+		];
+	}
+	/** @returns [monthStart, monthEnd] as seconds (NOT milliseconds) since Unix epoch */
+	monthToRange(month: string): [number, number] {
+		const nextMonth = LogReader.nextMonth(month);
+		return [
+			Math.trunc(new Date(`${month}-01`).getTime() / 1000),
+			Math.trunc(new Date(`${nextMonth}-01`).getTime() / 1000),
+		];
 	}
 
 	getMonth(day?: string) {
@@ -803,14 +821,15 @@ export class RipgrepLogSearcher extends FSLogSearcher {
 }
 
 export class DatabaseLogSearcher extends Searcher {
-	async searchLinecounts(roomid: RoomID, monthString: string, user?: ID) {
+	async searchLinecounts(roomid: RoomID, month: string, user?: ID) {
 		user = toID(user);
 		if (!Rooms.Roomlogs.table) throw new Error(`Database search made while database is disabled.`);
 		const results: {[date: string]: {[user: string]: number}} = {};
-		const [year, month] = monthString.split('-').map(Number);
+		const [monthStart, monthEnd] = LogReader.monthToRange(month);
 		const rows = await Rooms.Roomlogs.table.selectAll()`
-			WHERE EXTRACT("year" FROM time::DATE) = ${year} AND EXTRACT("month" FROM time::DATE) = ${month} AND
-			roomid = ${roomid} AND type = ${'c'}${user ? SQL` AND userid = ${user}` : SQL``}
+			WHERE ${user ? SQL`userid = ${user} AND ` : SQL``}roomid = ${roomid} AND
+			time BETWEEN ${monthStart}::int::timestamp AND ${monthEnd}::int::timestamp AND
+			type = ${'c'}
 		`;
 
 		for (const row of rows) {
@@ -823,7 +842,7 @@ export class DatabaseLogSearcher extends Searcher {
 			results[day][row.userid]++;
 		}
 
-		return this.renderLinecountResults(results, roomid, monthString, user);
+		return this.renderLinecountResults(results, roomid, month, user);
 	}
 	activityStats(room: RoomID, month: string): Promise<{average: RoomStats, days: RoomStats[]}> {
 		throw new Chat.ErrorMessage('This is not yet implemented for the new logs database.');
@@ -999,7 +1018,7 @@ export const commands: Chat.ChatCommands = {
 	chatloghelp() {
 		const strings = [
 			`/chatlog [optional room], [opts] - View chatlogs from the given room. `,
-			`If none is specified, shows logs from the room you're in. Requires: % @ * # &`,
+			`If none is specified, shows logs from the room you're in. Requires: % @ * # ~`,
 			`Supported options:`,
 			`<code>txt</code> - Do not render logs.`,
 			`<code>txt-onlychat</code> - Show only chat lines, untransformed.`,
@@ -1051,7 +1070,7 @@ export const commands: Chat.ChatCommands = {
 			`If you provide a user argument in the form <code>user=username</code>, it will search for messages (that match the other arguments) only from that user.<br />` +
 			`All other arguments will be considered part of the search ` +
 			`(if more than one argument is specified, it searches for lines containing all terms).<br />` +
-			"Requires: &</div>";
+			"Requires: ~</div>";
 		return this.sendReplyBox(buffer);
 	},
 	topusers: 'linecount',
@@ -1140,7 +1159,7 @@ export const commands: Chat.ChatCommands = {
 	},
 	battleloghelp: [
 		`/battlelog [battle link] - View the log of the given [battle link], even if the replay was not saved.`,
-		`Requires: % @ &`,
+		`Requires: % @ ~`,
 	],
 
 
@@ -1173,6 +1192,16 @@ export const commands: Chat.ChatCommands = {
 		let log: string[];
 		if (tarRoom) {
 			log = tarRoom.log.log;
+		} else if (Rooms.Replays.db) {
+			let battleId = roomid.replace('battle-', '');
+			if (battleId.endsWith('pw')) {
+				battleId = battleId.slice(0, battleId.lastIndexOf("-", battleId.length - 2));
+			}
+			const replayData = await Rooms.Replays.get(battleId);
+			if (!replayData) {
+				return this.errorReply(`No room or replay found for that battle.`);
+			}
+			log = replayData.log.split('\n');
 		} else {
 			try {
 				const raw = await Net(`https://${Config.routes.replays}/${roomid.slice('battle-'.length)}.json`).get();
@@ -1208,7 +1237,7 @@ export const commands: Chat.ChatCommands = {
 	getbattlechathelp: [
 		`/getbattlechat [battle link][, username] - Gets all battle chat logs from the given [battle link].`,
 		`If a [username] is given, searches only chat messages from the given username.`,
-		`Requires: % @ &`,
+		`Requires: % @ ~`,
 	],
 
 	logsaccess(target, room, user) {
@@ -1219,7 +1248,7 @@ export const commands: Chat.ChatCommands = {
 	logsaccesshelp: [
 		`/logsaccess [type], [user] - View chatlog access logs for the given [type] and [user].`,
 		`If no arguments are given, shows the entire access log.`,
-		`Requires: &`,
+		`Requires: ~`,
 	],
 
 
@@ -1245,7 +1274,7 @@ export const commands: Chat.ChatCommands = {
 		);
 	},
 	groupchatsearchhelp: [
-		`/groupchatsearch [target] - Searches for logs of groupchats with names containing the [target]. Requires: % @ &`,
+		`/groupchatsearch [target] - Searches for logs of groupchats with names containing the [target]. Requires: % @ ~`,
 	],
 
 	roomact: 'roomactivity',
@@ -1259,6 +1288,6 @@ export const commands: Chat.ChatCommands = {
 	roomactivityhelp: [
 		`/roomactivity [room][, date] - View room activity logs for the given room.`,
 		`If a date is provided, it searches for logs from that date. Otherwise, it searches the current month.`,
-		`Requires: &`,
+		`Requires: ~`,
 	],
 };

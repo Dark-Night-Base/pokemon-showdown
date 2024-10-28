@@ -1,5 +1,6 @@
-import {PokemonEventMethods} from './dex-conditions';
+import type {PokemonEventMethods, ConditionData} from './dex-conditions';
 import {BasicEffect, toID} from './dex-data';
+import {Utils} from '../lib';
 
 interface FlingData {
 	basePower: number;
@@ -16,6 +17,9 @@ export type ModdedItemData = ItemData | Partial<Omit<ItemData, 'name'>> & {
 	inherit: true,
 	onCustap?: (this: Battle, pokemon: Pokemon) => void,
 };
+
+export interface ItemDataTable {[itemid: IDEntry]: ItemData}
+export interface ModdedItemDataTable {[itemid: IDEntry]: ModdedItemData}
 
 export class Item extends BasicEffect implements Readonly<BasicEffect> {
 	declare readonly effectType: 'Item';
@@ -151,6 +155,8 @@ export class Item extends BasicEffect implements Readonly<BasicEffect> {
 	}
 }
 
+const EMPTY_ITEM = Utils.deepFreeze(new Item({name: '', exists: false}));
+
 export class DexItems {
 	readonly dex: ModdedDex;
 	readonly itemCache = new Map<ID, Item>();
@@ -162,13 +168,12 @@ export class DexItems {
 
 	get(name?: string | Item): Item {
 		if (name && typeof name !== 'string') return name;
-
-		name = (name || '').trim();
-		const id = toID(name);
+		const id = name ? toID(name.trim()) : '' as ID;
 		return this.getByID(id);
 	}
 
 	getByID(id: ID): Item {
+		if (id === '') return EMPTY_ITEM;
 		let item = this.itemCache.get(id);
 		if (item) return item;
 		if (this.dex.data.Aliases.hasOwnProperty(id)) {

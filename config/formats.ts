@@ -19,7 +19,7 @@ The column value will be ignored for repeat sections.
 
 import {Species} from '../sim/dex-species';
 
-export const Formats: FormatList = [
+export const Formats: import('../sim/dex-formats').FormatList = [
 
 	{
 		section: "Server Special",

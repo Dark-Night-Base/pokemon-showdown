@@ -1,4 +1,4 @@
-export const Items: {[k: string]: ModdedItemData} = {
+export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 	// Archas
 	lilligantiumz: {
 		name: "Lilligantium Z",
@@ -11,7 +11,7 @@ export const Items: {[k: string]: ModdedItemData} = {
 	},
 	// Arya
 	flygonite: {
-		inherit: true,
+		name: "Flygonite",
 		spritenum: 111,
 		itemUser: ["Flygon"],
 		megaEvolves: "Flygon",

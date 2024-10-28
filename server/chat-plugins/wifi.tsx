@@ -1,7 +1,8 @@
 /**
  * Wi-Fi chat-plugin. Only works in a room with id 'wifi'
  * Handles giveaways in the formats: question, lottery, gts
- * Written by Kris and bumbadadabum, based on the original plugin as written by Codelegend, SilverTactic, DanielCranham
+ * Written by dhelmise and bumbadadabum, based on the original
+ * plugin as written by Codelegend, SilverTactic, DanielCranham
  */
 
 import {FS, Utils} from '../../lib';
@@ -171,7 +172,7 @@ abstract class Giveaway extends Rooms.SimpleRoomGame {
 
 	send(content: string | Chat.VNode, isStart = false) {
 		this.room.add(Chat.html`|uhtml|giveaway${this.gaNumber}${this.phase}|${<div {...this.getStyle()}>{content}</div>}`);
-		if (isStart) this.room.add(`|c:|${Math.floor(Date.now() / 1000)}|&|It's ${this.game} giveaway time!`);
+		if (isStart) this.room.add(`|c:|${Math.floor(Date.now() / 1000)}|~|It's ${this.game} giveaway time!`);
 		this.room.update();
 	}
 
@@ -449,7 +450,7 @@ export class QuestionGiveaway extends Giveaway {
 		if (Giveaway.checkBanned(this.room, user)) return user.sendTo(this.room, "You are banned from entering giveaways.");
 		if (this.checkExcluded(user)) return user.sendTo(this.room, "You are disallowed from entering the giveaway.");
 
-		if ((this.answered.get(user.id) ?? 0) >= 3) {
+		if (this.answered.get(user.id) >= 3) {
 			return user.sendTo(
 				this.room,
 				"You have already guessed three times. You cannot guess anymore in this.giveaway."
@@ -468,7 +469,7 @@ export class QuestionGiveaway extends Giveaway {
 
 		this.joined.set(user.latestIp, user.id);
 		this.answered.add(user.id);
-		if ((this.answered.get(user.id) ?? 0) >= 3) {
+		if (this.answered.get(user.id) >= 3) {
 			user.sendTo(
 				this.room,
 				`Your guess '${guess}' is wrong. You have used up all of your guesses. Better luck next time!`
@@ -718,7 +719,7 @@ export class LotteryGiveaway extends Giveaway {
 				<p style={{textAlign: 'center'}}>{Chat.count(this.joined.size, 'users')} joined the giveaway.<br />
 				Our lucky winner{Chat.plural(this.winners)}: <b>{winnerNames}</b>!<br />Congratulations!</p>
 			</>));
-			this.room.sendMods(`|c|&|Participants: ${[...this.joined.values()].join(', ')}`);
+			this.room.sendMods(`|c|~|Participants: ${[...this.joined.values()].join(', ')}`);
 			for (const winner of this.winners) {
 				winner.sendTo(
 					this.room,
@@ -1024,7 +1025,7 @@ export const commands: Chat.ChatCommands = {
 		},
 	},
 	gtshelp: [
-		`GTS giveaways are currently disabled. If you are a Room Owner and would like them to be re-enabled, contact Kris.`,
+		`GTS giveaways are currently disabled. If you are a Room Owner and would like them to be re-enabled, contact dhelmise.`,
 	],
 	ga: 'giveaway',
 	giveaway: {
@@ -1412,8 +1413,8 @@ export const commands: Chat.ChatCommands = {
 			}
 		},
 		whitelisthelp: [
-			`/giveaway whitelist [user] - Allow the given [user] to make giveaways without staff help. Requires: % @ # &`,
-			`/giveaway unwhitelist [user] - Remove the given user from the giveaway whitelist. Requires: % @ # &`,
+			`/giveaway whitelist [user] - Allow the given [user] to make giveaways without staff help. Requires: % @ # ~`,
+			`/giveaway unwhitelist [user] - Remove the given user from the giveaway whitelist. Requires: % @ # ~`,
 		],
 		whitelisted(target, room, user) {
 			room = this.requireRoom('wifi' as RoomID);
@@ -1481,24 +1482,24 @@ export const commands: Chat.ChatCommands = {
 		const buf = [];
 		if (user.can('show', null, room)) {
 			buf.push(<details><summary>Staff commands</summary>
-				<code>/giveaway create</code> - Pulls up a page to create a giveaway. Requires: + % @ # &amp;<br />
+				<code>/giveaway create</code> - Pulls up a page to create a giveaway. Requires: + % @ # ~<br />
 				<code>
 					/giveaway create question Giver | OT | TID | Game | Question | Answer 1, Answer 2, Answer 3 | IV/IV/IV/IV/IV/IV | Pok&eacute; Ball | Extra Info | Prize
-				</code> - Start a new question giveaway (voices can only host their own). Requires: + % @ # &amp;<br />
+				</code> - Start a new question giveaway (voices can only host their own). Requires: + % @ # ~<br />
 				<code>
 					/giveaway create lottery Giver | OT | TID | Game | # of Winners | IV/IV/IV/IV/IV/IV | Pok&eacute; Ball | Extra Info | Prize
-				</code> - Start a new lottery giveaway (voices can only host their own). Requires: + % @ # &amp;<br />
+				</code> - Start a new lottery giveaway (voices can only host their own). Requires: + % @ # ~<br />
 				<code>
 					/giveaway changequestion/changeanswer
 				</code> - Changes the question/answer of a question giveaway. Requires: Being giveaway host<br />
 				<code>/giveaway viewanswer</code> - Shows the answer of a question giveaway. Requires: Being giveaway host/giver<br />
 				<code>
 					/giveaway ban [user], [reason]
-				</code> - Temporarily bans [user] from entering giveaways. Requires: % @ # &amp;<br />
-				<code>/giveaway end</code> - Forcibly ends the current giveaway. Requires: % @ # &amp;<br />
+				</code> - Temporarily bans [user] from entering giveaways. Requires: % @ # ~<br />
+				<code>/giveaway end</code> - Forcibly ends the current giveaway. Requires: % @ # ~<br />
 				<code>/giveaway count [pokemon]</code> - Shows how frequently a certain Pok&eacute;mon has been given away.<br />
-				<code>/giveaway whitelist [user]</code> - Allow the given [user] to make giveaways. Requires: % @ # &amp;<br />
-				<code>/giveaway unwhitelist [user]</code> - Remove the given user from the giveaway whitelist. Requires: % @ # &amp;
+				<code>/giveaway whitelist [user]</code> - Allow the given [user] to make giveaways. Requires: % @ # ~<br />
+				<code>/giveaway unwhitelist [user]</code> - Remove the given user from the giveaway whitelist. Requires: % @ # ~
 			</details>);
 		}
 		// Giveaway stuff
