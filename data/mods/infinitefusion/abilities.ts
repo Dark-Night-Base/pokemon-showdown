@@ -1,4 +1,4 @@
-export const Abilities: {[k: string]: ModdedAbilityData} = {
+export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTable = {
 	// multitype, rkssystem should be implemented in conditions.ts?
 	battlebond: {
 		inherit: true,

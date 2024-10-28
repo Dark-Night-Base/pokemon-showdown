@@ -152,7 +152,7 @@ function setMoveCallbacksForte(itemOrAbility: any, forte: Move) {
 			'overrideDefensivePokemon', 'overrideDefensiveStat', 'overrideOffensivePokemon', 'overrideOffensiveStat',
 			'forceSTAB', 'ignoreAbility', 'ignoreAccuracy', 'ignoreDefensive', 'ignoreEvasion', 'ignoreImmunity',
 			'ignoreNegativeOffensive', 'ignoreOffensive', 'ignorePositiveDefensive', 'ignorePositiveEvasion',
-			'sleepUsable', 'smartTarget', 'tracksTarget', 'willCrit', 'hasCrashDamage', 'noSketch',
+			'sleepUsable', 'smartTarget', 'tracksTarget', 'willCrit', 'hasCrashDamage',
 			'pseudoWeather',
 			// Nihilslave: the final decision is to make these 2 unstackable like low kick
 			'damage', 'damageCallback',
@@ -354,6 +354,9 @@ export const Scripts: ModdedBattleScriptsData = {
 		},
 		ignoringAbility() {
 			if (this.battle.gen >= 5 && !this.isActive) return true;
+
+			// Certain Abilities won't activate while Transformed, even if they ordinarily couldn't be suppressed (e.g. Disguise)
+			if (this.getAbility().flags['notransform'] && this.transformed) return true;
 			if (this.getAbility().flags['cantsuppress']) return false;
 			if (this.volatiles['gastroacid']) return true;
 
@@ -430,13 +433,14 @@ export const Scripts: ModdedBattleScriptsData = {
 				this.boosts[boostName] = pokemon.boosts[boostName];
 			}
 			if (this.battle.gen >= 6) {
+				// we need to remove all of the overlapping crit volatiles before adding any of them
 				const volatilesToCopy = ['dragoncheer', 'focusenergy', 'gmaxchistrike', 'laserfocus'];
+				for (const volatile of volatilesToCopy) this.removeVolatile(volatile);
 				for (const volatile of volatilesToCopy) {
 					if (pokemon.volatiles[volatile]) {
 						this.addVolatile(volatile);
 						if (volatile === 'gmaxchistrike') this.volatiles[volatile].layers = pokemon.volatiles[volatile].layers;
-					} else {
-						this.removeVolatile(volatile);
+						if (volatile === 'dragoncheer') this.volatiles[volatile].hasDragonType = pokemon.volatiles[volatile].hasDragonType;
 					}
 				}
 			}
@@ -737,11 +741,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		},
 		// for z crystals in ability slot
 		canTerastallize(pokemon: Pokemon) {
-			if (
-				pokemon.species.isMega || pokemon.species.isPrimal || pokemon.species.forme === "Ultra" ||
-				pokemon.getItem().zMove || (pokemon.getAbility() as any).zMove || pokemon.canMegaEvo ||
-				pokemon.side.canDynamaxNow() || this.dex.gen !== 9
-			) {
+			if (pokemon.getItem().zMove || (pokemon.getAbility() as any).zMove || pokemon.canMegaEvo || this.dex.gen !== 9) {
 				return null;
 			}
 			return pokemon.teraType;
@@ -855,7 +855,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					this.battle.faint(source, source, move);
 				}
 				if (moveData.selfSwitch) {
-					if (this.battle.canSwitch(source.side)) {
+					if (this.battle.canSwitch(source.side) && !source.volatiles['commanded']) {
 						didSomething = true;
 					} else {
 						didSomething = this.combineResults(didSomething, false);
@@ -875,7 +875,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 				this.battle.debug('move failed because it did nothing');
-			} else if (move.selfSwitch && source.hp) {
+			} else if (move.selfSwitch && source.hp && !source.volatiles['commanded']) {
 				source.switchFlag = move.id;
 			}
 
@@ -1069,11 +1069,19 @@ export const Scripts: ModdedBattleScriptsData = {
 		case 'move':
 			if (!action.pokemon.isActive) return false;
 			if (action.pokemon.fainted) return false;
-			this.actions.runMove(action.move, action.pokemon, action.targetLoc, action.sourceEffect,
-				action.zmove, undefined, action.maxMove, action.originalTarget);
+			this.actions.runMove(action.move, action.pokemon, action.targetLoc, {
+				sourceEffect: action.sourceEffect, zMove: action.zmove,
+				maxMove: action.maxMove, originalTarget: action.originalTarget,
+			});
 			break;
 		case 'megaEvo':
 			this.actions.runMegaEvo(action.pokemon);
+			break;
+		case 'megaEvoX':
+			this.actions.runMegaEvoX?.(action.pokemon);
+			break;
+		case 'megaEvoY':
+			this.actions.runMegaEvoY?.(action.pokemon);
 			break;
 		case 'runDynamax':
 			action.pokemon.addVolatile('dynamax');
@@ -1159,6 +1167,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			break;
 		case 'runUnnerve':
 			this.singleEvent('PreStart', action.pokemon.getAbility(), action.pokemon.abilityState, action.pokemon);
+			// Nihilslave: here
 			this.singleEvent('PreStart', action.pokemon.getItem(), action.pokemon.itemState, action.pokemon);
 			break;
 		case 'runSwitch':
@@ -1213,7 +1222,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			// in gen 3 or earlier, switching in fainted pokemon is done after
 			// every move, rather than only at the end of the turn.
 			this.checkFainted();
-		} else if (action.choice === 'megaEvo' && this.gen === 7) {
+		} else if (['megaEvo', 'megaEvoX', 'megaEvoY'].includes(action.choice) && this.gen === 7) {
 			this.eachEvent('Update');
 			// In Gen 7, the action order is recalculated for a Pokémon that mega evolves.
 			for (const [i, queuedAction] of this.queue.list.entries()) {
@@ -1263,7 +1272,8 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (!reviveSwitch) switches[i] = false;
 			} else if (switches[i]) {
 				for (const pokemon of this.sides[i].active) {
-					if (pokemon.switchFlag && pokemon.switchFlag !== 'revivalblessing' && !pokemon.skipBeforeSwitchOutEventFlag) {
+					if (pokemon.hp && pokemon.switchFlag && pokemon.switchFlag !== 'revivalblessing' &&
+							!pokemon.skipBeforeSwitchOutEventFlag) {
 						this.runEvent('BeforeSwitchOut', pokemon);
 						pokemon.skipBeforeSwitchOutEventFlag = true;
 						this.faintMessages(); // Pokemon may have fainted in BeforeSwitchOut

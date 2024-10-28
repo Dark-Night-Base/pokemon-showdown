@@ -1,4 +1,4 @@
-export const Items: {[k: string]: ModdedItemData} = {
+export const Items: import('../../../sim/dex-items').ModdedItemDataTable = {
 	// plates, drives, and memories implemented in scripts.ts
 	// well, this 3 orbs are actually non-existent in game
 	// but there's no harm to keep them
