@@ -1182,7 +1182,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		desc: `活力鼠鼠杯。精灵只能使用活力特性 + 鼠数儿招式。<br/> One can only have Hustle + Population Bomb on their Pok&eacute;mon.`,
 
 		mod: 'gen9',
-		ruleset: ['Showdown', 'Dynamax Clause', 'Species Clause', 'Item Clause', 'Other Banned = Ghost/Rock/Steel Types'],
+		ruleset: ['Showdown', 'Dynamax Clause', 'Species Clause', 'Item Clause = 1', 'Other Banned = Ghost/Rock/Steel Types'],
 		banlist: [
 			'all abilities', 'all moves',
 			'Adamant Crystal', 'Blue Orb', 'Cornerstone Mask', 'Griseous Core', 'Hearthflame Mask', 'Lustrous Globe', 'Red Orb', 'Rusted Shield',
@@ -1491,7 +1491,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		gameType: 'freeforall',
 		rated: false,
 		tournamentShow: false,
-		ruleset: ['[Gen 9] Balanced Hackmons Doubles', 'Sleep Clause Mod', 'Ability Clause = 1', 'Item Clause'],
+		ruleset: ['[Gen 9] Balanced Hackmons Doubles', 'Sleep Clause Mod', 'Ability Clause = 1', 'Item Clause = 1'],
 		banlist: [
 			'Shedinja',
 			'Baton Pass',
