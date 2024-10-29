@@ -147,7 +147,9 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			`If it's an status Move, it will activate on switch-in. <br />` +
 			`If it's an Item or an Ability, it will work as usual. <br/ >` +
 			`P.S. There is no difference between Item slot and Ability slot, except that things in Ability slot will usually activate earlier than those in Item slot.`,
-
+		threads: [
+			`&bullet; <a href="https://www.smogon.com/forums/threads/om-mashup-megathread.3711916/post-10080747">ND MIA BH</a>`,
+		],
 		mod: 'moveitemability',
 		// debug: true,
 		ruleset: ['[Gen 9] National Dex BH', 'Multi-hit Moves Clause', 'MIA Move Legality', 'MIA Clause = Normal', 'Sleep Clause Mod', '!Ability Clause', '!Terastal Clause'],
@@ -157,7 +159,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			'Red Orb',
 		],
 		unbanlist: [
-			'Cramorant-Gorging', 'Shedinja', 'Terapagos-Terastal', 'Zygarde-Complete',
+			'Cramorant-Gorging', 'Shedinja', 'Terapagos-Terastal',
 			'Ceaseless Edge',
 		],
 		validateSet(set, teamHas) {
