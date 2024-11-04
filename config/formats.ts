@@ -977,6 +977,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 					eternatus: 'Eternatus-Eternamax',
 					palafin: 'Palafin-Hero',
 					ogerpon: 'Ogerpon-Wellspring',
+					terapagos: 'Terapagos-Stellar',
 				};
 				if (headSpecies.id in specialSelfFusions) {
 					fusionSpecies.species = this.dex.species.get(specialSelfFusions[headSpecies.id]);

@@ -214,6 +214,17 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			}
 		},
 	},
+	poisonpuppeteer: {
+		inherit: true,
+		onAnyAfterSetStatus(status, target, source, effect) {
+			const names = [source.m.headSpecies?.name, source.m.bodySpecies?.name];
+			if (!names.includes('Pecharunt')) return;
+			if (source !== this.effectState.target || target === source || effect.effectType !== 'Move') return;
+			if (status.id === 'psn' || status.id === 'tox') {
+				target.addVolatile('confusion');
+			}
+		},
+	},
 	powerconstruct: {
 		inherit: true,
 		onResidual(pokemon) {
@@ -324,6 +335,52 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			if (move.category === 'Status' && move.id !== 'kingsshield') return;
 			const targetForme = (move.id === 'kingsshield' ? 'Aegislash' : 'Aegislash-Blade');
 			if (!names.includes(targetForme)) attacker.formeChange(targetForme);
+		},
+	},
+	teraformzero: {
+		inherit: true,
+		onAfterTerastallization(pokemon) {
+			const names = [pokemon.m.headSpecies?.name, pokemon.m.bodySpecies?.name];
+			if (!names.includes('Terapagos-Stellar')) return;
+			if (this.field.weather || this.field.terrain) {
+				this.add('-ability', pokemon, 'Teraform Zero');
+				this.field.clearWeather();
+				this.field.clearTerrain();
+			}
+		},
+	},
+	terashell: {
+		inherit: true,
+		onEffectiveness(typeMod, target, type, move) {
+			const names = [target?.m.headSpecies?.name, target?.m.bodySpecies?.name];
+			if (!target || !names.includes('Terapagos-Terastal')) return;
+			if (this.effectState.resisted) return -1; // all hits of multi-hit move should be not very effective
+			if (move.category === 'Status' || move.id === 'struggle') return;
+			if (!target.runImmunity(move.type)) return; // immunity has priority
+			if (target.hp < target.maxhp) return;
+
+			this.add('-activate', target, 'ability: Tera Shell');
+			this.effectState.resisted = true;
+			return -1;
+		},
+	},
+	terashift: {
+		inherit: true,
+		onPreStart(pokemon) {
+			const baseSpecies = [pokemon.m.headSpecies?.baseSpecies, pokemon.m.bodySpecies?.baseSpecies];
+			const ids = [pokemon.m.headSpecies?.id, pokemon.m.bodySpecies?.id];
+			if (!baseSpecies.includes('Terapagos')) return;
+			if (!ids.includes('terapagosterastal')) {
+				this.add('-activate', pokemon, 'ability: Tera Shift');
+				pokemon.formeChange('Terapagos-Terastal', this.effect, true);
+				pokemon.baseMaxhp = Math.floor(Math.floor(
+					2 * pokemon.species.baseStats['hp'] + pokemon.set.ivs['hp'] + Math.floor(pokemon.set.evs['hp'] / 4) + 100
+				) * pokemon.level / 100 + 10);
+				const newMaxHP = pokemon.baseMaxhp;
+				pokemon.hp = newMaxHP - (pokemon.maxhp - pokemon.hp);
+				pokemon.maxhp = newMaxHP;
+				this.add('-heal', pokemon, pokemon.getHealth, '[silent]');
+			}
 		},
 	},
 	zenmode: {

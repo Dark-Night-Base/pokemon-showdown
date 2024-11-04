@@ -70,6 +70,15 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			return null;
 		},
 	},
+	ivycudgel: {
+		inherit: true,
+		onModifyType(move, pokemon) {
+			const names = [pokemon.m.headSpecies?.name, pokemon.m.bodySpecies?.name];
+			if (names.includes('Ogerpon-Wellspring') || names.includes('Ogerpon-Wellspring-Tera')) move.type = 'Water';
+			if (names.includes('Ogerpon-Hearthflame') || names.includes('Ogerpon-Hearthflame-Tera')) move.type = 'Fire';
+			if (names.includes('Ogerpon-Cornerstone') || names.includes('Ogerpon-Cornerstone-Tera')) move.type = 'Rock';
+		},
+	},
 	relicsong: {
 		inherit: true,
 		onHit(target, pokemon, move) {
@@ -83,6 +92,24 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 				const ids = [pokemon.m.headSpecies?.id, pokemon.m.bodySpecies?.id];
 				const meloettaForme = ids.includes('meloettapirouette') ? '' : '-Pirouette';
 				pokemon.formeChange('Meloetta' + meloettaForme, this.effect, false, '[msg]');
+			}
+		},
+	},
+	terastarstorm: {
+		inherit: true,
+		onModifyType(move, pokemon) {
+			const names = [pokemon.m.headSpecies?.name, pokemon.m.bodySpecies?.name];
+			if (names.includes('Terapagos-Stellar')) {
+				move.type = 'Stellar';
+				if (pokemon.terastallized && pokemon.getStat('atk', false, true) > pokemon.getStat('spa', false, true)) {
+					move.category = 'Physical';
+				}
+			}
+		},
+		onModifyMove(move, pokemon) {
+			const names = [pokemon.m.headSpecies?.name, pokemon.m.bodySpecies?.name];
+			if (names.includes('Terapagos-Stellar')) {
+				move.target = 'allAdjacentFoes';
 			}
 		},
 	},
