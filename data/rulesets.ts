@@ -1487,15 +1487,16 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 		name: 'Dynamax Mod',
 		desc: "Allows Pok&eacute;mon to Dynamax",
 		onBegin() {
-		  for (const side of this.sides) {
-			side.dynamaxUsed = false;
-			side.canDynamaxNow = function () {
-			return !this.dynamaxUsed;
-			};
-		  }
-		  this.add('rule', 'Dynamax Mod: You can dynamax');
+			for (const side of this.sides) {
+				side.dynamaxUsed = false;
+				side.canDynamaxNow = function () {
+					if (this.battle.gameType === 'multi' && this.battle.turn % 2 !== [1, 1, 0, 0][this.n]) return false;
+					return !this.dynamaxUsed;
+				};
+			}
+			this.add('rule', 'Dynamax Mod: You can dynamax');
 		},
-	  },	  
+	},
 	terastalclause: {
 		effectType: 'Rule',
 		name: 'Terastal Clause',

@@ -79,11 +79,19 @@ export const Scripts: ModdedBattleScriptsData = {
 		case 'move':
 			if (!action.pokemon.isActive) return false;
 			if (action.pokemon.fainted) return false;
-			this.actions.runMove(action.move, action.pokemon, action.targetLoc, action.sourceEffect,
-				action.zmove, undefined, action.maxMove, action.originalTarget);
+			this.actions.runMove(action.move, action.pokemon, action.targetLoc, {
+				sourceEffect: action.sourceEffect, zMove: action.zmove,
+				maxMove: action.maxMove, originalTarget: action.originalTarget,
+			});
 			break;
 		case 'megaEvo':
 			this.actions.runMegaEvo(action.pokemon);
+			break;
+		case 'megaEvoX':
+			this.actions.runMegaEvoX?.(action.pokemon);
+			break;
+		case 'megaEvoY':
+			this.actions.runMegaEvoY?.(action.pokemon);
 			break;
 		case 'runDynamax':
 			action.pokemon.addVolatile('dynamax');
@@ -253,9 +261,9 @@ export const Scripts: ModdedBattleScriptsData = {
 			// in gen 3 or earlier, switching in fainted pokemon is done after
 			// every move, rather than only at the end of the turn.
 			this.checkFainted();
-		} else if (action.choice === 'megaEvo' && this.gen === 7) {
+		} else if (['megaEvo', 'megaEvoX', 'megaEvoY'].includes(action.choice) && this.gen === 7) {
 			this.eachEvent('Update');
-			// In Gen 7, the action order is recalculated for a Pok®¶mon that mega evolves.
+			// In Gen 7, the action order is recalculated for a Pok√©mon that mega evolves.
 			for (const [i, queuedAction] of this.queue.list.entries()) {
 				if (queuedAction.pokemon === action.pokemon && queuedAction.choice === 'move') {
 					this.queue.list.splice(i, 1);
@@ -303,7 +311,8 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (!reviveSwitch) switches[i] = false;
 			} else if (switches[i]) {
 				for (const pokemon of this.sides[i].active) {
-					if (pokemon.switchFlag && pokemon.switchFlag !== 'revivalblessing' && !pokemon.skipBeforeSwitchOutEventFlag) {
+					if (pokemon.hp && pokemon.switchFlag && pokemon.switchFlag !== 'revivalblessing' &&
+							!pokemon.skipBeforeSwitchOutEventFlag) {
 						this.runEvent('BeforeSwitchOut', pokemon);
 						pokemon.skipBeforeSwitchOutEventFlag = true;
 						this.faintMessages(); // Pokemon may have fainted in BeforeSwitchOut
