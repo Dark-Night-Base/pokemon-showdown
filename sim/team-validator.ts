@@ -697,7 +697,7 @@ export class TeamValidator {
 			} else {
 				set.teraType = type.name;
 			}
-			if (dex.gen !== 9 || (ruleTable.has('terastalclause') && !ruleTable.has('bonustypemod'))) {
+			if (dex.gen !== 9 || (ruleTable.has('terastalclause') && !ruleTable.has('bonustypemod') && !ruleTable.has('createmonsmod'))) {
 				delete set.teraType;
 			}
 		}

@@ -380,7 +380,6 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 				pokemon.hp = newMaxHP - (pokemon.maxhp - pokemon.hp);
 				pokemon.maxhp = newMaxHP;
 				this.add('-heal', pokemon, pokemon.getHealth, '[silent]');
-				pokemon.setAbility('Tera Shell', pokemon, true);
 			}
 		},
 	},
