@@ -351,6 +351,9 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	terashell: {
 		inherit: true,
+		// this will currently make all moves 4x resisted at full hp if its owner has dual types
+		// cuz onEffectiveness will be called twice that case
+		// won't fix until it's tested on real game
 		onEffectiveness(typeMod, target, type, move) {
 			const names = [target?.m.headSpecies?.name, target?.m.bodySpecies?.name];
 			if (!target || !names.includes('Terapagos-Terastal')) return;

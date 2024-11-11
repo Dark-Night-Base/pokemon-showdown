@@ -100,12 +100,11 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (this.illusion) {
 					this.ability = ''; // Don't allow Illusion to wear off
 				}
-				// Nihilslave: here, 3
-				const newAbility = source.id === 'terashift' ? 'Tera Shell' : species.abilities['0']; // why tf does zygarde not need this fix???
+				// Nihilslave: here, 2
 				// Ogerpon's forme change doesn't override permanent abilities
-				if (source || !this.getAbility().flags['cantsuppress']) this.setAbility(newAbility, null, true);
+				if (source || !this.getAbility().flags['cantsuppress']) this.setAbility(rawSpecies.abilities[0], null, true);
 				// However, its ability does reset upon switching out
-				this.baseAbility = this.battle.toID(newAbility);
+				this.baseAbility = this.battle.toID(rawSpecies.abilities[0]);
 			}
 			if (this.terastallized) {
 				this.knownType = true;
