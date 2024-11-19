@@ -857,7 +857,7 @@ export class RoomBattle extends RoomGame<RoomBattlePlayer> {
 		// If a replay was saved at any point or we were configured to autosavereplays,
 		// reupload when the battle is over to overwrite the partial data (and potentially
 		// reflect any changes that may have been made to the replay's hidden status).
-		if (this.replaySaved || Config.autosavereplays || this.turn >= 15) {
+		if (this.replaySaved || Config.autosavereplays) {// || this.turn >= 15) {
 			const uploader = Users.get(winnerid || this.p1.id);
 			if (uploader?.connections[0]) {
 				const command = Config.autosavereplays === 'private' ? '/savereplay auto' : '/savereplay silent';
