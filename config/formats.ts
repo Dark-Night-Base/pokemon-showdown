@@ -1100,7 +1100,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				return this.dex.species.get(headSpecies.name);
 			}
 
-			const fusionSpecies = this.dex.deepClone(species);
+			const fusionSpecies = this.dex.deepClone(bodySpecies);
 			// actually without Number() this also works, but just in case
 			fusionSpecies.weightkg = Number(Math.max(0.1, (headSpecies.weightkg + bodySpecies.weightkg) / 2).toFixed(1));
 			fusionSpecies.weighthg = Number(Math.max(1, (headSpecies.weighthg + bodySpecies.weighthg) / 2).toFixed(1));
