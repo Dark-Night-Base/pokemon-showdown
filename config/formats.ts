@@ -1182,6 +1182,59 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		},
 	},
 	{
+		name: "[Gen 9] Move-Item-Ability Createmons",
+		desc: `Move-Item-Ability + Pure Createmons`,
+		mod: 'moveitemabilitycreatemons',
+		// debug: true,
+		ruleset: ['Createmons Mod = Infinity', 'Team Species Preview', 'Adjust Level = 100', 'Overflow Stat Mod',
+			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause',
+			'-CAP',
+		],
+		validateSet(set, teamHas) {
+			const validatePlugin = function (this: TeamValidator, type: 'item' | 'ability') {
+				const plugin = set[type];
+				const move = this.dex.moves.get(plugin);
+				const item = this.dex.items.get(plugin);
+				const ability = this.dex.abilities.get(plugin);
+				if (type === 'item') {
+					// let the real validator check if the item is banned
+					if (item.exists) return;
+					if (ability.exists) {
+						if (this.ruleTable.isBanned(`ability:${ability.id}`)) return [`${ability.name} is banned`];
+						return;
+					}
+				}
+				if (type === 'ability') {
+					// let the real validator check if the ability is banned
+					if (ability.exists) return;
+					if (item.exists) {
+						if (this.ruleTable.isBanned(`item:${item.id}`)) return [`${item.name} is banned`];
+						return;
+					}
+				}
+				if (plugin !== '' && !move.exists) return [`${plugin} is not a valid thing. (Check your spelling?)`];
+				if (set.moves.map(this.toID).includes(move.id) && move.id !== '') return [`${set.name} cannot have move ${move.name} for more than once`];
+				if (move.isNonstandard && ["CAP", "LGPE", "Custom", "Gigantamax"].includes(move.isNonstandard)) return [`${move.name} does not exist in the game`];
+				const bannedRestrictedMoves = ['assist', 'entrainment', 'skillswap'];
+				if (this.ruleTable.isRestricted(`move:${move.id}`) || bannedRestrictedMoves.includes(move.id)) return [`${move.name} is banned as item or ability`];
+			};
+			// validation 0, avoids same item and ability
+			if (this.toID(set.item) === this.toID(set.ability)) return [`${set.name} cannot have ${set.item} for more than once`];
+			// validation 1
+			let problems = [...(validatePlugin.call(this, 'item') || []), ...(validatePlugin.call(this, 'ability') || [])];
+			if (problems.length) return problems;
+			// validation 2
+			const item = set.item;
+			const ability = set.ability;
+			if (!this.dex.items.get(item).exists) set.item = '';
+			if (!this.dex.abilities.get(ability).exists) set.ability = 'ballfetch';
+			problems = this.validateSet(set, teamHas) || [];
+			set.item = item;
+			set.ability = ability;
+			return problems.length ? problems : null;
+		},
+	},
+	{
 		name: "[Gen 9] PopBomb Cup",
 		desc: `活力鼠鼠杯。精灵只能使用活力特性 + 鼠数儿招式。<br/> One can only have Hustle + Population Bomb on their Pok&eacute;mon.`,
 

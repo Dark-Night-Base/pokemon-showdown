@@ -399,7 +399,7 @@ export const Scripts: ModdedBattleScriptsData = {
 	pokemon: {
 		transformInto(pokemon: Pokemon, effect: Effect | null) {
 			const species = pokemon.species;
-			// Nihilslave: here, for emax
+			// Nihilslave: here, for emax, etc
 			if (pokemon.fainted || this.illusion || pokemon.illusion || (pokemon.volatiles['substitute'] && this.battle.gen >= 5) ||
 				(pokemon.transformed && this.battle.gen >= 2) || (this.transformed && this.battle.gen >= 5)) {
 				return false;
