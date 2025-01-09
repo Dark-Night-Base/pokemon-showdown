@@ -66,7 +66,7 @@ export const commands: Chat.ChatCommands = {
 				`<details><summary><em>种族分计算方式</em></summary>` +
 				`h, a, b, c, d, s 分别代表 HP, 攻击, 防御, 特攻, 特防, 速度种族值. <br />` +
 				`&bullet; <em> 第 0 步 </em><br />` +
-				`&bullet; 将种族值中的最低项调整到与第二低的项相等 <br />` +
+				`&bullet; 将种族值中的最低项调整到与第二低的项相等 (不会影响实际种族值, 只影响分数计算) <br />` +
 				`&bullet; <em> 第 1 步 </em><br />` +
 				`&bullet; 计算物理输出 A = 2 * a + 100, 特殊输出 C 同理 <br />` +
 				`&bullet; 计算物理耐久 B = (2 * h + 200) * (2 * b + 100), 特殊耐久 D 同理 <br />` +
@@ -97,7 +97,7 @@ export const commands: Chat.ChatCommands = {
 				`<details><summary><em>How Stats Point is Calculated</em></summary>` +
 				`h, a, b, c, d, s represent base stats of HP, Atk, Def, SpA, SpD, Spe respectively. <br />` +
 				`&bullet; <em>Step 0</em><br />` +
-				`&bullet; Adjust the lowest base stat to the second lowest one <br />` +
+				`&bullet; Adjust the lowest base stat to the second lowest one (Does NOT affect real stats, only matters in points calculation) <br />` +
 				`&bullet; <em>Step 1</em><br />` +
 				`&bullet; Physical Offense A = 2 * a + 100, Special Offense C is calculated in the same way <br />` +
 				`&bullet; Physical Bulk B = (2 * h + 200) * (2 * b + 100), Special Bulk D is calculated in the same way <br />` +
