@@ -66,16 +66,18 @@ export const commands: Chat.ChatCommands = {
 				`<details><summary><em>种族分计算方式</em></summary>` +
 				`h, a, b, c, d, s 分别代表 HP, 攻击, 防御, 特攻, 特防, 速度种族值. <br />` +
 				`&bullet; <em> 第 0 步 </em><br />` +
+				`&bullet; 将种族值中的最低项调整到与第二低的项相等 <br />` +
+				`&bullet; <em> 第 1 步 </em><br />` +
 				`&bullet; 计算物理输出 A = 2 * a + 100, 特殊输出 C 同理 <br />` +
 				`&bullet; 计算物理耐久 B = (2 * h + 200) * (2 * b + 100), 特殊耐久 D 同理 <br />` +
-				`&bullet; <em> 第 1 步 </em><br />` +
+				`&bullet; <em> 第 2 步 </em><br />` +
 				`&bullet; 计算平均输出 Aw = max(A, C) * 4 / 5 + min(A, C) * 1 / 5 <br />` +
 				`&bullet; 计算平均耐久 Bw = max(B, D) * 2 / 3 + min(B, D) * 1 / 3 <br />` +
-				`&bullet; <em> 第 2 步 </em><br />` +
+				`&bullet; <em> 第 3 步 </em><br />` +
 				`&bullet; 计算输出与梦幻输出的比值 Pa = Aw / 300 <br />` +
 				`&bullet; 计算耐久与梦幻耐久的比值 Pb = Bw / (400 * 300) <br />` +
 				`&bullet; 计算速度与梦幻速度的比值 Ps = (2 * s + 100) / 300 <br />` +
-				`&bullet; <em> 第 3 步 </em><br />` +
+				`&bullet; <em> 第 4 步 </em><br />` +
 				`&bullet; 输出核函数 f(x) = 11x^3 - 25x^2 + 19x - 0.75 <br />` +
 				`&bullet; 耐久核函数 g(x) = 10x^3 - 18x^2 + 10x + 2 <br />` +
 				`&bullet; 速度核函数 k(x) = -x^4 + 8x^3 - 10x^2 + 3x + 1 <br />` +
@@ -95,16 +97,18 @@ export const commands: Chat.ChatCommands = {
 				`<details><summary><em>How Stats Point is Calculated</em></summary>` +
 				`h, a, b, c, d, s represent base stats of HP, Atk, Def, SpA, SpD, Spe respectively. <br />` +
 				`&bullet; <em>Step 0</em><br />` +
+				`&bullet; Adjust the lowest base stat to the second lowest one <br />` +
+				`&bullet; <em>Step 1</em><br />` +
 				`&bullet; Physical Offense A = 2 * a + 100, Special Offense C is calculated in the same way <br />` +
 				`&bullet; Physical Bulk B = (2 * h + 200) * (2 * b + 100), Special Bulk D is calculated in the same way <br />` +
-				`&bullet; <em>Step 1</em><br />` +
+				`&bullet; <em>Step 2</em><br />` +
 				`&bullet; Weighed Average of Offense Aw = max(A, C) * 4 / 5 + min(A, C) * 1 / 5 <br />` +
 				`&bullet; Weighed Average of Bulk Bw = max(B, D) * 2 / 3 + min(B, D) * 1 / 3 <br />` +
-				`&bullet; <em>Step 2</em><br />` +
+				`&bullet; <em>Step 3</em><br />` +
 				`&bullet; Offense Proportion (to that of Mew) Pa = Aw / 300 <br />` +
 				`&bullet; Bulk Proportion (to that of Mew) Pb = Bw / (400 * 300) <br />` +
 				`&bullet; Speed Proportion (to that of Mew) Ps = (2 * s + 100) / 300 <br />` +
-				`&bullet; <em>Step 3</em><br />` +
+				`&bullet; <em>Step 4</em><br />` +
 				`&bullet; Kernal Function for Offense f(x) = 11x^3 - 25x^2 + 19x - 0.75 <br />` +
 				`&bullet; Kernal Function for Bulk g(x) = 10x^3 - 18x^2 + 10x + 2 <br />` +
 				`&bullet; Kernal Function for Speed k(x) = -x^4 + 8x^3 - 10x^2 + 3x + 1 <br />` +
