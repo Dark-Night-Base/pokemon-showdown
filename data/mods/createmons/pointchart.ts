@@ -703,12 +703,12 @@ export const moveToPoint: {[k: string]: number} = {
 	zippyzap: 1000000,
 };
 function adjustStats(stats: StatsTable) {
-	const values = Object.values(stats);
-	const sortedValues = [...values].sort((a, b) => a - b);
+	const entries = Object.entries(stats);
+	const sortedValues = entries.map(([_, val]) => val).sort((a, b) => a - b);
 	const smallest = sortedValues[0];
 	const secondSmallest = sortedValues[1];
 	const adjustedStats = Object.fromEntries(
-		Object.entries(stats).map(([key, val]) => [key, val === smallest ? secondSmallest : val])
+		entries.map(([key, val]) => [key, val === smallest ? secondSmallest : val])
 	) as StatsTable;
 	return adjustedStats;
 }
