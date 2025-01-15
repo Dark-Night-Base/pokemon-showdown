@@ -632,7 +632,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		mod: 'createmons',
 		ruleset: ['Createmons Mod = 100000', 'Team Species Preview', 'Adjust Level = 100', 'Overflow Stat Mod',
 			'Forme Clause', 'Signature Items Clause', 'Signature Abilities Clause', 'CFZ Clause', 'Max Moves Clause', 'Terastal Clause',
-			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'OHKO Clause', 'Evasion Abilities Clause', 'Evasion Moves Clause', 'Nickname Clause',
+			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Nickname Clause',
 			'-CAP',
 			'Sleep Moves Clause',
 		],
