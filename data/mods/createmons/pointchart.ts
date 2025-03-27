@@ -501,6 +501,7 @@ export const moveToPoint: {[k: string]: number} = {
 	outrage: 2,
 	overdrive: 1,
 	overheat: 2,
+	painsplit: 1.5,
 	paraboliccharge: 1,
 	partingshot: 1.5,
 	perishsong: 1.5,
