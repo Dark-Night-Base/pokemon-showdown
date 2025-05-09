@@ -3701,13 +3701,16 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 			const speciesTable: Set<number> = new Set();
 			for (const set of team) {
 				const species = this.dex.species.get(set.species);
-				const relicSpecies = this.dex.species.get(set.name);
+				const nameSpecies = this.dex.species.get(set.name);
 				// todo: check if relic is banned?
-				if (relicSpecies.exists && relicSpecies.num !== species.num) {
-					if (speciesTable.has(relicSpecies.num)) {
-						return [`You are limited to one of each Pokémon by Relicmons Clause.`, `(You have more than one ${relicSpecies.baseSpecies})`];
+				if (nameSpecies.exists && nameSpecies.num !== species.num) {
+					if (this.ruleTable.isBannedSpecies(nameSpecies)) {
+						return [`${nameSpecies.name} is banned.`];
 					}
-					speciesTable.add(relicSpecies.num);
+					if (speciesTable.has(nameSpecies.num)) {
+						return [`You are limited to one of each Pokémon by Relicmons Clause.`, `(You have more than one ${nameSpecies.baseSpecies})`];
+					}
+					speciesTable.add(nameSpecies.num);
 				}
 				if (speciesTable.has(species.num)) {
 					return [`You are limited to one of each Pokémon by Relicmons Clause.`, `(You have more than one ${species.baseSpecies})`];

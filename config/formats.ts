@@ -676,6 +676,15 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			'Baneful Bunker', 'Ceaseless Edge', 'Detect', 'Fillet Away', 'Final Gambit', 'Gigaton Hammer', 'Protect', 'Quiver Dance', 'Relic Song',
 			'Revival Blessing', 'Victory Dance', 'Spiky Shield', 'Transform',
 		],
+		checkCanLearn(move, species, lsetData, set) {
+			const baseResult = this.checkCanLearn(move, species, lsetData, set);
+			if (!baseResult) return null;
+			if (this.toID(set.moves[set.moves.length - 1]) !== move.id) return baseResult;
+			if (this.ruleTable.isRestricted(`move:${move.id}`)) return `'s move ${move.name} can't be used as a Relic Move.`
+			const nameSpecies = this.dex.species.get(set.name);
+			if (!nameSpecies.exists || nameSpecies.id === species.id) return baseResult;
+			return this.checkCanLearn(move, nameSpecies);
+		},
 		onBegin() {
 			for (const pokemon of this.getAllPokemon()) {
 				const species = pokemon.baseSpecies;
