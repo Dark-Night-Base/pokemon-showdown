@@ -653,6 +653,151 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		],
 	},
 	{
+		name: "[Gen 9] Relicmons",
+		desc: `Relicmons alpha`,
+
+		mod: 'gen9',
+		ruleset: ['Standard OMs', 'Terastal Clause', 'Ability Clause = 1', 'Sleep Moves Clause', '!Nickname Clause', '!Species Clause', 'Relicmons Clause'],
+		banlist: [
+			'Alomomola', 'Arceus', 'Archaludon', 'Baxcalibur', 'Blissey', 'Calyrex-Ice', 'Calyrex-Shadow', 'Chansey', 'Chien-Pao', 'Chi-Yu',
+			'Deoxys', 'Deoxys-Attack', 'Dialga', 'Dialga-Origin', 'Eternatus', 'Flutter Mane', 'Giratina', 'Giratina-Origin', 'Gouging Fire',
+			'Groudon', 'Ho-Oh', 'Hoopa-Unbound', 'Iron Bundle', 'Komala', 'Koraidon', 'Kyogre', 'Kyurem-Black', 'Kyurem-White', 'Landorus',
+			'Lugia', 'Lunala', 'Magearna', 'Mewtwo', 'Miraidon', 'Necrozma-Dawn-Wings', 'Necrozma-Dusk-Mane', 'Ogerpon-Hearthflame', 'Palafin',
+			'Palafin-Hero', 'Palkia', 'Palkia-Origin', 'Rayquaza', 'Regidrago', 'Regieleki', 'Regigigas', 'Reshiram', 'Shaymin-Sky', 'Slaking',
+			'Smeargle', 'Solgaleo', 'Spectrier', 'Terapagos-Stellar', 'Ursaluna-Bloodmoon', 'Urshifu', 'Urshifu-Rapid-Strike', 'Volcarona',
+			'Zacian', 'Zacian-Crowned', 'Zamazenta-Crowned', 'Zekrom',
+			'Arena Trap', 'Contrary', 'Huge Power', 'Libero', 'Magnet Pull', 'Moody', 'Protean', 'Pure Power', 'Sand Veil', 'Shadow Tag',
+			'Snow Cloak', 'Speed Boost', 'Stench', 'Unburden', 'Water Bubble',
+			'Bright Powder', 'Eviolite', 'King\'s Rock', 'Razor Fang',
+			'Acupressure', 'Baton Pass', 'Belly Drum', 'Clangorous Soul', 'Dire Claw', 'Last Respects', 'No Retreat', 'Rage Fist', 'Shed Tail',
+			'Shell Smash', 'Tail Glow',
+		],
+		restricted: [
+			'Baneful Bunker', 'Ceaseless Edge', 'Detect', 'Fillet Away', 'Final Gambit', 'Gigaton Hammer', 'Protect', 'Quiver Dance', 'Relic Song',
+			'Revival Blessing', 'Victory Dance', 'Spiky Shield', 'Transform',
+		],
+		onBegin() {
+			for (const pokemon of this.getAllPokemon()) {
+				const species = pokemon.baseSpecies;
+				const nameSpecies = this.dex.species.get(pokemon.name);
+				if (nameSpecies.exists && nameSpecies.id !== species.id) {
+					pokemon.m.relic = false;
+					pokemon.m.rawSpecies = species.name;
+					const relicSpecies = this.dex.deepClone(species);
+					relicSpecies.bst = relicSpecies.baseStats['hp'];
+					let statName: StatID;
+					for (statName in relicSpecies.baseStats as StatsTable) {
+						if (statName === 'hp') continue;
+						relicSpecies.baseStats[statName] = nameSpecies.baseStats[statName];
+						relicSpecies.bst += relicSpecies.baseStats[statName];
+					}
+					if (species.types[0] !== nameSpecies.types[0]) relicSpecies.types = [species.types[0], nameSpecies.types[0]];
+					else if (nameSpecies.types.length === 1) relicSpecies.types = [species.types[0]];
+					else relicSpecies.types = [species.types[0], nameSpecies.types[1]];
+					pokemon.m.relicSpecies = relicSpecies;
+				}
+			}
+		},
+		pokemon: {
+			formeChange(speciesId, source, isPermanent, message) {
+				const rawSpecies = this.battle.dex.species.get(speciesId);
+				
+				const species = this.setSpecies(rawSpecies, source);
+				if (!species) return false;
+		
+				if (this.battle.gen <= 2) return true;
+		
+				// The species the opponent sees
+				const apparentSpecies =
+					this.illusion ? this.illusion.species.name : species.baseSpecies;
+				if (isPermanent) {
+					this.baseSpecies = rawSpecies;
+					this.details = species.name + (this.level === 100 ? '' : ', L' + this.level) +
+						(this.gender === '' ? '' : ', ' + this.gender) + (this.set.shiny ? ', shiny' : '');
+					let details = (this.illusion || this).details;
+					if (this.terastallized) details += `, tera:${this.terastallized}`;
+					this.battle.add('detailschange', this, details);
+					if (!source) {
+						// Tera forme
+						// Ogerpon/Terapagos text goes here
+					} else if (source.effectType === 'Item') {
+						this.canTerastallize = null; // National Dex behavior
+						if (source.zMove) {
+							this.battle.add('-burst', this, apparentSpecies, species.requiredItem);
+							this.moveThisTurnResult = true; // Ultra Burst counts as an action for Truant
+						} else if (source.onPrimal) {
+							if (this.illusion) {
+								this.ability = '';
+								this.battle.add('-primal', this.illusion, species.requiredItem);
+							} else {
+								this.battle.add('-primal', this, species.requiredItem);
+							}
+						} else {
+							this.battle.add('-mega', this, apparentSpecies, species.requiredItem);
+							this.moveThisTurnResult = true; // Mega Evolution counts as an action for Truant
+						}
+					} else if (source.effectType === 'Status') {
+						// Shaymin-Sky -> Shaymin
+						this.battle.add('-formechange', this, species.name, message);
+					} else if (source.effectType === 'Move') {
+						// Relic Moves
+						// todo: make sure about Dive
+						this.battle.add('message', message);
+					}
+				} else {
+					if (source?.effectType === 'Ability') {
+						this.battle.add('-formechange', this, species.name, message, `[from] ability: ${source.name}`);
+					} else {
+						this.battle.add('-formechange', this, this.illusion ? this.illusion.species.name : species.name, message);
+					}
+				}
+				// Relicmons: don't change the ability
+				if (isPermanent && (!source || (!['disguise', 'iceface'].includes(source.id) && source.effectType !== 'Move'))) {
+					if (this.illusion) {
+						this.ability = ''; // Don't allow Illusion to wear off
+					}
+					// Ogerpon's forme change doesn't override permanent abilities
+					if (source || !this.getAbility().flags['cantsuppress']) this.setAbility(species.abilities['0'], null, true);
+					// However, its ability does reset upon switching out
+					this.baseAbility = toID(species.abilities['0']);
+				}
+				if (this.terastallized) {
+					this.knownType = true;
+					this.apparentType = this.terastallized;
+				}
+				return true;
+			},
+		},
+		onModifyMovePriority: 1,
+		onModifyMove(move, pokemon, target) {
+			if (!pokemon.m.relicSpecies) return;
+			if (move.id !== pokemon.moveSlots[pokemon.moveSlots.length - 1].id) return;
+			const moveOnHit = move.onHit as Function;
+			move.onHit = function (target, pokemon, move) {
+				const result = moveOnHit?.call(this, target, pokemon, move);
+				if (result === false) return result;
+				if (!pokemon.transformed) move.willChangeForme = true;
+			};
+			const moveOnAfterMoveSecondarySelf = move.onAfterMoveSecondarySelf;
+			move.onAfterMoveSecondarySelf = function (pokemon, target, move) {
+				moveOnAfterMoveSecondarySelf?.call(this, pokemon, target, move);
+				if (move.willChangeForme) {
+					if (!pokemon.m.relic) {
+						pokemon.m.relic = pokemon.formeChange(pokemon.m.relicSpecies, this.effect, true, `${pokemon.m.rawSpecies} transformed!`);
+						this.add('-start', pokemon, 'typechange', pokemon.species.types.join('/'), '[silent]');
+					} else {
+						pokemon.m.relic = !pokemon.formeChange(pokemon.m.rawSpecies, this.effect, true, `${pokemon.m.rawSpecies} transformed!`);
+					}
+				}
+			};
+		},
+		onSwitchIn(pokemon) {
+			if (pokemon.m.relic) {
+				this.add('-start', pokemon, 'typechange', pokemon.species.types.join('/'), '[silent]');
+			}
+		},
+	},
+	{
 		name: "[Gen 9] Cross Evolution Convergence",
 		desc: `Cross Evolution + Convergence`,
 		threads: [

@@ -3690,4 +3690,30 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 			return newSpecies;
 		},
 	},
+	'relicmonsclause': {
+		effectType: 'ValidatorRule',
+		name: "Relicmons Clause",
+		desc: "Prevents teams from having more than one Pok&eacute;mon from the same species, including Relic Formes.",
+		onBegin() {
+			this.add('rule', 'Relicmons Clause: Limit one of each Pokémon, including Relic Formes');
+		},
+		onValidateTeam(team, format) {
+			const speciesTable: Set<number> = new Set();
+			for (const set of team) {
+				const species = this.dex.species.get(set.species);
+				const relicSpecies = this.dex.species.get(set.name);
+				// todo: check if relic is banned?
+				if (relicSpecies.exists && relicSpecies.num !== species.num) {
+					if (speciesTable.has(relicSpecies.num)) {
+						return [`You are limited to one of each Pokémon by Relicmons Clause.`, `(You have more than one ${relicSpecies.baseSpecies})`];
+					}
+					speciesTable.add(relicSpecies.num);
+				}
+				if (speciesTable.has(species.num)) {
+					return [`You are limited to one of each Pokémon by Relicmons Clause.`, `(You have more than one ${species.baseSpecies})`];
+				}
+				speciesTable.add(species.num);
+			}
+		},
+	},
 };
