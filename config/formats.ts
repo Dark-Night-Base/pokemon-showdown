@@ -657,7 +657,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		desc: `Relicmons alpha`,
 
 		mod: 'gen9',
-		ruleset: ['Standard OMs', 'Terastal Clause', 'Ability Clause = 1', 'Sleep Moves Clause', '!Nickname Clause', '!Species Clause', 'Relicmons Clause'],
+		ruleset: ['Standard OMs', 'Nickname Preview', 'Terastal Clause', 'Ability Clause = 1', 'Sleep Moves Clause', '!Nickname Clause', '!Species Clause', 'Relicmons Clause'],
 		banlist: [
 			'Alomomola', 'Arceus', 'Archaludon', 'Baxcalibur', 'Blissey', 'Calyrex-Ice', 'Calyrex-Shadow', 'Chansey', 'Chien-Pao', 'Chi-Yu',
 			'Deoxys', 'Deoxys-Attack', 'Dialga', 'Dialga-Origin', 'Eternatus', 'Flutter Mane', 'Giratina', 'Giratina-Origin', 'Gouging Fire',

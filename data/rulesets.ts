@@ -659,6 +659,16 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 					this.add(`${buf}`);
 				}
 			}
+			if (this.ruleTable.has(`nicknamepreview`)) {
+				for (const side of this.sides) {
+					let buf = ``;
+					for (const pokemon of side.pokemon) {
+						buf += buf ? ` / ` : `raw|${side.name}'s Nicknames:<br />`;
+						buf += `<psicon pokemon="${pokemon.species.id}" />${pokemon.set.name}`;
+					}
+					this.add(`${buf}`);
+				}
+			}
 		},
 	},
 	teratypepreview: {
@@ -3002,7 +3012,6 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 		effectType: 'Rule',
 		name: 'Team Species Preview',
 		desc: "Allows each player to see the Pok&eacute;mon on their opponent's team and those Pok&eacute;mon's types and base stats before they choose their lead Pok&eacute;mon",
-		// todo: pokemon icon doesn't show in replay, try to fix client//replay-embed.js
 		onTeamPreview() {
 			this.add('clearpoke');
 			const isCreatemon = this.format.id.includes('createmons');
@@ -3146,7 +3155,7 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 		effectType: 'Rule',
 		name: 'Nickname Preview',
 		desc: "Allows each player to see the Nickname of the Pok&eacute;mon on their opponent's team before they choose their lead Pok&eacute;mon",
-		// implemented in team species preview
+		// implemented in team species preview & team preview
 	},
 	setupclause: {
 		effectType: 'ValidatorRule',
@@ -3663,7 +3672,7 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 			pokemon.baseAbility = pokemon.ability;
 		},
 	},
-	'regicupmod': {
+	regicupmod: {
 		effectType: 'Rule',
 		name: 'Regi Cup Mod',
 		desc: "Pok&eacute;mon have their stats tweaked to 50, 100, or 200.",
@@ -3692,7 +3701,7 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 			return newSpecies;
 		},
 	},
-	'relicmonsclause': {
+	relicmonsclause: {
 		effectType: 'ValidatorRule',
 		name: "Relicmons Clause",
 		desc: "Prevents teams from having more than one Pok&eacute;mon from the same species, including Relic Formes.",
