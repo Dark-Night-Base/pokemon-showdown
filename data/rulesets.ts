@@ -2,6 +2,8 @@
 
 import type {Learnset} from "../sim/dex-species";
 
+// for Relicmons
+import {Tags} from '../data/tags';
 // for Createmons, but should we import them here?
 import {getSetPoint} from "./mods/createmons/pointchart";
 
@@ -3702,10 +3704,23 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 			for (const set of team) {
 				const species = this.dex.species.get(set.species);
 				const nameSpecies = this.dex.species.get(set.name);
-				// todo: check if relic is banned?
 				if (nameSpecies.exists && nameSpecies.num !== species.num) {
+					// essentially this.ruleTable.isBannedSpecies(), but don't check basepokemon
 					if (this.ruleTable.isBanned(`pokemon:${nameSpecies.id}`)) {
 						return [`${nameSpecies.name} is banned.`];
+					}
+					for (const tagid in Tags) {
+						const tag = Tags[tagid as ID];
+						if (this.ruleTable.has(`-pokemontag:${tagid}`)) {
+							if ((tag.speciesFilter || tag.genericFilter)!(nameSpecies)) [`${nameSpecies.name} is banned.`];
+						}
+					}
+					// check isNonstandard
+					if (nameSpecies.isNonstandard &&
+						!(this.ruleTable.has(`+pokemontag:${this.toID(nameSpecies.isNonstandard)}`) ||
+							this.ruleTable.has(`+pokemon:${nameSpecies.id}`) ||
+							this.ruleTable.has(`+basepokemon:${this.toID(nameSpecies.baseSpecies)}`))) {
+						return [`${nameSpecies.name} is marked as ${nameSpecies.isNonstandard}, which is banned.`];
 					}
 					if (speciesTable.has(nameSpecies.num)) {
 						return [`You are limited to one of each Pokémon by Relicmons Clause.`, `(You have more than one ${nameSpecies.baseSpecies})`];
