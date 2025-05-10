@@ -781,12 +781,29 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		onModifyMove(move, pokemon, target) {
 			if (!pokemon.m.relicSpecies) return;
 			if (move.id !== pokemon.moveSlots[pokemon.moveSlots.length - 1].id) return;
-			const moveOnHit = move.onHit as Function;
-			move.onHit = function (target, pokemon, move) {
-				const result = moveOnHit?.call(this, target, pokemon, move);
-				if (result === false) return result;
-				if (!pokemon.transformed) move.willChangeForme = true;
-			};
+			// see batle-actions.ts::1289 about Hit Events
+			if (move.target === 'all') {
+				const moveOnHitField = move.onHitField as Function;
+				move.onHitField = function (target, pokemon, move) {
+					const result = moveOnHitField?.call(this, target, pokemon, move);
+					if (result === false) return result;
+					if (!pokemon.transformed) move.willChangeForme = true;
+				};
+			} else if (move.target === 'foeSide' || move.target === 'allySide') {
+				const moveOnHitSide = move.onHitSide;
+				move.onHitSide = function (target, pokemon, move) {
+					const result = moveOnHitSide?.call(this, target, pokemon, move);
+					if (result === false) return result;
+					if (!pokemon.transformed) move.willChangeForme = true;
+				};
+			} else {
+				const moveOnHit = move.onHit as Function;
+				move.onHit = function (target, pokemon, move) {
+					const result = moveOnHit?.call(this, target, pokemon, move);
+					if (result === false) return result;
+					if (!pokemon.transformed) move.willChangeForme = true;
+				};
+			}
 			const moveOnAfterMoveSecondarySelf = move.onAfterMoveSecondarySelf;
 			move.onAfterMoveSecondarySelf = function (pokemon, target, move) {
 				moveOnAfterMoveSecondarySelf?.call(this, pokemon, target, move);
