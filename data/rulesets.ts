@@ -3704,7 +3704,7 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 				const nameSpecies = this.dex.species.get(set.name);
 				// todo: check if relic is banned?
 				if (nameSpecies.exists && nameSpecies.num !== species.num) {
-					if (this.ruleTable.isBannedSpecies(nameSpecies)) {
+					if (this.ruleTable.isBanned(`pokemon:${nameSpecies.id}`)) {
 						return [`${nameSpecies.name} is banned.`];
 					}
 					if (speciesTable.has(nameSpecies.num)) {
