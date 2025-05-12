@@ -1225,6 +1225,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				}
 				moveSplits.push([left, right]);
 			}
+			console.log(moveSplits);
 			let abilityIndex: '0' | '1' | 'H' | 'S';
 			for (const split of moveSplits) {
 				const headSet = {...set, species: headSpecies.name, moves: split[0]};
@@ -1241,6 +1242,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 						if (!problems) break;
 					}
 				}
+				console.log(`head:${problems}`);
 				if (problems) continue;
 				if (bodySet.moves.length) {
 					for (abilityIndex in bodySpecies.abilities) {
@@ -1253,6 +1255,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 						if (!problems) break;
 					}
 				}
+				console.log(`body:${problems}`);
 				if (!problems) return null;
 			}
 			return [`${headSpecies.name} (${bodySpecies.name}) doesn't have a valid moveset`];
@@ -3864,7 +3867,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		],
 
 		mod: 'gen9nationaldexag',
-		ruleset: ['Standard NatDex'],
+		ruleset: ['Standard AG', 'NatDex Mod',],
 	},
 	{
 		name: "[Gen 9] National Dynamax AG",
@@ -3873,7 +3876,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		],
 
 		mod: 'gen9nationaldexag',
-		ruleset: ['Standard NatDex', 'Terastal Clause', 'Dynamax Mod'],
+		ruleset: ['Standard AG', 'NatDex Mod', 'Terastal Clause', 'Dynamax Mod'],
 	},
 	{
 		name: "[Gen 9] Free-For-All",
