@@ -3367,7 +3367,7 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 			for (const set of team) {
 				const item = this.dex.items.get(set.item);
 				const isMegaStone = item.megaStone ||
-					item.onPrimal ||
+					item.isPrimalOrb ||
 					item.forcedForme?.endsWith('Origin') ||
 					item.name.startsWith('Rusted') ||
 					item.name.endsWith('Mask');
