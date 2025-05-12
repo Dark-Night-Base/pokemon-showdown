@@ -17,7 +17,7 @@ New sections will be added to the bottom of the specified column.
 The column value will be ignored for repeat sections.
 */
 
-import {Species} from '../sim/dex-species';
+import { type Species } from '../sim/dex-species';
 
 export const Formats: import('../sim/dex-formats').FormatList = [
 
@@ -1064,8 +1064,9 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 
 		mod: 'infinitefusion',
 		ruleset: [
-			'Obtainable', '+Past', '+Unobtainable', '+Unreleased', 'Team Species Preview', 'Nickname Preview', '!!EV Limit = 1020', 'Species Clause',
-			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'Sketch Post-Gen 7 Moves', 'Dynamax Clause', 'Terastal Clause',
+			// position matters for 'NatDex Mod'
+			'Obtainable', 'NatDex Mod', '+Unreleased', 'Team Species Preview', 'Nickname Preview', '!!EV Limit = 1020', 'Species Clause',
+			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'Dynamax Clause', 'Terastal Clause',
 			'OHKO Clause', 'Evasion Moves Clause', 'Sleep Clause Mod',
 		],
 		banlist: [
@@ -1073,6 +1074,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			'Moody', 'Shadow Tag',
 			'Baton Pass', 'Geomancy', 'Last Respects', 'Revival Blessing',
 		],
+		onValidateSet(set) {}, // override NatDex Mod's onValidateSet()
 		onValidateTeam(team) {
 			const names = new Set<ID>();
 			for (const set of team) {
@@ -1126,12 +1128,12 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			if (bodySpecies.baseSpecies !== bodySpecies.name) {
 				return [`${bodySpecies.name} is not in base forme`];
 			}
-			let fusionSpecies: {
+			const fusionSpecies: {
 				species?: Species,
 				abilities: string[],
 			} = { abilities: [] };
 			if (headSpecies.name === bodySpecies.name) {
-				const specialSelfFusions: {[key: string]: string} = {
+				const specialSelfFusions: { [key: string]: string } = {
 					deoxys: 'Deoxys-Attack',
 					rotom: 'Rotom-Heat',
 					shaymin: 'Shaymin-Sky',
@@ -1225,7 +1227,6 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				}
 				moveSplits.push([left, right]);
 			}
-			console.log(moveSplits);
 			let abilityIndex: '0' | '1' | 'H' | 'S';
 			for (const split of moveSplits) {
 				const headSet = {...set, species: headSpecies.name, moves: split[0]};
@@ -1242,7 +1243,6 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 						if (!problems) break;
 					}
 				}
-				console.log(`head:${problems}`);
 				if (problems) continue;
 				if (bodySet.moves.length) {
 					for (abilityIndex in bodySpecies.abilities) {
@@ -1255,7 +1255,6 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 						if (!problems) break;
 					}
 				}
-				console.log(`body:${problems}`);
 				if (!problems) return null;
 			}
 			return [`${headSpecies.name} (${bodySpecies.name}) doesn't have a valid moveset`];
@@ -1388,8 +1387,9 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 
 		mod: 'infinitefusion',
 		ruleset: [
-			'Obtainable', '+Past', '+Unobtainable', '+Unreleased', 'Team Species Preview', 'Nickname Preview', '!!EV Limit = 1020', 'Species Clause',
-			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'Sketch Post-Gen 7 Moves', 'Dynamax Clause', 'Terastal Clause',
+			// position matters for 'NatDex Mod'
+			'Obtainable', 'NatDex Mod', '+Unreleased', 'Team Species Preview', 'Nickname Preview', '!!EV Limit = 1020', 'Species Clause',
+			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'Dynamax Clause', 'Terastal Clause',
 			'OHKO Clause', 'Evasion Moves Clause', 'Sleep Moves Clause',
 		],
 		banlist: [
