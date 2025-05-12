@@ -77,7 +77,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (source.zMove) {
 						this.battle.add('-burst', this, apparentSpecies, species.requiredItem);
 						this.moveThisTurnResult = true; // Ultra Burst counts as an action for Truant
-					} else if (source.onPrimal) {
+					} else if (source.isPrimalOrb) {
 						if (this.illusion) {
 							this.ability = '';
 							this.battle.add('-primal', this.illusion, species.requiredItem);
@@ -114,6 +114,6 @@ export const Scripts: ModdedBattleScriptsData = {
 				this.apparentType = this.terastallized;
 			}
 			return true;
-		}
+		},
 	}
 };

@@ -485,11 +485,11 @@ export class Pokemon {
 		// Only declared if gen 1 to avoid declaring an object we aren't going to need.
 		if (this.battle.gen === 1) this.modifiedStats = { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 };
 
-		if (this.battle.ruleTable.has('createmonsmod')) {
-			this.details += `, createmons:`;
-			this.details += `${Object.values(this.set.evs).join(',')},`;
-			this.details += `${this.hpType},${this.teraType}`;
-		}
+		// if (this.battle.ruleTable.has('createmonsmod')) {
+		// 	this.details += `, createmons:`;
+		// 	this.details += `${Object.values(this.set.evs).join(',')},`;
+		// 	this.details += `${this.hpType},${this.teraType}`;
+		// }
 
 		this.maxhp = 0;
 		this.baseMaxhp = 0;
@@ -526,7 +526,8 @@ export class Pokemon {
 		if (['Greninja-Bond', 'Rockruff-Dusk'].includes(name)) name = this.species.baseSpecies;
 		if (!level) level = this.level;
 		let details = name + (level === 100 ? '' : `, L${level}`) +
-			(this.gender === '' ? '' : `, ${this.gender}`) + (this.set.shiny ? ', shiny' : '');
+		(this.gender === '' ? '' : `, ${this.gender}`) + (this.set.shiny ? ', shiny' : '');
+		if (this.m.headSpecies) details += `, headname:${this.m.headSpecies.name}`;
 		if (this.battle.ruleTable.has('createmonsmod')) {
 			details += `, createmons:`;
 			details += `${Object.values(this.set.evs || [0, 0, 0, 0, 0, 0]).join(',')},`;
@@ -1150,11 +1151,11 @@ export class Pokemon {
 			entry.teraType = this.teraType;
 			entry.terastallized = this.terastallized || '';
 		}
-		if (this.battle.ruleTable.has('createmonsmod')) {
-			entry.details += `, createmons:`;
-			entry.details += `${Object.values(this.set.evs || [0, 0, 0, 0, 0, 0]).join(',')},`;
-			entry.details += `${this.hpType},${this.teraType}`;
-		}
+		// if (this.battle.ruleTable.has('createmonsmod')) {
+		// 	entry.details += `, createmons:`;
+		// 	entry.details += `${Object.values(this.set.evs || [0, 0, 0, 0, 0, 0]).join(',')},`;
+		// 	entry.details += `${this.hpType},${this.teraType}`;
+		// }
 		return entry;
 	}
 
