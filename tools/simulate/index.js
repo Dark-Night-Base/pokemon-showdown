@@ -13,36 +13,36 @@ if (process.argv[2]) {
 	 const help = ['help', '-help', '--help', 'h', '-h', '--help', '?', '-?', '--?'].includes(process.argv[2]);
 	 const unknown = !['multi', 'random', 'exhaustive'].includes(process.argv[2]) && !/^[0-9]+$/.test(process.argv[2]);
 
-	 if (help || unknown) {
-		 const out = help ? console.log : console.error;
-		 if (unknown) out(`Unrecognized command: ${process.argv[2]}\n`);
-		 out('tools/simulate random');
-		 out('');
-		 out(' Randomly simulates `--num` total games (default=100).');
-		 out(' The format(s) played and what gets output can be altered.');
-		 out('');
-		 out('tools/simulate exhaustive');
-		 out('');
-		 out(' Plays through enough randomly simulated battles to exhaust');
-		 out(' all options of abilities/items/moves/pokemon. `--cycles` can');
-		 out(' used to run through multiple exhaustions of the options.');
-		 out('');
-		 out('tools/simulate help');
-		 out('');
-		 out('  Displays this reference');
-		 out('');
-		 out('Please refer to tools/SIMULATE.md for full documentation');
-		 process.exit(+!help);
-	 }
+	if (help || unknown) {
+		const out = help ? console.log : console.error;
+		if (unknown) out(`Unrecognized command: ${process.argv[2]}\n`);
+		out('tools/simulate random');
+		out('');
+		out(' Randomly simulates `--num` total games (default=100).');
+		out(' The format(s) played and what gets output can be altered.');
+		out('');
+		out('tools/simulate exhaustive');
+		out('');
+		out(' Plays through enough randomly simulated battles to exhaust');
+		out(' all options of abilities/items/moves/pokemon. `--cycles` can');
+		out(' used to run through multiple exhaustions of the options.');
+		out('');
+		out('tools/simulate help');
+		out('');
+		out('  Displays this reference');
+		out('');
+		out('Please refer to tools/SIMULATE.md for full documentation');
+		process.exit(help ? 0 : 1);
+	}
 }
 
 require('child_process').execSync('node ' + __dirname + "/../../build");
 const Dex = require('../../sim/dex').Dex;
-global.Config = {allowrequestingties: false};
+global.Config = { allowrequestingties: false };
 Dex.includeModData();
 
-const {ExhaustiveRunner} = require('../../.sim-dist/tools/exhaustive-runner');
-const {MultiRandomRunner} = require('../../.sim-dist/tools/multi-random-runner');
+const { ExhaustiveRunner } = require('../../sim/tools/exhaustive-runner');
+const { MultiRandomRunner } = require('../../sim/tools/multi-random-runner');
 
 // Tracks whether some promises threw errors that weren't caught so we can log
 // and exit with a non-zero status to fail any tests. This "shouldn't happen"
@@ -52,9 +52,9 @@ const RejectionTracker = new class {
 		 this.unhandled = [];
 	 }
 
-	 onUnhandledRejection(reason, promise) {
-		 this.unhandled.push({reason, promise});
-	 }
+	onUnhandledRejection(reason, promise) {
+		this.unhandled.push({ reason, promise });
+	}
 
 	 onRejectionHandled(promise) {
 		 this.unhandled.splice(this.unhandled.findIndex(u => u.promise === promise), 1);
@@ -90,25 +90,28 @@ function missing(dep) {
 	 }
 }
 
+function shell(cmd) {
+	require('child_process').execSync(cmd, { stdio: 'inherit', cwd: __dirname });
+}
 function parseFlags(argv) {
-	 if (!(argv.length > 3 || argv.length === 3 && argv[2].startsWith('-'))) return {_: argv.slice(2)};
-	 if (missing('minimist')) shell('npm install minimist');
-	 return require('minimist')(argv.slice(2));
+	if (!(argv.length > 3 || argv.length === 3 && argv[2].startsWith('-'))) return { _: argv.slice(2) };
+	if (missing('minimist')) shell('npm install minimist');
+	return require('minimist')(argv.slice(2));
 }
 
 if (!process.argv[2] || /^[0-9]+$/.test(process.argv[2])) process.argv.splice(2, 0, 'multi');
 switch (process.argv[2]) {
 case 'multi':
 case 'random':
-	 {
-		 const argv = parseFlags(process.argv);
-		 const options = Object.assign({totalGames: 100}, argv);
-		 options.totalGames = Number(argv._[1] || argv.num) || options.totalGames;
-		 if (argv.seed) options.prng = argv.seed.split(',').map(s => Number(s));
-		 // Run options.totalGames, exiting with the number of games with errors.
-		 (async () => process.exit(await new MultiRandomRunner(options).run()))();
-	 }
-	 break;
+	{
+		const argv = parseFlags(process.argv);
+		const options = { totalGames: 100, ...argv };
+		options.totalGames = Number(argv._[1] || argv.num) || options.totalGames;
+		if (argv.seed) options.prng = argv.seed.split(',').map(s => Number(s));
+		// Run options.totalGames, exiting with the number of games with errors.
+		(async () => process.exit(await new MultiRandomRunner(options).run()))();
+	}
+	break;
 case 'exhaustive':
 	 {
 		 const argv = parseFlags(process.argv);
