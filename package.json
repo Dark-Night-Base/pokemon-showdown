@@ -5,7 +5,6 @@
   "main": "dist/sim/index.js",
   "types": "dist/sim/index.d.ts",
   "dependencies": {
-    "mathjs": "^11.9.1",
     "esbuild": "^0.25.0",
     "mysql2": "^3.9.7",
     "preact": "^10.5.15",

@@ -1,5 +1,4 @@
 import {FS} from "../../lib";
-// https://mathjs.org/index.html
 
 const deepStringify = function (obj: any): string {
 	if (obj === null) return 'null';
