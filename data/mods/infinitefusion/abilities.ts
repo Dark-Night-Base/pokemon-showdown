@@ -369,7 +369,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	terashift: {
 		inherit: true,
-		onPreStart(pokemon) {
+		onSwitchIn(pokemon) {
 			const baseSpecies = [pokemon.m.headSpecies?.baseSpecies, pokemon.m.bodySpecies?.baseSpecies];
 			const ids = [pokemon.m.headSpecies?.id, pokemon.m.bodySpecies?.id];
 			if (!baseSpecies.includes('Terapagos')) return;
