@@ -526,7 +526,7 @@ export class Pokemon {
 		if (['Greninja-Bond', 'Rockruff-Dusk'].includes(name)) name = this.species.baseSpecies;
 		if (!level) level = this.level;
 		let details = name + (level === 100 ? '' : `, L${level}`) +
-		(this.gender === '' ? '' : `, ${this.gender}`) + (this.set.shiny ? ', shiny' : '');
+			(this.gender === '' ? '' : `, ${this.gender}`) + (this.set.shiny ? ', shiny' : '');
 		if (this.m.headSpecies) details += `, headname:${this.m.headSpecies.name}`;
 		if (this.battle.ruleTable.has('createmonsmod')) {
 			details += `, createmons:`;
@@ -545,6 +545,7 @@ export class Pokemon {
 			);
 		}
 		if (this.terastallized) details += `, tera:${this.terastallized}`;
+		if (this.m.headSpecies) details += `, headname:${this.m.headSpecies.name}`;
 		return { side: health.side, secret: `${details}|${health.secret}`, shared: `${details}|${health.shared}` };
 	};
 
