@@ -1382,9 +1382,18 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			'OHKO Clause', 'Evasion Moves Clause', 'Sleep Moves Clause',
 		],
 		banlist: [
-			'Cramorant', 'Shedinja',
-			'Moody', 'Shadow Tag',
-			'Baton Pass', 'Geomancy', 'Last Respects', 'Revival Blessing',
+			'Alakazam-Mega', 'Annihilape', 'Arceus', 'Baxcalibur', 'Blastoise-Mega', 'Blaziken-Mega', 'Calyrex-Ice', 'Calyrex-Shadow',
+			'Chi-Yu', 'Chien-Pao', 'Cramorant', 'Darkrai', 'Darmanitan-Galar', 'Darmanitan-Galar-Zen', 'Deoxys', 'Dialga',
+			'Dialga-Origin', 'Dracovish', 'Espathra', 'Eternatus', 'Flutter Mane', 'Genesect', 'Gengar-Mega', 'Giratina',
+			'Gouging Fire', 'Groudon', 'Ho-Oh', 'Iron Bundle', 'Kangaskhan-Mega', 'Koraidon', 'Kyogre', 'Kyurem-Black',
+			'Kyurem-White', 'Landorus', 'Lucario-Mega', 'Lugia', 'Lunala', 'Magearna', 'Marshadow', 'Metagross-Mega',
+			'Mewtwo', 'Miraidon', 'Naganadel', 'Necrozma-Dawn-Wings', 'Necrozma-Dusk-Mane', 'Necrozma-Ultra', 'Ogerpon-Hearthflame', 'Palafin',
+			'Palkia', 'Palkia-Origin', 'Pheromosa', 'Rayquaza', 'Reshiram', 'Roaring Moon', 'Salamence-Mega', 'Shaymin-Sky',
+			'Shedinja', 'Sneasler', 'Solgaleo', 'Spectrier', 'Ursaluna-Bloodmoon', 'Urshifu', 'Walking Wake', 'Xerneas',
+			'Yveltal', 'Zacian', 'Zamazenta', 'Zekrom', 'Zygarde',
+			'Arena Trap', 'Huge Power', 'Moody', 'Pure Power', 'Shadow Tag', 'Water Bubble',
+			'Baton Pass', 'Last Respects', 'Revival Blessing',
+			'King\'s Rock', 'Razor Fang', 'Quick Claw',
 		],
 		onValidateTeam(team) {
 			const names = new Set<ID>();
@@ -1444,9 +1453,6 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				abilities: string[],
 			} = { abilities: [] };
 			if (headSpecies.name === bodySpecies.name) {
-				if (this.ruleTable.isRestrictedSpecies(headSpecies)) {
-					return [`${headSpecies.name} is banned from self-fusion`];
-				}
 				const specialSelfFusions: {[key: string]: string} = {
 					deoxys: 'Deoxys-Attack',
 					rotom: 'Rotom-Heat',
@@ -1494,6 +1500,9 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				if (pair[0] === 'Cramorant' && pair[1] === 'Pikachu') fusionSpecies.species = this.dex.species.get('Cramorant-Gorging');
 			}
 			if (fusionSpecies.species) {
+				if (this.ruleTable.isBannedSpecies(fusionSpecies.species)) {
+					return [`${fusionSpecies.species.name} is banned`];
+				}
 				fusionSpecies.abilities = Object.values(fusionSpecies.species!.abilities);
 				// @ts-ignore
 				set.fusionSpecies = fusionSpecies.species;
