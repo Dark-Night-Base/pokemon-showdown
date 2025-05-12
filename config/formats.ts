@@ -1062,12 +1062,329 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			'OHKO Clause', 'Evasion Moves Clause', 'Sleep Clause Mod',
 		],
 		banlist: [
-			'Cramorant', 'Shedinja',
+			'Cramorant', 'Shedinja', 'Eternatus-Eternamax', 'Groudon-Primal', 'Kyogre-Primal',
 			'Moody', 'Shadow Tag',
 			'Baton Pass', 'Geomancy', 'Last Respects', 'Revival Blessing',
 		],
-		restricted: [
-			'Eternatus', 'Groudon', 'Kyogre',
+		onValidateTeam(team) {
+			const names = new Set<ID>();
+			for (const set of team) {
+				const name = set.name;
+				const species = this.dex.species.get(set.species).name;
+				if (names.has(this.dex.toID(name))) {
+					return [
+						`You have more than one ${name}`,
+					];
+				}
+				if (names.has(this.dex.toID(species))) {
+					return [
+						`You have more than one ${species}`,
+					];
+				}
+				names.add(this.dex.toID(name));
+				if (species !== name) names.add(this.dex.toID(species));
+				// Nihilslave: if the pokemon is a special fusion, change it here
+				// @ts-ignore
+				if (set.fusionSpecies) set.name = set.species = set.fusionSpecies.name;
+			}
+		},
+		// keep special fusion movepool
+		checkCanLearn(move, species, lsetData, set) {
+			// @ts-ignore
+			if (set.fusionSpecies) {
+				// @ts-ignore
+				const problem = this.checkCanLearn(move, set.fusionSpecies);
+				if (!problem) return null;
+			}
+			return this.checkCanLearn(move, species, lsetData, set);
+		},
+		validateSet(set, teamHas) {
+			const headSpecies = this.dex.species.get(set.name);
+			const bodySpecies = this.dex.species.get(set.species);
+			if (!headSpecies.exists) return this.validateSet(set, teamHas);
+			let problems = this.dex.formats.get('Obtainable Misc').onChangeSet?.call(this, set, this.format) || null;
+			if (Array.isArray(problems) && problems.length) return problems;
+			const nonstandard = ['CAP', 'Custom'];
+			if (headSpecies.isNonstandard && nonstandard.includes(headSpecies.isNonstandard)) {
+				return [`${headSpecies.name} does not exist`];
+			}
+			if (this.ruleTable.isBannedSpecies(headSpecies)) {
+				return [`${headSpecies.name} is banned`];
+			}
+			const check = this.checkSpecies(set, bodySpecies, bodySpecies, {});
+			if (check) return [check];
+			if (headSpecies.baseSpecies !== headSpecies.name) {
+				return [`${headSpecies.name} is not in base forme`];
+			}
+			if (bodySpecies.baseSpecies !== bodySpecies.name) {
+				return [`${bodySpecies.name} is not in base forme`];
+			}
+			let fusionSpecies: {
+				species?: Species,
+				abilities: string[],
+			} = { abilities: [] };
+			if (headSpecies.name === bodySpecies.name) {
+				const specialSelfFusions: {[key: string]: string} = {
+					deoxys: 'Deoxys-Attack',
+					rotom: 'Rotom-Heat',
+					shaymin: 'Shaymin-Sky',
+					// darmanitan: 'Darmanitan-Zen',
+					keldeo: 'Keldeo-Resolute',
+					meloetta: 'Meloetta-Pirouette',
+					greninja: 'Greninja-Ash',
+					floette: 'Floette-Eternal',
+					zygarde: 'Zygarde-Complete',
+					hoopa: 'Hoopa-Unbound',
+					lycanroc: 'Lycanroc-Dusk',
+					wishiwashi: 'Wishiwashi-School',
+					necrozma: 'Necrozma-Ultra',
+					// cramorant: 'Cramorant-Gorging',
+					eternatus: 'Eternatus-Eternamax',
+					palafin: 'Palafin-Hero',
+					ogerpon: 'Ogerpon-Wellspring',
+					terapagos: 'Terapagos-Stellar',
+				};
+				if (headSpecies.id in specialSelfFusions) {
+					fusionSpecies.species = this.dex.species.get(specialSelfFusions[headSpecies.id]);
+				} else if (headSpecies.otherFormes) {
+					for (const forme of headSpecies.otherFormes) {
+						if (forme.endsWith('-Mega') || forme.endsWith('-Mega-Y') ||
+							forme.endsWith('-Primal') ||
+							forme.endsWith('-Origin') ||
+							forme.endsWith('-Therian') ||
+							forme.endsWith('-Starter') ||
+							forme.endsWith('-Crowned')
+						) fusionSpecies.species = this.dex.species.get(forme);
+					}
+				} else {
+					fusionSpecies.species = this.dex.deepClone(headSpecies);
+				}
+			} else {
+				const pair = [headSpecies.name, bodySpecies.name].sort();
+				if (pair[0] === 'Kyurem' && pair[1] === 'Reshiram') fusionSpecies.species = this.dex.species.get('Kyurem-White');
+				if (pair[0] === 'Kyurem' && pair[1] === 'Zekrom') fusionSpecies.species = this.dex.species.get('Kyurem-Black');
+				if (pair[0] === 'Necrozma' && pair[1] === 'Solgaleo') fusionSpecies.species = this.dex.species.get('Necrozma-Dusk-Mane');
+				if (pair[0] === 'Lunala' && pair[1] === 'Necrozma') fusionSpecies.species = this.dex.species.get('Necrozma-Dawn-Wings');
+				if (pair[0] === 'Calyrex' && pair[1] === 'Glastrier') fusionSpecies.species = this.dex.species.get('Calyrex-Ice');
+				if (pair[0] === 'Calyrex' && pair[1] === 'Spectrier') fusionSpecies.species = this.dex.species.get('Calyrex-Shadow');
+				if (pair[0] === 'Arrokuda' && pair[1] === 'Cramorant') fusionSpecies.species = this.dex.species.get('Cramorant-Gulping');
+				if (pair[0] === 'Cramorant' && pair[1] === 'Pikachu') fusionSpecies.species = this.dex.species.get('Cramorant-Gorging');
+			}
+			if (fusionSpecies.species) {
+				if (this.ruleTable.isBannedSpecies(fusionSpecies.species)) {
+					return [`${fusionSpecies.species.name} is banned`];
+				}
+				fusionSpecies.abilities = Object.values(fusionSpecies.species!.abilities);
+				// @ts-ignore
+				set.fusionSpecies = fusionSpecies.species;
+			} else {
+				fusionSpecies.abilities = [
+					headSpecies.abilities[0],
+					bodySpecies.abilities[1] || bodySpecies.abilities[0],
+					headSpecies.abilities['H'] || '',
+					headSpecies.abilities['S'] || '',
+				];
+			}
+			const ability = this.dex.abilities.get(set.ability);
+			if (!fusionSpecies.abilities.includes(ability.name)) {
+				return [`${headSpecies.name} (${bodySpecies.name}) can't have ${ability.name}`];
+			}
+			if (this.ruleTable.isBanned(`ability:${ability.id}`)) {
+				return [`${headSpecies.name} (${bodySpecies.name})'s ability ${ability.name} is banned`];
+			}
+			const item = this.dex.items.get(set.item);
+			const NonexistentItems = [
+				'blueorb', 'redorb', 'adamantcrystal', 'lustrousglobe', 'griseouscore', 'rustedshield', 'rustedsword',
+				'cornerstonemask', 'hearthflamemask', 'wellspringmask',
+			];
+			if (item.megaStone || item.zMove || NonexistentItems.includes(item.id)) {
+				return [`${headSpecies.name} (${bodySpecies.name})'s item ${item.name} doesn't exist in Infinite Fusion`];
+			}
+
+			// check moveset legality
+			// there's a bug that if u have exactly 508 evs on your mon this will invalidate it
+			// kept as a feature so that you won't accidentally forget to give your mon 1020 evs
+			const moves = set.moves.slice();
+			const flips = 1 << moves.length;
+			const moveSplits: [string[], string[]][] = [];
+			for (let i = 0; i < flips; ++i) {
+				const left = [];
+				const right = [];
+				let j = 1;
+				for (const move of moves) {
+					if (i & j) left.push(move);
+					else right.push(move);
+					j <<= 1;
+				}
+				moveSplits.push([left, right]);
+			}
+			let abilityIndex: '0' | '1' | 'H' | 'S';
+			for (const split of moveSplits) {
+				const headSet = {...set, species: headSpecies.name, moves: split[0]};
+				const bodySet = {...set, moves: split[1]};
+				problems = null;
+				if (headSet.moves.length) {
+					for (abilityIndex in headSpecies.abilities) {
+						headSet.ability = headSpecies.abilities[abilityIndex] || headSpecies.abilities[0];
+						headSet.shiny = false;
+						problems = this.validateSet(headSet, teamHas);
+						if (!problems) break;
+						headSet.shiny = true;
+						problems = this.validateSet(headSet, teamHas);
+						if (!problems) break;
+					}
+				}
+				if (problems) continue;
+				if (bodySet.moves.length) {
+					for (abilityIndex in bodySpecies.abilities) {
+						bodySet.ability = bodySpecies.abilities[abilityIndex] || bodySpecies.abilities[0];
+						bodySet.shiny = false;
+						problems = this.validateSet(bodySet, teamHas);
+						if (!problems) break;
+						bodySet.shiny = true;
+						problems = this.validateSet(bodySet, teamHas);
+						if (!problems) break;
+					}
+				}
+				if (!problems) return null;
+			}
+			return [`${headSpecies.name} (${bodySpecies.name}) doesn't have a valid moveset`];
+		},
+		onModifySpecies(species, target, source, effect) {
+			if (!target) return; // chat
+			if (effect && ['imposter', 'transform'].includes(effect.id)) return;
+			// onModifySpecies can be called before onBegin, which is quite stupid
+			let headSpecies = target.m.headSpecies || this.dex.species.get(target.set.name);
+			let bodySpecies = target.m.bodySpecies || this.dex.species.get(target.set.species);
+			if (!headSpecies?.exists || !bodySpecies?.exists) return;
+			// Nihilslave: should let non-base formes to merge, don't check it here
+			const toModifySpeciesID = this.dex.species.get(species.baseSpecies).id;
+			const headBaseSpeciesID = this.dex.species.get(headSpecies.baseSpecies).id;
+			const bodyBaseSpeciesID = this.dex.species.get(bodySpecies.baseSpecies).id;
+			if (toModifySpeciesID === headBaseSpeciesID) target.m.headSpecies = headSpecies = species;
+			if (toModifySpeciesID === bodyBaseSpeciesID) target.m.bodySpecies = bodySpecies = species;
+			// special fusion
+			if (headSpecies.name === bodySpecies.name) {
+				return this.dex.species.get(headSpecies.name);
+			}
+
+			const fusionSpecies = this.dex.deepClone(bodySpecies);
+			// actually without Number() this also works, but just in case
+			fusionSpecies.weightkg = Number(Math.max(0.1, (headSpecies.weightkg + bodySpecies.weightkg) / 2).toFixed(1));
+			fusionSpecies.weighthg = Number(Math.max(1, (headSpecies.weighthg + bodySpecies.weighthg) / 2).toFixed(1));
+			fusionSpecies.nfe = headSpecies.nfe || bodySpecies.nfe;
+			// fusionSpecies.evos
+			// fusionSpecies.eggGroups
+			fusionSpecies.abilities = {
+				0: headSpecies.abilities[0],
+				1: bodySpecies.abilities[1] || bodySpecies.abilities[0],
+				H: headSpecies.abilities['H'],
+				S: headSpecies.abilities['S'],
+			};
+			if (fusionSpecies.abilities['H'] === fusionSpecies.abilities[1] ||
+				fusionSpecies.abilities['H'] === fusionSpecies.abilities[0]) delete fusionSpecies.abilities['H'];
+			if (fusionSpecies.abilities[1] === fusionSpecies.abilities[0]) delete fusionSpecies.abilities[1];
+			fusionSpecies.bst = 0;
+			if (this.dex.abilities.get(target.set.ability).id === 'wonderguard') fusionSpecies.maxHP = 1;
+			let i: StatID;
+			for (i in species.baseStats) {
+				let headStat, bodyStat;
+				if (['hp', 'spa', 'spd'].includes(i)) {
+					headStat = headSpecies.baseStats[i] * 2;
+					bodyStat = bodySpecies.baseStats[i];
+				} else {
+					headStat = headSpecies.baseStats[i];
+					bodyStat = bodySpecies.baseStats[i] * 2;
+				}
+				fusionSpecies.baseStats[i] = this.clampIntRange(Math.floor((headStat + bodyStat) / 3), 1, 255);
+				fusionSpecies.bst += fusionSpecies.baseStats[i];
+			}
+			fusionSpecies.types[0] = headSpecies.types[0];
+			fusionSpecies.types[1] = bodySpecies.types[1] || bodySpecies.types[0];
+			if (fusionSpecies.types[1] === fusionSpecies.types[0]) fusionSpecies.types = [fusionSpecies.types[0]];
+
+			return fusionSpecies;
+		},
+		onSwitchIn(pokemon) {
+			const baseSpecies = [pokemon.m.headSpecies?.baseSpecies, pokemon.m.bodySpecies?.baseSpecies];
+			if (baseSpecies.includes('Arceus')) pokemon.addVolatile('arceus');
+			if (baseSpecies.includes('Silvally')) pokemon.addVolatile('silvally');
+		},
+		// todo: consider this
+		// onType(types, pokemon) {
+		// 	const headSpecies = pokemon.m.headSpecies?.baseSpecies;
+		// 	if (headSpecies === 'Arceus' && pokemon.ability === 'multitype') {
+		// 		let arcType = pokemon.getItem().onPlate;
+		// 		if (!arcType) arcType = 'Normal';
+
+		// 	}
+		// },
+		onBegin() {
+			for (const pokemon of this.getAllPokemon()) {
+				// prevent rayquaza from mega evolving
+				if (pokemon.species.id === 'rayquaza') {
+					pokemon.canMegaEvo = null;
+				}
+				if (!pokemon.m.headSpecies || !pokemon.m.bodySpecies) {
+					const headSpecies = this.dex.species.get(pokemon.set.name);
+					const bodySpecies = this.dex.species.get(pokemon.set.species);
+					if (headSpecies.exists) pokemon.m.headSpecies = headSpecies;
+					if (bodySpecies.exists) pokemon.m.bodySpecies = bodySpecies;
+				}
+				// send headSpecies to client
+				pokemon.getDetails = () => {
+					const health = pokemon.getHealth();
+					let details = pokemon.details;
+					if (pokemon.m.headSpecies) details += `, headname:${pokemon.m.headSpecies.name}`;
+					if (pokemon.illusion) {
+						let illusionDetails = pokemon.illusion.species.name + (pokemon.level === 100 ? '' : ', L' + pokemon.level) +
+							(pokemon.illusion.gender === '' ? '' : ', ' + pokemon.illusion.gender) + (pokemon.illusion.set.shiny ? ', shiny' : '');
+						if (pokemon.illusion.m.headSpecies) illusionDetails += `, headname:${pokemon.illusion.m.headSpecies.name}`;
+						details = illusionDetails;
+					}
+					if (pokemon.terastallized) details += `, tera:${pokemon.terastallized}`;
+					this.debug(details);
+					return {side: health.side, secret: `${details}|${health.secret}`, shared: `${details}|${health.shared}`};
+				};
+			}
+		},
+	},
+	{
+		name: "[Gen 9] Infinite Fusion OU",
+		desc: `将（几乎）任意两只精灵融合成新精灵！<br/>\
+			<details><summary>具体规则（点击展开）</summary>\
+			&bullet; 正常选择精灵作为融合的<strong>身体</strong>部分，在昵称栏写上一只精灵的英文名，由它组成<strong>头部</strong><br/>\
+			&bullet; 融合后精灵的ＨＰ、特攻、特防种族 = 头部对应种族的 2 / 3 + 身体对应种族的 1 / 3<br/>\
+			&bullet; 融合后精灵的攻击、防御、速度种族 = 头部对应种族的 1 / 3 + 身体对应种族的 2 / 3<br/>\
+			&bullet; 融合后精灵的属性为头部精灵的第一属性 + 身体精灵的第二属性（如没有则为第一属性）<br/>\
+			&bullet; 融合后精灵的特性<strong>池</strong>包含头部精灵的第一特性、身体精灵的第二特性，以及头部精灵的隐藏特性<br/>\
+			&bullet; 融合后精灵的技能池为头身精灵技能池之和<br/>\
+			&bullet; 禁止选择任何特殊形态作为融合组件，如：胡帕-解放形态<br/>\
+			&bullet; 有部分精灵间存在特殊融合，如：酋雷姆 + 雷希拉姆 = 焰白酋雷姆<br/>\
+			&bullet; 精灵的努力值总和的上限为正常的两倍，即 1020<br/>\
+			</details><br/>\
+			Fusion (almost) any two Pok&eacute;mon together!<br/>\
+			<details><summary>Fusion Mechanism (Click to Show)</summary>\
+			&bullet; Choose a Pok&eacute;mon as usual to be the <strong>Body Part</strong>, while giving it the name of a Pok&eacute;mon as nickname which is to be the <strong>Head Part</strong> of the fusioned Pok&eacute;mon<br/>\
+			&bullet; Fusioned Pok&eacute;mon's base stats of H P, SpA, SpD = That base stats of Head * 2 / 3 + That base stats of Body * 1 / 3<br/>\
+			&bullet; Fusioned Pok&eacute;mon's base stats of Atk, Def, Spe = That base stats of Head * 1 / 3 + That base stats of Body * 2 / 3<br/>\
+			&bullet; Fusioned Pok&eacute;mon's Types includes: First Type of Head + Second (or First if no Second) Type of Body<br/>\
+			&bullet; Fusioned Pok&eacute;mon's available Abilities includes: First Ability of Head, Second Ability of Body, and Hidden Ability of Head<br/>\
+			&bullet; Fusioned Pok&eacute;mon's Moves includes: ALL moves learnt by Head and Body<br/>\
+			&bullet; Pok&eacute;mon in Formes cannot be used in fusion. E.g. Hoopa-Unbound<br/>\
+			&bullet; There are several special Fusions. E.g. Kyurem + Reshiram = Kyurem-White<br/>\
+			&bullet; Pok&eacute;mon's Total EV limit is doubled, i.e. 1020</details>`,
+
+		mod: 'infinitefusion',
+		ruleset: [
+			'Obtainable', '+Past', '+Unobtainable', '+Unreleased', 'Team Species Preview', 'Nickname Preview', '!!EV Limit = 1020', 'Species Clause',
+			'HP Percentage Mod', 'Cancel Mod', 'Endless Battle Clause', 'Sketch Post-Gen 7 Moves', 'Dynamax Clause', 'Terastal Clause',
+			'OHKO Clause', 'Evasion Moves Clause', 'Sleep Moves Clause',
+		],
+		banlist: [
+			'Cramorant', 'Shedinja',
+			'Moody', 'Shadow Tag',
+			'Baton Pass', 'Geomancy', 'Last Respects', 'Revival Blessing',
 		],
 		onValidateTeam(team) {
 			const names = new Set<ID>();
