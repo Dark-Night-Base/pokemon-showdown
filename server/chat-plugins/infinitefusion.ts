@@ -1,7 +1,7 @@
-import {FS} from "../../lib";
+import { FS } from "../../lib";
 
 // debug use
-const delay = (ms?: number) => new Promise(res => setTimeout(res, ms));
+// const delay = (ms?: number) => new Promise(res => setTimeout(res, ms));
 
 class AWaitLock {
 	lockQueue: any[];
@@ -12,9 +12,8 @@ class AWaitLock {
 	}
 	async lock() {
 		if (this.locked) {
-			let that = this;
-			await new Promise((resolve) => {
-				that.lockQueue.push(resolve);
+			await new Promise(resolve => {
+				this.lockQueue.push(resolve); // deepseek says this is ok
 			});
 		}
 		this.locked = true;
@@ -22,17 +21,16 @@ class AWaitLock {
 	}
 	unlock() {
 		this.locked = false;
-		let resolve = this.lockQueue.pop();
+		const resolve = this.lockQueue.pop();
 		if (resolve) {
 			resolve();
 		}
 	}
 }
 
-class remoteSpriteGetter {
+class RemoteSpriteGetter {
 	tasks: [string, string][] = [];
 	tasks_Lock: AWaitLock = new AWaitLock();
-	constructor() {}
 	async push(head: string, body: string) {
 		await this.tasks_Lock.lock();
 		if (this.tasks.length < 100)
@@ -49,7 +47,7 @@ class remoteSpriteGetter {
 	}
 }
 
-const getter = new remoteSpriteGetter();
+const getter = new RemoteSpriteGetter();
 
 export const commands: Chat.ChatCommands = {
 	// this should not be async, will be laggy in that case
