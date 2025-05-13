@@ -3,9 +3,9 @@
 import type { Learnset } from "../sim/dex-species";
 
 // for Relicmons
-import {Tags} from '../data/tags';
+import { Tags } from '../data/tags';
 // for Createmons, but should we import them here?
-import {getSetPoint} from "./mods/createmons/pointchart";
+import { getSetPoint } from "./mods/createmons/pointchart";
 
 // The list of formats is stored in config/formats.js
 export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
@@ -817,7 +817,7 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 			this.add('rule', 'Species Clause: Limit one of each Pokémon');
 		},
 		onValidateTeam(team, format) {
-			const speciesTable: Set<number> = new Set();
+			const speciesTable = new Set<number>();
 			for (const set of team) {
 				const species = this.dex.species.get(set.species);
 				if (speciesTable.has(species.num)) {
@@ -832,7 +832,7 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 		name: 'Nickname Clause',
 		desc: "Prevents teams from having more than one Pok&eacute;mon with the same nickname",
 		onValidateTeam(team, format) {
-			const nameTable: Set<string> = new Set();
+			const nameTable = new Set<string>();
 			for (const set of team) {
 				const name = set.name;
 				if (name) {
@@ -1818,7 +1818,7 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 			this.add('rule', 'Forme Clause: Limit one of each forme of a Pokémon');
 		},
 		onValidateTeam(team) {
-			const formeTable: Set<string> = new Set();
+			const formeTable = new Set<string>();
 			for (const set of team) {
 				let species = this.dex.species.get(set.species);
 				if (species.name !== species.baseSpecies) {
@@ -1884,7 +1884,7 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 		hasValue: 'positive-integer',
 		onBegin() {
 			const num = this.ruleTable.valueRules.get('scalemonsmod');
-			this.add('rule', `${num}-Scalemons Mod: Every Pokemon\'s stats, barring HP, are scaled to come as close to a BST of ${num} as possible`);
+			this.add('rule', `${num}-Scalemons Mod: Every Pokemon's stats, barring HP, are scaled to come as close to a BST of ${num} as possible`);
 		},
 		onModifySpeciesPriority: 1,
 		onModifySpecies(species) {
@@ -2631,9 +2631,10 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 				if (Array.isArray(obj)) return JSON.stringify(obj.map(value => deepStringify(value)));
 				switch (typeof obj) {
 				case 'function':
-					return obj.toString(); // no need to omit the first line cuz the difference in params will still cause the difference in body
+					// no need to omit the first line cuz the difference in params will still cause the difference in body
+					return obj.toString();
 				case 'object':
-					const sortedKeyList = Object.keys(obj).sort() as Array<keyof typeof obj>;
+					const sortedKeyList = Object.keys(obj).sort() as (keyof typeof obj)[];
 					const newObj: any = {};
 					for (const prop of sortedKeyList) newObj[prop] = deepStringify(obj[prop]);
 					return JSON.stringify(newObj);
@@ -2949,7 +2950,7 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 				if (set.dynamaxLevel < 1) weight = 1;
 			}
 
-			return {...pokemon, types: [...types], weightkg: weight, weighthg: weight * 10};
+			return { ...pokemon, types: [...types], weightkg: weight, weighthg: weight * 10 };
 		},
 		onSwitchIn(pokemon) {
 			this.add('-start', pokemon, 'typechange', (pokemon.illusion || pokemon).getTypes(true).join('/'), '[silent]');
@@ -3047,7 +3048,7 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 						buf += `<span class="col pokemonnamecol" style="white-space:nowrap"><a href="https://dex.pokemonshowdown.com/pokemon/${species.id}" target="_blank">${species.name}</a></span> `;
 					} else {
 						const finalName = (pokemon.m.headSpecies?.name === pokemon.m.bodySpecies?.name) ? species.name :
-							`${pokemon.m.headSpecies? `${pokemon.m.headSpecies?.name}&sect;`: ''}${pokemon.m.bodySpecies?.name}`; // §
+							`${pokemon.m.headSpecies ? `${pokemon.m.headSpecies?.name}&sect;` : ''}${pokemon.m.bodySpecies?.name}`; // §
 						buf += `<span class="col pokemonnamecol" style="white-space:nowrap"><a href="https://dex.pokemonshowdown.com/pokemon/${species.id}" target="_blank">${finalName}</a></span> `;
 					}
 					buf += '<span class="col typecol">';
@@ -3108,7 +3109,7 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 			} else {
 				const m = pokemon.illusion ? pokemon.illusion.m : pokemon.m;
 				const finalName = (m.headSpecies?.name === m.bodySpecies?.name) ? species.name :
-					`${m.headSpecies? `${m.headSpecies?.name}&sect;`: ''}${m.bodySpecies?.name}`; // §
+					`${m.headSpecies ? `${m.headSpecies?.name}&sect;` : ''}${m.bodySpecies?.name}`; // §
 				buf += `<span class="col pokemonnamecol" style="white-space:nowrap"><a href="https://dex.pokemonshowdown.com/pokemon/${species.id}" target="_blank">${finalName}</a></span> `;
 			}
 			buf += '<span class="col typecol">';
@@ -3237,9 +3238,9 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 		effectType: 'ValidatorRule',
 		name: 'MIA Move Legality',
 		desc: "Bans certain Moves in Item/Ability Slot",
-		ruleset: ['Other Restricted = OHKO Moves, Accuracy-Lowering Moves, Evasion-Raising Moves, Sleep Moves, Multi-hit Moves, \
-		Positive Priority Attacks, Partially Trapping Moves, Counter-like Moves, HP-related Moves, Charge Attacks, Always-crit Moves, \
-		Pivot Moves, Z Moves, Max Moves'],
+		ruleset: [`Other Restricted = OHKO Moves, Accuracy-Lowering Moves, Evasion-Raising Moves, Sleep Moves, Multi-hit Moves, 
+		Positive Priority Attacks, Partially Trapping Moves, Counter-like Moves, HP-related Moves, Charge Attacks, 
+		Always-crit Moves, Pivot Moves, Z Moves, Max Moves`],
 		restricted: [
 			'move:Metronome',
 			'Acid Spray', 'Anchor Shot', 'Beat Up', 'Bide', 'Bolt Beak', 'Ceaseless Edge', 'Chatter',
@@ -3268,9 +3269,10 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 				if (Array.isArray(obj)) return JSON.stringify(obj.map(value => deepStringify(value)));
 				switch (typeof obj) {
 				case 'function':
-					return obj.toString(); // no need to omit the first line cuz the difference in params will still cause the difference in body
+					// no need to omit the first line cuz the difference in params will still cause the difference in body
+					return obj.toString();
 				case 'object':
-					const sortedKeyList = Object.keys(obj).sort() as Array<keyof typeof obj>;
+					const sortedKeyList = Object.keys(obj).sort() as (keyof typeof obj)[];
 					const newObj: any = {};
 					for (const prop of sortedKeyList) newObj[prop] = deepStringify(obj[prop]);
 					return JSON.stringify(newObj);
@@ -3284,7 +3286,7 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 				const ability = this.dex.abilities.get(plugin);
 				if (item.exists) return item.id;
 				if (ability.exists) {
-					const base: {[k: string]: string} = {
+					const base: { [k: string]: string } = {
 						airlock: 'cloudnine',
 						armortail: 'queenlymajesty',
 						battlearmor: 'shellarmor',
@@ -3331,7 +3333,7 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 				return '';
 			};
 			const isSpam = this.ruleTable.valueRules.get('miaclause') === "Spam";
-			const miaTable: Set<string> = new Set();
+			const miaTable = new Set<string>();
 			for (const set of team) {
 				const plugins = [set.item, set.ability];
 				if (isSpam) {
@@ -3363,7 +3365,7 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 			this.add('rule', 'Mega Stone Clause: Limit one of each Mega Stone.');
 		},
 		onValidateTeam(team, format, teamHas) {
-			const stoneTable: Set<string> = new Set();
+			const stoneTable = new Set<string>();
 			for (const set of team) {
 				const item = this.dex.items.get(set.item);
 				const isMegaStone = item.megaStone ||
@@ -3737,11 +3739,11 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 			this.add('rule', 'Relicmons Clause: Limit one of each Pokémon, including Relic Formes');
 		},
 		onValidateTeam(team, format) {
-			const speciesTable: Set<number> = new Set();
+			const speciesTable = new Set<number>();
 			for (const set of team) {
 				const species = this.dex.species.get(set.species);
 				const nameSpecies = this.dex.species.get(set.name);
-				if (!nameSpecies.exists) return [`Nickname ${set.name} is not a Pokémon name, which is not allowed in Relicmons.`]
+				if (!nameSpecies.exists) return [`Nickname ${set.name} is not a Pokémon name, which is not allowed in Relicmons.`];
 				if (nameSpecies.exists && nameSpecies.num !== species.num) {
 					// essentially this.ruleTable.isBannedSpecies(), but don't check basepokemon
 					if (this.ruleTable.isBanned(`pokemon:${nameSpecies.id}`)) {
@@ -3750,7 +3752,7 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 					for (const tagid in Tags) {
 						const tag = Tags[tagid as ID];
 						if (this.ruleTable.has(`-pokemontag:${tagid}`)) {
-							if ((tag.speciesFilter || tag.genericFilter)!(nameSpecies)) [`${nameSpecies.name} is banned.`];
+							if ((tag.speciesFilter || tag.genericFilter)!(nameSpecies)) return [`${nameSpecies.name} is banned.`];
 						}
 					}
 					// check isNonstandard
@@ -3761,12 +3763,18 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 						return [`${nameSpecies.name} is marked as ${nameSpecies.isNonstandard}, which is banned.`];
 					}
 					if (speciesTable.has(nameSpecies.num)) {
-						return [`You are limited to one of each Pokémon by Relicmons Clause.`, `(You have more than one ${nameSpecies.baseSpecies})`];
+						return [
+							`You are limited to one of each Pokémon by Relicmons Clause.`,
+							`(You have more than one ${nameSpecies.baseSpecies})`,
+						];
 					}
 					speciesTable.add(nameSpecies.num);
 				}
 				if (speciesTable.has(species.num)) {
-					return [`You are limited to one of each Pokémon by Relicmons Clause.`, `(You have more than one ${species.baseSpecies})`];
+					return [
+						`You are limited to one of each Pokémon by Relicmons Clause.`,
+						`(You have more than one ${species.baseSpecies})`,
+					];
 				}
 				speciesTable.add(species.num);
 			}

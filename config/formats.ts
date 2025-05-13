@@ -124,8 +124,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			}
 		},
 		onSwitchIn(pokemon) {
-			// @ts-ignore
-			const originalFormeSecies = this.dex.species.get(pokemon.species.originalSpecies);
+			const originalFormeSecies = this.dex.species.get((pokemon.species as any).originalSpecies);
 			if (originalFormeSecies.exists && pokemon.m.originalSpecies !== originalFormeSecies.baseSpecies) {
 				// Place volatiles on the Pokémon to show its mega-evolved condition and details
 				this.add('-start', pokemon, originalFormeSecies.requiredItem || originalFormeSecies.requiredMove, '[silent]');
@@ -136,8 +135,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			}
 		},
 		onSwitchOut(pokemon) {
-			// @ts-ignore
-			const oMegaSpecies = this.dex.species.get(pokemon.species.originalSpecies);
+			const oMegaSpecies = this.dex.species.get((pokemon.species as any).originalSpecies);
 			if (oMegaSpecies.exists && pokemon.m.originalSpecies !== oMegaSpecies.baseSpecies) {
 				this.add('-end', pokemon, oMegaSpecies.requiredItem || oMegaSpecies.requiredMove, '[silent]');
 			}
@@ -188,13 +186,17 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 					}
 				}
 				if (plugin !== '' && !move.exists) return [`${plugin} is not a valid thing. (Check your spelling?)`];
-				if (set.moves.map(this.toID).includes(move.id) && move.id !== '') return [`${set.name} cannot have move ${move.name} for more than once`];
-				if (move.isNonstandard && ["CAP", "LGPE", "Custom", "Gigantamax"].includes(move.isNonstandard)) return [`${move.name} does not exist in the game`];
+				if (set.moves.map(this.toID).includes(move.id) && move.id !== '')
+					return [`${set.name} cannot have move ${move.name} for more than once`];
+				if (move.isNonstandard && ["CAP", "LGPE", "Custom", "Gigantamax"].includes(move.isNonstandard))
+					return [`${move.name} does not exist in the game`];
 				const bannedRestrictedMoves = ['assist', 'entrainment', 'skillswap'];
-				if (this.ruleTable.isRestricted(`move:${move.id}`) || bannedRestrictedMoves.includes(move.id)) return [`${move.name} is banned as item or ability`];
-				const accuracyLoweringMove = move.secondaries?.some(secondary => secondary.boosts?.accuracy && secondary.boosts?.accuracy < 0) ||
-					(move.boosts && move.boosts.accuracy && move.boosts.accuracy < 0);
-				const evasionRaisingMove = move.boosts && move.boosts.evasion && move.boosts.evasion > 0;
+				if (this.ruleTable.isRestricted(`move:${move.id}`) || bannedRestrictedMoves.includes(move.id))
+					return [`${move.name} is banned as item or ability`];
+				const accuracyLoweringMove =
+				move.secondaries?.some(secondary => secondary.boosts?.accuracy && secondary.boosts?.accuracy < 0) ||
+				(move.boosts?.accuracy && move.boosts.accuracy < 0);
+				const evasionRaisingMove = move.boosts?.evasion && move.boosts.evasion > 0;
 				const sleepMove = (move.status && move.status === 'slp') || ['relicsong', 'yawn'].includes(move.id);
 				if (
 					move.ohko ||
@@ -268,13 +270,17 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 					}
 				}
 				if (plugin !== '' && !move.exists) return [`${plugin} is not a valid thing. (Check your spelling?)`];
-				if (set.moves.map(this.toID).includes(move.id) && move.id !== '') return [`${set.name} cannot have move ${move.name} for more than once`];
-				if (move.isNonstandard && ["CAP", "LGPE", "Custom", "Gigantamax"].includes(move.isNonstandard)) return [`${move.name} does not exist in the game`];
+				if (set.moves.map(this.toID).includes(move.id) && move.id !== '')
+					return [`${set.name} cannot have move ${move.name} for more than once`];
+				if (move.isNonstandard && ["CAP", "LGPE", "Custom", "Gigantamax"].includes(move.isNonstandard))
+					return [`${move.name} does not exist in the game`];
 				const bannedRestrictedMoves = ['assist', 'entrainment', 'skillswap'];
-				if (this.ruleTable.isRestricted(`move:${move.id}`) || bannedRestrictedMoves.includes(move.id)) return [`${move.name} is banned as item or ability`];
-				const accuracyLoweringMove = move.secondaries?.some(secondary => secondary.boosts?.accuracy && secondary.boosts?.accuracy < 0) ||
-					(move.boosts && move.boosts.accuracy && move.boosts.accuracy < 0);
-				const evasionRaisingMove = move.boosts && move.boosts.evasion && move.boosts.evasion > 0;
+				if (this.ruleTable.isRestricted(`move:${move.id}`) || bannedRestrictedMoves.includes(move.id))
+					return [`${move.name} is banned as item or ability`];
+				const accuracyLoweringMove =
+				move.secondaries?.some(secondary => secondary.boosts?.accuracy && secondary.boosts?.accuracy < 0) ||
+				(move.boosts?.accuracy && move.boosts.accuracy < 0);
+				const evasionRaisingMove = move.boosts?.evasion && move.boosts.evasion > 0;
 				const sleepMove = (move.status && move.status === 'slp') || ['relicsong', 'yawn'].includes(move.id);
 				if (
 					move.ohko ||
@@ -305,13 +311,13 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 					if (ability.exists && this.ruleTable.isBanned(`ability:${ability.id}`)) {
 						problems.push(`${ability.name} is banned`);
 					}
-					const moveExists = this.dex.moves.get(this.toID(move)).exists
+					const moveExists = this.dex.moves.get(this.toID(move)).exists;
 					if (!item.exists && !ability.exists && !moveExists) {
 						problems.push(`${move} is not a valid thing. (Check your spelling?)`);
 					}
 				}
 				return problems.length ? problems : null;
-			}
+			};
 			// validation 1
 			let problems = [
 				...(validateM.call(this) || []),
@@ -334,7 +340,8 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			const moves = set.moves.slice();
 			const item = set.item;
 			const ability = set.ability;
-			set.moves = set.moves.filter(move => this.dex.moves.get(this.toID(move)).exists && this.toID(move) !== 'metronome' as ID);
+			set.moves = set.moves.filter(move =>
+				this.dex.moves.get(this.toID(move)).exists && this.toID(move) !== 'metronome' as ID);
 			if (!this.dex.items.get(item).exists) set.item = '';
 			if (!this.dex.abilities.get(ability).exists) set.ability = 'ballfetch';
 			problems = this.validateSet(set, teamHas) || [];
@@ -686,7 +693,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		checkCanLearn(move, species, lsetData, set) {
 			const baseResult = this.checkCanLearn(move, species, lsetData, set);
 			if (this.toID(set.moves[set.moves.length - 1]) !== move.id) return baseResult;
-			if (this.ruleTable.isRestricted(`move:${move.id}`)) return `'s move ${move.name} can't be used as a Relic Move.`
+			if (this.ruleTable.isRestricted(`move:${move.id}`)) return `'s move ${move.name} can't be used as a Relic Move.`;
 			if (!baseResult) return null;
 			const nameSpecies = this.dex.species.get(set.name);
 			if (!nameSpecies.exists || nameSpecies.id === species.id) return baseResult;
@@ -717,19 +724,18 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		pokemon: {
 			formeChange(speciesId, source, isPermanent, message) {
 				const rawSpecies = this.battle.dex.species.get(speciesId);
-				
+
 				const species = this.setSpecies(rawSpecies, source);
 				if (!species) return false;
-		
+
 				if (this.battle.gen <= 2) return true;
-		
+
 				// The species the opponent sees
 				const apparentSpecies =
 					this.illusion ? this.illusion.species.name : species.baseSpecies;
 				if (isPermanent) {
 					this.baseSpecies = rawSpecies;
-					this.details = species.name + (this.level === 100 ? '' : ', L' + this.level) +
-						(this.gender === '' ? '' : ', ' + this.gender) + (this.set.shiny ? ', shiny' : '');
+					this.details = this.getUpdatedDetails();
 					let details = (this.illusion || this).details;
 					if (this.terastallized) details += `, tera:${this.terastallized}`;
 					this.battle.add('detailschange', this, details);
@@ -791,35 +797,37 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			// see batle-actions.ts::1289 about Hit Events
 			if (move.target === 'all') {
 				const moveOnHitField = move.onHitField as Function;
-				move.onHitField = function (target, pokemon, move) {
-					const result = moveOnHitField?.call(this, target, pokemon, move);
+				move.onHitField = function (_target, _pokemon, _move) {
+					const result = moveOnHitField?.call(this, _target, _pokemon, _move);
 					if (result === false) return result;
-					if (!pokemon.transformed) move.willChangeForme = true;
+					if (!_pokemon.transformed) _move.willChangeForme = true;
 				};
 			} else if (move.target === 'foeSide' || move.target === 'allySide') {
 				const moveOnHitSide = move.onHitSide;
-				move.onHitSide = function (target, pokemon, move) {
-					const result = moveOnHitSide?.call(this, target, pokemon, move);
+				move.onHitSide = function (_target, _pokemon, _move) {
+					const result = moveOnHitSide?.call(this, _target, _pokemon, _move);
 					if (result === false) return result;
-					if (!pokemon.transformed) move.willChangeForme = true;
+					if (!_pokemon.transformed) _move.willChangeForme = true;
 				};
 			} else {
 				const moveOnHit = move.onHit as Function;
-				move.onHit = function (target, pokemon, move) {
-					const result = moveOnHit?.call(this, target, pokemon, move);
+				move.onHit = function (_target, _pokemon, _move) {
+					const result = moveOnHit?.call(this, _target, _pokemon, _move);
 					if (result === false) return result;
-					if (!pokemon.transformed) move.willChangeForme = true;
+					if (!_pokemon.transformed) _move.willChangeForme = true;
 				};
 			}
 			const moveOnAfterMoveSecondarySelf = move.onAfterMoveSecondarySelf;
-			move.onAfterMoveSecondarySelf = function (pokemon, target, move) {
-				moveOnAfterMoveSecondarySelf?.call(this, pokemon, target, move);
-				if (move.willChangeForme) {
-					if (!pokemon.m.relic) {
-						pokemon.m.relic = pokemon.formeChange(pokemon.m.relicSpecies, this.effect, true, `${pokemon.m.rawSpecies} transformed!`);
-						this.add('-start', pokemon, 'typechange', pokemon.species.types.join('/'), '[silent]');
+			move.onAfterMoveSecondarySelf = function (_pokemon, _target, _move) {
+				moveOnAfterMoveSecondarySelf?.call(this, _pokemon, _target, _move);
+				if (_move.willChangeForme) {
+					if (!_pokemon.m.relic) {
+						_pokemon.m.relic = _pokemon.formeChange(
+							_pokemon.m.relicSpecies, this.effect, true, `${_pokemon.m.rawSpecies} transformed!`);
+						this.add('-start', _pokemon, 'typechange', _pokemon.species.types.join('/'), '[silent]');
 					} else {
-						pokemon.m.relic = !pokemon.formeChange(pokemon.m.rawSpecies, this.effect, true, `${pokemon.m.rawSpecies} transformed!`);
+						_pokemon.m.relic = !_pokemon.formeChange(
+							_pokemon.m.rawSpecies, this.effect, true, `${_pokemon.m.rawSpecies} transformed!`);
 					}
 				}
 			};
@@ -865,40 +873,37 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			}
 		},
 		checkCanLearn(move, species, lsetData, set) {
-			function convCheckCanLearn(tv: TeamValidator, mv: Move, sp: Species, sS: PokemonSources, st: PokemonSet) {
+			function convCheckCanLearn(tv: TeamValidator, mv: Move, sp: Species, sS?: PokemonSources, st?: PokemonSet) {
 				const matchingSpecies = tv.dex.species.all()
-				.filter(s => (
-					(!s.isNonstandard || tv.ruleTable.has(`+pokemontag:${tv.toID(s.isNonstandard)}`)) &&
-					s.types.every(type => sp.types.includes(type)) &&
-					s.types.length === sp.types.length && !tv.ruleTable.isBannedSpecies(s)
-				));
+					.filter(s => (
+						(!s.isNonstandard || tv.ruleTable.has(`+pokemontag:${tv.toID(s.isNonstandard)}`)) &&
+						s.types.every(type => sp.types.includes(type)) &&
+						s.types.length === sp.types.length && !tv.ruleTable.isBannedSpecies(s)
+					));
 				const someCanLearn = matchingSpecies.some(s => tv.checkCanLearn(mv, s, sS, st) === null);
 				if (someCanLearn) return null;
 				return tv.checkCanLearn(mv, sp, sS, st);
 			}
-			// @ts-ignore
-			if (!set.sp?.exists || !set.crossSpecies?.exists) {
+			if (!(set as any).sp?.exists || !(set as any).crossSpecies?.exists) {
 				return convCheckCanLearn(this, move, species, lsetData, set);
 			}
-			// @ts-ignore
-			const problem = convCheckCanLearn(this, move, set.sp);
+			const problem = convCheckCanLearn(this, move, (set as any).sp);
 			if (!problem) return null;
-			// @ts-ignore
-			if (convCheckCanLearn(this, move, set.crossSpecies)) return problem;
+			if (convCheckCanLearn(this, move, (set as any).crossSpecies)) return problem;
 			return null;
 		},
 		validateSet(set, teamHas) {
 			const crossSpecies = this.dex.species.get(set.name);
 			let problems = this.dex.formats.get('Obtainable Misc').onChangeSet?.call(this, set, this.format) || null;
 			if (Array.isArray(problems) && problems.length) return problems;
-			const crossNonstandard = (!this.ruleTable.has('standardnatdex') && crossSpecies.isNonstandard === 'Past') ||
+			const crossNonstandard = (!this.ruleTable.has('natdexmod') && crossSpecies.isNonstandard === 'Past') ||
 				crossSpecies.isNonstandard === 'Future';
 			const crossIsCap = !this.ruleTable.has('+pokemontag:cap') && crossSpecies.isNonstandard === 'CAP';
 			if (!crossSpecies.exists || crossNonstandard || crossIsCap) return this.validateSet(set, teamHas);
 			const species = this.dex.species.get(set.species);
 			const check = this.checkSpecies(set, species, species, {});
 			if (check) return [check];
-			const nonstandard = !this.ruleTable.has('standardnatdex') && species.isNonstandard === 'Past';
+			const nonstandard = !this.ruleTable.has('natdexmod') && species.isNonstandard === 'Past';
 			const isCap = !this.ruleTable.has('+pokemontag:cap') && species.isNonstandard === 'CAP';
 			if (!species.exists || nonstandard || isCap || species === crossSpecies) return this.validateSet(set, teamHas);
 			if (!species.nfe) return [`${species.name} cannot cross evolve because it doesn't evolve.`];
@@ -927,35 +932,32 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				set.species = crossSpecies.name;
 			}
 
-			// @ts-ignore
-			set.sp = species;
-			// set types for validation
+			(set as any).sp = species;
+			// set types for validation // Nihilslave on 20250513: i don't remember what this part does but just keep
 			let mixedTypes = this.dex.deepClone(species.types);
 			if (crossSpecies.types[0] !== crossPrevoSpecies.types[0]) mixedTypes[0] = crossSpecies.types[0];
 			if (crossSpecies.types[1] !== crossPrevoSpecies.types[1]) {
 				mixedTypes[1] = crossSpecies.types[1] || crossSpecies.types[0];
 			}
 			if (mixedTypes[0] === mixedTypes[1]) mixedTypes = [mixedTypes[0]];
-			// @ts-ignore
-			set.crossSpecies = {...crossSpecies, types: mixedTypes};
+			(set as any).crossSpecies = { ...crossSpecies, types: mixedTypes };
 			problems = this.validateSet(set, teamHas);
 			set.name = crossSpecies.name;
 			set.species = species.name;
 			return problems;
 		},
 		onValidateSet(set, format) {
-			// @ts-ignore
-			const species = set.crossSpecies || set.species;
+			const species = (set as any).crossSpecies || set.species;
 			const curSpecies = this.dex.species.get(species);
 			const obtainableAbilityPool = new Set<string>();
 			const matchingSpecies = this.dex.species.all()
-				.filter(species => (
-					(!species.isNonstandard || this.ruleTable.has(`+pokemontag:${this.toID(species.isNonstandard)}`)) &&
-					species.types.every(type => curSpecies.types.includes(type)) &&
-					species.types.length === curSpecies.types.length && !this.ruleTable.isBannedSpecies(species)
+				.filter(_species => (
+					(!_species.isNonstandard || this.ruleTable.has(`+pokemontag:${this.toID(_species.isNonstandard)}`)) &&
+					_species.types.every(type => curSpecies.types.includes(type)) &&
+					_species.types.length === curSpecies.types.length && !this.ruleTable.isBannedSpecies(_species)
 				));
-			for (const species of matchingSpecies) {
-				for (const abilityName of Object.values(species.abilities)) {
+			for (const _species of matchingSpecies) {
+				for (const abilityName of Object.values(_species.abilities)) {
 					const abilityid = this.toID(abilityName);
 					obtainableAbilityPool.add(abilityid);
 				}
@@ -1093,16 +1095,13 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				names.add(this.dex.toID(name));
 				if (species !== name) names.add(this.dex.toID(species));
 				// Nihilslave: if the pokemon is a special fusion, change it here
-				// @ts-ignore
-				if (set.fusionSpecies) set.name = set.species = set.fusionSpecies.name;
+				if ((set as any).fusionSpecies) set.name = set.species = (set as any).fusionSpecies.name;
 			}
 		},
 		// keep special fusion movepool
 		checkCanLearn(move, species, lsetData, set) {
-			// @ts-ignore
-			if (set.fusionSpecies) {
-				// @ts-ignore
-				const problem = this.checkCanLearn(move, set.fusionSpecies);
+			if ((set as any).fusionSpecies) {
+				const problem = this.checkCanLearn(move, (set as any).fusionSpecies);
 				if (!problem) return null;
 			}
 			return this.checkCanLearn(move, species, lsetData, set);
@@ -1172,10 +1171,12 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				const pair = [headSpecies.name, bodySpecies.name].sort();
 				if (pair[0] === 'Kyurem' && pair[1] === 'Reshiram') fusionSpecies.species = this.dex.species.get('Kyurem-White');
 				if (pair[0] === 'Kyurem' && pair[1] === 'Zekrom') fusionSpecies.species = this.dex.species.get('Kyurem-Black');
+				// eslint-disable-next-line @stylistic/max-len
 				if (pair[0] === 'Necrozma' && pair[1] === 'Solgaleo') fusionSpecies.species = this.dex.species.get('Necrozma-Dusk-Mane');
 				if (pair[0] === 'Lunala' && pair[1] === 'Necrozma') fusionSpecies.species = this.dex.species.get('Necrozma-Dawn-Wings');
 				if (pair[0] === 'Calyrex' && pair[1] === 'Glastrier') fusionSpecies.species = this.dex.species.get('Calyrex-Ice');
 				if (pair[0] === 'Calyrex' && pair[1] === 'Spectrier') fusionSpecies.species = this.dex.species.get('Calyrex-Shadow');
+				// eslint-disable-next-line @stylistic/max-len
 				if (pair[0] === 'Arrokuda' && pair[1] === 'Cramorant') fusionSpecies.species = this.dex.species.get('Cramorant-Gulping');
 				if (pair[0] === 'Cramorant' && pair[1] === 'Pikachu') fusionSpecies.species = this.dex.species.get('Cramorant-Gorging');
 			}
@@ -1183,9 +1184,8 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				if (this.ruleTable.isBannedSpecies(fusionSpecies.species)) {
 					return [`${fusionSpecies.species.name} is banned`];
 				}
-				fusionSpecies.abilities = Object.values(fusionSpecies.species!.abilities);
-				// @ts-ignore
-				set.fusionSpecies = fusionSpecies.species;
+				fusionSpecies.abilities = Object.values(fusionSpecies.species.abilities);
+				(set as any).fusionSpecies = fusionSpecies.species;
 			} else {
 				fusionSpecies.abilities = [
 					headSpecies.abilities[0],
@@ -1229,8 +1229,8 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			}
 			let abilityIndex: '0' | '1' | 'H' | 'S';
 			for (const split of moveSplits) {
-				const headSet = {...set, species: headSpecies.name, moves: split[0]};
-				const bodySet = {...set, moves: split[1]};
+				const headSet = { ...set, species: headSpecies.name, moves: split[0] };
+				const bodySet = { ...set, moves: split[1] };
 				problems = null;
 				if (headSet.moves.length) {
 					for (abilityIndex in headSpecies.abilities) {
@@ -1423,16 +1423,13 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				names.add(this.dex.toID(name));
 				if (species !== name) names.add(this.dex.toID(species));
 				// Nihilslave: if the pokemon is a special fusion, change it here
-				// @ts-ignore
-				if (set.fusionSpecies) set.name = set.species = set.fusionSpecies.name;
+				if ((set as any).fusionSpecies) set.name = set.species = (set as any).fusionSpecies.name;
 			}
 		},
 		// keep special fusion movepool
 		checkCanLearn(move, species, lsetData, set) {
-			// @ts-ignore
-			if (set.fusionSpecies) {
-				// @ts-ignore
-				const problem = this.checkCanLearn(move, set.fusionSpecies);
+			if ((set as any).fusionSpecies) {
+				const problem = this.checkCanLearn(move, (set as any).fusionSpecies);
 				if (!problem) return null;
 			}
 			return this.checkCanLearn(move, species, lsetData, set);
@@ -1458,12 +1455,12 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			if (bodySpecies.baseSpecies !== bodySpecies.name) {
 				return [`${bodySpecies.name} is not in base forme`];
 			}
-			let fusionSpecies: {
+			const fusionSpecies: {
 				species?: Species,
 				abilities: string[],
 			} = { abilities: [] };
 			if (headSpecies.name === bodySpecies.name) {
-				const specialSelfFusions: {[key: string]: string} = {
+				const specialSelfFusions: { [key: string]: string } = {
 					deoxys: 'Deoxys-Attack',
 					rotom: 'Rotom-Heat',
 					shaymin: 'Shaymin-Sky',
@@ -1502,10 +1499,12 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				const pair = [headSpecies.name, bodySpecies.name].sort();
 				if (pair[0] === 'Kyurem' && pair[1] === 'Reshiram') fusionSpecies.species = this.dex.species.get('Kyurem-White');
 				if (pair[0] === 'Kyurem' && pair[1] === 'Zekrom') fusionSpecies.species = this.dex.species.get('Kyurem-Black');
+				// eslint-disable-next-line @stylistic/max-len
 				if (pair[0] === 'Necrozma' && pair[1] === 'Solgaleo') fusionSpecies.species = this.dex.species.get('Necrozma-Dusk-Mane');
 				if (pair[0] === 'Lunala' && pair[1] === 'Necrozma') fusionSpecies.species = this.dex.species.get('Necrozma-Dawn-Wings');
 				if (pair[0] === 'Calyrex' && pair[1] === 'Glastrier') fusionSpecies.species = this.dex.species.get('Calyrex-Ice');
 				if (pair[0] === 'Calyrex' && pair[1] === 'Spectrier') fusionSpecies.species = this.dex.species.get('Calyrex-Shadow');
+				// eslint-disable-next-line @stylistic/max-len
 				if (pair[0] === 'Arrokuda' && pair[1] === 'Cramorant') fusionSpecies.species = this.dex.species.get('Cramorant-Gulping');
 				if (pair[0] === 'Cramorant' && pair[1] === 'Pikachu') fusionSpecies.species = this.dex.species.get('Cramorant-Gorging');
 			}
@@ -1513,9 +1512,8 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				if (this.ruleTable.isBannedSpecies(fusionSpecies.species)) {
 					return [`${fusionSpecies.species.name} is banned`];
 				}
-				fusionSpecies.abilities = Object.values(fusionSpecies.species!.abilities);
-				// @ts-ignore
-				set.fusionSpecies = fusionSpecies.species;
+				fusionSpecies.abilities = Object.values(fusionSpecies.species.abilities);
+				(set as any).fusionSpecies = fusionSpecies.species;
 			} else {
 				fusionSpecies.abilities = [
 					headSpecies.abilities[0],
@@ -1559,8 +1557,8 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			}
 			let abilityIndex: '0' | '1' | 'H' | 'S';
 			for (const split of moveSplits) {
-				const headSet = {...set, species: headSpecies.name, moves: split[0]};
-				const bodySet = {...set, moves: split[1]};
+				const headSet = { ...set, species: headSpecies.name, moves: split[0] };
+				const bodySet = { ...set, moves: split[1] };
 				problems = null;
 				if (headSet.moves.length) {
 					for (abilityIndex in headSpecies.abilities) {
@@ -1721,10 +1719,13 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 					}
 				}
 				if (plugin !== '' && !move.exists) return [`${plugin} is not a valid thing. (Check your spelling?)`];
-				if (set.moves.map(this.toID).includes(move.id) && move.id !== '') return [`${set.name} cannot have move ${move.name} for more than once`];
-				if (move.isNonstandard && ["CAP", "LGPE", "Custom", "Gigantamax"].includes(move.isNonstandard)) return [`${move.name} does not exist in the game`];
+				if (set.moves.map(this.toID).includes(move.id) && move.id !== '')
+					return [`${set.name} cannot have move ${move.name} for more than once`];
+				if (move.isNonstandard && ["CAP", "LGPE", "Custom", "Gigantamax"].includes(move.isNonstandard))
+					return [`${move.name} does not exist in the game`];
 				const bannedRestrictedMoves = ['assist', 'entrainment', 'skillswap'];
-				if (this.ruleTable.isRestricted(`move:${move.id}`) || bannedRestrictedMoves.includes(move.id)) return [`${move.name} is banned as item or ability`];
+				if (this.ruleTable.isRestricted(`move:${move.id}`) || bannedRestrictedMoves.includes(move.id))
+					return [`${move.name} is banned as item or ability`];
 			};
 			// validation 0, avoids same item and ability
 			if (this.toID(set.item) === this.toID(set.ability)) return [`${set.name} cannot have ${set.item} for more than once`];
@@ -2100,7 +2101,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		ruleset: ['[Gen 9] Balanced Hackmons', '350 Cup Mod', 'Overflow Stat Mod'],
 		banlist: [
 			'Eviolite', 'Light Ball',
-		]
+		],
 	},
 	{
 		name: "[Gen 9] Balanced Hackmons LC",
@@ -2139,7 +2140,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			const typesSet = new Set(species.types);
 			const bonusType = this.dex.types.get(target.set.name);
 			if (bonusType.exists) typesSet.add(bonusType.name);
-			return {...species, types: [...typesSet]};
+			return { ...species, types: [...typesSet] };
 		},
 		onSwitchIn(pokemon) {
 			this.add('-start', pokemon, 'typechange', (pokemon.illusion || pokemon).getTypes(true).join('/'), '[silent]');
@@ -2199,15 +2200,12 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			}
 		},
 		checkCanLearn(move, species, lsetData, set) {
-			// @ts-ignore
-			if (!set.sp?.exists || !set.crossSpecies?.exists) {
+			if (!(set as any).sp?.exists || !(set as any).crossSpecies?.exists) {
 				return this.checkCanLearn(move, species, lsetData, set);
 			}
-			// @ts-ignore
-			const problem = this.checkCanLearn(move, set.sp);
+			const problem = this.checkCanLearn(move, (set as any).sp);
 			if (!problem) return null;
-			// @ts-ignore
-			if (this.checkCanLearn(move, set.crossSpecies)) return problem;
+			if (this.checkCanLearn(move, (set as any).crossSpecies)) return problem;
 			return null;
 		},
 		validateSet(set, teamHas) {
@@ -2225,8 +2223,8 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			const isCap = !this.ruleTable.has('+pokemontag:cap') && species.isNonstandard === 'CAP';
 			if (!species.exists || nonstandard || isCap || species === crossSpecies) return this.validateSet(set, teamHas);
 			if (!species.nfe) return [`${species.name} cannot cross evolve because it doesn't evolve.`];
-			const crossIsUnreleased = (crossSpecies.tier === "Unreleased" && crossSpecies.isNonstandard === "Unobtainable" &&
-				!this.ruleTable.has('+unobtainable'));
+			// const crossIsUnreleased = (crossSpecies.tier === "Unreleased" && crossSpecies.isNonstandard === "Unobtainable" &&
+			// 	!this.ruleTable.has('+unobtainable'));
 			// Nihilslave: remove the crossIsUnreleased judge here cuz it's bh
 			if (crossSpecies.battleOnly || !crossSpecies.prevo) {
 				return [`${species.name} cannot cross evolve into ${crossSpecies.name} because it isn't an evolution.`];
@@ -2251,10 +2249,8 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				set.species = crossSpecies.name;
 			}
 
-			// @ts-ignore
-			set.sp = species;
-			// @ts-ignore
-			set.crossSpecies = crossSpecies;
+			(set as any).sp = species;
+			(set as any).crossSpecies = crossSpecies;
 			problems = this.validateSet(set, teamHas);
 			set.name = crossSpecies.name;
 			set.species = species.name;
@@ -2267,8 +2263,8 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			const crossSpecies = this.dex.species.get(target.set.name);
 			if (!crossSpecies.exists) return;
 			if (species.battleOnly || !species.nfe) return;
-			const crossIsUnreleased = (crossSpecies.tier === "Unreleased" && crossSpecies.isNonstandard === "Unobtainable" &&
-				!this.ruleTable.has('+unobtainable'));
+			// const crossIsUnreleased = (crossSpecies.tier === "Unreleased" && crossSpecies.isNonstandard === "Unobtainable" &&
+			// 	!this.ruleTable.has('+unobtainable'));
 			// Nihilslave: remove the crossIsUnreleased judge here cuz it's bh
 			if (crossSpecies.battleOnly || !crossSpecies.prevo) return;
 			const crossPrevoSpecies = this.dex.species.get(crossSpecies.prevo);
@@ -2394,7 +2390,8 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				'Thousand Waves', 'Weather Ball', 'Zap Cannon',
 				// watchlist 'Shell Side Arm',
 			];
-			const accuracyLoweringMove = move.secondaries?.some(secondary => secondary.boosts?.accuracy && secondary.boosts?.accuracy < 0);
+			const accuracyLoweringMove = move.secondaries?.some(secondary =>
+				secondary.boosts?.accuracy && secondary.boosts?.accuracy < 0);
 			if ((move.isNonstandard && move.isNonstandard !== 'Unobtainable') ||
 				move.ohko ||
 				accuracyLoweringMove ||
@@ -2528,8 +2525,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			}
 		},
 		onSwitchIn(pokemon) {
-			// @ts-ignore
-			const oMegaSpecies = this.dex.species.get(pokemon.species.originalMega);
+			const oMegaSpecies = this.dex.species.get((pokemon.species as any).originalMega);
 			if (oMegaSpecies.exists && pokemon.m.originalSpecies !== oMegaSpecies.baseSpecies) {
 				// Place volatiles on the Pokémon to show its mega-evolved condition and details
 				this.add('-start', pokemon, oMegaSpecies.requiredItem || oMegaSpecies.requiredMove, '[silent]');
@@ -2540,8 +2536,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			}
 		},
 		onSwitchOut(pokemon) {
-			// @ts-ignore
-			const oMegaSpecies = this.dex.species.get(pokemon.species.originalMega);
+			const oMegaSpecies = this.dex.species.get((pokemon.species as any).originalMega);
 			if (oMegaSpecies.exists && pokemon.m.originalSpecies !== oMegaSpecies.baseSpecies) {
 				this.add('-end', pokemon, oMegaSpecies.requiredItem || oMegaSpecies.requiredMove, '[silent]');
 			}
@@ -2577,7 +2572,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				mSpecies.baseStats.def = this.clampIntRange(mSpecies.baseStats.def + 30, 1, 255);
 				mSpecies.baseStats.spd = this.clampIntRange(mSpecies.baseStats.spd + 30, 1, 255);
 				mSpecies.baseStats.spe = this.clampIntRange(mSpecies.baseStats.spe - 10, 1, 255);
-				mSpecies.abilities = {'0': 'dauntlessshield'};
+				mSpecies.abilities = { '0': 'dauntlessshield' };
 				mSpecies.weighthg = Math.max(1, mSpecies.weighthg + 5750);
 				mSpecies.isPrimal = true;
 				mSpecies.originalMega = 'Zamazenta-Crowned';
@@ -2591,7 +2586,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				mSpecies.types = [target.species.types[0], 'Steel'];
 				mSpecies.baseStats.atk = this.clampIntRange(mSpecies.baseStats.atk + 40, 1, 255);
 				mSpecies.baseStats.spe = this.clampIntRange(mSpecies.baseStats.spe + 10, 1, 255);
-				mSpecies.abilities = {'0': 'intrepidsword'};
+				mSpecies.abilities = { '0': 'intrepidsword' };
 				mSpecies.weighthg = Math.max(1, mSpecies.weighthg + 2450);
 				mSpecies.isPrimal = true;
 				mSpecies.originalMega = 'Zacian-Crowned';
@@ -2641,7 +2636,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				(item.id === 'regenerator' && ['emergencyexit', 'wimpout'].includes(ability.id))) {
 				problems.push(`${ability.name} and ${item.name} are banned together.`);
 			}
-			if (item.id === 'comatose' && set.moves.map((value) => this.toID(value)).includes('sleeptalk' as ID)) {
+			if (item.id === 'comatose' && set.moves.map(value => this.toID(value)).includes('sleeptalk' as ID)) {
 				problems.push(`${set.species} has the combination of Comatose + Sleep Talk, which is banned by [Gen 9] Balanced Hackmons.`);
 			}
 			const itemStr = set.item;
@@ -2654,7 +2649,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		onValidateTeam(team) {
 			if (!this.ruleTable.has('abilityclause')) return;
 			const abilityTable = new Map<string, number>();
-			const base: {[k: string]: string} = {
+			const base: { [k: string]: string } = {
 				airlock: 'cloudnine',
 				armortail: 'queenlymajesty',
 				battlearmor: 'shellarmor',
@@ -2675,7 +2670,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			};
 			const abilities: [string, string][] = [];
 			for (const set of team) {
-				abilities.push([set.ability, set.item].map((abil) => {
+				abilities.push([set.ability, set.item].map(abil => {
 					const id = this.toID(abil);
 					return base[id] || id;
 				}) as [string, string]);
@@ -2723,7 +2718,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			getItem() {
 				const ability = this.battle.dex.abilities.get(this.item);
 				if (!ability.exists) return Object.getPrototypeOf(this).getItem.call(this);
-				return {...ability, ignoreKlutz: true, onTakeItem: false};
+				return { ...ability, ignoreKlutz: true, onTakeItem: false };
 			},
 			hasItem(item) {
 				const ownItem = this.item;
@@ -2784,7 +2779,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				const item = this.getItem();
 				if (this.battle.runEvent('TakeItem', this, source, null, item)) {
 					this.item = '';
-					this.itemState = this.battle.initEffectState({id: '', target: this});
+					this.itemState = this.battle.initEffectState({ id: '', target: this });
 					this.pendingStaleness = undefined;
 					return item;
 				}
@@ -2814,7 +2809,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		],
 		battle: {
 			spreadModify(baseStats, set) {
-				const modStats: SparseStatsTable = {atk: 10, def: 10, spa: 10, spd: 10, spe: 10};
+				const modStats: SparseStatsTable = { atk: 10, def: 10, spa: 10, spd: 10, spe: 10 };
 				const tr = this.trunc;
 				const nature = this.dex.natures.get(set.nature);
 				let statName: keyof StatsTable;
@@ -2902,7 +2897,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			}
 			if (SpeciesAbilities.includes(set.ability)) return;
 			if (this.ruleTable.isRestricted(`ability:${this.toID(set.ability)}`)) {
-				return [`${set.name}'s ability ${set.ability} is restricted to native ability owners.`]
+				return [`${set.name}'s ability ${set.ability} is restricted to native ability owners.`];
 			}
 		},
 		onBegin() {
@@ -3431,20 +3426,16 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 	{
 		name: "[Gen 9] Inheritance",
 		desc: `Pok&eacute;mon may use the ability and moves of another, as long as they forfeit their own learnset.`,
-		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3712296/">Inheritance</a>`,
-		],
-
 		mod: 'gen9',
 		ruleset: ['Standard OMs', 'Ability Clause = 1', 'Sleep Moves Clause', 'Terastal Clause'],
 		banlist: [
-			'Arceus', 'Calyrex-Ice', 'Calyrex-Shadow', 'Chien-Pao', 'Cresselia', 'Deoxys-Base', 'Deoxys-Attack', 'Dialga', 'Dialga-Origin', 'Dondozo', 'Dragapult',
-			'Eternatus', 'Flutter Mane', 'Giratina', 'Giratina-Origin', 'Groudon', 'Hoopa-Unbound', 'Ho-Oh', 'Iron Bundle', 'Iron Valiant', 'Koraidon', 'Kyogre',
-			'Kyurem-Black', 'Kyurem-White', 'Lugia', 'Lunala', 'Magearna', 'Mewtwo', 'Miraidon', 'Necrozma-Dawn-Wings', 'Necrozma-Dusk-Mane', 'Palkia', 'Palkia-Origin',
-			'Pecharunt', 'Rayquaza', 'Regieleki', 'Regigigas', 'Reshiram', 'Sableye', 'Samurott-Hisui', 'Scream Tail', 'Shaymin-Sky', 'Slaking', 'Smeargle', 'Solgaleo',
-			'Spectrier', 'Urshifu-Base', 'Ursaluna-Base', 'Weavile', 'Zacian', 'Zacian-Crowned', 'Zamazenta', 'Zamazenta-Crowned', 'Zekrom', 'Arena Trap', 'Drizzle',
-			'Drought', 'Good as Gold', 'Huge Power', 'Imposter', 'Magic Bounce', 'Magnet Pull', 'Moody', 'Poison Heal', 'Pure Power', 'Shadow Tag', 'Speed Boost',
-			'Stakeout', 'Water Bubble', 'King\'s Rock', 'Razor Fang', 'Baton Pass', 'Fillet Away', 'Last Respects', 'Rage Fist', 'Shed Tail', 'Shell Smash',
+			'Arceus', 'Calyrex-Ice', 'Calyrex-Shadow', 'Chien-Pao', 'Cresselia', 'Deoxys-Normal', 'Deoxys-Attack', 'Dialga', 'Dialga-Origin', 'Dondozo', 'Dragapult', 'Eternatus',
+			'Flutter Mane', 'Giratina', 'Giratina-Origin', 'Groudon', 'Hoopa-Unbound', 'Ho-Oh', 'Iron Bundle', 'Iron Valiant', 'Koraidon', 'Kyogre', 'Kyurem', 'Kyurem-Black',
+			'Kyurem-White', 'Lugia', 'Lunala', 'Magearna', 'Mewtwo', 'Miraidon', 'Necrozma-Dawn-Wings', 'Necrozma-Dusk-Mane', 'Palkia', 'Palkia-Origin', 'Pecharunt', 'Rayquaza',
+			'Regieleki', 'Regigigas', 'Reshiram', 'Roaring Moon', 'Sableye', 'Scream Tail', 'Shaymin-Sky', 'Slaking', 'Smeargle', 'Solgaleo', 'Spectrier', 'Urshifu-Single-Strike',
+			'Ursaluna-Base', 'Weavile', 'Zacian', 'Zacian-Crowned', 'Zamazenta', 'Zamazenta-Crowned', 'Zekrom', 'Arena Trap', 'Drizzle', 'Drought', 'Good as Gold', 'Huge Power',
+			'Imposter', 'Magic Bounce', 'Magnet Pull', 'Moody', 'Neutralizing Gas', 'Poison Heal', 'Pure Power', 'Shadow Tag', 'Sheer Force', 'Speed Boost', 'Stakeout', 'Water Bubble',
+			'King\'s Rock', 'Razor Fang', 'Baton Pass', 'Ceaseless Edge', 'Fillet Away', 'Last Respects', 'Quiver Dance', 'Rage Fist', 'Shed Tail', 'Shell Smash',
 		],
 		getEvoFamily(speciesid) {
 			let species = Dex.species.get(speciesid);
@@ -3539,8 +3530,8 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		},
 		onValidateTeam(team, f, teamHas) {
 			if (this.ruleTable.has('abilityclause')) {
-				const abilityTable = new Map<string, number>();
-				const base: {[k: string]: string} = {
+				const abilityTable = new this.dex.Multiset<string>();
+				const base: { [k: string]: string } = {
 					airlock: 'cloudnine',
 					armortail: 'queenlymajesty',
 					battlearmor: 'shellarmor',
@@ -3565,13 +3556,13 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 					let ability = this.toID(set.ability.split('0')[0]);
 					if (!ability) continue;
 					if (ability in base) ability = base[ability] as ID;
-					if ((abilityTable.get(ability) || 0) >= num) {
+					if (abilityTable.get(ability) >= num) {
 						return [
 							`You are limited to ${num} of each ability by ${num} Ability Clause.`,
 							`(You have more than ${num} ${this.dex.abilities.get(ability).name} variants)`,
 						];
 					}
-					abilityTable.set(ability, (abilityTable.get(ability) || 0) + 1);
+					abilityTable.add(ability);
 				}
 			}
 
@@ -3609,8 +3600,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				if (pokemon.pokeball.includes('0')) {
 					const donor = pokemon.pokeball.split('0')[1];
 					pokemon.m.donor = this.toID(donor);
-					// @ts-ignore
-					pokemon.pokeball = this.toID(pokemon.pokeball.split('0')[0]);
+					(pokemon as any).pokeball = this.toID(pokemon.pokeball.split('0')[0]);
 				}
 			}
 		},
@@ -3730,7 +3720,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		onValidateTeam(team, f, teamHas) {
 			if (this.ruleTable.has('abilityclause')) {
 				const abilityTable = new Map<string, number>();
-				const base: {[k: string]: string} = {
+				const base: { [k: string]: string } = {
 					airlock: 'cloudnine',
 					armortail: 'queenlymajesty',
 					battlearmor: 'shellarmor',
@@ -3799,8 +3789,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				if (pokemon.pokeball.includes('0')) {
 					const donor = pokemon.pokeball.split('0')[1];
 					pokemon.m.donor = this.toID(donor);
-					// @ts-ignore
-					pokemon.pokeball = this.toID(pokemon.pokeball.split('0')[0]);
+					(pokemon as any).pokeball = this.toID(pokemon.pokeball.split('0')[0]);
 				}
 			}
 		},
@@ -3864,7 +3853,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		],
 
 		mod: 'gen9nationaldexag',
-		ruleset: ['Standard AG', 'NatDex Mod',],
+		ruleset: ['Standard AG', 'NatDex Mod'],
 	},
 	{
 		name: "[Gen 9] National Dynamax AG",
@@ -3969,7 +3958,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			const typesSet = new Set(species.types);
 			const bonusType = this.dex.types.get(target.set.name);
 			if (bonusType.exists) typesSet.add(bonusType.name);
-			return {...species, types: [...typesSet]};
+			return { ...species, types: [...typesSet] };
 		},
 		onSwitchIn(pokemon) {
 			this.add('-start', pokemon, 'typechange', (pokemon.illusion || pokemon).getTypes(true).join('/'), '[silent]');
@@ -4040,21 +4029,17 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 	{
 		name: "[Gen 9] Convergence",
 		desc: `Allows all Pok&eacute;mon that have identical types to share moves and abilities.`,
-		threads: [
-			`&bullet; <a href="https://www.smogon.com/forums/threads/3714048/">Convergence</a>`,
-		],
-
 		mod: 'gen9',
 		ruleset: ['Standard OMs', 'Sleep Clause Mod', 'Convergence Legality', 'Terastal Clause', '!Obtainable Abilities'],
 		banlist: [
-			'Arceus', 'Calyrex-Ice', 'Calyrex-Shadow', 'Chi-Yu', 'Chien-Pao', 'Darkrai', 'Deoxys-Base', 'Deoxys-Attack', 'Deoxys-Speed', 'Dialga', 'Dialga-Origin',
-			'Dondozo', 'Eternatus', 'Flutter Mane', 'Giratina', 'Giratina-Origin', 'Groudon', 'Ho-oh', 'Inteleon', 'Iron Bundle', 'Iron Hands', 'Koraidon',
-			'Kyogre', 'Kyurem-Black', 'Kyurem-White', 'Landorus-Base', 'Lilligant-Hisui', 'Lugia', 'Lunala', 'Magearna', 'Manaphy', 'Mewtwo', 'Miraidon',
-			'Necrozma-Dawn-Wings', 'Necrozma-Dusk-Mane', 'Ogerpon-Hearthflame', 'Palafin', 'Palkia', 'Palkia-Origin', 'Rayquaza', 'Regieleki', 'Regigigas',
-			'Reshiram', 'Shaymin-Sky', 'Solgaleo', 'Slaking', 'Smeargle', 'Spectrier', 'Urshifu-Base', 'Urshifu-Rapid-Strike', 'Walking Wake', 'Zacian',
-			'Zacian-Crowned', 'Zamazenta', 'Zamazenta-Crowned', 'Zekrom', 'Arena Trap', 'Comatose', 'Contrary', 'Drizzle', 'Imposter', 'Moody', 'Pure Power',
-			'Shadow Tag', 'Speed Boost', 'Heat Rock', 'King\'s Rock', 'Light Clay', 'Razor Fang', 'Baton Pass', 'Extreme Speed', 'Last Respects', 'Population Bomb',
-			'Quiver Dance', 'Rage Fist', 'Shed Tail', 'Shell Smash', 'Spore', 'Transform',
+			'Arceus', 'Calyrex-Ice', 'Calyrex-Shadow', 'Chi-Yu', 'Chien-Pao', 'Darkrai', 'Deoxys-Normal', 'Deoxys-Attack', 'Deoxys-Speed', 'Dialga', 'Dialga-Origin',
+			'Dondozo', 'Eternatus', 'Flutter Mane', 'Giratina', 'Giratina-Origin', 'Groudon', 'Ho-oh', 'Inteleon', 'Iron Bundle', 'Iron Hands', 'Koraidon', 'Kyogre',
+			'Kyurem-Black', 'Kyurem-White', 'Landorus-Incarnate', 'Lilligant-Hisui', 'Lugia', 'Lunala', 'Magearna', 'Manaphy', 'Mewtwo', 'Miraidon', 'Necrozma-Dawn-Wings',
+			'Necrozma-Dusk-Mane', 'Ogerpon-Hearthflame', 'Palafin', 'Palkia', 'Palkia-Origin', 'Primarina', 'Rayquaza', 'Regieleki', 'Regigigas', 'Reshiram', 'Shaymin-Sky',
+			'Solgaleo', 'Slaking', 'Smeargle', 'Spectrier', 'Urshifu-Single-Strike', 'Urshifu-Rapid-Strike', 'Walking Wake', 'Zacian', 'Zacian-Crowned', 'Zamazenta',
+			'Zamazenta-Crowned', 'Zekrom', 'Arena Trap', 'Comatose', 'Contrary', 'Drizzle', 'Imposter', 'Moody', 'Pure Power', 'Shadow Tag', 'Speed Boost', 'Unburden',
+			'Heat Rock', 'King\'s Rock', 'Light Clay', 'Razor Fang', 'Baton Pass', 'Boomburst', 'Extreme Speed', 'Last Respects', 'Population Bomb', 'Quiver Dance',
+			'Rage Fist', 'Shed Tail', 'Shell Smash', 'Spore', 'Transform',
 		],
 	},
 	{
@@ -4088,29 +4073,26 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			}
 		},
 		checkCanLearn(move, species, lsetData, set) {
-			// @ts-ignore
-			if (!set.sp?.exists || !set.crossSpecies?.exists) {
+			if (!(set as any).sp?.exists || !(set as any).crossSpecies?.exists) {
 				return this.checkCanLearn(move, species, lsetData, set);
 			}
-			// @ts-ignore
-			const problem = this.checkCanLearn(move, set.sp);
+			const problem = this.checkCanLearn(move, (set as any).sp);
 			if (!problem) return null;
-			// @ts-ignore
-			if (this.checkCanLearn(move, set.crossSpecies)) return problem;
+			if (this.checkCanLearn(move, (set as any).crossSpecies)) return problem;
 			return null;
 		},
 		validateSet(set, teamHas) {
 			const crossSpecies = this.dex.species.get(set.name);
 			let problems = this.dex.formats.get('Obtainable Misc').onChangeSet?.call(this, set, this.format) || null;
 			if (Array.isArray(problems) && problems.length) return problems;
-			const crossNonstandard = (!this.ruleTable.has('standardnatdex') && crossSpecies.isNonstandard === 'Past') ||
+			const crossNonstandard = (!this.ruleTable.has('natdexmod') && crossSpecies.isNonstandard === 'Past') ||
 				crossSpecies.isNonstandard === 'Future';
 			const crossIsCap = !this.ruleTable.has('+pokemontag:cap') && crossSpecies.isNonstandard === 'CAP';
 			if (!crossSpecies.exists || crossNonstandard || crossIsCap) return this.validateSet(set, teamHas);
 			const species = this.dex.species.get(set.species);
 			const check = this.checkSpecies(set, species, species, {});
 			if (check) return [check];
-			const nonstandard = !this.ruleTable.has('standardnatdex') && species.isNonstandard === 'Past';
+			const nonstandard = !this.ruleTable.has('natdexmod') && species.isNonstandard === 'Past';
 			const isCap = !this.ruleTable.has('+pokemontag:cap') && species.isNonstandard === 'CAP';
 			if (!species.exists || nonstandard || isCap || species === crossSpecies) return this.validateSet(set, teamHas);
 			if (!species.nfe) return [`${species.name} cannot cross evolve because it doesn't evolve.`];
@@ -4139,10 +4121,8 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				set.species = crossSpecies.name;
 			}
 
-			// @ts-ignore
-			set.sp = species;
-			// @ts-ignore
-			set.crossSpecies = crossSpecies;
+			(set as any).sp = species;
+			(set as any).crossSpecies = crossSpecies;
 			problems = this.validateSet(set, teamHas);
 			set.name = crossSpecies.name;
 			set.species = species.name;
@@ -4163,7 +4143,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 
 			const mixedSpecies = this.dex.deepClone(species);
 			mixedSpecies.weightkg =
-				Math.max(0.1, +(species.weightkg + crossSpecies.weightkg - crossPrevoSpecies.weightkg)).toFixed(1);
+				Math.max(0.1, species.weightkg + crossSpecies.weightkg - crossPrevoSpecies.weightkg).toFixed(1);
 			mixedSpecies.nfe = false;
 			mixedSpecies.evos = [];
 			mixedSpecies.eggGroups = crossSpecies.eggGroups;
@@ -4273,7 +4253,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			'Sand Veil', 'Snow Cloak', 'King\'s Rock', 'Razor Fang', 'Baton Pass', 'Dire Claw', 'Last Respects', 'Shed Tail',
 		],
 		restricted: [
-			'Beat Up', 'Belly Drum', 'Clangorous Soul', 'Dragon Dance', 'Endeavor', 'Quiver Dance', 'Shell Smash', 'Shift Gear', 'Tail Glow', 'Tidy Up', 'Victory Dance',
+			'Belly Drum', 'Clangorous Soul', 'Dragon Dance', 'Endeavor', 'Quiver Dance', 'Shell Smash', 'Shift Gear', 'Tail Glow', 'Tidy Up', 'Victory Dance',
 		],
 		onValidateSet(set) {
 			const fsMove = this.dex.moves.get(set.moves[0]);
@@ -4293,11 +4273,12 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 					const moveData = this.dex.getActiveMove(move.id);
 					moveData.flags['futuremove'] = 1;
 					delete moveData.flags['protect'];
+					if (moveData.id === 'beatup') this.singleEvent('ModifyMove', moveData, null, pokemon, null, null, moveData);
 					Object.assign(t.side.slotConditions[t.position]['futuremove'], {
 						duration: 3,
 						move: moveData.id,
-						source: source,
-						moveData: moveData,
+						source,
+						moveData,
 					});
 					this.add('-message', `${source.name} foresaw an attack!`);
 					return this.NOT_FAIL;
@@ -4363,10 +4344,12 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				move.secondaries?.some(secondary => secondary.boosts?.accuracy && secondary.boosts?.accuracy < 0);
 			const flinchMove = move.secondaries?.some(secondary => secondary.volatileStatus === 'flinch');
 			const freezeMove = move.secondaries?.some(secondary => secondary.status === 'frz') || move.id === 'triattack';
-			if (this.ruleTable.isRestricted(`move:${move.id}`) ||
+			if (
+				this.ruleTable.isRestricted(`move:${move.id}`) ||
 				((accuracyLoweringMove || move.ohko || move.multihit || move.id === 'beatup' || move.flags['charge'] ||
 					move.priority > 0 || move.damageCallback || flinchMove || freezeMove) &&
-				!this.ruleTable.has(`+move:${move.id}`))) {
+					!this.ruleTable.has(`+move:${move.id}`))
+			) {
 				problems.push(`The move ${move.name} can't be used as an item.`);
 			}
 			return problems.length ? problems : null;
@@ -4384,7 +4367,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		onModifyMove(move, pokemon, target) {
 			const forte: ActiveMove = pokemon.m.forte;
 			if (move.category !== 'Status' && forte) {
-				move.flags = {...move.flags, ...forte.flags};
+				move.flags = { ...move.flags, ...forte.flags };
 				if (forte.self) {
 					if (forte.self.onHit && move.self?.onHit) {
 						for (const i in forte.self) {
@@ -4392,11 +4375,11 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 							(move.self as any)[i] = (forte.self as any)[i];
 						}
 					} else {
-						move.self = {...(move.self || {}), ...forte.self};
+						move.self = { ...(move.self || {}), ...forte.self };
 					}
 				}
 				if (forte.selfBoost?.boosts) {
-					if (!move.selfBoost?.boosts) move.selfBoost = {boosts: {}};
+					if (!move.selfBoost?.boosts) move.selfBoost = { boosts: {} };
 					let boostid: BoostID;
 					for (boostid in forte.selfBoost.boosts) {
 						if (!move.selfBoost.boosts![boostid]) move.selfBoost.boosts![boostid] = 0;
@@ -4608,7 +4591,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		onValidateTeam(team) {
 			if (!this.ruleTable.has('abilityclause')) return;
 			const abilityTable = new Map<string, number>();
-			const base: {[k: string]: string} = {
+			const base: { [k: string]: string } = {
 				airlock: 'cloudnine',
 				battlearmor: 'shellarmor',
 				clearbody: 'whitesmoke',
@@ -4629,7 +4612,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			const num = parseInt(this.ruleTable.valueRules.get('abilityclause')!);
 			const abilities: [string, string][] = [];
 			for (const set of team) {
-				abilities.push([set.ability, set.item].map((abil) => {
+				abilities.push([set.ability, set.item].map(abil => {
 					const id = this.toID(abil);
 					return base[id] || id;
 				}) as [string, string]);
@@ -4677,7 +4660,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			getItem() {
 				const ability = this.battle.dex.abilities.get(this.item);
 				if (!ability.exists) return Object.getPrototypeOf(this).getItem.call(this);
-				return {...ability, ignoreKlutz: true, onTakeItem: false};
+				return { ...ability, ignoreKlutz: true, onTakeItem: false };
 			},
 			hasItem(item) {
 				const ownItem = this.item;
@@ -4738,7 +4721,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				const item = this.getItem();
 				if (this.battle.runEvent('TakeItem', this, source, null, item)) {
 					this.item = '';
-					this.itemState = this.battle.initEffectState({id: '', target: this});
+					this.itemState = this.battle.initEffectState({ id: '', target: this });
 					this.pendingStaleness = undefined;
 					return item;
 				}
@@ -4766,7 +4749,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		],
 		battle: {
 			spreadModify(baseStats, set) {
-				const modStats: SparseStatsTable = {atk: 10, def: 10, spa: 10, spd: 10, spe: 10};
+				const modStats: SparseStatsTable = { atk: 10, def: 10, spa: 10, spd: 10, spe: 10 };
 				const tr = this.trunc;
 				const nature = this.dex.natures.get(set.nature);
 				let statName: keyof StatsTable;
@@ -4902,7 +4885,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		onValidateTeam(team, f, teamHas) {
 			if (this.ruleTable.has('abilityclause')) {
 				const abilityTable = new Map<string, number>();
-				const base: {[k: string]: string} = {
+				const base: { [k: string]: string } = {
 					airlock: 'cloudnine',
 					armortail: 'queenlymajesty',
 					battlearmor: 'shellarmor',
@@ -5106,28 +5089,34 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 					problems.push(`${set.name} has ${set.moves.length} moves, which is more than the limit of ${this.ruleTable.maxMoveCount}.`);
 					return problems;
 				}
-				for (const [i, moveid] of set.moves.entries()) {
+				const originalMoves = [...set.moves];
+				set.moves = [];
+				for (const moveid of originalMoves) {
 					const pokemove = this.dex.species.get(moveid);
-					if (!pokemove.exists) continue;
+					if (!pokemove.exists) {
+						set.moves.push(moveid);
+						continue;
+					}
 					if (pokemove.isNonstandard &&
 						!(this.ruleTable.has(`+pokemontag:${this.toID(pokemove.isNonstandard)}`) ||
 							this.ruleTable.has(`+pokemon:${pokemove.id}`) ||
 							this.ruleTable.has(`+basepokemon:${this.toID(pokemove.baseSpecies)}`))) {
 						problems.push(`${pokemove.isNonstandard} Pok\u00e9mon are not allowed to be used as Pokemoves.`);
+						continue;
 					}
 					if (this.ruleTable.isRestrictedSpecies(pokemove) || this.ruleTable.isBannedSpecies(pokemove)) {
 						problems.push(`${pokemove.name} is unable to be used as a Pokemove.`);
+						continue;
 					}
 					pokemoves++;
 					moves.push(moveid);
-					set.moves.splice(i, 1);
 				}
 			}
-			const allowedPokemoves = this.ruleTable.valueRules.get('allowedpokemoves') || 1;
-			if (pokemoves > Number(allowedPokemoves)) {
+			const allowedPokemoves = Number(this.ruleTable.valueRules.get('allowedpokemoves') || '1');
+			if (pokemoves > allowedPokemoves) {
 				problems.push(
 					`${set.species} has ${pokemoves} Pokemoves.`,
-					`(Pok\u00e9mon can only have ${allowedPokemoves} Pokemove${allowedPokemoves + '' === '1' ? '' : 's'} each.)`
+					`(Pok\u00e9mon can only have ${allowedPokemoves} Pokemove${allowedPokemoves === 1 ? '' : 's'} each.)`
 				);
 			}
 			if (this.validateSet(set, teamHas)) {
@@ -5138,10 +5127,11 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		},
 		onBegin() {
 			for (const pokemon of this.getAllPokemon()) {
+				pokemon.m.pokemoves = [];
 				for (const move of pokemon.moves) {
 					const pokemove = this.dex.species.get(move);
 					if (pokemove.exists) {
-						pokemon.m.pokemove = pokemove;
+						pokemon.m.pokemoves.push(pokemove);
 						const idx = pokemon.moveSlots.findIndex(x => x.id === pokemove.id);
 						if (idx >= 0) {
 							pokemon.moveSlots[idx] = pokemon.baseMoveSlots[idx] = {
@@ -5160,11 +5150,10 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			}
 		},
 		onSwitchIn(pokemon) {
-			if (!pokemon.m.pokemove) return;
-			const pokemove = pokemon.m.pokemove;
-			if (!pokemove.exists) return;
-			// Place volatiles on the Pokémon to show the pokemove.
-			this.add('-start', pokemon, pokemove.name, '[silent]');
+			if (!pokemon.m.pokemoves?.length) return;
+			for (const pokemove of pokemon.m.pokemoves) {
+				this.add('-start', pokemon, pokemove.name, '[silent]');
+			}
 		},
 		onModifyMovePriority: 999,
 		onModifyMove(move, pokemon, target) {
@@ -5175,8 +5164,21 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				move.accuracy = 100;
 				move.flags = {};
 				move.flags['protect'] = 1;
-				move.category = species.baseStats['spa'] >= species.baseStats['atk'] ? 'Special' : 'Physical';
+				move.category = species.baseStats['spa'] > species.baseStats['atk'] ? 'Special' :
+					species.baseStats['spa'] < species.baseStats['atk'] ? 'Physical' :
+					pokemon.getStat('atk', false, true) > pokemon.getStat('spa', false, true) ? 'Physical' :
+					'Special';
 				move.onAfterHit = function (t, s, m) {
+					if (s.getAbility().name === species.abilities['0']) return;
+					const effect = 'ability:' + this.toID(species.abilities['0']);
+					if (s.volatiles[effect]) return;
+					s.addVolatile(effect);
+					if (s.volatiles[effect]) {
+						(s.volatiles[effect] as any).id = this.toID(effect);
+						(s.volatiles[effect] as any).target = s;
+					}
+				};
+				move.onAfterSubDamage = function (d, t, s, m) {
 					if (s.getAbility().name === species.abilities['0']) return;
 					const effect = 'ability:' + this.toID(species.abilities['0']);
 					if (s.volatiles[effect]) return;
@@ -5229,7 +5231,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		mod: 'gen9',
 		ruleset: ['Standard OMs', 'Regi Cup Mod', 'Sleep Moves Clause'],
 		banlist: [
-			'AG', 'Arena Trap', 'Moody', 'Sand Veil', 'Shadow Tag', 'Snow Cloak', 'King\'s Rock', 'Razor Fang', 'Baton Pass', 'Last Respects', 'Shed Tail'
+			'AG', 'Arena Trap', 'Moody', 'Sand Veil', 'Shadow Tag', 'Snow Cloak', 'King\'s Rock', 'Razor Fang', 'Baton Pass', 'Last Respects', 'Shed Tail',
 		],
 	},
 	{
@@ -5396,7 +5398,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 						move.category = 'Physical';
 					}
 					if (teraType === "Stellar") {
-						move.self = {boosts: {atk: -1, spa: -1}};
+						move.self = { boosts: { atk: -1, spa: -1 } };
 					}
 				}
 			}
@@ -5425,7 +5427,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				if (move.spreadHit) {
 					// multi-target modifier (doubles only)
 					const spreadModifier = move.spreadModifier || (this.battle.gameType === 'freeforall' ? 0.5 : 0.75);
-					this.battle.debug('Spread modifier: ' + spreadModifier);
+					this.battle.debug(`Spread modifier: ${spreadModifier}`);
 					baseDamage = this.battle.modify(baseDamage, spreadModifier);
 				} else if (move.multihitType === 'parentalbond' && move.hit > 1) {
 					// Parental Bond modifier
@@ -5869,8 +5871,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			}
 		},
 		onSwitchIn(pokemon) {
-			// @ts-ignore
-			const oMegaSpecies = this.dex.species.get(pokemon.species.originalMega);
+			const oMegaSpecies = this.dex.species.get((pokemon.species as any).originalMega);
 			if (oMegaSpecies.exists && pokemon.m.originalSpecies !== oMegaSpecies.baseSpecies) {
 				this.add('-start', pokemon, oMegaSpecies.requiredItem || oMegaSpecies.requiredMove, '[silent]');
 				const oSpecies = this.dex.species.get(pokemon.m.originalSpecies);
@@ -5880,8 +5881,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			}
 		},
 		onSwitchOut(pokemon) {
-			// @ts-ignore
-			const oMegaSpecies = this.dex.species.get(pokemon.species.originalMega);
+			const oMegaSpecies = this.dex.species.get((pokemon.species as any).originalMega);
 			if (oMegaSpecies.exists && pokemon.m.originalSpecies !== oMegaSpecies.baseSpecies) {
 				this.add('-start', pokemon, oMegaSpecies.requiredItem || oMegaSpecies.requiredMove, '[silent]');
 			}
@@ -5999,7 +5999,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		ruleset: ['HP Percentage Mod', 'Cancel Mod', 'Desync Clause Mod', 'Sleep Clause Mod', 'Freeze Clause Mod', 'Team Type Preview'],
 		onModifySpecies(species, target, source, effect) {
 			if (!target) return;
-			return {...species, ...(target.set as any).hc};
+			return { ...species, ...(target.set as any).hc };
 		},
 		onSwitchIn(pokemon) {
 			this.add('-start', pokemon, 'typechange', pokemon.getTypes(true).join('/'), '[silent]');
@@ -6023,7 +6023,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		mod: 'gen9',
 		searchShow: false,
 		debug: true,
-		battle: {trunc: Math.trunc},
+		battle: { trunc: Math.trunc },
 		// no restrictions, for serious (other than team preview)
 		ruleset: ['Team Preview', 'Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
 	},
@@ -6033,7 +6033,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		mod: 'gen9',
 		gameType: 'doubles',
 		searchShow: false,
-		battle: {trunc: Math.trunc},
+		battle: { trunc: Math.trunc },
 		debug: true,
 		// no restrictions, for serious (other than team preview)
 		ruleset: ['Team Preview', 'Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
@@ -6044,7 +6044,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		mod: 'gen8',
 		searchShow: false,
 		debug: true,
-		battle: {trunc: Math.trunc},
+		battle: { trunc: Math.trunc },
 		// no restrictions, for serious (other than team preview)
 		ruleset: ['Team Preview', 'Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
 	},
@@ -6054,7 +6054,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		mod: 'gen8',
 		gameType: 'doubles',
 		searchShow: false,
-		battle: {trunc: Math.trunc},
+		battle: { trunc: Math.trunc },
 		debug: true,
 		// no restrictions, for serious (other than team preview)
 		ruleset: ['Team Preview', 'Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
@@ -6065,7 +6065,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		mod: 'gen7',
 		searchShow: false,
 		debug: true,
-		battle: {trunc: Math.trunc},
+		battle: { trunc: Math.trunc },
 		// no restrictions, for serious (other than team preview)
 		ruleset: ['Team Preview', 'Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
 	},
@@ -6075,7 +6075,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		mod: 'gen7',
 		gameType: 'doubles',
 		searchShow: false,
-		battle: {trunc: Math.trunc},
+		battle: { trunc: Math.trunc },
 		debug: true,
 		// no restrictions, for serious (other than team preview)
 		ruleset: ['Team Preview', 'Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
@@ -6086,7 +6086,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		mod: 'gen6',
 		searchShow: false,
 		debug: true,
-		battle: {trunc: Math.trunc},
+		battle: { trunc: Math.trunc },
 		// no restrictions, for serious (other than team preview)
 		ruleset: ['Team Preview', 'Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
 	},
@@ -6096,7 +6096,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		mod: 'gen6',
 		gameType: 'doubles',
 		searchShow: false,
-		battle: {trunc: Math.trunc},
+		battle: { trunc: Math.trunc },
 		debug: true,
 		// no restrictions, for serious (other than team preview)
 		ruleset: ['Team Preview', 'Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
@@ -6107,7 +6107,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		mod: 'gen6',
 		gameType: 'triples',
 		searchShow: false,
-		battle: {trunc: Math.trunc},
+		battle: { trunc: Math.trunc },
 		debug: true,
 		// no restrictions, for serious (other than team preview)
 		ruleset: ['Team Preview', 'Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
@@ -6118,7 +6118,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		mod: 'gen5',
 		searchShow: false,
 		debug: true,
-		battle: {trunc: Math.trunc},
+		battle: { trunc: Math.trunc },
 		// no restrictions, for serious (other than team preview)
 		ruleset: ['Team Preview', 'Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
 	},
@@ -6129,7 +6129,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		gameType: 'doubles',
 		searchShow: false,
 		debug: true,
-		battle: {trunc: Math.trunc},
+		battle: { trunc: Math.trunc },
 		// no restrictions, for serious (other than team preview)
 		ruleset: ['Team Preview', 'Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
 	},
@@ -6140,7 +6140,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		gameType: 'triples',
 		searchShow: false,
 		debug: true,
-		battle: {trunc: Math.trunc},
+		battle: { trunc: Math.trunc },
 		// no restrictions, for serious (other than team preview)
 		ruleset: ['Team Preview', 'Cancel Mod'],
 	},
@@ -6150,7 +6150,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		mod: 'gen4',
 		searchShow: false,
 		debug: true,
-		battle: {trunc: Math.trunc},
+		battle: { trunc: Math.trunc },
 		// no restrictions
 		ruleset: ['Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
 	},
@@ -6161,7 +6161,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		gameType: 'doubles',
 		searchShow: false,
 		debug: true,
-		battle: {trunc: Math.trunc},
+		battle: { trunc: Math.trunc },
 		// no restrictions
 		ruleset: ['Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
 	},
@@ -6171,7 +6171,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		mod: 'gen3',
 		searchShow: false,
 		debug: true,
-		battle: {trunc: Math.trunc},
+		battle: { trunc: Math.trunc },
 		ruleset: ['HP Percentage Mod', 'Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
 	},
 	{
@@ -6181,6 +6181,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		gameType: 'doubles',
 		searchShow: false,
 		debug: true,
+		battle: { trunc: Math.trunc },
 		ruleset: ['HP Percentage Mod', 'Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
 	},
 	{
@@ -6189,7 +6190,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		mod: 'gen2',
 		searchShow: false,
 		debug: true,
-		battle: {trunc: Math.trunc},
+		battle: { trunc: Math.trunc },
 		ruleset: ['HP Percentage Mod', 'Cancel Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
 	},
 	{
@@ -6198,7 +6199,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		mod: 'gen1',
 		searchShow: false,
 		debug: true,
-		battle: {trunc: Math.trunc},
+		battle: { trunc: Math.trunc },
 		ruleset: ['HP Percentage Mod', 'Cancel Mod', 'Desync Clause Mod', 'Max Team Size = 24', 'Max Move Count = 24', 'Max Level = 9999', 'Default Level = 100'],
 	},
 
