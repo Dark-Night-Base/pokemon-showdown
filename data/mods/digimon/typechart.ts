@@ -23,8 +23,8 @@ export const TypeChart: import('../../../sim/dex-data').ModdedTypeDataTable = {
 			Data: 0,
 			Virus: 0,
 		},
-		HPivs: {atk: 30, def: 30, spd: 30},
-		HPdvs: {atk: 13, def: 13},
+		HPivs: { atk: 30, def: 30, spd: 30 },
+		HPdvs: { atk: 13, def: 13 },
 	},
 	dark: {
 		damageTaken: {
@@ -77,8 +77,8 @@ export const TypeChart: import('../../../sim/dex-data').ModdedTypeDataTable = {
 			Data: 0,
 			Virus: 0,
 		},
-		HPivs: {atk: 30},
-		HPdvs: {def: 14},
+		HPivs: { atk: 30 },
+		HPdvs: { def: 14 },
 	},
 	electric: {
 		damageTaken: {
@@ -105,8 +105,8 @@ export const TypeChart: import('../../../sim/dex-data').ModdedTypeDataTable = {
 			Data: 0,
 			Virus: 0,
 		},
-		HPivs: {spa: 30},
-		HPdvs: {atk: 14},
+		HPivs: { spa: 30 },
+		HPdvs: { atk: 14 },
 	},
 	fighting: {
 		damageTaken: {
@@ -132,8 +132,8 @@ export const TypeChart: import('../../../sim/dex-data').ModdedTypeDataTable = {
 			Data: 0,
 			Virus: 0,
 		},
-		HPivs: {def: 30, spa: 30, spd: 30, spe: 30},
-		HPdvs: {atk: 12, def: 12},
+		HPivs: { def: 30, spa: 30, spd: 30, spe: 30 },
+		HPdvs: { atk: 12, def: 12 },
 	},
 	fire: {
 		damageTaken: {
@@ -160,8 +160,8 @@ export const TypeChart: import('../../../sim/dex-data').ModdedTypeDataTable = {
 			Data: 0,
 			Virus: 0,
 		},
-		HPivs: {atk: 30, spa: 30, spe: 30},
-		HPdvs: {atk: 14, def: 12},
+		HPivs: { atk: 30, spa: 30, spe: 30 },
+		HPdvs: { atk: 14, def: 12 },
 	},
 	flying: {
 		damageTaken: {
@@ -187,8 +187,8 @@ export const TypeChart: import('../../../sim/dex-data').ModdedTypeDataTable = {
 			Data: 0,
 			Virus: 0,
 		},
-		HPivs: {hp: 30, atk: 30, def: 30, spa: 30, spd: 30},
-		HPdvs: {atk: 12, def: 13},
+		HPivs: { hp: 30, atk: 30, def: 30, spa: 30, spd: 30 },
+		HPdvs: { atk: 12, def: 13 },
 	},
 	ghost: {
 		damageTaken: {
@@ -215,8 +215,8 @@ export const TypeChart: import('../../../sim/dex-data').ModdedTypeDataTable = {
 			Data: 0,
 			Virus: 0,
 		},
-		HPivs: {def: 30, spd: 30},
-		HPdvs: {atk: 13, def: 14},
+		HPivs: { def: 30, spd: 30 },
+		HPdvs: { atk: 13, def: 14 },
 	},
 	grass: {
 		damageTaken: {
@@ -243,8 +243,8 @@ export const TypeChart: import('../../../sim/dex-data').ModdedTypeDataTable = {
 			Data: 0,
 			Virus: 0,
 		},
-		HPivs: {atk: 30, spa: 30},
-		HPdvs: {atk: 14, def: 14},
+		HPivs: { atk: 30, spa: 30 },
+		HPdvs: { atk: 14, def: 14 },
 	},
 	ground: {
 		damageTaken: {
@@ -271,8 +271,8 @@ export const TypeChart: import('../../../sim/dex-data').ModdedTypeDataTable = {
 			Data: 0,
 			Virus: 0,
 		},
-		HPivs: {spa: 30, spd: 30},
-		HPdvs: {atk: 12},
+		HPivs: { spa: 30, spd: 30 },
+		HPdvs: { atk: 12 },
 	},
 	ice: {
 		damageTaken: {
@@ -300,8 +300,8 @@ export const TypeChart: import('../../../sim/dex-data').ModdedTypeDataTable = {
 			Data: 0,
 			Virus: 0,
 		},
-		HPivs: {atk: 30, def: 30},
-		HPdvs: {def: 13},
+		HPivs: { atk: 30, def: 30 },
+		HPdvs: { def: 13 },
 	},
 	light: {
 		damageTaken: {
@@ -379,8 +379,8 @@ export const TypeChart: import('../../../sim/dex-data').ModdedTypeDataTable = {
 			Data: 0,
 			Virus: 0,
 		},
-		HPivs: {def: 30, spa: 30, spd: 30},
-		HPdvs: {atk: 12, def: 14},
+		HPivs: { def: 30, spa: 30, spd: 30 },
+		HPdvs: { atk: 12, def: 14 },
 	},
 	psychic: {
 		damageTaken: {
@@ -406,8 +406,8 @@ export const TypeChart: import('../../../sim/dex-data').ModdedTypeDataTable = {
 			Data: 0,
 			Virus: 0,
 		},
-		HPivs: {atk: 30, spe: 30},
-		HPdvs: {def: 12},
+		HPivs: { atk: 30, spe: 30 },
+		HPdvs: { def: 12 },
 	},
 	rock: {
 		damageTaken: {
@@ -434,8 +434,8 @@ export const TypeChart: import('../../../sim/dex-data').ModdedTypeDataTable = {
 			Data: 0,
 			Virus: 0,
 		},
-		HPivs: {def: 30, spd: 30, spe: 30},
-		HPdvs: {atk: 13, def: 12},
+		HPivs: { def: 30, spd: 30, spe: 30 },
+		HPdvs: { atk: 13, def: 12 },
 	},
 	steel: {
 		damageTaken: {
@@ -464,8 +464,8 @@ export const TypeChart: import('../../../sim/dex-data').ModdedTypeDataTable = {
 			Data: 0,
 			Virus: 0,
 		},
-		HPivs: {spd: 30},
-		HPdvs: {atk: 13},
+		HPivs: { spd: 30 },
+		HPdvs: { atk: 13 },
 	},
 	water: {
 		damageTaken: {
@@ -491,8 +491,8 @@ export const TypeChart: import('../../../sim/dex-data').ModdedTypeDataTable = {
 			Data: 0,
 			Virus: 0,
 		},
-		HPivs: {atk: 30, def: 30, spa: 30},
-		HPdvs: {atk: 14, def: 13},
+		HPivs: { atk: 30, def: 30, spa: 30 },
+		HPdvs: { atk: 14, def: 13 },
 	},
 	vaccine: {
 		damageTaken: {

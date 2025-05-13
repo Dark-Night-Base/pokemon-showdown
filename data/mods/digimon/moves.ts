@@ -56,7 +56,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Radiant Terrain",
 		pp: 10,
 		priority: 0,
-		flags: {nonsky: 1},
+		flags: { nonsky: 1 },
 		terrain: 'radiantterrain',
 		condition: {
 			duration: 5,
@@ -89,7 +89,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 			},
 			onFieldStart(field, source, effect) {
 				if (effect?.effectType === 'Ability') {
-					this.add('-fieldstart', 'move: Radiant Terrain', '[from] ability: ' + effect.name, '[of] ' + source);
+					this.add('-fieldstart', 'move: Radiant Terrain', '[from] ability: ' + effect.name, `[of] ${source}`);
 				} else {
 					this.add('-fieldstart', 'move: Radiant Terrain');
 				}
@@ -119,7 +119,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Grey Sword",
 		pp: 5,
 		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1, slicing: 1},
+		flags: { contact: 1, protect: 1, mirror: 1, slicing: 1 },
 		ignoreEvasion: true,
 		ignoreDefensive: true,
 		secondary: null,
@@ -134,7 +134,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Garuru Cannon",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		target: "allAdjacentFoes",
 		type: "Ice",
 	},
@@ -146,7 +146,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "All Delete",
 		pp: 5,
 		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1, slicing: 1},
+		flags: { contact: 1, protect: 1, mirror: 1, slicing: 1 },
 		onTry(source) {
 			if (source.species.name === 'Omegamon-X') {
 				return;
@@ -210,13 +210,13 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 					}
 				}
 				if (this.checkMoveMakesContact(move, source, target)) {
-					this.boost({atk: +1}, target, target, this.dex.getActiveMove("Brave Shield"));
+					this.boost({ atk: +1 }, target, target, this.dex.getActiveMove("Brave Shield"));
 				}
 				return this.NOT_FAIL;
 			},
 			onHit(target, source, move) {
 				if (move.isZOrMaxPowered && this.checkMoveMakesContact(move, source, target)) {
-					this.boost({atk: +1}, target, target, this.dex.getActiveMove("Brave Shield"));
+					this.boost({ atk: +1 }, target, target, this.dex.getActiveMove("Brave Shield"));
 				}
 			},
 		},
@@ -232,7 +232,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Gaia Force",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		target: "allAdjacentFoes",
 		type: "Ground",
 	},
@@ -244,7 +244,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Brave Tornado",
 		pp: 10,
 		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1, wind: 1},
+		flags: { contact: 1, protect: 1, mirror: 1, wind: 1 },
 		critRatio: 2,
 		secondary: null,
 		target: "normal",
@@ -258,7 +258,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Dramon Killer",
 		pp: 10,
 		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1},
+		flags: { contact: 1, protect: 1, mirror: 1 },
 		basePowerCallback(pokemon, target, move) {
 			if (target.species.name.includes('dramon')) {
 				this.debug("3x damage to dramon");
@@ -277,7 +277,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Cocytus Breath",
 		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		willCrit: true,
 		secondary: {
 			chance: 10,
@@ -294,7 +294,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Garuru Tomahawk",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		critRatio: 2,
 		secondary: {
 			chance: 10,
@@ -311,7 +311,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Grace Cross Freezer",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		self: {
 			boosts: {
 				spa: -2,
@@ -329,7 +329,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Starlight Explosion",
 		pp: 15,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		secondary: {
 			chance: 30,
 			boosts: {
@@ -347,7 +347,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Giga Blaster",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		secondary: null,
 		target: "normal",
 		type: "Normal",
@@ -360,7 +360,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Forbidden Temptation",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		secondary: null,
 		target: "normal",
 		type: "Grass",
@@ -373,7 +373,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Thorn Whip",
 		pp: 15,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		secondary: {
 			chance: 20,
 			status: 'par',
@@ -389,7 +389,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Sorrow Blue",
 		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1, sound: 1, bypasssub: 1},
+		flags: { protect: 1, mirror: 1, sound: 1, bypasssub: 1 },
 		secondary: {
 			chance: 10,
 			boosts: {
@@ -407,7 +407,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Heaven's Knuckle",
 		pp: 10,
 		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1, punch: 1},
+		flags: { contact: 1, protect: 1, mirror: 1, punch: 1 },
 		secondary: {
 			chance: 10,
 			boosts: {
@@ -425,7 +425,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Seven Heavens",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		// self: {
 		// 	boosts: {
 		// 		spa: -2,
@@ -445,7 +445,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Testament",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		selfdestruct: "always",
 		secondary: null,
 		target: "allAdjacent",
@@ -459,7 +459,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "God Flame",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1, defrost: 1},
+		flags: { protect: 1, mirror: 1, defrost: 1 },
 		secondary: {
 			chance: 50,
 			status: 'brn',
@@ -475,7 +475,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Holy Flame",
 		pp: 10,
 		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1},
+		flags: { contact: 1, protect: 1, mirror: 1 },
 		recoil: [33, 100],
 		secondary: null,
 		target: "normal",
@@ -489,7 +489,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Eden's Javelin",
 		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		secondary: {
 			chance: 30,
 			boosts: {
@@ -507,7 +507,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Sefirot Crystal",
 		pp: 15,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		secondary: {
 			chance: 10,
 			boosts: {
@@ -525,7 +525,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Trump Sword",
 		pp: 20,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		onEffectiveness(typeMod, target, type) {
 			if (type === 'Steel') return 1;
 		},
@@ -540,7 +540,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Royal Saber",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		critRatio: 2,
 		secondary: null,
 		target: "normal",
@@ -554,7 +554,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Final Elysion",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		target: "allAdjacentFoes",
 		type: "Light",
 	},
@@ -566,7 +566,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Shining Gold Solar Storm",
 		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		secondary: {
 			chance: 10,
 			status: 'brn',
@@ -582,7 +582,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Extreme Jihad",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		recoil: [1, 2],
 		secondary: null,
 		target: "normal",
@@ -596,7 +596,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Mugen",
 		pp: 20,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		secondary: {
 			chance: 100,
 			boosts: {
@@ -614,7 +614,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Kouen",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		volatileStatus: 'partiallytrapped',
 		secondary: null,
 		target: "normal",
@@ -628,7 +628,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Sourai",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		secondary: {
 			chance: 30,
 			status: 'par',
@@ -644,7 +644,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Kongou",
 		pp: 20,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		secondary: {
 			chance: 100,
 			boosts: {
@@ -661,7 +661,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		category: "Special",
 		name: "Taikyoku",
 		pp: 10,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		onEffectiveness(typeMod, target, type, move) {
 			return typeMod + this.dex.getEffectiveness('Dark', type);
 		},
@@ -683,7 +683,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		category: "Physical",
 		name: "Oukai",
 		pp: 10,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		onEffectiveness(typeMod, target, type, move) {
 			return typeMod + this.dex.getEffectiveness('Flying', type);
 		},
@@ -706,7 +706,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Ama no Habakiri",
 		pp: 5,
 		priority: 0,
-		flags: {mirror: 1, slicing: 1},
+		flags: { mirror: 1, slicing: 1 },
 		breaksProtect: true,
 		onEffectiveness(typeMod, target, type, move) {
 			return typeMod + this.dex.getEffectiveness('Light', type);
@@ -728,7 +728,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Yakusa no Ikaduchi",
 		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		secondary: {
 			chance: 80,
 			status: 'par',
@@ -745,7 +745,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Enryugeki",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		critRatio: 2,
 		secondary: null,
 		target: "normal",
@@ -759,7 +759,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Kuzuryujin",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		// 10% chance to add a 30 bp physical dragon move
 		secondary: {
 			chance: 10,
@@ -773,7 +773,8 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 					ninethDragonMove.category = "Physical";
 					ninethDragonMove.flags.contact = 1;
 					ninethDragonMove.negateSecondary = true;
-					this.actions.runMove(ninethDragonMove, source, source.getLocOf(target), move, undefined, true);
+					// refactored on 20250513, i guess externalMove should be true?
+					this.actions.runMove(ninethDragonMove, source, source.getLocOf(target), { sourceEffect: move, externalMove: true });
 				}
 			},
 		},
@@ -788,7 +789,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Machine-Gun Destroy",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		self: {
 			boosts: {
 				atk: +1,
@@ -807,7 +808,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Starlight Velocity",
 		pp: 5,
 		priority: 2,
-		flags: {contact: 1, protect: 1, mirror: 1},
+		flags: { contact: 1, protect: 1, mirror: 1 },
 		secondary: null,
 		target: "normal",
 		type: "Light",
@@ -820,7 +821,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Dragon's Roar",
 		pp: 15,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		// in move type change implemented in scripts.ts
 		multihit: 2,
 		secondary: null,
@@ -835,7 +836,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Breath of Wyvern",
 		pp: 10,
 		priority: -3,
-		flags: {protect: 1},
+		flags: { protect: 1 },
 		priorityChargeCallback(pokemon) {
 			pokemon.addVolatile('breathofwyvern');
 		},
@@ -871,7 +872,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Urgent Fear",
 		pp: 25,
 		priority: 1,
-		flags: {contact: 1, protect: 1, mirror: 1},
+		flags: { contact: 1, protect: 1, mirror: 1 },
 		secondary: null,
 		target: "normal",
 		type: "Fighting",
@@ -884,7 +885,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Spiral Masquerade",
 		pp: 5,
 		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1, slicing: 1},
+		flags: { contact: 1, protect: 1, mirror: 1, slicing: 1 },
 		multihit: [2, 5],
 		secondary: null,
 		target: "normal",
@@ -898,7 +899,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Grand Cross",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		self: {
 			boosts: {
 				spa: -2,
@@ -917,7 +918,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Paradise Lost",
 		pp: 5,
 		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1},
+		flags: { contact: 1, protect: 1, mirror: 1 },
 		secondary: null,
 		target: "normal",
 		type: "Fighting",
@@ -931,7 +932,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		pp: 5,
 		priority: 0,
 		critRatio: 3,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		// in move type change implemented in scripts.ts
 		multihit: 2,
 		secondary: null,
@@ -946,7 +947,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Purgatorial Flame",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		secondary: {
 			chance: 20,
 			status: 'brn',
@@ -963,7 +964,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Divine Atonement",
 		pp: 5,
 		priority: 0,
-		flags: {recharge: 1, protect: 1, mirror: 1},
+		flags: { recharge: 1, protect: 1, mirror: 1 },
 		self: {
 			volatileStatus: 'mustrecharge',
 		},
@@ -979,7 +980,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Juuouken",
 		pp: 10,
 		priority: 0,
-		flags: {contact: 1, protect: 1, mirror: 1, punch: 1},
+		flags: { contact: 1, protect: 1, mirror: 1, punch: 1 },
 		ignoreEvasion: true,
 		ignoreDefensive: true,
 		secondary: null,
@@ -994,7 +995,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Mega Death",
 		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		target: "allAdjacent",
 		type: "Dark",
 	},
@@ -1006,7 +1007,7 @@ export const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {
 		name: "Giga Death",
 		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: { protect: 1, mirror: 1 },
 		target: "allAdjacentFoes",
 		type: "Normal",
 	},

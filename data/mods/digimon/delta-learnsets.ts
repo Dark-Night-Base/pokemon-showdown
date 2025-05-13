@@ -1,13 +1,14 @@
-type TypeName = 'Normal' | 'Fighting' | 'Flying' | 'Poison' | 'Ground' | 'Rock' | 'Bug' | 'Ghost' | 'Steel' | 'Fire' | 'Water' | 'Grass' | 'Electric' | 'Psychic' |
+type TypeName = 'Normal' | 'Fighting' | 'Flying' | 'Poison' | 'Ground' | 'Rock' | 'Bug' | 'Ghost' |
+	'Steel' | 'Fire' | 'Water' | 'Grass' | 'Electric' | 'Psychic' |
 	'Ice' | 'Dragon' | 'Dark' | 'Light';
 
-interface deltaLearnsetData {
-	addStages?: number[],
-	adds?: string[],
-	deletes?: string[],
+interface DeltaLearnsetData {
+	addStages?: number[];
+	adds?: string[];
+	deletes?: string[];
 }
 
-export const universalLearnset: {[n: number]: string[]} = {
+export const universalLearnset: { [n: number]: string[] } = {
 	0: ['tackle', 'protect', 'rest', 'sleeptalk', 'substitute'],
 	1: ['hiddenpower', 'protect', 'rest', 'sleeptalk', 'substitute', 'workup'],
 	3: ['gigaimpact', 'hyperbeam'],
@@ -18,7 +19,7 @@ export const universalLearnset: {[n: number]: string[]} = {
  * Perfect: 1 + 2
  * Ultimate: 1 + 2 + 3
  */
-export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = {
+export const typeLearnsetTable: { [type in TypeName]: { [n: number]: string[] } } = {
 	Bug: {
 		0: ['strugglebug', 'furycutter', 'stringshot'],
 		1: ['bugbite', 'silverwind', 'pinmissile', 'infestation'],
@@ -136,11 +137,12 @@ export const typeLearnsetTable: {[type in TypeName]: {[n: number]: string[]}} = 
 };
 declare global {
 	interface Array<T> {
-		addMoveByType(species: Species, type: string, ...moves: string[]): Array<T>;
-		addMoveByEggGroup(species: Species, eggGroup: string, ...moves: string[]): Array<T>;
-		addMoveByAny(species: Species, filter: string, ...moves: string[]): Array<T>;
+		addMoveByType(species: Species, type: string, ...moves: string[]): T[];
+		addMoveByEggGroup(species: Species, eggGroup: string, ...moves: string[]): T[];
+		addMoveByAny(species: Species, filter: string, ...moves: string[]): T[];
 	}
 }
+// eslint-disable-next-line no-extend-native
 Array.prototype.addMoveByType = function (species: Species, type: string, ...moves: string[]) {
 	if (type.startsWith('!') && !species.types.includes(type.slice(1))) {
 		this.push(...moves);
@@ -149,6 +151,7 @@ Array.prototype.addMoveByType = function (species: Species, type: string, ...mov
 	}
 	return this;
 };
+// eslint-disable-next-line no-extend-native
 Array.prototype.addMoveByEggGroup = function (species: Species, eggGroup: string, ...moves: string[]) {
 	if (eggGroup.startsWith('!') && !species.eggGroups.includes(eggGroup.slice(1))) {
 		this.push(...moves);
@@ -157,6 +160,7 @@ Array.prototype.addMoveByEggGroup = function (species: Species, eggGroup: string
 	}
 	return this;
 };
+// eslint-disable-next-line no-extend-native
 Array.prototype.addMoveByAny = function (species: Species, filter: string, ...moves: string[]) {
 	let reverse = false;
 	let found = false;
@@ -169,19 +173,19 @@ Array.prototype.addMoveByAny = function (species: Species, filter: string, ...mo
 	if (found !== reverse) this.push(...moves);
 	return this;
 };
-export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species: Species) => string[]}} = {
+export const eggGroupLearnsetTable: { [eggGroup: string]: { [n: number]: (species: Species) => string[] } } = {
 	"Armor": {
-		1: (s) => ['autotomize', 'irondefense', 'metalsound'],
+		1: s => ['autotomize', 'irondefense', 'metalsound'],
 	},
 	"Body Arms": {
-		1: (s) => [].addMoveByType(s, 'Fighting', 'circlethrow'),
-		2: (s) => [].addMoveByType(s, 'Fighting', 'hammerarm'),
-		3: (s) => [].addMoveByType(s, 'Fighting', 'closecombat'),
+		1: s => [].addMoveByType(s, 'Fighting', 'circlethrow'),
+		2: s => [].addMoveByType(s, 'Fighting', 'hammerarm'),
+		3: s => [].addMoveByType(s, 'Fighting', 'closecombat'),
 	},
 	"Body Body": {
-		1: (s) => [].addMoveByType(s, 'Fire', 'flamecharge'),
-		2: (s) => ['bodyslam', 'bodypress', 'bulkup'],
-		3: (s) => ['doubleedge', 'earthquake', 'rockslide']
+		1: s => [].addMoveByType(s, 'Fire', 'flamecharge'),
+		2: s => ['bodyslam', 'bodypress', 'bulkup'],
+		3: s => ['doubleedge', 'earthquake', 'rockslide']
 			.addMoveByType(s, 'Dragon', 'dragonrush')
 			.addMoveByType(s, 'Electric', 'wildcharge')
 			.addMoveByType(s, 'Fire', 'flareblitz')
@@ -189,72 +193,72 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 			.addMoveByEggGroup(s, 'Flying Bird', 'bravebird'),
 	},
 	"Body Foot": {
-		2: (s) => [].addMoveByType(s, 'Fire', 'blazekick'),
-		3: (s) => ['lowkick', 'megakick'],
+		2: s => [].addMoveByType(s, 'Fire', 'blazekick'),
+		3: s => ['lowkick', 'megakick'],
 	},
 	"Body Hand": {
-		0: (s) => ['helpinghand'],
-		1: (s) => ['brickbreak', 'helpinghand'],
-		2: (s) => ['encore'],
+		0: s => ['helpinghand'],
+		1: s => ['brickbreak', 'helpinghand'],
+		2: s => ['encore'],
 	},
 	"Body Head": {
-		1: (s) => ['headbutt'],
-		2: (s) => ['ironhead']
+		1: s => ['headbutt'],
+		2: s => ['ironhead']
 			.addMoveByType(s, 'Psychic', 'zenheadbutt')
 			.addMoveByEggGroup(s, 'Legendary', 'zenheadbutt'),
-		3: (s) => [].addMoveByType(s, 'Rock', 'headsmash'),
+		3: s => [].addMoveByType(s, 'Rock', 'headsmash'),
 	},
 	"Body Knee": {
-		2: (s) => ['jumpkick'],
-		3: (s) => ['highjumpkick'],
+		2: s => ['jumpkick'],
+		3: s => ['highjumpkick'],
 	},
 	"Cannon": {
-		1: (s) => ['lockon'],
-		2: (s) => ['flashcannon'],
+		1: s => ['lockon'],
+		2: s => ['flashcannon'],
 	},
 	"Claw": {
-		0: (s) => ['metalclaw', 'scratch'],
-		1: (s) => ['honeclaws'],
-		2: (s) => []
+		0: s => ['metalclaw', 'scratch'],
+		1: s => ['honeclaws'],
+		2: s => []
 			.addMoveByAny(s, 'Dragon', 'dragonclaw')
 			.addMoveByType(s, 'Ghost', 'shadowclaw')
 			.addMoveByType(s, 'Normal', 'shadowclaw'),
 	},
 	"Dragon Dinosaur": {
-		0: (s) => ['dragonrage'],
-		1: (s) => ['dragonbreath'],
-		2: (s) => ['dragonrush', 'earthquake', 'dragonpulse'],
-		3: (s) => ['outrage'],
+		0: s => ['dragonrage'],
+		1: s => ['dragonbreath'],
+		2: s => ['dragonrush', 'earthquake', 'dragonpulse'],
+		3: s => ['outrage'],
 	},
 	"Dragon Eastern": {
-		0: (s) => ['dragonrage', 'ember', 'twister'],
-		1: (s) => ['dragonbreath', 'dragondance'],
-		2: (s) => ['fireblast', 'earthquake', 'flamethrower', 'dragonpulse'],
-		3: (s) => ['outrage'],
+		0: s => ['dragonrage', 'ember', 'twister'],
+		1: s => ['dragonbreath', 'dragondance'],
+		2: s => ['fireblast', 'earthquake', 'flamethrower', 'dragonpulse'],
+		3: s => ['outrage'],
 	},
 	"Dragon Western": {
-		0: (s) => ['dragonrage', 'ember'],
-		1: (s) => ['dragonbreath'],
-		2: (s) => ['fireblast', 'flamethrower', 'dragonpulse'],
-		3: (s) => ['dracometeor'],
+		0: s => ['dragonrage', 'ember'],
+		1: s => ['dragonbreath'],
+		2: s => ['fireblast', 'flamethrower', 'dragonpulse'],
+		3: s => ['dracometeor'],
 	},
 	"Extreme": {
-		2: (s) => []
+		2: s => []
 			.addMoveByType(s, 'Electric', 'discharge')
 			.addMoveByType(s, 'Fire', 'lavaplume'),
-		3: (s) => []
+		3: s => []
 			.addMoveByType(s, 'Electric', 'zapcannon')
 			.addMoveByType(s, 'Fire', 'inferno')
 			.addMoveByType(s, 'Flying', 'skyattack')
 			.addMoveByType(s, 'Poison', 'gunkshot'),
 	},
 	"Fang": {
-		1: (s) => ['bite']
+		1: s => ['bite']
 			.addMoveByType(s, 'Electric', 'thunderfang')
 			.addMoveByType(s, 'Fire', 'firefang')
 			.addMoveByType(s, 'Ice', 'icefang')
 			.addMoveByType(s, 'Poison', 'poisonfang'),
-		2: (s) => ['crunch']
+		2: s => ['crunch']
 			.addMoveByAny(s, 'Dragon', 'firefang', 'icefang', 'thunderfang')
 			.addMoveByAny(s, 'Normal', 'firefang', 'icefang', 'thunderfang')
 			.addMoveByType(s, 'Psychic', 'psychicfangs')
@@ -262,83 +266,83 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 			.addMoveByType(s, 'Water', 'icefang'),
 	},
 	"Flying Bird": {
-		1: (s) => ['featherdance', 'roost'],
+		1: s => ['featherdance', 'roost'],
 	},
 	"Gear": {
-		0: (s) => ['gearup'],
-		1: (s) => ['gearup', 'shiftgear'],
-		2: (s) => ['geargrind'],
+		0: s => ['gearup'],
+		1: s => ['gearup', 'shiftgear'],
+		2: s => ['geargrind'],
 	},
 	"Grass Flower": {
-		0: (s) => ['poisonpowder', 'stunspore'],
-		1: (s) => ['ragepowder', 'sleeppowder'],
-		2: (s) => ['petalblizzard'],
-		3: (s) => ['petaldance'],
+		0: s => ['poisonpowder', 'stunspore'],
+		1: s => ['ragepowder', 'sleeppowder'],
+		2: s => ['petalblizzard'],
+		3: s => ['petaldance'],
 	},
 	"Grass Grass": {
-		0: (s) => ['vinewhip'],
-		1: (s) => ['grasswhistle', 'synthesis'],
-		3: (s) => ['grassknot', 'powerwhip'],
+		0: s => ['vinewhip'],
+		1: s => ['grasswhistle', 'synthesis'],
+		3: s => ['grassknot', 'powerwhip'],
 	},
 	"Grass Mushroom": {
-		0: (s) => ['poisonpowder', 'stunspore'],
-		1: (s) => ['ragepowder', 'sleeppowder'],
-		2: (s) => ['spore'],
+		0: s => ['poisonpowder', 'stunspore'],
+		1: s => ['ragepowder', 'sleeppowder'],
+		2: s => ['spore'],
 	},
 	"Grass Wood": {
-		0: (s) => ['vinewhip', 'leafage'],
-		1: (s) => ['magicalleaf', 'razorleaf', 'synthesis'],
-		2: (s) => ['leafblade', 'hornleech', 'ingrain'],
-		3: (s) => ['leafstorm', 'powerwhip', 'woodhammer'],
+		0: s => ['vinewhip', 'leafage'],
+		1: s => ['magicalleaf', 'razorleaf', 'synthesis'],
+		2: s => ['leafblade', 'hornleech', 'ingrain'],
+		3: s => ['leafstorm', 'powerwhip', 'woodhammer'],
 	},
 	"Horn": {
-		1: (s) => ['smartstrike', 'hornattack'],
-		3: (s) => ['megahorn'],
+		1: s => ['smartstrike', 'hornattack'],
+		3: s => ['megahorn'],
 	},
 	"Human-Like": {
-		1: (s) => ['facade', 'knockoff', 'pursuit'],
+		1: s => ['facade', 'knockoff', 'pursuit'],
 	},
 	"Legendary": {
-		1: (s) => ['ancientpower', 'swift'],
-		2: (s) => ['punishment', 'aurasphere', 'extrasensory', 'calmmind'],
-		3: (s) => ['imprison'],
+		1: s => ['ancientpower', 'swift'],
+		2: s => ['punishment', 'aurasphere', 'extrasensory', 'calmmind'],
+		3: s => ['imprison'],
 	},
 	"Machine": {
-		0: (s) => ['thundershock', 'thunderwave'],
-		1: (s) => ['shockwave', 'chargebeam', 'charge', 'thunderwave'],
-		2: (s) => ['thunderbolt', 'voltswitch'],
+		0: s => ['thundershock', 'thunderwave'],
+		1: s => ['shockwave', 'chargebeam', 'charge', 'thunderwave'],
+		2: s => ['thunderbolt', 'voltswitch'],
 	},
 	"Magic": {
-		0: (s) => ['confusion', 'ember', 'thundershock', 'thunderwave'],
-		1: (s) => ['mysticalfire', 'thunderwave'],
-		2: (s) => [
+		0: s => ['confusion', 'ember', 'thundershock', 'thunderwave'],
+		1: s => ['mysticalfire', 'thunderwave'],
+		2: s => [
 			'psychic', 'shadowball', 'calmmind', 'hypnosis', 'lightscreen',
 			'magiccoat', 'reflect',
 		].addMoveByType(s, '!Dark', 'dazzlinggleam')
-		.addMoveByType(s, '!Light', 'darkpulse'),
-		3: (s) => ['futuresight'],
+			.addMoveByType(s, '!Light', 'darkpulse'),
+		3: s => ['futuresight'],
 	},
 	"Monster": {
-		2: (s) => []
+		2: s => []
 			.addMoveByType(s, '!Ice', 'flamethrower')
 			.addMoveByType(s, '!Dragon', 'icebeam')
 			.addMoveByType(s, '!Ground', 'thunderbolt')
 			.addMoveByEggGroup(s, 'Body Body', 'earthquake', 'surf'),
-		3: (s) => []
+		3: s => []
 			.addMoveByType(s, '!Dragon', 'blizzard')
 			.addMoveByType(s, '!Ice', 'fireblast')
 			.addMoveByType(s, '!Ground', 'thunder'),
 	},
 	"Peck": {
-		0: (s) => ['peck'],
-		1: (s) => ['pluck'],
-		2: (s) => ['drillpeck'],
+		0: s => ['peck'],
+		1: s => ['pluck'],
+		2: s => ['drillpeck'],
 	},
 	"Punch": {
-		0: (s) => []
+		0: s => []
 			.addMoveByType(s, 'Fighting', 'machpunch')
 			.addMoveByType(s, 'Steel', 'bulletpunch'),
-		1: (s) => []
+		1: s => []
 			.addMoveByType(s, 'Electric', 'thunderpunch')
 			.addMoveByType(s, 'Fighting', 'machpunch', 'poweruppunch')
 			.addMoveByType(s, 'Fire', 'firepunch')
@@ -346,84 +350,84 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
 			.addMoveByType(s, 'Ice', 'icepunch')
 			.addMoveByType(s, 'Light', 'heavensknuckle')
 			.addMoveByType(s, 'Steel', 'bulletpunch'),
-		2: (s) => ['megapunch']
+		2: s => ['megapunch']
 			.addMoveByType(s, 'Dragon', 'firepunch', 'thunderpunch')
 			.addMoveByType(s, 'Fighting', 'drainpunch', 'firepunch', 'icepunch', 'thunderpunch')
 			.addMoveByType(s, 'Normal', 'firepunch', 'icepunch', 'thunderpunch')
 			.addMoveByType(s, 'Steel', 'thunderpunch')
 			.addMoveByType(s, 'Water', 'icepunch'),
-		3: (s) => ['focuspunch']
+		3: s => ['focuspunch']
 			.addMoveByType(s, 'Fighting', 'dynamicpunch')
 			.addMoveByType(s, 'Steel', 'meteormash'),
 	},
 	"Roars": {
-		0: (s) => ['growl'],
-		1: (s) => ['snarl', 'howl', 'nobleroar', 'roar', 'screech'],
-		2: (s) => ['uproar'].addMoveByEggGroup(s, "Human-Like", 'partingshot'),
+		0: s => ['growl'],
+		1: s => ['snarl', 'howl', 'nobleroar', 'roar', 'screech'],
+		2: s => ['uproar'].addMoveByEggGroup(s, "Human-Like", 'partingshot'),
 	},
 	"Sharp": {
-		0: (s) => ['cut', 'furycutter'],
-		1: (s) => ['nightslash', 'slash'],
-		2: (s) => ['swordsdance'], // todo: somehow add uturn here?
+		0: s => ['cut', 'furycutter'],
+		1: s => ['nightslash', 'slash'],
+		2: s => ['swordsdance'], // todo: somehow add uturn here?
 	},
 	"Shell": {
-		0: (s) => ['clamp', 'withdraw'],
-		1: (s) => [].addMoveByType(s, 'Water', 'razorshell'),
-		2: (s) => ['shellsmash'],
-		3: (s) => ['skullbash'],
+		0: s => ['clamp', 'withdraw'],
+		1: s => [].addMoveByType(s, 'Water', 'razorshell'),
+		2: s => ['shellsmash'],
+		3: s => ['skullbash'],
 	},
 	"Sings": {
-		0: (s) => ['echoedvoice', 'supersonic', 'sing'],
-		1: (s) => ['round', 'echoedvoice', 'screech', 'sing'],
-		2: (s) => ['hypervoice', 'perishsong'],
+		0: s => ['echoedvoice', 'supersonic', 'sing'],
+		1: s => ['round', 'echoedvoice', 'screech', 'sing'],
+		2: s => ['hypervoice', 'perishsong'],
 	},
 	"Snake": {
-		1: (s) => ['coil', 'glare'],
+		1: s => ['coil', 'glare'],
 	},
 	"Spiky": {
-		0: (s) => ['twineedle'],
-		1: (s) => ['spikecannon', 'twineedle', 'spikes', 'spikyshield'].addMoveByEggGroup(s, 'Body Arms', 'needlearm'),
+		0: s => ['twineedle'],
+		1: s => ['spikecannon', 'twineedle', 'spikes', 'spikyshield'].addMoveByEggGroup(s, 'Body Arms', 'needlearm'),
 	},
 	"Swift": {
-		1: (s) => ['agility'].addMoveByEggGroup(s, 'Body Hand', 'fakeout'),
-		2: (s) => ['uturn'].addMoveByType(s, 'Dark', 'suckerpunch'),
-		3: (s) => [].addMoveByEggGroup(s, 'Body Hand', 'grassknot'),
+		1: s => ['agility'].addMoveByEggGroup(s, 'Body Hand', 'fakeout'),
+		2: s => ['uturn'].addMoveByType(s, 'Dark', 'suckerpunch'),
+		3: s => [].addMoveByEggGroup(s, 'Body Hand', 'grassknot'),
 	},
 	"Sword": {
-		0: (s) => ['cut', 'furycutter'],
-		1: (s) => ['nightslash', 'slash', 'aerialace', 'swordsdance']
+		0: s => ['cut', 'furycutter'],
+		1: s => ['nightslash', 'slash', 'aerialace', 'swordsdance']
 			.addMoveByType(s, 'Psychic', 'psychocut')
 			.addMoveByEggGroup(s, 'Legendary', 'psychocut'),
-		2: (s) => ['sacredsword'],
+		2: s => ['sacredsword'],
 	},
 	"Tail": {
-		0: (s) => ['tailwhip'],
-		1: (s) => []
+		0: s => ['tailwhip'],
+		1: s => []
 			.addMoveByAny(s, 'Dragon', 'dragontail')
 			.addMoveByType(s, 'Poison', 'poisontail'),
-		2: (s) => ['irontail']
+		2: s => ['irontail']
 			.addMoveByType(s, 'Water', 'aquatail')
 			.addMoveByType(s, 'Dragon', 'aquatail'),
 	},
 	"Tentacle": {
-		0: (s) => ['wrap'].addMoveByType(s, 'Grass', 'vinewhip'),
-		1: (s) => ['wrap'].addMoveByType(s, 'Grass', 'vinewhip'),
-		3: (s) => [].addMoveByType(s, 'Grass', 'powerwhip'),
+		0: s => ['wrap'].addMoveByType(s, 'Grass', 'vinewhip'),
+		1: s => ['wrap'].addMoveByType(s, 'Grass', 'vinewhip'),
+		3: s => [].addMoveByType(s, 'Grass', 'powerwhip'),
 	},
 	"Water Lake": {
-		2: (s) => ['muddywater', 'waterfall'],
+		2: s => ['muddywater', 'waterfall'],
 	},
 	"Water Ocean": {
-		1: (s) => ['dive', 'brine'],
-		2: (s) => ['aquaring'],
+		1: s => ['dive', 'brine'],
+		2: s => ['aquaring'],
 	},
 	"Wing": {
-		1: (s) => ['fly', 'wingattack'],
-		2: (s) => ['steelwing', 'dualwingbeat'],
+		1: s => ['fly', 'wingattack'],
+		2: s => ['steelwing', 'dualwingbeat'],
 	},
 };
 /**
- * manually apply moves: 
+ * manually apply moves:
  * counter-like moves
  * priority moves
  * extremespeed
@@ -437,7 +441,7 @@ export const eggGroupLearnsetTable: {[eggGroup: string]: {[n: number]: (species:
  * tailglow
  * uturn
  */
-export const deltaLearnsetTable: {[k: string]: deltaLearnsetData} = {
+export const deltaLearnsetTable: { [k: string]: DeltaLearnsetData } = {
 	omegamon: {
 		adds: ['greysword', 'garurucannon', 'dragonhammer'],
 	},

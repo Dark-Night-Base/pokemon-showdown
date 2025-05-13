@@ -68,7 +68,7 @@ export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable 
 			const badMoves = [];
 			const problems = [];
 
-			const checkCanLearn = (ruleTable.checkCanLearn && ruleTable.checkCanLearn[0] || this.checkCanLearn);
+			const checkCanLearn = (ruleTable.checkCanLearn?.[0] || this.checkCanLearn);
 			for (const moveName of moves) {
 				const move = dex.moves.get(moveName);
 				const problem = checkCanLearn.call(this, move, species, setSources, set);

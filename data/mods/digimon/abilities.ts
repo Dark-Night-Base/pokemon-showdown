@@ -5,7 +5,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			// for testament
 			if (['explosion', 'mindblown', 'mistyexplosion', 'selfdestruct', 'testament'].includes(effect.id)) {
 				this.attrLastMove('[still]');
-				this.add('cant', this.effectState.target, 'ability: Damp', effect, '[of] ' + target);
+				this.add('cant', this.effectState.target, 'ability: Damp', effect, `[of] ${target}`);
 				return false;
 			}
 		},
@@ -62,14 +62,14 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 			if (target) {
 				const pokemonDigimonTypeIndex = pokemon.types.findIndex(value => ['Data', 'Vaccine', 'Virus'].includes(value));
 				const targetDigimonType = target.types.find(value => ['Data', 'Vaccine', 'Virus'].includes(value));
-				const digimonTypeChart: {[k: string]: string} = {
+				const digimonTypeChart: { [k: string]: string } = {
 					Data: 'Virus',
 					Vaccine: 'Data',
 					Virus: 'Vaccine',
 				};
 				if (targetDigimonType && pokemon.types[pokemonDigimonTypeIndex] !== digimonTypeChart[targetDigimonType]) {
 					const newType = digimonTypeChart[targetDigimonType];
-					const newTypes = pokemon.types.map((value, index) => value = (index === pokemonDigimonTypeIndex) ? newType : value);
+					const newTypes = pokemon.types.map((value, index) => (index === pokemonDigimonTypeIndex) ? newType : value);
 					if (pokemon.setType(newTypes)) {
 						this.add('-start', pokemon, 'typechange', newTypes.join('/'), '[from] ability: Libero');
 					}
@@ -222,7 +222,7 @@ export const Abilities: import('../../../sim/dex-abilities').ModdedAbilityDataTa
 	},
 	armorunequip: {
 		onDamagingHit(damage, target, source, move) {
-			this.boost({atk: 1, def: -1, spe: 1});
+			this.boost({ atk: 1, def: -1, spe: 1 });
 		},
 		flags: {},
 		name: "Armor Unequip",

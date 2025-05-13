@@ -59,7 +59,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (move.spreadHit) {
 				// multi-target modifier (doubles only)
 				const spreadModifier = move.spreadModifier || (this.battle.gameType === 'freeforall' ? 0.5 : 0.75);
-				this.battle.debug('Spread modifier: ' + spreadModifier);
+				this.battle.debug(`Spread modifier: ${spreadModifier}`);
 				baseDamage = this.battle.modify(baseDamage, spreadModifier);
 			} else if (move.multihitType === 'parentalbond' && move.hit > 1) {
 				// Parental Bond modifier
@@ -131,7 +131,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 			if (typeMod < 0) {
 				if (!suppressMessages) this.battle.add('-resisted', target);
-	
+
 				for (let i = 0; i > typeMod; i--) {
 					baseDamage = tr(baseDamage / 2);
 				}
@@ -204,7 +204,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			let moveDamage: (number | boolean | undefined)[] = [];
 			// There is no need to recursively check the ´sleepUsable´ flag as Sleep Talk can only be used while asleep.
 			const isSleepUsable = move.sleepUsable || this.dex.moves.get(move.sourceEffect).sleepUsable;
-	
+
 			let targetsCopy: (Pokemon | false | null)[] = targets.slice(0);
 			let hit: number;
 			for (hit = 1; hit <= targetHits; hit++) {
@@ -226,14 +226,14 @@ export const Scripts: ModdedBattleScriptsData = {
 						this.battle.retargetLastMove(target);
 					}
 				}
-	
+
 				// like this (Triple Kick)
 				if (target && move.multiaccuracy && hit > 1) {
 					let accuracy = move.accuracy;
 					const boostTable = [1, 4 / 3, 5 / 3, 2, 7 / 3, 8 / 3, 3];
 					if (accuracy !== true) {
 						if (!move.ignoreAccuracy) {
-							const boosts = this.battle.runEvent('ModifyBoost', pokemon, null, null, {...pokemon.boosts});
+							const boosts = this.battle.runEvent('ModifyBoost', pokemon, null, null, { ...pokemon.boosts });
 							const boost = this.battle.clampIntRange(boosts['accuracy'], -6, 6);
 							if (boost > 0) {
 								accuracy *= boostTable[boost];
@@ -242,7 +242,7 @@ export const Scripts: ModdedBattleScriptsData = {
 							}
 						}
 						if (!move.ignoreEvasion) {
-							const boosts = this.battle.runEvent('ModifyBoost', target, null, null, {...target.boosts});
+							const boosts = this.battle.runEvent('ModifyBoost', target, null, null, { ...target.boosts });
 							const boost = this.battle.clampIntRange(boosts['evasion'], -6, 6);
 							if (boost > 0) {
 								accuracy /= boostTable[boost];
@@ -261,7 +261,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (target && ['dragonsroar', 'deadoralive'].includes(move.id) && hit === 2) move.type = 'Light';
 				const moveData = move;
 				if (!moveData.flags) moveData.flags = {};
-	
+
 				let moveDamageThisHit;
 				// Modifies targetsCopy (which is why it's a copy)
 				[moveDamageThisHit, targetsCopy] = this.spreadMoveHit(targetsCopy, pokemon, move, moveData);
@@ -272,17 +272,17 @@ export const Scripts: ModdedBattleScriptsData = {
 				} else {
 					moveDamage = moveDamageThisHit;
 				}
-	
+
 				if (!moveDamage.some(val => val !== false)) break;
 				nullDamage = false;
-	
+
 				for (const [i, md] of moveDamage.entries()) {
 					if (move.smartTarget && i !== hit - 1) continue;
 					// Damage from each hit is individually counted for the
 					// purposes of Counter, Metal Burst, and Mirror Coat.
 					damage[i] = md === true || !md ? 0 : md;
 					// Total damage dealt is accumulated for the purposes of recoil (Parental Bond).
-					move.totalDamage += damage[i] as number;
+					move.totalDamage += damage[i];
 				}
 				if (move.mindBlownRecoil) {
 					const hpBeforeRecoil = pokemon.hp;
@@ -305,7 +305,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (move.multihit && typeof move.smartTarget !== 'boolean') {
 				this.battle.add('-hitcount', targets[0], hit - 1);
 			}
-	
+
 			if ((move.recoil || move.id === 'chloroblast') && move.totalDamage) {
 				const hpBeforeRecoil = pokemon.hp;
 				this.battle.damage(this.calcRecoilDamage(move.totalDamage, move, pokemon), pokemon, pokemon, 'recoil');
@@ -313,7 +313,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					this.battle.runEvent('EmergencyExit', pokemon, pokemon);
 				}
 			}
-	
+
 			if (move.struggleRecoil) {
 				const hpBeforeRecoil = pokemon.hp;
 				let recoilDamage;
@@ -322,17 +322,17 @@ export const Scripts: ModdedBattleScriptsData = {
 				} else {
 					recoilDamage = this.battle.clampIntRange(this.battle.trunc(pokemon.maxhp / 4), 1);
 				}
-				this.battle.directDamage(recoilDamage, pokemon, pokemon, {id: 'strugglerecoil'} as Condition);
+				this.battle.directDamage(recoilDamage, pokemon, pokemon, { id: 'strugglerecoil' } as Condition);
 				if (pokemon.hp <= pokemon.maxhp / 2 && hpBeforeRecoil > pokemon.maxhp / 2) {
 					this.battle.runEvent('EmergencyExit', pokemon, pokemon);
 				}
 			}
-	
+
 			// smartTarget messes up targetsCopy, but smartTarget should in theory ensure that targets will never fail, anyway
 			if (move.smartTarget) {
 				targetsCopy = targets.slice(0);
 			}
-	
+
 			for (const [i, target] of targetsCopy.entries()) {
 				if (target && pokemon !== target) {
 					target.gotAttacked(move, moveDamage[i] as number | false | undefined, pokemon);
@@ -341,15 +341,15 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 			}
-	
+
 			if (move.ohko && !targets[0].hp) this.battle.add('-ohko');
-	
+
 			if (!damage.some(val => !!val || val === 0)) return damage;
-	
+
 			this.battle.eachEvent('Update');
-	
-			this.afterMoveSecondaryEvent(targetsCopy.filter(val => !!val) as Pokemon[], pokemon, move);
-	
+
+			this.afterMoveSecondaryEvent(targetsCopy.filter(val => !!val), pokemon, move);
+
 			if (!move.negateSecondary && !(move.hasSheerForce && pokemon.hasAbility('sheerforce'))) {
 				for (const [i, d] of damage.entries()) {
 					// There are no multihit spread moves, so it's safe to use move.totalDamage for multihit moves
@@ -363,7 +363,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					}
 				}
 			}
-	
+
 			return damage;
 		},
 	},
