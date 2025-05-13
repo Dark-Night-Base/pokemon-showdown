@@ -1,4 +1,4 @@
-export const typeToPoint: {[k: string]: number} = {
+export const typeToPoint: { [k: string]: number } = {
 	bug: 0.8,
 	dark: 1.6,
 	dragon: 1.4,
@@ -19,7 +19,7 @@ export const typeToPoint: {[k: string]: number} = {
 	stellar: 1000000,
 	water: 1.8,
 };
-export const abilityToPoint: {[k: string]: number} = {
+export const abilityToPoint: { [k: string]: number } = {
 	adaptability: 3,
 	aerilate: 3,
 	analytic: 2,
@@ -199,7 +199,7 @@ export const abilityToPoint: {[k: string]: number} = {
 	zenmode: 1000000,
 	zerotohero: 1000000,
 };
-export const moveToPoint: {[k: string]: number} = {
+export const moveToPoint: { [k: string]: number } = {
 	acidarmor: 1,
 	acidspray: 1,
 	acrobatics: 1.5,
@@ -723,14 +723,14 @@ function calcBSPoint(stats: StatsTable) {
 	const c = stats['spa'];
 	const d = stats['spd'];
 	const s = stats['spe'];
-	const A = (a: number) => 2 * a + 100;
-	const B = (h: number, b: number) => (2 * h + 200) * (2 * b + 100);
+	const A = (_a: number) => 2 * _a + 100;
+	const B = (_h: number, _b: number) => (2 * _h + 200) * (2 * _b + 100);
 	const S = A;
 	const f = (x: number) => x * x * x * 11 - x * x * 25 + x * 19 - 0.75;
 	const g = (x: number) => x * x * x * 10 - x * x * 18 + x * 10 + 2;
-	const k = (x: number) => - x * x * x * x + x * x * x * 8 - x * x * 10 + x * 3 + 1;
-	const A_w = (4 * Math.max(A(a), A(c)) + 1 * Math.min(A(a), A(c))) / 15e2;
-	const B_w = (2 * Math.max(B(h, b), B(h, d)) + 1 * Math.min(B(h, b), B(h, d))) / 36e4;
+	const k = (x: number) => -x * x * x * x + x * x * x * 8 - x * x * 10 + x * 3 + 1;
+	const A_w = (4 * Math.max(A(a), A(c)) + Number(Math.min(A(a), A(c)))) / 15e2;
+	const B_w = (2 * Math.max(B(h, b), B(h, d)) + Number(Math.min(B(h, b), B(h, d)))) / 36e4;
 	const E = S(s) / 300;
 	const f_A_w = f(A_w);
 	const g_B_w = g(B_w);
@@ -752,7 +752,7 @@ function calcPnPoint(stat: number, version = 1, a = 9, b = 180, c = 100000): num
 		// sigmoid-like function
 		// c/(1+a*e^(-(x-b)/a))
 		stat = Math.floor(stat);
-		stat = - (stat - b) / a;
+		stat = -(stat - b) / a;
 		stat = 1 + a * Math.exp(stat);
 		stat = c / stat;
 		return Math.floor(stat);

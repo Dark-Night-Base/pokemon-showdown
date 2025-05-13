@@ -546,6 +546,7 @@ export class Pokemon {
 		}
 		if (this.terastallized) details += `, tera:${this.terastallized}`;
 		if (this.m.headSpecies) details += `, headname:${this.m.headSpecies.name}`;
+		// todo: also add createmons here? also really figure out if headname is necessary
 		return { side: health.side, secret: `${details}|${health.secret}`, shared: `${details}|${health.shared}` };
 	};
 

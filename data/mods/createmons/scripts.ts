@@ -12,7 +12,7 @@ export const Scripts: ModdedBattleScriptsData = {
 		}
 	},
 	spreadModify(baseStats: StatsTable, set: PokemonSet): StatsTable {
-		const modStats: SparseStatsTable = {atk: 10, def: 10, spa: 10, spd: 10, spe: 10};
+		const modStats: SparseStatsTable = { atk: 10, def: 10, spa: 10, spd: 10, spe: 10 };
 		const tr = this.trunc;
 		let statName: keyof StatsTable;
 		for (statName in modStats) {
@@ -50,16 +50,11 @@ export const Scripts: ModdedBattleScriptsData = {
 				const species = pokemon.setSpecies(rawSpecies);
 				if (!species) continue;
 				pokemon.baseSpecies = rawSpecies;
-				pokemon.details = species.name + (pokemon.level === 100 ? '' : ', L' + pokemon.level) +
-					(pokemon.gender === '' ? '' : ', ' + pokemon.gender) + (pokemon.set.shiny ? ', shiny' : '');
-				// Nihilslave: here, 3
-				pokemon.details += `, createmons:`;
-				pokemon.details += `${Object.values(pokemon.set.evs || [0, 0, 0, 0, 0, 0]).join(',')},`;
-				pokemon.details += `${pokemon.hpType},${pokemon.teraType}`;
+				pokemon.details = pokemon.getUpdatedDetails();
 				pokemon.setAbility(species.abilities['0'], null, true);
 				pokemon.baseAbility = pokemon.ability;
 
-				const behemothMove: {[k: string]: string} = {
+				const behemothMove: { [k: string]: string } = {
 					'Zacian-Crowned': 'behemothblade', 'Zamazenta-Crowned': 'behemothbash',
 				};
 				const ironHead = pokemon.baseMoves.indexOf('ironhead');
@@ -199,16 +194,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			this.add('-heal', action.target, action.target.getHealth, '[from] move: Revival Blessing');
 			action.pokemon.side.removeSlotCondition(action.pokemon, 'revivalblessing');
 			break;
-		case 'runUnnerve':
-			this.singleEvent('PreStart', action.pokemon.getAbility(), action.pokemon.abilityState, action.pokemon);
-			break;
 		case 'runSwitch':
 			this.actions.runSwitch(action.pokemon);
-			break;
-		case 'runPrimal':
-			if (!action.pokemon.transformed) {
-				this.singleEvent('Primal', action.pokemon.getItem(), action.pokemon.itemState, action.pokemon);
-			}
 			break;
 		case 'shift':
 			if (!action.pokemon.isActive) return false;
@@ -224,8 +211,8 @@ export const Scripts: ModdedBattleScriptsData = {
 			this.clearActiveMove(true);
 			this.updateSpeed();
 			residualPokemon = this.getAllActive().map(pokemon => [pokemon, pokemon.getUndynamaxedHP()] as const);
-			this.residualEvent('Residual');
-			this.add('upkeep');
+			this.fieldEvent('Residual');
+			if (!this.ended) this.add('upkeep');
 			break;
 		}
 
@@ -303,7 +290,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			} else if (switches[i]) {
 				for (const pokemon of this.sides[i].active) {
 					if (pokemon.hp && pokemon.switchFlag && pokemon.switchFlag !== 'revivalblessing' &&
-							!pokemon.skipBeforeSwitchOutEventFlag) {
+						!pokemon.skipBeforeSwitchOutEventFlag) {
 						this.runEvent('BeforeSwitchOut', pokemon);
 						pokemon.skipBeforeSwitchOutEventFlag = true;
 						this.faintMessages(); // Pokemon may have fainted in BeforeSwitchOut
@@ -387,7 +374,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				if (zMoveName) {
 					const zMove = this.dex.moves.get(zMoveName);
 					if (!zMove.isZ && zMove.category === 'Status') zMoveName = "Z-" + zMoveName;
-					zMoves.push({move: zMoveName, target: zMove.target});
+					zMoves.push({ move: zMoveName, target: zMove.target });
 				} else {
 					zMoves.push(null);
 				}
@@ -474,7 +461,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 			if (this.battle.gen > 2) this.setAbility(pokemon.ability, this, true, true);
 			// Nihilslave: here, for transform
-			this.battle.add('-start', this, 'bcstats', Object.values({...pokemon.set.evs, 'hp': this.set.evs['hp']}).join('/'), '[silent]');
+			this.battle.add('-start', this, 'bcstats', Object.values({ ...pokemon.set.evs, 'hp': this.set.evs['hp'] }).join('/'), '[silent]');
 
 			// Change formes based on held items (for Transform)
 			// Only ever relevant in Generation 4 since Generation 3 didn't have item-based forme changes
@@ -517,13 +504,13 @@ export const Scripts: ModdedBattleScriptsData = {
 				// Terastallized Pokemon cannot have their base type changed except via forme change
 				if (this.terastallized) return false;
 			}
-	
+
 			if (!newType) throw new Error("Must pass type to setType");
 			this.types = (typeof newType === 'string' ? [newType] : newType);
 			this.addedType = '';
 			this.knownType = true;
 			this.apparentType = this.types.join('/');
-	
+
 			return true;
 		},
 		// for details
@@ -543,12 +530,7 @@ export const Scripts: ModdedBattleScriptsData = {
 				this.illusion ? this.illusion.species.name : species.baseSpecies;
 			if (isPermanent) {
 				this.baseSpecies = rawSpecies;
-				this.details = species.name + (this.level === 100 ? '' : ', L' + this.level) +
-					(this.gender === '' ? '' : ', ' + this.gender) + (this.set.shiny ? ', shiny' : '');
-				// Nihilslave: here, 3
-				this.details += `, createmons:`;
-				this.details += `${Object.values(this.set.evs || [0, 0, 0, 0, 0, 0]).join(',')},`;
-				this.details += `${this.hpType},${this.teraType}`;
+				this.details = this.getUpdatedDetails();
 				let details = (this.illusion || this).details;
 				if (this.terastallized) details += `, tera:${this.terastallized}`;
 				this.battle.add('detailschange', this, details);
@@ -560,7 +542,7 @@ export const Scripts: ModdedBattleScriptsData = {
 					if (source.zMove) {
 						this.battle.add('-burst', this, apparentSpecies, species.requiredItem);
 						this.moveThisTurnResult = true; // Ultra Burst counts as an action for Truant
-					} else if (source.onPrimal) {
+					} else if (source.isPrimalOrb) {
 						if (this.illusion) {
 							this.ability = '';
 							this.battle.add('-primal', this.illusion, species.requiredItem);
