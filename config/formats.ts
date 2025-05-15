@@ -1403,7 +1403,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			'Zygarde',
 			'Arena Trap', 'Huge Power', 'Moody', 'Pure Power', 'Shadow Tag', 'Water Bubble',
 			'Assist', 'Baton Pass', 'Last Respects', 'Revival Blessing', 'Shed Tail',
-			'King\'s Rock', 'Razor Fang', 'Quick Claw',
+			'King\'s Rock', 'Light Ball', 'Razor Fang', 'Quick Claw',
 		],
 		onValidateTeam(team) {
 			const names = new Set<ID>();
