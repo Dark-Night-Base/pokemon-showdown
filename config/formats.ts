@@ -70,6 +70,8 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			'Arena Trap', 'Huge Power', 'Moody', 'Pure Power', 'Shadow Tag', 'Water Bubble',
 			'Assist', 'Baton Pass', 'Last Respects', 'Revival Blessing', 'Shed Tail',
 			'King\'s Rock', 'Light Ball', 'Razor Fang', 'Quick Claw',
+			// suspects
+			'Contrary', 'Simple', 'Clangorous Soul',
 		],
 		onValidateTeam(team) {
 			const names = new Set<ID>();
@@ -1730,6 +1732,8 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			'Arena Trap', 'Huge Power', 'Moody', 'Pure Power', 'Shadow Tag', 'Water Bubble',
 			'Assist', 'Baton Pass', 'Last Respects', 'Revival Blessing', 'Shed Tail',
 			'King\'s Rock', 'Light Ball', 'Razor Fang', 'Quick Claw',
+			// suspects
+			'Contrary', 'Simple', 'Clangorous Soul',
 		],
 		onValidateTeam(team) {
 			const names = new Set<ID>();
