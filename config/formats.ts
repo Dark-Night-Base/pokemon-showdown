@@ -4236,33 +4236,10 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		restricted: ['Belly Drum', 'Extreme Speed', 'Fillet Away', 'Glacial Lance', 'Rage Fist', 'Revival Blessing', 'Shell Smash', 'Shift Gear', 'Surging Strikes'],
 	},
 	{
-		name: "[Gen 8] Bad'n'Boosted",
-		desc: `Pok&eacute;mon with base stats of 70 or lower get those stats doubled.`,
-		threads: [
-			`None yet.`,
-		],
-
-		mod: 'gen8',
-		searchShow: false,
-		challengeShow: false,
-		ruleset: ['Standard OMs', 'Sleep Clause Mod'],
-		banlist: [
-			'AG', 'Shadow Tag', 'Baton Pass',
-			'Huge Power',
-			'Eviolite',
-		],
-		onModifySpecies(species, target, source, effect) {
-			if (!species.baseStats) return;
-			const pokemon = this.dex.deepClone(species);
-			pokemon.bst = 0;
-			let statName: StatID;
-			for (statName in pokemon.baseStats as StatsTable) {
-				pokemon.baseStats[statName] = pokemon.baseStats[statName] <= 70 ?
-					this.clampIntRange(pokemon.baseStats[statName] * 2, 1, 255) : pokemon.baseStats[statName];
-				pokemon.bst += pokemon.baseStats[statName];
-			}
-			return pokemon;
-		},
+		name: "[Gen 9] Bad 'n Boosted",
+		desc: `All base stats of 70 and lower are doubled.`,
+		ruleset: ['Standard', 'Bad \'n Boosted Mod', 'Sleep Moves Clause', '!Sleep Clause Mod'],
+		banlist: ['AG', 'Araquanid', 'Cyclizar', 'Espathra', 'Espeon', 'Polteageist', 'Huge Power', 'Moody', 'Pure Power', 'Shadow Tag', 'Eviolite', 'King\'s Rock', 'Razor Fang', 'Baton Pass', 'Last Respects'],
 	},
 	{
 		name: "[Gen 8] Bonus Type",
