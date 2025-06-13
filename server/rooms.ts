@@ -483,6 +483,7 @@ export abstract class BasicRoom {
 	}
 	isMuted(user: User): ID | undefined {
 		if (!user) return;
+		if (this.battle?.gameType === 'freeforall') return user.id;
 		if (this.muteQueue) {
 			for (const entry of this.muteQueue) {
 				if (user.id === entry.userid ||
@@ -680,6 +681,8 @@ export abstract class BasicRoom {
 		this.destroy();
 	}
 	reportJoin(type: 'j' | 'l' | 'n', entry: string, user: User) {
+		// Nihilslave: Patch for ffa
+		if (this.battle?.gameType === 'freeforall') return;
 		const canTalk = this.auth.atLeast(user, this.settings.modchat ?? 'unlocked') && !this.isMuted(user);
 		if (this.reportJoins && (canTalk || this.auth.has(user.id))) {
 			this.add(`|${type}|${entry}`).update();
@@ -1649,7 +1652,8 @@ export class GlobalRoomState {
 				}
 				const reportRoom = Rooms.get(roomid);
 				if (reportRoom) {
-					const reportPlayers = players.map(p => p.getIdentity()).join('|');
+					// Nihilslave: randomize players order for ffa
+					const reportPlayers = [...players].sort(() => Math.random() - 0.5).map(p => p.getIdentity()).join('|');
 					reportRoom
 						.add(`|b|${room.roomid}|${reportPlayers}`)
 						.update();

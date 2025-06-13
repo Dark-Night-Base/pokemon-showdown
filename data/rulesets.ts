@@ -853,7 +853,8 @@ export const Rulesets: import('../sim/dex-formats').FormatDataTable = {
 		desc: "Prevents teams from having more than one Pok&eacute;mon with the same item",
 		hasValue: 'positive-integer',
 		onBegin() {
-			this.add('rule', `Item Clause: Limit ${this.ruleTable.valueRules.get('itemclause') || 1} of each item`);
+			const num = this.ruleTable.valueRules.get('itemclause');
+			this.add('rule', `${num} Item Clause: Limit ${num} of each item`);
 		},
 		onValidateRule(value) {
 			const num = Number(value);

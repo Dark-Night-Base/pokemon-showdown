@@ -190,7 +190,8 @@ export class RoomBattleTimer {
 
 		const format = Dex.formats.get(battle.format, true);
 		const hasLongTurns = format.gameType !== 'singles';
-		const isChallenge = (battle.challengeType === 'challenge');
+		// Nihilslave: for ffa
+		const isChallenge = (battle.challengeType === 'challenge') || (format.gameType === 'freeforall');
 		const timerEntry = Dex.formats.getRuleTable(format).timer;
 		const timerSettings = timerEntry?.[0];
 
@@ -827,6 +828,9 @@ export class RoomBattle extends RoomGame<RoomBattlePlayer> {
 	}
 	end(winnerName: unknown) {
 		if (this.ended) return;
+		// todo: not work
+		// if (this.gameType === 'freeforall')
+		// 	this.room.add(`|-message|p1: ${this.p1.getUser()?.id}, p2: ${this.p2.getUser()?.id}, p3: ${this.p3.getUser()?.id}, p4: ${this.p4.getUser()?.id}`);
 		this.setEnded();
 		// Declare variables here in case we need them for non-rated battles logging.
 		let p1score = 0.5;
@@ -993,7 +997,8 @@ export class RoomBattle extends RoomGame<RoomBattlePlayer> {
 		if (player && !player.active) {
 			player.active = true;
 			this.timer.checkActivity();
-			this.room.add(`|player|${player.slot}|${user.name}|${user.avatar}|`);
+			if (this.gameType === 'freeforall') this.room.add(`|player|${player.slot}|${player.slot}||`);
+			else this.room.add(`|player|${player.slot}|${user.name}|${user.avatar}|`);
 			Chat.runHandlers('onBattleJoin', player.slot, user, this);
 		}
 	}
@@ -1034,7 +1039,8 @@ export class RoomBattle extends RoomGame<RoomBattlePlayer> {
 		if (this.ended || !this.started || player.eliminated) return false;
 
 		player.eliminated = true;
-		this.room.add(`|-message|${player.name}${message || ' forfeited.'}`);
+		if (this.gameType === 'freeforall') this.room.add(`|-message|${player.slot}${message || ' forfeited.'}`);
+		else this.room.add(`|-message|${player.name}${message || ' forfeited.'}`);
 		this.endType = 'forfeit';
 		if (this.playerCap > 2) {
 			player.sendRoom(`|request|null`);
@@ -1054,6 +1060,13 @@ export class RoomBattle extends RoomGame<RoomBattlePlayer> {
 		if (!player) return null;
 		const slot = player.slot;
 		this[slot] = player;
+		if (this.gameType === 'freeforall') {
+			player.name = slot;
+			if (user) {
+				// user.id = slot as ID;
+				user.avatar = '';
+			}
+		}
 
 		if (playerOpts) {
 			const options = {

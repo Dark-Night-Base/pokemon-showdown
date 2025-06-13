@@ -1127,7 +1127,8 @@ export class CommandContext extends MessageContext {
 		if (!user.named) {
 			throw new Chat.ErrorMessage(this.tr`You must choose a name before you can talk.`);
 		}
-		if (!user.can('bypassall')) {
+		// Nihilslave: for ffa
+		if (!user.can('bypassall') || room?.battle?.gameType === 'freeforall') {
 			const lockType = (user.namelocked ? this.tr`namelocked` : user.locked ? this.tr`locked` : ``);
 			const lockExpiration = Punishments.checkLockExpiration(user.namelocked || user.locked);
 			if (room) {
