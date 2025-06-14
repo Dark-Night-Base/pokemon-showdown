@@ -47,6 +47,13 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			'Parental Bond',
 			'Justified', 'Anger Point', 'Steam Engine', 'Stamina', 'Rattled', 'Wandering Spirit',
 		],
+		onValidateSet(set) {
+			if (!set.name) return;
+			const speciesName = this.dex.species.get(set.species).name;
+			const baseSpeciesName = this.dex.species.get(set.species).baseSpecies;
+			if (set.name !== speciesName && set.name !== baseSpeciesName)
+				return [`You cannot nickname your Pokemon: ${speciesName} has nickname ${set.name}`];
+		},
 	},
 	{
 		section: "Server Special",
