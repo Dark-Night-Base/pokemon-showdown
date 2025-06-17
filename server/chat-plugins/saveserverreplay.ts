@@ -1,4 +1,4 @@
-import {FS} from '../../lib';
+import { FS } from '../../lib';
 
 const path = require('path');
 const fs = require('fs');
@@ -15,12 +15,13 @@ export const commands: Chat.ChatCommands = {
 		let hideDetails = !format.id.includes('customgame');
 		if (format.team && room.battle.ended) hideDetails = false;
 		const data = room.getLog(hideDetails ? 0 : -1);
-		const {id, password} = room.getReplayData();
+		const { id, password } = room.getReplayData();
 		// Nihilslave: to pass the no-unused-vars check
 		if (password === '^') {
 			hideDetails = false;
 		}
-		let link = room.roomid.slice(7) + '-' + room.p1 + '-' + room.p2 + '.html';
+		let link = `${room.roomid.slice(7)}-${room.p1}-${room.p2}.html`;
+		if (room.battle.gameType === 'freeforall') link = `${room.roomid.slice(7)}.html`;
 		let rating = 0;
 		if (room.battle.ended && room.battle.rated) rating = room.battle.rated;
 		const secret = room.settings.isPrivate || room.hideReplay;
@@ -34,7 +35,7 @@ export const commands: Chat.ChatCommands = {
 			filePath = path.resolve(__dirname, `../../../replays/${link}`);
 		}
 
-		const out = fs.createWriteStream(filePath, {flags: 'w'});
+		const out = fs.createWriteStream(filePath, { flags: 'w' });
 		// see client::src/battle-log.ts: createReplayFile
 		out.on('open', () => {
 			out.write(
@@ -53,7 +54,7 @@ export const commands: Chat.ChatCommands = {
 				`<pre class="urlbox" style="word-wrap: break-word;">https://replay.sciroccogti.top/files/${link}</pre>\n` +
 				`<h1 style="font-weight:normal;text-align:left"><strong>${format}</strong>: <a href="https://pokemonshowdown.com/users/${toID(room.p1?.name)}" class="subtle" target="_blank">${room.p1?.name}</a> vs. <a href="https://pokemonshowdown.com/users/${toID(room.p2?.name)}" class="subtle" target="_blank">${room.p2?.name}</a></h1>\n` +
 				'<p style="padding:0 1em;margin-top:0">' +
-				`<small class="uploaddate" data-timestamp="${Date.now() / 1000}"><em>Uploaded:</em> ${new Date().toDateString().split(" ")[1]} ${new Date().toDateString().split(" ")[2]}, ${new Date().getFullYear()} ${rating ? '| <em>Rating:</em>' + rating : ''}</small>` +
+				`<small class="uploaddate" data-timestamp="${Date.now() / 1000}"><em>Uploaded:</em> ${new Date().toDateString().split(" ")[1]} ${new Date().toDateString().split(" ")[2]}, ${new Date().getFullYear()} ${rating ? `| <em>Rating:</em>${rating}` : ''}</small>` +
 				'</p>' +
 				`<script type="text/plain" class="battle-log-data">${data}</script>\n` +
 				'</div>\n' +
