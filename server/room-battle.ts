@@ -329,7 +329,8 @@ export class RoomBattleTimer {
 			if (grace < 0) grace = 0;
 			player.sendRoom(`|inactive|Time left: ${secondsLeft} sec this turn | ${player.secondsLeft - grace} sec total` + (grace ? ` | ${grace} sec grace` : ``));
 			if (secondsLeft <= 30 && secondsLeft < this.settings.starting) {
-				room.add(`|inactive|${player.name} has ${secondsLeft} seconds left this turn.`);
+				const playerName = this.battle.gameType === 'freeforall' ? player.slot : player.name;
+				room.add(`|inactive|${playerName} has ${secondsLeft} seconds left this turn.`);
 			}
 			if (this.debug) {
 				room.add(`||${player.name} | Time left: ${secondsLeft} sec this turn | ${player.secondsLeft} sec total | +${addPerTurn} seconds`);
@@ -366,12 +367,14 @@ export class RoomBattleTimer {
 			if (!player.knownActive && (dcSecondsLeft <= secondsLeft || this.settings.dcTimerBank)) {
 				// dc timer is shown only if it's lower than turn timer or you're in timer bank mode
 				if (dcSecondsLeft % 30 === 0 || dcSecondsLeft <= 20) {
-					room.add(`|inactive|${player.name} has ${dcSecondsLeft} seconds to reconnect!`);
+					const playerName = this.battle.gameType === 'freeforall' ? player.slot : player.name;
+					room.add(`|inactive|${playerName} has ${dcSecondsLeft} seconds to reconnect!`);
 				}
 			} else {
 				// regular turn timer shown
 				if (secondsLeft % 30 === 0 || secondsLeft <= 20) {
-					room.add(`|inactive|${player.name} has ${secondsLeft} seconds left.`);
+					const playerName = this.battle.gameType === 'freeforall' ? player.slot : player.name;
+					room.add(`|inactive|${playerName} has ${secondsLeft} seconds left.`);
 				}
 			}
 			if (this.debug) {
@@ -416,7 +419,8 @@ export class RoomBattleTimer {
 							msg = ` and has no disconnection time left!`;
 						}
 					}
-					this.battle.room.add(`|inactive|${player.name} disconnected${msg}`).update();
+					const playerName = this.battle.gameType === 'freeforall' ? player.slot : player.name;
+					this.battle.room.add(`|inactive|${playerName} disconnected${msg}`).update();
 				}
 			} else {
 				// player has reconnected
@@ -426,7 +430,8 @@ export class RoomBattleTimer {
 					if (!player.request.isWait) {
 						timeLeft = ` and has ${player.turnSecondsLeft} seconds left`;
 					}
-					this.battle.room.add(`|inactive|${player.name} reconnected${timeLeft}.`).update();
+					const playerName = this.battle.gameType === 'freeforall' ? player.slot : player.name;
+					this.battle.room.add(`|inactive|${playerName} reconnected${timeLeft}.`).update();
 				}
 			}
 		}
