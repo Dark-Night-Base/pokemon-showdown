@@ -531,7 +531,7 @@ export class Pokemon {
 		if (this.battle.ruleTable.has('createmonsmod')) {
 			details += `, createmons:`;
 			details += `${Object.values(this.set.evs || [0, 0, 0, 0, 0, 0]).join(',')},`;
-			details += `${this.hpType},${this.teraType}`;
+			details += `${this.set.hpType},${this.set.teraType}`;
 		}
 		return details;
 	}
