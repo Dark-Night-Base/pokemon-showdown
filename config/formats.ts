@@ -38,7 +38,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		ruleset: ['[Gen 9] Balanced Hackmons Doubles', 'Sleep Clause Mod', 'Ability Clause = 1', 'Item Clause = 1'],
 		banlist: [
 			'Shedinja',
-			'Baton Pass',
+			'Baton Pass', 'Substitute',
 			'Acupressure', 'Aromatic Mist', 'Coaching', 'Court Change', 'Decorate', 'Final Gambit', 'Floral Healing',
 			'Follow Me', 'Heal Pulse', 'Helping Hand', 'Quash', 'Rage Powder',
 		],
