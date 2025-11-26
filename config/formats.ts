@@ -218,6 +218,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				moveSplits.push([left, right]);
 			}
 			let abilityIndex: '0' | '1' | 'H' | 'S';
+			const allProblems = new Set<string>();
 			for (const split of moveSplits) {
 				const headSet = { ...set, species: headSpecies.name, moves: split[0] };
 				const bodySet = { ...set, moves: split[1] };
@@ -233,6 +234,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 						if (!problems) break;
 					}
 				}
+				problems?.forEach(p => allProblems.add(p));
 				if (problems) continue;
 				if (bodySet.moves.length) {
 					for (abilityIndex in bodySpecies.abilities) {
@@ -245,9 +247,13 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 						if (!problems) break;
 					}
 				}
+				problems?.forEach(p => allProblems.add(p));
 				if (!problems) return null;
 			}
-			return [`${headSpecies.name} (${bodySpecies.name}) doesn't have a valid moveset`];
+			return [
+				`${headSpecies.name} (${bodySpecies.name}) doesn't have a valid moveset, for one or more of the following reasons:`,
+				...allProblems,
+			];
 		},
 		onModifySpecies(species, target, source, effect) {
 			if (!target) return; // chat
@@ -549,6 +555,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				moveSplits.push([left, right]);
 			}
 			let abilityIndex: '0' | '1' | 'H' | 'S';
+			const allProblems = new Set<string>();
 			for (const split of moveSplits) {
 				const headSet = { ...set, species: headSpecies.name, moves: split[0] };
 				const bodySet = { ...set, moves: split[1] };
@@ -564,6 +571,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 						if (!problems) break;
 					}
 				}
+				problems?.forEach(p => allProblems.add(p));
 				if (problems) continue;
 				if (bodySet.moves.length) {
 					for (abilityIndex in bodySpecies.abilities) {
@@ -576,9 +584,13 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 						if (!problems) break;
 					}
 				}
+				problems?.forEach(p => allProblems.add(p));
 				if (!problems) return null;
 			}
-			return [`${headSpecies.name} (${bodySpecies.name}) doesn't have a valid moveset`];
+			return [
+				`${headSpecies.name} (${bodySpecies.name}) doesn't have a valid moveset, for one or more of the following reasons:`,
+				...allProblems,
+			];
 		},
 		onModifySpecies(species, target, source, effect) {
 			if (!target) return; // chat
@@ -1214,6 +1226,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 				moveSplits.push([left, right]);
 			}
 			let abilityIndex: '0' | '1' | 'H' | 'S';
+			const allProblems = new Set<string>();
 			for (const split of moveSplits) {
 				const headSet = { ...set, species: headSpecies.name, moves: split[0] };
 				const bodySet = { ...set, moves: split[1] };
@@ -1229,6 +1242,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 						if (!problems) break;
 					}
 				}
+				problems?.forEach(p => allProblems.add(p));
 				if (problems) continue;
 				if (bodySet.moves.length) {
 					for (abilityIndex in bodySpecies.abilities) {
@@ -1241,9 +1255,13 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 						if (!problems) break;
 					}
 				}
+				problems?.forEach(p => allProblems.add(p));
 				if (!problems) return null;
 			}
-			return [`${headSpecies.name} (${bodySpecies.name}) doesn't have a valid moveset`];
+			return [
+				`${headSpecies.name} (${bodySpecies.name}) doesn't have a valid moveset, for one or more of the following reasons:`,
+				...allProblems,
+			];
 		},
 		onModifySpecies(species, target, source, effect) {
 			if (!target) return; // chat
