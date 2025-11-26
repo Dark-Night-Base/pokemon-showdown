@@ -731,7 +731,7 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 			// qb @ 20251122
 			'Swirlix', 'Yanma',
 			'Arena Trap', 'Huge Power', 'Moody', 'Pure Power', 'Shadow Tag', 'Water Bubble',
-			'Assist', 'Baton Pass', 'Last Respects', 'Revival Blessing', 'Shed Tail',
+			'Assist', 'Baton Pass', 'Belly Drum', 'Last Respects', 'Revival Blessing', 'Shed Tail',
 			'Deep Sea Tooth', 'King\'s Rock', 'Light Ball', 'Razor Fang', 'Thick Club', 'Quick Claw',
 			'Dragon Rage', 'Sonic Boom',
 			// suspect bans inherited from if ou
