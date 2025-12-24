@@ -728,8 +728,6 @@ export const Formats: import('../sim/dex-formats').FormatList = [
 		banlist: [
 			// initial qb
 			'Dunsparce', 'Duraludon', 'Girafarig', 'Gligar', 'Misdreavus', 'Murkrow', 'Poipole', 'Scyther', 'Sneasel', 'Stantler', 'Tangela', 'Type: Null',
-			// qb @ 20251122
-			'Swirlix', 'Yanma',
 			'Arena Trap', 'Huge Power', 'Moody', 'Pure Power', 'Shadow Tag', 'Water Bubble',
 			'Assist', 'Baton Pass', 'Belly Drum', 'Last Respects', 'Revival Blessing', 'Shed Tail',
 			'Deep Sea Tooth', 'King\'s Rock', 'Light Ball', 'Razor Fang', 'Thick Club', 'Quick Claw',
